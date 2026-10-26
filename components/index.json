@@ -2,6 +2,7 @@
   "components": [
     "button",
     "checkbox",
-    "helper-text"
+    "helper-text",
+    "radio"
   ]
 }
