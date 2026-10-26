@@ -1,0 +1,707 @@
+{
+ "$description": "Figma ❖ Icon Resource(2409:27235)의 마스터 컴포넌트 목록. SVG는 Figma exportAsync로 내보낸 것. Line/Filled는 fill을 currentColor로 바꿨고 Colored는 원본 색을 유지한다.",
+ "figma": {
+  "fileKey": "WcoI745J38TaON7iCKcutW",
+  "nodeId": "2409:27235"
+ },
+ "size": 16,
+ "sections": [
+  {
+   "style": "line",
+   "title": "Line Icon",
+   "description": "선으로 구성된 단색 아이콘으로, 일반적인 기능과 동작을 간결하게 표현할 때 사용합니다.",
+   "groups": [
+    "Utility",
+    "Direction",
+    "Basic Action",
+    "Form & Input",
+    "Navigation"
+   ]
+  },
+  {
+   "style": "filled",
+   "title": "Filled Icon",
+   "description": "면이 채워진 단색 아이콘으로, 강조가 필요한 기능이나 상태를 명확하게 표현할 때 사용합니다.",
+   "groups": [
+    "Communication",
+    "User & Service",
+    "Status & Feedback",
+    "Action & Display"
+   ]
+  },
+  {
+   "style": "colored",
+   "title": "Colored Icon",
+   "description": "고유한 색상을 포함하는 아이콘으로, 브랜드와 상태 등의 의미를 직관적으로 전달하며 원본 색상을 유지해 사용합니다.",
+   "groups": [
+    "Brand",
+    "Status & Feedback",
+    "Communication",
+    "Action & Reward",
+    "Emotion"
+   ]
+  }
+ ],
+ "icons": [
+  {
+   "name": "Blank",
+   "style": "line",
+   "group": "Utility",
+   "file": "svg/line/blank.svg",
+   "figmaName": "Icon/Blank",
+   "nodeId": "2223:2598",
+   "key": "e0bf735d77c11364d0485567fcef2ce1d995b749"
+  },
+  {
+   "name": "ChevronUp",
+   "style": "line",
+   "group": "Direction",
+   "file": "svg/line/chevron-up.svg",
+   "figmaName": "Icon/Line/ChevronUp",
+   "nodeId": "2223:2294",
+   "key": "773a0c94d0c286b29afa6abcb8b37624e0ea01e9"
+  },
+  {
+   "name": "ChevronDown",
+   "style": "line",
+   "group": "Direction",
+   "file": "svg/line/chevron-down.svg",
+   "figmaName": "Icon/Line/ChevronDown",
+   "nodeId": "2223:2296",
+   "key": "736cdedc83b36d4ab2ac2186fbbcebd164625d6e"
+  },
+  {
+   "name": "ChevronLeft",
+   "style": "line",
+   "group": "Direction",
+   "file": "svg/line/chevron-left.svg",
+   "figmaName": "Icon/Line/ChevronLeft",
+   "nodeId": "2223:2293",
+   "key": "0508bec464fb18c54d1a4c68539d000fd9bddac1"
+  },
+  {
+   "name": "ChevronRight",
+   "style": "line",
+   "group": "Direction",
+   "file": "svg/line/chevron-right.svg",
+   "figmaName": "Icon/Line/ChevronRight",
+   "nodeId": "2223:2300",
+   "key": "cfeea868a5344e8363951204dbb4448253e4306b"
+  },
+  {
+   "name": "ArrowUp",
+   "style": "line",
+   "group": "Direction",
+   "file": "svg/line/arrow-up.svg",
+   "figmaName": "Icon/Line/ArrowUp",
+   "nodeId": "2223:2298",
+   "key": "796b2cef4960a1b1e1c7433cd742c1096fc9ae22"
+  },
+  {
+   "name": "ArrowDown",
+   "style": "line",
+   "group": "Direction",
+   "file": "svg/line/arrow-down.svg",
+   "figmaName": "Icon/Line/ArrowDown",
+   "nodeId": "2223:2299",
+   "key": "54e513cc43184b2f0b428bf9ec78d62881e0ae0f"
+  },
+  {
+   "name": "ArrowLeft",
+   "style": "line",
+   "group": "Direction",
+   "file": "svg/line/arrow-left.svg",
+   "figmaName": "Icon/Line/ArrowLeft",
+   "nodeId": "2223:2301",
+   "key": "f9202d06ae38a036cab9b94c6be3805d197e7601"
+  },
+  {
+   "name": "ArrowRight",
+   "style": "line",
+   "group": "Direction",
+   "file": "svg/line/arrow-right.svg",
+   "figmaName": "Icon/Line/ArrowRight",
+   "nodeId": "2223:2292",
+   "key": "21b4bdbab2d5315bd4b98953b29a8c7f993f50e3"
+  },
+  {
+   "name": "FirstPage",
+   "style": "line",
+   "group": "Direction",
+   "file": "svg/line/first-page.svg",
+   "figmaName": "Icon/Line/FirstPage",
+   "nodeId": "2322:1359",
+   "key": "c1d50e875236c9cabeb8c9c9f4cd28d7d3d20ed2"
+  },
+  {
+   "name": "LastPage",
+   "style": "line",
+   "group": "Direction",
+   "file": "svg/line/last-page.svg",
+   "figmaName": "Icon/Line/LastPage",
+   "nodeId": "2322:1372",
+   "key": "762120976fc982b34a3af2ef21a86d991f97b65f"
+  },
+  {
+   "name": "Plus",
+   "style": "line",
+   "group": "Basic Action",
+   "file": "svg/line/plus.svg",
+   "figmaName": "Icon/Line/Plus",
+   "nodeId": "2223:2289",
+   "key": "91e2771dae781ee65e2bd03f1715fcc1dca6eacc"
+  },
+  {
+   "name": "Minus",
+   "style": "line",
+   "group": "Basic Action",
+   "file": "svg/line/minus.svg",
+   "figmaName": "Icon/Line/Minus",
+   "nodeId": "2223:2286",
+   "key": "79f3099503ce751001a5a78e41fa33fe6515babe"
+  },
+  {
+   "name": "Indeterminate",
+   "style": "line",
+   "group": "Basic Action",
+   "file": "svg/line/indeterminate.svg",
+   "figmaName": "Icon/Line/Indeterminate",
+   "nodeId": "2789:29252",
+   "key": "9f912dffe429d46e6211461c1719a930af6536fb"
+  },
+  {
+   "name": "Close",
+   "style": "line",
+   "group": "Basic Action",
+   "file": "svg/line/close.svg",
+   "figmaName": "Icon/Line/Close",
+   "nodeId": "2223:2284",
+   "key": "4506e49b218a744bee6f8b602be6573c060a377e"
+  },
+  {
+   "name": "Check",
+   "style": "line",
+   "group": "Basic Action",
+   "file": "svg/line/check.svg",
+   "figmaName": "Icon/Line/Check",
+   "nodeId": "2223:2276",
+   "key": "15a3265909d5d8dbd173764424d13cf881daf9c3"
+  },
+  {
+   "name": "CheckBox",
+   "style": "line",
+   "group": "Basic Action",
+   "file": "svg/line/check-box.svg",
+   "figmaName": "Icon/Line/CheckBox",
+   "nodeId": "2789:29253",
+   "key": "2da0ffe49310c63819b4047a997d4ed789625e70"
+  },
+  {
+   "name": "Search",
+   "style": "line",
+   "group": "Basic Action",
+   "file": "svg/line/search.svg",
+   "figmaName": "Icon/Line/Search",
+   "nodeId": "2223:2282",
+   "key": "5ba6e9fc16060dcc8778abcec0e72b5fd6da288e"
+  },
+  {
+   "name": "Edit",
+   "style": "line",
+   "group": "Basic Action",
+   "file": "svg/line/edit.svg",
+   "figmaName": "Icon/Line/Edit",
+   "nodeId": "2223:2297",
+   "key": "05215e15552d5f33295f0e4e1a457dd89699e8f3"
+  },
+  {
+   "name": "Link",
+   "style": "line",
+   "group": "Basic Action",
+   "file": "svg/line/link.svg",
+   "figmaName": "Icon/Line/Link",
+   "nodeId": "2223:2280",
+   "key": "cbef2d357a72c418314c363c04b6c2c80b9a1d88"
+  },
+  {
+   "name": "Print",
+   "style": "line",
+   "group": "Basic Action",
+   "file": "svg/line/print.svg",
+   "figmaName": "Icon/Line/Print",
+   "nodeId": "2223:2285",
+   "key": "d2ed3d7f11f47fc24a15b5af30beaa36235a2286"
+  },
+  {
+   "name": "DragHandle",
+   "style": "line",
+   "group": "Basic Action",
+   "file": "svg/line/drag-handle.svg",
+   "figmaName": "Icon/Line/DragHandle",
+   "nodeId": "2223:2287",
+   "key": "b48245e37ad3de2314a73bdcb5f75ee0551040c8"
+  },
+  {
+   "name": "Expand",
+   "style": "line",
+   "group": "Basic Action",
+   "file": "svg/line/expand.svg",
+   "figmaName": "Icon/Line/Expand",
+   "nodeId": "2223:2279",
+   "key": "43cfb82100ff0e55bfe11e1897ad5958b6a8f0b5"
+  },
+  {
+   "name": "Fullscreen",
+   "style": "line",
+   "group": "Basic Action",
+   "file": "svg/line/fullscreen.svg",
+   "figmaName": "Icon/Line/Fullscreen",
+   "nodeId": "2223:2278",
+   "key": "022bb8007b5cd82edebc6994eeedd5d1b4588e59"
+  },
+  {
+   "name": "HandPalm",
+   "style": "line",
+   "group": "Basic Action",
+   "file": "svg/line/hand-palm.svg",
+   "figmaName": "Icon/Line/HandPalm",
+   "nodeId": "2848:102843",
+   "key": "c80b134d28df23386353cd03418933b7f87a1099"
+  },
+  {
+   "name": "HandGrab",
+   "style": "line",
+   "group": "Basic Action",
+   "file": "svg/line/hand-grab.svg",
+   "figmaName": "Icon/Line/HandGrab",
+   "nodeId": "2848:102842",
+   "key": "2eef393cf582258dd08e32c2bd65b2a2f961bc12"
+  },
+  {
+   "name": "HandPointer",
+   "style": "line",
+   "group": "Basic Action",
+   "file": "svg/line/hand-pointer.svg",
+   "figmaName": "Icon/Line/HandPointer",
+   "nodeId": "2848:102841",
+   "key": "ba0a8d3401ff264bfdea215f3ba60b4ae577acf1"
+  },
+  {
+   "name": "Sort",
+   "style": "line",
+   "group": "Basic Action",
+   "file": "svg/line/sort.svg",
+   "figmaName": "Icon/Line/Sort",
+   "nodeId": "3859:32666",
+   "key": "7d89918d2b84652c3230609f6c5976b7fffad43e",
+   "description": "정렬 옵션을 여는 용도로만 사용합니다."
+  },
+  {
+   "name": "Calendar",
+   "style": "line",
+   "group": "Form & Input",
+   "file": "svg/line/calendar.svg",
+   "figmaName": "Icon/Line/Calendar",
+   "nodeId": "2223:2277",
+   "key": "87b537840d68f315d4f73c1b9d3479723c6e2c64"
+  },
+  {
+   "name": "Visibility",
+   "style": "line",
+   "group": "Form & Input",
+   "file": "svg/line/visibility.svg",
+   "figmaName": "Icon/Line/Visibility",
+   "nodeId": "2223:2275",
+   "key": "e8fe815840d7925efc430cb76c30aebdc11bf7ee"
+  },
+  {
+   "name": "VisibilityOff",
+   "style": "line",
+   "group": "Form & Input",
+   "file": "svg/line/visibility-off.svg",
+   "figmaName": "Icon/Line/VisibilityOff",
+   "nodeId": "2223:2274",
+   "key": "ce8d2f25aa4c10cc4dd0f3ca2ac41a76c813678c"
+  },
+  {
+   "name": "Question",
+   "style": "line",
+   "group": "Form & Input",
+   "file": "svg/line/question.svg",
+   "figmaName": "Icon/Line/Question",
+   "nodeId": "2223:2272",
+   "key": "d3f5773e02c17e624cb4dd60654ad3b7c31702b7"
+  },
+  {
+   "name": "Info",
+   "style": "line",
+   "group": "Form & Input",
+   "file": "svg/line/info.svg",
+   "figmaName": "Icon/Line/Info",
+   "nodeId": "2223:2270",
+   "key": "9cde4240903088191ead3a005faa623bcd6c9df4"
+  },
+  {
+   "name": "Alert",
+   "style": "line",
+   "group": "Form & Input",
+   "file": "svg/line/alert.svg",
+   "figmaName": "Icon/Line/Alert",
+   "nodeId": "2295:1494",
+   "key": "ab2a9485a870a422cd59f828ba805e4e86d75104"
+  },
+  {
+   "name": "Asterisk",
+   "style": "line",
+   "group": "Form & Input",
+   "file": "svg/line/asterisk.svg",
+   "figmaName": "Icon/Line/Asterisk",
+   "nodeId": "2848:102820",
+   "key": "536899af4aa476eaf00e0b04858df7093bcd4b6f"
+  },
+  {
+   "name": "Hashtag",
+   "style": "line",
+   "group": "Form & Input",
+   "file": "svg/line/hashtag.svg",
+   "figmaName": "Icon/Line/Hashtag",
+   "nodeId": "2295:1257",
+   "key": "ef5882daa633777738085b87bdf01a581b943ee2"
+  },
+  {
+   "name": "ExternalLink",
+   "style": "line",
+   "group": "Form & Input",
+   "file": "svg/line/external-link.svg",
+   "figmaName": "Icon/Line/ExternalLink",
+   "nodeId": "2295:1258",
+   "key": "30f6d02a9feea7141bc71018d3eaa841dd68cd4f"
+  },
+  {
+   "name": "ZoomIn",
+   "style": "line",
+   "group": "Form & Input",
+   "file": "svg/line/zoom-in.svg",
+   "figmaName": "Icon/Line/ZoomIn",
+   "nodeId": "2295:1311",
+   "key": "bb51e0094a5375988f6a1deab59248cbd57407e7"
+  },
+  {
+   "name": "Star",
+   "style": "line",
+   "group": "Navigation",
+   "file": "svg/line/star.svg",
+   "figmaName": "Icon/Line/Star",
+   "nodeId": "2295:1299",
+   "key": "a6a1b2be7feadc4c4d279d389a94d2361e3e3d88"
+  },
+  {
+   "name": "Bookmark",
+   "style": "line",
+   "group": "Navigation",
+   "file": "svg/line/bookmark.svg",
+   "figmaName": "Icon/Line/Bookmark",
+   "nodeId": "2295:1298",
+   "key": "33964e7cebf2eb98f541d54369f4f8b90406cb84"
+  },
+  {
+   "name": "Layers",
+   "style": "line",
+   "group": "Navigation",
+   "file": "svg/line/layers.svg",
+   "figmaName": "Icon/Line/Layers",
+   "nodeId": "2295:1297",
+   "key": "a018c2d77939c23af27a05402b25a7a0df689d1b"
+  },
+  {
+   "name": "User",
+   "style": "line",
+   "group": "Navigation",
+   "file": "svg/line/user.svg",
+   "figmaName": "Icon/Line/User",
+   "nodeId": "2295:1296",
+   "key": "74095633467428737d154c11ff813228f66db748"
+  },
+  {
+   "name": "Settings",
+   "style": "line",
+   "group": "Navigation",
+   "file": "svg/line/settings.svg",
+   "figmaName": "Icon/Line/Settings",
+   "nodeId": "2295:1295",
+   "key": "8aded96996af06d4aecd176523b5b4648133d543"
+  },
+  {
+   "name": "Call",
+   "style": "filled",
+   "group": "Communication",
+   "file": "svg/filled/call.svg",
+   "figmaName": "Icon/Filled/Call",
+   "nodeId": "2289:1737",
+   "key": "acdbcd880dd3aa9c4cd1d07ef688b2812c42fa30"
+  },
+  {
+   "name": "EndCall",
+   "style": "filled",
+   "group": "Communication",
+   "file": "svg/filled/end-call.svg",
+   "figmaName": "Icon/Filled/EndCall",
+   "nodeId": "2289:1739",
+   "key": "90fdb5624120b11ffb4122bbad7ad6a29826638a"
+  },
+  {
+   "name": "Dialpad",
+   "style": "filled",
+   "group": "Communication",
+   "file": "svg/filled/dialpad.svg",
+   "figmaName": "Icon/Filled/Dialpad",
+   "nodeId": "2289:1741",
+   "key": "1009a5fc86796328ced0480fbfeb85792cc7ce6f"
+  },
+  {
+   "name": "User",
+   "style": "filled",
+   "group": "User & Service",
+   "file": "svg/filled/user.svg",
+   "figmaName": "Icon/Filled/User",
+   "nodeId": "2289:1734",
+   "key": "9a1f80b2fcc922452a8f20fabb4c3be791d40bf2"
+  },
+  {
+   "name": "AI",
+   "style": "filled",
+   "group": "User & Service",
+   "file": "svg/filled/ai.svg",
+   "figmaName": "Icon/Filled/AI",
+   "nodeId": "2289:1736",
+   "key": "0d7b9b5f555ed1c13ac238c8c15b4ea786a3034a"
+  },
+  {
+   "name": "Bell",
+   "style": "filled",
+   "group": "Status & Feedback",
+   "file": "svg/filled/bell.svg",
+   "figmaName": "Icon/Filled/Bell",
+   "nodeId": "2289:1735",
+   "key": "3354c4851e74fce0e047be7488613217a899e293"
+  },
+  {
+   "name": "Info",
+   "style": "filled",
+   "group": "Status & Feedback",
+   "file": "svg/filled/info.svg",
+   "figmaName": "Icon/Filled/Info",
+   "nodeId": "2295:1509",
+   "key": "0d454aff6ae313966090060e4a661533b3b2c677"
+  },
+  {
+   "name": "Verify",
+   "style": "filled",
+   "group": "Status & Feedback",
+   "file": "svg/filled/verify.svg",
+   "figmaName": "Icon/Filled/Verify",
+   "nodeId": "2292:1004",
+   "key": "cdd3daaa69d354a7b457aaaf0be8fe2e4ede67d9"
+  },
+  {
+   "name": "VerifyOff",
+   "style": "filled",
+   "group": "Status & Feedback",
+   "file": "svg/filled/verify-off.svg",
+   "figmaName": "Icon/Filled/VerifyOff",
+   "nodeId": "2292:1022",
+   "key": "1f02fd385d3722cfe89d6cffe3d2c60700e9dc72"
+  },
+  {
+   "name": "Close",
+   "style": "filled",
+   "group": "Status & Feedback",
+   "file": "svg/filled/close.svg",
+   "figmaName": "Icon/Filled/Close",
+   "nodeId": "2289:1740",
+   "key": "fcea3f160772e5cb500fdce943e7c00d604c8888"
+  },
+  {
+   "name": "LightMode",
+   "style": "filled",
+   "group": "Action & Display",
+   "file": "svg/filled/light-mode.svg",
+   "figmaName": "Icon/Filled/LightMode",
+   "nodeId": "2289:1732",
+   "key": "fdd7f413d5cfa3eecd24ec31dad08d62aef1e1dc"
+  },
+  {
+   "name": "ViewMode",
+   "style": "filled",
+   "group": "Action & Display",
+   "file": "svg/filled/view-mode.svg",
+   "figmaName": "Icon/Filled/ViewMode",
+   "nodeId": "2289:1733",
+   "key": "712f8f577ca19626f151aa9e5953c6d28ccf556a"
+  },
+  {
+   "name": "MoreHorizontal",
+   "style": "filled",
+   "group": "Action & Display",
+   "file": "svg/filled/more-horizontal.svg",
+   "figmaName": "Icon/Filled/MoreHorizontal",
+   "nodeId": "2289:1742",
+   "key": "fb2c5f3b3e32d7b2c42eeefaf370d1139be9e6ee"
+  },
+  {
+   "name": "Won",
+   "style": "filled",
+   "group": "Action & Display",
+   "file": "svg/filled/won.svg",
+   "figmaName": "Icon/Filled/Won",
+   "nodeId": "4150:9676",
+   "key": "61d81148e16cd1cb3d3eac85536a313257ebdfad"
+  },
+  {
+   "name": "Logo",
+   "style": "colored",
+   "group": "Brand",
+   "file": "svg/colored/logo.svg",
+   "figmaName": "Icon/Colored/Logo",
+   "nodeId": "2292:1085",
+   "key": "fbcd1ebe3a48937a3e6d85badd0532f731b44cf7"
+  },
+  {
+   "name": "Success",
+   "style": "colored",
+   "group": "Status & Feedback",
+   "file": "svg/colored/success.svg",
+   "figmaName": "Icon/Colored/Success",
+   "nodeId": "2292:1094",
+   "key": "9c0131bc92bd5c24bd02379f1323356d93f7fe49"
+  },
+  {
+   "name": "Warning",
+   "style": "colored",
+   "group": "Status & Feedback",
+   "file": "svg/colored/warning.svg",
+   "figmaName": "Icon/Colored/Warning",
+   "nodeId": "2292:1083",
+   "key": "12621261358fac66c6d1ee6e48c5bcadb8090092"
+  },
+  {
+   "name": "Error",
+   "style": "colored",
+   "group": "Status & Feedback",
+   "file": "svg/colored/error.svg",
+   "figmaName": "Icon/Colored/Error",
+   "nodeId": "2295:1532",
+   "key": "4c5d0a643f368321fc23496c1969982ef9a2f537"
+  },
+  {
+   "name": "Info",
+   "style": "colored",
+   "group": "Status & Feedback",
+   "file": "svg/colored/info.svg",
+   "figmaName": "Icon/Colored/Info",
+   "nodeId": "2292:1090",
+   "key": "b7e87a701642ae6062a32ab5187a37249210b260"
+  },
+  {
+   "name": "CheckBadge",
+   "style": "colored",
+   "group": "Status & Feedback",
+   "file": "svg/colored/check-badge.svg",
+   "figmaName": "Icon/Colored/CheckBadge",
+   "nodeId": "2292:1082",
+   "key": "b56f5c3776d6be2ba74db76ee33bc059864b11e7"
+  },
+  {
+   "name": "Loading",
+   "style": "colored",
+   "group": "Status & Feedback",
+   "file": "svg/colored/loading.svg",
+   "figmaName": "Icon/Colored/Loading",
+   "nodeId": "7463:1366",
+   "key": "d158bd4ebe473757b1458a006827e55955ac0925",
+   "description": "로딩 진행 표시용 컬러드 아이콘. 어두운 배경 위 흰색 단계 투명도로 고정되어 있어 재색상하지 않습니다.",
+   "onDark": true
+  },
+  {
+   "name": "Phone",
+   "style": "colored",
+   "group": "Communication",
+   "file": "svg/colored/phone.svg",
+   "figmaName": "Icon/Colored/Phone",
+   "nodeId": "2292:1095",
+   "key": "4f144a7ca009286f16d1db75c1702492fa13b6a1"
+  },
+  {
+   "name": "Subscribe",
+   "style": "colored",
+   "group": "Communication",
+   "file": "svg/colored/subscribe.svg",
+   "figmaName": "Icon/Colored/Subscribe",
+   "nodeId": "2292:1091",
+   "key": "f68ece7b3a3569c77340c631213e5d50328ea5a5"
+  },
+  {
+   "name": "Benefit",
+   "style": "colored",
+   "group": "Communication",
+   "file": "svg/colored/benefit.svg",
+   "figmaName": "Icon/Colored/Benefit",
+   "nodeId": "2292:1088",
+   "key": "df2d7553a014445d4d5775d31a8c4021dda33918"
+  },
+  {
+   "name": "Terminal",
+   "style": "colored",
+   "group": "Communication",
+   "file": "svg/colored/terminal.svg",
+   "figmaName": "Icon/Colored/Terminal",
+   "nodeId": "2292:1087",
+   "key": "4d2a731722d9928cad43028a9562563ea2400516"
+  },
+  {
+   "name": "Add",
+   "style": "colored",
+   "group": "Action & Reward",
+   "file": "svg/colored/add.svg",
+   "figmaName": "Icon/Colored/Add",
+   "nodeId": "2292:1092",
+   "key": "4c010abb1b4564f241a278fb8e0667fd800acac7"
+  },
+  {
+   "name": "Trophy",
+   "style": "colored",
+   "group": "Action & Reward",
+   "file": "svg/colored/trophy.svg",
+   "figmaName": "Icon/Colored/Trophy",
+   "nodeId": "2292:1093",
+   "key": "6389e346bd12dbd305d974857cf785d28df85c78"
+  },
+  {
+   "name": "Paper",
+   "style": "colored",
+   "group": "Action & Reward",
+   "file": "svg/colored/paper.svg",
+   "figmaName": "Icon/Colored/Paper",
+   "nodeId": "2292:1084",
+   "key": "d2c675bfc989cb6c330c01663e4a1fee0fc523fc"
+  },
+  {
+   "name": "Won",
+   "style": "colored",
+   "group": "Action & Reward",
+   "file": "svg/colored/won.svg",
+   "figmaName": "Icon/Colored/Won",
+   "nodeId": "2292:1086",
+   "key": "40c57fafd52c46cb34ee001e80968550f08928b5"
+  },
+  {
+   "name": "Smile",
+   "style": "colored",
+   "group": "Emotion",
+   "file": "svg/colored/smile.svg",
+   "figmaName": "Icon/Colored/Smile",
+   "nodeId": "2458:16954",
+   "key": "01aab3c7b81887f4beb7e3667637ac82f8960568"
+  }
+ ]
+}
