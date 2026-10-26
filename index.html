@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <!-- BEGIN:publish -->
+  <title>BSS Design System</title>
+  <meta name="claude:viewport-fit-sides" content="cover" />
+  <link rel="stylesheet" href="site/site.css" />
+  <!-- END:head -->
+</head>
+<body>
+  <!-- BEGIN:body -->
+  <header class="topbar">
+    <div class="topbar-inner">
+      <button class="menu-btn" id="menuBtn" aria-label="메뉴 열기" aria-expanded="false" aria-controls="sidebar">☰</button>
+      <a href="#overview" class="brand"><span class="brand-mark" aria-hidden="true"></span>BSS Design System</a>
+      <span class="brand-ver">Components Library v0.5</span>
+    </div>
+  </header>
+  <div class="layout">
+    <nav class="sidebar" id="sidebar" aria-label="문서 탐색">
+      <div class="nav-group">
+        <div class="nav-title">시작하기</div>
+        <a href="#overview" data-route="overview">개요</a>
+      </div>
+      <div class="nav-group">
+        <div class="nav-title">Foundations</div>
+        <a href="#icons" data-route="icons">아이콘</a>
+      </div>
+      <div class="nav-group">
+        <div class="nav-title">Components</div>
+        <a href="#components" data-route="components">전체 목록</a>
+        <div id="navComponents"></div>
+      </div>
+    </nav>
+    <main class="content" id="content" tabindex="-1"></main>
+  </div>
+  <div class="toast" id="toast" role="status"></div>
+  <script type="module" src="site/app.js"></script>
+  <!-- END:publish -->
+</body>
+</html>

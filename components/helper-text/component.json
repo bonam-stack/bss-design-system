@@ -1,0 +1,167 @@
+{
+  "key": "helper-text",
+  "name": "HelperText",
+  "description": "",
+  "figma": {
+    "fileKey": "WcoI745J38TaON7iCKcutW",
+    "nodeId": "2359:22437",
+    "url": "https://www.figma.com/design/WcoI745J38TaON7iCKcutW?node-id=2359-22437",
+    "page": {
+      "nodeId": "2085:5409",
+      "name": "❖ HelperText"
+    },
+    "type": "COMPONENT_SET",
+    "componentKey": "a5a18b22e8a32c6d2a43e3be9b6c45ec438b5d42",
+    "requestedFrom": null,
+    "extractedAt": "2026-10-26"
+  },
+  "props": [
+    {
+      "name": "showLeadingIcon",
+      "figmaName": "showLeadingIcon#2359:3",
+      "type": "boolean",
+      "default": true
+    },
+    {
+      "name": "showCount",
+      "figmaName": "showCount#2359:4",
+      "type": "boolean",
+      "default": true
+    },
+    {
+      "name": "message",
+      "figmaName": "message#2359:5",
+      "type": "text",
+      "default": "HelperText"
+    },
+    {
+      "name": "state",
+      "figmaName": "state",
+      "type": "variant",
+      "default": "default",
+      "options": [
+        "default",
+        "error"
+      ]
+    }
+  ],
+  "variants": [
+    {
+      "nodeId": "2359:22400",
+      "key": "9d8b5668bd898612d8854c33f05dba018d549701",
+      "props": {
+        "state": "default"
+      },
+      "size": [
+        135,
+        16
+      ]
+    },
+    {
+      "nodeId": "2359:22438",
+      "key": "df38527ec48ffd98d8413be361045a78ce90467d",
+      "props": {
+        "state": "error"
+      },
+      "size": [
+        135,
+        16
+      ]
+    }
+  ],
+  "tokens": [
+    {
+      "figma": "font/caption/12/400/family",
+      "css": "--font-caption-12-400-family",
+      "collection": "Semantic",
+      "type": "STRING",
+      "key": "4e09e1156f91b2dc77392bf0268e904e43ea98e4"
+    },
+    {
+      "figma": "font/caption/12/400/letterSpacing",
+      "css": "--font-caption-12-400-letter-spacing",
+      "collection": "Semantic",
+      "type": "FLOAT",
+      "key": "2f31cae09e6edb6d2cad9445d629b6c972fa77d0"
+    },
+    {
+      "figma": "font/caption/12/400/lineHeight",
+      "css": "--font-caption-12-400-line-height",
+      "collection": "Semantic",
+      "type": "FLOAT",
+      "key": "c16f3f8afd1c283378336da5190365338046bc30"
+    },
+    {
+      "figma": "font/caption/12/400/size",
+      "css": "--font-caption-12-400-size",
+      "collection": "Semantic",
+      "type": "FLOAT",
+      "key": "c934a792d27863ba2b215ef56011655746a611fa"
+    },
+    {
+      "figma": "font/caption/12/400/weight",
+      "css": "--font-caption-12-400-weight",
+      "collection": "Semantic",
+      "type": "FLOAT",
+      "key": "b2645267187d0b4fb72af4cc45c561acdff4d3e1"
+    },
+    {
+      "figma": "helperText/color/fg/default",
+      "css": "--helper-text-color-fg-default",
+      "collection": "Component",
+      "type": "COLOR",
+      "key": "b9ed9a833a89614d3f606553885db9f6db229e4c"
+    },
+    {
+      "figma": "helperText/color/fg/error",
+      "css": "--helper-text-color-fg-error",
+      "collection": "Component",
+      "type": "COLOR",
+      "key": "006a5c0d124ee45cd8174cf6169c13ad5a36ec9a"
+    },
+    {
+      "figma": "helperText/count/color/fg/default",
+      "css": "--helper-text-count-color-fg-default",
+      "collection": "Component",
+      "type": "COLOR",
+      "key": "bed78cf0c5177c935fcb7fd132b493b320fa7fac"
+    },
+    {
+      "figma": "helperText/count/color/fg/error",
+      "css": "--helper-text-count-color-fg-error",
+      "collection": "Component",
+      "type": "COLOR",
+      "key": "cbcbdaaf3efa8f09d3069672dcfd991738bd3373"
+    },
+    {
+      "figma": "helperText/count/space/gap",
+      "css": "--helper-text-count-space-gap",
+      "collection": "Component",
+      "type": "FLOAT",
+      "key": "379cd5b8a141ddf034969cf70d62d4f229e3fdc9"
+    },
+    {
+      "figma": "helperText/icon/size",
+      "css": "--helper-text-icon-size",
+      "collection": "Component",
+      "type": "FLOAT",
+      "key": "dfa8512ad13e26e0c1d126b2217649aa1696a26c"
+    },
+    {
+      "figma": "helperText/space/gap",
+      "css": "--helper-text-space-gap",
+      "collection": "Component",
+      "type": "FLOAT",
+      "key": "85de4cd779aba391c08b6a064d1e8a829a6ed3d6"
+    }
+  ],
+  "textStyles": [
+    {
+      "name": "caption/12/400",
+      "type": "TEXT",
+      "key": "ae57733f06d07d3f1cd487e212112e73d1801b43",
+      "remote": false
+    }
+  ],
+  "otherStyles": []
+}
