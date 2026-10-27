@@ -3,6 +3,9 @@
     "button",
     "checkbox",
     "helper-text",
-    "radio"
+    "password-field",
+    "radio",
+    "text-area",
+    "text-field"
   ]
 }

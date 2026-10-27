@@ -1,4 +1,5 @@
 {
+  "schemaVersion": 2,
   "key": "helper-text",
   "name": "HelperText",
   "description": "",
@@ -55,7 +56,463 @@
       "size": [
         135,
         16
-      ]
+      ],
+      "layer": {
+        "id": "2359:22400",
+        "name": "state=default",
+        "type": "COMPONENT",
+        "size": [
+          135,
+          16
+        ],
+        "layout": {
+          "mode": "HORIZONTAL",
+          "gap": 0,
+          "padding": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "align": [
+            "MIN",
+            "CENTER"
+          ]
+        },
+        "sizing": [
+          "FIXED",
+          "HUG"
+        ],
+        "children": [
+          {
+            "id": "2359:22417",
+            "name": "helperGroup",
+            "type": "FRAME",
+            "size": [
+              135,
+              16
+            ],
+            "layout": {
+              "mode": "HORIZONTAL",
+              "gap": 4,
+              "padding": [
+                0,
+                0,
+                0,
+                0
+              ],
+              "align": [
+                "MIN",
+                "MIN"
+              ]
+            },
+            "sizing": [
+              "FILL",
+              "HUG"
+            ],
+            "variables": {
+              "itemSpacing": "helperText/space/gap"
+            },
+            "children": [
+              {
+                "id": "2359:22401",
+                "name": "messageBox",
+                "type": "FRAME",
+                "size": [
+                  69,
+                  16
+                ],
+                "layout": {
+                  "mode": "HORIZONTAL",
+                  "gap": 0,
+                  "padding": [
+                    0,
+                    0,
+                    0,
+                    0
+                  ],
+                  "align": [
+                    "MIN",
+                    "MIN"
+                  ]
+                },
+                "sizing": [
+                  "FILL",
+                  "HUG"
+                ],
+                "children": [
+                  {
+                    "id": "7640:5043",
+                    "name": "icon",
+                    "type": "FRAME",
+                    "size": [
+                      12,
+                      16
+                    ],
+                    "layout": {
+                      "mode": "HORIZONTAL",
+                      "gap": 0,
+                      "padding": [
+                        2,
+                        0,
+                        0,
+                        0
+                      ],
+                      "align": [
+                        "MIN",
+                        "MIN"
+                      ]
+                    },
+                    "sizing": [
+                      "HUG",
+                      "FILL"
+                    ],
+                    "propRefs": {
+                      "visible": "showLeadingIcon#2359:3"
+                    },
+                    "children": [
+                      {
+                        "id": "2345:22274",
+                        "name": "IconSlot",
+                        "type": "INSTANCE",
+                        "size": [
+                          12,
+                          12
+                        ],
+                        "sizing": [
+                          "FIXED",
+                          "FIXED"
+                        ],
+                        "main": {
+                          "id": "2223:2621",
+                          "name": "size=12",
+                          "key": "83f113e85c16ec59b8141b988c9b1e36883c8a16",
+                          "set": {
+                            "id": "2223:2622",
+                            "name": "IconSlot",
+                            "key": "fb5130859c0c19bfda36c42da5a722d6c3ae306b"
+                          }
+                        },
+                        "variables": {
+                          "width": "helperText/icon/size",
+                          "height": "helperText/icon/size"
+                        },
+                        "children": [
+                          {
+                            "id": "I2345:22274;2223:2618",
+                            "name": "Icon/Line/Asterisk",
+                            "type": "INSTANCE",
+                            "size": [
+                              12,
+                              12
+                            ],
+                            "position": [
+                              0,
+                              0
+                            ],
+                            "sizing": [
+                              "FIXED",
+                              "FIXED"
+                            ],
+                            "main": {
+                              "id": "2848:102820",
+                              "name": "Icon/Line/Asterisk",
+                              "key": "536899af4aa476eaf00e0b04858df7093bcd4b6f"
+                            },
+                            "propRefs": {
+                              "mainComponent": "icon#2223:0"
+                            },
+                            "children": [
+                              {
+                                "id": "I2345:22274;2223:2618;2848:102817",
+                                "name": "Vector",
+                                "type": "VECTOR",
+                                "size": [
+                                  6.17,
+                                  6.75
+                                ],
+                                "position": [
+                                  2.98,
+                                  9.3
+                                ],
+                                "sizing": [
+                                  "FIXED",
+                                  "FIXED"
+                                ],
+                                "fills": [
+                                  {
+                                    "type": "SOLID",
+                                    "color": "#697582",
+                                    "variable": "helperText/color/fg/default"
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "id": "2336:22048",
+                    "name": "text",
+                    "type": "TEXT",
+                    "size": [
+                      57,
+                      16
+                    ],
+                    "sizing": [
+                      "FILL",
+                      "HUG"
+                    ],
+                    "fills": [
+                      {
+                        "type": "SOLID",
+                        "color": "#697582",
+                        "variable": "helperText/color/fg/default"
+                      }
+                    ],
+                    "styles": {
+                      "text": "caption/12/400"
+                    },
+                    "text": {
+                      "characters": "HelperText",
+                      "fontFamily": "Pretendard",
+                      "fontStyle": "Regular",
+                      "fontWeight": 400,
+                      "fontSize": 12,
+                      "lineHeight": {
+                        "unit": "PIXELS",
+                        "value": 16
+                      },
+                      "letterSpacing": {
+                        "unit": "PIXELS",
+                        "value": -0.2
+                      },
+                      "align": [
+                        "LEFT",
+                        "CENTER"
+                      ],
+                      "autoResize": "HEIGHT"
+                    },
+                    "propRefs": {
+                      "characters": "message#2359:5"
+                    },
+                    "variables": {
+                      "letterSpacing[0]": "font/caption/12/400/letterSpacing",
+                      "fontSize[0]": "font/caption/12/400/size",
+                      "fontFamily[0]": "font/caption/12/400/family",
+                      "lineHeight[0]": "font/caption/12/400/lineHeight",
+                      "fontWeight[0]": "font/caption/12/400/weight"
+                    }
+                  }
+                ]
+              },
+              {
+                "id": "4362:11689",
+                "name": "_Item/HelperText/Count",
+                "type": "INSTANCE",
+                "size": [
+                  62,
+                  16
+                ],
+                "layout": {
+                  "mode": "HORIZONTAL",
+                  "gap": 2,
+                  "padding": [
+                    0,
+                    0,
+                    0,
+                    0
+                  ],
+                  "align": [
+                    "CENTER",
+                    "CENTER"
+                  ]
+                },
+                "sizing": [
+                  "HUG",
+                  "HUG"
+                ],
+                "main": {
+                  "id": "2336:22059",
+                  "name": "state=default",
+                  "key": "eb2d2731032e582d0906869567f0620b1e995e4c",
+                  "set": {
+                    "id": "2336:22072",
+                    "name": "_Item/HelperText/Count",
+                    "key": "9c458a712c1a3f1a4bb9edceab2576cc8e7247d0"
+                  }
+                },
+                "propRefs": {
+                  "visible": "showCount#2359:4"
+                },
+                "variables": {
+                  "itemSpacing": "helperText/count/space/gap"
+                },
+                "children": [
+                  {
+                    "id": "I4362:11689;2336:22055",
+                    "name": "count",
+                    "type": "TEXT",
+                    "size": [
+                      30,
+                      16
+                    ],
+                    "sizing": [
+                      "HUG",
+                      "HUG"
+                    ],
+                    "fills": [
+                      {
+                        "type": "SOLID",
+                        "color": "#697582",
+                        "variable": "helperText/count/color/fg/default"
+                      }
+                    ],
+                    "styles": {
+                      "text": "caption/12/400"
+                    },
+                    "text": {
+                      "characters": "count",
+                      "fontFamily": "Pretendard",
+                      "fontStyle": "Regular",
+                      "fontWeight": 400,
+                      "fontSize": 12,
+                      "lineHeight": {
+                        "unit": "PIXELS",
+                        "value": 16
+                      },
+                      "letterSpacing": {
+                        "unit": "PIXELS",
+                        "value": -0.2
+                      },
+                      "align": [
+                        "RIGHT",
+                        "CENTER"
+                      ],
+                      "autoResize": "WIDTH_AND_HEIGHT"
+                    },
+                    "propRefs": {
+                      "characters": "count#2336:2"
+                    },
+                    "variables": {
+                      "letterSpacing[0]": "font/caption/12/400/letterSpacing",
+                      "fontSize[0]": "font/caption/12/400/size",
+                      "fontFamily[0]": "font/caption/12/400/family",
+                      "lineHeight[0]": "font/caption/12/400/lineHeight",
+                      "fontWeight[0]": "font/caption/12/400/weight"
+                    }
+                  },
+                  {
+                    "id": "I4362:11689;2336:22056",
+                    "name": "/",
+                    "type": "TEXT",
+                    "size": [
+                      5,
+                      16
+                    ],
+                    "sizing": [
+                      "HUG",
+                      "HUG"
+                    ],
+                    "fills": [
+                      {
+                        "type": "SOLID",
+                        "color": "#697582",
+                        "variable": "helperText/count/color/fg/default"
+                      }
+                    ],
+                    "styles": {
+                      "text": "caption/12/400"
+                    },
+                    "text": {
+                      "characters": "/",
+                      "fontFamily": "Pretendard",
+                      "fontStyle": "Regular",
+                      "fontWeight": 400,
+                      "fontSize": 12,
+                      "lineHeight": {
+                        "unit": "PIXELS",
+                        "value": 16
+                      },
+                      "letterSpacing": {
+                        "unit": "PIXELS",
+                        "value": -0.2
+                      },
+                      "align": [
+                        "RIGHT",
+                        "CENTER"
+                      ],
+                      "autoResize": "WIDTH_AND_HEIGHT"
+                    },
+                    "variables": {
+                      "letterSpacing[0]": "font/caption/12/400/letterSpacing",
+                      "fontSize[0]": "font/caption/12/400/size",
+                      "fontFamily[0]": "font/caption/12/400/family",
+                      "lineHeight[0]": "font/caption/12/400/lineHeight",
+                      "fontWeight[0]": "font/caption/12/400/weight"
+                    }
+                  },
+                  {
+                    "id": "I4362:11689;2336:22057",
+                    "name": "max",
+                    "type": "TEXT",
+                    "size": [
+                      23,
+                      16
+                    ],
+                    "sizing": [
+                      "HUG",
+                      "HUG"
+                    ],
+                    "fills": [
+                      {
+                        "type": "SOLID",
+                        "color": "#697582",
+                        "variable": "helperText/count/color/fg/default"
+                      }
+                    ],
+                    "styles": {
+                      "text": "caption/12/400"
+                    },
+                    "text": {
+                      "characters": "max",
+                      "fontFamily": "Pretendard",
+                      "fontStyle": "Regular",
+                      "fontWeight": 400,
+                      "fontSize": 12,
+                      "lineHeight": {
+                        "unit": "PIXELS",
+                        "value": 16
+                      },
+                      "letterSpacing": {
+                        "unit": "PIXELS",
+                        "value": -0.2
+                      },
+                      "align": [
+                        "RIGHT",
+                        "CENTER"
+                      ],
+                      "autoResize": "WIDTH_AND_HEIGHT"
+                    },
+                    "propRefs": {
+                      "characters": "max#2336:3"
+                    },
+                    "variables": {
+                      "letterSpacing[0]": "font/caption/12/400/letterSpacing",
+                      "fontSize[0]": "font/caption/12/400/size",
+                      "fontFamily[0]": "font/caption/12/400/family",
+                      "lineHeight[0]": "font/caption/12/400/lineHeight",
+                      "fontWeight[0]": "font/caption/12/400/weight"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
     },
     {
       "nodeId": "2359:22438",
@@ -66,7 +523,463 @@
       "size": [
         135,
         16
-      ]
+      ],
+      "layer": {
+        "id": "2359:22438",
+        "name": "state=error",
+        "type": "COMPONENT",
+        "size": [
+          135,
+          16
+        ],
+        "layout": {
+          "mode": "HORIZONTAL",
+          "gap": 0,
+          "padding": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "align": [
+            "MIN",
+            "CENTER"
+          ]
+        },
+        "sizing": [
+          "FIXED",
+          "HUG"
+        ],
+        "children": [
+          {
+            "id": "2359:22439",
+            "name": "helperGroup",
+            "type": "FRAME",
+            "size": [
+              135,
+              16
+            ],
+            "layout": {
+              "mode": "HORIZONTAL",
+              "gap": 4,
+              "padding": [
+                0,
+                0,
+                0,
+                0
+              ],
+              "align": [
+                "MIN",
+                "MIN"
+              ]
+            },
+            "sizing": [
+              "FILL",
+              "HUG"
+            ],
+            "variables": {
+              "itemSpacing": "helperText/space/gap"
+            },
+            "children": [
+              {
+                "id": "2359:22440",
+                "name": "messageBox",
+                "type": "FRAME",
+                "size": [
+                  69,
+                  16
+                ],
+                "layout": {
+                  "mode": "HORIZONTAL",
+                  "gap": 0,
+                  "padding": [
+                    0,
+                    0,
+                    0,
+                    0
+                  ],
+                  "align": [
+                    "MIN",
+                    "MIN"
+                  ]
+                },
+                "sizing": [
+                  "FILL",
+                  "HUG"
+                ],
+                "children": [
+                  {
+                    "id": "7640:5044",
+                    "name": "icon",
+                    "type": "FRAME",
+                    "size": [
+                      12,
+                      16
+                    ],
+                    "layout": {
+                      "mode": "HORIZONTAL",
+                      "gap": 0,
+                      "padding": [
+                        2,
+                        0,
+                        0,
+                        0
+                      ],
+                      "align": [
+                        "MIN",
+                        "MIN"
+                      ]
+                    },
+                    "sizing": [
+                      "HUG",
+                      "FILL"
+                    ],
+                    "propRefs": {
+                      "visible": "showLeadingIcon#2359:3"
+                    },
+                    "children": [
+                      {
+                        "id": "2359:22441",
+                        "name": "IconSlot",
+                        "type": "INSTANCE",
+                        "size": [
+                          12,
+                          12
+                        ],
+                        "sizing": [
+                          "FIXED",
+                          "FIXED"
+                        ],
+                        "main": {
+                          "id": "2223:2621",
+                          "name": "size=12",
+                          "key": "83f113e85c16ec59b8141b988c9b1e36883c8a16",
+                          "set": {
+                            "id": "2223:2622",
+                            "name": "IconSlot",
+                            "key": "fb5130859c0c19bfda36c42da5a722d6c3ae306b"
+                          }
+                        },
+                        "variables": {
+                          "width": "helperText/icon/size",
+                          "height": "helperText/icon/size"
+                        },
+                        "children": [
+                          {
+                            "id": "I2359:22441;2223:2618",
+                            "name": "Icon/Line/Asterisk",
+                            "type": "INSTANCE",
+                            "size": [
+                              12,
+                              12
+                            ],
+                            "position": [
+                              0,
+                              0
+                            ],
+                            "sizing": [
+                              "FIXED",
+                              "FIXED"
+                            ],
+                            "main": {
+                              "id": "2848:102820",
+                              "name": "Icon/Line/Asterisk",
+                              "key": "536899af4aa476eaf00e0b04858df7093bcd4b6f"
+                            },
+                            "propRefs": {
+                              "mainComponent": "icon#2223:0"
+                            },
+                            "children": [
+                              {
+                                "id": "I2359:22441;2223:2618;2848:102817",
+                                "name": "Vector",
+                                "type": "VECTOR",
+                                "size": [
+                                  6.17,
+                                  6.75
+                                ],
+                                "position": [
+                                  2.98,
+                                  9.3
+                                ],
+                                "sizing": [
+                                  "FIXED",
+                                  "FIXED"
+                                ],
+                                "fills": [
+                                  {
+                                    "type": "SOLID",
+                                    "color": "#ED3B3E",
+                                    "variable": "helperText/color/fg/error"
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "id": "2359:22442",
+                    "name": "text",
+                    "type": "TEXT",
+                    "size": [
+                      57,
+                      16
+                    ],
+                    "sizing": [
+                      "FILL",
+                      "HUG"
+                    ],
+                    "fills": [
+                      {
+                        "type": "SOLID",
+                        "color": "#ED3B3E",
+                        "variable": "helperText/color/fg/error"
+                      }
+                    ],
+                    "styles": {
+                      "text": "caption/12/400"
+                    },
+                    "text": {
+                      "characters": "HelperText",
+                      "fontFamily": "Pretendard",
+                      "fontStyle": "Regular",
+                      "fontWeight": 400,
+                      "fontSize": 12,
+                      "lineHeight": {
+                        "unit": "PIXELS",
+                        "value": 16
+                      },
+                      "letterSpacing": {
+                        "unit": "PIXELS",
+                        "value": -0.2
+                      },
+                      "align": [
+                        "LEFT",
+                        "CENTER"
+                      ],
+                      "autoResize": "HEIGHT"
+                    },
+                    "propRefs": {
+                      "characters": "message#2359:5"
+                    },
+                    "variables": {
+                      "letterSpacing[0]": "font/caption/12/400/letterSpacing",
+                      "fontSize[0]": "font/caption/12/400/size",
+                      "fontFamily[0]": "font/caption/12/400/family",
+                      "lineHeight[0]": "font/caption/12/400/lineHeight",
+                      "fontWeight[0]": "font/caption/12/400/weight"
+                    }
+                  }
+                ]
+              },
+              {
+                "id": "4362:9426",
+                "name": "_Item/HelperText/Count",
+                "type": "INSTANCE",
+                "size": [
+                  62,
+                  16
+                ],
+                "layout": {
+                  "mode": "HORIZONTAL",
+                  "gap": 2,
+                  "padding": [
+                    0,
+                    0,
+                    0,
+                    0
+                  ],
+                  "align": [
+                    "CENTER",
+                    "CENTER"
+                  ]
+                },
+                "sizing": [
+                  "HUG",
+                  "HUG"
+                ],
+                "main": {
+                  "id": "2345:22264",
+                  "name": "state=error",
+                  "key": "a1459b669bf9a5bbfd0056e1a2257340c8557947",
+                  "set": {
+                    "id": "2336:22072",
+                    "name": "_Item/HelperText/Count",
+                    "key": "9c458a712c1a3f1a4bb9edceab2576cc8e7247d0"
+                  }
+                },
+                "propRefs": {
+                  "visible": "showCount#2359:4"
+                },
+                "variables": {
+                  "itemSpacing": "helperText/count/space/gap"
+                },
+                "children": [
+                  {
+                    "id": "I4362:9426;2345:22265",
+                    "name": "count",
+                    "type": "TEXT",
+                    "size": [
+                      30,
+                      16
+                    ],
+                    "sizing": [
+                      "HUG",
+                      "HUG"
+                    ],
+                    "fills": [
+                      {
+                        "type": "SOLID",
+                        "color": "#ED3B3E",
+                        "variable": "helperText/count/color/fg/error"
+                      }
+                    ],
+                    "styles": {
+                      "text": "caption/12/400"
+                    },
+                    "text": {
+                      "characters": "count",
+                      "fontFamily": "Pretendard",
+                      "fontStyle": "Regular",
+                      "fontWeight": 400,
+                      "fontSize": 12,
+                      "lineHeight": {
+                        "unit": "PIXELS",
+                        "value": 16
+                      },
+                      "letterSpacing": {
+                        "unit": "PIXELS",
+                        "value": -0.2
+                      },
+                      "align": [
+                        "RIGHT",
+                        "CENTER"
+                      ],
+                      "autoResize": "WIDTH_AND_HEIGHT"
+                    },
+                    "propRefs": {
+                      "characters": "count#2336:2"
+                    },
+                    "variables": {
+                      "letterSpacing[0]": "font/caption/12/400/letterSpacing",
+                      "fontSize[0]": "font/caption/12/400/size",
+                      "fontFamily[0]": "font/caption/12/400/family",
+                      "lineHeight[0]": "font/caption/12/400/lineHeight",
+                      "fontWeight[0]": "font/caption/12/400/weight"
+                    }
+                  },
+                  {
+                    "id": "I4362:9426;2345:22266",
+                    "name": "/",
+                    "type": "TEXT",
+                    "size": [
+                      5,
+                      16
+                    ],
+                    "sizing": [
+                      "HUG",
+                      "HUG"
+                    ],
+                    "fills": [
+                      {
+                        "type": "SOLID",
+                        "color": "#697582",
+                        "variable": "helperText/count/color/fg/default"
+                      }
+                    ],
+                    "styles": {
+                      "text": "caption/12/400"
+                    },
+                    "text": {
+                      "characters": "/",
+                      "fontFamily": "Pretendard",
+                      "fontStyle": "Regular",
+                      "fontWeight": 400,
+                      "fontSize": 12,
+                      "lineHeight": {
+                        "unit": "PIXELS",
+                        "value": 16
+                      },
+                      "letterSpacing": {
+                        "unit": "PIXELS",
+                        "value": -0.2
+                      },
+                      "align": [
+                        "RIGHT",
+                        "CENTER"
+                      ],
+                      "autoResize": "WIDTH_AND_HEIGHT"
+                    },
+                    "variables": {
+                      "letterSpacing[0]": "font/caption/12/400/letterSpacing",
+                      "fontSize[0]": "font/caption/12/400/size",
+                      "fontFamily[0]": "font/caption/12/400/family",
+                      "lineHeight[0]": "font/caption/12/400/lineHeight",
+                      "fontWeight[0]": "font/caption/12/400/weight"
+                    }
+                  },
+                  {
+                    "id": "I4362:9426;2345:22267",
+                    "name": "max",
+                    "type": "TEXT",
+                    "size": [
+                      23,
+                      16
+                    ],
+                    "sizing": [
+                      "HUG",
+                      "HUG"
+                    ],
+                    "fills": [
+                      {
+                        "type": "SOLID",
+                        "color": "#697582",
+                        "variable": "helperText/count/color/fg/default"
+                      }
+                    ],
+                    "styles": {
+                      "text": "caption/12/400"
+                    },
+                    "text": {
+                      "characters": "max",
+                      "fontFamily": "Pretendard",
+                      "fontStyle": "Regular",
+                      "fontWeight": 400,
+                      "fontSize": 12,
+                      "lineHeight": {
+                        "unit": "PIXELS",
+                        "value": 16
+                      },
+                      "letterSpacing": {
+                        "unit": "PIXELS",
+                        "value": -0.2
+                      },
+                      "align": [
+                        "RIGHT",
+                        "CENTER"
+                      ],
+                      "autoResize": "WIDTH_AND_HEIGHT"
+                    },
+                    "propRefs": {
+                      "characters": "max#2336:3"
+                    },
+                    "variables": {
+                      "letterSpacing[0]": "font/caption/12/400/letterSpacing",
+                      "fontSize[0]": "font/caption/12/400/size",
+                      "fontFamily[0]": "font/caption/12/400/family",
+                      "lineHeight[0]": "font/caption/12/400/lineHeight",
+                      "fontWeight[0]": "font/caption/12/400/weight"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
     }
   ],
   "tokens": [
@@ -75,6 +988,8 @@
       "css": "--font-caption-12-400-family",
       "collection": "Semantic",
       "type": "STRING",
+      "value": "Pretendard",
+      "alias": "font/family/pretendard",
       "key": "4e09e1156f91b2dc77392bf0268e904e43ea98e4"
     },
     {
@@ -82,6 +997,8 @@
       "css": "--font-caption-12-400-letter-spacing",
       "collection": "Semantic",
       "type": "FLOAT",
+      "value": -0.2,
+      "alias": "font/letterSpacing/minus0p2",
       "key": "2f31cae09e6edb6d2cad9445d629b6c972fa77d0"
     },
     {
@@ -89,6 +1006,8 @@
       "css": "--font-caption-12-400-line-height",
       "collection": "Semantic",
       "type": "FLOAT",
+      "value": 16,
+      "alias": "font/lineHeight/16",
       "key": "c16f3f8afd1c283378336da5190365338046bc30"
     },
     {
@@ -96,6 +1015,8 @@
       "css": "--font-caption-12-400-size",
       "collection": "Semantic",
       "type": "FLOAT",
+      "value": 12,
+      "alias": "font/size/12",
       "key": "c934a792d27863ba2b215ef56011655746a611fa"
     },
     {
@@ -103,6 +1024,8 @@
       "css": "--font-caption-12-400-weight",
       "collection": "Semantic",
       "type": "FLOAT",
+      "value": 400,
+      "alias": "font/weight/regular",
       "key": "b2645267187d0b4fb72af4cc45c561acdff4d3e1"
     },
     {
@@ -110,6 +1033,8 @@
       "css": "--helper-text-color-fg-default",
       "collection": "Component",
       "type": "COLOR",
+      "value": "#697582",
+      "alias": "color/fg/neutral/muted/default",
       "key": "b9ed9a833a89614d3f606553885db9f6db229e4c"
     },
     {
@@ -117,6 +1042,8 @@
       "css": "--helper-text-color-fg-error",
       "collection": "Component",
       "type": "COLOR",
+      "value": "#ED3B3E",
+      "alias": "color/fg/danger/strong",
       "key": "006a5c0d124ee45cd8174cf6169c13ad5a36ec9a"
     },
     {
@@ -124,6 +1051,8 @@
       "css": "--helper-text-count-color-fg-default",
       "collection": "Component",
       "type": "COLOR",
+      "value": "#697582",
+      "alias": "color/fg/neutral/muted/default",
       "key": "bed78cf0c5177c935fcb7fd132b493b320fa7fac"
     },
     {
@@ -131,6 +1060,8 @@
       "css": "--helper-text-count-color-fg-error",
       "collection": "Component",
       "type": "COLOR",
+      "value": "#ED3B3E",
+      "alias": "color/fg/danger/strong",
       "key": "cbcbdaaf3efa8f09d3069672dcfd991738bd3373"
     },
     {
@@ -138,6 +1069,8 @@
       "css": "--helper-text-count-space-gap",
       "collection": "Component",
       "type": "FLOAT",
+      "value": 2,
+      "alias": "space/2",
       "key": "379cd5b8a141ddf034969cf70d62d4f229e3fdc9"
     },
     {
@@ -145,6 +1078,8 @@
       "css": "--helper-text-icon-size",
       "collection": "Component",
       "type": "FLOAT",
+      "value": 12,
+      "alias": "size/icon/xsmall",
       "key": "dfa8512ad13e26e0c1d126b2217649aa1696a26c"
     },
     {
@@ -152,6 +1087,8 @@
       "css": "--helper-text-space-gap",
       "collection": "Component",
       "type": "FLOAT",
+      "value": 4,
+      "alias": "space/4",
       "key": "85de4cd779aba391c08b6a064d1e8a829a6ed3d6"
     }
   ],
