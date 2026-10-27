@@ -160,10 +160,27 @@ export function renderVariant(comp, layer, opts) {
       css['letter-spacing'] = v(node, 'letterSpacing', t.letterSpacing.unit === 'PERCENT' ? `${t.letterSpacing.value / 100}em` : px(t.letterSpacing.value));
     }
     if (t.align && TEXT_ALIGN[t.align[0]] && t.align[0] !== 'LEFT') css['text-align'] = TEXT_ALIGN[t.align[0]];
+    // WIDTH_AND_HEIGHT grows on one line; every other mode wraps inside its width, breaking long
+    // words like Figma does instead of spilling out of the box.
     if (t.autoResize === 'WIDTH_AND_HEIGHT') css['white-space'] = 'nowrap';
+    else css['overflow-wrap'] = 'anywhere';
+    // NONE is a fixed text box: longer text stays inside its height (scrolls, like a textarea)
+    // instead of pushing the frame taller.
+    if (t.autoResize === 'NONE' && node.sizing && node.sizing[1] !== 'HUG') Object.assign(css, { height: px(node.size[1]), 'overflow-y': 'auto' });
     if (t.case === 'UPPER') css['text-transform'] = 'uppercase';
     if (t.decoration === 'UNDERLINE') css['text-decoration'] = 'underline';
-    if (t.truncate) Object.assign(css, { overflow: 'hidden', 'text-overflow': 'ellipsis', 'white-space': 'nowrap' });
+    if (t.truncate) {
+      // maxLines when Figma has one; otherwise a fixed-height box ends with "…" on its last line.
+      const lh = t.lineHeight && t.lineHeight.unit === 'PIXELS' ? t.lineHeight.value : null;
+      const fixedH = node.sizing && node.sizing[1] !== 'HUG' && t.autoResize !== 'HEIGHT';
+      const lines = typeof t.truncate === 'number' ? t.truncate : fixedH && lh ? Math.max(1, Math.floor(node.size[1] / lh)) : 1;
+      if (lines === 1) Object.assign(css, { overflow: 'hidden', 'text-overflow': 'ellipsis', 'white-space': 'nowrap' });
+      else {
+        // the clamp only hides lines past the box, so the box is cut to exactly those lines
+        Object.assign(css, { display: '-webkit-box', '-webkit-box-orient': 'vertical', '-webkit-line-clamp': String(lines), overflow: 'hidden' });
+        if (lh) Object.assign(css, { 'min-height': '0', 'max-height': px(lines * lh) });
+      }
+    }
   }
 
   function el(node, parent, depth) {

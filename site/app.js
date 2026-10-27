@@ -234,6 +234,38 @@ function findVariant(c, want, must) {
   return best;
 }
 
+// Which props the variant actually uses: top-level props referenced by a layer it shows, and the
+// boolean/text props of nested instances (HelperText's message, showCount …), grouped by instance.
+// Instances named `_…` are private parts in Figma and icon swaps are left out.
+function usedProps(c, layer, values) {
+  const topNames = new Set(c.props.map((p) => p.figmaName));
+  const top = new Set();
+  const groups = new Map();
+  const walk = (l, group) => {
+    const refs = l.propRefs || {};
+    for (const [kind, fig] of Object.entries(refs)) {
+      if (kind === 'mainComponent') continue;
+      if (topNames.has(fig)) top.add(fig);
+      else if (group && !group.items.some((i) => i.figmaName === fig)) {
+        group.items.push({ figmaName: fig, name: fig.replace(/#.*$/, ''), type: kind === 'visible' ? 'boolean' : 'text', value: kind === 'visible' ? l.visible !== false : l.text?.characters ?? '' });
+      }
+    }
+    const visible = refs.visible && refs.visible in values ? !!values[refs.visible] : l.visible !== false;
+    if (!visible) return;
+    let next = group;
+    if (l !== layer && l.type === 'INSTANCE') {
+      if (l.name.startsWith('_')) next = null;
+      else {
+        if (!groups.has(l.name)) groups.set(l.name, { name: l.name, items: [] });
+        next = groups.get(l.name);
+      }
+    }
+    (l.children || []).forEach((ch) => walk(ch, next));
+  };
+  walk(layer, null);
+  return { top, groups: [...groups.values()].filter((g) => g.items.length) };
+}
+
 function pageComponent(c) {
   const ok = isRenderable(c);
   return `
@@ -325,11 +357,23 @@ async function bindComponent(c, ctx) {
       return `<div class="ctl"><span class="ctl-name">${esc(p.name)}</span><div class="seg">${opts.map((o) =>
         `<button data-prop="${esc(p.name)}" data-val="${esc(o)}" aria-pressed="${sel[p.name] === o}">${esc(o)}</button>`).join('')}</div></div>`;
     });
+    // only props the current variant uses (e.g. placeholder in default, text once entered)
+    const used = usedProps(c, findVariant(c, want(false)).layer, values);
+    const flag = (name, fig, on) => `<label class="ctl"><span class="ctl-name">${esc(name)}</span><input type="checkbox" data-flag="${esc(fig)}" ${on ? 'checked' : ''} /></label>`;
+    const text = (name, fig, val) => `<label class="ctl"><span class="ctl-name">${esc(name)} <span class="ctl-hint">Enter로 줄바꿈</span></span><textarea class="search" rows="2" data-text="${esc(fig)}">${esc(val)}</textarea></label>`;
     for (const p of [...a.flags, ...(a.focusFlag ? [a.focusFlag] : [])]) {
-      rows.push(`<label class="ctl"><span class="ctl-name">${esc(p.name)}</span><input type="checkbox" data-flag="${esc(p.figmaName)}" ${values[p.figmaName] ? 'checked' : ''} /></label>`);
+      if (used.top.has(p.figmaName)) rows.push(flag(p.name, p.figmaName, values[p.figmaName]));
     }
     for (const p of a.texts) {
-      rows.push(`<label class="ctl"><span class="ctl-name">${esc(p.name)} <span class="ctl-hint">Enter로 줄바꿈</span></span><textarea class="search" rows="2" data-text="${esc(p.figmaName)}">${esc(values[p.figmaName])}</textarea></label>`);
+      if (used.top.has(p.figmaName)) rows.push(text(p.name, p.figmaName, values[p.figmaName]));
+    }
+    // nested instance props start at the variant's own Figma value until changed here
+    for (const g of used.groups) {
+      rows.push(`<div class="ctl-group">${esc(g.name)}</div>`);
+      for (const i of g.items) {
+        const val = i.figmaName in values ? values[i.figmaName] : i.value;
+        rows.push(i.type === 'boolean' ? flag(i.name, i.figmaName, val) : text(i.name, i.figmaName, val));
+      }
     }
     controls.innerHTML = rows.join('');
   }

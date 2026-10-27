@@ -288,6 +288,7 @@ label.ctl:has(textarea) { grid-template-columns: minmax(0, 1fr); }
 .ctl .search { height: 32px; font-size: 13px; }
 .ctl textarea.search { height: auto; min-height: 56px; padding: 8px 10px; resize: vertical; font-family: inherit; line-height: 1.4; }
 .ctl-hint { margin-left: 4px; font-family: var(--font); font-size: 11px; color: var(--fg-muted); opacity: 0.8; }
+.ctl-group { margin-top: 6px; padding-top: 12px; border-top: 1px solid var(--border); font-size: 12px; font-weight: 600; color: var(--fg); }
 .seg { display: flex; flex-wrap: wrap; gap: 4px; }
 .seg button {
   padding: 3px 9px; border: 1px solid var(--border); border-radius: 6px; background: var(--bg);
