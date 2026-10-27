@@ -200,12 +200,42 @@ export function renderVariant(comp, layer, opts) {
     }
   }
 
+  // Figma draws typing as [text (hug), cursor] side by side, which cannot show a caret that moves
+  // with the text. In code the frame becomes a line of text with the cursor inline after it:
+  // multi-line text wraps and the cursor follows the last line; single-line text (truncated to one
+  // line in Figma) stays on one line and scrolls so its end and the cursor stay in view.
+  const typing = (node) => {
+    const kids = (node.children || []).filter(shown);
+    if (kids.length !== 2 || kids[0].type !== 'TEXT') return null;
+    const cursor = kids[1];
+    if (cursor.type !== 'INSTANCE' || !/cursor/i.test(cursor.main?.name || cursor.name)) return null;
+    return { text: kids[0], cursor, single: kids[0].text.truncate === 1 };
+  };
+  const inTyping = new Map(); // child node -> typing info of its frame
+  const caretBlink = () => {
+    if (!rules.some(([k]) => k === '@keyframes ds-caret-blink')) rules.push(['@keyframes ds-caret-blink', '50% { opacity: 0; }']);
+  };
+
+  function typingText(t, css) {
+    for (const k of ['flex', 'flex-shrink', 'align-self', 'width', 'min-width', 'height', 'min-height', 'max-height',
+      'overflow', 'overflow-y', 'text-overflow', 'display', '-webkit-box-orient', '-webkit-line-clamp']) delete css[k];
+    css['white-space'] = t.single ? 'pre' : 'pre-wrap';
+  }
+
   function el(node, parent, depth) {
     if (!shown(node)) return '';
     const cls = className(node);
     const css = {};
     const pad = '  '.repeat(depth);
     sizeRules(node, parent, css);
+    const inside = inTyping.get(node);
+    if (inside && node === inside.cursor) {
+      for (const k of ['flex-shrink', 'align-self', 'position']) delete css[k];
+      Object.assign(css, { display: 'inline-block', 'vertical-align': 'middle', background: descendantColor(node) || 'currentColor', animation: 'ds-caret-blink 1s steps(1) infinite' });
+      caretBlink();
+      rules.push([cls, css]);
+      return `${pad}<span class="${cls}" aria-hidden="true"></span>\n`;
+    }
     const icon = node.type === 'INSTANCE' && node.main && opts.icons.get(node.main.key);
     if (icon) {
       css.display = 'block';
@@ -223,6 +253,7 @@ export function renderVariant(comp, layer, opts) {
     }
     if (node.type === 'TEXT') {
       textRules(node, css);
+      if (inside) typingText(inside, css);
       rules.push([cls, css]);
       const ref = node.propRefs && node.propRefs.characters;
       const text = ref && ref in opts.values ? opts.values[ref] : node.text.characters;
@@ -232,15 +263,35 @@ export function renderVariant(comp, layer, opts) {
     boxRules(node, css);
     if (node === layer && !css.display) css.display = 'inline-block';
     if (node === layer && css.display === 'flex') css.display = 'inline-flex';
+    const t = typing(node);
+    if (t) {
+      inTyping.set(t.text, t).set(t.cursor, t);
+      for (const k of ['flex-direction', 'justify-content', 'align-items', 'gap']) delete css[k];
+      css.display = 'block';
+      // the line box takes the text's font so the cursor does not make the line taller
+      const font = {};
+      textRules(t.text, font);
+      for (const k of ['font-family', 'font-size', 'line-height']) if (font[k]) css[k] = font[k];
+      if (t.single) Object.assign(css, { 'white-space': 'nowrap', overflow: 'hidden', direction: 'rtl', 'text-align': 'left' });
+    }
     rules.push([cls, css]);
-    const kids = (node.children || []).map((c) => el(c, node, depth + 1)).join('');
+    let kids = (node.children || []).map((c) => el(c, node, depth + 1)).join('');
+    // no whitespace between the text and the cursor, or it shows as a gap before the caret
+    if (t) kids = kids.replace(/\n\s*</g, '<').trim();
+    if (t && t.single) {
+      // rtl on the frame keeps the end in view when the line overflows; the line itself reads ltr
+      rules.push([`${cls}__line`, { direction: 'ltr', 'unicode-bidi': 'isolate' }]);
+      kids = `<span class="${cls}__line">${kids}</span>`;
+    }
+    if (t) return `${pad}<div class="${cls}">${kids}</div>\n`;
     return kids ? `${pad}<div class="${cls}">\n${kids}${pad}</div>\n` : `${pad}<div class="${cls}"></div>\n`;
   }
 
   const html = el(layer, null, 0);
   const css = rules
-    .filter(([, decl]) => Object.keys(decl).length)
-    .map(([cls, decl]) => `.${cls} {\n${Object.entries(decl).map(([k, val]) => `  ${k}: ${val};`).join('\n')}\n}`)
+    .filter(([, decl]) => typeof decl === 'string' || Object.keys(decl).length)
+    .map(([cls, decl]) => typeof decl === 'string' ? `${cls} { ${decl} }`
+      : `.${cls} {\n${Object.entries(decl).map(([k, val]) => `  ${k}: ${val};`).join('\n')}\n}`)
     .join('\n');
   return { html: html.trimEnd(), css };
 }
