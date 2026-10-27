@@ -86,9 +86,26 @@ export function renderVariant(comp, layer, opts) {
     }
     if (parent && (!parent.layout || node.position) && node.position) {
       css.position = 'absolute';
-      css.left = px(node.position[0]);
-      css.top = px(node.position[1]);
+      // Figma constraints keep the layer tied to the parent's edges or center when the parent
+      // grows (a two-line label, a longer button); without them it stays at its x/y.
+      const [ch, cv] = node.constraints || ['MIN', 'MIN'];
+      place(ch, node.position[0], node.size[0], parent.size[0], 'left', 'right', 'width', css);
+      place(cv, node.position[1], node.size[1], parent.size[1], 'top', 'bottom', 'height', css);
     }
+  }
+
+  function place(c, at, size, parentSize, start, end, prop, css) {
+    const rest = parentSize - at - size;
+    if (c === 'MAX') css[end] = px(rest);
+    else if (c === 'CENTER') css[start] = `calc(50% + ${px(at - parentSize / 2)})`;
+    else if (c === 'STRETCH') {
+      css[start] = px(at);
+      css[end] = px(rest);
+      delete css[prop];
+    } else if (c === 'SCALE') {
+      css[start] = `${(at / parentSize) * 100}%`;
+      css[prop] = `${(size / parentSize) * 100}%`;
+    } else css[start] = px(at);
   }
 
   function boxRules(node, css) {

@@ -671,7 +671,11 @@
               "cornerRadius": "focusRing/radius",
               "strokeWeight": "focusRing/borderWidth"
             },
-            "children": []
+            "children": [],
+            "constraints": [
+              "STRETCH",
+              "MIN"
+            ]
           }
         ]
       }
@@ -1275,7 +1279,11 @@
               "strokeWeight": "focusRing/borderWidth"
             },
             "children": [],
-            "id": "4971:32544"
+            "id": "4971:32544",
+            "constraints": [
+              "STRETCH",
+              "MIN"
+            ]
           }
         ],
         "id": "4971:32539"
@@ -1880,7 +1888,11 @@
               "strokeWeight": "focusRing/borderWidth"
             },
             "children": [],
-            "id": "4971:32550"
+            "id": "4971:32550",
+            "constraints": [
+              "STRETCH",
+              "MIN"
+            ]
           }
         ],
         "id": "4971:32545"
@@ -2558,7 +2570,11 @@
               "strokeWeight": "focusRing/borderWidth"
             },
             "children": [],
-            "id": "4971:32558"
+            "id": "4971:32558",
+            "constraints": [
+              "STRETCH",
+              "MIN"
+            ]
           }
         ],
         "id": "4971:32551"
@@ -3236,7 +3252,11 @@
               "strokeWeight": "focusRing/borderWidth"
             },
             "children": [],
-            "id": "4971:32566"
+            "id": "4971:32566",
+            "constraints": [
+              "STRETCH",
+              "MIN"
+            ]
           }
         ],
         "id": "4971:32559"
@@ -3914,7 +3934,11 @@
               "strokeWeight": "focusRing/borderWidth"
             },
             "children": [],
-            "id": "4971:32574"
+            "id": "4971:32574",
+            "constraints": [
+              "STRETCH",
+              "MIN"
+            ]
           }
         ],
         "id": "4971:32567"
@@ -4519,7 +4543,11 @@
               "strokeWeight": "focusRing/borderWidth"
             },
             "children": [],
-            "id": "4971:32648"
+            "id": "4971:32648",
+            "constraints": [
+              "STRETCH",
+              "MIN"
+            ]
           }
         ],
         "id": "4971:32643"
@@ -5124,7 +5152,11 @@
               "strokeWeight": "focusRing/borderWidth"
             },
             "children": [],
-            "id": "4971:32654"
+            "id": "4971:32654",
+            "constraints": [
+              "STRETCH",
+              "MIN"
+            ]
           }
         ],
         "id": "4971:32649"
@@ -5729,7 +5761,11 @@
               "strokeWeight": "focusRing/borderWidth"
             },
             "children": [],
-            "id": "4971:32660"
+            "id": "4971:32660",
+            "constraints": [
+              "STRETCH",
+              "MIN"
+            ]
           }
         ],
         "id": "4971:32655"
@@ -6377,7 +6413,11 @@
               "strokeWeight": "focusRing/borderWidth"
             },
             "children": [],
-            "id": "4971:32581"
+            "id": "4971:32581",
+            "constraints": [
+              "STRETCH",
+              "MIN"
+            ]
           }
         ],
         "id": "4971:32575"
@@ -7025,7 +7065,11 @@
               "strokeWeight": "focusRing/borderWidth"
             },
             "children": [],
-            "id": "4971:32667"
+            "id": "4971:32667",
+            "constraints": [
+              "STRETCH",
+              "MIN"
+            ]
           }
         ],
         "id": "4971:32661"
@@ -7673,7 +7717,11 @@
               "strokeWeight": "focusRing/borderWidth"
             },
             "children": [],
-            "id": "4971:32588"
+            "id": "4971:32588",
+            "constraints": [
+              "STRETCH",
+              "MIN"
+            ]
           }
         ],
         "id": "4971:32582"
@@ -8279,7 +8327,11 @@
               "cornerRadius": "focusRing/radius",
               "strokeWeight": "focusRing/borderWidth"
             },
-            "children": []
+            "children": [],
+            "constraints": [
+              "STRETCH",
+              "MIN"
+            ]
           }
         ]
       }
@@ -8883,7 +8935,11 @@
               "strokeWeight": "focusRing/borderWidth"
             },
             "children": [],
-            "id": "4971:32600"
+            "id": "4971:32600",
+            "constraints": [
+              "STRETCH",
+              "MIN"
+            ]
           }
         ],
         "id": "4971:32595"
@@ -9488,7 +9544,11 @@
               "strokeWeight": "focusRing/borderWidth"
             },
             "children": [],
-            "id": "4971:32606"
+            "id": "4971:32606",
+            "constraints": [
+              "STRETCH",
+              "MIN"
+            ]
           }
         ],
         "id": "4971:32601"
@@ -10093,7 +10153,11 @@
               "strokeWeight": "focusRing/borderWidth"
             },
             "children": [],
-            "id": "4971:32612"
+            "id": "4971:32612",
+            "constraints": [
+              "STRETCH",
+              "MIN"
+            ]
           }
         ],
         "id": "4971:32607"
@@ -10698,7 +10762,11 @@
               "strokeWeight": "focusRing/borderWidth"
             },
             "children": [],
-            "id": "4971:32618"
+            "id": "4971:32618",
+            "constraints": [
+              "STRETCH",
+              "MIN"
+            ]
           }
         ],
         "id": "4971:32613"
@@ -11303,7 +11371,11 @@
               "strokeWeight": "focusRing/borderWidth"
             },
             "children": [],
-            "id": "4971:32624"
+            "id": "4971:32624",
+            "constraints": [
+              "STRETCH",
+              "MIN"
+            ]
           }
         ],
         "id": "4971:32619"
@@ -11908,7 +11980,11 @@
               "strokeWeight": "focusRing/borderWidth"
             },
             "children": [],
-            "id": "4971:32630"
+            "id": "4971:32630",
+            "constraints": [
+              "STRETCH",
+              "MIN"
+            ]
           }
         ],
         "id": "4971:32625"
@@ -12513,7 +12589,11 @@
               "strokeWeight": "focusRing/borderWidth"
             },
             "children": [],
-            "id": "4971:32636"
+            "id": "4971:32636",
+            "constraints": [
+              "STRETCH",
+              "MIN"
+            ]
           }
         ],
         "id": "4971:32631"
@@ -13118,7 +13198,11 @@
               "strokeWeight": "focusRing/borderWidth"
             },
             "children": [],
-            "id": "4971:32642"
+            "id": "4971:32642",
+            "constraints": [
+              "STRETCH",
+              "MIN"
+            ]
           }
         ],
         "id": "4971:32637"
@@ -13723,7 +13807,11 @@
               "strokeWeight": "focusRing/borderWidth"
             },
             "children": [],
-            "id": "4971:32673"
+            "id": "4971:32673",
+            "constraints": [
+              "STRETCH",
+              "MIN"
+            ]
           }
         ],
         "id": "4971:32668"
@@ -14328,7 +14416,11 @@
               "strokeWeight": "focusRing/borderWidth"
             },
             "children": [],
-            "id": "4971:32679"
+            "id": "4971:32679",
+            "constraints": [
+              "STRETCH",
+              "MIN"
+            ]
           }
         ],
         "id": "4971:32674"
@@ -14933,7 +15025,11 @@
               "strokeWeight": "focusRing/borderWidth"
             },
             "children": [],
-            "id": "4971:32685"
+            "id": "4971:32685",
+            "constraints": [
+              "STRETCH",
+              "MIN"
+            ]
           }
         ],
         "id": "4971:32680"
@@ -15538,7 +15634,11 @@
               "strokeWeight": "focusRing/borderWidth"
             },
             "children": [],
-            "id": "4971:32538"
+            "id": "4971:32538",
+            "constraints": [
+              "STRETCH",
+              "MIN"
+            ]
           }
         ],
         "id": "4971:32533"
@@ -16143,7 +16243,11 @@
               "strokeWeight": "focusRing/borderWidth"
             },
             "children": [],
-            "id": "4971:32691"
+            "id": "4971:32691",
+            "constraints": [
+              "STRETCH",
+              "MIN"
+            ]
           }
         ],
         "id": "4971:32686"
@@ -16748,7 +16852,11 @@
               "strokeWeight": "focusRing/borderWidth"
             },
             "children": [],
-            "id": "4971:32697"
+            "id": "4971:32697",
+            "constraints": [
+              "STRETCH",
+              "MIN"
+            ]
           }
         ],
         "id": "4971:32692"

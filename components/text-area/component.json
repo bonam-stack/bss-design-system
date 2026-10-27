@@ -346,6 +346,10 @@
                       }
                     ]
                   }
+                ],
+                "constraints": [
+                  "MAX",
+                  "MAX"
                 ]
               }
             ]
@@ -872,7 +876,11 @@
               "cornerRadius": "focusRing/radius",
               "strokeWeight": "focusRing/borderWidth"
             },
-            "children": []
+            "children": [],
+            "constraints": [
+              "STRETCH",
+              "STRETCH"
+            ]
           }
         ]
       }
@@ -1228,7 +1236,11 @@
                     "id": "I4971:33480;7225:1699"
                   }
                 ],
-                "id": "4971:33480"
+                "id": "4971:33480",
+                "constraints": [
+                  "MAX",
+                  "MAX"
+                ]
               },
               {
                 "name": "_FocusRing",
@@ -1283,7 +1295,11 @@
                   "strokeWeight": "focusRing/borderWidth"
                 },
                 "children": [],
-                "id": "4971:33481"
+                "id": "4971:33481",
+                "constraints": [
+                  "STRETCH",
+                  "STRETCH"
+                ]
               }
             ],
             "id": "4971:33476"
@@ -2039,7 +2055,11 @@
                     "id": "I4971:33486;7225:1699"
                   }
                 ],
-                "id": "4971:33486"
+                "id": "4971:33486",
+                "constraints": [
+                  "MAX",
+                  "MAX"
+                ]
               },
               {
                 "name": "_FocusRing",
@@ -2094,7 +2114,11 @@
                   "strokeWeight": "focusRing/borderWidth"
                 },
                 "children": [],
-                "id": "4971:33487"
+                "id": "4971:33487",
+                "constraints": [
+                  "STRETCH",
+                  "STRETCH"
+                ]
               }
             ],
             "minMaxWidth": [
@@ -2898,7 +2922,11 @@
                         "id": "I4971:33493;7225:1699"
                       }
                     ],
-                    "id": "4971:33493"
+                    "id": "4971:33493",
+                    "constraints": [
+                      "MAX",
+                      "MAX"
+                    ]
                   },
                   {
                     "name": "_FocusRing",
@@ -2953,7 +2981,11 @@
                       "strokeWeight": "focusRing/borderWidth"
                     },
                     "children": [],
-                    "id": "4971:33494"
+                    "id": "4971:33494",
+                    "constraints": [
+                      "STRETCH",
+                      "STRETCH"
+                    ]
                   }
                 ],
                 "id": "4971:33491"
@@ -3713,7 +3745,11 @@
                     "id": "I4971:33517;7225:1726"
                   }
                 ],
-                "id": "4971:33517"
+                "id": "4971:33517",
+                "constraints": [
+                  "MAX",
+                  "MAX"
+                ]
               },
               {
                 "name": "_FocusRing",
@@ -3768,7 +3804,11 @@
                   "strokeWeight": "focusRing/borderWidth"
                 },
                 "children": [],
-                "id": "4971:33518"
+                "id": "4971:33518",
+                "constraints": [
+                  "STRETCH",
+                  "STRETCH"
+                ]
               }
             ],
             "id": "4971:33515"
@@ -4525,7 +4565,11 @@
                     "id": "I4971:33499;7225:1726"
                   }
                 ],
-                "id": "4971:33499"
+                "id": "4971:33499",
+                "constraints": [
+                  "MAX",
+                  "MAX"
+                ]
               },
               {
                 "name": "_FocusRing",
@@ -4580,7 +4624,11 @@
                   "strokeWeight": "focusRing/borderWidth"
                 },
                 "children": [],
-                "id": "4971:33500"
+                "id": "4971:33500",
+                "constraints": [
+                  "STRETCH",
+                  "STRETCH"
+                ]
               }
             ],
             "id": "4971:33497"
@@ -5336,7 +5384,11 @@
                     "id": "I4971:33505;7225:1699"
                   }
                 ],
-                "id": "4971:33505"
+                "id": "4971:33505",
+                "constraints": [
+                  "MAX",
+                  "MAX"
+                ]
               },
               {
                 "name": "_FocusRing",
@@ -5391,7 +5443,11 @@
                   "strokeWeight": "focusRing/borderWidth"
                 },
                 "children": [],
-                "id": "4971:33506"
+                "id": "4971:33506",
+                "constraints": [
+                  "STRETCH",
+                  "STRETCH"
+                ]
               }
             ],
             "id": "4971:33503"
@@ -6147,7 +6203,11 @@
                     "id": "I4971:33511;7225:1699"
                   }
                 ],
-                "id": "4971:33511"
+                "id": "4971:33511",
+                "constraints": [
+                  "MAX",
+                  "MAX"
+                ]
               },
               {
                 "name": "_FocusRing",
@@ -6202,7 +6262,11 @@
                   "strokeWeight": "focusRing/borderWidth"
                 },
                 "children": [],
-                "id": "4971:33512"
+                "id": "4971:33512",
+                "constraints": [
+                  "STRETCH",
+                  "STRETCH"
+                ]
               }
             ],
             "id": "4971:33509"
@@ -6958,7 +7022,11 @@
                     "id": "I4971:33472;7225:1708"
                   }
                 ],
-                "id": "4971:33472"
+                "id": "4971:33472",
+                "constraints": [
+                  "MAX",
+                  "MAX"
+                ]
               }
             ],
             "id": "4971:33470"
@@ -7485,7 +7553,11 @@
               "strokeWeight": "focusRing/borderWidth"
             },
             "children": [],
-            "id": "4971:33474"
+            "id": "4971:33474",
+            "constraints": [
+              "STRETCH",
+              "STRETCH"
+            ]
           }
         ],
         "id": "4971:33469"
