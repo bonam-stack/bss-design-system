@@ -1,0 +1,3484 @@
+{
+"source": {
+"fileKey": "WcoI745J38TaON7iCKcutW",
+"name": "(공유용) Components Library v0.5",
+"note": "Primitive/Semantic 색은 Figma에서 직접 읽음(2026-10-27). 나머지는 부품 JSON의 tokens. version 값은 아직 모름"
+},
+"collections": {
+"Primitive": "f4e72add378526c4ac65009e0d47065ce2c7e42f",
+"Semantic": "816332795a00c940b38dd8812a296f565d8bb59d",
+"Component": "22ac8c9ec5a43a7ac45522f5360fbd8d2bc0bf2d"
+},
+"tokens": {
+"--color-gray-50": {
+"figma": "color/gray/50",
+"key": "dbf05133d3a4d242ae49e7b2d053e2dc5223ad32",
+"collection": "Primitive",
+"type": "COLOR",
+"value": "#F8F9FB",
+"ref": null
+},
+"--color-gray-80": {
+"figma": "color/gray/80",
+"key": "0ea68bca5429533fab04391236874fcd3aa443f1",
+"collection": "Primitive",
+"type": "COLOR",
+"value": "#F1F3F5",
+"ref": null
+},
+"--color-gray-100": {
+"figma": "color/gray/100",
+"key": "6f86dda207b2b4c297e40d8ec82198b2e5b9a6ac",
+"collection": "Primitive",
+"type": "COLOR",
+"value": "#E8ECEF",
+"ref": null
+},
+"--color-gray-200": {
+"figma": "color/gray/200",
+"key": "15a615b2c0a555b4c1c21304c8cfbb476b520f9a",
+"collection": "Primitive",
+"type": "COLOR",
+"value": "#DCE0E5",
+"ref": null
+},
+"--color-gray-300": {
+"figma": "color/gray/300",
+"key": "486fa84e3dea7a001f1b810e87977d22fa434a2f",
+"collection": "Primitive",
+"type": "COLOR",
+"value": "#C4C9CF",
+"ref": null
+},
+"--color-gray-400": {
+"figma": "color/gray/400",
+"key": "7f35d29a344e381a91e70abc4371e29e20c3126e",
+"collection": "Primitive",
+"type": "COLOR",
+"value": "#B3B9C0",
+"ref": null
+},
+"--color-gray-500": {
+"figma": "color/gray/500",
+"key": "3afbdab4549e6a0048e520c55369149ebcd8f390",
+"collection": "Primitive",
+"type": "COLOR",
+"value": "#8B949E",
+"ref": null
+},
+"--color-gray-600": {
+"figma": "color/gray/600",
+"key": "088d542b4dfd55ad8116685cd5b3ca49ae52e6e5",
+"collection": "Primitive",
+"type": "COLOR",
+"value": "#697582",
+"ref": null
+},
+"--color-gray-700": {
+"figma": "color/gray/700",
+"key": "e9ec3d4ab68303dfd5e5686cee8208a9f6ea547b",
+"collection": "Primitive",
+"type": "COLOR",
+"value": "#454F59",
+"ref": null
+},
+"--color-gray-800": {
+"figma": "color/gray/800",
+"key": "8cdbd06ec5e7192087f531f6db4d1071538cb929",
+"collection": "Primitive",
+"type": "COLOR",
+"value": "#303942",
+"ref": null
+},
+"--color-gray-900": {
+"figma": "color/gray/900",
+"key": "1dfa4446db6b75e511bc0cd443f6e3407dae3ffb",
+"collection": "Primitive",
+"type": "COLOR",
+"value": "#1C1F23",
+"ref": null
+},
+"--color-t-blue-50": {
+"figma": "color/tBlue/50",
+"key": "29e17230dfc006471536f146df16e9ecdd62d911",
+"collection": "Primitive",
+"type": "COLOR",
+"value": "#F1F2FF",
+"ref": null
+},
+"--color-t-blue-80": {
+"figma": "color/tBlue/80",
+"key": "ef43a427d8093721e34f4185dda3a7aeecbe4859",
+"collection": "Primitive",
+"type": "COLOR",
+"value": "#E1E3FF",
+"ref": null
+},
+"--color-t-blue-100": {
+"figma": "color/tBlue/100",
+"key": "b1cd36aaaadfb1176a161c02c7f46a5f5f026ba5",
+"collection": "Primitive",
+"type": "COLOR",
+"value": "#D0D2FF",
+"ref": null
+},
+"--color-t-blue-200": {
+"figma": "color/tBlue/200",
+"key": "c7554481c079467e9b9a2d57811df81f1e2ac8fc",
+"collection": "Primitive",
+"type": "COLOR",
+"value": "#B4B7FF",
+"ref": null
+},
+"--color-t-blue-300": {
+"figma": "color/tBlue/300",
+"key": "1e2f7c67f51c5771636edec3cc821f2c03219dba",
+"collection": "Primitive",
+"type": "COLOR",
+"value": "#888CFF",
+"ref": null
+},
+"--color-t-blue-400": {
+"figma": "color/tBlue/400",
+"key": "995156d86b3e73b369bcaf1a299506930a522b65",
+"collection": "Primitive",
+"type": "COLOR",
+"value": "#6268FF",
+"ref": null
+},
+"--color-t-blue-500": {
+"figma": "color/tBlue/500",
+"key": "cc352e4c8d96151e4ca68bb646436f511ad8d186",
+"collection": "Primitive",
+"type": "COLOR",
+"value": "#502DFB",
+"ref": null
+},
+"--color-t-blue-600": {
+"figma": "color/tBlue/600",
+"key": "a7a179551451dc3699ce1dab0a663a15959ad5cb",
+"collection": "Primitive",
+"type": "COLOR",
+"value": "#3617CE",
+"ref": null
+},
+"--color-t-blue-700": {
+"figma": "color/tBlue/700",
+"key": "1b63eec0c97d800c836c1412b0cd7a87bf5e0885",
+"collection": "Primitive",
+"type": "COLOR",
+"value": "#2F15B2",
+"ref": null
+},
+"--color-t-blue-800": {
+"figma": "color/tBlue/800",
+"key": "08456379459cea7eeeae945af8861f85489b83c8",
+"collection": "Primitive",
+"type": "COLOR",
+"value": "#261091",
+"ref": null
+},
+"--color-t-blue-900": {
+"figma": "color/tBlue/900",
+"key": "1a05c31c302658b5d940c5d3d8099cdaccfc290d",
+"collection": "Primitive",
+"type": "COLOR",
+"value": "#231080",
+"ref": null
+},
+"--color-blue-50": {
+"figma": "color/blue/50",
+"key": "694d5f254eda60bbc4baca4b077ad394ecbc1bc5",
+"collection": "Primitive",
+"type": "COLOR",
+"value": "#EAF3FF",
+"ref": null
+},
+"--color-blue-80": {
+"figma": "color/blue/80",
+"key": "85cb99edb4fe2773faa7012a8a3a0ec7e67cb8b1",
+"collection": "Primitive",
+"type": "COLOR",
+"value": "#E3EDFB",
+"ref": null
+},
+"--color-blue-100": {
+"figma": "color/blue/100",
+"key": "a9dba04070ee63a057d85556bf2754b7f6848845",
+"collection": "Primitive",
+"type": "COLOR",
+"value": "#D9E9FF",
+"ref": null
+},
+"--color-blue-200": {
+"figma": "color/blue/200",
+"key": "aec5c5525f3453cd2a229a27da5a27eee92f0c65",
+"collection": "Primitive",
+"type": "COLOR",
+"value": "#C4DEFF",
+"ref": null
+},
+"--color-blue-300": {
+"figma": "color/blue/300",
+"key": "d52fefd0ac6fce886a5bb3b7b4295e93afefd280",
+"collection": "Primitive",
+"type": "COLOR",
+"value": "#9CC8FF",
+"ref": null
+},
+"--color-blue-400": {
+"figma": "color/blue/400",
+"key": "751ea9d270ce682038e80e5a97261ad9e9882a44",
+"collection": "Primitive",
+"type": "COLOR",
+"value": "#7FAEFF",
+"ref": null
+},
+"--color-blue-500": {
+"figma": "color/blue/500",
+"key": "4a3c53ad5072667f6d0c386fec3991eb5df1ab31",
+"collection": "Primitive",
+"type": "COLOR",
+"value": "#5895FF",
+"ref": null
+},
+"--color-blue-600": {
+"figma": "color/blue/600",
+"key": "ace3a7caf223770f6cd496691828d7bec29450f6",
+"collection": "Primitive",
+"type": "COLOR",
+"value": "#2E7AFF",
+"ref": null
+},
+"--color-blue-700": {
+"figma": "color/blue/700",
+"key": "563a320fca4832790f59f0b60773e65ba71ba958",
+"collection": "Primitive",
+"type": "COLOR",
+"value": "#135BE0",
+"ref": null
+},
+"--color-blue-800": {
+"figma": "color/blue/800",
+"key": "7d728bf989cf304fe3481135d24c6cd5adffad6e",
+"collection": "Primitive",
+"type": "COLOR",
+"value": "#0047C2",
+"ref": null
+},
+"--color-blue-900": {
+"figma": "color/blue/900",
+"key": "5bda5abf3431b1bd0e80ffca48e49e0f80f5595d",
+"collection": "Primitive",
+"type": "COLOR",
+"value": "#00349B",
+"ref": null
+},
+"--color-green-50": {
+"figma": "color/green/50",
+"key": "e8b69d58fc0a769c7ddd83148d5c71bd8bdf1d71",
+"collection": "Primitive",
+"type": "COLOR",
+"value": "#DFFEF0",
+"ref": null
+},
+"--color-green-80": {
+"figma": "color/green/80",
+"key": "8072d69ddca1d9880cb0162bd5a121cf3da78b06",
+"collection": "Primitive",
+"type": "COLOR",
+"value": "#D9F9EA",
+"ref": null
+},
+"--color-green-100": {
+"figma": "color/green/100",
+"key": "8e2a58ee0e4d27901b2b44d590dde67a1b51f8ca",
+"collection": "Primitive",
+"type": "COLOR",
+"value": "#C8F6E1",
+"ref": null
+},
+"--color-green-200": {
+"figma": "color/green/200",
+"key": "e2115828f4603b2f6770e0219245a327b11a3b3d",
+"collection": "Primitive",
+"type": "COLOR",
+"value": "#A4E7C8",
+"ref": null
+},
+"--color-green-300": {
+"figma": "color/green/300",
+"key": "ebcdb2dfd80a1b69fb85e0fdf2af41060779adb1",
+"collection": "Primitive",
+"type": "COLOR",
+"value": "#7DE1B3",
+"ref": null
+},
+"--color-green-400": {
+"figma": "color/green/400",
+"key": "644bb9be03c5e1730ef2cc6a249c0db5b5fdb6f2",
+"collection": "Primitive",
+"type": "COLOR",
+"value": "#3ACF91",
+"ref": null
+},
+"--color-green-500": {
+"figma": "color/green/500",
+"key": "241d84bb23aadc44242ca6aef86d13ba97263922",
+"collection": "Primitive",
+"type": "COLOR",
+"value": "#1AB46E",
+"ref": null
+},
+"--color-green-600": {
+"figma": "color/green/600",
+"key": "7b68a0582a27c151a4cfc53e33b7737c1c6f192a",
+"collection": "Primitive",
+"type": "COLOR",
+"value": "#00A058",
+"ref": null
+},
+"--color-green-700": {
+"figma": "color/green/700",
+"key": "12ac516dc3c46d75c5fe9f51e8fc0c90ec5e9a11",
+"collection": "Primitive",
+"type": "COLOR",
+"value": "#038E52",
+"ref": null
+},
+"--color-green-800": {
+"figma": "color/green/800",
+"key": "cf3790e0c233d9b734cbcf15341265b7d3b05cc3",
+"collection": "Primitive",
+"type": "COLOR",
+"value": "#0C7D4A",
+"ref": null
+},
+"--color-green-900": {
+"figma": "color/green/900",
+"key": "88d7a2e28166f1f89162a46a71c68b3a952f2675",
+"collection": "Primitive",
+"type": "COLOR",
+"value": "#06673B",
+"ref": null
+},
+"--color-yellow-50": {
+"figma": "color/yellow/50",
+"key": "ca22547a1b14af681e3497d481b460c091fc1607",
+"collection": "Primitive",
+"type": "COLOR",
+"value": "#FFF7DC",
+"ref": null
+},
+"--color-yellow-80": {
+"figma": "color/yellow/80",
+"key": "87d7da483f7df15d4d92e7766b1ad162ad690e8b",
+"collection": "Primitive",
+"type": "COLOR",
+"value": "#FCF4D9",
+"ref": null
+},
+"--color-yellow-100": {
+"figma": "color/yellow/100",
+"key": "a0e34982a4d90f114998b8fc99cc8a0c6fefe9f0",
+"collection": "Primitive",
+"type": "COLOR",
+"value": "#FDEFC4",
+"ref": null
+},
+"--color-yellow-200": {
+"figma": "color/yellow/200",
+"key": "bcddfe5085f6a20667951385e9a83abafd2a4a14",
+"collection": "Primitive",
+"type": "COLOR",
+"value": "#FFE9A8",
+"ref": null
+},
+"--color-yellow-300": {
+"figma": "color/yellow/300",
+"key": "1b0ac2f523f912961bd805597f007c907db018c6",
+"collection": "Primitive",
+"type": "COLOR",
+"value": "#FFE07F",
+"ref": null
+},
+"--color-yellow-400": {
+"figma": "color/yellow/400",
+"key": "a159c26726b70ee3fa5f6d78b02818415472869d",
+"collection": "Primitive",
+"type": "COLOR",
+"value": "#F9D26D",
+"ref": null
+},
+"--color-yellow-500": {
+"figma": "color/yellow/500",
+"key": "4a6dc2869be7f08dbba5b801e3cb748126d973ff",
+"collection": "Primitive",
+"type": "COLOR",
+"value": "#F7C55C",
+"ref": null
+},
+"--color-yellow-600": {
+"figma": "color/yellow/600",
+"key": "c2117389a6a4c1da871f71b57f7ca11d209f0382",
+"collection": "Primitive",
+"type": "COLOR",
+"value": "#F5B54F",
+"ref": null
+},
+"--color-yellow-700": {
+"figma": "color/yellow/700",
+"key": "ddbbecbb5861bbdebf8b0262d2e3f74d20f512a8",
+"collection": "Primitive",
+"type": "COLOR",
+"value": "#EFA44B",
+"ref": null
+},
+"--color-yellow-800": {
+"figma": "color/yellow/800",
+"key": "7afceb1640f0ef16f400241710995570780d5c78",
+"collection": "Primitive",
+"type": "COLOR",
+"value": "#E29338",
+"ref": null
+},
+"--color-yellow-900": {
+"figma": "color/yellow/900",
+"key": "9d34a1a413909c8344c43a077b051195e83d6510",
+"collection": "Primitive",
+"type": "COLOR",
+"value": "#D17E28",
+"ref": null
+},
+"--color-orange-50": {
+"figma": "color/orange/50",
+"key": "70cc2e7c421b4e3560735b3de895ffa9bac6482d",
+"collection": "Primitive",
+"type": "COLOR",
+"value": "#FFEEDA",
+"ref": null
+},
+"--color-orange-80": {
+"figma": "color/orange/80",
+"key": "1fc7708f74ff83d0d4d22572002540f5044c395f",
+"collection": "Primitive",
+"type": "COLOR",
+"value": "#FBE9D5",
+"ref": null
+},
+"--color-orange-100": {
+"figma": "color/orange/100",
+"key": "ad1d9fbc88327ffd89acdc3c4e44a8abf1d4221f",
+"collection": "Primitive",
+"type": "COLOR",
+"value": "#FFE4C4",
+"ref": null
+},
+"--color-orange-200": {
+"figma": "color/orange/200",
+"key": "2bed2814774dc6efe906d292697cd70f2c6d054a",
+"collection": "Primitive",
+"type": "COLOR",
+"value": "#FFD2A3",
+"ref": null
+},
+"--color-orange-300": {
+"figma": "color/orange/300",
+"key": "dee109fc2f2edafeac88c0de9d88ef448fa4396c",
+"collection": "Primitive",
+"type": "COLOR",
+"value": "#FFC387",
+"ref": null
+},
+"--color-orange-400": {
+"figma": "color/orange/400",
+"key": "9616a711fa6d5279f525e7e9652fb929be591d2b",
+"collection": "Primitive",
+"type": "COLOR",
+"value": "#FFB265",
+"ref": null
+},
+"--color-orange-500": {
+"figma": "color/orange/500",
+"key": "f5f7a42201d5db86ac696c644faaf29e4fcd44ce",
+"collection": "Primitive",
+"type": "COLOR",
+"value": "#FF9D3B",
+"ref": null
+},
+"--color-orange-600": {
+"figma": "color/orange/600",
+"key": "46a3989ce8def0cf787da00b32101bbed63c0be1",
+"collection": "Primitive",
+"type": "COLOR",
+"value": "#F08400",
+"ref": null
+},
+"--color-orange-700": {
+"figma": "color/orange/700",
+"key": "fa1a5fd9d2c38f9cbd9ce02b61bdd74d00629a46",
+"collection": "Primitive",
+"type": "COLOR",
+"value": "#E07400",
+"ref": null
+},
+"--color-orange-800": {
+"figma": "color/orange/800",
+"key": "ad41e52f4b9db19058f4fae0d7b79a50bfef4b1c",
+"collection": "Primitive",
+"type": "COLOR",
+"value": "#D66400",
+"ref": null
+},
+"--color-orange-900": {
+"figma": "color/orange/900",
+"key": "c0fbca51c191025fcc0b7b0899635d1e26abe33d",
+"collection": "Primitive",
+"type": "COLOR",
+"value": "#BE5900",
+"ref": null
+},
+"--color-red-50": {
+"figma": "color/red/50",
+"key": "4eb64cac11d136d6c9dde5f950a2e3cfad317511",
+"collection": "Primitive",
+"type": "COLOR",
+"value": "#FFE9E9",
+"ref": null
+},
+"--color-red-80": {
+"figma": "color/red/80",
+"key": "3f3a3bc653bb0e012a347a96be9f5d37633a9a4d",
+"collection": "Primitive",
+"type": "COLOR",
+"value": "#FBE1E1",
+"ref": null
+},
+"--color-red-100": {
+"figma": "color/red/100",
+"key": "266df8111a7c1827d6adf56872ed156ea73e3f07",
+"collection": "Primitive",
+"type": "COLOR",
+"value": "#FFDCDC",
+"ref": null
+},
+"--color-red-200": {
+"figma": "color/red/200",
+"key": "4031607c7505c6e524d568d26e023ce1bf9d1adb",
+"collection": "Primitive",
+"type": "COLOR",
+"value": "#FCB9B9",
+"ref": null
+},
+"--color-red-300": {
+"figma": "color/red/300",
+"key": "3d71f0bfc03f3cb5a4660eaad4d55f69af2684d4",
+"collection": "Primitive",
+"type": "COLOR",
+"value": "#FB9797",
+"ref": null
+},
+"--color-red-400": {
+"figma": "color/red/400",
+"key": "cc6b1b6e37b607086f5fbdd3735adc15ba6dd8bd",
+"collection": "Primitive",
+"type": "COLOR",
+"value": "#F87275",
+"ref": null
+},
+"--color-red-500": {
+"figma": "color/red/500",
+"key": "ce6dcea6b90653308d93390bebb439882068d9c8",
+"collection": "Primitive",
+"type": "COLOR",
+"value": "#EA5154",
+"ref": null
+},
+"--color-red-600": {
+"figma": "color/red/600",
+"key": "cb4884414c47c3da25c8181dbc167ce239bb1af4",
+"collection": "Primitive",
+"type": "COLOR",
+"value": "#ED3B3E",
+"ref": null
+},
+"--color-red-700": {
+"figma": "color/red/700",
+"key": "8c8d3a25a282abe7387a4dad882afab59ed35063",
+"collection": "Primitive",
+"type": "COLOR",
+"value": "#D12E31",
+"ref": null
+},
+"--color-red-800": {
+"figma": "color/red/800",
+"key": "b0248fe3031313f3e794d8e208b89cc6f8a1e341",
+"collection": "Primitive",
+"type": "COLOR",
+"value": "#B8282B",
+"ref": null
+},
+"--color-red-900": {
+"figma": "color/red/900",
+"key": "d99d7abe2851b79234bf871e22a1aef5098b1ec0",
+"collection": "Primitive",
+"type": "COLOR",
+"value": "#961C1E",
+"ref": null
+},
+"--color-t-gray-50": {
+"figma": "color/tGray/50",
+"key": "cef5a24d761ba37cccefd63fdc4d37b2522ee20d",
+"collection": "Primitive",
+"type": "COLOR",
+"value": "#FCFCFD",
+"ref": null
+},
+"--color-t-gray-80": {
+"figma": "color/tGray/80",
+"key": "ebac47f13cee2c0de838e1a8c2c3c2d08c0e9f21",
+"collection": "Primitive",
+"type": "COLOR",
+"value": "#F1F4FB",
+"ref": null
+},
+"--color-t-gray-100": {
+"figma": "color/tGray/100",
+"key": "796ceccb04b9dcf6e484a2722a54a7558c82d7ca",
+"collection": "Primitive",
+"type": "COLOR",
+"value": "#EBEEF6",
+"ref": null
+},
+"--color-gray-alpha-5": {
+"figma": "color/grayAlpha/5",
+"key": "11fd01064a6b666a0213cfa128930da97ea856c1",
+"collection": "Primitive",
+"type": "COLOR",
+"value": "#03182E0D",
+"ref": null
+},
+"--color-gray-alpha-8": {
+"figma": "color/grayAlpha/8",
+"key": "8bd87c1a41a70a06907b89408c7db557ea8f276c",
+"collection": "Primitive",
+"type": "COLOR",
+"value": "#03182E14",
+"ref": null
+},
+"--color-gray-alpha-30": {
+"figma": "color/grayAlpha/30",
+"key": "0bfabdf6cec0b45913ac980c1e142613cc8b5721",
+"collection": "Primitive",
+"type": "COLOR",
+"value": "#03182E4D",
+"ref": null
+},
+"--color-gray-alpha-40": {
+"figma": "color/grayAlpha/40",
+"key": "fd721b23a864f520895e540227639884bc10216b",
+"collection": "Primitive",
+"type": "COLOR"
+},
+"--color-gray-alpha-50": {
+"figma": "color/grayAlpha/50",
+"key": "a72a51c8e0a02341fc2217bb29ba7782ec4d3640",
+"collection": "Primitive",
+"type": "COLOR"
+},
+"--color-black-alpha-12": {
+"figma": "color/blackAlpha/12",
+"key": "d785bf3130cf304636fa82e4d7c592965048b6c0",
+"collection": "Primitive",
+"type": "COLOR",
+"value": "#0000001F",
+"ref": null
+},
+"--color-black-alpha-14": {
+"figma": "color/blackAlpha/14",
+"key": "e2f0960d1e5a2e63ed6c9ee879ae186b46258f03",
+"collection": "Primitive",
+"type": "COLOR",
+"value": "#00000024",
+"ref": null
+},
+"--color-black-alpha-16": {
+"figma": "color/blackAlpha/16",
+"key": "7dd856ba2c33412dfbeb4a6820f0001650c5f2ec",
+"collection": "Primitive",
+"type": "COLOR",
+"value": "#00000029",
+"ref": null
+},
+"--color-black-alpha-18": {
+"figma": "color/blackAlpha/18",
+"key": "889d806504be746eb560d4a69f5751595b83649b",
+"collection": "Primitive",
+"type": "COLOR",
+"value": "#0000002E",
+"ref": null
+},
+"--color-black-alpha-60": {
+"figma": "color/blackAlpha/60",
+"key": "2e77b13ae11ba21802245ce55674915463329cff",
+"collection": "Primitive",
+"type": "COLOR"
+},
+"--color-white-alpha-80": {
+"figma": "color/whiteAlpha/80",
+"key": "d447eb81d48918f3983af7f21e305c1fe67a0b83",
+"collection": "Primitive",
+"type": "COLOR",
+"value": "#FFFFFFCC",
+"ref": null
+},
+"--color-white": {
+"figma": "color/white",
+"key": "bb8e59d2adada7690ae12da4c2baa3466841186a",
+"collection": "Primitive",
+"type": "COLOR",
+"value": "#FFFFFF",
+"ref": null
+},
+"--color-transparent": {
+"figma": "color/transparent",
+"key": "28bf0ffa48586e02928decf06305b1493bd536e5",
+"collection": "Primitive",
+"type": "COLOR",
+"value": "#00000000",
+"ref": null
+},
+"--color-gray-alpha-90": {
+"figma": "color/grayAlpha/90",
+"key": "7964f5c6b2ddaa46f01cd46d78f557d4d30eef44",
+"collection": "Primitive",
+"type": "COLOR"
+},
+"--color-bg-neutral-faint": {
+"figma": "color/bg/neutral/faint",
+"key": "cef4e0a8268e8bfcc17c955e1d198bc9114cea68",
+"collection": "Semantic",
+"type": "COLOR",
+"value": "#F8F9FB",
+"ref": "--color-gray-50"
+},
+"--color-bg-neutral-muted": {
+"figma": "color/bg/neutral/muted",
+"key": "469b81815460120caf124ef3e20891d378d144ae",
+"collection": "Semantic",
+"type": "COLOR",
+"value": "#F1F3F5",
+"ref": "--color-gray-80"
+},
+"--color-bg-neutral-strong": {
+"figma": "color/bg/neutral/strong",
+"key": "e964c6945aa867b313815c34f5b61982c4fd4b97",
+"collection": "Semantic",
+"type": "COLOR",
+"value": "#E8ECEF",
+"ref": "--color-gray-100"
+},
+"--color-bg-neutral-strongest-default": {
+"figma": "color/bg/neutral/strongest/default",
+"key": "02a4e6e2233a22380be79109062514d2078bea85",
+"collection": "Semantic",
+"type": "COLOR",
+"value": "#1C1F23",
+"ref": "--color-gray-900"
+},
+"--color-bg-neutral-strongest-disabled": {
+"figma": "color/bg/neutral/strongest/disabled",
+"key": "bb01697554bc9794ffe2989809a01fab3e22056e",
+"collection": "Semantic",
+"type": "COLOR",
+"value": "#C4C9CF",
+"ref": "--color-gray-300"
+},
+"--color-bg-neutral-disabled": {
+"figma": "color/bg/neutral/disabled",
+"key": "e9193409a5b4306409abbb4f3bcd51cc211dd8d8",
+"collection": "Semantic",
+"type": "COLOR",
+"value": "#E8ECEF",
+"ref": "--color-gray-100"
+},
+"--color-bg-brand-faint-default": {
+"figma": "color/bg/brand/faint/default",
+"key": "c178cb26bdb47a7601f35d98082badf33073843e",
+"collection": "Semantic",
+"type": "COLOR",
+"value": "#F1F2FF",
+"ref": "--color-t-blue-50"
+},
+"--color-bg-brand-faint-hover": {
+"figma": "color/bg/brand/faint/hover",
+"key": "32fe1b4a2963727ae204d9e2e966c61eaa427bfc",
+"collection": "Semantic",
+"type": "COLOR",
+"value": "#E1E3FF",
+"ref": "--color-t-blue-80"
+},
+"--color-bg-brand-faint-pressed": {
+"figma": "color/bg/brand/faint/pressed",
+"key": "18121156e431d39f597eae33c952e9f8d29747b9",
+"collection": "Semantic",
+"type": "COLOR",
+"value": "#D0D2FF",
+"ref": "--color-t-blue-100"
+},
+"--color-bg-brand-muted": {
+"figma": "color/bg/brand/muted",
+"key": "710197a0a134d7c461608a8de7c596fc42b14e15",
+"collection": "Semantic",
+"type": "COLOR",
+"value": "#E1E3FF",
+"ref": "--color-t-blue-80"
+},
+"--color-bg-brand-strong": {
+"figma": "color/bg/brand/strong",
+"key": "66e3c6d71cfb81523aa38c21b95b59b7bb3cdff7",
+"collection": "Semantic",
+"type": "COLOR",
+"value": "#E1E3FF",
+"ref": "--color-t-blue-80"
+},
+"--color-bg-brand-strongest-default": {
+"figma": "color/bg/brand/strongest/default",
+"key": "863b95719242abfd9deee0049fe07d60d50f688d",
+"collection": "Semantic",
+"type": "COLOR",
+"value": "#3617CE",
+"ref": "--color-t-blue-600"
+},
+"--color-bg-brand-strongest-hover": {
+"figma": "color/bg/brand/strongest/hover",
+"key": "186751a813645df97aebed5e0a8bd8b0483cbbbc",
+"collection": "Semantic",
+"type": "COLOR",
+"value": "#2F15B2",
+"ref": "--color-t-blue-700"
+},
+"--color-bg-brand-strongest-pressed": {
+"figma": "color/bg/brand/strongest/pressed",
+"key": "7686fc468e2b0dd991e7991261914d9b5aeae0f6",
+"collection": "Semantic",
+"type": "COLOR",
+"value": "#261091",
+"ref": "--color-t-blue-800"
+},
+"--color-bg-brand-disabled": {
+"figma": "color/bg/brand/disabled",
+"key": "68457908f94b02b2af60b1892da484018e71a39e",
+"collection": "Semantic",
+"type": "COLOR",
+"value": "#B4B7FF",
+"ref": "--color-t-blue-200"
+},
+"--color-bg-danger-faint": {
+"figma": "color/bg/danger/faint",
+"key": "d91c14e3fdb9dcd307309d9604b1706104fab742",
+"collection": "Semantic",
+"type": "COLOR",
+"value": "#FFE9E9",
+"ref": "--color-red-50"
+},
+"--color-bg-danger-muted": {
+"figma": "color/bg/danger/muted",
+"key": "d76c1c03faa84268285d44d36376b62e694035e0",
+"collection": "Semantic",
+"type": "COLOR",
+"value": "#FBE1E1",
+"ref": "--color-red-80"
+},
+"--color-bg-danger-strong": {
+"figma": "color/bg/danger/strong",
+"key": "1a54f5434a84fb0fc73e4733efa6674e6a562cfc",
+"collection": "Semantic",
+"type": "COLOR",
+"value": "#FFDCDC",
+"ref": "--color-red-100"
+},
+"--color-bg-danger-strongest": {
+"figma": "color/bg/danger/strongest",
+"key": "760ed61c7298f0952521495d9f805d83119afd72",
+"collection": "Semantic",
+"type": "COLOR",
+"value": "#EA5154",
+"ref": "--color-red-500"
+},
+"--color-bg-attention-faint": {
+"figma": "color/bg/attention/faint",
+"key": "03a954a465b2ff2daa661a510db6d3528431c881",
+"collection": "Semantic",
+"type": "COLOR",
+"value": "#FFF7DC",
+"ref": "--color-yellow-50"
+},
+"--color-bg-attention-strong": {
+"figma": "color/bg/attention/strong",
+"key": "9a991d06b25962e8edd89422624d257cd6967eed",
+"collection": "Semantic",
+"type": "COLOR",
+"value": "#FDEFC4",
+"ref": "--color-yellow-100"
+},
+"--color-bg-attention-strongest": {
+"figma": "color/bg/attention/strongest",
+"key": "af78597acc8fd7ef131c1973257055375e085bf7",
+"collection": "Semantic",
+"type": "COLOR",
+"value": "#F7C55C",
+"ref": "--color-yellow-500"
+},
+"--color-bg-warning-faint": {
+"figma": "color/bg/warning/faint",
+"key": "ff394e5732672354febdae1838a7bd43cf5a8ccd",
+"collection": "Semantic",
+"type": "COLOR",
+"value": "#FFEEDA",
+"ref": "--color-orange-50"
+},
+"--color-bg-warning-strong": {
+"figma": "color/bg/warning/strong",
+"key": "7999276360417b72f204979810d4bca679bb0f28",
+"collection": "Semantic",
+"type": "COLOR",
+"value": "#FFE4C4",
+"ref": "--color-orange-100"
+},
+"--color-bg-warning-strongest": {
+"figma": "color/bg/warning/strongest",
+"key": "e22253a84dad19df23c1a7031cbca8acc14255f4",
+"collection": "Semantic",
+"type": "COLOR",
+"value": "#FF9D3B",
+"ref": "--color-orange-500"
+},
+"--color-bg-success-strong": {
+"figma": "color/bg/success/strong",
+"key": "bd57c74a375ad005471bbad276f67798afaa321c",
+"collection": "Semantic",
+"type": "COLOR",
+"value": "#C8F6E1",
+"ref": "--color-green-100"
+},
+"--color-bg-success-strongest": {
+"figma": "color/bg/success/strongest",
+"key": "097851e561d7774135861be16029fb25f11634f6",
+"collection": "Semantic",
+"type": "COLOR",
+"value": "#1AB46E",
+"ref": "--color-green-500"
+},
+"--color-bg-info-strong": {
+"figma": "color/bg/info/strong",
+"key": "8d295d1c31294a1b54b04b4d8b8c3d9d31d26ab9",
+"collection": "Semantic",
+"type": "COLOR",
+"value": "#D9E9FF",
+"ref": "--color-blue-100"
+},
+"--color-bg-info-strongest": {
+"figma": "color/bg/info/strongest",
+"key": "b40234832c78cf1c0a9a50c6039a93a1988bd01f",
+"collection": "Semantic",
+"type": "COLOR",
+"value": "#5895FF",
+"ref": "--color-blue-500"
+},
+"--color-bg-base": {
+"figma": "color/bg/base",
+"key": "21f34762cf9d28772bfc8b1b58975528b938e01f",
+"collection": "Semantic",
+"type": "COLOR",
+"value": "#FFFFFF",
+"ref": "--color-white"
+},
+"--color-bg-transparent": {
+"figma": "color/bg/transparent",
+"key": "20423718d76c00f599acca8d4d6bf2757f5ce282",
+"collection": "Semantic",
+"type": "COLOR",
+"value": "#00000000",
+"ref": "--color-transparent"
+},
+"--color-bg-backdrop": {
+"figma": "color/bg/backdrop",
+"key": "227611f112e6df6c6bd8f551cdb9788b610b562c",
+"collection": "Semantic",
+"type": "COLOR"
+},
+"--color-fg-neutral-faint": {
+"figma": "color/fg/neutral/faint",
+"key": "941e3a16aedc1d1b8868ef6fb432a9aef297bd71",
+"collection": "Semantic",
+"type": "COLOR",
+"value": "#8B949E",
+"ref": "--color-gray-500"
+},
+"--color-fg-neutral-muted-default": {
+"figma": "color/fg/neutral/muted/default",
+"key": "f17e9afddbac67cff8786c1459c815556fc51722",
+"collection": "Semantic",
+"type": "COLOR",
+"value": "#697582",
+"ref": "--color-gray-600"
+},
+"--color-fg-neutral-muted-hover": {
+"figma": "color/fg/neutral/muted/hover",
+"key": "631b97799236fed5918c3817dbef2524b84f5a11",
+"collection": "Semantic",
+"type": "COLOR",
+"value": "#454F59",
+"ref": "--color-gray-700"
+},
+"--color-fg-neutral-muted-pressed": {
+"figma": "color/fg/neutral/muted/pressed",
+"key": "e885748e913c563007e4e096f9cde818ca8471d7",
+"collection": "Semantic",
+"type": "COLOR",
+"value": "#303942",
+"ref": "--color-gray-800"
+},
+"--color-fg-neutral-faintest": {
+"figma": "color/fg/neutral/faintest",
+"key": "4d1d364380c86cbb402b5fc5b9eb081de1db7391",
+"collection": "Semantic",
+"type": "COLOR",
+"value": "#E8ECEF",
+"ref": "--color-gray-100"
+},
+"--color-fg-neutral-strong": {
+"figma": "color/fg/neutral/strong",
+"key": "74f73e42605accde57f6f5c5c69507532d667296",
+"collection": "Semantic",
+"type": "COLOR",
+"value": "#454F59",
+"ref": "--color-gray-700"
+},
+"--color-fg-neutral-strongest": {
+"figma": "color/fg/neutral/strongest",
+"key": "434b449d8657bc8e674735bf093a12e9291544b6",
+"collection": "Semantic",
+"type": "COLOR",
+"value": "#1C1F23",
+"ref": "--color-gray-900"
+},
+"--color-fg-neutral-disabled": {
+"figma": "color/fg/neutral/disabled",
+"key": "1845690fe2aaa245b34c2921949f33fa5209f0d6",
+"collection": "Semantic",
+"type": "COLOR",
+"value": "#B3B9C0",
+"ref": "--color-gray-400"
+},
+"--color-fg-brand-strong-default": {
+"figma": "color/fg/brand/strong/default",
+"key": "ea2aae29b289361a02c9a8974592e6b00ba2d92d",
+"collection": "Semantic",
+"type": "COLOR",
+"value": "#3617CE",
+"ref": "--color-t-blue-600"
+},
+"--color-fg-brand-strong-hover": {
+"figma": "color/fg/brand/strong/hover",
+"key": "1f4ab96f43125dd78c9d4a71f143e2a1c259a9ee",
+"collection": "Semantic",
+"type": "COLOR",
+"value": "#2F15B2",
+"ref": "--color-t-blue-700"
+},
+"--color-fg-brand-strong-pressed": {
+"figma": "color/fg/brand/strong/pressed",
+"key": "280c4f3395c78fd0b631e973c7ab296c3766bd61",
+"collection": "Semantic",
+"type": "COLOR",
+"value": "#261091",
+"ref": "--color-t-blue-800"
+},
+"--color-fg-brand-faintest": {
+"figma": "color/fg/brand/faintest",
+"key": "c5cc2da0b2077bc840754ad02cd199935d7bff38",
+"collection": "Semantic",
+"type": "COLOR",
+"value": "#B4B7FF",
+"ref": "--color-t-blue-200"
+},
+"--color-fg-brand-strongest": {
+"figma": "color/fg/brand/strongest",
+"key": "3518902de14bece5df6752822b3738b5fbc9e6b6",
+"collection": "Semantic",
+"type": "COLOR",
+"value": "#2F15B2",
+"ref": "--color-t-blue-700"
+},
+"--color-fg-brand-disabled": {
+"figma": "color/fg/brand/disabled",
+"key": "a9f56d0d8158e72932ff7607c4bf3e3599826d4c",
+"collection": "Semantic",
+"type": "COLOR",
+"value": "#6268FF",
+"ref": "--color-t-blue-400"
+},
+"--color-fg-danger-strong": {
+"figma": "color/fg/danger/strong",
+"key": "a0c51252f3b95d746c682cd3b911f5edb26f7cd8",
+"collection": "Semantic",
+"type": "COLOR",
+"value": "#ED3B3E",
+"ref": "--color-red-600"
+},
+"--color-fg-danger-strongest": {
+"figma": "color/fg/danger/strongest",
+"key": "19c1bd26d8569a34cd351aeeef744a2b4ac626ca",
+"collection": "Semantic",
+"type": "COLOR",
+"value": "#ED3B3E",
+"ref": "--color-red-600"
+},
+"--color-fg-danger-disabled": {
+"figma": "color/fg/danger/disabled",
+"key": "934ef3b20bea0997d71e3506e1848cbfa2a8bf0c",
+"collection": "Semantic",
+"type": "COLOR",
+"value": "#F87275",
+"ref": "--color-red-400"
+},
+"--color-fg-attention-strongest": {
+"figma": "color/fg/attention/strongest",
+"key": "39fb5474fcd13ae7952f0e57562ae3fbbab920a6",
+"collection": "Semantic",
+"type": "COLOR",
+"value": "#D17E28",
+"ref": "--color-yellow-900"
+},
+"--color-fg-warning-strongest": {
+"figma": "color/fg/warning/strongest",
+"key": "e2eec79e2d3b68ccf9f70283a58a5ccfcda24528",
+"collection": "Semantic",
+"type": "COLOR",
+"value": "#E07400",
+"ref": "--color-orange-700"
+},
+"--color-fg-success-strongest": {
+"figma": "color/fg/success/strongest",
+"key": "6392bb982e4f54ada26e6da021de34b4c75ae314",
+"collection": "Semantic",
+"type": "COLOR",
+"value": "#038E52",
+"ref": "--color-green-700"
+},
+"--color-fg-info-strong": {
+"figma": "color/fg/info/strong",
+"key": "fb6d8fb2bc47a0a5a80a2ebe050e520bcf85e31a",
+"collection": "Semantic",
+"type": "COLOR",
+"value": "#2E7AFF",
+"ref": "--color-blue-600"
+},
+"--color-fg-info-strongest": {
+"figma": "color/fg/info/strongest",
+"key": "b019aebaa73ccbb46ee3f81938325dc0e8a0ec50",
+"collection": "Semantic",
+"type": "COLOR",
+"value": "#135BE0",
+"ref": "--color-blue-700"
+},
+"--color-fg-info-disabled": {
+"figma": "color/fg/info/disabled",
+"key": "8b3d9c3566af66a10295dbfec9846269b21d8c63",
+"collection": "Semantic",
+"type": "COLOR",
+"value": "#7FAEFF",
+"ref": "--color-blue-400"
+},
+"--color-fg-on-strongest": {
+"figma": "color/fg/onStrongest",
+"key": "92c43207de53704849039fab020b3fb0a8c44b3f",
+"collection": "Semantic",
+"type": "COLOR",
+"value": "#FFFFFF",
+"ref": "--color-white"
+},
+"--color-border-neutral-faint": {
+"figma": "color/border/neutral/faint",
+"key": "7acb19823cec126eaf34dac7905195ee67150495",
+"collection": "Semantic",
+"type": "COLOR",
+"value": "#E8ECEF",
+"ref": "--color-gray-100"
+},
+"--color-border-neutral-muted": {
+"figma": "color/border/neutral/muted",
+"key": "d8941f5bf27aa10efe7126f200873a31f6ced7b3",
+"collection": "Semantic",
+"type": "COLOR",
+"value": "#DCE0E5",
+"ref": "--color-gray-200"
+},
+"--color-border-neutral-strong": {
+"figma": "color/border/neutral/strong",
+"key": "0e0537fc8d4a84c7037e222df62f8e570f4915b0",
+"collection": "Semantic",
+"type": "COLOR",
+"value": "#C4C9CF",
+"ref": "--color-gray-300"
+},
+"--color-border-neutral-strongest": {
+"figma": "color/border/neutral/strongest",
+"key": "d192fb100b1e4da2f9bda6141ec8ff8435cb394b",
+"collection": "Semantic",
+"type": "COLOR",
+"value": "#1C1F23",
+"ref": "--color-gray-900"
+},
+"--color-border-neutral-disabled": {
+"figma": "color/border/neutral/disabled",
+"key": "f1f0f002127535a83431bfd758915d3301930728",
+"collection": "Semantic",
+"type": "COLOR",
+"value": "#DCE0E5",
+"ref": "--color-gray-200"
+},
+"--color-border-neutral-focus": {
+"figma": "color/border/neutral/focus",
+"key": "a7b4db7192d63fb163ef016cae4ffae96fb1f901",
+"collection": "Semantic",
+"type": "COLOR",
+"value": "#303942",
+"ref": "--color-gray-800"
+},
+"--color-border-brand-strong-default": {
+"figma": "color/border/brand/strong/default",
+"key": "aba54f245f1431e80d983975321e8925c1f1e024",
+"collection": "Semantic",
+"type": "COLOR",
+"value": "#3617CE",
+"ref": "--color-t-blue-600"
+},
+"--color-border-brand-strong-hover": {
+"figma": "color/border/brand/strong/hover",
+"key": "5d7b9d6e0d8a41b02c8d539772d7a4c1c16dca50",
+"collection": "Semantic",
+"type": "COLOR",
+"value": "#2F15B2",
+"ref": "--color-t-blue-700"
+},
+"--color-border-brand-strong-pressed": {
+"figma": "color/border/brand/strong/pressed",
+"key": "dd7a86e6d1502e994037601273749c00ca833848",
+"collection": "Semantic",
+"type": "COLOR",
+"value": "#261091",
+"ref": "--color-t-blue-800"
+},
+"--color-border-brand-disabled": {
+"figma": "color/border/brand/disabled",
+"key": "76b6862cabfd0bd8e53c8d7e76bad473884a7af5",
+"collection": "Semantic",
+"type": "COLOR",
+"value": "#B4B7FF",
+"ref": "--color-t-blue-200"
+},
+"--color-border-danger-faint": {
+"figma": "color/border/danger/faint",
+"key": "659c72fa85379b957ab34f999780a53e2fec2734",
+"collection": "Semantic",
+"type": "COLOR",
+"value": "#FFDCDC",
+"ref": "--color-red-100"
+},
+"--color-border-danger-strong": {
+"figma": "color/border/danger/strong",
+"key": "986529bc2fc89a8081f9d0cc7a070dd58e5ded8a",
+"collection": "Semantic",
+"type": "COLOR",
+"value": "#ED3B3E",
+"ref": "--color-red-600"
+},
+"--color-border-danger-disabled": {
+"figma": "color/border/danger/disabled",
+"key": "616bc2a34eafc69213f84c57251d0360cc1e3441",
+"collection": "Semantic",
+"type": "COLOR",
+"value": "#FCB9B9",
+"ref": "--color-red-200"
+},
+"--color-border-attention-muted": {
+"figma": "color/border/attention/muted",
+"key": "d9eb86b1f545df5a1cef8685ea950301f72e151a",
+"collection": "Semantic",
+"type": "COLOR",
+"value": "#FFE07F",
+"ref": "--color-yellow-300"
+},
+"--color-border-warning-muted": {
+"figma": "color/border/warning/muted",
+"key": "df4293c1d5cac91e8ab3fdb41d29fd29c8030d13",
+"collection": "Semantic",
+"type": "COLOR",
+"value": "#FFC387",
+"ref": "--color-orange-300"
+},
+"--color-border-focus-ring": {
+"figma": "color/border/focusRing",
+"key": "fd665b6dbf167669da24b92360f56fcbebc032a5",
+"collection": "Semantic",
+"type": "COLOR",
+"value": "#7FAEFF",
+"ref": "--color-blue-400"
+},
+"--color-bg-on-strongest": {
+"figma": "color/bg/onStrongest",
+"key": "430238d93ddf630c70c942b12838853249a3cc03",
+"collection": "Semantic",
+"type": "COLOR"
+},
+"--color-shadow-small": {
+"figma": "color/shadow/small",
+"key": "2d05de0e91ffe088e4fe5872c080b59ce94d2fd3",
+"collection": "Semantic",
+"type": "COLOR"
+},
+"--color-shadow-medium": {
+"figma": "color/shadow/medium",
+"key": "3761388f0822ee84737d65ed66b46233af1f8ca8",
+"collection": "Semantic",
+"type": "COLOR"
+},
+"--color-shadow-large": {
+"figma": "color/shadow/large",
+"key": "d3af0a977302ed567b0ab18be14dbcad4fb8255c",
+"collection": "Semantic",
+"type": "COLOR"
+},
+"--color-shadow-xlarge": {
+"figma": "color/shadow/xlarge",
+"key": "f3d0aa06b304c121baced9c370f0f3b7d2dc80e0",
+"collection": "Semantic",
+"type": "COLOR"
+},
+"--button-accent-color-bg-default": {
+"figma": "button/accent/color/bg/default",
+"key": "619894ecf19e47fde51f514a173cf937751518df",
+"collection": "Component",
+"type": "COLOR",
+"value": "#00000000",
+"ref": "--color-bg-transparent"
+},
+"--button-accent-color-bg-disabled": {
+"figma": "button/accent/color/bg/disabled",
+"key": "b506e5a61d158ebfdecf542a0a8ad3a25caaebf6",
+"collection": "Component",
+"type": "COLOR",
+"value": "#00000000",
+"ref": "--color-bg-transparent"
+},
+"--button-accent-color-bg-hover": {
+"figma": "button/accent/color/bg/hover",
+"key": "ed012f5e6c75d73c25ddcda9d43831a92ff3a14c",
+"collection": "Component",
+"type": "COLOR",
+"value": "#F1F2FF",
+"ref": "--color-bg-brand-faint-default"
+},
+"--button-accent-color-bg-pressed": {
+"figma": "button/accent/color/bg/pressed",
+"key": "e0d2f3356b0fd43788823bf6f8e1d5db7778dc69",
+"collection": "Component",
+"type": "COLOR",
+"value": "#E1E3FF",
+"ref": "--color-bg-brand-muted"
+},
+"--button-accent-color-border-default": {
+"figma": "button/accent/color/border/default",
+"key": "9f9fe4388724dbf52601ffcef0f3b52084ab5496",
+"collection": "Component",
+"type": "COLOR",
+"value": "#3617CE",
+"ref": "--color-border-brand-strong-default"
+},
+"--button-accent-color-border-disabled": {
+"figma": "button/accent/color/border/disabled",
+"key": "03b2c7afea2dec9429d90451860289d9eb4d6512",
+"collection": "Component",
+"type": "COLOR",
+"value": "#B4B7FF",
+"ref": "--color-border-brand-disabled"
+},
+"--button-accent-color-border-hover": {
+"figma": "button/accent/color/border/hover",
+"key": "7c4aec3a764fab8cd9a00d7f94580a26e1110085",
+"collection": "Component",
+"type": "COLOR",
+"value": "#3617CE",
+"ref": "--color-border-brand-strong-default"
+},
+"--button-accent-color-border-pressed": {
+"figma": "button/accent/color/border/pressed",
+"key": "7fcb9b09519a2e6b98c688145e71d4a1651023a6",
+"collection": "Component",
+"type": "COLOR",
+"value": "#3617CE",
+"ref": "--color-border-brand-strong-default"
+},
+"--button-accent-color-fg-default": {
+"figma": "button/accent/color/fg/default",
+"key": "c2889ee8f5a10ce9827b57f4d39868130f49f298",
+"collection": "Component",
+"type": "COLOR",
+"value": "#3617CE",
+"ref": "--color-fg-brand-strong-default"
+},
+"--button-accent-color-fg-disabled": {
+"figma": "button/accent/color/fg/disabled",
+"key": "999dccf0cb9e07dc58fd5938ed5ac0ed7317f265",
+"collection": "Component",
+"type": "COLOR",
+"value": "#6268FF",
+"ref": "--color-fg-brand-disabled"
+},
+"--button-accent-color-fg-hover": {
+"figma": "button/accent/color/fg/hover",
+"key": "1cc3e5decbbdaefef1ca767687cf2c863a1e527e",
+"collection": "Component",
+"type": "COLOR",
+"value": "#3617CE",
+"ref": "--color-fg-brand-strong-default"
+},
+"--button-accent-color-fg-pressed": {
+"figma": "button/accent/color/fg/pressed",
+"key": "0407f171b72e81785ad187079770d5c5ddd469cc",
+"collection": "Component",
+"type": "COLOR",
+"value": "#3617CE",
+"ref": "--color-fg-brand-strong-default"
+},
+"--button-action-border-width": {
+"figma": "button/action/borderWidth",
+"key": "003f3749bd3f791a5a56f3878ce8edb4436ea40a",
+"collection": "Component",
+"type": "FLOAT",
+"value": "1px",
+"ref": "--border-width-thin"
+},
+"--button-action-large-focus-ring-radius": {
+"figma": "button/action/large/focusRing/radius",
+"key": "bab9e231fe979d9b27fb3c64ff3c87d56eb8a8d1",
+"collection": "Component",
+"type": "FLOAT",
+"value": "8px",
+"ref": "--radius-8"
+},
+"--button-action-large-icon-size": {
+"figma": "button/action/large/icon/size",
+"key": "26ea519c125a2b692a987a36a2342c5498789d8b",
+"collection": "Component",
+"type": "FLOAT",
+"value": "20px",
+"ref": "--size-icon-large"
+},
+"--button-action-large-radius": {
+"figma": "button/action/large/radius",
+"key": "d7fd0f3307ff90329fab36f221de0e79d3a6d434",
+"collection": "Component",
+"type": "FLOAT",
+"value": "6px",
+"ref": "--radius-small"
+},
+"--button-action-large-size-height": {
+"figma": "button/action/large/size/height",
+"key": "eab80f41f6ca6a0772dcfd471ae06c62db68fb20",
+"collection": "Component",
+"type": "FLOAT",
+"value": "40px",
+"ref": "--size-control-large"
+},
+"--button-action-large-space-padding-x": {
+"figma": "button/action/large/space/paddingX",
+"key": "c57c3f964993434799536b18ed363ce6b2eeccc2",
+"collection": "Component",
+"type": "FLOAT",
+"value": "24px",
+"ref": "--space-24"
+},
+"--button-action-medium-focus-ring-radius": {
+"figma": "button/action/medium/focusRing/radius",
+"key": "0bb301661fe9ef1f64b05fb459ee328a69e10e5a",
+"collection": "Component",
+"type": "FLOAT",
+"value": "8px",
+"ref": "--radius-8"
+},
+"--button-action-medium-icon-size": {
+"figma": "button/action/medium/icon/size",
+"key": "bd9dddf873622e698e9b42ff7945233f9ebf030d",
+"collection": "Component",
+"type": "FLOAT",
+"value": "16px",
+"ref": "--size-icon-medium"
+},
+"--button-action-medium-radius": {
+"figma": "button/action/medium/radius",
+"key": "885049df9bb268a86569efee48a08cb705aa10b9",
+"collection": "Component",
+"type": "FLOAT",
+"value": "6px",
+"ref": "--radius-small"
+},
+"--button-action-medium-size-height": {
+"figma": "button/action/medium/size/height",
+"key": "a6638e944e7a897c74c8adb55395c650962391f4",
+"collection": "Component",
+"type": "FLOAT",
+"value": "32px",
+"ref": "--size-control-medium"
+},
+"--button-action-medium-space-padding-x": {
+"figma": "button/action/medium/space/paddingX",
+"key": "3d114a9c124ba873d64400fed228d559ec867c2d",
+"collection": "Component",
+"type": "FLOAT",
+"value": "16px",
+"ref": "--space-16"
+},
+"--button-action-small-focus-ring-radius": {
+"figma": "button/action/small/focusRing/radius",
+"key": "b310348f4f59cad5f132396888fc7478fa481b20",
+"collection": "Component",
+"type": "FLOAT",
+"value": "8px",
+"ref": "--radius-8"
+},
+"--button-action-small-icon-size": {
+"figma": "button/action/small/icon/size",
+"key": "aeca84834e2e5ee799f995ce52bc1505a8cc0271",
+"collection": "Component",
+"type": "FLOAT",
+"value": "14px",
+"ref": "--size-icon-small"
+},
+"--button-action-small-radius": {
+"figma": "button/action/small/radius",
+"key": "72ed8f91d37dfe1f8a945fff6f7da2a0585693b1",
+"collection": "Component",
+"type": "FLOAT",
+"value": "6px",
+"ref": "--radius-small"
+},
+"--button-action-small-size-height": {
+"figma": "button/action/small/size/height",
+"key": "64ba5d73cbc1932fe5ed2b0d05342e49f2f528f2",
+"collection": "Component",
+"type": "FLOAT",
+"value": "28px",
+"ref": "--size-control-small"
+},
+"--button-action-small-space-padding-x": {
+"figma": "button/action/small/space/paddingX",
+"key": "7ad7bd9d79d1df85c3e6c73d0374fb3359c62ada",
+"collection": "Component",
+"type": "FLOAT",
+"value": "12px",
+"ref": "--space-12"
+},
+"--button-action-space-gap": {
+"figma": "button/action/space/gap",
+"key": "852f0d7335c949a88ce39bd39cb186cc37d39910",
+"collection": "Component",
+"type": "FLOAT",
+"value": "4px",
+"ref": "--space-4"
+},
+"--button-action-xlarge-focus-ring-radius": {
+"figma": "button/action/xlarge/focusRing/radius",
+"key": "9ac2807979506f74f9d455b29584c2ee5307a54d",
+"collection": "Component",
+"type": "FLOAT",
+"value": "10px",
+"ref": "--radius-10"
+},
+"--button-action-xlarge-icon-size": {
+"figma": "button/action/xlarge/icon/size",
+"key": "7476869e9b94d25b4dd1977136752908dfd7cc0d",
+"collection": "Component",
+"type": "FLOAT",
+"value": "20px",
+"ref": "--size-icon-large"
+},
+"--button-action-xlarge-radius": {
+"figma": "button/action/xlarge/radius",
+"key": "147c5bcdd45b6f81f42ea2dc9f53f8c70606b085",
+"collection": "Component",
+"type": "FLOAT",
+"value": "8px",
+"ref": "--radius-medium"
+},
+"--button-action-xlarge-size-height": {
+"figma": "button/action/xlarge/size/height",
+"key": "f3eb1512b6dd1b980881470c5cff38747df956f2",
+"collection": "Component",
+"type": "FLOAT",
+"value": "48px",
+"ref": "--size-control-xlarge"
+},
+"--button-action-xlarge-space-padding-x": {
+"figma": "button/action/xlarge/space/paddingX",
+"key": "8c288ff429495e779e55f3d78fb3d844577d21c5",
+"collection": "Component",
+"type": "FLOAT",
+"value": "24px",
+"ref": "--space-24"
+},
+"--button-base-color-bg-default": {
+"figma": "button/base/color/bg/default",
+"key": "6b824b2d8ab8ebec90b6cc4426a78770bda8a6d7",
+"collection": "Component",
+"type": "COLOR",
+"value": "#FFFFFF",
+"ref": "--color-bg-base"
+},
+"--button-base-color-bg-disabled": {
+"figma": "button/base/color/bg/disabled",
+"key": "5b917c3d39fce9284b4f4635ba74ea5cf2bfa562",
+"collection": "Component",
+"type": "COLOR",
+"value": "#FFFFFF",
+"ref": "--color-bg-base"
+},
+"--button-base-color-bg-hover": {
+"figma": "button/base/color/bg/hover",
+"key": "f86f53b398660926e7f0aa0ecaf5e5d6526de731",
+"collection": "Component",
+"type": "COLOR",
+"value": "#F8F9FB",
+"ref": "--color-bg-neutral-faint"
+},
+"--button-base-color-bg-pressed": {
+"figma": "button/base/color/bg/pressed",
+"key": "89d73b74fadd0b6fc7869eea919ea8388e7a18c5",
+"collection": "Component",
+"type": "COLOR",
+"value": "#F1F3F5",
+"ref": "--color-bg-neutral-muted"
+},
+"--button-base-color-border-default": {
+"figma": "button/base/color/border/default",
+"key": "f6137366811c23dfb0358080b6876d86419183d7",
+"collection": "Component",
+"type": "COLOR",
+"value": "#C4C9CF",
+"ref": "--color-border-neutral-strong"
+},
+"--button-base-color-border-disabled": {
+"figma": "button/base/color/border/disabled",
+"key": "c688e7c72a73d0196b59073d2b0ae4138f9089d2",
+"collection": "Component",
+"type": "COLOR",
+"value": "#DCE0E5",
+"ref": "--color-border-neutral-disabled"
+},
+"--button-base-color-border-hover": {
+"figma": "button/base/color/border/hover",
+"key": "a470ce3302f5fd90ab739bb572f7c171a6fcb31f",
+"collection": "Component",
+"type": "COLOR",
+"value": "#C4C9CF",
+"ref": "--color-border-neutral-strong"
+},
+"--button-base-color-border-pressed": {
+"figma": "button/base/color/border/pressed",
+"key": "5865c11a66664a576e774ef653c2053cc96d166c",
+"collection": "Component",
+"type": "COLOR",
+"value": "#C4C9CF",
+"ref": "--color-border-neutral-strong"
+},
+"--button-base-color-fg-default": {
+"figma": "button/base/color/fg/default",
+"key": "2c9e79af3bc360d4f24f2855e172797a0690ffc9",
+"collection": "Component",
+"type": "COLOR",
+"value": "#1C1F23",
+"ref": "--color-fg-neutral-strongest"
+},
+"--button-base-color-fg-disabled": {
+"figma": "button/base/color/fg/disabled",
+"key": "31be6cba90f94811921d80897ce24ac4595a1723",
+"collection": "Component",
+"type": "COLOR",
+"value": "#B3B9C0",
+"ref": "--color-fg-neutral-disabled"
+},
+"--button-base-color-fg-hover": {
+"figma": "button/base/color/fg/hover",
+"key": "9ed44a4d80ce0e4208fecf651ac8134b1675a47a",
+"collection": "Component",
+"type": "COLOR",
+"value": "#1C1F23",
+"ref": "--color-fg-neutral-strongest"
+},
+"--button-base-color-fg-pressed": {
+"figma": "button/base/color/fg/pressed",
+"key": "43dc6c1d9dfb34f7ed876887665ae1ad75a7436d",
+"collection": "Component",
+"type": "COLOR",
+"value": "#1C1F23",
+"ref": "--color-fg-neutral-strongest"
+},
+"--button-danger-color-bg-default": {
+"figma": "button/danger/color/bg/default",
+"key": "e8f2c83ee80d24827b047fbc85cd0861851bc50a",
+"collection": "Component",
+"type": "COLOR",
+"value": "#00000000",
+"ref": "--color-bg-transparent"
+},
+"--button-danger-color-bg-disabled": {
+"figma": "button/danger/color/bg/disabled",
+"key": "a040a5c575ffa85bd329708b87e7bec502412d07",
+"collection": "Component",
+"type": "COLOR",
+"value": "#00000000",
+"ref": "--color-bg-transparent"
+},
+"--button-danger-color-bg-hover": {
+"figma": "button/danger/color/bg/hover",
+"key": "5b62153aa7c631bdc4fe520db48045791ab5790f",
+"collection": "Component",
+"type": "COLOR",
+"value": "#FFE9E9",
+"ref": "--color-bg-danger-faint"
+},
+"--button-danger-color-bg-pressed": {
+"figma": "button/danger/color/bg/pressed",
+"key": "839fee9f75c1da94078ef965197e9aa759ae652a",
+"collection": "Component",
+"type": "COLOR",
+"value": "#FBE1E1",
+"ref": "--color-bg-danger-muted"
+},
+"--button-danger-color-border-default": {
+"figma": "button/danger/color/border/default",
+"key": "9d131beaaef3c4878bd30f04b621f48c4f3c9364",
+"collection": "Component",
+"type": "COLOR",
+"value": "#ED3B3E",
+"ref": "--color-border-danger-strong"
+},
+"--button-danger-color-border-disabled": {
+"figma": "button/danger/color/border/disabled",
+"key": "4ac0c209c3e4885b91a6be07cd43055c7eb917c9",
+"collection": "Component",
+"type": "COLOR",
+"value": "#FCB9B9",
+"ref": "--color-border-danger-disabled"
+},
+"--button-danger-color-border-hover": {
+"figma": "button/danger/color/border/hover",
+"key": "fd6f31d4edf596b5b70694465c6159e1340502e4",
+"collection": "Component",
+"type": "COLOR",
+"value": "#ED3B3E",
+"ref": "--color-border-danger-strong"
+},
+"--button-danger-color-border-pressed": {
+"figma": "button/danger/color/border/pressed",
+"key": "97d904e86fdb5ddd27d692bd88e979f9da37573a",
+"collection": "Component",
+"type": "COLOR",
+"value": "#ED3B3E",
+"ref": "--color-border-danger-strong"
+},
+"--button-danger-color-fg-default": {
+"figma": "button/danger/color/fg/default",
+"key": "35ba72e0055807677de61f090db941c558e209f5",
+"collection": "Component",
+"type": "COLOR",
+"value": "#ED3B3E",
+"ref": "--color-fg-danger-strong"
+},
+"--button-danger-color-fg-disabled": {
+"figma": "button/danger/color/fg/disabled",
+"key": "61ba82d5e54bd9fe43636ff0ee3095648badbb08",
+"collection": "Component",
+"type": "COLOR",
+"value": "#F87275",
+"ref": "--color-fg-danger-disabled"
+},
+"--button-danger-color-fg-hover": {
+"figma": "button/danger/color/fg/hover",
+"key": "4112a0cb9ef13427446d979c46aedecf91cffebe",
+"collection": "Component",
+"type": "COLOR",
+"value": "#ED3B3E",
+"ref": "--color-fg-danger-strong"
+},
+"--button-danger-color-fg-pressed": {
+"figma": "button/danger/color/fg/pressed",
+"key": "62e18829903f6f5b3b58091f67c205c47a67c3b8",
+"collection": "Component",
+"type": "COLOR",
+"value": "#ED3B3E",
+"ref": "--color-fg-danger-strong"
+},
+"--button-icon-only-border-width": {
+"figma": "button/iconOnly/borderWidth",
+"key": "33babcd15e0483c45d189217c3b8c643214e8ff0",
+"collection": "Component",
+"type": "FLOAT",
+"value": "1px",
+"ref": "--border-width-thin"
+},
+"--button-icon-only-large-focus-ring-radius": {
+"figma": "button/iconOnly/large/focusRing/radius",
+"key": "5f717bcd266507212d6c4777e9b032d23b19dcd4",
+"collection": "Component",
+"type": "FLOAT",
+"value": "9999px",
+"ref": "--radius-full"
+},
+"--button-icon-only-large-icon-size": {
+"figma": "button/iconOnly/large/icon/size",
+"key": "0bebbcb27a9010b6469edd83fd44d7736f480e22",
+"collection": "Component",
+"type": "FLOAT",
+"value": "20px",
+"ref": "--size-icon-large"
+},
+"--button-icon-only-large-size": {
+"figma": "button/iconOnly/large/size",
+"key": "87a0a6405f8068aab59b4734b39b8f09ffde375e",
+"collection": "Component",
+"type": "FLOAT",
+"value": "40px",
+"ref": "--size-control-large"
+},
+"--button-icon-only-medium-focus-ring-radius": {
+"figma": "button/iconOnly/medium/focusRing/radius",
+"key": "f0f1861cac5a94ac0ad65b8e086e92f8dae0374b",
+"collection": "Component",
+"type": "FLOAT",
+"value": "9999px",
+"ref": "--radius-full"
+},
+"--button-icon-only-medium-icon-size": {
+"figma": "button/iconOnly/medium/icon/size",
+"key": "39af07499f1e246dbaab0b1889ea5ee656bac590",
+"collection": "Component",
+"type": "FLOAT",
+"value": "16px",
+"ref": "--size-icon-medium"
+},
+"--button-icon-only-medium-size": {
+"figma": "button/iconOnly/medium/size",
+"key": "8d8375a9854d64a458d44ed381265d5db083c000",
+"collection": "Component",
+"type": "FLOAT",
+"value": "32px",
+"ref": "--size-control-medium"
+},
+"--button-icon-only-plain-color-bg-default": {
+"figma": "button/iconOnly/plain/color/bg/default",
+"key": "225962830811925a112fb4ba0092ebc550019ba9",
+"collection": "Component",
+"type": "COLOR"
+},
+"--button-icon-only-plain-color-fg-default": {
+"figma": "button/iconOnly/plain/color/fg/default",
+"key": "cef2dddffad6d1c1e5d30f64748f64948208b3a1",
+"collection": "Component",
+"type": "COLOR",
+"value": "#697582",
+"ref": "--color-fg-neutral-muted-default"
+},
+"--button-icon-only-plain-color-fg-disabled": {
+"figma": "button/iconOnly/plain/color/fg/disabled",
+"key": "387de40e6d88a5bcebd7c1b6f05c6e257df032a6",
+"collection": "Component",
+"type": "COLOR",
+"value": "#B3B9C0",
+"ref": "--color-fg-neutral-disabled"
+},
+"--button-icon-only-plain-color-fg-hover": {
+"figma": "button/iconOnly/plain/color/fg/hover",
+"key": "0902ee529f0f5b7e5ed8b3b6e8334c919f137048",
+"collection": "Component",
+"type": "COLOR",
+"value": "#454F59",
+"ref": "--color-fg-neutral-muted-hover"
+},
+"--button-icon-only-plain-color-fg-pressed": {
+"figma": "button/iconOnly/plain/color/fg/pressed",
+"key": "ce798056b26d48e9b01636722777256d8ca6e2bf",
+"collection": "Component",
+"type": "COLOR",
+"value": "#303942",
+"ref": "--color-fg-neutral-muted-pressed"
+},
+"--button-icon-only-radius": {
+"figma": "button/iconOnly/radius",
+"key": "a30c9f74119b5e6618bd62983df2408eed6a5351",
+"collection": "Component",
+"type": "FLOAT",
+"value": "9999px",
+"ref": "--radius-full"
+},
+"--button-icon-only-small-focus-ring-radius": {
+"figma": "button/iconOnly/small/focusRing/radius",
+"key": "01b83dc375156fda9d64aa55b958d5b6cee91d4f",
+"collection": "Component",
+"type": "FLOAT",
+"value": "9999px",
+"ref": "--radius-full"
+},
+"--button-icon-only-small-icon-size": {
+"figma": "button/iconOnly/small/icon/size",
+"key": "69bacd94eb0ca68447b02fb0d88fa870972eeffa",
+"collection": "Component",
+"type": "FLOAT",
+"value": "14px",
+"ref": "--size-icon-small"
+},
+"--button-icon-only-small-size": {
+"figma": "button/iconOnly/small/size",
+"key": "5cf2b54956db547128c5e2548c8cc0b18e3a3941",
+"collection": "Component",
+"type": "FLOAT",
+"value": "28px",
+"ref": "--size-control-small"
+},
+"--button-inline-border-width": {
+"figma": "button/inline/borderWidth",
+"key": "ff1f5bd4b74304d0bcb5a96879ef5fa936534f6c",
+"collection": "Component",
+"type": "FLOAT",
+"value": "1px",
+"ref": "--border-width-thin"
+},
+"--button-inline-large-focus-ring-radius": {
+"figma": "button/inline/large/focusRing/radius",
+"key": "0df45aced3d2600efa295eb8b0f63d01f999e9d8",
+"collection": "Component",
+"type": "FLOAT",
+"value": "9999px",
+"ref": "--radius-full"
+},
+"--button-inline-large-icon-size": {
+"figma": "button/inline/large/icon/size",
+"key": "2fab4b2416d01494519cf0fc48cbf57964ca9d7f",
+"collection": "Component",
+"type": "FLOAT",
+"value": "16px",
+"ref": "--size-icon-medium"
+},
+"--button-inline-large-size-height": {
+"figma": "button/inline/large/size/height",
+"key": "814e7a528e40eaaeb071cfc4f97a4c4d9dc775c2",
+"collection": "Component",
+"type": "FLOAT",
+"value": "40px",
+"ref": "--size-control-large"
+},
+"--button-inline-large-space-padding-x": {
+"figma": "button/inline/large/space/paddingX",
+"key": "2df13da980dac2ebfa1779ce50ecb13acaac5166",
+"collection": "Component",
+"type": "FLOAT",
+"value": "16px",
+"ref": "--space-16"
+},
+"--button-inline-medium-focus-ring-radius": {
+"figma": "button/inline/medium/focusRing/radius",
+"key": "a336a9d0f31d8d54f7efb76371b33c29042928f2",
+"collection": "Component",
+"type": "FLOAT",
+"value": "9999px",
+"ref": "--radius-full"
+},
+"--button-inline-medium-icon-size": {
+"figma": "button/inline/medium/icon/size",
+"key": "a773628430942f12df79c6b35edafe231d801749",
+"collection": "Component",
+"type": "FLOAT",
+"value": "16px",
+"ref": "--size-icon-medium"
+},
+"--button-inline-medium-size-height": {
+"figma": "button/inline/medium/size/height",
+"key": "c34c3c6ff9f05e899a57d897c6b42e399babf716",
+"collection": "Component",
+"type": "FLOAT",
+"value": "32px",
+"ref": "--size-control-medium"
+},
+"--button-inline-medium-space-padding-x": {
+"figma": "button/inline/medium/space/paddingX",
+"key": "6d6b9d06c6037183ac5c3a23948690c98ba33ac5",
+"collection": "Component",
+"type": "FLOAT",
+"value": "14px",
+"ref": "--space-14"
+},
+"--button-inline-radius": {
+"figma": "button/inline/radius",
+"key": "9676fc506a8a074e5313227892d68b187b249ac3",
+"collection": "Component",
+"type": "FLOAT",
+"value": "9999px",
+"ref": "--radius-full"
+},
+"--button-inline-small-focus-ring-radius": {
+"figma": "button/inline/small/focusRing/radius",
+"key": "e63cad3a483cabc49a2b5e74b43cb5984b298b21",
+"collection": "Component",
+"type": "FLOAT",
+"value": "9999px",
+"ref": "--radius-full"
+},
+"--button-inline-small-icon-size": {
+"figma": "button/inline/small/icon/size",
+"key": "76c2f920db71f2232ca387668b56d5937114ce22",
+"collection": "Component",
+"type": "FLOAT",
+"value": "14px",
+"ref": "--size-icon-small"
+},
+"--button-inline-small-size-height": {
+"figma": "button/inline/small/size/height",
+"key": "66f00a774c664abd4d2d504b92beb9e1dd500778",
+"collection": "Component",
+"type": "FLOAT",
+"value": "28px",
+"ref": "--size-control-small"
+},
+"--button-inline-small-space-padding-x": {
+"figma": "button/inline/small/space/paddingX",
+"key": "64a571c658d7958ee8658d0aa6642c08cf1f68b2",
+"collection": "Component",
+"type": "FLOAT",
+"value": "12px",
+"ref": "--space-12"
+},
+"--button-inline-space-gap": {
+"figma": "button/inline/space/gap",
+"key": "b8e3bf1156554d06728c45ef72e6eb2292e9ff0c",
+"collection": "Component",
+"type": "FLOAT",
+"value": "4px",
+"ref": "--space-4"
+},
+"--button-primary-color-bg-default": {
+"figma": "button/primary/color/bg/default",
+"key": "741f019d2a1dd5b8704d741ae5f9d28b7c135fe7",
+"collection": "Component",
+"type": "COLOR",
+"value": "#3617CE",
+"ref": "--color-bg-brand-strongest-default"
+},
+"--button-primary-color-bg-disabled": {
+"figma": "button/primary/color/bg/disabled",
+"key": "38d4bea164fcbd75054c208d215ba22d45981b68",
+"collection": "Component",
+"type": "COLOR",
+"value": "#B4B7FF",
+"ref": "--color-bg-brand-disabled"
+},
+"--button-primary-color-bg-hover": {
+"figma": "button/primary/color/bg/hover",
+"key": "9f3f24979e77020cae2cf08512fa191be06f8d17",
+"collection": "Component",
+"type": "COLOR",
+"value": "#2F15B2",
+"ref": "--color-bg-brand-strongest-hover"
+},
+"--button-primary-color-bg-pressed": {
+"figma": "button/primary/color/bg/pressed",
+"key": "2fa25fd6475bcd0c6bc11cbd87bd782cccd8322a",
+"collection": "Component",
+"type": "COLOR",
+"value": "#261091",
+"ref": "--color-bg-brand-strongest-pressed"
+},
+"--button-primary-color-fg-default": {
+"figma": "button/primary/color/fg/default",
+"key": "a6ddf0f356767d3ceddc6226ebf1acd5aa64a743",
+"collection": "Component",
+"type": "COLOR",
+"value": "#FFFFFF",
+"ref": "--color-fg-on-strongest"
+},
+"--button-secondary-color-bg-default": {
+"figma": "button/secondary/color/bg/default",
+"key": "c7fe73ea999fa5d5ec6afbfd6d8a692db850ae36",
+"collection": "Component",
+"type": "COLOR",
+"value": "#00000000",
+"ref": "--color-bg-transparent"
+},
+"--button-secondary-color-bg-disabled": {
+"figma": "button/secondary/color/bg/disabled",
+"key": "da483181d2ce54ba5d0698dd1cb94ecb738c09ac",
+"collection": "Component",
+"type": "COLOR",
+"value": "#00000000",
+"ref": "--color-bg-transparent"
+},
+"--button-secondary-color-bg-hover": {
+"figma": "button/secondary/color/bg/hover",
+"key": "ef683ac69a4e3522bfc752143cac1ff17354c8a3",
+"collection": "Component",
+"type": "COLOR",
+"value": "#F8F9FB",
+"ref": "--color-bg-neutral-faint"
+},
+"--button-secondary-color-bg-pressed": {
+"figma": "button/secondary/color/bg/pressed",
+"key": "ef889b6786e0aece60dc58f6104ee7095a545ed0",
+"collection": "Component",
+"type": "COLOR",
+"value": "#F1F3F5",
+"ref": "--color-bg-neutral-muted"
+},
+"--button-secondary-color-border-default": {
+"figma": "button/secondary/color/border/default",
+"key": "0faa7491e5e2ca238987230f697688bc27117fd1",
+"collection": "Component",
+"type": "COLOR",
+"value": "#1C1F23",
+"ref": "--color-border-neutral-strongest"
+},
+"--button-secondary-color-border-disabled": {
+"figma": "button/secondary/color/border/disabled",
+"key": "d02edd9b1926bdb66e0550d583b4f30e7cca46ed",
+"collection": "Component",
+"type": "COLOR",
+"value": "#DCE0E5",
+"ref": "--color-border-neutral-disabled"
+},
+"--button-secondary-color-border-hover": {
+"figma": "button/secondary/color/border/hover",
+"key": "bb51d431b485abe485c9178bdaceaf2dfd72d8c5",
+"collection": "Component",
+"type": "COLOR",
+"value": "#1C1F23",
+"ref": "--color-border-neutral-strongest"
+},
+"--button-secondary-color-border-pressed": {
+"figma": "button/secondary/color/border/pressed",
+"key": "4383bb9a9ea4e95e906e57e0807a61a59f202f96",
+"collection": "Component",
+"type": "COLOR",
+"value": "#1C1F23",
+"ref": "--color-border-neutral-strongest"
+},
+"--button-secondary-color-fg-default": {
+"figma": "button/secondary/color/fg/default",
+"key": "c015903a315c3a3aca47c48cb20f74ef422dd989",
+"collection": "Component",
+"type": "COLOR",
+"value": "#1C1F23",
+"ref": "--color-fg-neutral-strongest"
+},
+"--button-secondary-color-fg-disabled": {
+"figma": "button/secondary/color/fg/disabled",
+"key": "e020b9b47fce01480cdd805811ff33e21680dec7",
+"collection": "Component",
+"type": "COLOR",
+"value": "#B3B9C0",
+"ref": "--color-fg-neutral-disabled"
+},
+"--button-secondary-color-fg-hover": {
+"figma": "button/secondary/color/fg/hover",
+"key": "292fa5ca40608607dfacd040c314134fab923758",
+"collection": "Component",
+"type": "COLOR",
+"value": "#1C1F23",
+"ref": "--color-fg-neutral-strongest"
+},
+"--button-secondary-color-fg-pressed": {
+"figma": "button/secondary/color/fg/pressed",
+"key": "73e456702c2c84b591f334129f581ec0c9f56f3d",
+"collection": "Component",
+"type": "COLOR",
+"value": "#1C1F23",
+"ref": "--color-fg-neutral-strongest"
+},
+"--button-text-color-bg-default": {
+"figma": "button/text/color/bg/default",
+"key": "54eabd87aaf03b62866c12dcf34924ee71f21fdc",
+"collection": "Component",
+"type": "COLOR",
+"value": "#00000000",
+"ref": "--color-bg-transparent"
+},
+"--button-text-color-fg-default": {
+"figma": "button/text/color/fg/default",
+"key": "b036db76a79d95212a14c87be889d0e827177c12",
+"collection": "Component",
+"type": "COLOR",
+"value": "#3617CE",
+"ref": "--color-fg-brand-strong-default"
+},
+"--button-text-color-fg-disabled": {
+"figma": "button/text/color/fg/disabled",
+"key": "d2babdff128ef960c303da2e03a536b3c9259b7e",
+"collection": "Component",
+"type": "COLOR",
+"value": "#6268FF",
+"ref": "--color-fg-brand-disabled"
+},
+"--button-text-color-fg-hover": {
+"figma": "button/text/color/fg/hover",
+"key": "99f17af27277aad1303ab259824ac862ad69700e",
+"collection": "Component",
+"type": "COLOR",
+"value": "#2F15B2",
+"ref": "--color-fg-brand-strong-hover"
+},
+"--button-text-color-fg-pressed": {
+"figma": "button/text/color/fg/pressed",
+"key": "920ee5e47e49f143d27372b70dab73622f0b8ce1",
+"collection": "Component",
+"type": "COLOR",
+"value": "#261091",
+"ref": "--color-fg-brand-strong-pressed"
+},
+"--focus-ring-border-width": {
+"figma": "focusRing/borderWidth",
+"key": "9b08369f1247b4f87c268fc4456dec88ea2c8347",
+"collection": "Component",
+"type": "FLOAT",
+"value": "2px",
+"ref": "--border-width-thick"
+},
+"--focus-ring-color-border": {
+"figma": "focusRing/color/border",
+"key": "dc891d9b8843339f22e79063e3131459a89d7587",
+"collection": "Component",
+"type": "COLOR",
+"value": "#7FAEFF",
+"ref": "--color-border-focus-ring"
+},
+"--focus-ring-radius": {
+"figma": "focusRing/radius",
+"key": "27de43c23792675adb3b36a828a35cce9f87964a",
+"collection": "Component",
+"type": "FLOAT",
+"value": "4px",
+"ref": "--radius-4"
+},
+"--font-label-12-500-family": {
+"figma": "font/label/12/500/family",
+"key": "70e998f1f01f3e835d988a0471a52d36a0b1de4a",
+"collection": "Semantic",
+"type": "STRING",
+"value": "Pretendard",
+"ref": "--font-family-pretendard"
+},
+"--font-label-12-500-letter-spacing": {
+"figma": "font/label/12/500/letterSpacing",
+"key": "9145e31dbbf8a597966709496a78116aee71ecbf",
+"collection": "Semantic",
+"type": "FLOAT",
+"value": "-0.2px",
+"ref": "--font-letter-spacing-minus0p2"
+},
+"--font-label-12-500-line-height": {
+"figma": "font/label/12/500/lineHeight",
+"key": "7541fa9c677032e79dcae0030640c60ebeea0864",
+"collection": "Semantic",
+"type": "FLOAT",
+"value": "16px",
+"ref": "--font-line-height-16"
+},
+"--font-label-12-500-size": {
+"figma": "font/label/12/500/size",
+"key": "1394f379bd2a0d930d73741b66d72ddfe92bb0a6",
+"collection": "Semantic",
+"type": "FLOAT",
+"value": "12px",
+"ref": "--font-size-12"
+},
+"--font-label-12-500-weight": {
+"figma": "font/label/12/500/weight",
+"key": "3a7a883c9240c0a99fb981f39eb627dcbfb85e07",
+"collection": "Semantic",
+"type": "FLOAT",
+"value": "500",
+"ref": "--font-weight-500"
+},
+"--font-label-14-400-family": {
+"figma": "font/label/14/400/family",
+"key": "b30934f3d0ff782e7ca13aea9499784749ff6b2d",
+"collection": "Semantic",
+"type": "STRING",
+"value": "Pretendard",
+"ref": "--font-family-pretendard"
+},
+"--font-label-14-400-letter-spacing": {
+"figma": "font/label/14/400/letterSpacing",
+"key": "23e42b7836c1ea32d73aa88382950ba0dee595eb",
+"collection": "Semantic",
+"type": "FLOAT",
+"value": "-0.2px",
+"ref": "--font-letter-spacing-minus0p2"
+},
+"--font-label-14-400-line-height": {
+"figma": "font/label/14/400/lineHeight",
+"key": "114c23fcb16b09f1469b04d62405f2f302bf5270",
+"collection": "Semantic",
+"type": "FLOAT",
+"value": "20px",
+"ref": "--font-line-height-20"
+},
+"--font-label-14-400-size": {
+"figma": "font/label/14/400/size",
+"key": "025db52e6e43ba4afe5fdca5aeecf47e8dd73d64",
+"collection": "Semantic",
+"type": "FLOAT",
+"value": "14px",
+"ref": "--font-size-14"
+},
+"--font-label-14-400-weight": {
+"figma": "font/label/14/400/weight",
+"key": "07a5b20eb69583275c5ed9896066f258295159d0",
+"collection": "Semantic",
+"type": "FLOAT",
+"value": "400",
+"ref": "--font-weight-400"
+},
+"--font-label-14-500-family": {
+"figma": "font/label/14/500/family",
+"key": "a1d6258eb63d45abd5fcc00cc94a81918752939a",
+"collection": "Semantic",
+"type": "STRING",
+"value": "Pretendard",
+"ref": "--font-family-pretendard"
+},
+"--font-label-14-500-letter-spacing": {
+"figma": "font/label/14/500/letterSpacing",
+"key": "99062c5606b41fc8b5649bcaf8f095be2ca1a843",
+"collection": "Semantic",
+"type": "FLOAT",
+"value": "-0.2px",
+"ref": "--font-letter-spacing-minus0p2"
+},
+"--font-label-14-500-line-height": {
+"figma": "font/label/14/500/lineHeight",
+"key": "68e6f9267aefb4f8f1e663b65fc1be23581342de",
+"collection": "Semantic",
+"type": "FLOAT",
+"value": "20px",
+"ref": "--font-line-height-20"
+},
+"--font-label-14-500-size": {
+"figma": "font/label/14/500/size",
+"key": "c7c051d8f545555c4a4aa7d105b13b9d5ed5d4b2",
+"collection": "Semantic",
+"type": "FLOAT",
+"value": "14px",
+"ref": "--font-size-14"
+},
+"--font-label-14-500-weight": {
+"figma": "font/label/14/500/weight",
+"key": "02ffd6d14dd89e48aa9879ffecd3f1f756c511c8",
+"collection": "Semantic",
+"type": "FLOAT",
+"value": "500",
+"ref": "--font-weight-500"
+},
+"--font-label-15-600-family": {
+"figma": "font/label/15/600/family",
+"key": "50e701a7c5f4c5eff03e011fdd1ef2c92e0d4dcf",
+"collection": "Semantic",
+"type": "STRING"
+},
+"--font-label-15-600-letter-spacing": {
+"figma": "font/label/15/600/letterSpacing",
+"key": "adba18956dce90d863396a596bf7288ed9c0d584",
+"collection": "Semantic",
+"type": "FLOAT"
+},
+"--font-label-15-600-line-height": {
+"figma": "font/label/15/600/lineHeight",
+"key": "c9515f4bc345e3b5687197f86ba39f299dc45bc3",
+"collection": "Semantic",
+"type": "FLOAT"
+},
+"--font-label-15-600-size": {
+"figma": "font/label/15/600/size",
+"key": "430bd18c99c2abeb075806a7bdf7a99983cc6588",
+"collection": "Semantic",
+"type": "FLOAT"
+},
+"--font-label-15-600-weight": {
+"figma": "font/label/15/600/weight",
+"key": "e6fc6fa68897487b7f6bce108129d35ca081ce75",
+"collection": "Semantic",
+"type": "FLOAT"
+},
+"--font-label-16-600-family": {
+"figma": "font/label/16/600/family",
+"key": "56d886cc466ce1fc5d2e590772347d5d5846965e",
+"collection": "Semantic",
+"type": "STRING",
+"value": "Pretendard",
+"ref": "--font-family-pretendard"
+},
+"--font-label-16-600-letter-spacing": {
+"figma": "font/label/16/600/letterSpacing",
+"key": "a90862b4780cb3337989be69a0e4157924fec734",
+"collection": "Semantic",
+"type": "FLOAT",
+"value": "-0.2px",
+"ref": "--font-letter-spacing-minus0p2"
+},
+"--font-label-16-600-line-height": {
+"figma": "font/label/16/600/lineHeight",
+"key": "b9c14549771d1773bb8987f537985bee78716bd3",
+"collection": "Semantic",
+"type": "FLOAT",
+"value": "24px",
+"ref": "--font-line-height-24"
+},
+"--font-label-16-600-size": {
+"figma": "font/label/16/600/size",
+"key": "da6d772e6e0c84a520dba1bbd239388c8b1d55c5",
+"collection": "Semantic",
+"type": "FLOAT",
+"value": "16px",
+"ref": "--font-size-16"
+},
+"--font-label-16-600-weight": {
+"figma": "font/label/16/600/weight",
+"key": "9ddabf2156a726d06b92e5f5ad948bc12a364180",
+"collection": "Semantic",
+"type": "FLOAT",
+"value": "600",
+"ref": "--font-weight-600"
+},
+"--checkbox-border-width": {
+"figma": "checkbox/borderWidth",
+"key": "f1e647c1e28b3d6b031cf43c48935404db1699a9",
+"collection": "Component",
+"type": "FLOAT",
+"value": "1.5px",
+"ref": "--border-width-1p5"
+},
+"--checkbox-checked-color-bg-default": {
+"figma": "checkbox/checked/color/bg/default",
+"key": "f4de9827de4903ea26895ca6e10694ffdfbf51af",
+"collection": "Component",
+"type": "COLOR",
+"value": "#3617CE",
+"ref": "--color-bg-brand-strongest-default"
+},
+"--checkbox-checked-color-bg-disabled": {
+"figma": "checkbox/checked/color/bg/disabled",
+"key": "64461a3241856e1f2b19d1a284664dfc99748712",
+"collection": "Component",
+"type": "COLOR",
+"value": "#B4B7FF",
+"ref": "--color-bg-brand-disabled"
+},
+"--checkbox-checked-color-bg-hover": {
+"figma": "checkbox/checked/color/bg/hover",
+"key": "036fb5aba2d86dc8e38d022448f6a37624d398c0",
+"collection": "Component",
+"type": "COLOR",
+"value": "#2F15B2",
+"ref": "--color-bg-brand-strongest-hover"
+},
+"--checkbox-checked-color-bg-pressed": {
+"figma": "checkbox/checked/color/bg/pressed",
+"key": "b9283a432fe44dae76abd5b8b6889468beb235bd",
+"collection": "Component",
+"type": "COLOR",
+"value": "#261091",
+"ref": "--color-bg-brand-strongest-pressed"
+},
+"--checkbox-checked-color-border-default": {
+"figma": "checkbox/checked/color/border/default",
+"key": "7f8414966b4c9ef898f0ba8153a77fec7214335e",
+"collection": "Component",
+"type": "COLOR"
+},
+"--checkbox-checked-color-border-disabled": {
+"figma": "checkbox/checked/color/border/disabled",
+"key": "e37c80a56a0aaf0fa609bde271fe2d1db864a134",
+"collection": "Component",
+"type": "COLOR"
+},
+"--checkbox-checked-color-border-hover": {
+"figma": "checkbox/checked/color/border/hover",
+"key": "c7b4fe1ae528609caf35e563a90c2334437ea870",
+"collection": "Component",
+"type": "COLOR"
+},
+"--checkbox-checked-color-border-pressed": {
+"figma": "checkbox/checked/color/border/pressed",
+"key": "d39f36811abaa912c7c2267b0ce37ae2bed73b2e",
+"collection": "Component",
+"type": "COLOR"
+},
+"--checkbox-checked-indicator-color-fg-default": {
+"figma": "checkbox/checked/indicator/color/fg/default",
+"key": "6212e1aa4a9e4506f40cae57b7d34bd8e8029c2c",
+"collection": "Component",
+"type": "COLOR",
+"value": "#FFFFFF",
+"ref": "--color-fg-on-strongest"
+},
+"--checkbox-large-size": {
+"figma": "checkbox/large/size",
+"key": "f34eabbf317a61c3cddffe1d482a2250f937b1e8",
+"collection": "Component",
+"type": "FLOAT",
+"value": "20px",
+"ref": "--size-20"
+},
+"--checkbox-medium-size": {
+"figma": "checkbox/medium/size",
+"key": "9426f6b13813c49246cbd18c7a1d5214f95884d6",
+"collection": "Component",
+"type": "FLOAT",
+"value": "16px",
+"ref": "--size-16"
+},
+"--checkbox-radius": {
+"figma": "checkbox/radius",
+"key": "715e1cc215f45a6d145240d1b3318710c8040e71",
+"collection": "Component",
+"type": "FLOAT",
+"value": "4px",
+"ref": "--radius-xsmall"
+},
+"--checkbox-space-gap": {
+"figma": "checkbox/space/gap",
+"key": "47a908df5d96a1f1212358f26a365613250a50b3",
+"collection": "Component",
+"type": "FLOAT",
+"value": "6px",
+"ref": "--space-6"
+},
+"--font-label-16-500-family": {
+"figma": "font/label/16/500/family",
+"key": "7137963c127baeaf19d2b14262fc3140cbf25f9b",
+"collection": "Semantic",
+"type": "STRING",
+"value": "Pretendard",
+"ref": "--font-family-pretendard"
+},
+"--font-label-16-500-letter-spacing": {
+"figma": "font/label/16/500/letterSpacing",
+"key": "3ba39fb3555f4f64d452c11803058bde732a9e58",
+"collection": "Semantic",
+"type": "FLOAT",
+"value": "-0.2px",
+"ref": "--font-letter-spacing-minus0p2"
+},
+"--font-label-16-500-line-height": {
+"figma": "font/label/16/500/lineHeight",
+"key": "d0d9ae4653294cefcca198bf7525b997e7d0aace",
+"collection": "Semantic",
+"type": "FLOAT",
+"value": "24px",
+"ref": "--font-line-height-24"
+},
+"--font-label-16-500-size": {
+"figma": "font/label/16/500/size",
+"key": "29b283158dc3eea851cd853455ac7f7928865397",
+"collection": "Semantic",
+"type": "FLOAT",
+"value": "16px",
+"ref": "--font-size-16"
+},
+"--font-label-16-500-weight": {
+"figma": "font/label/16/500/weight",
+"key": "7a56db1b436241def7d6f0f28d549f0142f8303e",
+"collection": "Semantic",
+"type": "FLOAT",
+"value": "500",
+"ref": "--font-weight-500"
+},
+"--selection-control-color-bg-default": {
+"figma": "selectionControl/color/bg/default",
+"key": "9a2299ca7a1163f2bd42ed2a344cca7060e71340",
+"collection": "Component",
+"type": "COLOR",
+"value": "#FFFFFF",
+"ref": "--color-bg-base"
+},
+"--selection-control-color-bg-disabled": {
+"figma": "selectionControl/color/bg/disabled",
+"key": "1e90366ee9f5e444928f83a0de546313af213375",
+"collection": "Component",
+"type": "COLOR",
+"value": "#E8ECEF",
+"ref": "--color-bg-neutral-disabled"
+},
+"--selection-control-color-bg-hover": {
+"figma": "selectionControl/color/bg/hover",
+"key": "89d3106b096adea34c10ec80f6c8091ac6a7ea22",
+"collection": "Component",
+"type": "COLOR",
+"value": "#F8F9FB",
+"ref": "--color-bg-neutral-faint"
+},
+"--selection-control-color-bg-pressed": {
+"figma": "selectionControl/color/bg/pressed",
+"key": "30b99e7dab8f01343356d4c128b77403d4646973",
+"collection": "Component",
+"type": "COLOR",
+"value": "#F1F3F5",
+"ref": "--color-bg-neutral-muted"
+},
+"--selection-control-color-border-default": {
+"figma": "selectionControl/color/border/default",
+"key": "0713b5faeda63ce4a3b4fb5a13aa683ce0daa402",
+"collection": "Component",
+"type": "COLOR",
+"value": "#C4C9CF",
+"ref": "--color-border-neutral-strong"
+},
+"--selection-control-color-border-disabled": {
+"figma": "selectionControl/color/border/disabled",
+"key": "8d2de4bd7294d51be0b832148d3a838c30baf1ee",
+"collection": "Component",
+"type": "COLOR",
+"value": "#DCE0E5",
+"ref": "--color-border-neutral-disabled"
+},
+"--selection-control-color-border-hover": {
+"figma": "selectionControl/color/border/hover",
+"key": "adfd8bd502947e2817496b6f5d7570c41944aec6",
+"collection": "Component",
+"type": "COLOR",
+"value": "#C4C9CF",
+"ref": "--color-border-neutral-strong"
+},
+"--selection-control-color-border-pressed": {
+"figma": "selectionControl/color/border/pressed",
+"key": "696b1f5e73b1eeb556b87827e5bf6e08b6bfdb62",
+"collection": "Component",
+"type": "COLOR",
+"value": "#C4C9CF",
+"ref": "--color-border-neutral-strong"
+},
+"--selection-control-label-color-fg-default": {
+"figma": "selectionControl/label/color/fg/default",
+"key": "c20941800d3a2056d7e646abc7d4bdb5b17350cd",
+"collection": "Component",
+"type": "COLOR",
+"value": "#1C1F23",
+"ref": "--color-fg-neutral-strongest"
+},
+"--selection-control-label-color-fg-disabled": {
+"figma": "selectionControl/label/color/fg/disabled",
+"key": "b5999ecb3f0d2d844d2af209c8ff7c48140e8094",
+"collection": "Component",
+"type": "COLOR",
+"value": "#B3B9C0",
+"ref": "--color-fg-neutral-disabled"
+},
+"--selection-control-label-color-fg-hover": {
+"figma": "selectionControl/label/color/fg/hover",
+"key": "4db98c07cec4ab9fbb7b291d830fd2151b53184b",
+"collection": "Component",
+"type": "COLOR",
+"value": "#1C1F23",
+"ref": "--color-fg-neutral-strongest"
+},
+"--selection-control-label-color-fg-pressed": {
+"figma": "selectionControl/label/color/fg/pressed",
+"key": "ca745b4a064036f16676d3ac4d2f7fdf9a9010f1",
+"collection": "Component",
+"type": "COLOR",
+"value": "#1C1F23",
+"ref": "--color-fg-neutral-strongest"
+},
+"--size-icon-medium": {
+"figma": "size/icon/medium",
+"key": "4d4d157f8a55f46cafda69685a05cd62d8db9673",
+"collection": "Semantic",
+"type": "FLOAT",
+"value": "16px",
+"ref": "--size-16"
+},
+"--size-icon-xsmall": {
+"figma": "size/icon/xsmall",
+"key": "6b29902360c5853dc689d5e368536b800c557f64",
+"collection": "Semantic",
+"type": "FLOAT",
+"value": "12px",
+"ref": "--size-12"
+},
+"--font-caption-12-400-family": {
+"figma": "font/caption/12/400/family",
+"key": "4e09e1156f91b2dc77392bf0268e904e43ea98e4",
+"collection": "Semantic",
+"type": "STRING",
+"value": "Pretendard",
+"ref": "--font-family-pretendard"
+},
+"--font-caption-12-400-letter-spacing": {
+"figma": "font/caption/12/400/letterSpacing",
+"key": "2f31cae09e6edb6d2cad9445d629b6c972fa77d0",
+"collection": "Semantic",
+"type": "FLOAT",
+"value": "-0.2px",
+"ref": "--font-letter-spacing-minus0p2"
+},
+"--font-caption-12-400-line-height": {
+"figma": "font/caption/12/400/lineHeight",
+"key": "c16f3f8afd1c283378336da5190365338046bc30",
+"collection": "Semantic",
+"type": "FLOAT",
+"value": "16px",
+"ref": "--font-line-height-16"
+},
+"--font-caption-12-400-size": {
+"figma": "font/caption/12/400/size",
+"key": "c934a792d27863ba2b215ef56011655746a611fa",
+"collection": "Semantic",
+"type": "FLOAT",
+"value": "12px",
+"ref": "--font-size-12"
+},
+"--font-caption-12-400-weight": {
+"figma": "font/caption/12/400/weight",
+"key": "b2645267187d0b4fb72af4cc45c561acdff4d3e1",
+"collection": "Semantic",
+"type": "FLOAT",
+"value": "400",
+"ref": "--font-weight-400"
+},
+"--helper-text-color-fg-default": {
+"figma": "helperText/color/fg/default",
+"key": "b9ed9a833a89614d3f606553885db9f6db229e4c",
+"collection": "Component",
+"type": "COLOR",
+"value": "#697582",
+"ref": "--color-fg-neutral-muted-default"
+},
+"--helper-text-color-fg-error": {
+"figma": "helperText/color/fg/error",
+"key": "006a5c0d124ee45cd8174cf6169c13ad5a36ec9a",
+"collection": "Component",
+"type": "COLOR",
+"value": "#ED3B3E",
+"ref": "--color-fg-danger-strong"
+},
+"--helper-text-count-color-fg-default": {
+"figma": "helperText/count/color/fg/default",
+"key": "bed78cf0c5177c935fcb7fd132b493b320fa7fac",
+"collection": "Component",
+"type": "COLOR",
+"value": "#697582",
+"ref": "--color-fg-neutral-muted-default"
+},
+"--helper-text-count-color-fg-error": {
+"figma": "helperText/count/color/fg/error",
+"key": "cbcbdaaf3efa8f09d3069672dcfd991738bd3373",
+"collection": "Component",
+"type": "COLOR",
+"value": "#ED3B3E",
+"ref": "--color-fg-danger-strong"
+},
+"--helper-text-count-space-gap": {
+"figma": "helperText/count/space/gap",
+"key": "379cd5b8a141ddf034969cf70d62d4f229e3fdc9",
+"collection": "Component",
+"type": "FLOAT",
+"value": "2px",
+"ref": "--space-2"
+},
+"--helper-text-icon-size": {
+"figma": "helperText/icon/size",
+"key": "dfa8512ad13e26e0c1d126b2217649aa1696a26c",
+"collection": "Component",
+"type": "FLOAT",
+"value": "12px",
+"ref": "--size-icon-xsmall"
+},
+"--helper-text-space-gap": {
+"figma": "helperText/space/gap",
+"key": "85de4cd779aba391c08b6a064d1e8a829a6ed3d6",
+"collection": "Component",
+"type": "FLOAT",
+"value": "4px",
+"ref": "--space-4"
+},
+"--field-attention-color-bg-default": {
+"figma": "field/attention/color/bg/default",
+"key": "288075a03a8dc2645d43d6a61d1487a42cc84995",
+"collection": "Component",
+"type": "COLOR",
+"value": "#FFF7DC",
+"ref": "--color-bg-attention-faint"
+},
+"--field-attention-color-border-default": {
+"figma": "field/attention/color/border/default",
+"key": "646964f0a672927a5396123fd7f6dc02c66a66a2",
+"collection": "Component",
+"type": "COLOR",
+"value": "#FFE07F",
+"ref": "--color-border-attention-muted"
+},
+"--field-color-bg-default": {
+"figma": "field/color/bg/default",
+"key": "122f17ca96c9d3da99cca277d99b216766e863cd",
+"collection": "Component",
+"type": "COLOR",
+"value": "#FFFFFF",
+"ref": "--color-bg-base"
+},
+"--field-color-bg-disabled": {
+"figma": "field/color/bg/disabled",
+"key": "18b0746003f522d54ff9c979c42c2820d89265c2",
+"collection": "Component",
+"type": "COLOR",
+"value": "#E8ECEF",
+"ref": "--color-bg-neutral-disabled"
+},
+"--field-color-bg-error": {
+"figma": "field/color/bg/error",
+"key": "d75a2389c2c54b6c837a058e4d4d98b104a24068",
+"collection": "Component",
+"type": "COLOR",
+"value": "#FFFFFF",
+"ref": "--color-bg-base"
+},
+"--field-color-bg-focus": {
+"figma": "field/color/bg/focus",
+"key": "cb21b2324f62bbd4eb84b732955051e743f79cbb",
+"collection": "Component",
+"type": "COLOR",
+"value": "#FFFFFF",
+"ref": "--color-bg-base"
+},
+"--field-color-bg-hover": {
+"figma": "field/color/bg/hover",
+"key": "894f720b06b9a37e0e270252039a4cae1ae59b25",
+"collection": "Component",
+"type": "COLOR",
+"value": "#F8F9FB",
+"ref": "--color-bg-neutral-faint"
+},
+"--field-color-bg-readonly": {
+"figma": "field/color/bg/readonly",
+"key": "64e6300fffc41a80e68771e566ae0c0f795401c1",
+"collection": "Component",
+"type": "COLOR",
+"value": "#F1F3F5",
+"ref": "--color-bg-neutral-muted"
+},
+"--field-color-border-default": {
+"figma": "field/color/border/default",
+"key": "0280475c6e3128d40d7b205fa08ddbf339b5db71",
+"collection": "Component",
+"type": "COLOR",
+"value": "#C4C9CF",
+"ref": "--color-border-neutral-strong"
+},
+"--field-color-border-disabled": {
+"figma": "field/color/border/disabled",
+"key": "a633b0b6d5d0a9c2a34b3be34c15d9f8ef4c92c5",
+"collection": "Component",
+"type": "COLOR",
+"value": "#DCE0E5",
+"ref": "--color-border-neutral-disabled"
+},
+"--field-color-border-error": {
+"figma": "field/color/border/error",
+"key": "47c98bfe69d2ade8ba5327394ae7600278deafcc",
+"collection": "Component",
+"type": "COLOR",
+"value": "#ED3B3E",
+"ref": "--color-border-danger-strong"
+},
+"--field-color-border-focus": {
+"figma": "field/color/border/focus",
+"key": "a8954e45753d44b0006b05082470ff93e60401a8",
+"collection": "Component",
+"type": "COLOR",
+"value": "#303942",
+"ref": "--color-border-neutral-focus"
+},
+"--field-color-border-hover": {
+"figma": "field/color/border/hover",
+"key": "d7c4e28253a1f4beb132dca3fb6598ba42a668c9",
+"collection": "Component",
+"type": "COLOR",
+"value": "#C4C9CF",
+"ref": "--color-border-neutral-strong"
+},
+"--field-color-border-readonly": {
+"figma": "field/color/border/readonly",
+"key": "08df7436955f31a4edcc8e72603464ee1aa4619b",
+"collection": "Component",
+"type": "COLOR",
+"value": "#DCE0E5",
+"ref": "--color-border-neutral-muted"
+},
+"--field-color-fg-default": {
+"figma": "field/color/fg/default",
+"key": "fcd8fa72b91ee1a0c4fbf72e5fcd369934a647f2",
+"collection": "Component",
+"type": "COLOR",
+"value": "#1C1F23",
+"ref": "--color-fg-neutral-strongest"
+},
+"--field-color-fg-disabled": {
+"figma": "field/color/fg/disabled",
+"key": "db59761408f0a348ba696a9d4a551fd001670d1a",
+"collection": "Component",
+"type": "COLOR",
+"value": "#B3B9C0",
+"ref": "--color-fg-neutral-disabled"
+},
+"--field-color-fg-error": {
+"figma": "field/color/fg/error",
+"key": "79b6f8a0829b0f46e1c62b504908d94fe5e8b93d",
+"collection": "Component",
+"type": "COLOR",
+"value": "#1C1F23",
+"ref": "--color-fg-neutral-strongest"
+},
+"--field-color-fg-focus": {
+"figma": "field/color/fg/focus",
+"key": "1f1af92a6e8260c9ffc16e1de65b08d05e42f504",
+"collection": "Component",
+"type": "COLOR",
+"value": "#1C1F23",
+"ref": "--color-fg-neutral-strongest"
+},
+"--field-color-fg-readonly": {
+"figma": "field/color/fg/readonly",
+"key": "a4dc187a1ca6029e0a08eb0df3dee4b4b82a22a2",
+"collection": "Component",
+"type": "COLOR",
+"value": "#1C1F23",
+"ref": "--color-fg-neutral-strongest"
+},
+"--field-placeholder-color-fg-default": {
+"figma": "field/placeholder/color/fg/default",
+"key": "aed7a4409e7ad202d35f6891b6ded88592af39d0",
+"collection": "Component",
+"type": "COLOR",
+"value": "#697582",
+"ref": "--color-fg-neutral-muted-default"
+},
+"--field-required-color-bg-default": {
+"figma": "field/required/color/bg/default",
+"key": "a6ab03188ea218af3a02f698cd6f47eae87703fd",
+"collection": "Component",
+"type": "COLOR",
+"value": "#FFEEDA",
+"ref": "--color-bg-warning-faint"
+},
+"--field-required-color-border-default": {
+"figma": "field/required/color/border/default",
+"key": "3c36dce19a0fab519d13c188fad4a8e4c6b3c290",
+"collection": "Component",
+"type": "COLOR",
+"value": "#FFC387",
+"ref": "--color-border-warning-muted"
+},
+"--field-ring-border-width": {
+"figma": "field/ring/borderWidth",
+"key": "16a33a94443a8e64b0a297dcb6e1491674b0d9ef",
+"collection": "Component",
+"type": "FLOAT",
+"value": "2px",
+"ref": "--border-width-thick"
+},
+"--field-ring-color-border-error": {
+"figma": "field/ring/color/border/error",
+"key": "fe0218143bf4a503d8123ce094be5eac38c1de95",
+"collection": "Component",
+"type": "COLOR",
+"value": "#FFDCDC",
+"ref": "--color-border-danger-faint"
+},
+"--font-label-15-400-family": {
+"figma": "font/label/15/400/family",
+"key": "62b0ddc02855a22008edc049af614efb8bd470cb",
+"collection": "Semantic",
+"type": "STRING"
+},
+"--font-label-15-400-letter-spacing": {
+"figma": "font/label/15/400/letterSpacing",
+"key": "9ef8edd3863437ce9c3b6912b08fa2a43ff9b140",
+"collection": "Semantic",
+"type": "FLOAT"
+},
+"--font-label-15-400-line-height": {
+"figma": "font/label/15/400/lineHeight",
+"key": "093500ef31ebb6ec6c105b756c8452b39881aace",
+"collection": "Semantic",
+"type": "FLOAT"
+},
+"--font-label-15-400-size": {
+"figma": "font/label/15/400/size",
+"key": "f733d5bfff645a477ea4c7c30ca5e6aefc926666",
+"collection": "Semantic",
+"type": "FLOAT"
+},
+"--font-label-15-400-weight": {
+"figma": "font/label/15/400/weight",
+"key": "c997865f16cf3189d079ddb433f12f9827dcbe8f",
+"collection": "Semantic",
+"type": "FLOAT"
+},
+"--font-label-16-400-weight": {
+"figma": "font/label/16/400/weight",
+"key": "2e66f4e0971f2f0d93f23d7f30a1361127b857b5",
+"collection": "Semantic",
+"type": "FLOAT"
+},
+"--password-field-border-width": {
+"figma": "passwordField/borderWidth",
+"key": "776d94c9fb027074a7ed8211258e8998d63c962b",
+"collection": "Component",
+"type": "FLOAT",
+"value": "1px",
+"ref": "--border-width-thin"
+},
+"--password-field-helper-space-gap": {
+"figma": "passwordField/helper/space/gap",
+"key": "8bfd34e74dd0e47b0a112235d03154c90d9c4c3f",
+"collection": "Component",
+"type": "FLOAT",
+"value": "4px",
+"ref": "--space-4"
+},
+"--password-field-large-size-height": {
+"figma": "passwordField/large/size/height",
+"key": "0ec3f4f94d1303d5487a513647cbd7c2df8da402",
+"collection": "Component",
+"type": "FLOAT",
+"value": "40px",
+"ref": "--size-control-large"
+},
+"--password-field-large-space-padding-end": {
+"figma": "passwordField/large/space/paddingEnd",
+"key": "042a9899f62ead6f28bdc1a176d08169d8a0e3cc",
+"collection": "Component",
+"type": "FLOAT",
+"value": "12px",
+"ref": "--space-12"
+},
+"--password-field-large-space-padding-start": {
+"figma": "passwordField/large/space/paddingStart",
+"key": "fac12f470a13907fc6afb4b6ca020d85b34b6efe",
+"collection": "Component",
+"type": "FLOAT",
+"value": "14px",
+"ref": "--space-14"
+},
+"--password-field-medium-size-height": {
+"figma": "passwordField/medium/size/height",
+"key": "bdd7d7ec5ac74e1adc021ee0d5dca2bbccb2cbcb",
+"collection": "Component",
+"type": "FLOAT",
+"value": "32px",
+"ref": "--size-control-medium"
+},
+"--password-field-medium-space-padding-end": {
+"figma": "passwordField/medium/space/paddingEnd",
+"key": "230dc9403785affc49550b0f53923aa3d3c6345a",
+"collection": "Component",
+"type": "FLOAT",
+"value": "12px",
+"ref": "--space-12"
+},
+"--password-field-medium-space-padding-start": {
+"figma": "passwordField/medium/space/paddingStart",
+"key": "8da8c1ca755fd6bcbee31c14d5d5025ca4c99f33",
+"collection": "Component",
+"type": "FLOAT",
+"value": "14px",
+"ref": "--space-14"
+},
+"--password-field-radius": {
+"figma": "passwordField/radius",
+"key": "f07b3904957dd298c15dfff7de92a5d158075ff0",
+"collection": "Component",
+"type": "FLOAT",
+"value": "6px",
+"ref": "--radius-small"
+},
+"--password-field-small-size-height": {
+"figma": "passwordField/small/size/height",
+"key": "c2fb71dbf0d52178a6eaab3e131b073d2bcb1a90",
+"collection": "Component",
+"type": "FLOAT",
+"value": "28px",
+"ref": "--size-control-small"
+},
+"--password-field-small-space-padding-end": {
+"figma": "passwordField/small/space/paddingEnd",
+"key": "6e2f65f63341ddfa8060425e9ae3a99f817c8211",
+"collection": "Component",
+"type": "FLOAT",
+"value": "10px",
+"ref": "--space-10"
+},
+"--password-field-small-space-padding-start": {
+"figma": "passwordField/small/space/paddingStart",
+"key": "9b9563a7429283727613bf2116c78185a73d2cb9",
+"collection": "Component",
+"type": "FLOAT",
+"value": "12px",
+"ref": "--space-12"
+},
+"--password-field-space-gap": {
+"figma": "passwordField/space/gap",
+"key": "d874f85a16b01129168e1c5098f33e4d0738b7ea",
+"collection": "Component",
+"type": "FLOAT",
+"value": "8px",
+"ref": "--space-8"
+},
+"--size-icon-small": {
+"figma": "size/icon/small",
+"key": "0a48142378dac4cb5c353975c9b322c5dc305eab",
+"collection": "Semantic",
+"type": "FLOAT",
+"value": "14px",
+"ref": "--size-14"
+},
+"--visibility-toggle-color-bg-default": {
+"figma": "visibilityToggle/color/bg/default",
+"key": "8fe47b649b9f66cd57696c4de5a2b17409f80d48",
+"collection": "Component",
+"type": "COLOR"
+},
+"--visibility-toggle-color-fg-default": {
+"figma": "visibilityToggle/color/fg/default",
+"key": "99792e315962588a8463c2ce838c14d5a4fa2b51",
+"collection": "Component",
+"type": "COLOR"
+},
+"--visibility-toggle-color-fg-disabled": {
+"figma": "visibilityToggle/color/fg/disabled",
+"key": "61ba7988cb4e33c132126836626dc969f47a5e11",
+"collection": "Component",
+"type": "COLOR"
+},
+"--radio-border-width": {
+"figma": "radio/borderWidth",
+"key": "a8a6e3e58f4ee45b59e215edb05991fdeb8d6829",
+"collection": "Component",
+"type": "FLOAT",
+"value": "1.5px",
+"ref": "--border-width-1p5"
+},
+"--radio-checked-color-bg-default": {
+"figma": "radio/checked/color/bg/default",
+"key": "1e627bb5628812cc8b1d741e4c83fcaa9381713e",
+"collection": "Component",
+"type": "COLOR",
+"value": "#FFFFFF",
+"ref": "--color-bg-base"
+},
+"--radio-checked-color-border-default": {
+"figma": "radio/checked/color/border/default",
+"key": "cba220b5a57dfced5b5e579615be714955603b9a",
+"collection": "Component",
+"type": "COLOR",
+"value": "#3617CE",
+"ref": "--color-border-brand-strong-default"
+},
+"--radio-checked-color-border-disabled": {
+"figma": "radio/checked/color/border/disabled",
+"key": "f5454b189d9450db7c91cafd5460e71241106d92",
+"collection": "Component",
+"type": "COLOR",
+"value": "#B4B7FF",
+"ref": "--color-border-brand-disabled"
+},
+"--radio-checked-color-border-hover": {
+"figma": "radio/checked/color/border/hover",
+"key": "25d92d61c2212ff5b80b7d11ee5be5f59891fad4",
+"collection": "Component",
+"type": "COLOR",
+"value": "#2F15B2",
+"ref": "--color-border-brand-strong-hover"
+},
+"--radio-checked-color-border-pressed": {
+"figma": "radio/checked/color/border/pressed",
+"key": "6c8333fdd887c3b30cc4ad92dbc24cdc8ba71c15",
+"collection": "Component",
+"type": "COLOR",
+"value": "#261091",
+"ref": "--color-border-brand-strong-pressed"
+},
+"--radio-checked-dot-color-bg-default": {
+"figma": "radio/checked/dot/color/bg/default",
+"key": "02189c0777509da3af95ea9f5d3e83a49b1fe6d7",
+"collection": "Component",
+"type": "COLOR",
+"value": "#3617CE",
+"ref": "--color-bg-brand-strongest-default"
+},
+"--radio-checked-dot-color-bg-disabled": {
+"figma": "radio/checked/dot/color/bg/disabled",
+"key": "63a72af75c4cbaae03c4987a9485e9c76ce28d0f",
+"collection": "Component",
+"type": "COLOR",
+"value": "#B4B7FF",
+"ref": "--color-bg-brand-disabled"
+},
+"--radio-checked-dot-color-bg-hover": {
+"figma": "radio/checked/dot/color/bg/hover",
+"key": "2e6b7a1ec89082f340cc2f42205c3cfae1bbd05a",
+"collection": "Component",
+"type": "COLOR",
+"value": "#2F15B2",
+"ref": "--color-bg-brand-strongest-hover"
+},
+"--radio-checked-dot-color-bg-pressed": {
+"figma": "radio/checked/dot/color/bg/pressed",
+"key": "b7f457dca63524e6ced6df04fefe7ce768e9fcaf",
+"collection": "Component",
+"type": "COLOR",
+"value": "#261091",
+"ref": "--color-bg-brand-strongest-pressed"
+},
+"--radio-large-dot-size": {
+"figma": "radio/large/dot/size",
+"key": "25ccda6cf549f2f51a38342c22cff517e8dff7a1",
+"collection": "Component",
+"type": "FLOAT",
+"value": "12px",
+"ref": "--size-12"
+},
+"--radio-large-size": {
+"figma": "radio/large/size",
+"key": "3b030317964a859d0b83a023a424a57ae60644e3",
+"collection": "Component",
+"type": "FLOAT",
+"value": "20px",
+"ref": "--size-20"
+},
+"--radio-medium-dot-size": {
+"figma": "radio/medium/dot/size",
+"key": "2a53d2792605d46a34ed6a4bd3bb2dcf654b93e5",
+"collection": "Component",
+"type": "FLOAT",
+"value": "8px",
+"ref": "--size-8"
+},
+"--radio-medium-size": {
+"figma": "radio/medium/size",
+"key": "7cea84b28bcf793ec7e19e1893e2f887f339c559",
+"collection": "Component",
+"type": "FLOAT",
+"value": "16px",
+"ref": "--size-16"
+},
+"--radio-radius": {
+"figma": "radio/radius",
+"key": "53cd61a4525ae41c4f700e414cccc92122448b27",
+"collection": "Component",
+"type": "FLOAT",
+"value": "9999px",
+"ref": "--radius-full"
+},
+"--radio-space-gap": {
+"figma": "radio/space/gap",
+"key": "acdd71d2b45b345b2a368d6b6cd5f205c9145c6a",
+"collection": "Component",
+"type": "FLOAT",
+"value": "6px",
+"ref": "--space-6"
+},
+"--font-body-14-400-family": {
+"figma": "font/body/14/400/family",
+"key": "017e85b84eb2771428046e353483824cabd16ae5",
+"collection": "Semantic",
+"type": "STRING",
+"value": "Pretendard",
+"ref": "--font-family-pretendard"
+},
+"--font-body-14-400-letter-spacing": {
+"figma": "font/body/14/400/letterSpacing",
+"key": "191a873aa7a66db65616114560f7ec7fa8c86607",
+"collection": "Semantic",
+"type": "FLOAT",
+"value": "-0.2px",
+"ref": "--font-letter-spacing-minus0p2"
+},
+"--font-body-14-400-line-height": {
+"figma": "font/body/14/400/lineHeight",
+"key": "ed8ce6355c904c38e13a617832a20b221f7c7fe3",
+"collection": "Semantic",
+"type": "FLOAT",
+"value": "20px",
+"ref": "--font-line-height-20"
+},
+"--font-body-14-400-size": {
+"figma": "font/body/14/400/size",
+"key": "99d89db0bd7cb23a77ffd137296ac5ce90d6ab76",
+"collection": "Semantic",
+"type": "FLOAT",
+"value": "14px",
+"ref": "--font-size-14"
+},
+"--font-body-14-400-weight": {
+"figma": "font/body/14/400/weight",
+"key": "88d58405fcc3019e0f56d8e7cb3f3506d08559cc",
+"collection": "Semantic",
+"type": "FLOAT",
+"value": "400",
+"ref": "--font-weight-400"
+},
+"--text-area-border-width": {
+"figma": "textArea/borderWidth",
+"key": "d15851bc72dd282cc5dd4f6b25a74e8adb3cd973",
+"collection": "Component",
+"type": "FLOAT",
+"value": "1px",
+"ref": "--border-width-thin"
+},
+"--text-area-helper-space-gap": {
+"figma": "textArea/helper/space/gap",
+"key": "d39e0a7e4bba6584c686468158dea49c3c965521",
+"collection": "Component",
+"type": "FLOAT",
+"value": "4px",
+"ref": "--space-4"
+},
+"--text-area-radius": {
+"figma": "textArea/radius",
+"key": "4a4128351b40cf7d2c1c8d44dd93c20a4b1022f4",
+"collection": "Component",
+"type": "FLOAT",
+"value": "6px",
+"ref": "--radius-small"
+},
+"--text-area-space-padding-x": {
+"figma": "textArea/space/paddingX",
+"key": "2c77a076430fcd716fd5e49f7e51d8c58f2d3350",
+"collection": "Component",
+"type": "FLOAT",
+"value": "14px",
+"ref": "--space-14"
+},
+"--text-area-space-padding-y": {
+"figma": "textArea/space/paddingY",
+"key": "9c2bb7af2cb7257d6984204255edcbafa1a36e5a",
+"collection": "Component",
+"type": "FLOAT",
+"value": "8px",
+"ref": "--space-8"
+},
+"--text-field-border-width": {
+"figma": "textField/borderWidth",
+"key": "77d485da698a6b856b8d9d2059782b31be1c46cd",
+"collection": "Component",
+"type": "FLOAT",
+"value": "1px",
+"ref": "--border-width-thin"
+},
+"--text-field-helper-space-gap": {
+"figma": "textField/helper/space/gap",
+"key": "6b384d353d6c84564f0d52cb07b69892a85d8d83",
+"collection": "Component",
+"type": "FLOAT",
+"value": "4px",
+"ref": "--space-4"
+},
+"--text-field-large-size-height": {
+"figma": "textField/large/size/height",
+"key": "38b7c8edb03af8bcbc592b7256f09fd7a85d6ee5",
+"collection": "Component",
+"type": "FLOAT",
+"value": "40px",
+"ref": "--size-control-large"
+},
+"--text-field-large-space-padding-end": {
+"figma": "textField/large/space/paddingEnd",
+"key": "45a8ad2333c39cfbeeb34d5ec9416c8948d698f0",
+"collection": "Component",
+"type": "FLOAT",
+"value": "12px",
+"ref": "--space-12"
+},
+"--text-field-large-space-padding-start": {
+"figma": "textField/large/space/paddingStart",
+"key": "60e44762a471c3c6b12a3ba3e116a15061a4b05b",
+"collection": "Component",
+"type": "FLOAT",
+"value": "14px",
+"ref": "--space-14"
+},
+"--text-field-medium-size-height": {
+"figma": "textField/medium/size/height",
+"key": "78c86a34df4b753c069e4b0839a1e3b87a1b1055",
+"collection": "Component",
+"type": "FLOAT",
+"value": "32px",
+"ref": "--size-control-medium"
+},
+"--text-field-medium-space-padding-end": {
+"figma": "textField/medium/space/paddingEnd",
+"key": "c94255b81753f7a98d9250c0b03cb3f5339d63e0",
+"collection": "Component",
+"type": "FLOAT",
+"value": "12px",
+"ref": "--space-12"
+},
+"--text-field-medium-space-padding-start": {
+"figma": "textField/medium/space/paddingStart",
+"key": "b34c3123293f294a5283b2835d125cc315081d2e",
+"collection": "Component",
+"type": "FLOAT",
+"value": "14px",
+"ref": "--space-14"
+},
+"--text-field-radius": {
+"figma": "textField/radius",
+"key": "681bc7e8ccd762334918a0df58782a2a78d60c52",
+"collection": "Component",
+"type": "FLOAT",
+"value": "6px",
+"ref": "--radius-small"
+},
+"--text-field-small-size-height": {
+"figma": "textField/small/size/height",
+"key": "e7f96b1fa05d105c8015145267f0919196fef692",
+"collection": "Component",
+"type": "FLOAT",
+"value": "28px",
+"ref": "--size-control-small"
+},
+"--text-field-small-space-padding-end": {
+"figma": "textField/small/space/paddingEnd",
+"key": "6b92961c30a9b514c8aab772680a69ce0ac00afe",
+"collection": "Component",
+"type": "FLOAT",
+"value": "10px",
+"ref": "--space-10"
+},
+"--text-field-small-space-padding-start": {
+"figma": "textField/small/space/paddingStart",
+"key": "657011cb530af8696d6652882b08e3ece220f2df",
+"collection": "Component",
+"type": "FLOAT",
+"value": "12px",
+"ref": "--space-12"
+},
+"--text-field-space-gap": {
+"figma": "textField/space/gap",
+"key": "df42fec77f7defb349dd63cc37c79408f017fa20",
+"collection": "Component",
+"type": "FLOAT",
+"value": "8px",
+"ref": "--space-8"
+}
+}
+}
