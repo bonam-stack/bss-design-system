@@ -199,6 +199,8 @@ export function renderVariant(comp, layer, opts) {
         if (color) css.color = color;
       }
       rules.push([cls, css]);
+      // an inline svg sits on the text baseline and drops below its box; block keeps it in place
+      rules.push([`${cls} > svg`, { display: 'block' }]);
       const svg = icon.svg.replace(/width="\d+" height="\d+"/, 'width="100%" height="100%"');
       return `${pad}<span class="${cls}" aria-hidden="true">${svg}</span>\n`;
     }
