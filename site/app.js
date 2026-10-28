@@ -4,11 +4,13 @@
 // Routes are bare hash tokens (#overview, #icons, #components, #<component key>) so links can be shared.
 
 import { renderVariant, isRenderable } from './render.js';
+import { pagePattern, bindPattern } from './pattern.js';
 
 const content = document.getElementById('content');
 const sidebar = document.getElementById('sidebar');
 const menuBtn = document.getElementById('menuBtn');
 const navComponents = document.getElementById('navComponents');
+const navPatterns = document.getElementById('navPatterns');
 
 const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]);
 const figmaUrl = (fileKey, nodeId) => `https://www.figma.com/design/${fileKey}/?node-id=${nodeId.replace(':', '-')}`;
@@ -565,8 +567,15 @@ async function bindIcons({ icons }) {
 
 // ---------- boot ----------
 async function boot() {
-  const [registry, icons] = await Promise.all([getJson('components/index.json'), getJson('icons/icons.json')]);
+  const [registry, icons, patternList] = await Promise.all([getJson('components/index.json'), getJson('icons/icons.json'), getJson('patterns/index.json')]);
   const components = await Promise.all(registry.components.map((key) => getJson(`components/${key}/component.json`)));
+  const patterns = await Promise.all(patternList.patterns.map((key) => getJson(`patterns/${key}/pattern.json`)));
+  // each pattern brings the icons drawn in its Figma guide (exported with their colors)
+  await Promise.all(patterns.map(async (p) => {
+    const entries = await Promise.all(Object.entries(p.icons || {}).map(async ([k, f]) => [k, (await getText(`patterns/${p.key}/${f}`)).trim()]));
+    p.iconSvg = Object.fromEntries(entries);
+  }));
+  navPatterns.innerHTML = patterns.map((p) => `<a href="#pattern-${esc(p.key)}" data-route="pattern-${esc(p.key)}">${esc(p.name)}</a>`).join('');
   components.sort((a, b) => a.name.localeCompare(b.name));
   navComponents.innerHTML = components.map((c) => `<a href="#${esc(c.key)}" data-route="${esc(c.key)}">${esc(c.name)}</a>`).join('');
   const ctx = { components, icons };
@@ -574,7 +583,8 @@ async function boot() {
   function render() {
     const route = location.hash.replace(/^#/, '') || 'overview';
     const comp = components.find((c) => c.key === route);
-    const page = ['icons', 'components'].includes(route) ? route : comp ? comp.key : 'overview';
+    const pattern = patterns.find((p) => `pattern-${p.key}` === route);
+    const page = ['icons', 'components'].includes(route) ? route : comp ? comp.key : pattern ? route : 'overview';
     sidebar.querySelectorAll('a[data-route]').forEach((a) => a.classList.toggle('active', a.dataset.route === page));
     sidebar.classList.remove('open');
     menuBtn.setAttribute('aria-expanded', 'false');
@@ -585,6 +595,10 @@ async function boot() {
           document.getElementById('iconList').innerHTML = `<p class="error">아이콘을 불러오지 못했어요: ${esc(err.message)}</p>`;
         });
       } else if (page === 'components') content.innerHTML = pageComponentList(ctx);
+      else if (pattern) {
+        content.innerHTML = pagePattern(pattern, pattern.iconSvg);
+        bindPattern(pattern);
+      }
       else if (comp) {
         content.innerHTML = pageComponent(comp);
         bindVariantFilter();

@@ -340,3 +340,66 @@ details.dev h2:first-of-type { margin-top: 12px; }
 @media (prefers-reduced-motion: reduce) {
   .toast, .sidebar { transition: none; }
 }
+
+/* ---------- patterns (values from the Figma pattern guide) ---------- */
+.pt-text { max-width: 90ch; }
+.pt-canvases { display: grid; gap: 10px; }
+.pt-canvas {
+  position: relative; display: grid; align-items: center; justify-items: safe center; min-height: 220px; padding: 56px 24px 32px;
+  border-radius: 16px; background: #F8F9FB; color: #1A1A1A; overflow-x: auto;
+}
+.pt-canvas h3 { position: absolute; top: 24px; left: 24px; margin: 0; font-size: 16px; font-weight: 400; line-height: 22px; letter-spacing: -0.192px; color: #292929; }
+.pt-marked { padding-top: 100px; }
+.pt-spec { padding-bottom: 48px; }
+.pt-figure { font-family: 'Pretendard', var(--font); font-size: 14px; line-height: 20px; letter-spacing: -0.2px; }
+.pt-row { position: relative; display: flex; align-items: center; }
+.pt-label { position: relative; flex-shrink: 0; font-weight: 500; white-space: nowrap; color: #1A1A1A; }
+.pt-box {
+  position: relative; display: flex; align-items: center; gap: 10px; flex-shrink: 0; box-sizing: border-box;
+  padding: 0 14px; border: 1px solid #C4C9CF; border-radius: 6px; background: #FFFFFF;
+}
+.pt-value { flex: 1 1 0; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: #1A1A1A; }
+.pt-field .pt-value { color: #B3B9C0; }
+.pt-date { padding: 0 12px 0 14px; }
+.pt-num { letter-spacing: -0.6px; font-feature-settings: 'lnum' 1, 'tnum' 1; text-overflow: clip; } /* fits in Figma; the browser measures it 1px wider */
+.pt-box svg { display: block; flex-shrink: 0; }
+.pt-cal { display: flex; padding: 1.5px 2px; }
+.pt-cal svg { width: 12px; height: 13px; }
+.pt-button {
+  position: relative; display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0;
+  padding: 6px 12px; border-radius: 9999px; box-shadow: inset 0 0 0 1px #C4C9CF; /* Figma stroke sits inside: 48x32 */ font-weight: 500; white-space: nowrap; color: #1A1A1A;
+}
+/* a Figma line has no width: the 1px stroke is drawn over the gap, centered */
+.pt-divider { position: relative; flex-shrink: 0; width: 0; }
+.pt-divider::before { content: ''; position: absolute; inset: 0 auto 0 -0.5px; width: 1px; background: #DCE0E5; }
+/* numbered marker: a 28px badge with a dotted line down to the part it names */
+.pt-mark { position: absolute; bottom: 100%; width: 28px; height: 60px; transform: translateX(-50%); pointer-events: none; }
+.pt-mark::after { content: ''; position: absolute; left: 50%; top: 15px; bottom: 3px; border-left: 1px dotted #B3B9C0; }
+.pt-mark span, .pt-num-badge {
+  display: grid; place-items: center; width: 28px; height: 28px; border-radius: 40px; background: #1A1A1A;
+  color: #FFFFFF; font-size: 14px; font-weight: 800; line-height: 20px; letter-spacing: -0.168px;
+}
+.pt-mark span { position: relative; z-index: 1; }
+.pt-parts { display: grid; gap: 16px; margin: 20px 0 0; padding: 0; list-style: none; }
+.pt-parts li { display: grid; grid-template-columns: 28px minmax(120px, 184px) 1fr; gap: 8px; align-items: start; }
+.pt-parts strong { padding-top: 3px; }
+.pt-parts li > span:last-child { padding-top: 3px; color: var(--fg-muted); }
+.pt-types td { vertical-align: middle; }
+.pt-type { font-weight: 600; white-space: nowrap; }
+.pt-example { display: grid; place-items: center; padding: 20px 8px; border-radius: 10px; background: #F8F9FB; overflow-x: auto; }
+/* the Figma type table draws the examples at 0.554 (Select 200px -> 110.8px) */
+.pt-example .pt-figure { zoom: 0.554; }
+.pt-types td.pt-text { min-width: 240px; }
+/* spec marks */
+.pt-gap { position: absolute; background: rgba(239, 85, 51, 0.5); pointer-events: none; }
+.pt-gap-num { position: absolute; top: calc(100% + 4px); left: 50%; transform: translateX(-50%); font-size: 10px; font-weight: 700; line-height: 12px; color: #EF5533; }
+.pt-center { position: absolute; width: 0; height: 0; pointer-events: none; }
+.pt-center::before { content: ''; position: absolute; left: 0; bottom: 0; height: 47px; border-left: 1px dotted #EF5533; }
+.pt-center span {
+  position: absolute; bottom: 47px; left: 0; transform: translateX(-50%); padding: 2px 6px; border-radius: 3px;
+  background: #EF5533; color: #FFFFFF; font-size: 10px; font-weight: 700; line-height: 12px; white-space: nowrap;
+}
+@media (max-width: 720px) {
+  .pt-parts li { grid-template-columns: 28px 1fr; }
+  .pt-parts li > span:last-child { grid-column: 2; }
+}
