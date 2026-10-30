@@ -403,3 +403,5 @@ details.dev h2:first-of-type { margin-top: 12px; }
   .pt-parts li { grid-template-columns: 28px 1fr; }
   .pt-parts li > span:last-child { grid-column: 2; }
 }
+.pattern-links { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; margin: -6px 0 18px; font-size: 13px; color: var(--fg-muted); }
+.pattern-links .chip { color: var(--accent); }

@@ -268,12 +268,20 @@ function usedProps(c, layer, values) {
   return { top, groups: [...groups.values()].filter((g) => g.items.length) };
 }
 
-function pageComponent(c) {
+// Patterns list the components they arrange (pattern.json `components`); the component page links back.
+function patternLinks(c, patterns) {
+  const used = patterns.filter((p) => (p.components || []).includes(c.key));
+  if (!used.length) return '';
+  return `<p class="pattern-links">사용 패턴 ${used.map((p) => `<a class="chip" href="#pattern-${esc(p.key)}">${esc(p.name)}</a>`).join('')}</p>`;
+}
+
+function pageComponent(c, patterns = []) {
   const ok = isRenderable(c);
   return `
     <p class="eyebrow">Component</p>
     <h1>${esc(c.name)}</h1>
     <p class="lead">${c.description ? esc(c.description) : ''}</p>
+    ${patternLinks(c, patterns)}
     ${ok ? `
     <section class="sb">
       <div class="sb-tabs" role="tablist">
@@ -600,7 +608,7 @@ async function boot() {
         bindPattern(pattern);
       }
       else if (comp) {
-        content.innerHTML = pageComponent(comp);
+        content.innerHTML = pageComponent(comp, patterns);
         bindVariantFilter();
         bindComponent(comp, ctx).catch((err) => {
           document.getElementById('sbStage')?.insertAdjacentHTML('beforeend', `<p class="error">미리보기를 그리지 못했어요: ${esc(err.message)}</p>`);

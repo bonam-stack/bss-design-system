@@ -9,6 +9,7 @@
     "file": "[작업중] NEXT BSS 표준수립_NextBSS Design Pattern Guide",
     "extractedAt": "2026-10-28"
   },
+  "components": ["text-field", "text-area", "password-field"],
   "icons": {
     "chevron": "chevron-down.svg",
     "calendar": "calendar.svg"
