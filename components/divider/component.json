@@ -1,0 +1,316 @@
+{
+  "schemaVersion": 2,
+  "key": "divider",
+  "name": "Divider",
+  "description": "",
+  "figma": {
+    "fileKey": "WcoI745J38TaON7iCKcutW",
+    "nodeId": "2366:22931",
+    "url": "https://www.figma.com/design/WcoI745J38TaON7iCKcutW?node-id=2366-22931",
+    "page": {
+      "nodeId": "2089:22630",
+      "name": "❖ Divider"
+    },
+    "type": "COMPONENT_SET",
+    "componentKey": "dd7ec6d7821aedbceb2196e892a752da111d28f0",
+    "requestedFrom": null,
+    "extractedAt": "2026-11-05"
+  },
+  "props": [
+    {
+      "name": "type",
+      "figmaName": "type",
+      "type": "variant",
+      "default": "solid",
+      "options": [
+        "solid",
+        "dashed"
+      ]
+    },
+    {
+      "name": "direction",
+      "figmaName": "direction",
+      "type": "variant",
+      "default": "horizontal",
+      "options": [
+        "horizontal",
+        "vertical"
+      ]
+    }
+  ],
+  "variants": [
+    {
+      "nodeId": "2366:22930",
+      "key": "f607a0dd89270c1f5c52446ea298d7b439b1da3f",
+      "props": {
+        "type": "solid",
+        "direction": "horizontal"
+      },
+      "size": [
+        280,
+        1
+      ],
+      "layer": {
+        "name": "type=solid, direction=horizontal",
+        "type": "COMPONENT",
+        "size": [
+          280,
+          1
+        ],
+        "layout": {
+          "mode": "VERTICAL",
+          "gap": 0,
+          "padding": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "align": [
+            "CENTER",
+            "CENTER"
+          ]
+        },
+        "sizing": [
+          "FIXED",
+          "FIXED"
+        ],
+        "children": [
+          {
+            "name": "line",
+            "type": "VECTOR",
+            "size": [
+              280,
+              0
+            ],
+            "sizing": [
+              "FILL",
+              "FIXED"
+            ],
+            "strokes": [
+              {
+                "type": "SOLID",
+                "color": "#DCE0E5",
+                "variable": "color/border/neutral/muted"
+              }
+            ],
+            "strokeWeight": 1,
+            "strokeAlign": "CENTER",
+            "id": "4271:10178"
+          }
+        ],
+        "id": "2366:22930"
+      }
+    },
+    {
+      "nodeId": "2376:267",
+      "key": "70f4ed5a4bcc7b578fc4a3d8170b726b4e68f8dc",
+      "props": {
+        "type": "solid",
+        "direction": "vertical"
+      },
+      "size": [
+        1,
+        300
+      ],
+      "layer": {
+        "name": "type=solid, direction=vertical",
+        "type": "COMPONENT",
+        "size": [
+          1,
+          300
+        ],
+        "layout": {
+          "mode": "VERTICAL",
+          "gap": 0,
+          "padding": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "align": [
+            "CENTER",
+            "CENTER"
+          ]
+        },
+        "sizing": [
+          "FIXED",
+          "FIXED"
+        ],
+        "children": [
+          {
+            "name": "line",
+            "type": "VECTOR",
+            "size": [
+              0,
+              300
+            ],
+            "sizing": [
+              "FIXED",
+              "FILL"
+            ],
+            "strokes": [
+              {
+                "type": "SOLID",
+                "color": "#DCE0E5",
+                "variable": "color/border/neutral/muted"
+              }
+            ],
+            "strokeWeight": 1,
+            "strokeAlign": "CENTER",
+            "id": "4271:10136"
+          }
+        ],
+        "id": "2376:267"
+      }
+    },
+    {
+      "nodeId": "2376:257",
+      "key": "c05efcf39e291d3e76432495b3ce076d4e272ce4",
+      "props": {
+        "type": "dashed",
+        "direction": "horizontal"
+      },
+      "size": [
+        280,
+        1
+      ],
+      "layer": {
+        "name": "type=dashed, direction=horizontal",
+        "type": "COMPONENT",
+        "size": [
+          280,
+          1
+        ],
+        "layout": {
+          "mode": "VERTICAL",
+          "gap": 0,
+          "padding": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "align": [
+            "CENTER",
+            "CENTER"
+          ]
+        },
+        "sizing": [
+          "FIXED",
+          "FIXED"
+        ],
+        "children": [
+          {
+            "name": "line",
+            "type": "VECTOR",
+            "size": [
+              280,
+              0
+            ],
+            "sizing": [
+              "FILL",
+              "FIXED"
+            ],
+            "strokes": [
+              {
+                "type": "SOLID",
+                "color": "#DCE0E5",
+                "variable": "color/border/neutral/muted"
+              }
+            ],
+            "strokeWeight": 1,
+            "strokeAlign": "CENTER",
+            "dash": [
+              2,
+              2
+            ],
+            "id": "2376:259"
+          }
+        ],
+        "id": "2376:257"
+      }
+    },
+    {
+      "nodeId": "2376:269",
+      "key": "f4347a07396e9650971bb2b9e69413d660e9ae73",
+      "props": {
+        "type": "dashed",
+        "direction": "vertical"
+      },
+      "size": [
+        1,
+        300
+      ],
+      "layer": {
+        "id": "2376:269",
+        "name": "type=dashed, direction=vertical",
+        "type": "COMPONENT",
+        "size": [
+          1,
+          300
+        ],
+        "layout": {
+          "mode": "HORIZONTAL",
+          "gap": 0,
+          "padding": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "align": [
+            "CENTER",
+            "CENTER"
+          ]
+        },
+        "sizing": [
+          "FIXED",
+          "FIXED"
+        ],
+        "children": [
+          {
+            "id": "2376:308",
+            "name": "line",
+            "type": "VECTOR",
+            "size": [
+              0,
+              300
+            ],
+            "sizing": [
+              "FIXED",
+              "FILL"
+            ],
+            "strokes": [
+              {
+                "type": "SOLID",
+                "color": "#DCE0E5",
+                "variable": "color/border/neutral/muted"
+              }
+            ],
+            "strokeWeight": 1,
+            "strokeAlign": "CENTER",
+            "dash": [
+              2,
+              2
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "tokens": [
+    {
+      "figma": "color/border/neutral/muted",
+      "css": "--color-border-neutral-muted",
+      "collection": "Semantic",
+      "type": "COLOR",
+      "value": "#DCE0E5",
+      "alias": "color/gray/200",
+      "key": "d8941f5bf27aa10efe7126f200873a31f6ced7b3"
+    }
+  ],
+  "textStyles": [],
+  "otherStyles": []
+}

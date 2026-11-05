@@ -2,9 +2,11 @@
   "components": [
     "button",
     "checkbox",
+    "divider",
     "helper-text",
     "password-field",
     "radio",
+    "radio-group",
     "text-area",
     "text-field"
   ]

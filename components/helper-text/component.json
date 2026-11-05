@@ -14,7 +14,7 @@
     "type": "COMPONENT_SET",
     "componentKey": "a5a18b22e8a32c6d2a43e3be9b6c45ec438b5d42",
     "requestedFrom": null,
-    "extractedAt": "2026-10-26"
+    "extractedAt": "2026-11-05"
   },
   "props": [
     {
@@ -170,6 +170,9 @@
                     "propRefs": {
                       "visible": "showLeadingIcon#2359:3"
                     },
+                    "variables": {
+                      "paddingTop": "helperText/icon/space/paddingTop"
+                    },
                     "children": [
                       {
                         "id": "2345:22274",
@@ -210,6 +213,10 @@
                               0,
                               0
                             ],
+                            "constraints": [
+                              "MIN",
+                              "MIN"
+                            ],
                             "sizing": [
                               "FIXED",
                               "FIXED"
@@ -234,6 +241,10 @@
                                 "position": [
                                   2.98,
                                   9.3
+                                ],
+                                "constraints": [
+                                  "SCALE",
+                                  "SCALE"
                                 ],
                                 "sizing": [
                                   "FIXED",
@@ -525,7 +536,6 @@
         16
       ],
       "layer": {
-        "id": "2359:22438",
         "name": "state=error",
         "type": "COMPONENT",
         "size": [
@@ -552,7 +562,6 @@
         ],
         "children": [
           {
-            "id": "2359:22439",
             "name": "helperGroup",
             "type": "FRAME",
             "size": [
@@ -582,7 +591,6 @@
             },
             "children": [
               {
-                "id": "2359:22440",
                 "name": "messageBox",
                 "type": "FRAME",
                 "size": [
@@ -609,7 +617,6 @@
                 ],
                 "children": [
                   {
-                    "id": "7640:5044",
                     "name": "icon",
                     "type": "FRAME",
                     "size": [
@@ -637,9 +644,11 @@
                     "propRefs": {
                       "visible": "showLeadingIcon#2359:3"
                     },
+                    "variables": {
+                      "paddingTop": "helperText/icon/space/paddingTop"
+                    },
                     "children": [
                       {
-                        "id": "2359:22441",
                         "name": "IconSlot",
                         "type": "INSTANCE",
                         "size": [
@@ -666,7 +675,6 @@
                         },
                         "children": [
                           {
-                            "id": "I2359:22441;2223:2618",
                             "name": "Icon/Line/Asterisk",
                             "type": "INSTANCE",
                             "size": [
@@ -676,6 +684,10 @@
                             "position": [
                               0,
                               0
+                            ],
+                            "constraints": [
+                              "MIN",
+                              "MIN"
                             ],
                             "sizing": [
                               "FIXED",
@@ -691,7 +703,6 @@
                             },
                             "children": [
                               {
-                                "id": "I2359:22441;2223:2618;2848:102817",
                                 "name": "Vector",
                                 "type": "VECTOR",
                                 "size": [
@@ -701,6 +712,10 @@
                                 "position": [
                                   2.98,
                                   9.3
+                                ],
+                                "constraints": [
+                                  "SCALE",
+                                  "SCALE"
                                 ],
                                 "sizing": [
                                   "FIXED",
@@ -712,16 +727,19 @@
                                     "color": "#ED3B3E",
                                     "variable": "helperText/color/fg/error"
                                   }
-                                ]
+                                ],
+                                "id": "I2359:22441;2223:2618;2848:102817"
                               }
-                            ]
+                            ],
+                            "id": "I2359:22441;2223:2618"
                           }
-                        ]
+                        ],
+                        "id": "2359:22441"
                       }
-                    ]
+                    ],
+                    "id": "7640:5044"
                   },
                   {
-                    "id": "2359:22442",
                     "name": "text",
                     "type": "TEXT",
                     "size": [
@@ -771,12 +789,13 @@
                       "fontFamily[0]": "font/caption/12/400/family",
                       "lineHeight[0]": "font/caption/12/400/lineHeight",
                       "fontWeight[0]": "font/caption/12/400/weight"
-                    }
+                    },
+                    "id": "2359:22442"
                   }
-                ]
+                ],
+                "id": "2359:22440"
               },
               {
-                "id": "4362:9426",
                 "name": "_Item/HelperText/Count",
                 "type": "INSTANCE",
                 "size": [
@@ -819,7 +838,6 @@
                 },
                 "children": [
                   {
-                    "id": "I4362:9426;2345:22265",
                     "name": "count",
                     "type": "TEXT",
                     "size": [
@@ -869,10 +887,10 @@
                       "fontFamily[0]": "font/caption/12/400/family",
                       "lineHeight[0]": "font/caption/12/400/lineHeight",
                       "fontWeight[0]": "font/caption/12/400/weight"
-                    }
+                    },
+                    "id": "I4362:9426;2345:22265"
                   },
                   {
-                    "id": "I4362:9426;2345:22266",
                     "name": "/",
                     "type": "TEXT",
                     "size": [
@@ -919,10 +937,10 @@
                       "fontFamily[0]": "font/caption/12/400/family",
                       "lineHeight[0]": "font/caption/12/400/lineHeight",
                       "fontWeight[0]": "font/caption/12/400/weight"
-                    }
+                    },
+                    "id": "I4362:9426;2345:22266"
                   },
                   {
-                    "id": "I4362:9426;2345:22267",
                     "name": "max",
                     "type": "TEXT",
                     "size": [
@@ -972,13 +990,17 @@
                       "fontFamily[0]": "font/caption/12/400/family",
                       "lineHeight[0]": "font/caption/12/400/lineHeight",
                       "fontWeight[0]": "font/caption/12/400/weight"
-                    }
+                    },
+                    "id": "I4362:9426;2345:22267"
                   }
-                ]
+                ],
+                "id": "4362:9426"
               }
-            ]
+            ],
+            "id": "2359:22439"
           }
-        ]
+        ],
+        "id": "2359:22438"
       }
     }
   ],
@@ -1025,7 +1047,7 @@
       "collection": "Semantic",
       "type": "FLOAT",
       "value": 400,
-      "alias": "font/weight/regular",
+      "alias": "font/weight/400",
       "key": "b2645267187d0b4fb72af4cc45c561acdff4d3e1"
     },
     {
@@ -1081,6 +1103,15 @@
       "value": 12,
       "alias": "size/icon/xsmall",
       "key": "dfa8512ad13e26e0c1d126b2217649aa1696a26c"
+    },
+    {
+      "figma": "helperText/icon/space/paddingTop",
+      "css": "--helper-text-icon-space-padding-top",
+      "collection": "Component",
+      "type": "FLOAT",
+      "value": 2,
+      "alias": "space/2",
+      "key": "dba6849796b9820ad73e87b65bd48ebc17afab8b"
     },
     {
       "figma": "helperText/space/gap",

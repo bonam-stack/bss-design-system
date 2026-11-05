@@ -9,12 +9,12 @@
     "url": "https://www.figma.com/design/WcoI745J38TaON7iCKcutW?node-id=4971-33462",
     "page": {
       "nodeId": "2564:40901",
-      "name": "❖ Text Field / Text Area"
+      "name": "❖ Text Field / Text Area 🔵"
     },
     "type": "COMPONENT_SET",
     "componentKey": "bb0e497228dc9d45d49f76b7b8aa92c3b980bbe9",
     "requestedFrom": null,
-    "extractedAt": "2026-10-26"
+    "extractedAt": "2026-11-05"
   },
   "props": [
     {
@@ -132,6 +132,10 @@
               "FILL",
               "HUG"
             ],
+            "minMaxHeight": [
+              90,
+              null
+            ],
             "radius": 6,
             "fills": [
               {
@@ -143,7 +147,7 @@
             "strokes": [
               {
                 "type": "SOLID",
-                "color": "#C4C9CF",
+                "color": "#B3B9C0",
                 "variable": "field/color/border/default"
               }
             ],
@@ -222,6 +226,10 @@
                 "position": [
                   216,
                   66
+                ],
+                "constraints": [
+                  "MAX",
+                  "MAX"
                 ],
                 "layout": {
                   "mode": "HORIZONTAL",
@@ -305,6 +313,10 @@
                           0,
                           0
                         ],
+                        "constraints": [
+                          "MIN",
+                          "MIN"
+                        ],
                         "sizing": [
                           "FIXED",
                           "FIXED"
@@ -330,6 +342,10 @@
                               7.5,
                               7.5
                             ],
+                            "constraints": [
+                              "SCALE",
+                              "SCALE"
+                            ],
                             "sizing": [
                               "FIXED",
                               "FIXED"
@@ -337,7 +353,7 @@
                             "fills": [
                               {
                                 "type": "SOLID",
-                                "color": "#697582",
+                                "color": "#454F59",
                                 "variable": "button/iconOnly/plain/color/fg/default"
                               }
                             ]
@@ -346,10 +362,6 @@
                       }
                     ]
                   }
-                ],
-                "constraints": [
-                  "MAX",
-                  "MAX"
                 ]
               }
             ]
@@ -480,6 +492,9 @@
                         "propRefs": {
                           "visible": "showLeadingIcon#2359:3"
                         },
+                        "variables": {
+                          "paddingTop": "helperText/icon/space/paddingTop"
+                        },
                         "children": [
                           {
                             "id": "I4971:33467;2345:22274",
@@ -520,6 +535,10 @@
                                   0,
                                   0
                                 ],
+                                "constraints": [
+                                  "MIN",
+                                  "MIN"
+                                ],
                                 "sizing": [
                                   "FIXED",
                                   "FIXED"
@@ -544,6 +563,10 @@
                                     "position": [
                                       2.98,
                                       9.3
+                                    ],
+                                    "constraints": [
+                                      "SCALE",
+                                      "SCALE"
                                     ],
                                     "sizing": [
                                       "FIXED",
@@ -836,6 +859,10 @@
               -2,
               -2
             ],
+            "constraints": [
+              "STRETCH",
+              "STRETCH"
+            ],
             "layout": {
               "mode": "HORIZONTAL",
               "gap": 0,
@@ -854,7 +881,7 @@
               "FIXED",
               "FIXED"
             ],
-            "radius": 4,
+            "radius": 8,
             "strokes": [
               {
                 "type": "SOLID",
@@ -873,14 +900,10 @@
               "visible": "showFocus#2661:238"
             },
             "variables": {
-              "cornerRadius": "focusRing/radius",
+              "cornerRadius": "textArea/focusRing/radius",
               "strokeWeight": "focusRing/borderWidth"
             },
-            "children": [],
-            "constraints": [
-              "STRETCH",
-              "STRETCH"
-            ]
+            "children": []
           }
         ]
       }
@@ -925,7 +948,7 @@
         },
         "children": [
           {
-            "name": "inputGroup",
+            "name": "inputBox",
             "type": "FRAME",
             "size": [
               240,
@@ -948,6 +971,10 @@
             "sizing": [
               "FILL",
               "HUG"
+            ],
+            "minMaxHeight": [
+              90,
+              null
             ],
             "radius": 6,
             "fills": [
@@ -1082,6 +1109,10 @@
                           0,
                           0
                         ],
+                        "constraints": [
+                          "SCALE",
+                          "SCALE"
+                        ],
                         "sizing": [
                           "FIXED",
                           "FIXED"
@@ -1111,6 +1142,10 @@
                 "position": [
                   216,
                   66
+                ],
+                "constraints": [
+                  "MAX",
+                  "MAX"
                 ],
                 "layout": {
                   "mode": "HORIZONTAL",
@@ -1192,6 +1227,10 @@
                           0,
                           0
                         ],
+                        "constraints": [
+                          "MIN",
+                          "MIN"
+                        ],
                         "sizing": [
                           "FIXED",
                           "FIXED"
@@ -1216,6 +1255,10 @@
                               7.5,
                               7.5
                             ],
+                            "constraints": [
+                              "SCALE",
+                              "SCALE"
+                            ],
                             "sizing": [
                               "FIXED",
                               "FIXED"
@@ -1223,7 +1266,7 @@
                             "fills": [
                               {
                                 "type": "SOLID",
-                                "color": "#697582",
+                                "color": "#454F59",
                                 "variable": "button/iconOnly/plain/color/fg/default"
                               }
                             ],
@@ -1236,11 +1279,7 @@
                     "id": "I4971:33480;7225:1699"
                   }
                 ],
-                "id": "4971:33480",
-                "constraints": [
-                  "MAX",
-                  "MAX"
-                ]
+                "id": "4971:33480"
               },
               {
                 "name": "_FocusRing",
@@ -1253,6 +1292,10 @@
                 "position": [
                   -2,
                   -2
+                ],
+                "constraints": [
+                  "STRETCH",
+                  "STRETCH"
                 ],
                 "layout": {
                   "mode": "HORIZONTAL",
@@ -1272,7 +1315,7 @@
                   "FIXED",
                   "FIXED"
                 ],
-                "radius": 4,
+                "radius": 8,
                 "strokes": [
                   {
                     "type": "SOLID",
@@ -1291,15 +1334,11 @@
                   "visible": "showFocus#2661:238"
                 },
                 "variables": {
-                  "cornerRadius": "focusRing/radius",
+                  "cornerRadius": "textArea/focusRing/radius",
                   "strokeWeight": "focusRing/borderWidth"
                 },
                 "children": [],
-                "id": "4971:33481",
-                "constraints": [
-                  "STRETCH",
-                  "STRETCH"
-                ]
+                "id": "4971:33481"
               }
             ],
             "id": "4971:33476"
@@ -1426,6 +1465,9 @@
                         "propRefs": {
                           "visible": "showLeadingIcon#2359:3"
                         },
+                        "variables": {
+                          "paddingTop": "helperText/icon/space/paddingTop"
+                        },
                         "children": [
                           {
                             "name": "IconSlot",
@@ -1464,6 +1506,10 @@
                                   0,
                                   0
                                 ],
+                                "constraints": [
+                                  "MIN",
+                                  "MIN"
+                                ],
                                 "sizing": [
                                   "FIXED",
                                   "FIXED"
@@ -1487,6 +1533,10 @@
                                     "position": [
                                       2.98,
                                       9.3
+                                    ],
+                                    "constraints": [
+                                      "SCALE",
+                                      "SCALE"
                                     ],
                                     "sizing": [
                                       "FIXED",
@@ -1841,6 +1891,10 @@
               "FILL",
               "HUG"
             ],
+            "minMaxHeight": [
+              90,
+              null
+            ],
             "radius": 6,
             "fills": [
               {
@@ -1852,7 +1906,7 @@
             "strokes": [
               {
                 "type": "SOLID",
-                "color": "#C4C9CF",
+                "color": "#B3B9C0",
                 "variable": "field/color/border/default"
               }
             ],
@@ -1930,6 +1984,10 @@
                 "position": [
                   216,
                   66
+                ],
+                "constraints": [
+                  "MAX",
+                  "MAX"
                 ],
                 "layout": {
                   "mode": "HORIZONTAL",
@@ -2011,6 +2069,10 @@
                           0,
                           0
                         ],
+                        "constraints": [
+                          "MIN",
+                          "MIN"
+                        ],
                         "sizing": [
                           "FIXED",
                           "FIXED"
@@ -2035,6 +2097,10 @@
                               7.5,
                               7.5
                             ],
+                            "constraints": [
+                              "SCALE",
+                              "SCALE"
+                            ],
                             "sizing": [
                               "FIXED",
                               "FIXED"
@@ -2042,7 +2108,7 @@
                             "fills": [
                               {
                                 "type": "SOLID",
-                                "color": "#697582",
+                                "color": "#454F59",
                                 "variable": "button/iconOnly/plain/color/fg/default"
                               }
                             ],
@@ -2055,11 +2121,7 @@
                     "id": "I4971:33486;7225:1699"
                   }
                 ],
-                "id": "4971:33486",
-                "constraints": [
-                  "MAX",
-                  "MAX"
-                ]
+                "id": "4971:33486"
               },
               {
                 "name": "_FocusRing",
@@ -2072,6 +2134,10 @@
                 "position": [
                   -2,
                   -2
+                ],
+                "constraints": [
+                  "STRETCH",
+                  "STRETCH"
                 ],
                 "layout": {
                   "mode": "HORIZONTAL",
@@ -2091,7 +2157,7 @@
                   "FIXED",
                   "FIXED"
                 ],
-                "radius": 4,
+                "radius": 8,
                 "strokes": [
                   {
                     "type": "SOLID",
@@ -2110,15 +2176,11 @@
                   "visible": "showFocus#2661:238"
                 },
                 "variables": {
-                  "cornerRadius": "focusRing/radius",
+                  "cornerRadius": "textArea/focusRing/radius",
                   "strokeWeight": "focusRing/borderWidth"
                 },
                 "children": [],
-                "id": "4971:33487",
-                "constraints": [
-                  "STRETCH",
-                  "STRETCH"
-                ]
+                "id": "4971:33487"
               }
             ],
             "minMaxWidth": [
@@ -2249,6 +2311,9 @@
                         "propRefs": {
                           "visible": "showLeadingIcon#2359:3"
                         },
+                        "variables": {
+                          "paddingTop": "helperText/icon/space/paddingTop"
+                        },
                         "children": [
                           {
                             "name": "IconSlot",
@@ -2287,6 +2352,10 @@
                                   0,
                                   0
                                 ],
+                                "constraints": [
+                                  "MIN",
+                                  "MIN"
+                                ],
                                 "sizing": [
                                   "FIXED",
                                   "FIXED"
@@ -2310,6 +2379,10 @@
                                     "position": [
                                       2.98,
                                       9.3
+                                    ],
+                                    "constraints": [
+                                      "SCALE",
+                                      "SCALE"
                                     ],
                                     "sizing": [
                                       "FIXED",
@@ -2708,6 +2781,10 @@
                   45,
                   null
                 ],
+                "minMaxHeight": [
+                  90,
+                  null
+                ],
                 "radius": 6,
                 "fills": [
                   {
@@ -2798,6 +2875,10 @@
                       216,
                       66
                     ],
+                    "constraints": [
+                      "MAX",
+                      "MAX"
+                    ],
                     "layout": {
                       "mode": "HORIZONTAL",
                       "gap": 0,
@@ -2878,6 +2959,10 @@
                               0,
                               0
                             ],
+                            "constraints": [
+                              "MIN",
+                              "MIN"
+                            ],
                             "sizing": [
                               "FIXED",
                               "FIXED"
@@ -2902,6 +2987,10 @@
                                   7.5,
                                   7.5
                                 ],
+                                "constraints": [
+                                  "SCALE",
+                                  "SCALE"
+                                ],
                                 "sizing": [
                                   "FIXED",
                                   "FIXED"
@@ -2909,7 +2998,7 @@
                                 "fills": [
                                   {
                                     "type": "SOLID",
-                                    "color": "#697582",
+                                    "color": "#454F59",
                                     "variable": "button/iconOnly/plain/color/fg/default"
                                   }
                                 ],
@@ -2922,11 +3011,7 @@
                         "id": "I4971:33493;7225:1699"
                       }
                     ],
-                    "id": "4971:33493",
-                    "constraints": [
-                      "MAX",
-                      "MAX"
-                    ]
+                    "id": "4971:33493"
                   },
                   {
                     "name": "_FocusRing",
@@ -2939,6 +3024,10 @@
                     "position": [
                       -2,
                       -2
+                    ],
+                    "constraints": [
+                      "STRETCH",
+                      "STRETCH"
                     ],
                     "layout": {
                       "mode": "HORIZONTAL",
@@ -2958,7 +3047,7 @@
                       "FIXED",
                       "FIXED"
                     ],
-                    "radius": 4,
+                    "radius": 8,
                     "strokes": [
                       {
                         "type": "SOLID",
@@ -2977,15 +3066,11 @@
                       "visible": "showFocus#2661:238"
                     },
                     "variables": {
-                      "cornerRadius": "focusRing/radius",
+                      "cornerRadius": "textArea/focusRing/radius",
                       "strokeWeight": "focusRing/borderWidth"
                     },
                     "children": [],
-                    "id": "4971:33494",
-                    "constraints": [
-                      "STRETCH",
-                      "STRETCH"
-                    ]
+                    "id": "4971:33494"
                   }
                 ],
                 "id": "4971:33491"
@@ -3115,6 +3200,9 @@
                         "propRefs": {
                           "visible": "showLeadingIcon#2359:3"
                         },
+                        "variables": {
+                          "paddingTop": "helperText/icon/space/paddingTop"
+                        },
                         "children": [
                           {
                             "name": "IconSlot",
@@ -3153,6 +3241,10 @@
                                   0,
                                   0
                                 ],
+                                "constraints": [
+                                  "MIN",
+                                  "MIN"
+                                ],
                                 "sizing": [
                                   "FIXED",
                                   "FIXED"
@@ -3176,6 +3268,10 @@
                                     "position": [
                                       2.98,
                                       9.3
+                                    ],
+                                    "constraints": [
+                                      "SCALE",
+                                      "SCALE"
                                     ],
                                     "sizing": [
                                       "FIXED",
@@ -3530,6 +3626,10 @@
               "FILL",
               "HUG"
             ],
+            "minMaxHeight": [
+              90,
+              null
+            ],
             "radius": 6,
             "fills": [
               {
@@ -3621,6 +3721,10 @@
                   216,
                   66
                 ],
+                "constraints": [
+                  "MAX",
+                  "MAX"
+                ],
                 "layout": {
                   "mode": "HORIZONTAL",
                   "gap": 0,
@@ -3701,6 +3805,10 @@
                           0,
                           0
                         ],
+                        "constraints": [
+                          "MIN",
+                          "MIN"
+                        ],
                         "sizing": [
                           "FIXED",
                           "FIXED"
@@ -3725,6 +3833,10 @@
                               7.5,
                               7.5
                             ],
+                            "constraints": [
+                              "SCALE",
+                              "SCALE"
+                            ],
                             "sizing": [
                               "FIXED",
                               "FIXED"
@@ -3745,11 +3857,7 @@
                     "id": "I4971:33517;7225:1726"
                   }
                 ],
-                "id": "4971:33517",
-                "constraints": [
-                  "MAX",
-                  "MAX"
-                ]
+                "id": "4971:33517"
               },
               {
                 "name": "_FocusRing",
@@ -3762,6 +3870,10 @@
                 "position": [
                   -2,
                   -2
+                ],
+                "constraints": [
+                  "STRETCH",
+                  "STRETCH"
                 ],
                 "layout": {
                   "mode": "HORIZONTAL",
@@ -3781,7 +3893,7 @@
                   "FIXED",
                   "FIXED"
                 ],
-                "radius": 4,
+                "radius": 8,
                 "strokes": [
                   {
                     "type": "SOLID",
@@ -3800,15 +3912,11 @@
                   "visible": "showFocus#2661:238"
                 },
                 "variables": {
-                  "cornerRadius": "focusRing/radius",
+                  "cornerRadius": "textArea/focusRing/radius",
                   "strokeWeight": "focusRing/borderWidth"
                 },
                 "children": [],
-                "id": "4971:33518",
-                "constraints": [
-                  "STRETCH",
-                  "STRETCH"
-                ]
+                "id": "4971:33518"
               }
             ],
             "id": "4971:33515"
@@ -3935,6 +4043,9 @@
                         "propRefs": {
                           "visible": "showLeadingIcon#2359:3"
                         },
+                        "variables": {
+                          "paddingTop": "helperText/icon/space/paddingTop"
+                        },
                         "children": [
                           {
                             "name": "IconSlot",
@@ -3973,6 +4084,10 @@
                                   0,
                                   0
                                 ],
+                                "constraints": [
+                                  "MIN",
+                                  "MIN"
+                                ],
                                 "sizing": [
                                   "FIXED",
                                   "FIXED"
@@ -3996,6 +4111,10 @@
                                     "position": [
                                       2.98,
                                       9.3
+                                    ],
+                                    "constraints": [
+                                      "SCALE",
+                                      "SCALE"
                                     ],
                                     "sizing": [
                                       "FIXED",
@@ -4350,6 +4469,10 @@
               "FILL",
               "HUG"
             ],
+            "minMaxHeight": [
+              90,
+              null
+            ],
             "radius": 6,
             "fills": [
               {
@@ -4441,6 +4564,10 @@
                   216,
                   66
                 ],
+                "constraints": [
+                  "MAX",
+                  "MAX"
+                ],
                 "layout": {
                   "mode": "HORIZONTAL",
                   "gap": 0,
@@ -4521,6 +4648,10 @@
                           0,
                           0
                         ],
+                        "constraints": [
+                          "MIN",
+                          "MIN"
+                        ],
                         "sizing": [
                           "FIXED",
                           "FIXED"
@@ -4545,6 +4676,10 @@
                               7.5,
                               7.5
                             ],
+                            "constraints": [
+                              "SCALE",
+                              "SCALE"
+                            ],
                             "sizing": [
                               "FIXED",
                               "FIXED"
@@ -4565,11 +4700,7 @@
                     "id": "I4971:33499;7225:1726"
                   }
                 ],
-                "id": "4971:33499",
-                "constraints": [
-                  "MAX",
-                  "MAX"
-                ]
+                "id": "4971:33499"
               },
               {
                 "name": "_FocusRing",
@@ -4582,6 +4713,10 @@
                 "position": [
                   -2,
                   -2
+                ],
+                "constraints": [
+                  "STRETCH",
+                  "STRETCH"
                 ],
                 "layout": {
                   "mode": "HORIZONTAL",
@@ -4601,7 +4736,7 @@
                   "FIXED",
                   "FIXED"
                 ],
-                "radius": 4,
+                "radius": 8,
                 "strokes": [
                   {
                     "type": "SOLID",
@@ -4620,15 +4755,11 @@
                   "visible": "showFocus#2661:238"
                 },
                 "variables": {
-                  "cornerRadius": "focusRing/radius",
+                  "cornerRadius": "textArea/focusRing/radius",
                   "strokeWeight": "focusRing/borderWidth"
                 },
                 "children": [],
-                "id": "4971:33500",
-                "constraints": [
-                  "STRETCH",
-                  "STRETCH"
-                ]
+                "id": "4971:33500"
               }
             ],
             "id": "4971:33497"
@@ -4755,6 +4886,9 @@
                         "propRefs": {
                           "visible": "showLeadingIcon#2359:3"
                         },
+                        "variables": {
+                          "paddingTop": "helperText/icon/space/paddingTop"
+                        },
                         "children": [
                           {
                             "name": "IconSlot",
@@ -4793,6 +4927,10 @@
                                   0,
                                   0
                                 ],
+                                "constraints": [
+                                  "MIN",
+                                  "MIN"
+                                ],
                                 "sizing": [
                                   "FIXED",
                                   "FIXED"
@@ -4816,6 +4954,10 @@
                                     "position": [
                                       2.98,
                                       9.3
+                                    ],
+                                    "constraints": [
+                                      "SCALE",
+                                      "SCALE"
                                     ],
                                     "sizing": [
                                       "FIXED",
@@ -5170,6 +5312,10 @@
               "FILL",
               "HUG"
             ],
+            "minMaxHeight": [
+              90,
+              null
+            ],
             "radius": 6,
             "fills": [
               {
@@ -5260,6 +5406,10 @@
                   216,
                   66
                 ],
+                "constraints": [
+                  "MAX",
+                  "MAX"
+                ],
                 "layout": {
                   "mode": "HORIZONTAL",
                   "gap": 0,
@@ -5340,6 +5490,10 @@
                           0,
                           0
                         ],
+                        "constraints": [
+                          "MIN",
+                          "MIN"
+                        ],
                         "sizing": [
                           "FIXED",
                           "FIXED"
@@ -5364,6 +5518,10 @@
                               7.5,
                               7.5
                             ],
+                            "constraints": [
+                              "SCALE",
+                              "SCALE"
+                            ],
                             "sizing": [
                               "FIXED",
                               "FIXED"
@@ -5371,7 +5529,7 @@
                             "fills": [
                               {
                                 "type": "SOLID",
-                                "color": "#697582",
+                                "color": "#454F59",
                                 "variable": "button/iconOnly/plain/color/fg/default"
                               }
                             ],
@@ -5384,11 +5542,7 @@
                     "id": "I4971:33505;7225:1699"
                   }
                 ],
-                "id": "4971:33505",
-                "constraints": [
-                  "MAX",
-                  "MAX"
-                ]
+                "id": "4971:33505"
               },
               {
                 "name": "_FocusRing",
@@ -5401,6 +5555,10 @@
                 "position": [
                   -2,
                   -2
+                ],
+                "constraints": [
+                  "STRETCH",
+                  "STRETCH"
                 ],
                 "layout": {
                   "mode": "HORIZONTAL",
@@ -5420,7 +5578,7 @@
                   "FIXED",
                   "FIXED"
                 ],
-                "radius": 4,
+                "radius": 8,
                 "strokes": [
                   {
                     "type": "SOLID",
@@ -5439,15 +5597,11 @@
                   "visible": "showFocus#2661:238"
                 },
                 "variables": {
-                  "cornerRadius": "focusRing/radius",
+                  "cornerRadius": "textArea/focusRing/radius",
                   "strokeWeight": "focusRing/borderWidth"
                 },
                 "children": [],
-                "id": "4971:33506",
-                "constraints": [
-                  "STRETCH",
-                  "STRETCH"
-                ]
+                "id": "4971:33506"
               }
             ],
             "id": "4971:33503"
@@ -5574,6 +5728,9 @@
                         "propRefs": {
                           "visible": "showLeadingIcon#2359:3"
                         },
+                        "variables": {
+                          "paddingTop": "helperText/icon/space/paddingTop"
+                        },
                         "children": [
                           {
                             "name": "IconSlot",
@@ -5612,6 +5769,10 @@
                                   0,
                                   0
                                 ],
+                                "constraints": [
+                                  "MIN",
+                                  "MIN"
+                                ],
                                 "sizing": [
                                   "FIXED",
                                   "FIXED"
@@ -5635,6 +5796,10 @@
                                     "position": [
                                       2.98,
                                       9.3
+                                    ],
+                                    "constraints": [
+                                      "SCALE",
+                                      "SCALE"
                                     ],
                                     "sizing": [
                                       "FIXED",
@@ -5989,6 +6154,10 @@
               "FILL",
               "HUG"
             ],
+            "minMaxHeight": [
+              90,
+              null
+            ],
             "radius": 6,
             "fills": [
               {
@@ -6079,6 +6248,10 @@
                   216,
                   66
                 ],
+                "constraints": [
+                  "MAX",
+                  "MAX"
+                ],
                 "layout": {
                   "mode": "HORIZONTAL",
                   "gap": 0,
@@ -6159,6 +6332,10 @@
                           0,
                           0
                         ],
+                        "constraints": [
+                          "MIN",
+                          "MIN"
+                        ],
                         "sizing": [
                           "FIXED",
                           "FIXED"
@@ -6183,6 +6360,10 @@
                               7.5,
                               7.5
                             ],
+                            "constraints": [
+                              "SCALE",
+                              "SCALE"
+                            ],
                             "sizing": [
                               "FIXED",
                               "FIXED"
@@ -6190,7 +6371,7 @@
                             "fills": [
                               {
                                 "type": "SOLID",
-                                "color": "#697582",
+                                "color": "#454F59",
                                 "variable": "button/iconOnly/plain/color/fg/default"
                               }
                             ],
@@ -6203,11 +6384,7 @@
                     "id": "I4971:33511;7225:1699"
                   }
                 ],
-                "id": "4971:33511",
-                "constraints": [
-                  "MAX",
-                  "MAX"
-                ]
+                "id": "4971:33511"
               },
               {
                 "name": "_FocusRing",
@@ -6220,6 +6397,10 @@
                 "position": [
                   -2,
                   -2
+                ],
+                "constraints": [
+                  "STRETCH",
+                  "STRETCH"
                 ],
                 "layout": {
                   "mode": "HORIZONTAL",
@@ -6239,7 +6420,7 @@
                   "FIXED",
                   "FIXED"
                 ],
-                "radius": 4,
+                "radius": 8,
                 "strokes": [
                   {
                     "type": "SOLID",
@@ -6258,15 +6439,11 @@
                   "visible": "showFocus#2661:238"
                 },
                 "variables": {
-                  "cornerRadius": "focusRing/radius",
+                  "cornerRadius": "textArea/focusRing/radius",
                   "strokeWeight": "focusRing/borderWidth"
                 },
                 "children": [],
-                "id": "4971:33512",
-                "constraints": [
-                  "STRETCH",
-                  "STRETCH"
-                ]
+                "id": "4971:33512"
               }
             ],
             "id": "4971:33509"
@@ -6393,6 +6570,9 @@
                         "propRefs": {
                           "visible": "showLeadingIcon#2359:3"
                         },
+                        "variables": {
+                          "paddingTop": "helperText/icon/space/paddingTop"
+                        },
                         "children": [
                           {
                             "name": "IconSlot",
@@ -6431,6 +6611,10 @@
                                   0,
                                   0
                                 ],
+                                "constraints": [
+                                  "MIN",
+                                  "MIN"
+                                ],
                                 "sizing": [
                                   "FIXED",
                                   "FIXED"
@@ -6454,6 +6638,10 @@
                                     "position": [
                                       2.98,
                                       9.3
+                                    ],
+                                    "constraints": [
+                                      "SCALE",
+                                      "SCALE"
                                     ],
                                     "sizing": [
                                       "FIXED",
@@ -6808,6 +6996,10 @@
               "FILL",
               "HUG"
             ],
+            "minMaxHeight": [
+              90,
+              null
+            ],
             "radius": 6,
             "fills": [
               {
@@ -6819,7 +7011,7 @@
             "strokes": [
               {
                 "type": "SOLID",
-                "color": "#C4C9CF",
+                "color": "#B3B9C0",
                 "variable": "field/color/border/hover"
               }
             ],
@@ -6897,6 +7089,10 @@
                 "position": [
                   216,
                   66
+                ],
+                "constraints": [
+                  "MAX",
+                  "MAX"
                 ],
                 "layout": {
                   "mode": "HORIZONTAL",
@@ -6978,6 +7174,10 @@
                           0,
                           0
                         ],
+                        "constraints": [
+                          "MIN",
+                          "MIN"
+                        ],
                         "sizing": [
                           "FIXED",
                           "FIXED"
@@ -7002,6 +7202,10 @@
                               7.5,
                               7.5
                             ],
+                            "constraints": [
+                              "SCALE",
+                              "SCALE"
+                            ],
                             "sizing": [
                               "FIXED",
                               "FIXED"
@@ -7009,7 +7213,7 @@
                             "fills": [
                               {
                                 "type": "SOLID",
-                                "color": "#454F59",
+                                "color": "#303942",
                                 "variable": "button/iconOnly/plain/color/fg/hover"
                               }
                             ],
@@ -7022,11 +7226,7 @@
                     "id": "I4971:33472;7225:1708"
                   }
                 ],
-                "id": "4971:33472",
-                "constraints": [
-                  "MAX",
-                  "MAX"
-                ]
+                "id": "4971:33472"
               }
             ],
             "id": "4971:33470"
@@ -7153,6 +7353,9 @@
                         "propRefs": {
                           "visible": "showLeadingIcon#2359:3"
                         },
+                        "variables": {
+                          "paddingTop": "helperText/icon/space/paddingTop"
+                        },
                         "children": [
                           {
                             "name": "IconSlot",
@@ -7191,6 +7394,10 @@
                                   0,
                                   0
                                 ],
+                                "constraints": [
+                                  "MIN",
+                                  "MIN"
+                                ],
                                 "sizing": [
                                   "FIXED",
                                   "FIXED"
@@ -7214,6 +7421,10 @@
                                     "position": [
                                       2.98,
                                       9.3
+                                    ],
+                                    "constraints": [
+                                      "SCALE",
+                                      "SCALE"
                                     ],
                                     "sizing": [
                                       "FIXED",
@@ -7512,6 +7723,10 @@
               -2,
               -2
             ],
+            "constraints": [
+              "STRETCH",
+              "STRETCH"
+            ],
             "layout": {
               "mode": "HORIZONTAL",
               "gap": 0,
@@ -7530,7 +7745,7 @@
               "FIXED",
               "FIXED"
             ],
-            "radius": 4,
+            "radius": 8,
             "strokes": [
               {
                 "type": "SOLID",
@@ -7549,15 +7764,11 @@
               "visible": "showFocus#2661:238"
             },
             "variables": {
-              "cornerRadius": "focusRing/radius",
+              "cornerRadius": "textArea/focusRing/radius",
               "strokeWeight": "focusRing/borderWidth"
             },
             "children": [],
-            "id": "4971:33474",
-            "constraints": [
-              "STRETCH",
-              "STRETCH"
-            ]
+            "id": "4971:33474"
           }
         ],
         "id": "4971:33469"
@@ -7588,8 +7799,8 @@
       "css": "--button-icon-only-plain-color-fg-default",
       "collection": "Component",
       "type": "COLOR",
-      "value": "#697582",
-      "alias": "color/fg/neutral/muted/default",
+      "value": "#454F59",
+      "alias": "color/fg/neutral/strong/default",
       "key": "cef2dddffad6d1c1e5d30f64748f64948208b3a1"
     },
     {
@@ -7606,8 +7817,8 @@
       "css": "--button-icon-only-plain-color-fg-hover",
       "collection": "Component",
       "type": "COLOR",
-      "value": "#454F59",
-      "alias": "color/fg/neutral/muted/hover",
+      "value": "#303942",
+      "alias": "color/fg/neutral/strong/hover",
       "key": "0902ee529f0f5b7e5ed8b3b6e8334c919f137048"
     },
     {
@@ -7687,8 +7898,8 @@
       "css": "--field-color-border-default",
       "collection": "Component",
       "type": "COLOR",
-      "value": "#C4C9CF",
-      "alias": "color/border/neutral/strong",
+      "value": "#B3B9C0",
+      "alias": "color/border/neutral/stronger",
       "key": "0280475c6e3128d40d7b205fa08ddbf339b5db71"
     },
     {
@@ -7723,8 +7934,8 @@
       "css": "--field-color-border-hover",
       "collection": "Component",
       "type": "COLOR",
-      "value": "#C4C9CF",
-      "alias": "color/border/neutral/strong",
+      "value": "#B3B9C0",
+      "alias": "color/border/neutral/stronger",
       "key": "d7c4e28253a1f4beb132dca3fb6598ba42a668c9"
     },
     {
@@ -7845,15 +8056,6 @@
       "key": "dc891d9b8843339f22e79063e3131459a89d7587"
     },
     {
-      "figma": "focusRing/radius",
-      "css": "--focus-ring-radius",
-      "collection": "Component",
-      "type": "FLOAT",
-      "value": 4,
-      "alias": "radius/4",
-      "key": "27de43c23792675adb3b36a828a35cce9f87964a"
-    },
-    {
       "figma": "font/body/14/400/family",
       "css": "--font-body-14-400-family",
       "collection": "Semantic",
@@ -7895,7 +8097,7 @@
       "collection": "Semantic",
       "type": "FLOAT",
       "value": 400,
-      "alias": "font/weight/regular",
+      "alias": "font/weight/400",
       "key": "88d58405fcc3019e0f56d8e7cb3f3506d08559cc"
     },
     {
@@ -7940,7 +8142,7 @@
       "collection": "Semantic",
       "type": "FLOAT",
       "value": 400,
-      "alias": "font/weight/regular",
+      "alias": "font/weight/400",
       "key": "b2645267187d0b4fb72af4cc45c561acdff4d3e1"
     },
     {
@@ -7998,6 +8200,15 @@
       "key": "dfa8512ad13e26e0c1d126b2217649aa1696a26c"
     },
     {
+      "figma": "helperText/icon/space/paddingTop",
+      "css": "--helper-text-icon-space-padding-top",
+      "collection": "Component",
+      "type": "FLOAT",
+      "value": 2,
+      "alias": "space/2",
+      "key": "dba6849796b9820ad73e87b65bd48ebc17afab8b"
+    },
+    {
       "figma": "helperText/space/gap",
       "css": "--helper-text-space-gap",
       "collection": "Component",
@@ -8014,6 +8225,15 @@
       "value": 1,
       "alias": "borderWidth/thin",
       "key": "d15851bc72dd282cc5dd4f6b25a74e8adb3cd973"
+    },
+    {
+      "figma": "textArea/focusRing/radius",
+      "css": "--text-area-focus-ring-radius",
+      "collection": "Component",
+      "type": "FLOAT",
+      "value": 8,
+      "alias": "radius/8",
+      "key": "09cfaa72b0e871d82183dd8890c1f21461b4bd08"
     },
     {
       "figma": "textArea/helper/space/gap",

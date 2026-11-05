@@ -14,7 +14,7 @@
     "type": "COMPONENT_SET",
     "componentKey": "537ae389cd6fdbf0b28c63296738ed42a59e7158",
     "requestedFrom": null,
-    "extractedAt": "2026-10-26"
+    "extractedAt": "2026-11-05"
   },
   "props": [
     {
@@ -39,10 +39,10 @@
       "name": "selection",
       "figmaName": "selection",
       "type": "variant",
-      "default": "unselected",
+      "default": "unchecked",
       "options": [
-        "unselected",
-        "selected"
+        "unchecked",
+        "checked"
       ]
     },
     {
@@ -73,7 +73,7 @@
       "nodeId": "4971:31498",
       "key": "bfdfc856bc502737df4aa4d19c8ba3c7bebe823b",
       "props": {
-        "selection": "unselected",
+        "selection": "unchecked",
         "size": "large",
         "state": "default"
       },
@@ -83,7 +83,7 @@
       ],
       "layer": {
         "id": "4971:31498",
-        "name": "selection=unselected, size=large, state=default",
+        "name": "selection=unchecked, size=large, state=default",
         "type": "COMPONENT",
         "size": [
           65,
@@ -229,6 +229,10 @@
               -2,
               0
             ],
+            "constraints": [
+              "MIN",
+              "CENTER"
+            ],
             "layout": {
               "mode": "HORIZONTAL",
               "gap": 0,
@@ -247,7 +251,7 @@
               "FIXED",
               "FIXED"
             ],
-            "radius": 4,
+            "radius": 9999,
             "strokes": [
               {
                 "type": "SOLID",
@@ -266,14 +270,10 @@
               "visible": "showFocus#2810:0"
             },
             "variables": {
-              "cornerRadius": "focusRing/radius",
+              "cornerRadius": "radio/large/focusRing/radius",
               "strokeWeight": "focusRing/borderWidth"
             },
-            "children": [],
-            "constraints": [
-              "MIN",
-              "CENTER"
-            ]
+            "children": []
           }
         ]
       }
@@ -282,7 +282,7 @@
       "nodeId": "4971:31511",
       "key": "0778a01453c126a985f17677c164c9fe10de0a16",
       "props": {
-        "selection": "unselected",
+        "selection": "unchecked",
         "size": "large",
         "state": "hover"
       },
@@ -291,7 +291,7 @@
         24
       ],
       "layer": {
-        "name": "selection=unselected, size=large, state=hover",
+        "name": "selection=unchecked, size=large, state=hover",
         "type": "COMPONENT",
         "size": [
           65,
@@ -436,6 +436,10 @@
               -2,
               0
             ],
+            "constraints": [
+              "MIN",
+              "CENTER"
+            ],
             "layout": {
               "mode": "HORIZONTAL",
               "gap": 0,
@@ -454,7 +458,7 @@
               "FIXED",
               "FIXED"
             ],
-            "radius": 4,
+            "radius": 9999,
             "strokes": [
               {
                 "type": "SOLID",
@@ -473,15 +477,11 @@
               "visible": "showFocus#2810:0"
             },
             "variables": {
-              "cornerRadius": "focusRing/radius",
+              "cornerRadius": "radio/large/focusRing/radius",
               "strokeWeight": "focusRing/borderWidth"
             },
             "children": [],
-            "id": "4971:31514",
-            "constraints": [
-              "MIN",
-              "CENTER"
-            ]
+            "id": "4971:31514"
           }
         ],
         "id": "4971:31511"
@@ -491,7 +491,7 @@
       "nodeId": "4971:31553",
       "key": "97d7ade2eae90e49bac11cbb98f7cf7dd5a09f2d",
       "props": {
-        "selection": "unselected",
+        "selection": "unchecked",
         "size": "large",
         "state": "pressed"
       },
@@ -500,7 +500,7 @@
         24
       ],
       "layer": {
-        "name": "selection=unselected, size=large, state=pressed",
+        "name": "selection=unchecked, size=large, state=pressed",
         "type": "COMPONENT",
         "size": [
           65,
@@ -645,6 +645,10 @@
               -2,
               0
             ],
+            "constraints": [
+              "MIN",
+              "CENTER"
+            ],
             "layout": {
               "mode": "HORIZONTAL",
               "gap": 0,
@@ -663,7 +667,7 @@
               "FIXED",
               "FIXED"
             ],
-            "radius": 4,
+            "radius": 9999,
             "strokes": [
               {
                 "type": "SOLID",
@@ -682,15 +686,11 @@
               "visible": "showFocus#2810:0"
             },
             "variables": {
-              "cornerRadius": "focusRing/radius",
+              "cornerRadius": "radio/large/focusRing/radius",
               "strokeWeight": "focusRing/borderWidth"
             },
             "children": [],
-            "id": "4971:31556",
-            "constraints": [
-              "MIN",
-              "CENTER"
-            ]
+            "id": "4971:31556"
           }
         ],
         "id": "4971:31553"
@@ -700,7 +700,7 @@
       "nodeId": "4971:31561",
       "key": "34a0214f04d590ca4700fe91c17de5cb4c6944ae",
       "props": {
-        "selection": "unselected",
+        "selection": "unchecked",
         "size": "large",
         "state": "disabled"
       },
@@ -709,7 +709,7 @@
         24
       ],
       "layer": {
-        "name": "selection=unselected, size=large, state=disabled",
+        "name": "selection=unchecked, size=large, state=disabled",
         "type": "COMPONENT",
         "size": [
           65,
@@ -854,6 +854,10 @@
               -2,
               0
             ],
+            "constraints": [
+              "MIN",
+              "CENTER"
+            ],
             "layout": {
               "mode": "HORIZONTAL",
               "gap": 0,
@@ -872,7 +876,7 @@
               "FIXED",
               "FIXED"
             ],
-            "radius": 4,
+            "radius": 9999,
             "strokes": [
               {
                 "type": "SOLID",
@@ -891,15 +895,11 @@
               "visible": "showFocus#2810:0"
             },
             "variables": {
-              "cornerRadius": "focusRing/radius",
+              "cornerRadius": "radio/large/focusRing/radius",
               "strokeWeight": "focusRing/borderWidth"
             },
             "children": [],
-            "id": "4971:31564",
-            "constraints": [
-              "MIN",
-              "CENTER"
-            ]
+            "id": "4971:31564"
           }
         ],
         "id": "4971:31561"
@@ -909,7 +909,7 @@
       "nodeId": "4971:31507",
       "key": "52334cc70fdc0768331ee12379c1979a3ba75e8a",
       "props": {
-        "selection": "unselected",
+        "selection": "unchecked",
         "size": "medium",
         "state": "default"
       },
@@ -918,7 +918,7 @@
         20
       ],
       "layer": {
-        "name": "selection=unselected, size=medium, state=default",
+        "name": "selection=unchecked, size=medium, state=default",
         "type": "COMPONENT",
         "size": [
           56,
@@ -1063,6 +1063,10 @@
               -2,
               0
             ],
+            "constraints": [
+              "MIN",
+              "CENTER"
+            ],
             "layout": {
               "mode": "HORIZONTAL",
               "gap": 0,
@@ -1081,7 +1085,7 @@
               "FIXED",
               "FIXED"
             ],
-            "radius": 4,
+            "radius": 9999,
             "strokes": [
               {
                 "type": "SOLID",
@@ -1100,15 +1104,11 @@
               "visible": "showFocus#2810:0"
             },
             "variables": {
-              "cornerRadius": "focusRing/radius",
+              "cornerRadius": "radio/medium/focusRing/radius",
               "strokeWeight": "focusRing/borderWidth"
             },
             "children": [],
-            "id": "4971:31510",
-            "constraints": [
-              "MIN",
-              "CENTER"
-            ]
+            "id": "4971:31510"
           }
         ],
         "id": "4971:31507"
@@ -1118,7 +1118,7 @@
       "nodeId": "4971:31515",
       "key": "0791aebe7dc64be5fd0fa11a5996c1ab483759f0",
       "props": {
-        "selection": "unselected",
+        "selection": "unchecked",
         "size": "medium",
         "state": "hover"
       },
@@ -1127,7 +1127,7 @@
         20
       ],
       "layer": {
-        "name": "selection=unselected, size=medium, state=hover",
+        "name": "selection=unchecked, size=medium, state=hover",
         "type": "COMPONENT",
         "size": [
           56,
@@ -1272,6 +1272,10 @@
               -2,
               0
             ],
+            "constraints": [
+              "MIN",
+              "CENTER"
+            ],
             "layout": {
               "mode": "HORIZONTAL",
               "gap": 0,
@@ -1290,7 +1294,7 @@
               "FIXED",
               "FIXED"
             ],
-            "radius": 4,
+            "radius": 9999,
             "strokes": [
               {
                 "type": "SOLID",
@@ -1309,15 +1313,11 @@
               "visible": "showFocus#2810:0"
             },
             "variables": {
-              "cornerRadius": "focusRing/radius",
+              "cornerRadius": "radio/medium/focusRing/radius",
               "strokeWeight": "focusRing/borderWidth"
             },
             "children": [],
-            "id": "4971:31518",
-            "constraints": [
-              "MIN",
-              "CENTER"
-            ]
+            "id": "4971:31518"
           }
         ],
         "id": "4971:31515"
@@ -1327,7 +1327,7 @@
       "nodeId": "4971:31557",
       "key": "2453c8518280314face53565412c6879859e9bbf",
       "props": {
-        "selection": "unselected",
+        "selection": "unchecked",
         "size": "medium",
         "state": "pressed"
       },
@@ -1336,7 +1336,7 @@
         20
       ],
       "layer": {
-        "name": "selection=unselected, size=medium, state=pressed",
+        "name": "selection=unchecked, size=medium, state=pressed",
         "type": "COMPONENT",
         "size": [
           56,
@@ -1481,6 +1481,10 @@
               -2,
               0
             ],
+            "constraints": [
+              "MIN",
+              "CENTER"
+            ],
             "layout": {
               "mode": "HORIZONTAL",
               "gap": 0,
@@ -1499,7 +1503,7 @@
               "FIXED",
               "FIXED"
             ],
-            "radius": 4,
+            "radius": 9999,
             "strokes": [
               {
                 "type": "SOLID",
@@ -1518,15 +1522,11 @@
               "visible": "showFocus#2810:0"
             },
             "variables": {
-              "cornerRadius": "focusRing/radius",
+              "cornerRadius": "radio/medium/focusRing/radius",
               "strokeWeight": "focusRing/borderWidth"
             },
             "children": [],
-            "id": "4971:31560",
-            "constraints": [
-              "MIN",
-              "CENTER"
-            ]
+            "id": "4971:31560"
           }
         ],
         "id": "4971:31557"
@@ -1536,7 +1536,7 @@
       "nodeId": "4971:31534",
       "key": "69c4dc2862c9f5d9b1abaf27d02a9d0d13c66f43",
       "props": {
-        "selection": "unselected",
+        "selection": "unchecked",
         "size": "medium",
         "state": "disabled"
       },
@@ -1545,7 +1545,7 @@
         20
       ],
       "layer": {
-        "name": "selection=unselected, size=medium, state=disabled",
+        "name": "selection=unchecked, size=medium, state=disabled",
         "type": "COMPONENT",
         "size": [
           56,
@@ -1690,6 +1690,10 @@
               -2,
               0
             ],
+            "constraints": [
+              "MIN",
+              "CENTER"
+            ],
             "layout": {
               "mode": "HORIZONTAL",
               "gap": 0,
@@ -1708,7 +1712,7 @@
               "FIXED",
               "FIXED"
             ],
-            "radius": 4,
+            "radius": 9999,
             "strokes": [
               {
                 "type": "SOLID",
@@ -1727,15 +1731,11 @@
               "visible": "showFocus#2810:0"
             },
             "variables": {
-              "cornerRadius": "focusRing/radius",
+              "cornerRadius": "radio/medium/focusRing/radius",
               "strokeWeight": "focusRing/borderWidth"
             },
             "children": [],
-            "id": "4971:31537",
-            "constraints": [
-              "MIN",
-              "CENTER"
-            ]
+            "id": "4971:31537"
           }
         ],
         "id": "4971:31534"
@@ -1745,7 +1745,7 @@
       "nodeId": "4971:31502",
       "key": "e79cd515320c69c03743133cc409951a0d1f28f6",
       "props": {
-        "selection": "selected",
+        "selection": "checked",
         "size": "large",
         "state": "default"
       },
@@ -1754,8 +1754,7 @@
         24
       ],
       "layer": {
-        "id": "4971:31502",
-        "name": "selection=selected, size=large, state=default",
+        "name": "selection=checked, size=large, state=default",
         "type": "COMPONENT",
         "size": [
           65,
@@ -1784,7 +1783,6 @@
         },
         "children": [
           {
-            "id": "4971:31503",
             "name": "radio",
             "type": "FRAME",
             "size": [
@@ -1834,7 +1832,6 @@
             },
             "children": [
               {
-                "id": "4971:31504",
                 "name": "dot",
                 "type": "FRAME",
                 "size": [
@@ -1872,12 +1869,13 @@
                   "height": "radio/large/dot/size",
                   "cornerRadius": "radio/radius"
                 },
-                "children": []
+                "children": [],
+                "id": "4971:31504"
               }
-            ]
+            ],
+            "id": "4971:31503"
           },
           {
-            "id": "4971:31505",
             "name": "label",
             "type": "TEXT",
             "size": [
@@ -1928,10 +1926,10 @@
               "fontFamily[0]": "font/label/16/500/family",
               "lineHeight[0]": "font/label/16/500/lineHeight",
               "fontWeight[0]": "font/label/16/500/weight"
-            }
+            },
+            "id": "4971:31505"
           },
           {
-            "id": "4971:31506",
             "name": "_FocusRing",
             "type": "INSTANCE",
             "visible": false,
@@ -1942,6 +1940,10 @@
             "position": [
               -2,
               0
+            ],
+            "constraints": [
+              "MIN",
+              "CENTER"
             ],
             "layout": {
               "mode": "HORIZONTAL",
@@ -1961,7 +1963,7 @@
               "FIXED",
               "FIXED"
             ],
-            "radius": 4,
+            "radius": 9999,
             "strokes": [
               {
                 "type": "SOLID",
@@ -1980,23 +1982,21 @@
               "visible": "showFocus#2810:0"
             },
             "variables": {
-              "cornerRadius": "focusRing/radius",
+              "cornerRadius": "radio/large/focusRing/radius",
               "strokeWeight": "focusRing/borderWidth"
             },
             "children": [],
-            "constraints": [
-              "MIN",
-              "CENTER"
-            ]
+            "id": "4971:31506"
           }
-        ]
+        ],
+        "id": "4971:31502"
       }
     },
     {
       "nodeId": "4971:31524",
       "key": "80348a4d2ac962ea315e4e2eda4762a4c4422fb4",
       "props": {
-        "selection": "selected",
+        "selection": "checked",
         "size": "large",
         "state": "hover"
       },
@@ -2005,7 +2005,7 @@
         24
       ],
       "layer": {
-        "name": "selection=selected, size=large, state=hover",
+        "name": "selection=checked, size=large, state=hover",
         "type": "COMPONENT",
         "size": [
           65,
@@ -2192,6 +2192,10 @@
               -2,
               0
             ],
+            "constraints": [
+              "MIN",
+              "CENTER"
+            ],
             "layout": {
               "mode": "HORIZONTAL",
               "gap": 0,
@@ -2210,7 +2214,7 @@
               "FIXED",
               "FIXED"
             ],
-            "radius": 4,
+            "radius": 9999,
             "strokes": [
               {
                 "type": "SOLID",
@@ -2229,15 +2233,11 @@
               "visible": "showFocus#2810:0"
             },
             "variables": {
-              "cornerRadius": "focusRing/radius",
+              "cornerRadius": "radio/large/focusRing/radius",
               "strokeWeight": "focusRing/borderWidth"
             },
             "children": [],
-            "id": "4971:31528",
-            "constraints": [
-              "MIN",
-              "CENTER"
-            ]
+            "id": "4971:31528"
           }
         ],
         "id": "4971:31524"
@@ -2247,7 +2247,7 @@
       "nodeId": "4971:31565",
       "key": "e532f316fcc2043013c4043c3fdc954864f3cd07",
       "props": {
-        "selection": "selected",
+        "selection": "checked",
         "size": "large",
         "state": "pressed"
       },
@@ -2256,7 +2256,7 @@
         24
       ],
       "layer": {
-        "name": "selection=selected, size=large, state=pressed",
+        "name": "selection=checked, size=large, state=pressed",
         "type": "COMPONENT",
         "size": [
           65,
@@ -2443,6 +2443,10 @@
               -2,
               0
             ],
+            "constraints": [
+              "MIN",
+              "CENTER"
+            ],
             "layout": {
               "mode": "HORIZONTAL",
               "gap": 0,
@@ -2461,7 +2465,7 @@
               "FIXED",
               "FIXED"
             ],
-            "radius": 4,
+            "radius": 9999,
             "strokes": [
               {
                 "type": "SOLID",
@@ -2480,15 +2484,11 @@
               "visible": "showFocus#2810:0"
             },
             "variables": {
-              "cornerRadius": "focusRing/radius",
+              "cornerRadius": "radio/large/focusRing/radius",
               "strokeWeight": "focusRing/borderWidth"
             },
             "children": [],
-            "id": "4971:31569",
-            "constraints": [
-              "MIN",
-              "CENTER"
-            ]
+            "id": "4971:31569"
           }
         ],
         "id": "4971:31565"
@@ -2498,7 +2498,7 @@
       "nodeId": "4971:31538",
       "key": "b8ec8952df821f68a443c8eb825e1af747b1611f",
       "props": {
-        "selection": "selected",
+        "selection": "checked",
         "size": "large",
         "state": "disabled"
       },
@@ -2507,7 +2507,7 @@
         24
       ],
       "layer": {
-        "name": "selection=selected, size=large, state=disabled",
+        "name": "selection=checked, size=large, state=disabled",
         "type": "COMPONENT",
         "size": [
           65,
@@ -2694,6 +2694,10 @@
               -2,
               0
             ],
+            "constraints": [
+              "MIN",
+              "CENTER"
+            ],
             "layout": {
               "mode": "HORIZONTAL",
               "gap": 0,
@@ -2712,7 +2716,7 @@
               "FIXED",
               "FIXED"
             ],
-            "radius": 4,
+            "radius": 9999,
             "strokes": [
               {
                 "type": "SOLID",
@@ -2731,15 +2735,11 @@
               "visible": "showFocus#2810:0"
             },
             "variables": {
-              "cornerRadius": "focusRing/radius",
+              "cornerRadius": "radio/large/focusRing/radius",
               "strokeWeight": "focusRing/borderWidth"
             },
             "children": [],
-            "id": "4971:31542",
-            "constraints": [
-              "MIN",
-              "CENTER"
-            ]
+            "id": "4971:31542"
           }
         ],
         "id": "4971:31538"
@@ -2749,7 +2749,7 @@
       "nodeId": "4971:31519",
       "key": "2abc6e30ab0eaaf9ee21ebe5a66f7462472a5890",
       "props": {
-        "selection": "selected",
+        "selection": "checked",
         "size": "medium",
         "state": "default"
       },
@@ -2758,7 +2758,7 @@
         20
       ],
       "layer": {
-        "name": "selection=selected, size=medium, state=default",
+        "name": "selection=checked, size=medium, state=default",
         "type": "COMPONENT",
         "size": [
           56,
@@ -2945,6 +2945,10 @@
               -2,
               0
             ],
+            "constraints": [
+              "MIN",
+              "CENTER"
+            ],
             "layout": {
               "mode": "HORIZONTAL",
               "gap": 0,
@@ -2963,7 +2967,7 @@
               "FIXED",
               "FIXED"
             ],
-            "radius": 4,
+            "radius": 9999,
             "strokes": [
               {
                 "type": "SOLID",
@@ -2982,15 +2986,11 @@
               "visible": "showFocus#2810:0"
             },
             "variables": {
-              "cornerRadius": "focusRing/radius",
+              "cornerRadius": "radio/medium/focusRing/radius",
               "strokeWeight": "focusRing/borderWidth"
             },
             "children": [],
-            "id": "4971:31523",
-            "constraints": [
-              "MIN",
-              "CENTER"
-            ]
+            "id": "4971:31523"
           }
         ],
         "id": "4971:31519"
@@ -3000,7 +3000,7 @@
       "nodeId": "4971:31529",
       "key": "be5c6db0c35ee7bf15ddd7c12655a80aa8cd4b2f",
       "props": {
-        "selection": "selected",
+        "selection": "checked",
         "size": "medium",
         "state": "hover"
       },
@@ -3009,7 +3009,7 @@
         20
       ],
       "layer": {
-        "name": "selection=selected, size=medium, state=hover",
+        "name": "selection=checked, size=medium, state=hover",
         "type": "COMPONENT",
         "size": [
           56,
@@ -3196,6 +3196,10 @@
               -2,
               0
             ],
+            "constraints": [
+              "MIN",
+              "CENTER"
+            ],
             "layout": {
               "mode": "HORIZONTAL",
               "gap": 0,
@@ -3214,7 +3218,7 @@
               "FIXED",
               "FIXED"
             ],
-            "radius": 4,
+            "radius": 9999,
             "strokes": [
               {
                 "type": "SOLID",
@@ -3233,15 +3237,11 @@
               "visible": "showFocus#2810:0"
             },
             "variables": {
-              "cornerRadius": "focusRing/radius",
+              "cornerRadius": "radio/medium/focusRing/radius",
               "strokeWeight": "focusRing/borderWidth"
             },
             "children": [],
-            "id": "4971:31533",
-            "constraints": [
-              "MIN",
-              "CENTER"
-            ]
+            "id": "4971:31533"
           }
         ],
         "id": "4971:31529"
@@ -3251,7 +3251,7 @@
       "nodeId": "4971:31548",
       "key": "f6cca1a0d03d9734b70abea4f9e6e099ea642550",
       "props": {
-        "selection": "selected",
+        "selection": "checked",
         "size": "medium",
         "state": "pressed"
       },
@@ -3260,7 +3260,7 @@
         20
       ],
       "layer": {
-        "name": "selection=selected, size=medium, state=pressed",
+        "name": "selection=checked, size=medium, state=pressed",
         "type": "COMPONENT",
         "size": [
           56,
@@ -3447,6 +3447,10 @@
               -2,
               0
             ],
+            "constraints": [
+              "MIN",
+              "CENTER"
+            ],
             "layout": {
               "mode": "HORIZONTAL",
               "gap": 0,
@@ -3465,7 +3469,7 @@
               "FIXED",
               "FIXED"
             ],
-            "radius": 4,
+            "radius": 9999,
             "strokes": [
               {
                 "type": "SOLID",
@@ -3484,15 +3488,11 @@
               "visible": "showFocus#2810:0"
             },
             "variables": {
-              "cornerRadius": "focusRing/radius",
+              "cornerRadius": "radio/medium/focusRing/radius",
               "strokeWeight": "focusRing/borderWidth"
             },
             "children": [],
-            "id": "4971:31552",
-            "constraints": [
-              "MIN",
-              "CENTER"
-            ]
+            "id": "4971:31552"
           }
         ],
         "id": "4971:31548"
@@ -3502,7 +3502,7 @@
       "nodeId": "4971:31543",
       "key": "234abd3669d9724dbbe17eeb14d5f1e6ad37b7ec",
       "props": {
-        "selection": "selected",
+        "selection": "checked",
         "size": "medium",
         "state": "disabled"
       },
@@ -3511,7 +3511,7 @@
         20
       ],
       "layer": {
-        "name": "selection=selected, size=medium, state=disabled",
+        "name": "selection=checked, size=medium, state=disabled",
         "type": "COMPONENT",
         "size": [
           56,
@@ -3698,6 +3698,10 @@
               -2,
               0
             ],
+            "constraints": [
+              "MIN",
+              "CENTER"
+            ],
             "layout": {
               "mode": "HORIZONTAL",
               "gap": 0,
@@ -3716,7 +3720,7 @@
               "FIXED",
               "FIXED"
             ],
-            "radius": 4,
+            "radius": 9999,
             "strokes": [
               {
                 "type": "SOLID",
@@ -3735,15 +3739,11 @@
               "visible": "showFocus#2810:0"
             },
             "variables": {
-              "cornerRadius": "focusRing/radius",
+              "cornerRadius": "radio/medium/focusRing/radius",
               "strokeWeight": "focusRing/borderWidth"
             },
             "children": [],
-            "id": "4971:31547",
-            "constraints": [
-              "MIN",
-              "CENTER"
-            ]
+            "id": "4971:31547"
           }
         ],
         "id": "4971:31543"
@@ -3768,15 +3768,6 @@
       "value": "#7FAEFF",
       "alias": "color/border/focusRing",
       "key": "dc891d9b8843339f22e79063e3131459a89d7587"
-    },
-    {
-      "figma": "focusRing/radius",
-      "css": "--focus-ring-radius",
-      "collection": "Component",
-      "type": "FLOAT",
-      "value": 4,
-      "alias": "radius/4",
-      "key": "27de43c23792675adb3b36a828a35cce9f87964a"
     },
     {
       "figma": "font/label/14/400/family",
@@ -3820,7 +3811,7 @@
       "collection": "Semantic",
       "type": "FLOAT",
       "value": 400,
-      "alias": "font/weight/regular",
+      "alias": "font/weight/400",
       "key": "07a5b20eb69583275c5ed9896066f258295159d0"
     },
     {
@@ -3865,7 +3856,7 @@
       "collection": "Semantic",
       "type": "FLOAT",
       "value": 500,
-      "alias": "font/weight/medium",
+      "alias": "font/weight/500",
       "key": "7a56db1b436241def7d6f0f28d549f0142f8303e"
     },
     {
@@ -3968,6 +3959,15 @@
       "key": "25ccda6cf549f2f51a38342c22cff517e8dff7a1"
     },
     {
+      "figma": "radio/large/focusRing/radius",
+      "css": "--radio-large-focus-ring-radius",
+      "collection": "Component",
+      "type": "FLOAT",
+      "value": 9999,
+      "alias": "radius/full",
+      "key": "29da634aaa4bcd7a1746577da371c2285d0dd909"
+    },
+    {
       "figma": "radio/large/size",
       "css": "--radio-large-size",
       "collection": "Component",
@@ -3984,6 +3984,15 @@
       "value": 8,
       "alias": "size/8",
       "key": "2a53d2792605d46a34ed6a4bd3bb2dcf654b93e5"
+    },
+    {
+      "figma": "radio/medium/focusRing/radius",
+      "css": "--radio-medium-focus-ring-radius",
+      "collection": "Component",
+      "type": "FLOAT",
+      "value": 9999,
+      "alias": "radius/full",
+      "key": "c3b90be26872305a52dcfcd337124c7363466a16"
     },
     {
       "figma": "radio/medium/size",

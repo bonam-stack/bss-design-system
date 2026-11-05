@@ -1,0 +1,1271 @@
+{
+  "schemaVersion": 2,
+  "key": "radio-group",
+  "name": "RadioGroup",
+  "description": "",
+  "figma": {
+    "fileKey": "WcoI745J38TaON7iCKcutW",
+    "nodeId": "4971:31723",
+    "url": "https://www.figma.com/design/WcoI745J38TaON7iCKcutW?node-id=4971-31723",
+    "page": {
+      "nodeId": "2064:17256",
+      "name": "❖ Radio"
+    },
+    "type": "COMPONENT_SET",
+    "componentKey": "9d95daa66589ba56101684a7a17724cfe7eba929",
+    "requestedFrom": null,
+    "extractedAt": "2026-11-05"
+  },
+  "props": [
+    {
+      "name": "content",
+      "figmaName": "content#2810:17",
+      "type": "slot",
+      "default": null,
+      "preferredValues": [
+        {
+          "type": "COMPONENT_SET",
+          "key": "537ae389cd6fdbf0b28c63296738ed42a59e7158"
+        }
+      ]
+    },
+    {
+      "name": "size",
+      "figmaName": "size",
+      "type": "variant",
+      "default": "large",
+      "options": [
+        "large",
+        "medium"
+      ]
+    }
+  ],
+  "variants": [
+    {
+      "nodeId": "4971:31724",
+      "key": "8b2d488d29f1462ec9fc6b8526ecb561f4412861",
+      "props": {
+        "size": "large"
+      },
+      "size": [
+        219,
+        24
+      ],
+      "layer": {
+        "id": "4971:31724",
+        "name": "size=large",
+        "type": "COMPONENT",
+        "size": [
+          219,
+          24
+        ],
+        "layout": {
+          "mode": "HORIZONTAL",
+          "gap": 12,
+          "padding": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "align": [
+            "MIN",
+            "CENTER"
+          ]
+        },
+        "sizing": [
+          "HUG",
+          "HUG"
+        ],
+        "variables": {
+          "itemSpacing": "radio/group/space/gap"
+        },
+        "children": [
+          {
+            "id": "4971:31725",
+            "name": "content",
+            "type": "SLOT",
+            "size": [
+              219,
+              24
+            ],
+            "layout": {
+              "mode": "HORIZONTAL",
+              "gap": 12,
+              "padding": [
+                0,
+                0,
+                0,
+                0
+              ],
+              "align": [
+                "MIN",
+                "CENTER"
+              ]
+            },
+            "sizing": [
+              "HUG",
+              "HUG"
+            ],
+            "propRefs": {
+              "slotContentId": "content#2810:17"
+            },
+            "variables": {
+              "itemSpacing": "radio/group/space/gap"
+            },
+            "children": [
+              {
+                "id": "4971:31726",
+                "name": "Radio",
+                "type": "INSTANCE",
+                "size": [
+                  65,
+                  24
+                ],
+                "layout": {
+                  "mode": "HORIZONTAL",
+                  "gap": 6,
+                  "padding": [
+                    0,
+                    0,
+                    0,
+                    0
+                  ],
+                  "align": [
+                    "MIN",
+                    "CENTER"
+                  ]
+                },
+                "sizing": [
+                  "HUG",
+                  "HUG"
+                ],
+                "main": {
+                  "id": "4971:31498",
+                  "name": "selection=unchecked, size=large, state=default",
+                  "key": "bfdfc856bc502737df4aa4d19c8ba3c7bebe823b",
+                  "set": {
+                    "id": "4971:31497",
+                    "name": "Radio",
+                    "key": "537ae389cd6fdbf0b28c63296738ed42a59e7158"
+                  }
+                },
+                "variables": {
+                  "itemSpacing": "radio/space/gap"
+                },
+                "children": [
+                  {
+                    "id": "I4971:31726;4971:31499",
+                    "name": "radio",
+                    "type": "FRAME",
+                    "size": [
+                      20,
+                      20
+                    ],
+                    "layout": {
+                      "mode": "VERTICAL",
+                      "gap": 0,
+                      "padding": [
+                        0,
+                        0,
+                        0,
+                        0
+                      ],
+                      "align": [
+                        "CENTER",
+                        "CENTER"
+                      ]
+                    },
+                    "sizing": [
+                      "FIXED",
+                      "FIXED"
+                    ],
+                    "radius": 9999,
+                    "fills": [
+                      {
+                        "type": "SOLID",
+                        "color": "#FFFFFF",
+                        "variable": "selectionControl/color/bg/default"
+                      }
+                    ],
+                    "strokes": [
+                      {
+                        "type": "SOLID",
+                        "color": "#C4C9CF",
+                        "variable": "selectionControl/color/border/default"
+                      }
+                    ],
+                    "strokeWeight": 1.5,
+                    "strokeAlign": "INSIDE",
+                    "variables": {
+                      "width": "radio/large/size",
+                      "height": "radio/large/size",
+                      "cornerRadius": "radio/radius",
+                      "strokeWeight": "radio/borderWidth"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": "I4971:31726;4971:31500",
+                    "name": "label",
+                    "type": "TEXT",
+                    "size": [
+                      39,
+                      24
+                    ],
+                    "sizing": [
+                      "HUG",
+                      "HUG"
+                    ],
+                    "fills": [
+                      {
+                        "type": "SOLID",
+                        "color": "#1C1F23",
+                        "variable": "selectionControl/label/color/fg/default"
+                      }
+                    ],
+                    "styles": {
+                      "text": "label/16/500"
+                    },
+                    "text": {
+                      "characters": "Label",
+                      "fontFamily": "Pretendard",
+                      "fontStyle": "Medium",
+                      "fontWeight": 500,
+                      "fontSize": 16,
+                      "lineHeight": {
+                        "unit": "PIXELS",
+                        "value": 24
+                      },
+                      "letterSpacing": {
+                        "unit": "PIXELS",
+                        "value": -0.2
+                      },
+                      "align": [
+                        "LEFT",
+                        "CENTER"
+                      ],
+                      "autoResize": "WIDTH_AND_HEIGHT"
+                    },
+                    "propRefs": {
+                      "visible": "showLabel#5203:3",
+                      "characters": "label#4205:47"
+                    },
+                    "variables": {
+                      "letterSpacing[0]": "font/label/16/500/letterSpacing",
+                      "fontSize[0]": "font/label/16/500/size",
+                      "fontFamily[0]": "font/label/16/500/family",
+                      "lineHeight[0]": "font/label/16/500/lineHeight",
+                      "fontWeight[0]": "font/label/16/500/weight"
+                    }
+                  }
+                ]
+              },
+              {
+                "id": "4971:31727",
+                "name": "Radio",
+                "type": "INSTANCE",
+                "size": [
+                  65,
+                  24
+                ],
+                "layout": {
+                  "mode": "HORIZONTAL",
+                  "gap": 6,
+                  "padding": [
+                    0,
+                    0,
+                    0,
+                    0
+                  ],
+                  "align": [
+                    "MIN",
+                    "CENTER"
+                  ]
+                },
+                "sizing": [
+                  "HUG",
+                  "HUG"
+                ],
+                "main": {
+                  "id": "4971:31498",
+                  "name": "selection=unchecked, size=large, state=default",
+                  "key": "bfdfc856bc502737df4aa4d19c8ba3c7bebe823b",
+                  "set": {
+                    "id": "4971:31497",
+                    "name": "Radio",
+                    "key": "537ae389cd6fdbf0b28c63296738ed42a59e7158"
+                  }
+                },
+                "variables": {
+                  "itemSpacing": "radio/space/gap"
+                },
+                "children": [
+                  {
+                    "id": "I4971:31727;4971:31499",
+                    "name": "radio",
+                    "type": "FRAME",
+                    "size": [
+                      20,
+                      20
+                    ],
+                    "layout": {
+                      "mode": "VERTICAL",
+                      "gap": 0,
+                      "padding": [
+                        0,
+                        0,
+                        0,
+                        0
+                      ],
+                      "align": [
+                        "CENTER",
+                        "CENTER"
+                      ]
+                    },
+                    "sizing": [
+                      "FIXED",
+                      "FIXED"
+                    ],
+                    "radius": 9999,
+                    "fills": [
+                      {
+                        "type": "SOLID",
+                        "color": "#FFFFFF",
+                        "variable": "selectionControl/color/bg/default"
+                      }
+                    ],
+                    "strokes": [
+                      {
+                        "type": "SOLID",
+                        "color": "#C4C9CF",
+                        "variable": "selectionControl/color/border/default"
+                      }
+                    ],
+                    "strokeWeight": 1.5,
+                    "strokeAlign": "INSIDE",
+                    "variables": {
+                      "width": "radio/large/size",
+                      "height": "radio/large/size",
+                      "cornerRadius": "radio/radius",
+                      "strokeWeight": "radio/borderWidth"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": "I4971:31727;4971:31500",
+                    "name": "label",
+                    "type": "TEXT",
+                    "size": [
+                      39,
+                      24
+                    ],
+                    "sizing": [
+                      "HUG",
+                      "HUG"
+                    ],
+                    "fills": [
+                      {
+                        "type": "SOLID",
+                        "color": "#1C1F23",
+                        "variable": "selectionControl/label/color/fg/default"
+                      }
+                    ],
+                    "styles": {
+                      "text": "label/16/500"
+                    },
+                    "text": {
+                      "characters": "Label",
+                      "fontFamily": "Pretendard",
+                      "fontStyle": "Medium",
+                      "fontWeight": 500,
+                      "fontSize": 16,
+                      "lineHeight": {
+                        "unit": "PIXELS",
+                        "value": 24
+                      },
+                      "letterSpacing": {
+                        "unit": "PIXELS",
+                        "value": -0.2
+                      },
+                      "align": [
+                        "LEFT",
+                        "CENTER"
+                      ],
+                      "autoResize": "WIDTH_AND_HEIGHT"
+                    },
+                    "propRefs": {
+                      "visible": "showLabel#5203:3",
+                      "characters": "label#4205:47"
+                    },
+                    "variables": {
+                      "letterSpacing[0]": "font/label/16/500/letterSpacing",
+                      "fontSize[0]": "font/label/16/500/size",
+                      "fontFamily[0]": "font/label/16/500/family",
+                      "lineHeight[0]": "font/label/16/500/lineHeight",
+                      "fontWeight[0]": "font/label/16/500/weight"
+                    }
+                  }
+                ]
+              },
+              {
+                "id": "4971:31728",
+                "name": "Radio",
+                "type": "INSTANCE",
+                "size": [
+                  65,
+                  24
+                ],
+                "layout": {
+                  "mode": "HORIZONTAL",
+                  "gap": 6,
+                  "padding": [
+                    0,
+                    0,
+                    0,
+                    0
+                  ],
+                  "align": [
+                    "MIN",
+                    "CENTER"
+                  ]
+                },
+                "sizing": [
+                  "HUG",
+                  "HUG"
+                ],
+                "main": {
+                  "id": "4971:31498",
+                  "name": "selection=unchecked, size=large, state=default",
+                  "key": "bfdfc856bc502737df4aa4d19c8ba3c7bebe823b",
+                  "set": {
+                    "id": "4971:31497",
+                    "name": "Radio",
+                    "key": "537ae389cd6fdbf0b28c63296738ed42a59e7158"
+                  }
+                },
+                "variables": {
+                  "itemSpacing": "radio/space/gap"
+                },
+                "children": [
+                  {
+                    "id": "I4971:31728;4971:31499",
+                    "name": "radio",
+                    "type": "FRAME",
+                    "size": [
+                      20,
+                      20
+                    ],
+                    "layout": {
+                      "mode": "VERTICAL",
+                      "gap": 0,
+                      "padding": [
+                        0,
+                        0,
+                        0,
+                        0
+                      ],
+                      "align": [
+                        "CENTER",
+                        "CENTER"
+                      ]
+                    },
+                    "sizing": [
+                      "FIXED",
+                      "FIXED"
+                    ],
+                    "radius": 9999,
+                    "fills": [
+                      {
+                        "type": "SOLID",
+                        "color": "#FFFFFF",
+                        "variable": "selectionControl/color/bg/default"
+                      }
+                    ],
+                    "strokes": [
+                      {
+                        "type": "SOLID",
+                        "color": "#C4C9CF",
+                        "variable": "selectionControl/color/border/default"
+                      }
+                    ],
+                    "strokeWeight": 1.5,
+                    "strokeAlign": "INSIDE",
+                    "variables": {
+                      "width": "radio/large/size",
+                      "height": "radio/large/size",
+                      "cornerRadius": "radio/radius",
+                      "strokeWeight": "radio/borderWidth"
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": "I4971:31728;4971:31500",
+                    "name": "label",
+                    "type": "TEXT",
+                    "size": [
+                      39,
+                      24
+                    ],
+                    "sizing": [
+                      "HUG",
+                      "HUG"
+                    ],
+                    "fills": [
+                      {
+                        "type": "SOLID",
+                        "color": "#1C1F23",
+                        "variable": "selectionControl/label/color/fg/default"
+                      }
+                    ],
+                    "styles": {
+                      "text": "label/16/500"
+                    },
+                    "text": {
+                      "characters": "Label",
+                      "fontFamily": "Pretendard",
+                      "fontStyle": "Medium",
+                      "fontWeight": 500,
+                      "fontSize": 16,
+                      "lineHeight": {
+                        "unit": "PIXELS",
+                        "value": 24
+                      },
+                      "letterSpacing": {
+                        "unit": "PIXELS",
+                        "value": -0.2
+                      },
+                      "align": [
+                        "LEFT",
+                        "CENTER"
+                      ],
+                      "autoResize": "WIDTH_AND_HEIGHT"
+                    },
+                    "propRefs": {
+                      "visible": "showLabel#5203:3",
+                      "characters": "label#4205:47"
+                    },
+                    "variables": {
+                      "letterSpacing[0]": "font/label/16/500/letterSpacing",
+                      "fontSize[0]": "font/label/16/500/size",
+                      "fontFamily[0]": "font/label/16/500/family",
+                      "lineHeight[0]": "font/label/16/500/lineHeight",
+                      "fontWeight[0]": "font/label/16/500/weight"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "nodeId": "4971:31729",
+      "key": "923595c40e9f11aeed1a89cc554d25212a956fb2",
+      "props": {
+        "size": "medium"
+      },
+      "size": [
+        192,
+        20
+      ],
+      "layer": {
+        "name": "size=medium",
+        "type": "COMPONENT",
+        "size": [
+          192,
+          20
+        ],
+        "layout": {
+          "mode": "HORIZONTAL",
+          "gap": 12,
+          "padding": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "align": [
+            "MIN",
+            "CENTER"
+          ]
+        },
+        "sizing": [
+          "HUG",
+          "HUG"
+        ],
+        "variables": {
+          "itemSpacing": "radio/group/space/gap"
+        },
+        "children": [
+          {
+            "name": "content",
+            "type": "SLOT",
+            "size": [
+              192,
+              20
+            ],
+            "layout": {
+              "mode": "HORIZONTAL",
+              "gap": 12,
+              "padding": [
+                0,
+                0,
+                0,
+                0
+              ],
+              "align": [
+                "MIN",
+                "CENTER"
+              ]
+            },
+            "sizing": [
+              "HUG",
+              "HUG"
+            ],
+            "propRefs": {
+              "slotContentId": "content#2810:17"
+            },
+            "variables": {
+              "itemSpacing": "radio/group/space/gap"
+            },
+            "children": [
+              {
+                "name": "Radio",
+                "type": "INSTANCE",
+                "size": [
+                  56,
+                  20
+                ],
+                "layout": {
+                  "mode": "HORIZONTAL",
+                  "gap": 6,
+                  "padding": [
+                    0,
+                    0,
+                    0,
+                    0
+                  ],
+                  "align": [
+                    "MIN",
+                    "CENTER"
+                  ]
+                },
+                "sizing": [
+                  "HUG",
+                  "HUG"
+                ],
+                "main": {
+                  "id": "4971:31507",
+                  "name": "selection=unchecked, size=medium, state=default",
+                  "key": "52334cc70fdc0768331ee12379c1979a3ba75e8a",
+                  "set": {
+                    "id": "4971:31497",
+                    "name": "Radio",
+                    "key": "537ae389cd6fdbf0b28c63296738ed42a59e7158"
+                  }
+                },
+                "variables": {
+                  "itemSpacing": "radio/space/gap"
+                },
+                "children": [
+                  {
+                    "name": "radio",
+                    "type": "FRAME",
+                    "size": [
+                      16,
+                      16
+                    ],
+                    "layout": {
+                      "mode": "VERTICAL",
+                      "gap": 0,
+                      "padding": [
+                        0,
+                        0,
+                        0,
+                        0
+                      ],
+                      "align": [
+                        "CENTER",
+                        "CENTER"
+                      ]
+                    },
+                    "sizing": [
+                      "FIXED",
+                      "FIXED"
+                    ],
+                    "radius": 9999,
+                    "fills": [
+                      {
+                        "type": "SOLID",
+                        "color": "#FFFFFF",
+                        "variable": "selectionControl/color/bg/default"
+                      }
+                    ],
+                    "strokes": [
+                      {
+                        "type": "SOLID",
+                        "color": "#C4C9CF",
+                        "variable": "selectionControl/color/border/default"
+                      }
+                    ],
+                    "strokeWeight": 1.5,
+                    "strokeAlign": "INSIDE",
+                    "variables": {
+                      "width": "radio/medium/size",
+                      "height": "radio/medium/size",
+                      "cornerRadius": "radio/radius",
+                      "strokeWeight": "radio/borderWidth"
+                    },
+                    "children": [],
+                    "id": "I4971:31731;4971:31508"
+                  },
+                  {
+                    "name": "label",
+                    "type": "TEXT",
+                    "size": [
+                      34,
+                      20
+                    ],
+                    "sizing": [
+                      "HUG",
+                      "HUG"
+                    ],
+                    "fills": [
+                      {
+                        "type": "SOLID",
+                        "color": "#1C1F23",
+                        "variable": "selectionControl/label/color/fg/default"
+                      }
+                    ],
+                    "styles": {
+                      "text": "label/14/400"
+                    },
+                    "text": {
+                      "characters": "Label",
+                      "fontFamily": "Pretendard",
+                      "fontStyle": "Regular",
+                      "fontWeight": 400,
+                      "fontSize": 14,
+                      "lineHeight": {
+                        "unit": "PIXELS",
+                        "value": 20
+                      },
+                      "letterSpacing": {
+                        "unit": "PIXELS",
+                        "value": -0.2
+                      },
+                      "align": [
+                        "LEFT",
+                        "CENTER"
+                      ],
+                      "autoResize": "WIDTH_AND_HEIGHT"
+                    },
+                    "propRefs": {
+                      "visible": "showLabel#5203:3",
+                      "characters": "label#4205:47"
+                    },
+                    "variables": {
+                      "letterSpacing[0]": "font/label/14/400/letterSpacing",
+                      "fontSize[0]": "font/label/14/400/size",
+                      "fontFamily[0]": "font/label/14/400/family",
+                      "lineHeight[0]": "font/label/14/400/lineHeight",
+                      "fontWeight[0]": "font/label/14/400/weight"
+                    },
+                    "id": "I4971:31731;4971:31509"
+                  }
+                ],
+                "id": "4971:31731"
+              },
+              {
+                "name": "Radio",
+                "type": "INSTANCE",
+                "size": [
+                  56,
+                  20
+                ],
+                "layout": {
+                  "mode": "HORIZONTAL",
+                  "gap": 6,
+                  "padding": [
+                    0,
+                    0,
+                    0,
+                    0
+                  ],
+                  "align": [
+                    "MIN",
+                    "CENTER"
+                  ]
+                },
+                "sizing": [
+                  "HUG",
+                  "HUG"
+                ],
+                "main": {
+                  "id": "4971:31507",
+                  "name": "selection=unchecked, size=medium, state=default",
+                  "key": "52334cc70fdc0768331ee12379c1979a3ba75e8a",
+                  "set": {
+                    "id": "4971:31497",
+                    "name": "Radio",
+                    "key": "537ae389cd6fdbf0b28c63296738ed42a59e7158"
+                  }
+                },
+                "variables": {
+                  "itemSpacing": "radio/space/gap"
+                },
+                "children": [
+                  {
+                    "name": "radio",
+                    "type": "FRAME",
+                    "size": [
+                      16,
+                      16
+                    ],
+                    "layout": {
+                      "mode": "VERTICAL",
+                      "gap": 0,
+                      "padding": [
+                        0,
+                        0,
+                        0,
+                        0
+                      ],
+                      "align": [
+                        "CENTER",
+                        "CENTER"
+                      ]
+                    },
+                    "sizing": [
+                      "FIXED",
+                      "FIXED"
+                    ],
+                    "radius": 9999,
+                    "fills": [
+                      {
+                        "type": "SOLID",
+                        "color": "#FFFFFF",
+                        "variable": "selectionControl/color/bg/default"
+                      }
+                    ],
+                    "strokes": [
+                      {
+                        "type": "SOLID",
+                        "color": "#C4C9CF",
+                        "variable": "selectionControl/color/border/default"
+                      }
+                    ],
+                    "strokeWeight": 1.5,
+                    "strokeAlign": "INSIDE",
+                    "variables": {
+                      "width": "radio/medium/size",
+                      "height": "radio/medium/size",
+                      "cornerRadius": "radio/radius",
+                      "strokeWeight": "radio/borderWidth"
+                    },
+                    "children": [],
+                    "id": "I4971:31732;4971:31508"
+                  },
+                  {
+                    "name": "label",
+                    "type": "TEXT",
+                    "size": [
+                      34,
+                      20
+                    ],
+                    "sizing": [
+                      "HUG",
+                      "HUG"
+                    ],
+                    "fills": [
+                      {
+                        "type": "SOLID",
+                        "color": "#1C1F23",
+                        "variable": "selectionControl/label/color/fg/default"
+                      }
+                    ],
+                    "styles": {
+                      "text": "label/14/400"
+                    },
+                    "text": {
+                      "characters": "Label",
+                      "fontFamily": "Pretendard",
+                      "fontStyle": "Regular",
+                      "fontWeight": 400,
+                      "fontSize": 14,
+                      "lineHeight": {
+                        "unit": "PIXELS",
+                        "value": 20
+                      },
+                      "letterSpacing": {
+                        "unit": "PIXELS",
+                        "value": -0.2
+                      },
+                      "align": [
+                        "LEFT",
+                        "CENTER"
+                      ],
+                      "autoResize": "WIDTH_AND_HEIGHT"
+                    },
+                    "propRefs": {
+                      "visible": "showLabel#5203:3",
+                      "characters": "label#4205:47"
+                    },
+                    "variables": {
+                      "letterSpacing[0]": "font/label/14/400/letterSpacing",
+                      "fontSize[0]": "font/label/14/400/size",
+                      "fontFamily[0]": "font/label/14/400/family",
+                      "lineHeight[0]": "font/label/14/400/lineHeight",
+                      "fontWeight[0]": "font/label/14/400/weight"
+                    },
+                    "id": "I4971:31732;4971:31509"
+                  }
+                ],
+                "id": "4971:31732"
+              },
+              {
+                "name": "Radio",
+                "type": "INSTANCE",
+                "size": [
+                  56,
+                  20
+                ],
+                "layout": {
+                  "mode": "HORIZONTAL",
+                  "gap": 6,
+                  "padding": [
+                    0,
+                    0,
+                    0,
+                    0
+                  ],
+                  "align": [
+                    "MIN",
+                    "CENTER"
+                  ]
+                },
+                "sizing": [
+                  "HUG",
+                  "HUG"
+                ],
+                "main": {
+                  "id": "4971:31507",
+                  "name": "selection=unchecked, size=medium, state=default",
+                  "key": "52334cc70fdc0768331ee12379c1979a3ba75e8a",
+                  "set": {
+                    "id": "4971:31497",
+                    "name": "Radio",
+                    "key": "537ae389cd6fdbf0b28c63296738ed42a59e7158"
+                  }
+                },
+                "variables": {
+                  "itemSpacing": "radio/space/gap"
+                },
+                "children": [
+                  {
+                    "name": "radio",
+                    "type": "FRAME",
+                    "size": [
+                      16,
+                      16
+                    ],
+                    "layout": {
+                      "mode": "VERTICAL",
+                      "gap": 0,
+                      "padding": [
+                        0,
+                        0,
+                        0,
+                        0
+                      ],
+                      "align": [
+                        "CENTER",
+                        "CENTER"
+                      ]
+                    },
+                    "sizing": [
+                      "FIXED",
+                      "FIXED"
+                    ],
+                    "radius": 9999,
+                    "fills": [
+                      {
+                        "type": "SOLID",
+                        "color": "#FFFFFF",
+                        "variable": "selectionControl/color/bg/default"
+                      }
+                    ],
+                    "strokes": [
+                      {
+                        "type": "SOLID",
+                        "color": "#C4C9CF",
+                        "variable": "selectionControl/color/border/default"
+                      }
+                    ],
+                    "strokeWeight": 1.5,
+                    "strokeAlign": "INSIDE",
+                    "variables": {
+                      "width": "radio/medium/size",
+                      "height": "radio/medium/size",
+                      "cornerRadius": "radio/radius",
+                      "strokeWeight": "radio/borderWidth"
+                    },
+                    "children": [],
+                    "id": "I4971:31733;4971:31508"
+                  },
+                  {
+                    "name": "label",
+                    "type": "TEXT",
+                    "size": [
+                      34,
+                      20
+                    ],
+                    "sizing": [
+                      "HUG",
+                      "HUG"
+                    ],
+                    "fills": [
+                      {
+                        "type": "SOLID",
+                        "color": "#1C1F23",
+                        "variable": "selectionControl/label/color/fg/default"
+                      }
+                    ],
+                    "styles": {
+                      "text": "label/14/400"
+                    },
+                    "text": {
+                      "characters": "Label",
+                      "fontFamily": "Pretendard",
+                      "fontStyle": "Regular",
+                      "fontWeight": 400,
+                      "fontSize": 14,
+                      "lineHeight": {
+                        "unit": "PIXELS",
+                        "value": 20
+                      },
+                      "letterSpacing": {
+                        "unit": "PIXELS",
+                        "value": -0.2
+                      },
+                      "align": [
+                        "LEFT",
+                        "CENTER"
+                      ],
+                      "autoResize": "WIDTH_AND_HEIGHT"
+                    },
+                    "propRefs": {
+                      "visible": "showLabel#5203:3",
+                      "characters": "label#4205:47"
+                    },
+                    "variables": {
+                      "letterSpacing[0]": "font/label/14/400/letterSpacing",
+                      "fontSize[0]": "font/label/14/400/size",
+                      "fontFamily[0]": "font/label/14/400/family",
+                      "lineHeight[0]": "font/label/14/400/lineHeight",
+                      "fontWeight[0]": "font/label/14/400/weight"
+                    },
+                    "id": "I4971:31733;4971:31509"
+                  }
+                ],
+                "id": "4971:31733"
+              }
+            ],
+            "id": "4971:31730"
+          }
+        ],
+        "id": "4971:31729"
+      }
+    }
+  ],
+  "tokens": [
+    {
+      "figma": "font/label/14/400/family",
+      "css": "--font-label-14-400-family",
+      "collection": "Semantic",
+      "type": "STRING",
+      "value": "Pretendard",
+      "alias": "font/family/pretendard",
+      "key": "b30934f3d0ff782e7ca13aea9499784749ff6b2d"
+    },
+    {
+      "figma": "font/label/14/400/letterSpacing",
+      "css": "--font-label-14-400-letter-spacing",
+      "collection": "Semantic",
+      "type": "FLOAT",
+      "value": -0.2,
+      "alias": "font/letterSpacing/minus0p2",
+      "key": "23e42b7836c1ea32d73aa88382950ba0dee595eb"
+    },
+    {
+      "figma": "font/label/14/400/lineHeight",
+      "css": "--font-label-14-400-line-height",
+      "collection": "Semantic",
+      "type": "FLOAT",
+      "value": 20,
+      "alias": "font/lineHeight/20",
+      "key": "114c23fcb16b09f1469b04d62405f2f302bf5270"
+    },
+    {
+      "figma": "font/label/14/400/size",
+      "css": "--font-label-14-400-size",
+      "collection": "Semantic",
+      "type": "FLOAT",
+      "value": 14,
+      "alias": "font/size/14",
+      "key": "025db52e6e43ba4afe5fdca5aeecf47e8dd73d64"
+    },
+    {
+      "figma": "font/label/14/400/weight",
+      "css": "--font-label-14-400-weight",
+      "collection": "Semantic",
+      "type": "FLOAT",
+      "value": 400,
+      "alias": "font/weight/400",
+      "key": "07a5b20eb69583275c5ed9896066f258295159d0"
+    },
+    {
+      "figma": "font/label/16/500/family",
+      "css": "--font-label-16-500-family",
+      "collection": "Semantic",
+      "type": "STRING",
+      "value": "Pretendard",
+      "alias": "font/family/pretendard",
+      "key": "7137963c127baeaf19d2b14262fc3140cbf25f9b"
+    },
+    {
+      "figma": "font/label/16/500/letterSpacing",
+      "css": "--font-label-16-500-letter-spacing",
+      "collection": "Semantic",
+      "type": "FLOAT",
+      "value": -0.2,
+      "alias": "font/letterSpacing/minus0p2",
+      "key": "3ba39fb3555f4f64d452c11803058bde732a9e58"
+    },
+    {
+      "figma": "font/label/16/500/lineHeight",
+      "css": "--font-label-16-500-line-height",
+      "collection": "Semantic",
+      "type": "FLOAT",
+      "value": 24,
+      "alias": "font/lineHeight/24",
+      "key": "d0d9ae4653294cefcca198bf7525b997e7d0aace"
+    },
+    {
+      "figma": "font/label/16/500/size",
+      "css": "--font-label-16-500-size",
+      "collection": "Semantic",
+      "type": "FLOAT",
+      "value": 16,
+      "alias": "font/size/16",
+      "key": "29b283158dc3eea851cd853455ac7f7928865397"
+    },
+    {
+      "figma": "font/label/16/500/weight",
+      "css": "--font-label-16-500-weight",
+      "collection": "Semantic",
+      "type": "FLOAT",
+      "value": 500,
+      "alias": "font/weight/500",
+      "key": "7a56db1b436241def7d6f0f28d549f0142f8303e"
+    },
+    {
+      "figma": "radio/borderWidth",
+      "css": "--radio-border-width",
+      "collection": "Component",
+      "type": "FLOAT",
+      "value": 1.5,
+      "alias": "borderWidth/1p5",
+      "key": "a8a6e3e58f4ee45b59e215edb05991fdeb8d6829"
+    },
+    {
+      "figma": "radio/group/space/gap",
+      "css": "--radio-group-space-gap",
+      "collection": "Component",
+      "type": "FLOAT",
+      "value": 12,
+      "alias": "space/12",
+      "key": "6af961f146d68b9690ad710689d823756eb9b785"
+    },
+    {
+      "figma": "radio/large/size",
+      "css": "--radio-large-size",
+      "collection": "Component",
+      "type": "FLOAT",
+      "value": 20,
+      "alias": "size/20",
+      "key": "3b030317964a859d0b83a023a424a57ae60644e3"
+    },
+    {
+      "figma": "radio/medium/size",
+      "css": "--radio-medium-size",
+      "collection": "Component",
+      "type": "FLOAT",
+      "value": 16,
+      "alias": "size/16",
+      "key": "7cea84b28bcf793ec7e19e1893e2f887f339c559"
+    },
+    {
+      "figma": "radio/radius",
+      "css": "--radio-radius",
+      "collection": "Component",
+      "type": "FLOAT",
+      "value": 9999,
+      "alias": "radius/full",
+      "key": "53cd61a4525ae41c4f700e414cccc92122448b27"
+    },
+    {
+      "figma": "radio/space/gap",
+      "css": "--radio-space-gap",
+      "collection": "Component",
+      "type": "FLOAT",
+      "value": 6,
+      "alias": "space/6",
+      "key": "acdd71d2b45b345b2a368d6b6cd5f205c9145c6a"
+    },
+    {
+      "figma": "selectionControl/color/bg/default",
+      "css": "--selection-control-color-bg-default",
+      "collection": "Component",
+      "type": "COLOR",
+      "value": "#FFFFFF",
+      "alias": "color/bg/base",
+      "key": "9a2299ca7a1163f2bd42ed2a344cca7060e71340"
+    },
+    {
+      "figma": "selectionControl/color/border/default",
+      "css": "--selection-control-color-border-default",
+      "collection": "Component",
+      "type": "COLOR",
+      "value": "#C4C9CF",
+      "alias": "color/border/neutral/strong",
+      "key": "0713b5faeda63ce4a3b4fb5a13aa683ce0daa402"
+    },
+    {
+      "figma": "selectionControl/label/color/fg/default",
+      "css": "--selection-control-label-color-fg-default",
+      "collection": "Component",
+      "type": "COLOR",
+      "value": "#1C1F23",
+      "alias": "color/fg/neutral/strongest",
+      "key": "c20941800d3a2056d7e646abc7d4bdb5b17350cd"
+    }
+  ],
+  "textStyles": [
+    {
+      "name": "label/14/400",
+      "type": "TEXT",
+      "key": "44f6a5fa88f17d7a0d4c1db19d9c0655010a4b10",
+      "remote": false
+    },
+    {
+      "name": "label/16/500",
+      "type": "TEXT",
+      "key": "ac0bc26a9251d8bb2b1be250dedb5c785e8c7f8f",
+      "remote": false
+    }
+  ],
+  "otherStyles": []
+}
