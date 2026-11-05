@@ -1,5 +1,5 @@
 {
- "$description": "Figma ❖ Icon Resource(2409:27235)의 마스터 컴포넌트 목록. SVG는 Figma exportAsync로 내보낸 것. Line/Filled는 fill을 currentColor로 바꿨고 Colored는 원본 색을 유지한다.",
+ "$description": "Figma ❖ Icon(2409:27235)의 마스터 컴포넌트 목록. SVG는 Figma exportAsync로 내보낸 것. Line/Filled는 fill을 currentColor로 바꿨고 Colored는 원본 색을 유지한다.",
  "figma": {
   "fileKey": "WcoI745J38TaON7iCKcutW",
   "nodeId": "2409:27235"
@@ -11,11 +11,11 @@
    "title": "Line Icon",
    "description": "선으로 구성된 단색 아이콘으로, 일반적인 기능과 동작을 간결하게 표현할 때 사용합니다.",
    "groups": [
-    "Utility",
-    "Direction",
-    "Basic Action",
     "Form & Input",
-    "Navigation"
+    "Navigation",
+    "Direction",
+    "Utility",
+    "Basic Action"
    ]
   },
   {
@@ -34,23 +34,158 @@
    "title": "Colored Icon",
    "description": "고유한 색상을 포함하는 아이콘으로, 브랜드와 상태 등의 의미를 직관적으로 전달하며 원본 색상을 유지해 사용합니다.",
    "groups": [
-    "Brand",
-    "Status & Feedback",
-    "Communication",
     "Action & Reward",
-    "Emotion"
+    "Emotion",
+    "Communication",
+    "Brand",
+    "Status & Feedback"
    ]
   }
  ],
  "icons": [
   {
-   "name": "Blank",
+   "name": "Calendar",
    "style": "line",
-   "group": "Utility",
-   "file": "svg/line/blank.svg",
-   "figmaName": "Icon/Blank",
-   "nodeId": "2223:2598",
-   "key": "e0bf735d77c11364d0485567fcef2ce1d995b749"
+   "group": "Form & Input",
+   "file": "svg/line/calendar.svg",
+   "figmaName": "Icon/Line/Calendar",
+   "nodeId": "2223:2277",
+   "key": "87b537840d68f315d4f73c1b9d3479723c6e2c64"
+  },
+  {
+   "name": "CalendarTime",
+   "style": "line",
+   "group": "Form & Input",
+   "file": "svg/line/calendar-time.svg",
+   "figmaName": "Icon/Line/CalendarTime",
+   "nodeId": "9223:3133",
+   "key": "869fb267d0ee7e1346dcaa5e00c392f1c963d5ca"
+  },
+  {
+   "name": "Visibility",
+   "style": "line",
+   "group": "Form & Input",
+   "file": "svg/line/visibility.svg",
+   "figmaName": "Icon/Line/Visibility",
+   "nodeId": "2223:2275",
+   "key": "e8fe815840d7925efc430cb76c30aebdc11bf7ee"
+  },
+  {
+   "name": "VisibilityOff",
+   "style": "line",
+   "group": "Form & Input",
+   "file": "svg/line/visibility-off.svg",
+   "figmaName": "Icon/Line/VisibilityOff",
+   "nodeId": "2223:2274",
+   "key": "ce8d2f25aa4c10cc4dd0f3ca2ac41a76c813678c"
+  },
+  {
+   "name": "Question",
+   "style": "line",
+   "group": "Form & Input",
+   "file": "svg/line/question.svg",
+   "figmaName": "Icon/Line/Question",
+   "nodeId": "2223:2272",
+   "key": "d3f5773e02c17e624cb4dd60654ad3b7c31702b7"
+  },
+  {
+   "name": "Info",
+   "style": "line",
+   "group": "Form & Input",
+   "file": "svg/line/info.svg",
+   "figmaName": "Icon/Line/Info",
+   "nodeId": "2223:2270",
+   "key": "9cde4240903088191ead3a005faa623bcd6c9df4"
+  },
+  {
+   "name": "Alert",
+   "style": "line",
+   "group": "Form & Input",
+   "file": "svg/line/alert.svg",
+   "figmaName": "Icon/Line/Alert",
+   "nodeId": "2295:1494",
+   "key": "ab2a9485a870a422cd59f828ba805e4e86d75104"
+  },
+  {
+   "name": "Asterisk",
+   "style": "line",
+   "group": "Form & Input",
+   "file": "svg/line/asterisk.svg",
+   "figmaName": "Icon/Line/Asterisk",
+   "nodeId": "2848:102820",
+   "key": "536899af4aa476eaf00e0b04858df7093bcd4b6f"
+  },
+  {
+   "name": "Hashtag",
+   "style": "line",
+   "group": "Form & Input",
+   "file": "svg/line/hashtag.svg",
+   "figmaName": "Icon/Line/Hashtag",
+   "nodeId": "2295:1257",
+   "key": "ef5882daa633777738085b87bdf01a581b943ee2"
+  },
+  {
+   "name": "ExternalLink",
+   "style": "line",
+   "group": "Form & Input",
+   "file": "svg/line/external-link.svg",
+   "figmaName": "Icon/Line/ExternalLink",
+   "nodeId": "2295:1258",
+   "key": "30f6d02a9feea7141bc71018d3eaa841dd68cd4f"
+  },
+  {
+   "name": "Star",
+   "style": "line",
+   "group": "Navigation",
+   "file": "svg/line/star.svg",
+   "figmaName": "Icon/Line/Star",
+   "nodeId": "2295:1299",
+   "key": "a6a1b2be7feadc4c4d279d389a94d2361e3e3d88"
+  },
+  {
+   "name": "Bookmark",
+   "style": "line",
+   "group": "Navigation",
+   "file": "svg/line/bookmark.svg",
+   "figmaName": "Icon/Line/Bookmark",
+   "nodeId": "2295:1298",
+   "key": "33964e7cebf2eb98f541d54369f4f8b90406cb84"
+  },
+  {
+   "name": "Layers",
+   "style": "line",
+   "group": "Navigation",
+   "file": "svg/line/layers.svg",
+   "figmaName": "Icon/Line/Layers",
+   "nodeId": "2295:1297",
+   "key": "a018c2d77939c23af27a05402b25a7a0df689d1b"
+  },
+  {
+   "name": "User",
+   "style": "line",
+   "group": "Navigation",
+   "file": "svg/line/user.svg",
+   "figmaName": "Icon/Line/User",
+   "nodeId": "2295:1296",
+   "key": "74095633467428737d154c11ff813228f66db748"
+  },
+  {
+   "name": "Settings",
+   "style": "line",
+   "group": "Navigation",
+   "file": "svg/line/settings.svg",
+   "figmaName": "Icon/Line/Settings",
+   "nodeId": "2295:1295",
+   "key": "8aded96996af06d4aecd176523b5b4648133d543"
+  },
+  {
+   "name": "ZoomIn",
+   "style": "line",
+   "group": "Form & Input",
+   "file": "svg/line/zoom-in.svg",
+   "figmaName": "Icon/Line/ZoomIn",
+   "nodeId": "2295:1311",
+   "key": "bb51e0094a5375988f6a1deab59248cbd57407e7"
   },
   {
    "name": "ChevronUp",
@@ -143,6 +278,15 @@
    "key": "762120976fc982b34a3af2ef21a86d991f97b65f"
   },
   {
+   "name": "Blank",
+   "style": "line",
+   "group": "Utility",
+   "file": "svg/line/blank.svg",
+   "figmaName": "Icon/Blank",
+   "nodeId": "2223:2598",
+   "key": "e0bf735d77c11364d0485567fcef2ce1d995b749"
+  },
+  {
    "name": "Plus",
    "style": "line",
    "group": "Basic Action",
@@ -233,6 +377,24 @@
    "key": "d2ed3d7f11f47fc24a15b5af30beaa36235a2286"
   },
   {
+   "name": "Delete",
+   "style": "line",
+   "group": "Basic Action",
+   "file": "svg/line/delete.svg",
+   "figmaName": "Icon/Line/Delete",
+   "nodeId": "9223:3134",
+   "key": "4f4faf04f5791a66062a87aa7d3aaf0130bea1b6"
+  },
+  {
+   "name": "Download",
+   "style": "line",
+   "group": "Basic Action",
+   "file": "svg/line/download.svg",
+   "figmaName": "Icon/Line/Download",
+   "nodeId": "9223:3137",
+   "key": "795a4c0e1c75c20114eae8545861328c2136bf8d"
+  },
+  {
    "name": "DragHandle",
    "style": "line",
    "group": "Basic Action",
@@ -258,6 +420,24 @@
    "figmaName": "Icon/Line/Fullscreen",
    "nodeId": "2223:2278",
    "key": "022bb8007b5cd82edebc6994eeedd5d1b4588e59"
+  },
+  {
+   "name": "Maximize",
+   "style": "line",
+   "group": "Basic Action",
+   "file": "svg/line/maximize.svg",
+   "figmaName": "Icon/Line/Maximize",
+   "nodeId": "9234:3276",
+   "key": "e4355cc00631619b56a04ded1ef3c1cbafd5b547"
+  },
+  {
+   "name": "SidePanel",
+   "style": "line",
+   "group": "Basic Action",
+   "file": "svg/line/side-panel.svg",
+   "figmaName": "Icon/Line/SidePanel",
+   "nodeId": "9223:3140",
+   "key": "940d865c345a33628ef5c000275a5ab971ed3c99"
   },
   {
    "name": "HandPalm",
@@ -297,141 +477,6 @@
    "description": "정렬 옵션을 여는 용도로만 사용합니다."
   },
   {
-   "name": "Calendar",
-   "style": "line",
-   "group": "Form & Input",
-   "file": "svg/line/calendar.svg",
-   "figmaName": "Icon/Line/Calendar",
-   "nodeId": "2223:2277",
-   "key": "87b537840d68f315d4f73c1b9d3479723c6e2c64"
-  },
-  {
-   "name": "Visibility",
-   "style": "line",
-   "group": "Form & Input",
-   "file": "svg/line/visibility.svg",
-   "figmaName": "Icon/Line/Visibility",
-   "nodeId": "2223:2275",
-   "key": "e8fe815840d7925efc430cb76c30aebdc11bf7ee"
-  },
-  {
-   "name": "VisibilityOff",
-   "style": "line",
-   "group": "Form & Input",
-   "file": "svg/line/visibility-off.svg",
-   "figmaName": "Icon/Line/VisibilityOff",
-   "nodeId": "2223:2274",
-   "key": "ce8d2f25aa4c10cc4dd0f3ca2ac41a76c813678c"
-  },
-  {
-   "name": "Question",
-   "style": "line",
-   "group": "Form & Input",
-   "file": "svg/line/question.svg",
-   "figmaName": "Icon/Line/Question",
-   "nodeId": "2223:2272",
-   "key": "d3f5773e02c17e624cb4dd60654ad3b7c31702b7"
-  },
-  {
-   "name": "Info",
-   "style": "line",
-   "group": "Form & Input",
-   "file": "svg/line/info.svg",
-   "figmaName": "Icon/Line/Info",
-   "nodeId": "2223:2270",
-   "key": "9cde4240903088191ead3a005faa623bcd6c9df4"
-  },
-  {
-   "name": "Alert",
-   "style": "line",
-   "group": "Form & Input",
-   "file": "svg/line/alert.svg",
-   "figmaName": "Icon/Line/Alert",
-   "nodeId": "2295:1494",
-   "key": "ab2a9485a870a422cd59f828ba805e4e86d75104"
-  },
-  {
-   "name": "Asterisk",
-   "style": "line",
-   "group": "Form & Input",
-   "file": "svg/line/asterisk.svg",
-   "figmaName": "Icon/Line/Asterisk",
-   "nodeId": "2848:102820",
-   "key": "536899af4aa476eaf00e0b04858df7093bcd4b6f"
-  },
-  {
-   "name": "Hashtag",
-   "style": "line",
-   "group": "Form & Input",
-   "file": "svg/line/hashtag.svg",
-   "figmaName": "Icon/Line/Hashtag",
-   "nodeId": "2295:1257",
-   "key": "ef5882daa633777738085b87bdf01a581b943ee2"
-  },
-  {
-   "name": "ExternalLink",
-   "style": "line",
-   "group": "Form & Input",
-   "file": "svg/line/external-link.svg",
-   "figmaName": "Icon/Line/ExternalLink",
-   "nodeId": "2295:1258",
-   "key": "30f6d02a9feea7141bc71018d3eaa841dd68cd4f"
-  },
-  {
-   "name": "ZoomIn",
-   "style": "line",
-   "group": "Form & Input",
-   "file": "svg/line/zoom-in.svg",
-   "figmaName": "Icon/Line/ZoomIn",
-   "nodeId": "2295:1311",
-   "key": "bb51e0094a5375988f6a1deab59248cbd57407e7"
-  },
-  {
-   "name": "Star",
-   "style": "line",
-   "group": "Navigation",
-   "file": "svg/line/star.svg",
-   "figmaName": "Icon/Line/Star",
-   "nodeId": "2295:1299",
-   "key": "a6a1b2be7feadc4c4d279d389a94d2361e3e3d88"
-  },
-  {
-   "name": "Bookmark",
-   "style": "line",
-   "group": "Navigation",
-   "file": "svg/line/bookmark.svg",
-   "figmaName": "Icon/Line/Bookmark",
-   "nodeId": "2295:1298",
-   "key": "33964e7cebf2eb98f541d54369f4f8b90406cb84"
-  },
-  {
-   "name": "Layers",
-   "style": "line",
-   "group": "Navigation",
-   "file": "svg/line/layers.svg",
-   "figmaName": "Icon/Line/Layers",
-   "nodeId": "2295:1297",
-   "key": "a018c2d77939c23af27a05402b25a7a0df689d1b"
-  },
-  {
-   "name": "User",
-   "style": "line",
-   "group": "Navigation",
-   "file": "svg/line/user.svg",
-   "figmaName": "Icon/Line/User",
-   "nodeId": "2295:1296",
-   "key": "74095633467428737d154c11ff813228f66db748"
-  },
-  {
-   "name": "Settings",
-   "style": "line",
-   "group": "Navigation",
-   "file": "svg/line/settings.svg",
-   "figmaName": "Icon/Line/Settings",
-   "nodeId": "2295:1295",
-   "key": "8aded96996af06d4aecd176523b5b4648133d543"
-  },
-  {
    "name": "Call",
    "style": "filled",
    "group": "Communication",
@@ -448,15 +493,6 @@
    "figmaName": "Icon/Filled/EndCall",
    "nodeId": "2289:1739",
    "key": "90fdb5624120b11ffb4122bbad7ad6a29826638a"
-  },
-  {
-   "name": "Dialpad",
-   "style": "filled",
-   "group": "Communication",
-   "file": "svg/filled/dialpad.svg",
-   "figmaName": "Icon/Filled/Dialpad",
-   "nodeId": "2289:1741",
-   "key": "1009a5fc86796328ced0480fbfeb85792cc7ce6f"
   },
   {
    "name": "User",
@@ -493,6 +529,33 @@
    "figmaName": "Icon/Filled/Info",
    "nodeId": "2295:1509",
    "key": "0d454aff6ae313966090060e4a661533b3b2c677"
+  },
+  {
+   "name": "Danger",
+   "style": "filled",
+   "group": "Status & Feedback",
+   "file": "svg/filled/danger.svg",
+   "figmaName": "Icon/Filled/Danger",
+   "nodeId": "8685:2983",
+   "key": "8d1d7ae0bc715a505a725fd71de4ade5d19e404c"
+  },
+  {
+   "name": "Success",
+   "style": "filled",
+   "group": "Status & Feedback",
+   "file": "svg/filled/success.svg",
+   "figmaName": "Icon/Filled/Success",
+   "nodeId": "8685:2984",
+   "key": "b57432a5d50d240bf28a9f910319215c9c62c380"
+  },
+  {
+   "name": "Warning",
+   "style": "filled",
+   "group": "Status & Feedback",
+   "file": "svg/filled/warning.svg",
+   "figmaName": "Icon/Filled/Warning",
+   "nodeId": "8685:2985",
+   "key": "9c5bcd2c67598cb76650370a7ed532fc276eae0e"
   },
   {
    "name": "Verify",
@@ -558,6 +621,123 @@
    "key": "61d81148e16cd1cb3d3eac85536a313257ebdfad"
   },
   {
+   "name": "Dialpad",
+   "style": "filled",
+   "group": "Communication",
+   "file": "svg/filled/dialpad.svg",
+   "figmaName": "Icon/Filled/Dialpad",
+   "nodeId": "2289:1741",
+   "key": "1009a5fc86796328ced0480fbfeb85792cc7ce6f"
+  },
+  {
+   "name": "Add",
+   "style": "colored",
+   "group": "Action & Reward",
+   "file": "svg/colored/add.svg",
+   "figmaName": "Icon/Colored/Add",
+   "nodeId": "2292:1092",
+   "key": "4c010abb1b4564f241a278fb8e0667fd800acac7"
+  },
+  {
+   "name": "Trophy",
+   "style": "colored",
+   "group": "Action & Reward",
+   "file": "svg/colored/trophy.svg",
+   "figmaName": "Icon/Colored/Trophy",
+   "nodeId": "2292:1093",
+   "key": "6389e346bd12dbd305d974857cf785d28df85c78"
+  },
+  {
+   "name": "Paper",
+   "style": "colored",
+   "group": "Action & Reward",
+   "file": "svg/colored/paper.svg",
+   "figmaName": "Icon/Colored/Paper",
+   "nodeId": "2292:1084",
+   "key": "d2c675bfc989cb6c330c01663e4a1fee0fc523fc"
+  },
+  {
+   "name": "Won",
+   "style": "colored",
+   "group": "Action & Reward",
+   "file": "svg/colored/won.svg",
+   "figmaName": "Icon/Colored/Won",
+   "nodeId": "2292:1086",
+   "key": "40c57fafd52c46cb34ee001e80968550f08928b5"
+  },
+  {
+   "name": "HandPalm",
+   "style": "colored",
+   "group": "Action & Reward",
+   "file": "svg/colored/hand-palm.svg",
+   "figmaName": "Icon/Colored/HandPalm",
+   "nodeId": "8685:2845",
+   "key": "41e9a55be79e64e6e85be0d5dc5a919c575c67c1"
+  },
+  {
+   "name": "HandGrab",
+   "style": "colored",
+   "group": "Action & Reward",
+   "file": "svg/colored/hand-grab.svg",
+   "figmaName": "Icon/Colored/HandGrab",
+   "nodeId": "8685:2846",
+   "key": "1df32ad81befcf5603a101f6016e921292aa2e29"
+  },
+  {
+   "name": "HandPointer",
+   "style": "colored",
+   "group": "Action & Reward",
+   "file": "svg/colored/hand-pointer.svg",
+   "figmaName": "Icon/Colored/HandPointer",
+   "nodeId": "8685:2857",
+   "key": "558dcc14a07ffbbec79da91a100f4cf91711e639"
+  },
+  {
+   "name": "Smile",
+   "style": "colored",
+   "group": "Emotion",
+   "file": "svg/colored/smile.svg",
+   "figmaName": "Icon/Colored/Smile",
+   "nodeId": "2458:16954",
+   "key": "01aab3c7b81887f4beb7e3667637ac82f8960568"
+  },
+  {
+   "name": "Phone",
+   "style": "colored",
+   "group": "Communication",
+   "file": "svg/colored/phone.svg",
+   "figmaName": "Icon/Colored/Phone",
+   "nodeId": "2292:1095",
+   "key": "4f144a7ca009286f16d1db75c1702492fa13b6a1"
+  },
+  {
+   "name": "Subscribe",
+   "style": "colored",
+   "group": "Communication",
+   "file": "svg/colored/subscribe.svg",
+   "figmaName": "Icon/Colored/Subscribe",
+   "nodeId": "2292:1091",
+   "key": "f68ece7b3a3569c77340c631213e5d50328ea5a5"
+  },
+  {
+   "name": "Benefit",
+   "style": "colored",
+   "group": "Communication",
+   "file": "svg/colored/benefit.svg",
+   "figmaName": "Icon/Colored/Benefit",
+   "nodeId": "2292:1088",
+   "key": "df2d7553a014445d4d5775d31a8c4021dda33918"
+  },
+  {
+   "name": "Terminal",
+   "style": "colored",
+   "group": "Communication",
+   "file": "svg/colored/terminal.svg",
+   "figmaName": "Icon/Colored/Terminal",
+   "nodeId": "2292:1087",
+   "key": "4d2a731722d9928cad43028a9562563ea2400516"
+  },
+  {
    "name": "Logo",
    "style": "colored",
    "group": "Brand",
@@ -621,87 +801,6 @@
    "key": "d158bd4ebe473757b1458a006827e55955ac0925",
    "description": "로딩 진행 표시용 컬러드 아이콘. 어두운 배경 위 흰색 단계 투명도로 고정되어 있어 재색상하지 않습니다.",
    "onDark": true
-  },
-  {
-   "name": "Phone",
-   "style": "colored",
-   "group": "Communication",
-   "file": "svg/colored/phone.svg",
-   "figmaName": "Icon/Colored/Phone",
-   "nodeId": "2292:1095",
-   "key": "4f144a7ca009286f16d1db75c1702492fa13b6a1"
-  },
-  {
-   "name": "Subscribe",
-   "style": "colored",
-   "group": "Communication",
-   "file": "svg/colored/subscribe.svg",
-   "figmaName": "Icon/Colored/Subscribe",
-   "nodeId": "2292:1091",
-   "key": "f68ece7b3a3569c77340c631213e5d50328ea5a5"
-  },
-  {
-   "name": "Benefit",
-   "style": "colored",
-   "group": "Communication",
-   "file": "svg/colored/benefit.svg",
-   "figmaName": "Icon/Colored/Benefit",
-   "nodeId": "2292:1088",
-   "key": "df2d7553a014445d4d5775d31a8c4021dda33918"
-  },
-  {
-   "name": "Terminal",
-   "style": "colored",
-   "group": "Communication",
-   "file": "svg/colored/terminal.svg",
-   "figmaName": "Icon/Colored/Terminal",
-   "nodeId": "2292:1087",
-   "key": "4d2a731722d9928cad43028a9562563ea2400516"
-  },
-  {
-   "name": "Add",
-   "style": "colored",
-   "group": "Action & Reward",
-   "file": "svg/colored/add.svg",
-   "figmaName": "Icon/Colored/Add",
-   "nodeId": "2292:1092",
-   "key": "4c010abb1b4564f241a278fb8e0667fd800acac7"
-  },
-  {
-   "name": "Trophy",
-   "style": "colored",
-   "group": "Action & Reward",
-   "file": "svg/colored/trophy.svg",
-   "figmaName": "Icon/Colored/Trophy",
-   "nodeId": "2292:1093",
-   "key": "6389e346bd12dbd305d974857cf785d28df85c78"
-  },
-  {
-   "name": "Paper",
-   "style": "colored",
-   "group": "Action & Reward",
-   "file": "svg/colored/paper.svg",
-   "figmaName": "Icon/Colored/Paper",
-   "nodeId": "2292:1084",
-   "key": "d2c675bfc989cb6c330c01663e4a1fee0fc523fc"
-  },
-  {
-   "name": "Won",
-   "style": "colored",
-   "group": "Action & Reward",
-   "file": "svg/colored/won.svg",
-   "figmaName": "Icon/Colored/Won",
-   "nodeId": "2292:1086",
-   "key": "40c57fafd52c46cb34ee001e80968550f08928b5"
-  },
-  {
-   "name": "Smile",
-   "style": "colored",
-   "group": "Emotion",
-   "file": "svg/colored/smile.svg",
-   "figmaName": "Icon/Colored/Smile",
-   "nodeId": "2458:16954",
-   "key": "01aab3c7b81887f4beb7e3667637ac82f8960568"
   }
  ]
 }
