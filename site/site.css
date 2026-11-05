@@ -405,3 +405,61 @@ details.dev h2:first-of-type { margin-top: 12px; }
 }
 .pattern-links { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; margin: -6px 0 18px; font-size: 13px; color: var(--fg-muted); }
 .pattern-links .chip { color: var(--accent); }
+
+/* ---------- component guide tab (components/<key>/guide.json) ---------- */
+.page-tabs { display: flex; gap: 4px; margin: 4px 0 8px; border-bottom: 1px solid var(--border); }
+.page-tabs button {
+  margin-bottom: -1px; padding: 10px 14px; border: 0; border-bottom: 2px solid transparent; background: none;
+  font: inherit; font-size: 15px; color: var(--fg-muted); cursor: pointer;
+}
+.page-tabs button:hover { color: var(--fg); }
+.page-tabs button[aria-selected='true'] { border-bottom-color: var(--accent); color: var(--fg); font-weight: 600; }
+.page-tabs button:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; border-radius: 6px 6px 0 0; }
+[data-page-panel][hidden] { display: none; }
+.gd-source { margin: 16px 0 0; font-size: 13px; color: var(--fg-muted); }
+.gd-source a { color: var(--accent); }
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.gd-canvas {
+  position: relative; display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 48px 96px;
+  min-height: 200px; padding: 64px 24px 40px; border-radius: 16px; background: #F8F9FB; color: #1A1A1A; overflow-x: auto;
+}
+.gd-slot { display: inline-grid; place-items: center; color: #1c1f23; text-align: left; }
+.gd-slot > * { text-align: left; }
+/* examples drawn bigger in the anatomy and spec canvases so the marks have room */
+.gd-zoom { zoom: 2.5; }
+table.data.gd-table td { vertical-align: middle; }
+.gd-table td.pt-text { min-width: 240px; }
+.gd-ex { width: 160px; text-align: center; }
+.gd-ex .gd-slot { padding: 6px 10px; }
+.gd-act { width: 1%; white-space: nowrap; }
+.gd-code {
+  padding: 4px 10px; border: 1px solid var(--border); border-radius: 6px; background: var(--bg);
+  font: inherit; font-size: 12px; color: var(--fg-muted); cursor: pointer;
+}
+.gd-code:hover { border-color: var(--accent); color: var(--accent); }
+.gd-prop { display: block; margin-top: 2px; font-family: var(--mono); font-size: 11px; font-weight: 400; color: var(--fg-muted); }
+.gd-mark { position: absolute; pointer-events: none; }
+.gd-badge { width: 0; height: 0; }
+.gd-badge .pt-num-badge { position: absolute; }
+.gd-badge[data-side='top'] .pt-num-badge { left: -14px; bottom: 16px; }
+.gd-badge[data-side='top']::after { content: ''; position: absolute; left: 0; bottom: 0; height: 16px; border-left: 1px dotted #B3B9C0; }
+.gd-badge[data-side='right'] .pt-num-badge { left: 16px; top: -14px; }
+.gd-badge[data-side='right']::after { content: ''; position: absolute; top: 0; left: 0; width: 16px; border-top: 1px dotted #B3B9C0; }
+.gd-spec-item { position: relative; display: grid; justify-items: center; gap: 28px; margin: 0; }
+.gd-spec-item figcaption { font-size: 13px; color: #5f6673; }
+.gd-height { width: 8px; border: 1px solid #12a36b; border-left: 0; border-right: 0; }
+.gd-height::before { content: ''; position: absolute; left: 3.5px; top: 0; bottom: 0; border-left: 1px solid #12a36b; }
+.gd-height span {
+  position: absolute; right: 12px; top: 50%; transform: translateY(-50%); padding: 1px 5px; border-radius: 3px;
+  background: #12a36b; color: #fff; font-size: 10px; font-weight: 700; line-height: 12px;
+}
+.gd-gap { background: rgba(239, 85, 51, 0.45); }
+.gd-gap span { position: absolute; top: calc(100% + 4px); left: 50%; transform: translateX(-50%); font-size: 10px; font-weight: 700; line-height: 12px; color: #EF5533; }
+.gd-radius span { padding: 1px 5px; border-radius: 3px; background: #1A1A1A; color: #fff; font-size: 10px; font-weight: 700; line-height: 12px; }
+.gd-spec-table { margin-top: 12px; }
+.gd-token { margin-left: 4px; font-family: var(--mono); font-size: 11px; color: var(--fg-muted); }
+.gd-notes { margin: 14px 0 0; padding-left: 18px; font-size: 13px; color: var(--fg-muted); }
+@media (max-width: 720px) {
+  .gd-zoom { zoom: 2; }
+  .gd-canvas { gap: 40px; }
+}

@@ -5,6 +5,7 @@
 
 import { renderVariant, isRenderable } from './render.js';
 import { pagePattern, bindPattern } from './pattern.js';
+import { pageGuide, bindGuide } from './guide.js';
 
 const content = document.getElementById('content');
 const sidebar = document.getElementById('sidebar');
@@ -282,6 +283,13 @@ function pageComponent(c, patterns = []) {
     <h1>${esc(c.name)}</h1>
     <p class="lead">${c.description ? esc(c.description) : ''}</p>
     ${patternLinks(c, patterns)}
+    ${c.guide ? `
+    <div class="page-tabs" role="tablist" aria-label="${esc(c.name)} 문서">
+      <button role="tab" aria-selected="true" data-page-tab="guide">가이드</button>
+      <button role="tab" aria-selected="false" data-page-tab="dev">개발</button>
+    </div>
+    <div data-page-panel="guide">${pageGuide(c, c.guide)}</div>
+    <div data-page-panel="dev" hidden>` : ''}
     ${ok ? `
     <section class="sb">
       <div class="sb-tabs" role="tablist">
@@ -303,7 +311,26 @@ function pageComponent(c, patterns = []) {
     <h2>케이스</h2>
     <div id="sbCases"></div>` : `
     <p class="error">이 컴포넌트는 예전 형식 JSON이라 미리보기를 그릴 수 없어요. Figma 링크로 다시 읽으면 나타나요.</p>`}
-    ${figmaDetails(c)}`;
+    ${figmaDetails(c)}
+    ${c.guide ? '</div>' : ''}`;
+}
+
+// Guide | Dev tabs on a component page; the last choice is remembered per viewer.
+function showPageTab(name) {
+  document.querySelectorAll('[data-page-tab]').forEach((b) => b.setAttribute('aria-selected', String(b.dataset.pageTab === name)));
+  document.querySelectorAll('[data-page-panel]').forEach((p) => { p.hidden = p.dataset.pagePanel !== name; });
+  try { localStorage.setItem('ds-page-tab', name); } catch {}
+}
+function bindPageTabs() {
+  const tabs = document.querySelector('.page-tabs');
+  if (!tabs) return;
+  tabs.addEventListener('click', (e) => {
+    const t = e.target.closest('[data-page-tab]');
+    if (t) showPageTab(t.dataset.pageTab);
+  });
+  let saved = null;
+  try { saved = localStorage.getItem('ds-page-tab'); } catch {}
+  if (saved === 'dev') showPageTab('dev');
 }
 
 async function bindComponent(c, ctx) {
@@ -464,6 +491,20 @@ async function bindComponent(c, ctx) {
     renderCases();
   });
 
+  // the guide's "코드" buttons open the dev tab on that exact variant
+  if (c.guide) {
+    bindGuide(c, c.guide, icons, values);
+    content.querySelector('[data-page-panel="guide"]').addEventListener('click', (e) => {
+      const b = e.target.closest('[data-show-variant]');
+      if (!b) return;
+      Object.assign(sel, JSON.parse(b.dataset.showVariant));
+      refresh();
+      showPageTab('dev');
+      document.querySelector('.sb-tabs [data-tab="code"]').click();
+      document.querySelector('.sb').scrollIntoView({ block: 'start' });
+    });
+  }
+
   document.querySelector('.sb-tabs').addEventListener('click', (e) => {
     const t = e.target.closest('[data-tab]');
     if (!t) return;
@@ -577,6 +618,12 @@ async function bindIcons({ icons }) {
 async function boot() {
   const [registry, icons, patternList] = await Promise.all([getJson('components/index.json'), getJson('icons/icons.json'), getJson('patterns/index.json')]);
   const components = await Promise.all(registry.components.map((key) => getJson(`components/${key}/component.json`)));
+  // usage guides from the Figma design guide (components/guides.json lists which components have one)
+  const guideList = await getJson('components/guides.json').catch(() => ({ guides: [] }));
+  await Promise.all(guideList.guides.map(async (key) => {
+    const comp = components.find((c) => c.key === key);
+    if (comp) comp.guide = await getJson(`components/${key}/guide.json`);
+  }));
   const patterns = await Promise.all(patternList.patterns.map((key) => getJson(`patterns/${key}/pattern.json`)));
   // each pattern brings the icons drawn in its Figma guide (exported with their colors)
   await Promise.all(patterns.map(async (p) => {
@@ -609,6 +656,7 @@ async function boot() {
       }
       else if (comp) {
         content.innerHTML = pageComponent(comp, patterns);
+        bindPageTabs();
         bindVariantFilter();
         bindComponent(comp, ctx).catch((err) => {
           document.getElementById('sbStage')?.insertAdjacentHTML('beforeend', `<p class="error">미리보기를 그리지 못했어요: ${esc(err.message)}</p>`);
