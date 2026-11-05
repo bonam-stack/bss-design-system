@@ -281,7 +281,7 @@ function pageComponent(c, patterns = []) {
   return `
     <p class="eyebrow">Component</p>
     <h1>${esc(c.name)}</h1>
-    ${c.guide ? guideIntro(c.guide) : `<p class="lead">${c.description ? esc(c.description) : ''}</p>`}
+    ${c.guide ? guideIntro(c, c.guide) : `<p class="lead">${c.description ? esc(c.description) : ''}</p>`}
     ${patternLinks(c, patterns)}
     ${ok ? `
     ${c.guide ? '<h2>미리보기</h2>' : ''}
@@ -302,9 +302,9 @@ function pageComponent(c, patterns = []) {
       </div>
     </section>
     ${analyze(c).stateProp || analyze(c).selectProp ? '<p class="note">마우스를 올리거나 눌러 보세요. 키보드 Tab으로 포커스할 수도 있어요.</p>' : ''}
-    ${c.guide ? '' : '<h2>케이스</h2>\n    <div id="sbCases"></div>'}` : `
-    <p class="error">이 컴포넌트는 예전 형식 JSON이라 미리보기를 그릴 수 없어요. Figma 링크로 다시 읽으면 나타나요.</p>`}
     ${c.guide ? `<div id="guideBody">${pageGuide(c, c.guide)}</div>` : ''}
+    ${c.guide?.states ? '' : '<h2>케이스</h2>\n    <div id="sbCases"></div>'}` : `
+    <p class="error">이 컴포넌트는 예전 형식 JSON이라 미리보기를 그릴 수 없어요. Figma 링크로 다시 읽으면 나타나요.</p>`}
     ${figmaDetails(c)}`;
 }
 

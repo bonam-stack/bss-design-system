@@ -33,10 +33,12 @@ function missingRows(c, rows, defaults) {
 }
 
 // Overview text at the top of the component page (above the playground).
-export function guideIntro(g) {
+// A guide may hold only a policy (no Figma guide yet): the lead then falls back to the policy summary.
+export function guideIntro(c, g) {
+  const text = g.overview || c.description || g.policy?.lead || '';
   return `
-    <p class="lead pt-text">${lines(g.overview)}</p>
-    <p class="gd-source">가이드 출처 <a href="${esc(figmaUrl(g.source))}" target="_blank" rel="noopener">${esc(g.source.fileName)} · ${esc(g.source.name)}</a></p>`;
+    <p class="lead pt-text">${lines(text)}</p>
+    ${g.source ? `<p class="gd-source">가이드 출처 <a href="${esc(figmaUrl(g.source))}" target="_blank" rel="noopener">${esc(g.source.fileName)} · ${esc(g.source.name)}</a></p>` : ''}`;
 }
 
 // Usage policy from the service UI guide (when to use, rules, do/don't).
@@ -57,10 +59,10 @@ function policySection(pl) {
         <tbody>${pl.rules.map((r) => `<tr><td class="pt-type">${esc(r.name)}</td><td class="pt-text">${esc(r.desc)}${r.gap ? `<span class="gd-gap-note">${esc(r.gap)}</span>` : ''}</td><td class="gd-from">${esc(r.from)}</td></tr>`).join('')}</tbody>
       </table>
     </div>
-    <div class="gd-dodont">
-      <section class="gd-do"><h3>Do · 이렇게 합니다</h3><ul>${pl.do.map((t) => `<li>${esc(t)}</li>`).join('')}</ul></section>
-      <section class="gd-dont"><h3>Don't · 이건 피합니다</h3><ul>${pl.dont.map((t) => `<li>${esc(t)}</li>`).join('')}</ul></section>
-    </div>
+    ${(pl.do || []).length || (pl.dont || []).length ? `<div class="gd-dodont">
+      ${(pl.do || []).length ? `<section class="gd-do"><h3>Do · 이렇게 합니다</h3><ul>${pl.do.map((t) => `<li>${esc(t)}</li>`).join('')}</ul></section>` : ''}
+      ${(pl.dont || []).length ? `<section class="gd-dont"><h3>Don't · 이건 피합니다</h3><ul>${pl.dont.map((t) => `<li>${esc(t)}</li>`).join('')}</ul></section>` : ''}
+    </div>` : ''}
     ${(pl.related || []).length ? `<p class="gd-related">함께 보기 ${pl.related.map((r) => `<span class="chip" title="${esc(r.file)}">${esc(r.name)} · ${esc(r.desc)}</span>`).join('')}</p>` : ''}
     <p class="gd-source">정책 출처 ${esc(src.title)} 문서 (${esc(src.id)}${src.status ? ` · ${esc(src.status)}` : ''})</p>`;
 }
@@ -68,16 +70,24 @@ function policySection(pl) {
 // Policy, anatomy, states, variants and spec, shown under the playground.
 export function pageGuide(c, g) {
   const st = g.states, vr = g.variants, sp = g.spec, an = g.anatomy;
-  const stateRows = [...st.rows, ...missingRows(c, st.rows, st.defaults)];
+  return policySection(g.policy) + (an ? anatomySection(c, an) : '') + (st ? statesSection(c, st) : '')
+    + (vr ? variantsSection(c, vr) : '') + (sp ? specSection(c, sp) : '')
+    + ((g.notes || []).length ? `<ul class="gd-notes">${g.notes.map((n) => `<li>${esc(n)}</li>`).join('')}</ul>` : '');
+}
+
+function anatomySection(c, an) {
   return `
-    ${policySection(g.policy)}
     <h2>${esc(an.title)}</h2>
     <p class="note">${esc(an.lead)}</p>
     <div class="gd-canvas gd-anatomy">${slot('gdAnatomy', propsFor(c, an.example), 'gd-zoom')}</div>
     <ol class="pt-parts">
       ${an.parts.map((x) => `<li><span class="pt-num-badge">${x.n}</span><strong>${esc(x.name)}</strong><span>${esc(x.desc)}</span></li>`).join('')}
-    </ol>
+    </ol>`;
+}
 
+function statesSection(c, st) {
+  const stateRows = [...st.rows, ...missingRows(c, st.rows, st.defaults)];
+  return `
     <h2>${esc(st.title)}</h2>
     <p class="note">${esc(st.lead)}</p>
     <div class="table-wrap">
@@ -89,8 +99,11 @@ export function pageGuide(c, g) {
           return `<tr><td class="pt-type">${esc(r.name)}</td><td class="gd-ex">${slot(`gdState${i}`, props)}</td><td class="pt-text">${desc}</td><td class="gd-act">${codeBtn(props)}</td></tr>`;
         }).join('')}</tbody>
       </table>
-    </div>
+    </div>`;
+}
 
+function variantsSection(c, vr) {
+  return `
     <h2>${esc(vr.title)}</h2>
     <p class="note">${esc(vr.lead)}</p>
     ${vr.groups.map((grp, gi) => `
@@ -104,8 +117,11 @@ export function pageGuide(c, g) {
             return `<tr><td class="pt-type">${esc(r.name)}<span class="gd-prop">${esc(Object.entries(r.props).filter(([k]) => k === 'size').map(([k, v]) => `${k}=${v}`).join(''))}</span></td><td class="gd-ex">${slot(`gdVar${gi}-${i}`, props)}</td><td class="pt-text">${esc(r.desc)}</td><td class="gd-act">${codeBtn(props)}</td></tr>`;
           }).join('')}</tbody>
         </table>
-      </div>`).join('')}
+      </div>`).join('')}`;
+}
 
+function specSection(c, sp) {
+  return `
     <h2>${esc(sp.title)}</h2>
     <p class="note">${esc(sp.lead)}</p>
     <div class="gd-canvas gd-spec">
@@ -120,8 +136,7 @@ export function pageGuide(c, g) {
         <thead><tr><th>Type</th><th>체크박스 크기</th><th>체크박스–라벨 간격</th><th>둥글기</th><th>라벨 글자</th></tr></thead>
         <tbody id="gdSpecRows"></tbody>
       </table>
-    </div>
-    ${(g.notes || []).length ? `<ul class="gd-notes">${g.notes.map((n) => `<li>${esc(n)}</li>`).join('')}</ul>` : ''}`;
+    </div>`;
 }
 
 // Draws every example, then the anatomy and spec marks once fonts are in (and again on resize).
@@ -150,7 +165,7 @@ export function bindGuide(c, g, icons, values) {
   };
 
   // spec table from the component JSON itself, compared with the guide's numbers
-  const rows = g.spec.items.map((it) => {
+  const rows = (g.spec?.items || []).map((it) => {
     const v = variantOf(c, propsFor(c, it.props));
     const box = findLayer(v.layer, 'checkbox');
     const label = findLayer(v.layer, 'label');
@@ -163,7 +178,8 @@ export function bindGuide(c, g, icons, values) {
       <td class="num">${radius}px${flag(radius, it.radius)} ${tok(tokenFor(box, 'cornerRadius'))}</td>
       <td class="num">${esc(font)} ${tok(tokenFor(label, 'fontSize'))}</td></tr>`;
   });
-  document.getElementById('gdSpecRows').innerHTML = rows.join('');
+  const specRows = document.getElementById('gdSpecRows');
+  if (specRows) specRows.innerHTML = rows.join('');
 
   const marks = () => {
     document.querySelectorAll('.gd-mark').forEach((m) => m.remove());
@@ -175,8 +191,8 @@ export function bindGuide(c, g, icons, values) {
 
     // anatomy: numbered badge above the indicator, to the right of the label
     const an = document.getElementById('gdAnatomy');
-    const host = an.parentElement;
-    for (const p of g.anatomy.parts) {
+    const host = an?.parentElement;
+    for (const p of an ? g.anatomy.parts : []) {
       const el = part(an, p.layer);
       if (!el) continue;
       const r = rel(el, host);
@@ -190,7 +206,7 @@ export function bindGuide(c, g, icons, values) {
     }
 
     // spec: box height on the left, gap block between box and label, radius tag on the corner
-    g.spec.items.forEach((it, i) => {
+    (g.spec?.items || []).forEach((it, i) => {
       const s = document.getElementById(`gdSpec${i}`);
       const fig = s.parentElement;
       const box = part(s, 'checkbox'), label = part(s, 'label');
@@ -213,7 +229,7 @@ export function bindGuide(c, g, icons, values) {
   };
   (document.fonts ? document.fonts.ready : Promise.resolve()).then(marks);
   let t;
-  const onResize = () => { clearTimeout(t); t = setTimeout(() => document.getElementById('gdAnatomy') && marks(), 120); };
+  const onResize = () => { clearTimeout(t); t = setTimeout(() => document.getElementById('guideBody') && marks(), 120); };
   window.addEventListener('resize', onResize);
   return { redraw: marks, dispose: () => window.removeEventListener('resize', onResize) };
 }
