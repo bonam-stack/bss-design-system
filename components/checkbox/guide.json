@@ -13,25 +13,90 @@
   "anatomy": {
     "title": "Anatomy (구성)",
     "lead": "Checkbox를 이루는 필수/선택 요소의 구조를 말합니다.",
-    "example": { "selection": "checked", "size": "medium", "state": "default" },
+    "example": {
+      "selection": "checked",
+      "size": "medium",
+      "state": "default"
+    },
     "parts": [
-      { "n": 1, "name": "State Indicator", "layer": "checkbox", "desc": "선택/해제, 비활성, 오류 상태를 전달하는 요소입니다." },
-      { "n": 2, "name": "Label", "layer": "label", "desc": "선택 의미를 설명하는 텍스트입니다. 체크박스와 항상 함께 제공합니다." }
+      {
+        "n": 1,
+        "name": "State Indicator",
+        "layer": "checkbox",
+        "desc": "선택/해제, 비활성, 오류 상태를 전달하는 요소입니다."
+      },
+      {
+        "n": 2,
+        "name": "Label",
+        "layer": "label",
+        "desc": "선택 의미를 설명하는 텍스트입니다. 체크박스와 항상 함께 제공합니다."
+      }
     ]
   },
   "states": {
     "title": "States (상태)",
     "lead": "사용자 입력과 시스템의 상황에 따라 컴포넌트의 표현 방식을 정리한 기준입니다.",
     "rows": [
-      { "name": "Default", "props": { "selection": "unchecked", "state": "default" }, "desc": "선택되지 않은 기본 상태입니다. 사용자가 클릭하여 선택/해제할 수 있습니다." },
-      { "name": "Selected", "props": { "selection": "checked", "state": "default" }, "desc": "항목이 선택된 상태입니다. 사용자가 클릭하여 해제(또는 전환)할 수 있습니다." },
-      { "name": "Indeterminate", "props": { "selection": "indeterminate", "state": "default" }, "desc": "하위 항목 중 일부만 선택된 상태입니다. 전체 항목의 선택 상태가 혼합되어 있음을 나타냅니다." },
-      { "name": "Hovered", "props": { "selection": "unchecked", "state": "hover" }, "desc": "포인터(마우스)가 올라온 상태입니다. 클릭/전환이 가능하다는 피드백을 제공합니다." },
-      { "name": "Disabled", "props": { "selection": "unchecked", "state": "disabled" }, "desc": "사용할 수 없는 상태입니다. 현재 값은 표시되지만 사용자가 선택/해제를 변경할 수 없습니다." },
-      { "name": "Selected Hovered", "props": { "selection": "checked", "state": "hover" }, "desc": "선택된 상태에서 포인터가 올라온 상태입니다. 선택 상태를 유지하면서 Hovered 피드백을 함께 보여줍니다." },
-      { "name": "Selected Disabled", "props": { "selection": "checked", "state": "disabled" }, "desc": "선택된 상태이지만 비활성화되어 사용할 수 없습니다. 현재 선택 값은 유지되며 사용자가 해제하거나 변경할 수 없습니다." }
+      {
+        "name": "Default",
+        "props": {
+          "selection": "unchecked",
+          "state": "default"
+        },
+        "desc": "선택되지 않은 기본 상태입니다. 사용자가 클릭하여 선택/해제할 수 있습니다."
+      },
+      {
+        "name": "Selected",
+        "props": {
+          "selection": "checked",
+          "state": "default"
+        },
+        "desc": "항목이 선택된 상태입니다. 사용자가 클릭하여 해제(또는 전환)할 수 있습니다."
+      },
+      {
+        "name": "Indeterminate",
+        "props": {
+          "selection": "indeterminate",
+          "state": "default"
+        },
+        "desc": "하위 항목 중 일부만 선택된 상태입니다. 전체 항목의 선택 상태가 혼합되어 있음을 나타냅니다."
+      },
+      {
+        "name": "Hovered",
+        "props": {
+          "selection": "unchecked",
+          "state": "hover"
+        },
+        "desc": "포인터(마우스)가 올라온 상태입니다. 클릭/전환이 가능하다는 피드백을 제공합니다."
+      },
+      {
+        "name": "Disabled",
+        "props": {
+          "selection": "unchecked",
+          "state": "disabled"
+        },
+        "desc": "사용할 수 없는 상태입니다. 현재 값은 표시되지만 사용자가 선택/해제를 변경할 수 없습니다."
+      },
+      {
+        "name": "Selected Hovered",
+        "props": {
+          "selection": "checked",
+          "state": "hover"
+        },
+        "desc": "선택된 상태에서 포인터가 올라온 상태입니다. 선택 상태를 유지하면서 Hovered 피드백을 함께 보여줍니다."
+      },
+      {
+        "name": "Selected Disabled",
+        "props": {
+          "selection": "checked",
+          "state": "disabled"
+        },
+        "desc": "선택된 상태이지만 비활성화되어 사용할 수 없습니다. 현재 선택 값은 유지되며 사용자가 해제하거나 변경할 수 없습니다."
+      }
     ],
-    "defaults": { "size": "medium" }
+    "defaults": {
+      "size": "medium"
+    }
   },
   "variants": {
     "title": "Variants (변형)",
@@ -41,8 +106,24 @@
         "title": "Hierarchy",
         "lead": "중요도에 따라 시각적 강도와 우선순위를 구분합니다.",
         "rows": [
-          { "name": "Large", "props": { "size": "large", "selection": "checked", "state": "default" }, "desc": "헤더의 조회 영역 등 강조가 필요한 영역에서 사용합니다. 넓은 레이아웃에서 가독성과 사용 편의성을 높이기 위해 사용됩니다." },
-          { "name": "Small", "props": { "size": "medium", "selection": "checked", "state": "default" }, "desc": "일반적인 폼 입력에서 사용하는 기본 크기입니다. 대부분의 입력 상황에 적합합니다." }
+          {
+            "name": "Large",
+            "props": {
+              "size": "large",
+              "selection": "checked",
+              "state": "default"
+            },
+            "desc": "헤더의 조회 영역 등 강조가 필요한 영역에서 사용합니다. 넓은 레이아웃에서 가독성과 사용 편의성을 높이기 위해 사용됩니다."
+          },
+          {
+            "name": "Small",
+            "props": {
+              "size": "medium",
+              "selection": "checked",
+              "state": "default"
+            },
+            "desc": "일반적인 폼 입력에서 사용하는 기본 크기입니다. 대부분의 입력 상황에 적합합니다."
+          }
         ]
       }
     ]
@@ -51,12 +132,31 @@
     "title": "Spec (규격)",
     "lead": "사용 맥락(정보 밀도, 타깃)에 맞춰 크기 스펙을 표준화합니다.",
     "items": [
-      { "name": "Large", "props": { "size": "large", "selection": "checked", "state": "default" }, "box": 20, "gap": 6, "radius": 4 },
-      { "name": "Small", "props": { "size": "medium", "selection": "checked", "state": "default" }, "box": 16, "gap": 6, "radius": 4 }
+      {
+        "name": "Large",
+        "props": {
+          "size": "large",
+          "selection": "checked",
+          "state": "default"
+        },
+        "box": 20,
+        "gap": 6,
+        "radius": 4
+      },
+      {
+        "name": "Small",
+        "props": {
+          "size": "medium",
+          "selection": "checked",
+          "state": "default"
+        },
+        "box": 16,
+        "gap": 6,
+        "radius": 4
+      }
     ]
   },
   "notes": [
-    "가이드의 Small은 컴포넌트 속성 size=medium에 해당합니다.",
-    "가이드 States 표에는 pressed가 없습니다. 컴포넌트에는 pressed 변형이 있습니다."
+    "가이드의 Small은 컴포넌트 속성 size=medium에 해당합니다."
   ]
 }

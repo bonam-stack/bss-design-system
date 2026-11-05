@@ -17,16 +17,33 @@ const propsFor = (c, want, base = {}) => {
 };
 const variantOf = (c, props) => c.variants.find((v) => Object.entries(props).every(([k, val]) => v.props[k] === val));
 
-const codeBtn = (props) => `<button class="gd-code" data-show-variant="${esc(JSON.stringify(props))}" title="개발 탭에서 이 변형의 코드 보기">코드</button>`;
+const codeBtn = (props) => `<button class="gd-code" data-show-variant="${esc(JSON.stringify(props))}" title="위 미리보기에 이 변형을 띄우고 코드 보기">코드</button>`;
 const slot = (id, props, cls = '') => `<span class="gd-slot ${cls}" id="${id}" data-props="${esc(JSON.stringify(props))}"></span>`;
 
+// Component options the guide's table never shows (e.g. pressed), so merging the old case sheet
+// into the guide doesn't drop any variant. They get a row marked as having no guide text.
+function missingRows(c, rows, defaults) {
+  const extra = [];
+  const shown = (name, o) => rows.some((r) => r.props[name] === o);
+  for (const p of c.props) {
+    if (p.type !== 'variant' || !rows.some((r) => p.name in r.props)) continue;
+    for (const o of p.options) if (!shown(p.name, o)) extra.push({ name: o[0].toUpperCase() + o.slice(1), props: { [p.name]: o }, missing: true });
+  }
+  return extra;
+}
+
+// Overview text at the top of the component page (above the playground).
+export function guideIntro(g) {
+  return `
+    <p class="lead pt-text">${lines(g.overview)}</p>
+    <p class="gd-source">가이드 출처 <a href="${esc(figmaUrl(g.source))}" target="_blank" rel="noopener">${esc(g.source.fileName)} · ${esc(g.source.name)}</a></p>`;
+}
+
+// Anatomy, states, variants and spec, shown under the playground.
 export function pageGuide(c, g) {
   const st = g.states, vr = g.variants, sp = g.spec, an = g.anatomy;
+  const stateRows = [...st.rows, ...missingRows(c, st.rows, st.defaults)];
   return `
-    <p class="gd-source">출처 <a href="${esc(figmaUrl(g.source))}" target="_blank" rel="noopener">${esc(g.source.fileName)} · ${esc(g.source.name)}</a></p>
-    <h2>Overview</h2>
-    <p class="lead pt-text">${lines(g.overview)}</p>
-
     <h2>${esc(an.title)}</h2>
     <p class="note">${esc(an.lead)}</p>
     <div class="gd-canvas gd-anatomy">${slot('gdAnatomy', propsFor(c, an.example), 'gd-zoom')}</div>
@@ -39,9 +56,10 @@ export function pageGuide(c, g) {
     <div class="table-wrap">
       <table class="data gd-table">
         <thead><tr><th>State</th><th>Example</th><th>Use case</th><th><span class="sr-only">코드</span></th></tr></thead>
-        <tbody>${st.rows.map((r, i) => {
+        <tbody>${stateRows.map((r, i) => {
           const props = propsFor(c, r.props, st.defaults);
-          return `<tr><td class="pt-type">${esc(r.name)}</td><td class="gd-ex">${slot(`gdState${i}`, props)}</td><td class="pt-text">${esc(r.desc)}</td><td class="gd-act">${codeBtn(props)}</td></tr>`;
+          const desc = r.missing ? '<span class="gd-missing">가이드 설명 없음 · 컴포넌트에만 있는 상태입니다.</span>' : esc(r.desc);
+          return `<tr><td class="pt-type">${esc(r.name)}</td><td class="gd-ex">${slot(`gdState${i}`, props)}</td><td class="pt-text">${desc}</td><td class="gd-act">${codeBtn(props)}</td></tr>`;
         }).join('')}</tbody>
       </table>
     </div>

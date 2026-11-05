@@ -5,7 +5,7 @@
 
 import { renderVariant, isRenderable } from './render.js';
 import { pagePattern, bindPattern } from './pattern.js';
-import { pageGuide, bindGuide } from './guide.js';
+import { guideIntro, pageGuide, bindGuide } from './guide.js';
 
 const content = document.getElementById('content');
 const sidebar = document.getElementById('sidebar');
@@ -281,17 +281,11 @@ function pageComponent(c, patterns = []) {
   return `
     <p class="eyebrow">Component</p>
     <h1>${esc(c.name)}</h1>
-    <p class="lead">${c.description ? esc(c.description) : ''}</p>
+    ${c.guide ? guideIntro(c.guide) : `<p class="lead">${c.description ? esc(c.description) : ''}</p>`}
     ${patternLinks(c, patterns)}
-    ${c.guide ? `
-    <div class="page-tabs" role="tablist" aria-label="${esc(c.name)} 문서">
-      <button role="tab" aria-selected="true" data-page-tab="guide">가이드</button>
-      <button role="tab" aria-selected="false" data-page-tab="dev">개발</button>
-    </div>
-    <div data-page-panel="guide">${pageGuide(c, c.guide)}</div>
-    <div data-page-panel="dev" hidden>` : ''}
     ${ok ? `
-    <section class="sb">
+    ${c.guide ? '<h2>미리보기</h2>' : ''}
+    <section class="sb" id="sb">
       <div class="sb-tabs" role="tablist">
         <button role="tab" aria-selected="true" data-tab="preview">미리보기</button>
         <button role="tab" aria-selected="false" data-tab="code">코드</button>
@@ -308,29 +302,10 @@ function pageComponent(c, patterns = []) {
       </div>
     </section>
     ${analyze(c).stateProp || analyze(c).selectProp ? '<p class="note">마우스를 올리거나 눌러 보세요. 키보드 Tab으로 포커스할 수도 있어요.</p>' : ''}
-    <h2>케이스</h2>
-    <div id="sbCases"></div>` : `
+    ${c.guide ? '' : '<h2>케이스</h2>\n    <div id="sbCases"></div>'}` : `
     <p class="error">이 컴포넌트는 예전 형식 JSON이라 미리보기를 그릴 수 없어요. Figma 링크로 다시 읽으면 나타나요.</p>`}
-    ${figmaDetails(c)}
-    ${c.guide ? '</div>' : ''}`;
-}
-
-// Guide | Dev tabs on a component page; the last choice is remembered per viewer.
-function showPageTab(name) {
-  document.querySelectorAll('[data-page-tab]').forEach((b) => b.setAttribute('aria-selected', String(b.dataset.pageTab === name)));
-  document.querySelectorAll('[data-page-panel]').forEach((p) => { p.hidden = p.dataset.pagePanel !== name; });
-  try { localStorage.setItem('ds-page-tab', name); } catch {}
-}
-function bindPageTabs() {
-  const tabs = document.querySelector('.page-tabs');
-  if (!tabs) return;
-  tabs.addEventListener('click', (e) => {
-    const t = e.target.closest('[data-page-tab]');
-    if (t) showPageTab(t.dataset.pageTab);
-  });
-  let saved = null;
-  try { saved = localStorage.getItem('ds-page-tab'); } catch {}
-  if (saved === 'dev') showPageTab('dev');
+    ${c.guide ? `<div id="guideBody">${pageGuide(c, c.guide)}</div>` : ''}
+    ${figmaDetails(c)}`;
 }
 
 async function bindComponent(c, ctx) {
@@ -417,6 +392,7 @@ async function bindComponent(c, ctx) {
 
   // Cases are a static sheet of every option, like the Figma frame.
   function renderCases() {
+    if (!cases) return; // pages with a guide show every option in its state and variant tables
     const groups = a.vprops.map((p) => {
       const opts = optionsFor(p);
       if (opts.length < 2) return '';
@@ -491,17 +467,16 @@ async function bindComponent(c, ctx) {
     renderCases();
   });
 
-  // the guide's "코드" buttons open the dev tab on that exact variant
+  // the guide's "코드" buttons put that exact variant in the playground above and open its code
   if (c.guide) {
     bindGuide(c, c.guide, icons, values);
-    content.querySelector('[data-page-panel="guide"]').addEventListener('click', (e) => {
+    document.getElementById('guideBody').addEventListener('click', (e) => {
       const b = e.target.closest('[data-show-variant]');
       if (!b) return;
       Object.assign(sel, JSON.parse(b.dataset.showVariant));
       refresh();
-      showPageTab('dev');
       document.querySelector('.sb-tabs [data-tab="code"]').click();
-      document.querySelector('.sb').scrollIntoView({ block: 'start' });
+      document.getElementById('sb').scrollIntoView({ block: 'start', behavior: 'smooth' });
     });
   }
 
@@ -656,7 +631,6 @@ async function boot() {
       }
       else if (comp) {
         content.innerHTML = pageComponent(comp, patterns);
-        bindPageTabs();
         bindVariantFilter();
         bindComponent(comp, ctx).catch((err) => {
           document.getElementById('sbStage')?.insertAdjacentHTML('beforeend', `<p class="error">미리보기를 그리지 못했어요: ${esc(err.message)}</p>`);
