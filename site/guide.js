@@ -39,11 +39,38 @@ export function guideIntro(g) {
     <p class="gd-source">가이드 출처 <a href="${esc(figmaUrl(g.source))}" target="_blank" rel="noopener">${esc(g.source.fileName)} · ${esc(g.source.name)}</a></p>`;
 }
 
-// Anatomy, states, variants and spec, shown under the playground.
+// Usage policy from the service UI guide (when to use, rules, do/don't).
+function policySection(pl) {
+  if (!pl) return '';
+  const src = pl.source || {};
+  return `
+    <h2>${esc(pl.title)}</h2>
+    <p class="note">${esc(pl.lead)}</p>
+    <div class="gd-when">
+      <section class="gd-when-col gd-use"><h3>이럴 때 사용합니다</h3><ul>${pl.when.use.map((t) => `<li>${esc(t)}</li>`).join('')}</ul></section>
+      <section class="gd-when-col gd-avoid"><h3>다른 컴포넌트를 사용합니다</h3><ul>${pl.when.avoid.map((x) => `<li>${esc(x.text)} <span class="gd-alt">→ ${esc(x.alt)}</span></li>`).join('')}</ul></section>
+    </div>
+    <h3>기준</h3>
+    <div class="table-wrap">
+      <table class="data gd-table gd-rules">
+        <thead><tr><th>항목</th><th>기준</th><th>출처</th></tr></thead>
+        <tbody>${pl.rules.map((r) => `<tr><td class="pt-type">${esc(r.name)}</td><td class="pt-text">${esc(r.desc)}${r.gap ? `<span class="gd-gap-note">${esc(r.gap)}</span>` : ''}</td><td class="gd-from">${esc(r.from)}</td></tr>`).join('')}</tbody>
+      </table>
+    </div>
+    <div class="gd-dodont">
+      <section class="gd-do"><h3>Do · 이렇게 합니다</h3><ul>${pl.do.map((t) => `<li>${esc(t)}</li>`).join('')}</ul></section>
+      <section class="gd-dont"><h3>Don't · 이건 피합니다</h3><ul>${pl.dont.map((t) => `<li>${esc(t)}</li>`).join('')}</ul></section>
+    </div>
+    ${(pl.related || []).length ? `<p class="gd-related">함께 보기 ${pl.related.map((r) => `<span class="chip" title="${esc(r.file)}">${esc(r.name)} · ${esc(r.desc)}</span>`).join('')}</p>` : ''}
+    <p class="gd-source">정책 출처 ${esc(src.title)} 문서 (${esc(src.id)}${src.status ? ` · ${esc(src.status)}` : ''})</p>`;
+}
+
+// Policy, anatomy, states, variants and spec, shown under the playground.
 export function pageGuide(c, g) {
   const st = g.states, vr = g.variants, sp = g.spec, an = g.anatomy;
   const stateRows = [...st.rows, ...missingRows(c, st.rows, st.defaults)];
   return `
+    ${policySection(g.policy)}
     <h2>${esc(an.title)}</h2>
     <p class="note">${esc(an.lead)}</p>
     <div class="gd-canvas gd-anatomy">${slot('gdAnatomy', propsFor(c, an.example), 'gd-zoom')}</div>
