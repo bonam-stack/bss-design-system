@@ -14,7 +14,7 @@ export function mockChat({ editable, locked, message }) {
   if (m) {
     const want = m[1].trim();
     const field = Object.keys(editable).find((f) => f === want || want.includes(f) || (want.includes("설명") && f === "description") || (want.includes("정책") && f === "guideLead") || (want.includes("이름") && f === "name"));
-    if (field) return { reply: `${field}을(를) 고쳤습니다. (흉내 모드: ANTHROPIC_API_KEY를 설정하면 자유롭게 요청할 수 있습니다)`, edits: [{ field, value: m[2].trim() }] };
+    if (field) return { reply: `${field}을(를) 고쳤습니다. (흉내 모드라 "<칸>을 <값>으로 바꿔 줘" 형태만 알아듣습니다)`, edits: [{ field, value: m[2].trim() }] };
   }
   return {
     reply: `흉내 모드라 "<칸>을 <값>으로 바꿔 줘" 형태만 처리합니다. 고칠 수 있는 칸: ${Object.keys(editable).join(", ") || "없음"}`,

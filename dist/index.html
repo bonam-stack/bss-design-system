@@ -1,11 +1,13 @@
 <title>BSS Design System</title>
   <meta name="claude:viewport-fit-sides" content="cover" />
   <link rel="stylesheet" href="site/site.css" />
+  <link rel="stylesheet" href="site/portal.css" />
   <header class="topbar">
     <div class="topbar-inner">
       <button class="menu-btn" id="menuBtn" aria-label="메뉴 열기" aria-expanded="false" aria-controls="sidebar">☰</button>
       <a href="#overview" class="brand"><span class="brand-mark" aria-hidden="true"></span>BSS Design System</a>
       <span class="brand-ver">Components Library v0.5</span>
+      <div class="portal-bar" id="portalBar"></div>
     </div>
   </header>
   <div class="layout">
@@ -14,6 +16,7 @@
         <div class="nav-title">시작하기</div>
         <a href="#overview" data-route="overview">개요</a>
       </div>
+      <div class="nav-group" id="navPortal" hidden></div>
       <div class="nav-group">
         <div class="nav-title">Foundations</div>
         <a href="#icons" data-route="icons">아이콘</a>
@@ -26,10 +29,6 @@
       <div class="nav-group">
         <div class="nav-title">Patterns</div>
         <div id="navPatterns"></div>
-      </div>
-      <div class="nav-group">
-        <div class="nav-title">도구</div>
-        <a href="https://bonam-stack.github.io/bss-design-system/portal/">디자인 포털 POC</a>
       </div>
     </nav>
     <main class="content" id="content" tabindex="-1"></main>

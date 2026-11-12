@@ -7,7 +7,7 @@
     "start": "node server.mjs",
     "reset": "rm -f data/state.json",
     "test": "node --test test/*.test.mjs",
-    "build:pages": "node scripts/build-pages.mjs"
+    "build:site": "node scripts/build-site-core.mjs"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^1.8.0",
