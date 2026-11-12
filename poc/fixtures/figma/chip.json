@@ -1,0 +1,37 @@
+{
+  "$description": "흉내 모드용 예시 응답. Figma REST API GET /v1/files/:key/nodes 응답의 nodes[id] 모양을 따른다. 실제 피그마 노드가 아니다.",
+  "fileKey": "WcoI745J38TaON7iCKcutW",
+  "nodeId": "9000:1",
+  "entry": {
+    "document": {
+      "id": "9000:1",
+      "name": "❖ Chip",
+      "type": "COMPONENT_SET",
+      "componentPropertyDefinitions": {
+        "label#9000:10": { "type": "TEXT", "defaultValue": "Chip" },
+        "showRemove#9000:11": { "type": "BOOLEAN", "defaultValue": false },
+        "type": { "type": "VARIANT", "defaultValue": "filter", "variantOptions": ["filter", "input"] },
+        "state": { "type": "VARIANT", "defaultValue": "default", "variantOptions": ["default", "selected", "disabled"] }
+      },
+      "children": [
+        { "id": "9000:2", "name": "type=filter, state=default", "type": "COMPONENT" },
+        { "id": "9000:3", "name": "type=filter, state=selected", "type": "COMPONENT" },
+        { "id": "9000:4", "name": "type=filter, state=disabled", "type": "COMPONENT" },
+        { "id": "9000:5", "name": "type=input, state=default", "type": "COMPONENT" },
+        { "id": "9000:6", "name": "type=input, state=selected", "type": "COMPONENT" },
+        { "id": "9000:7", "name": "type=input, state=disabled", "type": "COMPONENT" }
+      ]
+    },
+    "componentSets": {
+      "9000:1": { "key": "mockchip0000000000000000000000000000001", "name": "❖ Chip", "description": "목록 범위를 바꾸는 패싯 칩. 누르는 즉시 적용한다." }
+    },
+    "components": {
+      "9000:2": { "key": "mockchip0000000000000000000000000000002", "name": "type=filter, state=default" },
+      "9000:3": { "key": "mockchip0000000000000000000000000000003", "name": "type=filter, state=selected" },
+      "9000:4": { "key": "mockchip0000000000000000000000000000004", "name": "type=filter, state=disabled" },
+      "9000:5": { "key": "mockchip0000000000000000000000000000005", "name": "type=input, state=default" },
+      "9000:6": { "key": "mockchip0000000000000000000000000000006", "name": "type=input, state=selected" },
+      "9000:7": { "key": "mockchip0000000000000000000000000000007", "name": "type=input, state=disabled" }
+    }
+  }
+}

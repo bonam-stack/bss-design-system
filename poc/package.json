@@ -1,0 +1,15 @@
+{
+  "name": "bss-design-portal-poc",
+  "private": true,
+  "type": "module",
+  "description": "BSS 디자인 포털 POC: 기준 수집·미리보기·챗 수정·배포·버전, BSS SB Studio 기준 묶음·자동 검사",
+  "scripts": {
+    "start": "node server.mjs",
+    "reset": "rm -f data/state.json",
+    "test": "node --test test/*.test.mjs"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^1.8.0",
+    "zod": "^3.25.0"
+  }
+}

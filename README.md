@@ -13,6 +13,11 @@ Figma 기준 파일: `WcoI745J38TaON7iCKcutW` ((공유용) Components Library v0
 컴포넌트 추가: Figma 링크로 `figma-to-json` 스킬 실행 → `components/<key>/component.json` + `components/index.json` 갱신 → 사이트에 자동으로 나타남.
 공유 링크 갱신: `python3 scripts/build_publish_page.py`로 `dist/index.html`을 만든 뒤 같은 링크로 다시 올린다 (새 JSON·SVG 파일도 함께).
 
+## 디자인 포털 POC
+
+`poc/`: 이 저장소의 JSON을 기준으로 BSS 디자인 포털(요청 · 피그마 변환 · 미리보기 챗 · 배포 · 버전)과
+BSS SB Studio 연계(기준 묶음 · 자동 검사 4종 · 화면 지시서)를 돌려 보는 Node 서버. 실행은 [poc/README.md](poc/README.md).
+
 ## 컴포넌트
 
 ```
