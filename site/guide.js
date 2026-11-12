@@ -71,6 +71,18 @@ function policySection(pl) {
     <p class="gd-source">정책 출처 ${esc(src.title)} 문서 (${esc(src.id)}${src.status ? ` · ${esc(src.status)}` : ''})</p>`;
 }
 
+// The same sections one by one, so a page can group them (Anatomy · Properties · Guidelines).
+export function guideSections(c, g) {
+  return {
+    policy: policySection(g.policy),
+    anatomy: g.anatomy ? anatomySection(c, g.anatomy) : '',
+    states: g.states ? statesSection(c, g.states) : '',
+    variants: g.variants ? variantsSection(c, g.variants) : '',
+    spec: g.spec ? specSection(c, g.spec) : '',
+    notes: (g.notes || []).length ? `<ul class="gd-notes">${g.notes.map((n) => `<li>${esc(n)}</li>`).join('')}</ul>` : '',
+  };
+}
+
 // Policy, anatomy, states, variants and spec, shown under the playground.
 export function pageGuide(c, g) {
   const st = g.states, vr = g.variants, sp = g.spec, an = g.anatomy;
@@ -196,7 +208,8 @@ export function bindGuide(c, g, icons, values) {
     // anatomy: numbered badge above the indicator, to the right of the label
     const an = document.getElementById('gdAnatomy');
     const host = an?.parentElement;
-    for (const p of an ? g.anatomy.parts : []) {
+    // 다른 컴포넌트 페이지로 옮긴 뒤 남은 resize · 글꼴 대기 호출은 그 페이지 가이드와 맞지 않으므로 건너뛴다
+    for (const p of an && g.anatomy ? g.anatomy.parts : []) {
       const el = part(an, p.layer);
       if (!el) continue;
       const r = rel(el, host);
@@ -212,6 +225,7 @@ export function bindGuide(c, g, icons, values) {
     // spec: box height on the left, gap block between box and label, radius tag on the corner
     (g.spec?.items || []).forEach((it, i) => {
       const s = document.getElementById(`gdSpec${i}`);
+      if (!s) return;
       const fig = s.parentElement;
       const box = part(s, 'checkbox'), label = part(s, 'label');
       if (!box || !label) return;

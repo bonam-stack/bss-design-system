@@ -269,12 +269,14 @@ function pageItem(it) {
   ].filter(Boolean);
   return `${head(KIND_LABEL[it.kind], it.name, it.meaning, `<div class="checks">${check(it.design, 'Figma')}${check(it.ux, 'UX 가이드')}${check(it.status === 'pub', P.STATUS[it.status])}</div>`)}
   ${drafts('item', it.code)}
-  <h2 id="info">정보 ${can(it.kind) ? editBtn(`item:${it.code}`) : ''}</h2>
+  <div class="sb-ph"><span>${it.design ? '디자인 에셋은 Figma 디자인 시스템에 있습니다 · 미리보기는 노드의 레이어 데이터를 받으면 그려집니다' : '디자인 에셋 없음 · UX 패턴 가이드 기준'}</span></div>
+  ${slotsOf.length || parts.length ? `<h2>Anatomy</h2>
+    ${slotsOf.length ? `<h3>빈칸</h3>${table(['경로', '이름', '방식', '들어갈 수 있는 것'], slotsOf.map((s) => `<tr><td><code>${esc(s.path)}</code></td><td>${esc(s.name)}</td><td>${esc(s.mode)}</td><td>${esc(s.accepts)}</td></tr>`))}` : ''}
+    ${parts.length ? `<h3>구성</h3>${table(['자리', '컴포넌트', '필수'], parts.map((p) => `<tr><td>${esc(p.slot)}</td><td>${link(p.comp)} ${esc(P.item(p.comp)?.name || '')}</td><td>${p.required ? '필수' : '선택'}</td></tr>`))}` : ''}` : ''}
+  <h2>Properties ${can(it.kind) ? editBtn(`item:${it.code}`) : ''}</h2>
   ${editing ? itemForm(it, d) : `<dl class="kv">${kv.map(([k, v]) => `<dt>${k}</dt><dd>${v}</dd>`).join('')}</dl>`}
-  ${slotsOf.length ? `<h2 id="slots">빈칸</h2>${table(['경로', '이름', '방식', '들어갈 수 있는 것'], slotsOf.map((s) => `<tr><td><code>${esc(s.path)}</code></td><td>${esc(s.name)}</td><td>${esc(s.mode)}</td><td>${esc(s.accepts)}</td></tr>`))}` : ''}
-  ${parts.length ? `<h2 id="parts">구성</h2>${table(['자리', '컴포넌트', '필수'], parts.map((p) => `<tr><td>${esc(p.slot)}</td><td>${link(p.comp)} ${esc(P.item(p.comp)?.name || '')}</td><td>${p.required ? '필수' : '선택'}</td></tr>`))}` : ''}
-  ${usedIn.length ? `<h2 id="used">쓰이는 블록</h2><p class="chips">${usedIn.map((b) => `${link(b)}`).join(' ')}</p>` : ''}
-  ${ru.length ? `<h2 id="rules">규칙</h2>${ruleList(ru)}` : ''}`;
+  ${ru.length ? `<h2>Guidelines</h2><h3>UX표준가이드 규칙</h3>${ruleList(ru)}` : ''}
+  ${usedIn.length ? `<h2>Usage</h2><h3>쓰이는 블록</h3><p class="chips">${usedIn.map((b) => `${link(b)} ${esc(P.item(b)?.name || '')}`).join(' · ')}</p>` : ''}`;
 }
 
 const ruleList = (L) => `<ul class="rl">${L.map((x) => `<li><a class="rid" href="#rules">${esc(x.id)}</a><span class="rk">${esc(x.kind)}</span><p>${esc(x.text)}<small>${esc(x.doc)} · ${esc(x.section)}</small></p></li>`).join('')}</ul>`;
@@ -417,13 +419,20 @@ export function guideEditor(c) {
       <div class="row"><button class="btn2 primary sm">초안 저장</button></div></form>` : ''}</section>`;
 }
 
-/** 컴포넌트 페이지 끝: 카탈로그에서 오는 정보 (쓰이는 블록 · 규칙) */
-export function compCatalog(c) {
+/** Guidelines 안: 이 컴포넌트에 걸린 UX표준가이드 규칙 */
+export function compRules(c) {
   const r = P.itemByKey(c.key);
-  if (!r) return '';
-  const usedIn = [...new Set(P.parts().filter((p) => p.comp === r.code).map((p) => p.block))];
-  const ru = P.rulesFor(r.code);
-  return `${usedIn.length ? `<h2 id="used">쓰이는 블록</h2><p class="chips">${usedIn.map(link).join(' ')}</p>` : ''}${ru.length ? `<h2 id="ux-rules">UX표준가이드 규칙</h2>${ruleList(ru)}` : ''}`;
+  const ru = r ? P.rulesFor(r.code) : [];
+  return ru.length ? `<h3>UX표준가이드 규칙</h3>${ruleList(ru)}` : '';
+}
+
+/** Usage: 이 컴포넌트를 쓰는 블록 · 패턴 */
+export function compUsage(c) {
+  const r = P.itemByKey(c.key);
+  const usedIn = r ? [...new Set(P.parts().filter((p) => p.comp === r.code).map((p) => p.block))] : [];
+  const pats = (ctx.data.patterns || []).filter((p) => (p.components || []).includes(c.key));
+  if (!usedIn.length && !pats.length) return '';
+  return `<h2>Usage</h2>${usedIn.length ? `<h3>쓰이는 블록</h3>${table(['블록', '자리', '필수'], P.parts().filter((p) => p.comp === r.code).map((p) => `<tr><td>${link(p.block)} ${esc(P.item(p.block)?.name || '')}</td><td>${esc(p.slot)}</td><td>${p.required ? '필수' : '선택'}</td></tr>`))}` : ''}${pats.length ? `<h3>쓰이는 패턴</h3><p class="chips">${pats.map((p) => `<a class="code" href="#pattern-${esc(p.key)}">${esc(p.name)} 패턴</a>`).join(' ')}</p>` : ''}`;
 }
 
 /** 저장소 정책(guide.policy)을 게시된 규칙(번호 포함)으로 바꿔 사용 가이드에 표시 */
@@ -448,8 +457,8 @@ export function portalOnlyPage(c) {
   const r = P.itemByKey(c.key);
   return `${head('Components', c.name, r?.meaning || c.description, compChecks(c))}${compEditor(c)}
     <div class="sb-ph"><span>미리보기는 Figma 노드의 레이어 데이터를 받으면 그려집니다</span></div>
-    <h2 id="props">Properties</h2>${table(['속성', '타입', '기본값', '선택지'], c.props.map((p) => `<tr><td>${esc(p.name)}</td><td>${esc(p.type)}</td><td>${esc(p.default)}</td><td>${esc((p.options || []).join(', '))}</td></tr>`))}
-    <p class="muted">변형 ${c.variants.length}개 · <a href="${esc(c.figma?.url)}" target="_blank" rel="noopener">Figma 노드 ${esc(c.figma?.nodeId)}</a></p>${compCatalog(c)}`;
+    <h2 id="props">Properties</h2><h3>속성 목록</h3>${table(['속성', '타입', '기본값', '선택지'], c.props.map((p) => `<tr><td>${esc(p.name)}</td><td>${esc(p.type)}</td><td>${esc(p.default)}</td><td>${esc((p.options || []).join(', '))}</td></tr>`))}
+    <p class="muted">변형 ${c.variants.length}개 · <a href="${esc(c.figma?.url)}" target="_blank" rel="noopener">Figma 노드 ${esc(c.figma?.nodeId)}</a></p>${compRules(c) ? `<h2>Guidelines</h2>${compRules(c)}` : ''}${compUsage(c)}`;
 }
 
 export const lastUpdated = () => `<p class="updated">게시 ${esc(P.version())} · ${fmt(P.history()[0].at)}</p>`;

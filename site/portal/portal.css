@@ -46,7 +46,14 @@
 .content .eyebrow { color: var(--fg-muted); font-weight: 500; font-size: 14px; letter-spacing: 0; }
 .content .lead { font-size: 16px; max-width: 70ch; }
 .toc { position: sticky; top: calc(64px + env(safe-area-inset-top, 0px)); align-self: start; max-height: calc(100vh - 64px); overflow-y: auto; padding: 48px 16px 24px 8px; padding-right: max(16px, env(safe-area-inset-right, 0px)); }
-.toc-t { margin: 0 0 8px; font-size: 12px; color: var(--fg-muted); }
+.toc-t { margin: 0 0 4px; font-size: 12px; color: var(--fg-muted); }
+.toc-n { margin: 0 0 10px; font-size: 13px; font-weight: 600; }
+.toc-inline { display: none; margin: 0 0 24px; padding: 10px 14px; border-radius: 12px; background: var(--surface-weak); font-size: 13px; }
+.toc-inline summary { cursor: pointer; font-weight: 600; }
+.toc-inline ul { list-style: none; margin: 8px 0 0; padding: 0; display: grid; gap: 2px; }
+.toc-inline li.sub { padding-left: 14px; }
+.toc-inline button { border: 0; background: none; padding: 4px 0; font: inherit; color: var(--fg-muted); cursor: pointer; text-align: left; }
+.content h4 { margin: 20px 0 8px; font-size: 14px; }
 .toc ul { list-style: none; margin: 0; padding: 0 0 0 10px; border-left: 1px solid var(--border); display: grid; gap: 2px; }
 .toc li.sub { padding-left: 12px; }
 .toc button { border: 0; background: none; padding: 4px 0; font: inherit; font-size: 12px; color: var(--fg-muted); text-align: left; cursor: pointer; }
@@ -175,6 +182,7 @@ button.chip { height: 28px; padding: 0 12px; font: inherit; font-size: 12px; }
 @media (max-width: 1200px) {
   .layout { grid-template-columns: var(--sidebar-w) minmax(0, 1fr); }
   .toc { display: none; }
+  .toc-inline { display: block; }
 }
 @media (max-width: 860px) {
   .layout { grid-template-columns: minmax(0, 1fr); }
@@ -191,3 +199,8 @@ button.chip { height: 28px; padding: 0 12px; font: inherit; font-size: 12px; }
   .pager { grid-template-columns: 1fr; }
   .ed-bar .ed-ver { margin-left: 0; }
 }
+
+/* 표 안의 화면 읽기용 글자(sr-only)가 표 밖으로 나가 가로 스크롤을 만들지 않게 */
+.table-wrap, .tw { position: relative; }
+.gd-related { margin: 14px 0 6px; line-height: 2; }
+.gd-source { margin: 4px 0 0; }
