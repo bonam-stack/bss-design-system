@@ -362,7 +362,7 @@ function pageReleases() {
       <div class="pt-row"><button class="btn pt-primary" name="mode" value="regular">정기 배포 (${q.length}건 모두)</button><input name="reason" id="depReason" class="pt-grow" placeholder="수동 배포 사유 (긴급 수정 · 아이콘 추가 등)"><button class="btn" name="mode" value="manual">고른 건 수동 배포</button></div>
     </form>` : '<p class="pt-empty">배포 요청이 없습니다</p>'}
     <h2>롤백</h2>
-    <form data-p-form="rollback" class="pt-form pt-row">
+    <form data-p-form="rollback" class="pt-row">
       <span>지금 운영 <b class="mono">${esc(r.current)}</b></span>
       <input name="reason" id="rbReason" class="pt-grow" placeholder="롤백 사유">
       <button class="btn pt-danger" ${!last.from || last.mode === '롤백' ? 'disabled' : ''} data-confirm="${last.from ? `${last.from}(으)로 되돌리기` : ''}">${last.from && last.mode !== '롤백' ? `${esc(last.from)}(으)로 되돌리기` : '되돌릴 버전 없음'}</button>
