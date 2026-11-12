@@ -4,44 +4,25 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <!-- BEGIN:publish -->
-  <title>BSS Design System</title>
+  <title>BSS 디자인 포털</title>
   <meta name="claude:viewport-fit-sides" content="cover" />
   <link rel="stylesheet" href="site/site.css" />
-  <link rel="stylesheet" href="site/portal.css" />
+  <link rel="stylesheet" href="site/portal/portal.css" />
   <!-- END:head -->
 </head>
 <body>
   <!-- BEGIN:body -->
-  <header class="topbar">
-    <div class="topbar-inner">
+  <div class="pt7" id="pt7">
+    <header class="pt-top">
       <button class="menu-btn" id="menuBtn" aria-label="메뉴 열기" aria-expanded="false" aria-controls="sidebar">☰</button>
-      <a href="#overview" class="brand"><span class="brand-mark" aria-hidden="true"></span>BSS Design System</a>
-      <span class="brand-ver">Components Library v0.5</span>
-      <div class="portal-bar" id="portalBar"></div>
+      <div class="pt-ttl"><b>BSS 디자인 포털</b><span id="ptMeta"></span></div>
+      <div class="pt-top-r" id="ptRoleBox"></div>
+    </header>
+    <div class="pt-main" id="ptMain">
+      <nav class="pt-nav" id="sidebar" aria-label="BSS 디자인 포털 메뉴"></nav>
+      <main class="pt-b content" id="content" tabindex="-1"></main>
+      <aside class="pt-d" id="detail" hidden aria-label="상세"></aside>
     </div>
-  </header>
-  <div class="layout">
-    <nav class="sidebar" id="sidebar" aria-label="문서 탐색">
-      <div class="nav-group">
-        <div class="nav-title">시작하기</div>
-        <a href="#overview" data-route="overview">개요</a>
-      </div>
-      <div class="nav-group" id="navPortal" hidden></div>
-      <div class="nav-group">
-        <div class="nav-title">Foundations</div>
-        <a href="#icons" data-route="icons">아이콘</a>
-      </div>
-      <div class="nav-group">
-        <div class="nav-title">Components</div>
-        <a href="#components" data-route="components">전체 목록</a>
-        <div id="navComponents"></div>
-      </div>
-      <div class="nav-group">
-        <div class="nav-title">Patterns</div>
-        <div id="navPatterns"></div>
-      </div>
-    </nav>
-    <main class="content" id="content" tabindex="-1"></main>
   </div>
   <div class="toast" id="toast" role="status"></div>
   <script type="module" src="site/app.js"></script>

@@ -1,0 +1,1045 @@
+{
+ "$description": "BSS 디자인 포털 기준 카탈로그. SB Studio POC 디자인 포털의 시연용 카탈로그(앱쉘 s- · 레이아웃 규칙 l- · 빈칸 · 블록 b- · 컴포넌트 c- · 규칙 R-)를 옮긴 것. key가 있는 컴포넌트는 components/<key>/의 Figma 데이터 · 사용 가이드 페이지와 이어진다. 저장소에만 있는 컴포넌트는 사이트가 c-<key>로 더한다.",
+ "meta": {
+  "catalog": "0.5",
+  "uxGuide": "1.2",
+  "tokens": "v0.5",
+  "version": "0.5.0",
+  "source": "BSS SB Studio POC · BSS 디자인 포털 (시연용 예시 데이터)"
+ },
+ "items": [
+  {
+   "code": "s-common",
+   "kind": "shell",
+   "name": "공통 앱쉘",
+   "status": "pub",
+   "design": true,
+   "ux": true,
+   "meaning": "모든 PC 업무 화면의 바탕 틀 · 화면이 바뀌어도 그대로 남는 자리 나눔",
+   "slots": "gnb · lnb · context-bar · body"
+  },
+  {
+   "code": "s-node",
+   "kind": "shell",
+   "name": "노드 쉘",
+   "status": "draft",
+   "design": false,
+   "ux": true,
+   "meaning": "절차형 업무를 노드로 처리하는 캔버스 틀 · 공통 앱쉘 본문 영역에 들어감",
+   "slots": "hud · canvas · actionbar · customer-widget"
+  },
+  {
+   "code": "l-general",
+   "kind": "layout",
+   "name": "일반형",
+   "status": "pub",
+   "design": false,
+   "ux": true,
+   "meaning": "페이지 타이틀 → 사용 안내 → 조회조건 → 상세정보 → 컨텐트 순서로 쌓는 일반 업무 화면 구조",
+   "slot": "s-common.body",
+   "guide": "layout-work"
+  },
+  {
+   "code": "l-node",
+   "kind": "layout",
+   "name": "노드형",
+   "status": "pub",
+   "design": false,
+   "ux": true,
+   "meaning": "본문 영역에 노드 쉘을 넣는 규칙 · 단계가 이어지는 절차형 업무",
+   "slot": "s-common.body",
+   "guide": "layout-node"
+  },
+  {
+   "code": "l-popup",
+   "kind": "layout",
+   "name": "팝업 안",
+   "status": "pub",
+   "design": false,
+   "ux": true,
+   "meaning": "팝업 안을 채우는 규칙 · 일반형에서 페이지 타이틀을 뺀 구조",
+   "slot": "c-popup.content",
+   "guide": "popup"
+  },
+  {
+   "code": "l-columns",
+   "kind": "layout",
+   "name": "다단",
+   "status": "draft",
+   "design": false,
+   "ux": true,
+   "meaning": "컨텐트 블록의 단을 12칸 격자로 나누는 규칙 · 단마다 액션 → 본문 → 상태바 순서",
+   "slot": "b-content.column",
+   "guide": "layout-columns"
+  },
+  {
+   "code": "l-special",
+   "kind": "layout",
+   "name": "특수형",
+   "status": "draft",
+   "design": false,
+   "ux": false,
+   "meaning": "표준 틀로 만들 수 없는 예외 화면 · Stack 조립 대신 자유 빈칸 하나에 배치 · 포털 승인 담당 승인 뒤 사용",
+   "slot": "s-common.body",
+   "guide": "BSS SB Studio 운영 기준(안)"
+  },
+  {
+   "code": "b-gnb",
+   "kind": "block",
+   "name": "GNB",
+   "status": "pub",
+   "design": true,
+   "ux": true,
+   "meaning": "업무 탭·고객 탭을 담는 위쪽 메뉴",
+   "slot": "s-common.gnb"
+  },
+  {
+   "code": "b-lnb",
+   "kind": "block",
+   "name": "LNB",
+   "status": "pub",
+   "design": true,
+   "ux": true,
+   "meaning": "메뉴·홈·알림·설정으로 들어가는 세로 막대",
+   "slot": "s-common.lnb"
+  },
+  {
+   "code": "b-context-bar",
+   "kind": "block",
+   "name": "콘텍스트 바",
+   "status": "draft",
+   "design": false,
+   "ux": true,
+   "meaning": "현재 위치(브레드크럼)와 편의 기능 자리 · 노드형은 고객 요약 표시",
+   "slot": "s-common.context-bar"
+  },
+  {
+   "code": "b-top",
+   "kind": "block",
+   "name": "페이지 타이틀",
+   "status": "pub",
+   "design": true,
+   "ux": true,
+   "meaning": "업무 명칭 하나 · 보조 제목 없음",
+   "slot": "l-general.title"
+  },
+  {
+   "code": "b-callout",
+   "kind": "block",
+   "name": "사용 안내",
+   "status": "draft",
+   "design": true,
+   "ux": true,
+   "meaning": "화면 성격·주의 사항 안내 · 안내할 내용이 있을 때만",
+   "slot": "l-general.notice"
+  },
+  {
+   "code": "b-search-general",
+   "kind": "block",
+   "name": "조회조건",
+   "status": "pub",
+   "design": true,
+   "ux": true,
+   "meaning": "화면 전체에 적용되는 검색 조건 · 조회·초기화 버튼 포함",
+   "slot": "l-general.search · l-popup.search"
+  },
+  {
+   "code": "b-detail-info",
+   "kind": "block",
+   "name": "상세정보",
+   "status": "draft",
+   "design": true,
+   "ux": true,
+   "meaning": "조회 결과 중 대표 정보를 글자로 표시 · 기본 접힘",
+   "slot": "l-general.detail"
+  },
+  {
+   "code": "b-content",
+   "kind": "block",
+   "name": "컨텐트",
+   "status": "pub",
+   "design": true,
+   "ux": true,
+   "meaning": "본문 작업 영역 전체 · 안에 단을 두고 액션·본문·상태바 블록을 받음",
+   "slot": "l-general.content · l-popup.content"
+  },
+  {
+   "code": "b-action",
+   "kind": "block",
+   "name": "액션",
+   "status": "pub",
+   "design": true,
+   "ux": true,
+   "meaning": "선택 상태는 왼쪽, 실행 버튼은 오른쪽 · 주 버튼은 하나",
+   "slot": "b-content.column.action"
+  },
+  {
+   "code": "b-table-basic",
+   "kind": "block",
+   "name": "기본 테이블",
+   "status": "pub",
+   "design": true,
+   "ux": true,
+   "meaning": "여러 열을 비교하는 목록 · 행 액션은 셋까지",
+   "slot": "b-content.column.body"
+  },
+  {
+   "code": "b-table-big",
+   "kind": "block",
+   "name": "빅 그리드",
+   "status": "draft",
+   "design": true,
+   "ux": true,
+   "meaning": "행이 많고 열 고정이 필요한 목록",
+   "slot": "b-content.column.body"
+  },
+  {
+   "code": "b-statusbar",
+   "kind": "block",
+   "name": "상태바",
+   "status": "pub",
+   "design": true,
+   "ux": true,
+   "meaning": "총 건수와 페이지 이동",
+   "slot": "b-content.column.status"
+  },
+  {
+   "code": "b-hud",
+   "kind": "block",
+   "name": "HUD",
+   "status": "draft",
+   "design": false,
+   "ux": true,
+   "meaning": "보기 전환·진행 단계 점·배율 조절 · 위쪽 고정",
+   "slot": "s-node.hud"
+  },
+  {
+   "code": "b-node",
+   "kind": "block",
+   "name": "노드",
+   "status": "draft",
+   "design": false,
+   "ux": true,
+   "meaning": "절차 한 단계를 끝내는 카드 · 유형 조회형·선택형·입력형·처리형·완결형·기능형",
+   "slot": "s-node.canvas"
+  },
+  {
+   "code": "b-actionbar",
+   "kind": "block",
+   "name": "액션바",
+   "status": "draft",
+   "design": false,
+   "ux": true,
+   "meaning": "주 버튼으로 다음 단계, 보조 버튼으로 예외 처리",
+   "slot": "s-node.actionbar"
+  },
+  {
+   "code": "tb-compare-card",
+   "kind": "block",
+   "name": "비교 카드(임시)",
+   "status": "tmp",
+   "design": false,
+   "ux": false,
+   "meaning": "현재·변경 요금제를 나란히 보는 카드 · 화면 구성 에이전트 임시 생성 · 포털 승인 담당 승인 대상",
+   "slot": "b-content.column.body(허용 목록 밖)"
+  },
+  {
+   "code": "c-button",
+   "kind": "comp",
+   "name": "버튼",
+   "status": "pub",
+   "design": true,
+   "ux": true,
+   "meaning": "실행·진입 동작 · 영역당 주 버튼 하나",
+   "variants": "primary · secondary · base · text · accent",
+   "key": "button"
+  },
+  {
+   "code": "c-text-field",
+   "kind": "comp",
+   "name": "텍스트 입력",
+   "status": "pub",
+   "design": true,
+   "ux": true,
+   "meaning": "자유 입력 한 칸",
+   "variants": "default · clear",
+   "key": "text-field"
+  },
+  {
+   "code": "c-search-field",
+   "kind": "comp",
+   "name": "검색 입력",
+   "status": "pub",
+   "design": true,
+   "ux": true,
+   "meaning": "입력 후 바로 검색",
+   "variants": "-"
+  },
+  {
+   "code": "c-select",
+   "kind": "comp",
+   "name": "드롭다운",
+   "status": "pub",
+   "design": true,
+   "ux": true,
+   "meaning": "선택지 5개 이상에서 선택",
+   "variants": "single · multi"
+  },
+  {
+   "code": "c-date-field",
+   "kind": "comp",
+   "name": "기간 입력",
+   "status": "pub",
+   "design": true,
+   "ux": true,
+   "meaning": "시작·종료 날짜 · 기본값 채움",
+   "variants": "range · single"
+  },
+  {
+   "code": "c-tabs",
+   "kind": "comp",
+   "name": "탭",
+   "status": "pub",
+   "design": true,
+   "ux": true,
+   "meaning": "컨텐트 묶음 전환 · 안에 빈칸이 있는 컨테이너형",
+   "variants": "line · contained"
+  },
+  {
+   "code": "c-radio",
+   "kind": "comp",
+   "name": "라디오",
+   "status": "pub",
+   "design": true,
+   "ux": true,
+   "meaning": "선택지 2~4개 중 하나",
+   "variants": "-",
+   "key": "radio"
+  },
+  {
+   "code": "c-chip",
+   "kind": "comp",
+   "name": "칩",
+   "status": "pub",
+   "design": true,
+   "ux": true,
+   "meaning": "필터 전환·입력값 표시",
+   "variants": "filter · input"
+  },
+  {
+   "code": "c-badge",
+   "kind": "comp",
+   "name": "배지",
+   "status": "pub",
+   "design": true,
+   "ux": true,
+   "meaning": "처리 상태 표시",
+   "variants": "basic · dotted"
+  },
+  {
+   "code": "c-tag",
+   "kind": "comp",
+   "name": "태그",
+   "status": "pub",
+   "design": true,
+   "ux": true,
+   "meaning": "분류·속성 표시",
+   "variants": "keyword"
+  },
+  {
+   "code": "c-table-column-header",
+   "kind": "comp",
+   "name": "표 머리 칸",
+   "status": "pub",
+   "design": true,
+   "ux": true,
+   "meaning": "열 제목과 정렬",
+   "variants": "sortable"
+  },
+  {
+   "code": "c-table-text-cell",
+   "kind": "comp",
+   "name": "표 글자 칸",
+   "status": "pub",
+   "design": true,
+   "ux": true,
+   "meaning": "행의 글자 칸",
+   "variants": "-"
+  },
+  {
+   "code": "c-pagination",
+   "kind": "comp",
+   "name": "페이지 번호",
+   "status": "pub",
+   "design": true,
+   "ux": true,
+   "meaning": "페이지 단위 이동",
+   "variants": "-"
+  },
+  {
+   "code": "c-callout",
+   "kind": "comp",
+   "name": "콜아웃",
+   "status": "pub",
+   "design": true,
+   "ux": true,
+   "meaning": "성격별 색과 라벨이 붙은 안내 상자",
+   "variants": "info · warning · success · danger · neutral · ai"
+  },
+  {
+   "code": "c-breadcrumb",
+   "kind": "comp",
+   "name": "브레드크럼",
+   "status": "pub",
+   "design": true,
+   "ux": true,
+   "meaning": "현재 위치 경로",
+   "variants": "-"
+  },
+  {
+   "code": "c-page-header",
+   "kind": "comp",
+   "name": "페이지 헤더",
+   "status": "pub",
+   "design": true,
+   "ux": true,
+   "meaning": "페이지 타이틀 글자",
+   "variants": "-"
+  },
+  {
+   "code": "c-popup",
+   "kind": "comp",
+   "name": "팝업",
+   "status": "draft",
+   "design": true,
+   "ux": true,
+   "meaning": "어두운 배경·머리·본문·하단 버튼으로 구성된 컨테이너형 · 안은 l-popup 규칙",
+   "variants": "fixed · utility · full"
+  },
+  {
+   "code": "c-dialog",
+   "kind": "comp",
+   "name": "다이얼로그",
+   "status": "pub",
+   "design": true,
+   "ux": true,
+   "meaning": "실행 전 확인",
+   "variants": "confirm · alert"
+  },
+  {
+   "code": "c-toast",
+   "kind": "comp",
+   "name": "토스트",
+   "status": "pub",
+   "design": true,
+   "ux": true,
+   "meaning": "실행 후 알림",
+   "variants": "-"
+  }
+ ],
+ "slots": [
+  {
+   "path": "s-common.gnb",
+   "owner": "s-common",
+   "mode": "고정",
+   "accepts": "b-gnb",
+   "name": "GNB 영역"
+  },
+  {
+   "path": "s-common.lnb",
+   "owner": "s-common",
+   "mode": "고정",
+   "accepts": "b-lnb",
+   "name": "LNB 영역"
+  },
+  {
+   "path": "s-common.context-bar",
+   "owner": "s-common",
+   "mode": "고정",
+   "accepts": "b-context-bar",
+   "name": "콘텍스트 바 영역"
+  },
+  {
+   "path": "s-common.body",
+   "owner": "s-common",
+   "mode": "쌓기",
+   "accepts": "레이아웃 규칙에 따름 · s-node",
+   "name": "본문 영역"
+  },
+  {
+   "path": "l-general.title",
+   "owner": "l-general",
+   "mode": "고정",
+   "accepts": "b-top",
+   "name": "페이지 타이틀"
+  },
+  {
+   "path": "l-general.notice",
+   "owner": "l-general",
+   "mode": "고정",
+   "accepts": "b-callout",
+   "name": "사용 안내(선택)"
+  },
+  {
+   "path": "l-general.search",
+   "owner": "l-general",
+   "mode": "고정",
+   "accepts": "b-search-general",
+   "name": "조회조건"
+  },
+  {
+   "path": "l-general.detail",
+   "owner": "l-general",
+   "mode": "고정",
+   "accepts": "b-detail-info",
+   "name": "상세정보(선택)"
+  },
+  {
+   "path": "l-general.content",
+   "owner": "l-general",
+   "mode": "고정",
+   "accepts": "b-content",
+   "name": "컨텐트"
+  },
+  {
+   "path": "b-content.column.action",
+   "owner": "b-content",
+   "mode": "고정",
+   "accepts": "b-action",
+   "name": "액션 영역"
+  },
+  {
+   "path": "b-content.column.body",
+   "owner": "b-content",
+   "mode": "쌓기",
+   "accepts": "b-table-basic · b-table-big",
+   "name": "컨텐트 본문"
+  },
+  {
+   "path": "b-content.column.status",
+   "owner": "b-content",
+   "mode": "고정",
+   "accepts": "b-statusbar",
+   "name": "상태바"
+  },
+  {
+   "path": "c-popup.content",
+   "owner": "c-popup",
+   "mode": "자유",
+   "accepts": "l-popup 규칙에 따름",
+   "name": "팝업 본문"
+  },
+  {
+   "path": "l-popup.search",
+   "owner": "l-popup",
+   "mode": "고정",
+   "accepts": "b-search-general",
+   "name": "팝업 조회조건"
+  },
+  {
+   "path": "l-popup.content",
+   "owner": "l-popup",
+   "mode": "고정",
+   "accepts": "b-content",
+   "name": "팝업 컨텐트"
+  },
+  {
+   "path": "c-popup.actions",
+   "owner": "c-popup",
+   "mode": "고정",
+   "accepts": "c-button",
+   "name": "팝업 하단 버튼"
+  },
+  {
+   "path": "s-node.hud",
+   "owner": "s-node",
+   "mode": "고정",
+   "accepts": "b-hud",
+   "name": "HUD"
+  },
+  {
+   "path": "s-node.canvas",
+   "owner": "s-node",
+   "mode": "쌓기",
+   "accepts": "b-node",
+   "name": "캔버스"
+  },
+  {
+   "path": "s-node.actionbar",
+   "owner": "s-node",
+   "mode": "고정",
+   "accepts": "b-actionbar",
+   "name": "액션바"
+  },
+  {
+   "path": "l-special.canvas",
+   "owner": "l-special",
+   "mode": "자유",
+   "accepts": "제한 없음 · 포털 승인 담당 승인",
+   "name": "자유 빈칸"
+  }
+ ],
+ "parts": [
+  {
+   "block": "b-search-general",
+   "slot": "fields",
+   "comp": "c-text-field",
+   "required": true
+  },
+  {
+   "block": "b-search-general",
+   "slot": "fields",
+   "comp": "c-select",
+   "required": false
+  },
+  {
+   "block": "b-search-general",
+   "slot": "fields",
+   "comp": "c-date-field",
+   "required": false
+  },
+  {
+   "block": "b-search-general",
+   "slot": "fields",
+   "comp": "c-search-field",
+   "required": false
+  },
+  {
+   "block": "b-search-general",
+   "slot": "actions",
+   "comp": "c-button",
+   "required": true
+  },
+  {
+   "block": "b-table-basic",
+   "slot": "columns",
+   "comp": "c-table-column-header",
+   "required": true
+  },
+  {
+   "block": "b-table-basic",
+   "slot": "cells",
+   "comp": "c-table-text-cell",
+   "required": true
+  },
+  {
+   "block": "b-table-basic",
+   "slot": "status",
+   "comp": "c-badge",
+   "required": false
+  },
+  {
+   "block": "b-table-big",
+   "slot": "columns",
+   "comp": "c-table-column-header",
+   "required": true
+  },
+  {
+   "block": "b-table-big",
+   "slot": "cells",
+   "comp": "c-table-text-cell",
+   "required": true
+  },
+  {
+   "block": "b-action",
+   "slot": "right",
+   "comp": "c-button",
+   "required": true
+  },
+  {
+   "block": "b-action",
+   "slot": "left",
+   "comp": "c-chip",
+   "required": false
+  },
+  {
+   "block": "b-detail-info",
+   "slot": "items",
+   "comp": "c-table-text-cell",
+   "required": true
+  },
+  {
+   "block": "b-callout",
+   "slot": "message",
+   "comp": "c-callout",
+   "required": true
+  },
+  {
+   "block": "b-top",
+   "slot": "title",
+   "comp": "c-page-header",
+   "required": true
+  },
+  {
+   "block": "b-statusbar",
+   "slot": "paging",
+   "comp": "c-pagination",
+   "required": true
+  },
+  {
+   "block": "b-context-bar",
+   "slot": "breadcrumb",
+   "comp": "c-breadcrumb",
+   "required": true
+  },
+  {
+   "block": "b-node",
+   "slot": "cta",
+   "comp": "c-button",
+   "required": true
+  },
+  {
+   "block": "b-actionbar",
+   "slot": "primary",
+   "comp": "c-button",
+   "required": true
+  },
+  {
+   "block": "b-hud",
+   "slot": "zoom",
+   "comp": "c-button",
+   "required": false
+  }
+ ],
+ "rules": [
+  {
+   "id": "R-WC-01",
+   "doc": "work-composition",
+   "section": "화면 유형 기준",
+   "kind": "판정",
+   "text": "특수형 먼저 확인 → 진행이 한 방향이면 노드형 → 둘 다 아니면 일반형",
+   "targets": [
+    "s-common.body",
+    "l-special",
+    "l-node",
+    "l-general"
+   ]
+  },
+  {
+   "id": "R-WC-02",
+   "doc": "work-composition",
+   "section": "업무 단위 기준",
+   "kind": "판정",
+   "text": "기능 분리 → 대상·맥락 기준 묶음 → 단독 화면 가능 여부 확인 · 남은 기능 단위는 팝업 같은 보조 화면으로",
+   "targets": [
+    "l-popup",
+    "c-popup"
+   ]
+  },
+  {
+   "id": "R-LW-01",
+   "doc": "layout-work",
+   "section": "전체 구조",
+   "kind": "배치",
+   "text": "페이지 타이틀 → 사용 안내 → 조회조건 → 상세정보 → 컨텐트 순서로 쌓음",
+   "targets": [
+    "l-general",
+    "l-general.title",
+    "l-general.notice",
+    "l-general.search",
+    "l-general.detail",
+    "l-general.content",
+    "b-top",
+    "b-callout",
+    "b-search-general",
+    "b-detail-info",
+    "b-content"
+   ]
+  },
+  {
+   "id": "R-LW-02",
+   "doc": "layout-work",
+   "section": "상단 레이아웃",
+   "kind": "구성",
+   "text": "브레드크럼으로 현재 위치 표시 · 업무 명칭을 페이지 타이틀로",
+   "targets": [
+    "s-common.context-bar",
+    "b-context-bar",
+    "b-top",
+    "c-breadcrumb",
+    "c-page-header"
+   ]
+  },
+  {
+   "id": "R-LW-03",
+   "doc": "layout-work",
+   "section": "제목 원칙",
+   "kind": "표기",
+   "text": "페이지 타이틀은 하나 · 보조 제목과 영역 제목은 두지 않음(조회조건 예외)",
+   "targets": [
+    "l-general.title",
+    "b-top",
+    "c-page-header"
+   ]
+  },
+  {
+   "id": "R-LW-04",
+   "doc": "layout-work",
+   "section": "사용 안내",
+   "kind": "배치",
+   "text": "안내할 내용이 있을 때만 · 페이지 타이틀 아래, 조회조건 위 고정 · 성격별 색 구분",
+   "targets": [
+    "l-general.notice",
+    "b-callout",
+    "c-callout"
+   ]
+  },
+  {
+   "id": "R-LW-05",
+   "doc": "layout-work",
+   "section": "조회조건",
+   "kind": "배치",
+   "text": "화면 맨 위 · 결과가 아래 컨텐트 전체에 적용 · 화면 전체에 영향 주는 조건이 없으면 생략",
+   "targets": [
+    "l-general.search",
+    "b-search-general"
+   ]
+  },
+  {
+   "id": "R-LW-06",
+   "doc": "layout-work",
+   "section": "상세정보",
+   "kind": "구성",
+   "text": "조회용 데이터는 글자로 표시(입력 요소로 만들면 편집 가능으로 오해) · 기본 접힘 · 대표 정보만",
+   "targets": [
+    "l-general.detail",
+    "b-detail-info",
+    "c-table-text-cell"
+   ]
+  },
+  {
+   "id": "R-SC-01",
+   "doc": "search-conditions",
+   "section": "배치 원칙",
+   "kind": "배치",
+   "text": "필수 항목은 첫 줄에 한 줄로 · 추가 선택 항목은 펼치기로 접어 둠",
+   "targets": [
+    "l-general.search",
+    "b-search-general",
+    "c-text-field",
+    "c-select",
+    "c-date-field",
+    "c-search-field"
+   ]
+  },
+  {
+   "id": "R-SC-02",
+   "doc": "search-conditions",
+   "section": "배치 원칙",
+   "kind": "동작",
+   "text": "자주 쓰는 값이 정해진 칸은 기본값 채움 · 입력 순서대로 왼쪽에서 오른쪽",
+   "targets": [
+    "b-search-general",
+    "c-select",
+    "c-date-field"
+   ]
+  },
+  {
+   "id": "R-SC-04",
+   "doc": "search-conditions",
+   "section": "조회 실행",
+   "kind": "동작",
+   "text": "조회 버튼이 주 버튼, 초기화는 보조 · 화면 전체에 영향 주는 공통 조건만",
+   "targets": [
+    "b-search-general",
+    "c-button"
+   ]
+  },
+  {
+   "id": "R-LC-04",
+   "doc": "layout-content",
+   "section": "액션 영역",
+   "kind": "배치",
+   "text": "선택 상태는 왼쪽, 실행은 오른쪽 · 되돌릴 수 없는 동작은 위험 색으로 분리 · 선택이 필요한 동작은 선택 전 비활성",
+   "targets": [
+    "b-content.column.action",
+    "b-action",
+    "c-button",
+    "c-chip"
+   ]
+  },
+  {
+   "id": "R-LC-05",
+   "doc": "layout-content",
+   "section": "컨텐트",
+   "kind": "배치",
+   "text": "컨텐트 위치와 순서만 정함 · 세로 스크롤은 컨텐트 안에서만",
+   "targets": [
+    "b-content.column.body",
+    "b-table-basic",
+    "b-table-big"
+   ]
+  },
+  {
+   "id": "R-LC-06",
+   "doc": "layout-content",
+   "section": "상태바",
+   "kind": "구성",
+   "text": "전체 건수(예: 총 42건) 표시 · 페이지 번호로 이동",
+   "targets": [
+    "b-content.column.status",
+    "b-statusbar",
+    "c-pagination"
+   ]
+  },
+  {
+   "id": "R-LA-01",
+   "doc": "layout-action",
+   "section": "인터랙션 배치",
+   "kind": "배치",
+   "text": "액션은 영향 범위에 가장 가까운 곳에 한 번만 · 주 버튼은 영역당 하나",
+   "targets": [
+    "b-content.column.action",
+    "s-node.actionbar",
+    "b-action",
+    "b-actionbar",
+    "c-button"
+   ]
+  },
+  {
+   "id": "R-LA-02",
+   "doc": "layout-action",
+   "section": "인터랙션 배치",
+   "kind": "동작",
+   "text": "되돌릴 수 없거나 영향 범위가 안 보이는 실행은 확인을 거침",
+   "targets": [
+    "b-action",
+    "c-dialog"
+   ]
+  },
+  {
+   "id": "R-GB-01",
+   "doc": "grid-basic-behavior",
+   "section": "행 액션 배치",
+   "kind": "동작",
+   "text": "행 액션은 셋까지 · 동작이 하나면 행 아무 곳이나 누르면 열림",
+   "targets": [
+    "b-content.column.body",
+    "b-table-basic",
+    "c-table-text-cell"
+   ]
+  },
+  {
+   "id": "R-GB-02",
+   "doc": "grid-basic-behavior",
+   "section": "행 상태 표시",
+   "kind": "동작",
+   "text": "올려놓으면 배경 강조, 선택은 옅은 색 유지 · 행 전용 색은 만들지 않음",
+   "targets": [
+    "b-table-basic",
+    "b-table-big",
+    "c-badge"
+   ]
+  },
+  {
+   "id": "R-PU-01",
+   "doc": "popup",
+   "section": "구성요소",
+   "kind": "구성",
+   "text": "팝업은 어두운 배경·머리·본문·하단 버튼으로 구성 · 고정 팝업과 보조 팝업",
+   "targets": [
+    "c-popup.content",
+    "c-popup.actions",
+    "l-popup",
+    "c-popup",
+    "c-button"
+   ]
+  },
+  {
+   "id": "R-LN-01",
+   "doc": "layout-node",
+   "section": "전체 구조",
+   "kind": "배치",
+   "text": "캔버스 안에 HUD(위)·액션바(아래 가운데)·고객정보 위젯 배치",
+   "targets": [
+    "l-node",
+    "s-node",
+    "s-node.canvas",
+    "s-node.hud",
+    "s-node.actionbar",
+    "b-hud",
+    "b-actionbar",
+    "b-node"
+   ]
+  },
+  {
+   "id": "R-NF-01",
+   "doc": "node-flow-seq",
+   "section": "노드의 완결성",
+   "kind": "동작",
+   "text": "노드 하나에서 한 단계 완결 · 완결된 노드를 순서대로 묶음 · 한 방향 진행",
+   "targets": [
+    "s-node.canvas",
+    "b-node"
+   ]
+  },
+  {
+   "id": "R-DL-01",
+   "doc": "resp-dialog",
+   "section": "결과 알림",
+   "kind": "동작",
+   "text": "다이얼로그는 실행 전 확인, 토스트는 실행 후 알림 · 한 동작에 둘 다 쓰는 것이 정상",
+   "targets": [
+    "c-dialog",
+    "c-toast"
+   ]
+  },
+  {
+   "id": "R-SP-01",
+   "doc": "BSS SB Studio 운영 기준(안)",
+   "section": "특수형",
+   "kind": "판정",
+   "text": "표준 틀로 만들 수 없는 화면만 특수형 · 자유 빈칸 하나에 배치 · 포털 승인 담당 승인 뒤 사용",
+   "targets": [
+    "l-special",
+    "l-special.canvas"
+   ]
+  }
+ ],
+ "promotions": [
+  {
+   "id": "PR-0012",
+   "code": "tb-step-status-strip",
+   "name": "단계 현황 띠",
+   "from": "부가서비스 가입 관리 SB · SVC-02-002 외 2건 · 사용 승인 SB 3건",
+   "judge": "b-hud 변형으로 흡수",
+   "stage": "완료",
+   "status": "승인"
+  },
+  {
+   "id": "PR-0013",
+   "code": "tc-date-quick",
+   "name": "빠른 기간 버튼",
+   "from": "부가서비스 가입 관리 SB · SVC-02-001 #1 외 2건 · 사용 승인 SB 3건",
+   "judge": "c-date-field 변형 후보",
+   "stage": "구조 확인",
+   "status": "대기"
+  }
+ ],
+ "detections": [
+  {
+   "at": "11-04 13:10",
+   "file": "UX 패턴 가이드",
+   "target": "b-search-general",
+   "change": "조회 버튼 위치 오른쪽 → 아래 줄",
+   "impact": "SB 4건 · 화면 9개",
+   "action": "새 버전 후보"
+  },
+  {
+   "at": "11-03 18:42",
+   "file": "디자인 시스템 컴포넌트",
+   "target": "c-badge · 점 배지",
+   "change": "점 색 토큰 변경",
+   "impact": "SB 5건 · 화면 12개",
+   "action": "무시(토큰만)"
+  },
+  {
+   "at": "11-03 10:05",
+   "file": "부가서비스 가입 관리 SB Figma",
+   "target": "SVC-02-002 프레임",
+   "change": "노드 1개 추가 · ID 없는 새 요소",
+   "impact": "SB 1건",
+   "action": "포털 승인 담당 승인 요청"
+  }
+ ]
+}
