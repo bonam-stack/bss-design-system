@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>BSS 디자인 포털 POC</title>
+    <link rel="stylesheet" href="app.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <button class="menu-btn" id="menuBtn" aria-label="메뉴" aria-expanded="false" aria-controls="sidebar">☰</button>
+      <a class="brand" href="#home"><span class="brand-mark" aria-hidden="true"></span>BSS 디자인 포털 <span class="tag">POC</span></a>
+      <div class="ver" id="ver"></div>
+      <div class="spacer"></div>
+      <div class="modes" id="modes"></div>
+      <label class="role">
+        <span>역할</span>
+        <select id="role">
+          <option value="viewer">보기 (모두)</option>
+          <option value="ux">UX 담당자</option>
+          <option value="ds">DS 담당자</option>
+          <option value="admin">관리자</option>
+        </select>
+      </label>
+    </header>
+    <div class="layout">
+      <nav class="sidebar" id="sidebar" aria-label="포털 메뉴"></nav>
+      <main class="content" id="content" tabindex="-1"></main>
+    </div>
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+    <script type="module" src="app.js"></script>
+  </body>
+</html>
