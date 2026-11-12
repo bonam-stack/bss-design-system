@@ -6,10 +6,14 @@
   "scripts": {
     "start": "node server.mjs",
     "reset": "rm -f data/state.json",
-    "test": "node --test test/*.test.mjs"
+    "test": "node --test test/*.test.mjs",
+    "build:pages": "node scripts/build-pages.mjs"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^1.8.0",
     "zod": "^3.25.0"
+  },
+  "devDependencies": {
+    "esbuild": "^0.24.2"
   }
 }

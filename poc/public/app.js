@@ -1,4 +1,6 @@
 // BSS 디자인 포털 POC 화면. 해시 라우팅 + 서버 API(/api/*). 역할은 X-Role 헤더로 보낸다.
+import { request, iconUrl, tokensStyle, docsUrl, runtime } from "./transport.js";
+
 const $ = (s, el = document) => el.querySelector(s);
 const esc = (v) => String(v ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]);
 const fmtTime = (iso) => (iso ? new Date(iso).toLocaleString("ko-KR", { month: "numeric", day: "numeric", hour: "2-digit", minute: "2-digit" }) : "");
@@ -19,16 +21,7 @@ function localSet(k, v) {
   } catch {}
 }
 
-async function api(path, body) {
-  const r = await fetch(path, {
-    method: body === undefined ? "GET" : "POST",
-    headers: { "Content-Type": "application/json", "X-Role": role },
-    body: body === undefined ? undefined : JSON.stringify(body),
-  });
-  const j = await r.json().catch(() => ({}));
-  if (!r.ok) throw new Error(j.error || `HTTP ${r.status}`);
-  return j;
-}
+const api = (path, body) => request(path, body, role);
 
 function toast(msg, err = false) {
   const t = $("#toast");
@@ -107,7 +100,7 @@ function changeTable(list, empty = "없습니다") {
     .join("")}</tbody></table></div>`;
 }
 
-const iconSrc = (i) => (i.file ? `/ds/icons/${i.file}` : `/api/icons/${encodeURIComponent(i.name)}`);
+const iconSrc = iconUrl;
 
 // ---------- 메뉴 (IA 안) ----------
 
@@ -166,6 +159,7 @@ views.home = () => {
   return `
   <h1>BSS 디자인 포털</h1>
   <p class="lead">DS library(토큰 · 컴포넌트 · 공통 블록)와 UX 패턴을 하나로 묶고, 확인된 버전만 BSS SB Studio에 내준다.</p>
+  ${runtime === "browser" ? `<div class="card small">브라우저 데모입니다. 서버 없이 이 브라우저 안에서 돌고, 진행한 내용은 이 브라우저에만 저장됩니다. 피그마 변환과 AI는 흉내 모드입니다. 처음부터 다시 하려면 관리자 › 권한 · 초기화를 쓰세요.</div>` : ""}
   <div class="cards">
     <div class="card"><div class="muted small">운영 서버 버전</div><div class="stat">${r.current}</div><div class="small muted">Studio는 이 버전만 읽습니다</div></div>
     <div class="card"><div class="muted small">준비 중</div><div class="stat">${r.preparing || "-"}</div><div class="small muted">미리보기 ${r.previewCount}회</div></div>
@@ -214,10 +208,10 @@ views.baseline = (tab = "components") => {
   if (tab === "components")
     body = `<div class="table-wrap"><table><thead><tr><th>컴포넌트</th><th>속성</th><th>변형</th><th>피그마</th><th></th></tr></thead><tbody>${b.components
       .map(
-        (c) => `<tr><td><b>${esc(c.name)}</b><div class="small muted mono">${c.key}</div></td><td class="small">${c.props.map((p) => `${esc(p.name)}${p.options ? `<span class="muted">(${p.options.length})</span>` : ""}`).join(", ")}</td><td>${c.variants}</td><td><a href="${esc(c.figma.url)}" target="_blank" rel="noopener" class="small">노드 ${esc(c.figma.nodeId)}</a></td><td><button class="btn sm" data-req-comp="${c.key}">수정 요청</button></td></tr>`
+        (c) => `<tr><td><a href="${docsUrl(c.key)}" target="_blank" rel="noopener"><b>${esc(c.name)}</b></a><div class="small muted mono">${c.key}</div></td><td class="small">${c.props.map((p) => `${esc(p.name)}${p.options ? `<span class="muted">(${p.options.length})</span>` : ""}`).join(", ")}</td><td>${c.variants}</td><td><a href="${esc(c.figma.url)}" target="_blank" rel="noopener" class="small">노드 ${esc(c.figma.nodeId)}</a></td><td><button class="btn sm" data-req-comp="${c.key}">수정 요청</button></td></tr>`
       )
       .join("")}</tbody></table></div>
-      <div class="row" style="margin-top:10px"><button class="btn" data-req-new>새 컴포넌트 요청</button><a class="small" href="/ds/" target="_blank" rel="noopener">컴포넌트 문서 사이트 열기 ↗</a></div>`;
+      <div class="row" style="margin-top:10px"><button class="btn" data-req-new>새 컴포넌트 요청</button><a class="small" href="${docsUrl()}" target="_blank" rel="noopener">컴포넌트 문서 사이트 열기 ↗</a></div>`;
   if (tab === "ux")
     body = b.uxPatterns
       .map(
@@ -243,7 +237,7 @@ views.baseline = (tab = "components") => {
 };
 
 function previewFrame(source) {
-  const doc = `<!doctype html><link rel="stylesheet" href="/api/tokens.css"><style>body{font:14px/1.5 system-ui,sans-serif;margin:12px;color:#1c1f23}</style>${source || ""}`;
+  const doc = `<!doctype html>${tokensStyle()}<style>body{font:14px/1.5 system-ui,sans-serif;margin:12px;color:#1c1f23}</style>${source || ""}`;
   return `<iframe class="preview" sandbox="allow-same-origin" srcdoc="${esc(doc)}" title="미리보기"></iframe>`;
 }
 
