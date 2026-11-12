@@ -76,6 +76,7 @@ code.code.muted { color: var(--fg-muted); }
 .card { display: flex; flex-direction: column; gap: 6px; padding: 18px; border-radius: 16px; background: var(--surface-weak); border: 1px solid transparent; }
 .card:hover { border-color: var(--border); }
 .card b { font-size: 16px; }
+.card b small { font-size: 12px; font-weight: 400; color: var(--fg-muted); }
 .card > span { font-size: 13px; color: var(--fg-muted); }
 .card .card-eb { font-family: var(--mono); font-size: 11px; }
 .kv { display: grid; grid-template-columns: max-content 1fr; gap: 10px 24px; margin: 0; font-size: 14px; }
