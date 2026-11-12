@@ -5,8 +5,8 @@
 import http from "node:http";
 import fs from "node:fs";
 import path from "node:path";
-import { POC_DIR, REPO_DIR, reset, getState } from "./lib/store.mjs";
-import * as portal from "./lib/portal.mjs";
+import { POC_DIR, REPO_DIR } from "./lib/persist.mjs";
+import { handle, tokensCss, iconSvg, normalizeRole, HttpError } from "./lib/routes.mjs";
 import { figmaMode } from "./lib/figma.mjs";
 import { aiMode } from "./lib/ai.mjs";
 
@@ -32,68 +32,27 @@ async function readBody(req) {
   let raw = "";
   for await (const chunk of req) {
     raw += chunk;
-    if (raw.length > 2_000_000) throw new portal.HttpError(413, "요청이 너무 큽니다");
+    if (raw.length > 2_000_000) throw new HttpError(413, "요청이 너무 큽니다");
   }
   if (!raw) return {};
   try {
     return JSON.parse(raw);
   } catch {
-    throw new portal.HttpError(400, "JSON 형식이 아닙니다");
+    throw new HttpError(400, "JSON 형식이 아닙니다");
   }
 }
 
-// [메서드, 경로 패턴, 처리]
-const routes = [
-  ["GET", /^\/api\/state$/, (role) => ({ ...portal.overview(role), modes: { figma: figmaMode(), ai: aiMode() } })],
-  ["POST", /^\/api\/changes$/, (role, b) => portal.createChange(role, b)],
-  ["POST", /^\/api\/changes\/([\w-]+)\/start$/, (role, b, id) => portal.startWork(role, id)],
-  ["POST", /^\/api\/changes\/([\w-]+)\/reject$/, (role, b, id) => portal.reject(role, id, b.reason)],
-  ["POST", /^\/api\/changes\/([\w-]+)\/convert$/, (role, b, id) => portal.convertFigma(role, id, b.url)],
-  ["POST", /^\/api\/changes\/([\w-]+)\/edit$/, (role, b, id) => portal.saveEdit(role, id, b)],
-  ["POST", /^\/api\/changes\/([\w-]+)\/chat$/, (role, b, id) => portal.chat(role, id, String(b.message || ""))],
-  ["POST", /^\/api\/changes\/([\w-]+)\/check$/, (role, b, id) => portal.markChecked(role, id)],
-  ["POST", /^\/api\/changes\/([\w-]+)\/request-deploy$/, (role, b, id) => portal.requestDeploy(role, id, b.summary)],
-  ["POST", /^\/api\/deploy$/, (role, b) => portal.deploy(role, b)],
-  ["POST", /^\/api\/rollback$/, (role, b) => portal.rollback(role, b.reason)],
-  ["POST", /^\/api\/sb\/([\w-]+)\/promote$/, (role, b, id) => portal.promoteReview(role, id, b.approve !== false, b.note)],
-  // 포털 → Studio: 화면마다 기준 묶음 (운영 서버 버전만)
-  ["GET", /^\/api\/bundle$/, (role, b, _id, q) => portal.buildBundle(q.get("version"), q.get("screenType"))],
-  // Studio 시뮬레이터
-  ["POST", /^\/api\/studio\/storyboards$/, (role, b) => portal.studioGenerate(b)],
-  ["POST", /^\/api\/studio\/storyboards\/([\w-]+)\/recheck$/, (role, b, id) => portal.studioRecheck(id)],
-  ["POST", /^\/api\/studio\/storyboards\/([\w-]+)\/handoff$/, (role, b, id) => portal.studioHandoff(id)],
-  [
-    "POST",
-    /^\/api\/reset$/,
-    (role) => {
-      if (role !== "admin") throw new portal.HttpError(403, "관리자만 초기화합니다");
-      reset();
-      return { ok: true };
-    },
-  ],
-];
-
 const server = http.createServer(async (req, res) => {
   const url = new URL(req.url, "http://localhost");
-  const role = portal.ROLES[req.headers["x-role"]] ? req.headers["x-role"] : "viewer";
+  const role = normalizeRole(req.headers["x-role"]);
   try {
     if (url.pathname.startsWith("/api/")) {
-      for (const [m, re, fn] of routes) {
-        const hit = url.pathname.match(re);
-        if (!hit || m !== req.method) continue;
-        const body = req.method === "POST" ? await readBody(req) : {};
-        return send(res, 200, await fn(role, body, hit[1], url.searchParams));
-      }
-      if (url.pathname === "/api/tokens.css") {
-        const { tokens } = getState();
-        const css = Object.entries(tokens)
-          .filter(([, t]) => t.value != null && /^[#\w(.,% -]+$/.test(String(t.value)))
-          .map(([n, t]) => `${n}:${t.value};`)
-          .join("");
-        return send(res, 200, `:root{${css}}`, TYPES[".css"]);
-      }
+      const body = req.method === "POST" ? await readBody(req) : {};
+      const out = await handle(req.method, url.pathname, role, body, url.searchParams);
+      if (out) return send(res, 200, out.result);
+      if (url.pathname === "/api/tokens.css") return send(res, 200, tokensCss(), TYPES[".css"]);
       if (url.pathname.startsWith("/api/icons/")) {
-        const svg = portal.iconSvg(decodeURIComponent(url.pathname.slice(11)));
+        const svg = iconSvg(decodeURIComponent(url.pathname.slice(11)));
         return svg ? send(res, 200, svg, TYPES[".svg"]) : send(res, 404, { error: "no svg" });
       }
       return send(res, 404, { error: "없는 API입니다" });
