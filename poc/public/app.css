@@ -88,6 +88,7 @@ code, .mono { font-family: var(--mono); font-size: 13px; }
 .ver b { color: var(--fg); }
 .spacer { flex: 1; }
 .modes { display: flex; gap: 6px; }
+.docs-link { font-size: 13px; white-space: nowrap; }
 .role { display: flex; align-items: center; gap: 6px; font-size: 13px; color: var(--fg-muted); }
 .menu-btn { display: none; border: 1px solid var(--border); background: var(--bg); color: var(--fg); border-radius: 8px; width: 36px; height: 36px; font-size: 18px; }
 
@@ -206,7 +207,7 @@ pre.json { max-height: 360px; overflow: auto; background: var(--bg-subtle); bord
   .sidebar.open { transform: none; box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2); }
   .content { padding: 20px 16px 80px; }
   .grid2, .flow { grid-template-columns: 1fr; }
-  .modes, .ver { display: none; }
+  .modes, .ver, .docs-link { display: none; }
   .rule, .rule-edit { grid-template-columns: 1fr; }
   .topbar { gap: 8px; }
 }

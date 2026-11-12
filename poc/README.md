@@ -25,6 +25,21 @@ npm start          # http://localhost:8792
 npm test           # 케이스 1~4 · 승격 · 배포 · 롤백 · Studio 연계를 흉내 모드로 끝까지 돌림
 ```
 
+## GitHub Pages용 정적 빌드
+
+```bash
+npm run build:pages   # → ../portal/index.html
+```
+
+서버 없이 브라우저 안에서 같은 업무 코드(`lib/*`)를 돌리는 HTML 한 장을 만든다.
+문서 사이트와 같이 배포되어 `https://bonam-stack.github.io/bss-design-system/portal/`에서 열리고,
+문서 사이트 왼쪽 메뉴 "도구 › 디자인 포털 POC"로 들어간다.
+
+- 진행 상태는 보는 사람 브라우저의 localStorage에만 저장된다 (팀원끼리 공유되지 않음)
+- 피그마 변환 · AI는 흉내 모드만 쓴다 (키를 웹페이지에 둘 수 없음)
+- 아이콘 SVG와 Pretendard 폰트는 같은 사이트의 `icons/` · `site/fonts/`를 쓴다
+- `lib/`나 `public/`을 고치면 다시 빌드해 `portal/index.html`을 같이 커밋한다
+
 ## 덱 → POC 대응
 
 | 덱 | POC |
@@ -43,14 +58,17 @@ npm test           # 케이스 1~4 · 승격 · 배포 · 롤백 · Studio 연�
 ## 구조
 
 ```
-server.mjs          HTTP 서버 · 라우팅 · 정적 파일 (/ = public, /ds/ = 저장소 문서 사이트)
-lib/store.mjs       상태 저장(data/state.json), 저장소 JSON → 1.0.0 이관, 규칙 번호
+server.mjs          HTTP 서버 · 정적 파일 (/ = public, /ds/ = 저장소 문서 사이트)
+lib/routes.mjs      API 경로 표 (서버와 정적 빌드가 같이 씀)
+lib/store.mjs       포털 상태
+lib/persist.mjs     서버 저장(data/state.json) · 저장소 JSON → 1.0.0 이관 / persist.browser.mjs: localStorage
 lib/portal.mjs      업무 규칙: 케이스 1~4 · 승격 · 미리보기 · 배포 · 롤백 · 기준 묶음 · Studio
 lib/figma.mjs       피그마 주소 해석 · REST API 변환 · 흉내 모드 · 운영 대비 바뀐 점
 lib/checks.mjs      변환 자동 확인, SB 소스 검사, 자동 검사 4종
-lib/ai.mjs          Claude 연동(미리보기 챗 · 화면 생성, 구조화 출력) · 흉내 모드
+lib/ai.mjs          Claude 연동(미리보기 챗 · 화면 생성, 구조화 출력) / ai.mock.mjs: 흉내 모드
 lib/version.mjs     MAJOR.MINOR.PATCH · 미리보기 표기
-public/             화면 (바닐라 JS, 해시 라우팅)
+public/             화면 (바닐라 JS, 해시 라우팅). transport.js = 서버 API, transport.local.js = 정적 빌드
+scripts/build-pages.mjs  정적 빌드 → ../portal/index.html
 fixtures/figma/     흉내 모드용 Figma API 응답 예시
 test/flow.test.mjs  전체 흐름 테스트
 ```
