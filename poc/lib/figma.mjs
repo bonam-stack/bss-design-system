@@ -1,10 +1,7 @@
 // 피그마 주소 → 소스 변환.
 // FIGMA_TOKEN이 있으면 Figma REST API(GET /v1/files/:key/nodes)로 읽고, 없으면 흉내(mock) 모드로
 // 운영 기준 · poc/fixtures/figma/*.json에서 같은 노드를 찾는다. 같은 입력이면 항상 같은 결과가 나온다.
-import fs from "node:fs";
-import path from "node:path";
-import crypto from "node:crypto";
-import { POC_DIR } from "./store.mjs";
+import { fixtures } from "./fixtures.mjs";
 
 const TOKEN = process.env.FIGMA_TOKEN || "";
 export const figmaMode = () => (TOKEN ? "live" : "mock");
@@ -102,16 +99,22 @@ async function fetchIconSvg(fileKey, nodeId) {
 }
 
 function loadFixture(fileKey, nodeId) {
-  const dir = path.join(POC_DIR, "fixtures", "figma");
-  if (!fs.existsSync(dir)) return null;
-  for (const f of fs.readdirSync(dir)) {
-    const j = JSON.parse(fs.readFileSync(path.join(dir, f), "utf8"));
-    if (j.nodeId === nodeId && (!j.fileKey || j.fileKey === fileKey)) return j.entry;
-  }
-  return null;
+  const hit = fixtures().find((j) => j.nodeId === nodeId && (!j.fileKey || j.fileKey === fileKey));
+  return hit ? hit.entry : null;
 }
 
-const mockKey = (s) => "mock" + crypto.createHash("sha1").update(s).digest("hex").slice(0, 36);
+// 같은 입력이면 같은 key (흉내 모드). FNV-1a 두 번으로 40자리를 만든다.
+function hash(s) {
+  let out = "";
+  for (const seed of [0x811c9dc5, 0x01000193, 0x5bd1e995, 0x1b873593, 0x85ebca6b]) {
+    let h = seed >>> 0;
+    for (let i = 0; i < s.length; i++) h = Math.imul(h ^ s.charCodeAt(i), 16777619) >>> 0;
+    out += h.toString(16).padStart(8, "0");
+  }
+  return out;
+}
+
+const mockKey = (s) => "mock" + hash(s).slice(0, 36);
 const placeholderSvg =
   '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><rect x="2" y="2" width="12" height="12" rx="3" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M5 8h6M8 5v6" stroke="currentColor" stroke-width="1.5"/></svg>';
 
