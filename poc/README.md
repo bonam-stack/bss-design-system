@@ -25,20 +25,33 @@ npm start          # http://localhost:8792
 npm test           # 케이스 1~4 · 승격 · 배포 · 롤백 · Studio 연계를 흉내 모드로 끝까지 돌림
 ```
 
-## GitHub Pages용 정적 빌드
+## 문서 사이트에 붙는 포털 (GitHub Pages)
+
+디자인 포털은 따로 된 사이트가 아니라 SB Studio 안의 메뉴 하나다. POC에서는 문서 사이트(저장소 루트 `index.html`)
+자체에 붙어서, 위쪽 **역할**에 따라 같은 페이지에 영역이 더해진다.
+
+| 역할 | 더해지는 곳 |
+|---|---|
+| 보기 | 컴포넌트 · 패턴 페이지의 "수정 요청", 아이콘 페이지의 "아이콘 요청", 새 컴포넌트 요청, 메뉴 "내 요청" |
+| DS 담당자 | 컴포넌트 페이지의 "피그마에서 다시 읽기", 전체 목록의 "컴포넌트 추가", 들어온 요청의 작업 시작 |
+| UX 담당자 | 사용 가이드 · 패턴 규칙 편집(규칙 번호 자동, 가이드에 `UX-BUTTON-05`처럼 표시), SB 블록 소스 편집 · 승격 1단 심사 |
+| 관리자 | 메뉴 "버전 · 배포"의 정기 · 수동 배포와 롤백 (위 모든 영역도 보임) |
+
+변경은 `#change-CH-0001` 작업 공간(변환 · 자동 확인 · 바뀐 점 · 미리보기 · 챗 · 확인 · 배포 요청)에서 이어 가고,
+운영에 배포되면 문서 페이지가 그 내용으로 바뀐다 (설명 · 정책 문구 · 규칙, 새 컴포넌트 · 아이콘).
 
 ```bash
-npm run build:pages   # → ../portal/index.html
+npm run build:site    # → ../site/portal-core.js
 ```
 
-서버 없이 브라우저 안에서 같은 업무 코드(`lib/*`)를 돌리는 HTML 한 장을 만든다.
-문서 사이트와 같이 배포되어 `https://bonam-stack.github.io/bss-design-system/portal/`에서 열리고,
-문서 사이트 왼쪽 메뉴 "도구 › 디자인 포털 POC"로 들어간다.
+`portal-core.js`는 이 폴더의 업무 코드(`lib/*`)를 브라우저용으로 묶은 것이다. `lib/`를 고치면 다시 빌드해 같이 커밋한다.
 
 - 진행 상태는 보는 사람 브라우저의 localStorage에만 저장된다 (팀원끼리 공유되지 않음)
 - 피그마 변환 · AI는 흉내 모드만 쓴다 (키를 웹페이지에 둘 수 없음)
-- 아이콘 SVG와 Pretendard 폰트는 같은 사이트의 `icons/` · `site/fonts/`를 쓴다
-- `lib/`나 `public/`을 고치면 다시 빌드해 `portal/index.html`을 같이 커밋한다
+- SB library에는 SB Studio가 만들었다고 가정한 예시 블록 3개를 넣어 두었다
+- 화면 코드는 `../site/portal-ui.js` · `../site/portal.css`
+
+`public/`의 화면과 Studio 시뮬레이터는 서버 API를 직접 확인하는 개발용이다.
 
 ## 덱 → POC 대응
 
@@ -67,8 +80,9 @@ lib/figma.mjs       피그마 주소 해석 · REST API 변환 · 흉내 모드 
 lib/checks.mjs      변환 자동 확인, SB 소스 검사, 자동 검사 4종
 lib/ai.mjs          Claude 연동(미리보기 챗 · 화면 생성, 구조화 출력) / ai.mock.mjs: 흉내 모드
 lib/version.mjs     MAJOR.MINOR.PATCH · 미리보기 표기
-public/             화면 (바닐라 JS, 해시 라우팅). transport.js = 서버 API, transport.local.js = 정적 빌드
-scripts/build-pages.mjs  정적 빌드 → ../portal/index.html
+public/             개발용 화면 (서버 API 확인). transport.local.js = 브라우저 안에서 lib를 부르는 방식
+scripts/build-site-core.mjs  문서 사이트용 포털 코어 → ../site/portal-core.js
+site-core.entry.mjs  그 번들의 입구
 fixtures/figma/     흉내 모드용 Figma API 응답 예시
 test/flow.test.mjs  전체 흐름 테스트
 ```

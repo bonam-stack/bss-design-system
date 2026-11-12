@@ -2,7 +2,7 @@
 // 저장이 막힌 환경(사생활 보호 창 등)에서는 메모리에서만 돈다.
 import SEED from "virtual:seed";
 
-const KEY = "bss-portal-poc.state.v1";
+const KEY = "bss-design-system.portal.v1";
 
 export function seed() {
   const s = JSON.parse(JSON.stringify(SEED));

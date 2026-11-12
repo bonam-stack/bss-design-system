@@ -42,26 +42,30 @@ export function guideIntro(c, g) {
 }
 
 // Usage policy from the service UI guide (when to use, rules, do/don't).
+// Rules and do/don't items may carry a portal rule number (id, e.g. UX-BUTTON-03); do/don't items are a
+// string or { id, text }.
+const ruleId = (id) => (id ? `<span class="rule-id">${esc(id)}</span> ` : '');
+const itemText = (t) => (typeof t === 'string' ? esc(t) : ruleId(t.id) + esc(t.text));
 function policySection(pl) {
   if (!pl) return '';
   const src = pl.source || {};
   return `
     <h2>${esc(pl.title)}</h2>
-    <p class="note">${esc(pl.lead)}</p>
+    ${pl.lead ? `<p class="note">${esc(pl.lead)}</p>` : ''}
     <div class="gd-when">
-      <section class="gd-when-col gd-use"><h3>이럴 때 사용합니다</h3><ul>${pl.when.use.map((t) => `<li>${esc(t)}</li>`).join('')}</ul></section>
-      <section class="gd-when-col gd-avoid"><h3>다른 컴포넌트를 사용합니다</h3><ul>${pl.when.avoid.map((x) => `<li>${esc(x.text)} <span class="gd-alt">→ ${esc(x.alt)}</span></li>`).join('')}</ul></section>
+      <section class="gd-when-col gd-use"><h3>이럴 때 사용합니다</h3><ul>${(pl.when?.use || []).map((t) => `<li>${esc(t)}</li>`).join('')}</ul></section>
+      <section class="gd-when-col gd-avoid"><h3>다른 컴포넌트를 사용합니다</h3><ul>${(pl.when?.avoid || []).map((x) => `<li>${esc(x.text)} <span class="gd-alt">→ ${esc(x.alt)}</span></li>`).join('')}</ul></section>
     </div>
     <h3>기준</h3>
     <div class="table-wrap">
       <table class="data gd-table gd-rules">
         <thead><tr><th>항목</th><th>기준</th><th>출처</th></tr></thead>
-        <tbody>${pl.rules.map((r) => `<tr><td class="pt-type">${esc(r.name)}</td><td class="pt-text">${esc(r.desc)}${r.gap ? `<span class="gd-gap-note">${esc(r.gap)}</span>` : ''}</td><td class="gd-from">${esc(r.from)}</td></tr>`).join('')}</tbody>
+        <tbody>${pl.rules.map((r) => `<tr><td class="pt-type">${ruleId(r.id)}${esc(r.name)}</td><td class="pt-text">${esc(r.desc)}${r.gap ? `<span class="gd-gap-note">${esc(r.gap)}</span>` : ''}</td><td class="gd-from">${esc(r.from)}</td></tr>`).join('')}</tbody>
       </table>
     </div>
     ${(pl.do || []).length || (pl.dont || []).length ? `<div class="gd-dodont">
-      ${(pl.do || []).length ? `<section class="gd-do"><h3>Do · 이렇게 합니다</h3><ul>${pl.do.map((t) => `<li>${esc(t)}</li>`).join('')}</ul></section>` : ''}
-      ${(pl.dont || []).length ? `<section class="gd-dont"><h3>Don't · 이건 피합니다</h3><ul>${pl.dont.map((t) => `<li>${esc(t)}</li>`).join('')}</ul></section>` : ''}
+      ${(pl.do || []).length ? `<section class="gd-do"><h3>Do · 이렇게 합니다</h3><ul>${pl.do.map((t) => `<li>${itemText(t)}</li>`).join('')}</ul></section>` : ''}
+      ${(pl.dont || []).length ? `<section class="gd-dont"><h3>Don't · 이건 피합니다</h3><ul>${pl.dont.map((t) => `<li>${itemText(t)}</li>`).join('')}</ul></section>` : ''}
     </div>` : ''}
     ${(pl.related || []).length ? `<p class="gd-related">함께 보기 ${pl.related.map((r) => `<span class="chip" title="${esc(r.file)}">${esc(r.name)} · ${esc(r.desc)}</span>`).join('')}</p>` : ''}
     <p class="gd-source">정책 출처 ${esc(src.title)} 문서 (${esc(src.id)}${src.status ? ` · ${esc(src.status)}` : ''})</p>`;
@@ -96,7 +100,7 @@ function statesSection(c, st) {
         <tbody>${stateRows.map((r, i) => {
           const props = propsFor(c, r.props, st.defaults);
           const desc = r.missing ? '<span class="gd-missing">가이드 설명 없음 · 컴포넌트에만 있는 상태입니다.</span>' : esc(r.desc);
-          return `<tr><td class="pt-type">${esc(r.name)}</td><td class="gd-ex">${slot(`gdState${i}`, props)}</td><td class="pt-text">${desc}</td><td class="gd-act">${codeBtn(props)}</td></tr>`;
+          return `<tr><td class="pt-type">${ruleId(r.id)}${esc(r.name)}</td><td class="gd-ex">${slot(`gdState${i}`, props)}</td><td class="pt-text">${desc}</td><td class="gd-act">${codeBtn(props)}</td></tr>`;
         }).join('')}</tbody>
       </table>
     </div>`;
