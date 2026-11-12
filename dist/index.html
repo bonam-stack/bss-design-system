@@ -2,17 +2,19 @@
   <meta name="claude:viewport-fit-sides" content="cover" />
   <link rel="stylesheet" href="site/site.css" />
   <link rel="stylesheet" href="site/portal/portal.css" />
-  <div class="pt7" id="pt7">
-    <header class="pt-top">
+  <header class="topbar">
+    <div class="topbar-inner">
       <button class="menu-btn" id="menuBtn" aria-label="메뉴 열기" aria-expanded="false" aria-controls="sidebar">☰</button>
-      <div class="pt-ttl"><b>BSS 디자인 포털</b><span id="ptMeta"></span></div>
-      <div class="pt-top-r" id="ptRoleBox"></div>
-    </header>
-    <div class="pt-main" id="ptMain">
-      <nav class="pt-nav" id="sidebar" aria-label="BSS 디자인 포털 메뉴"></nav>
-      <main class="pt-b content" id="content" tabindex="-1"></main>
-      <aside class="pt-d" id="detail" hidden aria-label="상세"></aside>
+      <a href="#overview" class="brand"><span class="brand-mark" aria-hidden="true"></span>BSS Design</a>
+      <nav class="top-nav" id="topNav" aria-label="섹션"></nav>
+      <div class="top-r" id="topR"></div>
     </div>
+    <div id="edBar"></div>
+  </header>
+  <div class="layout">
+    <nav class="sidebar" id="sidebar" aria-label="문서 탐색"></nav>
+    <main class="content" id="content" tabindex="-1"></main>
+    <aside class="toc" id="toc" aria-label="목차"></aside>
   </div>
   <div class="toast" id="toast" role="status"></div>
   <script type="module" src="site/app.js"></script>
