@@ -8,16 +8,17 @@ Figma 기준 파일: `WcoI745J38TaON7iCKcutW` ((공유용) Components Library v0
 
 - 공유 링크: https://claude.ai/artifact/PU6iNoAkpJhThz5v2qvbKg
 - 로컬: `python3 -m http.server 8791 --directory design-system` 후 http://localhost:8791 (JSON을 fetch하므로 더블클릭으로는 안 열림)
-- 페이지: `#overview`, `#icons`, `#components`, `#<컴포넌트 key>` (예: `#button`)
+- 페이지: `#stack`, `#gov`, `#blk`, `#cmp`, `#promo`, `#chg`, `#pub`, `#icons`, `#<카탈로그 코드>` (예: `#c-button`, 예전 `#button`도 열림)
 
 컴포넌트 추가: Figma 링크로 `figma-to-json` 스킬 실행 → `components/<key>/component.json` + `components/index.json` 갱신 → 사이트에 자동으로 나타남.
 공유 링크 갱신: `python3 scripts/build_publish_page.py`로 `dist/index.html`을 만든 뒤 같은 링크로 다시 올린다 (새 JSON·SVG 파일도 함께).
 
-## 디자인 포털 (POC)
+## BSS 디자인 포털
 
-문서 사이트 위쪽 **역할**(보기 · UX 담당자 · DS 담당자 · 관리자)에 따라 같은 페이지에 요청 · 편집 · 배포 영역이 더해진다.
-SB Studio 안의 메뉴로 쓰일 것을 가정한 POC다. 화면은 `site/portal-ui.js` · `site/portal.css`, 업무 코드는 `poc/lib`
-(브라우저용 묶음 `site/portal-core.js`는 `cd poc && npm run build:site`로 만든다). 자세한 내용은 [poc/README.md](poc/README.md).
+이 사이트는 SB Studio 안에서 여는 BSS 디자인 포털과 같은 메뉴 · 틀이다: 조립 구조 · UX 거버넌스 · 블록 · 컴포넌트 · 승격 요청 · 변경 감지 · 초안 · 게시.
+기준 카탈로그는 `catalog/catalog.json`(앱쉘 s- · 레이아웃 l- · 빈칸 · 블록 b- · 컴포넌트 c- · 규칙 R-), 컴포넌트 상세 페이지(미리보기 · 사용 가이드)는 `components/`에서 온다.
+위쪽 역할(보기 · UX 가이드 담당 · 디자인 시스템 담당 · 포털 승인 담당)에 따라 편집 칸이 열리고, 고친 내용은 초안 → 포털 승인 담당 게시로 버전이 오른다 (POC: 상태는 브라우저에만).
+화면 코드는 `site/portal/`, 자세한 내용은 [poc/README.md](poc/README.md).
 
 ## 컴포넌트
 

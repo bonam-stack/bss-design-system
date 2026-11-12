@@ -1,4 +1,4 @@
-// 서버 버전: 화면이 Node 서버 API를 부른다. 정적 빌드(GitHub Pages)는 transport.local.js로 바뀐다.
+// 개발용 화면이 Node 서버 API를 부른다.
 export const runtime = "server";
 
 export async function request(path, body, role) {

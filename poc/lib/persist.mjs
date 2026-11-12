@@ -1,6 +1,6 @@
 // 서버용 저장: 처음 실행하면 저장소의 기준 JSON(components · patterns · icons · tokens)을
 // 1.0.0으로 일괄 이관하고(seed), 이후 상태는 poc/data/state.json 하나에 저장한다.
-// 공유용 브라우저 버전은 persist.browser.mjs(localStorage)로 바뀐다.
+// (문서 사이트의 BSS 디자인 포털은 site/portal/store.js가 브라우저에서 따로 관리한다.)
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";

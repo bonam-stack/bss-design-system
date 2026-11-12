@@ -1,4 +1,4 @@
-// API 경로 표. 서버(server.mjs)와 공유용 브라우저 버전(public/transport.local.js)이 같이 쓴다.
+// API 경로 표 (server.mjs).
 import { reset, getState } from "./store.mjs";
 import * as portal from "./portal.mjs";
 import { figmaMode } from "./figma.mjs";

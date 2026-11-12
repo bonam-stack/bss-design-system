@@ -25,33 +25,20 @@ npm start          # http://localhost:8792
 npm test           # 케이스 1~4 · 승격 · 배포 · 롤백 · Studio 연계를 흉내 모드로 끝까지 돌림
 ```
 
-## 문서 사이트에 붙는 포털 (GitHub Pages)
+## BSS 디자인 포털 (문서 사이트, GitHub Pages)
 
-디자인 포털은 따로 된 사이트가 아니라 SB Studio 안의 메뉴 하나다. POC에서는 문서 사이트(저장소 루트 `index.html`)
-자체에 붙어서, 위쪽 **역할**에 따라 같은 페이지에 영역이 더해진다.
+SB Studio 안에서 여는 BSS 디자인 포털과 같은 메뉴 · 틀로 저장소 루트 사이트(`index.html`)를 만들었다.
+지금 쓰는 포털 화면은 이쪽이다. 이 폴더의 서버 · `public/` 화면은 서버 API와 Figma · Claude 실연결을 확인하는 개발용이다.
 
-| 역할 | 더해지는 곳 |
-|---|---|
-| 보기 | 컴포넌트 · 패턴 페이지의 "수정 요청", 아이콘 페이지의 "아이콘 요청", 새 컴포넌트 요청, 메뉴 "내 요청" |
-| DS 담당자 | 컴포넌트 페이지의 "피그마에서 다시 읽기", 전체 목록의 "컴포넌트 추가", 들어온 요청의 작업 시작 |
-| UX 담당자 | 사용 가이드 · 패턴 규칙 편집(규칙 번호 자동, 가이드에 `UX-BUTTON-05`처럼 표시), SB 블록 소스 편집 · 승격 1단 심사 |
-| 관리자 | 메뉴 "버전 · 배포"의 정기 · 수동 배포와 롤백 (위 모든 영역도 보임) |
-
-변경은 `#change-CH-0001` 작업 공간(변환 · 자동 확인 · 바뀐 점 · 미리보기 · 챗 · 확인 · 배포 요청)에서 이어 가고,
-운영에 배포되면 문서 페이지가 그 내용으로 바뀐다 (설명 · 정책 문구 · 규칙, 새 컴포넌트 · 아이콘).
-
-```bash
-npm run build:site    # → ../site/portal-core.js
-```
-
-`portal-core.js`는 이 폴더의 업무 코드(`lib/*`)를 브라우저용으로 묶은 것이다. `lib/`를 고치면 다시 빌드해 같이 커밋한다.
-
-- 진행 상태는 보는 사람 브라우저의 localStorage에만 저장된다 (팀원끼리 공유되지 않음)
-- 피그마 변환 · AI는 흉내 모드만 쓴다 (키를 웹페이지에 둘 수 없음)
-- SB library에는 SB Studio가 만들었다고 가정한 예시 블록 3개를 넣어 두었다
-- 화면 코드는 `../site/portal-ui.js` · `../site/portal.css`
-
-`public/`의 화면과 Studio 시뮬레이터는 서버 API를 직접 확인하는 개발용이다.
+- 메뉴: 조립 구조 · UX 거버넌스(규칙 메타 DB · 레이아웃 규칙 · 빈칸 · UX 패턴 · 검증 규칙) · 블록 · 컴포넌트(아이콘) · 승격 요청 · 변경 감지 · 초안 · 게시
+- 기준 데이터: `catalog/catalog.json`(SB Studio 포털 카탈로그 0.5) + 저장소 `components/` · `patterns/` · `icons/`
+- 역할: 보기(기획자) · UX 가이드 담당 · 디자인 시스템 담당 · 포털 승인 담당. 요청 단계는 없고, 편집 권한이 있는 담당이 그 자리에서 고친다
+  - 디자인 시스템 담당: 앱쉘 · 블록 · 컴포넌트 항목, Figma 노드 다시 읽기 · 새 컴포넌트 읽기
+  - UX 가이드 담당: 레이아웃 규칙, 규칙 메타 DB(추가 · 수정 · 삭제, 번호 자동), 컴포넌트 사용 가이드(UX-BUTTON-NN)
+  - 고친 내용은 초안이 되고, 포털 승인 담당이 게시하면 버전이 오른다 (MAJOR · MINOR · PATCH), 롤백 가능
+- 승격 요청: 구조 확인(UX 가이드 담당) → 모양 확인 · Figma 등록(디자인 시스템 담당) → 최종 승인(포털 승인 담당), 승인되면 tb- → b-, tc- → c-
+- 화면 코드 `../site/portal/`(store.js · views.js · portal.css), Figma 변환은 이 폴더 `lib/figma.mjs`를 묶은 `../site/portal-core.js`(`npm run build:site`)
+- 상태는 보는 사람 브라우저(localStorage)에만 저장되고, Figma 변환은 흉내 모드다
 
 ## 덱 → POC 대응
 
@@ -74,14 +61,14 @@ npm run build:site    # → ../site/portal-core.js
 server.mjs          HTTP 서버 · 정적 파일 (/ = public, /ds/ = 저장소 문서 사이트)
 lib/routes.mjs      API 경로 표 (서버와 정적 빌드가 같이 씀)
 lib/store.mjs       포털 상태
-lib/persist.mjs     서버 저장(data/state.json) · 저장소 JSON → 1.0.0 이관 / persist.browser.mjs: localStorage
+lib/persist.mjs     서버 저장(data/state.json) · 저장소 JSON → 1.0.0 이관
 lib/portal.mjs      업무 규칙: 케이스 1~4 · 승격 · 미리보기 · 배포 · 롤백 · 기준 묶음 · Studio
 lib/figma.mjs       피그마 주소 해석 · REST API 변환 · 흉내 모드 · 운영 대비 바뀐 점
 lib/checks.mjs      변환 자동 확인, SB 소스 검사, 자동 검사 4종
 lib/ai.mjs          Claude 연동(미리보기 챗 · 화면 생성, 구조화 출력) / ai.mock.mjs: 흉내 모드
 lib/version.mjs     MAJOR.MINOR.PATCH · 미리보기 표기
-public/             개발용 화면 (서버 API 확인). transport.local.js = 브라우저 안에서 lib를 부르는 방식
-scripts/build-site-core.mjs  문서 사이트용 포털 코어 → ../site/portal-core.js
+public/             개발용 화면 (서버 API 확인)
+scripts/build-site-core.mjs  문서 사이트 포털이 쓰는 Figma 변환 → ../site/portal-core.js
 site-core.entry.mjs  그 번들의 입구
 fixtures/figma/     흉내 모드용 Figma API 응답 예시
 test/flow.test.mjs  전체 흐름 테스트

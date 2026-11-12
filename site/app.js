@@ -6,16 +6,15 @@
 import { renderVariant, isRenderable } from './render.js';
 import { pagePattern, bindPattern } from './pattern.js';
 import { guideIntro, pageGuide, bindGuide } from './guide.js';
-import * as P from './portal-ui.js';
+import * as P from './portal/store.js';
+import * as V from './portal/views.js';
 
 const content = document.getElementById('content');
 const sidebar = document.getElementById('sidebar');
 const menuBtn = document.getElementById('menuBtn');
-const navComponents = document.getElementById('navComponents');
-const navPatterns = document.getElementById('navPatterns');
-const navPortal = document.getElementById('navPortal');
-const portalBar = document.getElementById('portalBar');
-let portalOn = false; // 디자인 포털(역할별 영역). 불러오지 못하면 문서 사이트만 보인다
+const detailEl = document.getElementById('detail');
+const ptMeta = document.getElementById('ptMeta');
+const ptRole = document.getElementById('ptRoleBox');
 
 const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]);
 const figmaUrl = (fileKey, nodeId) => `https://www.figma.com/design/${fileKey}/?node-id=${nodeId.replace(':', '-')}`;
@@ -62,52 +61,6 @@ document.addEventListener('click', (e) => {
 });
 
 // ---------- pages ----------
-function pageOverview({ components, icons }) {
-  const variants = components.reduce((n, c) => n + c.variants.length, 0);
-  const cards = components.map((c) => `
-    <a class="card" href="#${esc(c.key)}">
-      <span class="card-title">${esc(c.name)}</span>
-      <span class="card-desc">변형 ${c.variants.length} · 속성 ${c.props.length} · 토큰 ${c.tokens.length}</span>
-    </a>`).join('');
-  return `
-    <p class="eyebrow">시작하기</p>
-    <h1>BSS Design System</h1>
-    <p class="lead">Figma (공유용) Components Library v0.5를 기준으로 만든 디자인 시스템입니다. 컴포넌트를 골라 직접 눌러 보고, 속성을 바꿔 가며 모든 경우를 확인할 수 있어요.</p>
-    <div class="meta">
-      <a class="chip" href="${figmaUrl(icons.figma.fileKey, '0:1')}" target="_blank" rel="noopener">Figma 파일 ${esc(icons.figma.fileKey)} ↗</a>
-    </div>
-    ${portalOn ? P.overviewPanel() : ''}
-
-    <div class="cards">
-      <a class="card" href="#components"><span class="card-desc">컴포넌트</span><span class="stat">${components.length}</span><span class="card-desc">변형 합계 ${variants}개</span></a>
-      <a class="card" href="#icons"><span class="card-desc">아이콘 (마스터)</span><span class="stat">${icons.icons.length}</span><span class="card-desc">${icons.sections.map((s) => `${esc(s.title.replace(' Icon', ''))} ${icons.icons.filter((i) => i.style === s.style).length}`).join(' · ')}</span></a>
-    </div>
-
-    <h2>추가하는 방법</h2>
-    <ol class="flow">
-      <li><div><strong>Figma 링크 전달</strong><span>컴포넌트 세트, 변형, 인스턴스 중 어느 링크든 됩니다.</span></div></li>
-      <li><div><strong>figma-to-json 스킬 실행</strong><span>Figma에서 읽은 값을 검사한 뒤 components/&lt;이름&gt;/component.json으로 저장하고 index.json에 추가합니다.</span></div></li>
-      <li><div><strong>이 페이지에 자동 반영</strong><span>사이트가 JSON을 읽어 왼쪽 메뉴와 상세 페이지를 만듭니다. 다시 올리면 공유 링크에도 반영됩니다.</span></div></li>
-    </ol>
-
-    <h2>컴포넌트 <span class="count">${components.length}</span></h2>
-    <div class="cards">${cards}</div>`;
-}
-
-function pageComponentList({ components }) {
-  const cards = components.map((c) => `
-    <a class="card" href="#${esc(c.key)}">
-      <span class="card-title">${esc(c.name)}</span>
-      <span class="card-desc">${c.props.filter((p) => p.type === 'variant').map((p) => esc(p.name)).join(' · ')}</span>
-    </a>`).join('');
-  return `
-    <p class="eyebrow">Components</p>
-    <h1>컴포넌트</h1>
-    <p class="lead">컴포넌트를 누르면 미리보기에서 직접 써 볼 수 있어요.</p>
-    <div class="cards">${cards}</div>
-    ${portalOn ? P.listPanel() : ''}`;
-}
-
 function variantSection(c) {
   const vprops = c.props.filter((p) => p.type === 'variant');
   if (!c.variants.length) return '';
@@ -289,7 +242,7 @@ function pageComponent(c, patterns = []) {
     <h1>${esc(c.name)}</h1>
     ${c.guide ? guideIntro(c, c.guide) : `<p class="lead">${c.description ? esc(c.description) : ''}</p>`}
     ${patternLinks(c, patterns)}
-    ${portalOn ? P.componentPanel(c) : ''}
+    ${V.compBar(c)}
     ${ok ? `
     ${c.guide ? '<h2>미리보기</h2>' : ''}
     <section class="sb" id="sb">
@@ -535,7 +488,7 @@ function pageIcons({ icons }) {
     <h1>아이콘</h1>
     <p class="lead">Figma ❖ Icon Resource의 마스터 컴포넌트 ${icons.icons.length}개입니다. Line·Filled는 <code>currentColor</code>라 글자색을 따라가고, Colored는 원본 색을 유지합니다. 기준 크기는 ${icons.size}×${icons.size}입니다.</p>
     <div class="meta"><a class="chip" href="${figmaUrl(icons.figma.fileKey, icons.figma.nodeId)}" target="_blank" rel="noopener">Figma ❖ Icon Resource ↗</a></div>
-    ${portalOn ? P.iconsPanel() : ''}
+    <div class="pt-sub"><a class="ch7" href="#cmp">컴포넌트</a><a class="ch7 on" href="#icons">아이콘</a></div>
     <div class="toolbar">
       <input type="search" class="search" id="iconSearch" placeholder="이름·그룹 검색 (예: arrow, Status)" aria-label="아이콘 검색" />
     </div>
@@ -599,7 +552,7 @@ async function bindIcons({ icons }) {
 
 // ---------- boot ----------
 async function boot() {
-  const [registry, icons, patternList] = await Promise.all([getJson('components/index.json'), getJson('icons/icons.json'), getJson('patterns/index.json')]);
+  const [registry, icons, patternList, catalog] = await Promise.all([getJson('components/index.json'), getJson('icons/icons.json'), getJson('patterns/index.json'), getJson('catalog/catalog.json')]);
   const components = await Promise.all(registry.components.map((key) => getJson(`components/${key}/component.json`)));
   // usage guides from the Figma design guide (components/guides.json lists which components have one)
   const guideList = await getJson('components/guides.json').catch(() => ({ guides: [] }));
@@ -613,67 +566,75 @@ async function boot() {
     const entries = await Promise.all(Object.entries(p.icons || {}).map(async ([k, f]) => [k, (await getText(`patterns/${p.key}/${f}`)).trim()]));
     p.iconSvg = Object.fromEntries(entries);
   }));
-  navPatterns.innerHTML = patterns.map((p) => `<a href="#pattern-${esc(p.key)}" data-route="pattern-${esc(p.key)}">${esc(p.name)}</a>`).join('');
-  const base = { components, icons };
+
+  // BSS 디자인 포털: 저장소 JSON + SB Studio 카탈로그가 기준, 게시된 변경은 브라우저 저장소에서
+  P.init({
+    catalog,
+    comps: Object.fromEntries(components.map((c) => [c.key, c])),
+    guides: Object.fromEntries(components.filter((c) => c.guide?.policy).map((c) => [c.key, c.guide.policy])),
+  });
   const ctx = { components, icons };
+  const codeOf = (key) => P.itemByKey(key)?.code || `c-${key}`;
 
-  // 디자인 포털: 운영 기준을 저장소 JSON에 덮어쓰고, 역할별 영역 · 메뉴를 그린다
-  function syncPortal() {
-    if (portalOn) {
-      ctx.components = P.overlay(base.components);
-      ctx.icons = P.overlayIcons(base.icons);
-      navPortal.innerHTML = P.nav();
-      navPortal.hidden = false;
-      portalBar.innerHTML = P.topbar();
-    }
-    ctx.components.sort((a, b) => a.name.localeCompare(b.name));
-    navComponents.innerHTML = ctx.components.map((c) => `<a href="#${esc(c.key)}" data-route="${esc(c.key)}">${esc(c.name)}</a>`).join('');
-  }
-
-  // scroll: 페이지를 옮길 때만 맨 위로 (포털 작업 뒤 다시 그릴 때는 자리 유지)
+  // scroll: 페이지를 옮길 때만 맨 위로 (편집 뒤 다시 그릴 때는 자리 유지)
   function render(scroll) {
-    syncPortal();
-    const { components } = ctx;
-    const route = location.hash.replace(/^#/, '') || 'overview';
-    const comp = components.find((c) => c.key === route);
+    let route = location.hash.replace(/^#/, '') || 'stack';
+    // 예전 주소(#button, #overview, #components)도 열리게
+    if (route === 'overview') route = 'stack';
+    if (route === 'components') route = 'cmp';
+    if (components.some((c) => c.key === route)) { location.replace(`#${codeOf(route)}`); return; }
+    const it = P.item(route);
+    const key = it?.key;
+    const comp = key && components.some((c) => c.key === key) ? structuredClone(P.comp(key)) : null;
+    const pcomp = key && !comp ? P.comp(key) : null;
     const pattern = patterns.find((p) => `pattern-${p.key}` === route);
-    const portalPage = portalOn && P.isPortalRoute(route);
-    const page = ['icons', 'components'].includes(route) || portalPage ? route.replace(/^change-.*/, 'changes') : comp ? comp.key : pattern ? route : 'overview';
-    sidebar.querySelectorAll('a[data-route]').forEach((a) => a.classList.toggle('active', a.dataset.route === page));
-    sidebar.classList.remove('open');
-    menuBtn.setAttribute('aria-expanded', 'false');
+
+    ptMeta.innerHTML = V.topMeta();
+    ptRole.innerHTML = V.roleSelect();
+    sidebar.innerHTML = V.nav(route);
     try {
-      if (page === 'icons') {
+      if (route === 'icons') {
         content.innerHTML = pageIcons(ctx);
         bindIcons(ctx).catch((err) => {
           document.getElementById('iconList').innerHTML = `<p class="error">아이콘을 불러오지 못했어요: ${esc(err.message)}</p>`;
         });
-      } else if (page === 'components') content.innerHTML = pageComponentList(ctx);
-      else if (portalPage) content.innerHTML = P.page(route);
+      } else if (V.isPortalRoute(route)) content.innerHTML = V.page(route, { patterns });
       else if (pattern) {
-        content.innerHTML = pagePattern(pattern, pattern.iconSvg) + (portalOn ? P.patternPanel(pattern) : '');
+        content.innerHTML = `<p class="crumb"><a href="#gov-patterns">UX 거버넌스 › UX 패턴</a></p>${pagePattern(pattern, pattern.iconSvg)}`;
         bindPattern(pattern);
-      }
-      else if (comp?.portalOnly) content.innerHTML = P.portalOnlyPage(comp);
-      else if (comp) {
-        content.innerHTML = pageComponent(comp, patterns);
+      } else if (comp) {
+        const c = V.applyGuide(comp);
+        content.innerHTML = `<p class="crumb"><a href="#cmp">컴포넌트</a> › <code>${esc(route)}</code></p>${pageComponent(c, patterns)}`;
         bindVariantFilter();
-        bindComponent(comp, ctx).catch((err) => {
+        bindComponent(c, ctx).catch((err) => {
           document.getElementById('sbStage')?.insertAdjacentHTML('beforeend', `<p class="error">미리보기를 그리지 못했어요: ${esc(err.message)}</p>`);
         });
-      } else content.innerHTML = pageOverview(ctx);
+      } else if (pcomp) content.innerHTML = `<p class="crumb"><a href="#cmp">컴포넌트</a> › <code>${esc(route)}</code></p>${V.portalOnlyPage(pcomp)}`;
+      else if (it) {
+        // 상세 페이지가 없는 카탈로그 항목은 그 탭에서 오른쪽 상세로
+        pendingSel = route;
+        location.replace(`#${V.tabOf(route) === 'gov' ? 'gov-layouts' : V.tabOf(route)}`);
+        return;
+      } else content.innerHTML = V.page('stack');
     } catch (err) {
       content.innerHTML = `<p class="error">페이지를 그리지 못했어요: ${esc(err.message)}</p>`;
+      console.error(err);
     }
-    if (scroll) window.scrollTo(0, 0);
+    const d = V.detail();
+    detailEl.innerHTML = d;
+    detailEl.hidden = !d;
+    document.getElementById('ptMain').classList.toggle('sd', !!d);
+    sidebar.classList.remove('open');
+    menuBtn.setAttribute('aria-expanded', 'false');
+    if (scroll) content.scrollTo?.(0, 0);
   }
-  try {
-    await P.init({ rerender: render, toast });
-    portalOn = true;
-  } catch (err) {
-    console.warn('디자인 포털을 불러오지 못했어요', err);
-  }
-  window.addEventListener('hashchange', () => render(true));
+  let pendingSel = null; // #b-top처럼 상세 페이지가 없는 코드로 들어오면 그 탭에서 오른쪽 상세를 연다
+  V.init({ rerender: () => render(false), toast });
+  window.addEventListener('hashchange', () => {
+    V.clearSelection();
+    if (pendingSel) { V.openDetail(pendingSel); pendingSel = null; }
+    render(true);
+  });
   render(true);
 }
 
@@ -683,5 +644,5 @@ menuBtn.addEventListener('click', () => {
 });
 
 boot().catch((err) => {
-  content.innerHTML = `<p class="error">데이터를 불러오지 못했어요: ${esc(err.message)}<br />로컬에서 볼 때는 이 폴더를 서버로 열어 주세요: <code>python3 -m http.server 8791 --directory design-system</code></p>`;
+  content.innerHTML = `<p class="error">데이터를 불러오지 못했어요: ${esc(err.message)}<br />로컬에서 볼 때는 이 폴더를 서버로 열어 주세요: <code>python3 -m http.server 8791</code></p>`;
 });
