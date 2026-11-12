@@ -246,261 +246,286 @@
   {
    "code": "c-button",
    "kind": "comp",
-   "name": "버튼",
+   "name": "Button",
    "status": "pub",
    "design": true,
    "ux": true,
    "meaning": "실행·진입 동작 · 영역당 주 버튼 하나",
    "variants": "primary · secondary · base · text · accent",
-   "key": "button"
+   "key": "button",
+   "nameKo": "버튼"
   },
   {
    "code": "c-text-field",
    "kind": "comp",
-   "name": "텍스트 입력",
+   "name": "TextField",
    "status": "pub",
    "design": true,
    "ux": true,
    "meaning": "자유 입력 한 칸",
    "variants": "default · clear",
-   "key": "text-field"
+   "key": "text-field",
+   "nameKo": "텍스트 입력"
   },
   {
    "code": "c-search-field",
    "kind": "comp",
-   "name": "검색 입력",
+   "name": "SearchField",
    "status": "pub",
    "design": true,
    "ux": true,
    "meaning": "입력 후 바로 검색",
-   "variants": "-"
+   "variants": "-",
+   "nameKo": "검색 입력"
   },
   {
    "code": "c-select",
    "kind": "comp",
-   "name": "드롭다운",
+   "name": "Select",
    "status": "pub",
    "design": true,
    "ux": true,
    "meaning": "선택지 5개 이상에서 선택",
-   "variants": "single · multi"
+   "variants": "single · multi",
+   "nameKo": "드롭다운"
   },
   {
    "code": "c-date-field",
    "kind": "comp",
-   "name": "기간 입력",
+   "name": "DateField",
    "status": "pub",
    "design": true,
    "ux": true,
    "meaning": "시작·종료 날짜 · 기본값 채움",
-   "variants": "range · single"
+   "variants": "range · single",
+   "nameKo": "기간 입력"
   },
   {
    "code": "c-tabs",
    "kind": "comp",
-   "name": "탭",
+   "name": "Tabs",
    "status": "pub",
    "design": true,
    "ux": true,
    "meaning": "컨텐트 묶음 전환 · 안에 빈칸이 있는 컨테이너형",
-   "variants": "line · contained"
+   "variants": "line · contained",
+   "nameKo": "탭"
   },
   {
    "code": "c-radio",
    "kind": "comp",
-   "name": "라디오",
+   "name": "Radio",
    "status": "pub",
    "design": true,
    "ux": true,
    "meaning": "선택지 2~4개 중 하나",
    "variants": "-",
-   "key": "radio"
+   "key": "radio",
+   "nameKo": "라디오"
   },
   {
    "code": "c-checkbox",
    "kind": "comp",
-   "name": "체크박스",
+   "name": "Checkbox",
    "status": "pub",
    "design": true,
    "ux": true,
    "meaning": "여러 항목 중 여러 개 선택 · 전체 · 부분 선택 표시",
    "variants": "unchecked · checked · indeterminate",
-   "key": "checkbox"
+   "key": "checkbox",
+   "nameKo": "체크박스"
   },
   {
    "code": "c-radio-group",
    "kind": "comp",
-   "name": "라디오 그룹",
+   "name": "RadioGroup",
    "status": "pub",
    "design": true,
    "ux": true,
    "meaning": "라디오 여러 개를 하나의 질문으로 묶음 · 하나만 선택",
    "variants": "-",
-   "key": "radio-group"
+   "key": "radio-group",
+   "nameKo": "라디오 그룹"
   },
   {
    "code": "c-text-area",
    "kind": "comp",
-   "name": "텍스트 영역",
+   "name": "TextArea",
    "status": "pub",
    "design": true,
    "ux": true,
    "meaning": "여러 줄 자유 입력",
    "variants": "-",
-   "key": "text-area"
+   "key": "text-area",
+   "nameKo": "텍스트 영역"
   },
   {
    "code": "c-password-field",
    "kind": "comp",
-   "name": "비밀번호 입력",
+   "name": "PasswordField",
    "status": "pub",
    "design": true,
    "ux": true,
    "meaning": "가려서 입력하는 비밀번호 한 칸 · 보기 전환",
    "variants": "large · medium · small",
-   "key": "password-field"
+   "key": "password-field",
+   "nameKo": "비밀번호 입력"
   },
   {
    "code": "c-helper-text",
    "kind": "comp",
-   "name": "도움말 텍스트",
+   "name": "HelperText",
    "status": "pub",
    "design": true,
    "ux": true,
    "meaning": "입력 칸 아래 안내 · 오류 문구",
    "variants": "default · error",
-   "key": "helper-text"
+   "key": "helper-text",
+   "nameKo": "도움말 텍스트"
   },
   {
    "code": "c-divider",
    "kind": "comp",
-   "name": "구분선",
+   "name": "Divider",
    "status": "pub",
    "design": true,
    "ux": false,
    "meaning": "영역 · 항목 사이를 나누는 선",
    "variants": "solid · dashed / horizontal · vertical",
-   "key": "divider"
+   "key": "divider",
+   "nameKo": "구분선"
   },
   {
    "code": "c-chip",
    "kind": "comp",
-   "name": "칩",
+   "name": "Chip",
    "status": "pub",
    "design": true,
    "ux": true,
    "meaning": "필터 전환·입력값 표시",
-   "variants": "filter · input"
+   "variants": "filter · input",
+   "nameKo": "칩"
   },
   {
    "code": "c-badge",
    "kind": "comp",
-   "name": "배지",
+   "name": "Badge",
    "status": "pub",
    "design": true,
    "ux": true,
    "meaning": "처리 상태 표시",
-   "variants": "basic · dotted"
+   "variants": "basic · dotted",
+   "nameKo": "배지"
   },
   {
    "code": "c-tag",
    "kind": "comp",
-   "name": "태그",
+   "name": "Tag",
    "status": "pub",
    "design": true,
    "ux": true,
    "meaning": "분류·속성 표시",
-   "variants": "keyword"
+   "variants": "keyword",
+   "nameKo": "태그"
   },
   {
    "code": "c-table-column-header",
    "kind": "comp",
-   "name": "표 머리 칸",
+   "name": "TableColumnHeader",
    "status": "pub",
    "design": true,
    "ux": true,
    "meaning": "열 제목과 정렬",
-   "variants": "sortable"
+   "variants": "sortable",
+   "nameKo": "표 머리 칸"
   },
   {
    "code": "c-table-text-cell",
    "kind": "comp",
-   "name": "표 글자 칸",
+   "name": "TableTextCell",
    "status": "pub",
    "design": true,
    "ux": true,
    "meaning": "행의 글자 칸",
-   "variants": "-"
+   "variants": "-",
+   "nameKo": "표 글자 칸"
   },
   {
    "code": "c-pagination",
    "kind": "comp",
-   "name": "페이지 번호",
+   "name": "Pagination",
    "status": "pub",
    "design": true,
    "ux": true,
    "meaning": "페이지 단위 이동",
-   "variants": "-"
+   "variants": "-",
+   "nameKo": "페이지 번호"
   },
   {
    "code": "c-callout",
    "kind": "comp",
-   "name": "콜아웃",
+   "name": "Callout",
    "status": "pub",
    "design": true,
    "ux": true,
    "meaning": "성격별 색과 라벨이 붙은 안내 상자",
-   "variants": "info · warning · success · danger · neutral · ai"
+   "variants": "info · warning · success · danger · neutral · ai",
+   "nameKo": "콜아웃"
   },
   {
    "code": "c-breadcrumb",
    "kind": "comp",
-   "name": "브레드크럼",
+   "name": "Breadcrumb",
    "status": "pub",
    "design": true,
    "ux": true,
    "meaning": "현재 위치 경로",
-   "variants": "-"
+   "variants": "-",
+   "nameKo": "브레드크럼"
   },
   {
    "code": "c-page-header",
    "kind": "comp",
-   "name": "페이지 헤더",
+   "name": "PageHeader",
    "status": "pub",
    "design": true,
    "ux": true,
    "meaning": "페이지 타이틀 글자",
-   "variants": "-"
+   "variants": "-",
+   "nameKo": "페이지 헤더"
   },
   {
    "code": "c-popup",
    "kind": "comp",
-   "name": "팝업",
+   "name": "Popup",
    "status": "draft",
    "design": true,
    "ux": true,
    "meaning": "어두운 배경·머리·본문·하단 버튼으로 구성된 컨테이너형 · 안은 l-popup 규칙",
-   "variants": "fixed · utility · full"
+   "variants": "fixed · utility · full",
+   "nameKo": "팝업"
   },
   {
    "code": "c-dialog",
    "kind": "comp",
-   "name": "다이얼로그",
+   "name": "Dialog",
    "status": "pub",
    "design": true,
    "ux": true,
    "meaning": "실행 전 확인",
-   "variants": "confirm · alert"
+   "variants": "confirm · alert",
+   "nameKo": "다이얼로그"
   },
   {
    "code": "c-toast",
    "kind": "comp",
-   "name": "토스트",
+   "name": "Toast",
    "status": "pub",
    "design": true,
    "ux": true,
    "meaning": "실행 후 알림",
-   "variants": "-"
+   "variants": "-",
+   "nameKo": "토스트"
   }
  ],
  "slots": [

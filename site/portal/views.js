@@ -67,7 +67,7 @@ export function sections() {
   const S = [
     ['start', '시작하기', [['overview', '개요'], ['stack', '조립 구조'], ['updates', '업데이트']]],
     ['foundations', 'Foundations', [['icons', '아이콘'], ['tokens', '디자인 토큰']]],
-    ['components', 'Components', [['components', '전체'], ...I.filter((i) => i.kind === 'comp').sort((a, b) => a.name.localeCompare(b.name, 'ko')).map((i) => [i.code, i.name])]],
+    ['components', 'Components', [['components', '전체'], ...I.filter((i) => i.kind === 'comp').sort((a, b) => a.name.localeCompare(b.name, 'en')).map((i) => [i.code, i.name])]],
     ['blocks', 'Blocks', [['blocks', '전체'], ...I.filter((i) => i.kind === 'shell' || i.kind === 'block').map((i) => [i.code, i.name])]],
     ['patterns', 'Patterns', [['patterns', '전체'], ...(ctx.data.patterns || []).map((p) => [`pattern-${p.key}`, `${p.name} 패턴`]), ...I.filter((i) => i.kind === 'layout').map((i) => [i.code, `${i.name} 레이아웃`])]],
     ['governance', 'UX 거버넌스', [['rules', '규칙'], ['slots', '빈칸'], ['lint', '검증 규칙']]],
@@ -237,7 +237,7 @@ function pageList(kind) {
   ${kind === 'block' ? '<h2 id="shell">앱쉘</h2>' + grid(I.filter((i) => i.kind === 'shell')) + '<h2 id="block">블록</h2>' + grid(I.filter((i) => i.kind === 'block')) : `<h2 id="all" class="sr">전체</h2>${grid(I)}`}`;
 }
 function grid(L) {
-  return `<div class="cards">${L.map((i) => `<a class="card" href="#${esc(i.code)}"><span class="card-eb">${esc(i.code)}${i.status !== 'pub' ? ` · ${P.STATUS[i.status]}` : ''}</span><b>${esc(i.name)}</b><span>${esc(i.meaning)}</span><span class="checks sm">${check(i.design, 'Figma')}${check(i.ux, 'UX')}</span></a>`).join('')}</div>`;
+  return `<div class="cards">${L.map((i) => `<a class="card" href="#${esc(i.code)}"><span class="card-eb">${esc(i.code)}${i.status !== 'pub' ? ` · ${P.STATUS[i.status]}` : ''}</span><b>${esc(i.name)}${i.nameKo && i.nameKo !== i.name ? ` <small>${esc(i.nameKo)}</small>` : ''}</b><span>${esc(i.meaning)}</span><span class="checks sm">${check(i.design, 'Figma')}${check(i.ux, 'UX')}</span></a>`).join('')}</div>`;
 }
 
 function pagePatterns() {
