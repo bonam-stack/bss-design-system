@@ -5,7 +5,7 @@
 
 import { renderVariant, isRenderable } from './render.js';
 import { pagePattern, bindPattern } from './pattern.js';
-import { guideIntro, pageGuide, bindGuide } from './guide.js';
+import { guideIntro, guideSections, bindGuide } from './guide.js';
 import * as P from './portal/store.js';
 import * as V from './portal/views.js';
 
@@ -136,18 +136,11 @@ function tokenSection(c) {
 
 // Developer details (node IDs, keys, tokens) live in one collapsed block at the bottom.
 function figmaDetails(c) {
-  const propRows = c.props.map((p) => `
-    <tr>
-      <td class="mono">${esc(p.name)}</td>
-      <td><span class="chip ${p.type === 'variant' ? 'chip--accent' : ''}">${esc(p.type)}</span></td>
-      <td class="mono">${esc(JSON.stringify(p.default))}</td>
-      <td>${p.options ? p.options.map((o) => `<code>${esc(o)}</code>`).join(' ') : '<span class="count">-</span>'}</td>
-    </tr>`).join('');
   const styles = [...(c.textStyles || []), ...(c.otherStyles || [])];
   const styleRows = styles.map((s) => `<tr><td class="mono">${esc(s.name)}</td><td class="mono">${esc(s.type)}</td><td>${copyBtn(s.key)}</td></tr>`).join('');
   return `
     <details class="dev">
-      <summary>Figma 정보 (노드 ID · 컴포넌트 키 · 토큰)</summary>
+      <summary>개발 정보 · Figma 노드 ID · 컴포넌트 키 · 변형 · 토큰</summary>
     <div class="btn-row"><a class="btn" href="${esc(c.figma.url)}" target="_blank" rel="noopener">Figma에서 보기 ↗</a></div>
     <h2>Figma 정보</h2>
     <dl class="dl">
@@ -157,9 +150,6 @@ function figmaDetails(c) {
       <dt>JSON 파일</dt><dd>${copyBtn(`components/${c.key}/component.json`)}</dd>
       <dt>읽은 날짜</dt><dd>${esc(c.figma.extractedAt || '-')}</dd>
     </dl>
-
-    <h2>속성 <span class="count">${c.props.length}</span></h2>
-    <div class="table-wrap"><table class="data"><thead><tr><th>이름</th><th>타입</th><th>기본값</th><th>옵션</th></tr></thead><tbody>${propRows}</tbody></table></div>
 
     ${variantSection(c)}
     ${tokenSection(c)}
@@ -236,8 +226,15 @@ function patternLinks(c, patterns) {
   return `<p class="pattern-links">사용 패턴 ${used.map((p) => `<a class="chip" href="#pattern-${esc(p.key)}">${esc(p.name)}</a>`).join('')}</p>`;
 }
 
+// 한 단계 낮춘 제목 (가이드 조각을 Anatomy · Properties · Guidelines 아래에 넣을 때)
+const demote = (html) => html.replace(/<(\/?)h3>/g, '<$1h4>').replace(/<(\/?)h2>/g, '<$1h3>');
+
+// 컴포넌트 페이지 구성 (SEED 문서형): 미리보기 → Anatomy → Properties → Guidelines → Usage → 개발 정보
 function pageComponent(c, patterns = []) {
   const ok = isRenderable(c);
+  const g = c.guide;
+  const S = g ? guideSections(c, g) : {};
+  const propRows = c.props.map((p) => `<tr><td class="mono">${esc(p.name)}</td><td>${esc(p.type)}</td><td class="mono">${esc(JSON.stringify(p.default))}</td><td>${p.options ? p.options.map((o) => `<code>${esc(o)}</code>`).join(' ') : '-'}</td></tr>`).join('');
   return `
     <p class="eyebrow">Components</p>
     <h1>${esc(c.name)}</h1>
@@ -262,14 +259,24 @@ function pageComponent(c, patterns = []) {
         <pre id="codeCss"></pre>
       </div>
     </section>
-    ${analyze(c).stateProp || analyze(c).selectProp ? '<p class="note">마우스를 올리거나 눌러 보세요. 키보드 Tab으로 포커스할 수도 있어요.</p>' : ''}
-    ${c.guide ? `<h2>개요</h2>${guideIntro(c, c.guide)}` : ''}
-    ${V.guideEditor(c)}
-    ${c.guide ? `<div id="guideBody">${pageGuide(c, c.guide)}</div>` : ''}
-    ${c.guide?.states ? '' : '<h2>케이스</h2>\n    <div id="sbCases"></div>'}` : `
+    ${analyze(c).stateProp || analyze(c).selectProp ? '<p class="note">마우스를 올리거나 눌러 보세요. 키보드 Tab으로 포커스할 수도 있어요.</p>' : ''}` : `
     <p class="error">이 컴포넌트는 예전 형식 JSON이라 미리보기를 그릴 수 없어요. Figma 링크로 다시 읽으면 나타나요.</p>`}
-    ${figmaDetails(c)}
-    ${V.compCatalog(c)}`;
+    <div id="guideBody">
+      ${S.anatomy ? `<h2>Anatomy</h2>${demote(S.anatomy)}` : ''}
+      <h2>Properties</h2>
+      ${demote(S.states || '')}${demote(S.variants || '')}
+      ${ok && !g?.states ? '<h3>케이스</h3><p class="note">속성 조합별 모양입니다.</p><div id="sbCases"></div>' : ''}
+      ${demote(S.spec || '')}
+      <h3>속성 목록 <span class="count">${c.props.length}</span></h3>
+      <div class="table-wrap"><table class="data"><thead><tr><th>이름</th><th>타입</th><th>기본값</th><th>옵션</th></tr></thead><tbody>${propRows}</tbody></table></div>
+      ${g || V.compRules(c) ? `<h2>Guidelines</h2>
+      ${g?.overview ? guideIntro(c, g) : ''}
+      ${V.guideEditor(c)}
+      ${S.policy ? demote(S.policy) : ''}${S.notes || ''}
+      ${V.compRules(c)}` : ''}
+    </div>
+    ${V.compUsage(c)}
+    ${figmaDetails(c)}`;
 }
 
 async function bindComponent(c, ctx) {
@@ -581,10 +588,20 @@ async function boot() {
 
   // 목차: 본문 h2 · h3 (해시는 페이지 경로로 쓰므로 목차는 버튼으로 스크롤)
   function buildToc() {
-    const hs = [...content.querySelectorAll('h2, h3')].filter((h) => !h.closest('.ed-panel, dialog') && !h.classList.contains('sr') && h.textContent.trim());
+    const hs = [...content.querySelectorAll('h2, h3')].filter((h) => !h.closest('.ed-panel, dialog, details.dev, .dbox') && !h.classList.contains('sr') && h.textContent.trim());
     hs.forEach((h, i) => { if (!h.id) h.id = `s-${i}`; });
-    tocEl.innerHTML = hs.length > 1 ? `<p class="toc-t">목차</p><ul>${hs.map((h) => `<li class="${h.tagName === 'H3' ? 'sub' : ''}"><button type="button" data-toc="${h.id}">${esc(h.childNodes[0]?.textContent?.trim() || h.textContent.trim())}</button></li>`).join('')}</ul>` : '';
+    const title = content.querySelector('h1')?.textContent.trim() || '';
+    const label = (h) => [...h.childNodes].filter((n) => n.nodeType === 3 || (n.nodeType === 1 && !n.matches('button, .count, .rule-id'))).map((n) => n.textContent).join('').trim();
+    const list = hs.length > 1 ? `<ul>${hs.map((h) => `<li class="${h.tagName === 'H3' ? 'sub' : ''}"><button type="button" data-toc="${h.id}">${esc(label(h))}</button></li>`).join('')}</ul>` : '';
+    tocEl.innerHTML = list ? `<p class="toc-t">목차</p><p class="toc-n">${esc(title)}</p>${list}` : '';
+    // 좁은 화면: 오른쪽 목차 대신 본문 위쪽에 접힌 목차
+    content.querySelector('.toc-inline')?.remove();
+    if (list) content.querySelector('.checks, .lead, h1')?.insertAdjacentHTML('afterend', `<details class="toc-inline"><summary>목차</summary>${list}</details>`);
   }
+  content.addEventListener('click', (e) => {
+    const b = e.target.closest('.toc-inline [data-toc]');
+    if (b) document.getElementById(b.dataset.toc)?.scrollIntoView({ block: 'start' });
+  });
   tocEl.addEventListener('click', (e) => {
     const b = e.target.closest('[data-toc]');
     if (b) document.getElementById(b.dataset.toc)?.scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start' });
