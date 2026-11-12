@@ -317,6 +317,72 @@
    "key": "radio"
   },
   {
+   "code": "c-checkbox",
+   "kind": "comp",
+   "name": "체크박스",
+   "status": "pub",
+   "design": true,
+   "ux": true,
+   "meaning": "여러 항목 중 여러 개 선택 · 전체 · 부분 선택 표시",
+   "variants": "unchecked · checked · indeterminate",
+   "key": "checkbox"
+  },
+  {
+   "code": "c-radio-group",
+   "kind": "comp",
+   "name": "라디오 그룹",
+   "status": "pub",
+   "design": true,
+   "ux": true,
+   "meaning": "라디오 여러 개를 하나의 질문으로 묶음 · 하나만 선택",
+   "variants": "-",
+   "key": "radio-group"
+  },
+  {
+   "code": "c-text-area",
+   "kind": "comp",
+   "name": "텍스트 영역",
+   "status": "pub",
+   "design": true,
+   "ux": true,
+   "meaning": "여러 줄 자유 입력",
+   "variants": "-",
+   "key": "text-area"
+  },
+  {
+   "code": "c-password-field",
+   "kind": "comp",
+   "name": "비밀번호 입력",
+   "status": "pub",
+   "design": true,
+   "ux": true,
+   "meaning": "가려서 입력하는 비밀번호 한 칸 · 보기 전환",
+   "variants": "large · medium · small",
+   "key": "password-field"
+  },
+  {
+   "code": "c-helper-text",
+   "kind": "comp",
+   "name": "도움말 텍스트",
+   "status": "pub",
+   "design": true,
+   "ux": true,
+   "meaning": "입력 칸 아래 안내 · 오류 문구",
+   "variants": "default · error",
+   "key": "helper-text"
+  },
+  {
+   "code": "c-divider",
+   "kind": "comp",
+   "name": "구분선",
+   "status": "pub",
+   "design": true,
+   "ux": false,
+   "meaning": "영역 · 항목 사이를 나누는 선",
+   "variants": "solid · dashed / horizontal · vertical",
+   "key": "divider"
+  },
+  {
    "code": "c-chip",
    "kind": "comp",
    "name": "칩",
