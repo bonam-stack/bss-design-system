@@ -12,9 +12,10 @@ import * as V from './portal/views.js';
 const content = document.getElementById('content');
 const sidebar = document.getElementById('sidebar');
 const menuBtn = document.getElementById('menuBtn');
-const detailEl = document.getElementById('detail');
-const ptMeta = document.getElementById('ptMeta');
-const ptRole = document.getElementById('ptRoleBox');
+const topNav = document.getElementById('topNav');
+const topR = document.getElementById('topR');
+const edBar = document.getElementById('edBar');
+const tocEl = document.getElementById('toc');
 
 const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]);
 const figmaUrl = (fileKey, nodeId) => `https://www.figma.com/design/${fileKey}/?node-id=${nodeId.replace(':', '-')}`;
@@ -238,13 +239,13 @@ function patternLinks(c, patterns) {
 function pageComponent(c, patterns = []) {
   const ok = isRenderable(c);
   return `
-    <p class="eyebrow">Component</p>
+    <p class="eyebrow">Components</p>
     <h1>${esc(c.name)}</h1>
-    ${c.guide ? guideIntro(c, c.guide) : `<p class="lead">${c.description ? esc(c.description) : ''}</p>`}
+    <p class="lead">${esc(P.itemByKey(c.key)?.meaning || c.description || '')}</p>
+    ${V.compChecks(c)}
     ${patternLinks(c, patterns)}
-    ${V.compBar(c)}
+    ${V.compEditor(c)}
     ${ok ? `
-    ${c.guide ? '<h2>미리보기</h2>' : ''}
     <section class="sb" id="sb">
       <div class="sb-tabs" role="tablist">
         <button role="tab" aria-selected="true" data-tab="preview">미리보기</button>
@@ -262,10 +263,13 @@ function pageComponent(c, patterns = []) {
       </div>
     </section>
     ${analyze(c).stateProp || analyze(c).selectProp ? '<p class="note">마우스를 올리거나 눌러 보세요. 키보드 Tab으로 포커스할 수도 있어요.</p>' : ''}
+    ${c.guide ? `<h2>개요</h2>${guideIntro(c, c.guide)}` : ''}
+    ${V.guideEditor(c)}
     ${c.guide ? `<div id="guideBody">${pageGuide(c, c.guide)}</div>` : ''}
     ${c.guide?.states ? '' : '<h2>케이스</h2>\n    <div id="sbCases"></div>'}` : `
     <p class="error">이 컴포넌트는 예전 형식 JSON이라 미리보기를 그릴 수 없어요. Figma 링크로 다시 읽으면 나타나요.</p>`}
-    ${figmaDetails(c)}`;
+    ${figmaDetails(c)}
+    ${V.compCatalog(c)}`;
 }
 
 async function bindComponent(c, ctx) {
@@ -488,7 +492,6 @@ function pageIcons({ icons }) {
     <h1>아이콘</h1>
     <p class="lead">Figma ❖ Icon Resource의 마스터 컴포넌트 ${icons.icons.length}개입니다. Line·Filled는 <code>currentColor</code>라 글자색을 따라가고, Colored는 원본 색을 유지합니다. 기준 크기는 ${icons.size}×${icons.size}입니다.</p>
     <div class="meta"><a class="chip" href="${figmaUrl(icons.figma.fileKey, icons.figma.nodeId)}" target="_blank" rel="noopener">Figma ❖ Icon Resource ↗</a></div>
-    <div class="pt-sub"><a class="ch7" href="#cmp">컴포넌트</a><a class="ch7 on" href="#icons">아이콘</a></div>
     <div class="toolbar">
       <input type="search" class="search" id="iconSearch" placeholder="이름·그룹 검색 (예: arrow, Status)" aria-label="아이콘 검색" />
     </div>
@@ -576,12 +579,23 @@ async function boot() {
   const ctx = { components, icons };
   const codeOf = (key) => P.itemByKey(key)?.code || `c-${key}`;
 
+  // 목차: 본문 h2 · h3 (해시는 페이지 경로로 쓰므로 목차는 버튼으로 스크롤)
+  function buildToc() {
+    const hs = [...content.querySelectorAll('h2, h3')].filter((h) => !h.closest('.ed-panel, dialog') && !h.classList.contains('sr') && h.textContent.trim());
+    hs.forEach((h, i) => { if (!h.id) h.id = `s-${i}`; });
+    tocEl.innerHTML = hs.length > 1 ? `<p class="toc-t">목차</p><ul>${hs.map((h) => `<li class="${h.tagName === 'H3' ? 'sub' : ''}"><button type="button" data-toc="${h.id}">${esc(h.childNodes[0]?.textContent?.trim() || h.textContent.trim())}</button></li>`).join('')}</ul>` : '';
+  }
+  tocEl.addEventListener('click', (e) => {
+    const b = e.target.closest('[data-toc]');
+    if (b) document.getElementById(b.dataset.toc)?.scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start' });
+  });
+
   // scroll: 페이지를 옮길 때만 맨 위로 (편집 뒤 다시 그릴 때는 자리 유지)
   function render(scroll) {
-    let route = location.hash.replace(/^#/, '') || 'stack';
-    // 예전 주소(#button, #overview, #components)도 열리게
-    if (route === 'overview') route = 'stack';
-    if (route === 'components') route = 'cmp';
+    let route = location.hash.replace(/^#/, '') || 'overview';
+    // 예전 주소(#button, #stack 탭 등)도 열리게
+    const alias = { cmp: 'components', blk: 'blocks', gov: 'rules', 'gov-layouts': 'patterns', 'gov-slots': 'slots', 'gov-lint': 'lint', 'gov-patterns': 'patterns' };
+    if (alias[route]) { location.replace(`#${alias[route]}`); return; }
     if (components.some((c) => c.key === route)) { location.replace(`#${codeOf(route)}`); return; }
     const it = P.item(route);
     const key = it?.key;
@@ -589,52 +603,41 @@ async function boot() {
     const pcomp = key && !comp ? P.comp(key) : null;
     const pattern = patterns.find((p) => `pattern-${p.key}` === route);
 
-    ptMeta.innerHTML = V.topMeta();
-    ptRole.innerHTML = V.roleSelect();
-    sidebar.innerHTML = V.nav(route);
+    topNav.innerHTML = V.topNav(route);
+    topR.innerHTML = V.roleMenu();
+    edBar.innerHTML = V.editorBar();
+    sidebar.innerHTML = V.sideNav(route);
+    let body = '';
     try {
       if (route === 'icons') {
-        content.innerHTML = pageIcons(ctx);
+        content.innerHTML = pageIcons(ctx) + V.pager(route);
         bindIcons(ctx).catch((err) => {
           document.getElementById('iconList').innerHTML = `<p class="error">아이콘을 불러오지 못했어요: ${esc(err.message)}</p>`;
         });
-      } else if (V.isPortalRoute(route)) content.innerHTML = V.page(route, { patterns });
-      else if (pattern) {
-        content.innerHTML = `<p class="crumb"><a href="#gov-patterns">UX 거버넌스 › UX 패턴</a></p>${pagePattern(pattern, pattern.iconSvg)}`;
+      } else if (pattern) {
+        content.innerHTML = pagePattern(pattern, pattern.iconSvg) + V.lastUpdated() + V.pager(route);
         bindPattern(pattern);
       } else if (comp) {
         const c = V.applyGuide(comp);
-        content.innerHTML = `<p class="crumb"><a href="#cmp">컴포넌트</a> › <code>${esc(route)}</code></p>${pageComponent(c, patterns)}`;
+        content.innerHTML = pageComponent(c, patterns) + V.lastUpdated() + V.pager(route);
         bindVariantFilter();
         bindComponent(c, ctx).catch((err) => {
           document.getElementById('sbStage')?.insertAdjacentHTML('beforeend', `<p class="error">미리보기를 그리지 못했어요: ${esc(err.message)}</p>`);
         });
-      } else if (pcomp) content.innerHTML = `<p class="crumb"><a href="#cmp">컴포넌트</a> › <code>${esc(route)}</code></p>${V.portalOnlyPage(pcomp)}`;
-      else if (it) {
-        // 상세 페이지가 없는 카탈로그 항목은 그 탭에서 오른쪽 상세로
-        pendingSel = route;
-        location.replace(`#${V.tabOf(route) === 'gov' ? 'gov-layouts' : V.tabOf(route)}`);
-        return;
-      } else content.innerHTML = V.page('stack');
+      } else if (pcomp) content.innerHTML = V.portalOnlyPage(pcomp) + V.lastUpdated() + V.pager(route);
+      else if ((body = V.page(route)) !== null) content.innerHTML = body + (it ? V.lastUpdated() : '') + V.pager(route);
+      else { location.replace('#overview'); return; }
     } catch (err) {
       content.innerHTML = `<p class="error">페이지를 그리지 못했어요: ${esc(err.message)}</p>`;
       console.error(err);
     }
-    const d = V.detail();
-    detailEl.innerHTML = d;
-    detailEl.hidden = !d;
-    document.getElementById('ptMain').classList.toggle('sd', !!d);
+    buildToc();
     sidebar.classList.remove('open');
     menuBtn.setAttribute('aria-expanded', 'false');
-    if (scroll) content.scrollTo?.(0, 0);
+    if (scroll) window.scrollTo(0, 0);
   }
-  let pendingSel = null; // #b-top처럼 상세 페이지가 없는 코드로 들어오면 그 탭에서 오른쪽 상세를 연다
-  V.init({ rerender: () => render(false), toast });
-  window.addEventListener('hashchange', () => {
-    V.clearSelection();
-    if (pendingSel) { V.openDetail(pendingSel); pendingSel = null; }
-    render(true);
-  });
+  V.init({ rerender: () => render(false), toast, data: { patterns, icons } });
+  window.addEventListener('hashchange', () => { V.resetUi(); render(true); });
   render(true);
 }
 

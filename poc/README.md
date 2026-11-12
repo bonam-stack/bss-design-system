@@ -27,18 +27,8 @@ npm test           # 케이스 1~4 · 승격 · 배포 · 롤백 · Studio 연�
 
 ## BSS 디자인 포털 (문서 사이트, GitHub Pages)
 
-SB Studio 안에서 여는 BSS 디자인 포털과 같은 메뉴 · 틀로 저장소 루트 사이트(`index.html`)를 만들었다.
-지금 쓰는 포털 화면은 이쪽이다. 이 폴더의 서버 · `public/` 화면은 서버 API와 Figma · Claude 실연결을 확인하는 개발용이다.
-
-- 메뉴: 조립 구조 · UX 거버넌스(규칙 메타 DB · 레이아웃 규칙 · 빈칸 · UX 패턴 · 검증 규칙) · 블록 · 컴포넌트(아이콘) · 승격 요청 · 변경 감지 · 초안 · 게시
-- 기준 데이터: `catalog/catalog.json`(SB Studio 포털 카탈로그 0.5) + 저장소 `components/` · `patterns/` · `icons/`
-- 역할: 보기(기획자) · UX 가이드 담당 · 디자인 시스템 담당 · 포털 승인 담당. 요청 단계는 없고, 편집 권한이 있는 담당이 그 자리에서 고친다
-  - 디자인 시스템 담당: 앱쉘 · 블록 · 컴포넌트 항목, Figma 노드 다시 읽기 · 새 컴포넌트 읽기
-  - UX 가이드 담당: 레이아웃 규칙, 규칙 메타 DB(추가 · 수정 · 삭제, 번호 자동), 컴포넌트 사용 가이드(UX-BUTTON-NN)
-  - 고친 내용은 초안이 되고, 포털 승인 담당이 게시하면 버전이 오른다 (MAJOR · MINOR · PATCH), 롤백 가능
-- 승격 요청: 구조 확인(UX 가이드 담당) → 모양 확인 · Figma 등록(디자인 시스템 담당) → 최종 승인(포털 승인 담당), 승인되면 tb- → b-, tc- → c-
-- 화면 코드 `../site/portal/`(store.js · views.js · portal.css), Figma 변환은 이 폴더 `lib/figma.mjs`를 묶은 `../site/portal-core.js`(`npm run build:site`)
-- 상태는 보는 사람 브라우저(localStorage)에만 저장되고, Figma 변환은 흉내 모드다
+지금 쓰는 포털 화면은 저장소 루트 사이트(`index.html`)다. 이 폴더의 서버 · `public/` 화면은 서버 API와 Figma · Claude 실연결을 확인하는 개발용이다.
+사이트 구성과 역할별 에디터 모드는 저장소 README의 "BSS 디자인 포털"을 본다. Figma 변환은 이 폴더 `lib/figma.mjs`를 묶은 `../site/portal-core.js`(`npm run build:site`)를 쓴다.
 
 ## 덱 → POC 대응
 
