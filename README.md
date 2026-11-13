@@ -1,6 +1,6 @@
 # BSS Design System
 
-Figma 기준 파일: `WcoI745J38TaON7iCKcutW` ((공유용) Components Library v0.5)
+Figma 기준 파일: `9AioWOXVOVm5C7kdSxSEEP` ((공유용) BSS_DS_Library_Component v2.0, 2026-11-13부터. 이전: `WcoI745J38TaON7iCKcutW` Components Library v0.5)
 
 ## 문서 사이트
 

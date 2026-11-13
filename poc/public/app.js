@@ -412,7 +412,7 @@ views.change = (id) => {
 
 function sampleUrls(c) {
   const out = [];
-  const fk = "WcoI745J38TaON7iCKcutW";
+  const fk = "9AioWOXVOVm5C7kdSxSEEP";
   if (c.case === "ds") {
     const comp = S.baseline.components.find((x) => x.key === c.target?.key);
     if (comp) out.push([`${comp.name} 노드`, comp.figma.url]);

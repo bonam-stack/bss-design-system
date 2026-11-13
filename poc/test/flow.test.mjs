@@ -14,7 +14,7 @@ const store = await import("../lib/store.mjs");
 const portal = await import("../lib/portal.mjs");
 const { checkInstruction } = await import("../lib/checks.mjs");
 
-const FIGMA = (node) => `https://www.figma.com/design/WcoI745J38TaON7iCKcutW/Lib?node-id=${node.replace(":", "-")}`;
+const FIGMA = (node) => `https://www.figma.com/design/9AioWOXVOVm5C7kdSxSEEP/Lib?node-id=${node.replace(":", "-")}`;
 const ship = (role, id) => {
   portal.markChecked(role, id);
   portal.requestDeploy(role, id);
@@ -50,15 +50,15 @@ test("케이스 1: 새 컴포넌트 요청 → 피그마 변환 → 미리보기
 });
 
 test("Studio: 기준 묶음으로 화면 생성 → 검사 4종 → 새 SB 블록 · 더미 아이콘", async () => {
-  const st = await portal.studioGenerate({ title: "고객 조회", description: "고객명 입력, 생년월일 입력, 결과 목록, Upload 아이콘 조회 버튼", screenType: "조회" });
+  const st = await portal.studioGenerate({ title: "고객 조회", description: "고객명 입력, 생년월일 입력, 결과 목록, Rocket 아이콘 조회 버튼", screenType: "조회" });
   assert.equal(st.baseVersion, "1.1.0");
   assert.ok(st.checks.every((c) => c.pass), JSON.stringify(st.checks));
-  assert.deepEqual(st.dummyIcons, ["Upload"]);
+  assert.deepEqual(st.dummyIcons, ["Rocket"]);
   const sb = Object.values(store.released().sbBlocks);
   assert.equal(sb.length, 1);
   assert.throws(() => portal.studioHandoff(st.id), /더미 아이콘/);
   // 아이콘 요청이 자동으로 생겼다
-  assert.ok(store.getState().changes.find((c) => c.case === "icon" && c.target.key === "Upload"));
+  assert.ok(store.getState().changes.find((c) => c.case === "icon" && c.target.key === "Rocket"));
 });
 
 test("자동 검사 4종은 묶음에 없는 값 · 토큰 · 규칙을 잡는다", () => {
@@ -77,7 +77,7 @@ test("자동 검사 4종은 묶음에 없는 값 · 토큰 · 규칙을 잡는�
 });
 
 test("케이스 4: 아이콘 제작 → 배포 → 더미 자동 교체 → 핸드오프", async () => {
-  const c = store.getState().changes.find((x) => x.case === "icon" && x.target.key === "Upload");
+  const c = store.getState().changes.find((x) => x.case === "icon" && x.target.key === "Rocket");
   portal.startWork("ds", c.id);
   await portal.convertFigma("ds", c.id, FIGMA("9100:1"));
   assert.equal(c.status, "preview", JSON.stringify(c.checks));
