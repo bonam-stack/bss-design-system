@@ -5,7 +5,7 @@ import * as P from './store.js';
 
 const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]);
 const fmt = (iso) => (iso ? new Date(iso).toLocaleString('ko-KR', { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' }) : '');
-const FIGMA_FILE = 'WcoI745J38TaON7iCKcutW';
+const FIGMA_FILE = '9AioWOXVOVm5C7kdSxSEEP';
 
 let role = 'viewer';
 let ui = { q: '', kd: '', editRule: null, edit: null }; // edit: 지금 열린 편집 칸 키

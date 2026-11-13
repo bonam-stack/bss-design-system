@@ -1,6 +1,6 @@
 {
   "$description": "흉내 모드용 예시 응답. Figma REST API GET /v1/files/:key/nodes 응답의 nodes[id] 모양을 따른다. 실제 피그마 노드가 아니다.",
-  "fileKey": "WcoI745J38TaON7iCKcutW",
+  "fileKey": "9AioWOXVOVm5C7kdSxSEEP",
   "nodeId": "9000:1",
   "entry": {
     "document": {
