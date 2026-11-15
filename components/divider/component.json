@@ -2,19 +2,19 @@
   "schemaVersion": 2,
   "key": "divider",
   "name": "Divider",
-  "description": "",
+  "description": "영역이나 항목 사이를 나누는 구분선입니다. type: solid 실선, dashed 점선. direction: horizontal 가로, vertical 세로. 길이는 놓는 자리에 맞춰 늘립니다. 선 색은 Semantic color/border/neutral/muted에 바로 연결합니다(전용 컴포넌트 토큰 없음).",
   "figma": {
-    "fileKey": "WcoI745J38TaON7iCKcutW",
+    "fileKey": "9AioWOXVOVm5C7kdSxSEEP",
     "nodeId": "2366:22931",
-    "url": "https://www.figma.com/design/WcoI745J38TaON7iCKcutW?node-id=2366-22931",
+    "url": "https://www.figma.com/design/9AioWOXVOVm5C7kdSxSEEP?node-id=2366-22931",
     "page": {
       "nodeId": "2089:22630",
-      "name": "❖ Divider"
+      "name": "    ❖ Divider"
     },
     "type": "COMPONENT_SET",
-    "componentKey": "dd7ec6d7821aedbceb2196e892a752da111d28f0",
+    "componentKey": "c03dd71c8b931bb02be58c33d09e1ea095dc5af1",
     "requestedFrom": null,
-    "extractedAt": "2026-11-05"
+    "extractedAt": "2026-11-15"
   },
   "props": [
     {
@@ -41,7 +41,7 @@
   "variants": [
     {
       "nodeId": "2366:22930",
-      "key": "f607a0dd89270c1f5c52446ea298d7b439b1da3f",
+      "key": "45129e18c89bccb4912c97e1d16d2ea7d2d5d28b",
       "props": {
         "type": "solid",
         "direction": "horizontal"
@@ -104,7 +104,7 @@
     },
     {
       "nodeId": "2376:267",
-      "key": "70f4ed5a4bcc7b578fc4a3d8170b726b4e68f8dc",
+      "key": "45aff3d36bfbe8877dd46646e39435058682a23d",
       "props": {
         "type": "solid",
         "direction": "vertical"
@@ -167,7 +167,7 @@
     },
     {
       "nodeId": "2376:257",
-      "key": "c05efcf39e291d3e76432495b3ce076d4e272ce4",
+      "key": "d220b9b7c5278fd1652cb73ae00c090ebb1e5172",
       "props": {
         "type": "dashed",
         "direction": "horizontal"
@@ -234,7 +234,7 @@
     },
     {
       "nodeId": "2376:269",
-      "key": "f4347a07396e9650971bb2b9e69413d660e9ae73",
+      "key": "e553fb5b52d5b270aa2fd902fbc7f81651edb6e4",
       "props": {
         "type": "dashed",
         "direction": "vertical"
@@ -308,7 +308,7 @@
       "type": "COLOR",
       "value": "#DCE0E5",
       "alias": "color/gray/200",
-      "key": "d8941f5bf27aa10efe7126f200873a31f6ced7b3"
+      "key": "7750ecb51f54851c4403b01b91898f9a9a0b0bd1"
     }
   ],
   "textStyles": [],

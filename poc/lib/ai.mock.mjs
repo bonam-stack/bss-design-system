@@ -59,7 +59,7 @@ export function mockScreen({ bundle, request, feedback }) {
       component: "button",
       props: [
         { name: "label", value: /저장/.test(text) ? "저장" : "조회" },
-        { name: "type", value: "action" },
+        { name: "type", value: "square" },
         { name: "showLeadingIcon", value: iconWord ? "true" : "false" },
       ],
       tokens: [],
