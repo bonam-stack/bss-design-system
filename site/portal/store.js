@@ -141,7 +141,7 @@ export function draftItem(role, code, fields) {
     else if (k === 'variants') bump = String(cur[k] || '').split(/\s*·\s*/).every((x) => String(v).includes(x)) ? (bump === 'MAJOR' ? bump : 'MINOR') : 'MAJOR';
   }
   if (!lines.length) throw new Error('바뀐 내용이 없습니다');
-  return upsertDraft({ type: 'item', target: code, title: `${code} ${cur.name} 수정`, after: fields, lines, bump }, role);
+  return upsertDraft({ type: 'item', target: code, title: `${cur.name} 수정`, after: fields, lines, bump }, role);
 }
 
 /** 규칙 메타 DB: 수정 · 추가(id 없음) · 삭제 */
