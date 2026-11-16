@@ -94,7 +94,7 @@ table.t { width: 100%; border-collapse: collapse; font-size: 14px; line-height: 
 table.t th, table.t td { text-align: left; padding: 10px 14px; border-bottom: 1px solid var(--border); vertical-align: top; }
 table.t tr:last-child td { border-bottom: 0; }
 table.t thead th { background: var(--surface-weak); font-size: 12px; font-weight: 500; color: var(--fg-muted); white-space: nowrap; }
-table.t td.codes { min-width: 200px; line-height: 2; }
+table.t td.codes { min-width: 200px; }
 .nw { white-space: nowrap; }
 .muted { color: var(--fg-muted); }
 .mono { font-family: var(--mono); font-size: 12px; }
@@ -106,7 +106,7 @@ table.t td.codes { min-width: 200px; line-height: 2; }
 .rid { font-family: var(--mono); font-size: 12px; font-weight: 600; color: var(--fg); text-decoration: none; }
 .rk { font-size: 11px; padding: 1px 6px; border-radius: 5px; background: var(--surface-card); color: var(--fg-muted); white-space: nowrap; }
 .stk { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
-.stk li { display: grid; grid-template-columns: 28px 120px 44px minmax(0, 1fr) auto; gap: 10px; align-items: center; padding: 12px 14px; border-radius: 12px; background: var(--surface-weak); }
+.stk li { display: grid; grid-template-columns: 28px 120px minmax(0, 1fr) auto; gap: 10px; align-items: center; padding: 12px 14px; border-radius: 12px; background: var(--surface-weak); }
 .stk li:nth-child(2) { margin-left: 16px; } .stk li:nth-child(3) { margin-left: 32px; } .stk li:nth-child(4) { margin-left: 48px; } .stk li:nth-child(5) { margin-left: 64px; }
 .stk a { color: var(--fg); }
 .sn { width: 24px; height: 24px; border-radius: 50%; background: var(--fg); color: var(--bg); font-size: 12px; font-weight: 700; display: grid; place-items: center; }
@@ -194,7 +194,7 @@ button.chip { height: 28px; padding: 0 12px; font: inherit; font-size: 12px; }
   .content { padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-block: 28px 80px; }
   .content h1 { font-size: 32px; }
   .stk li { grid-template-columns: 28px minmax(0, 1fr) auto; margin-left: 0 !important; }
-  .stk li code, .stk li > span { grid-column: 2; }
+  .stk li > span { grid-column: 2; }
   .ge-r, .rl li { grid-template-columns: minmax(0, 1fr); }
   .pager { grid-template-columns: 1fr; }
   .ed-bar .ed-ver { margin-left: 0; }

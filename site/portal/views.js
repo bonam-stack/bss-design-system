@@ -42,9 +42,23 @@ const KIND_SECTION = { shell: 'blocks', block: 'blocks', comp: 'components', lay
 const KIND_LABEL = { shell: 'App shell', block: 'Blocks', comp: 'Components', layout: 'Layout rules' };
 const link = (code) => {
   const it = P.item(code);
-  if (it) return `<a class="code" href="#${esc(code)}">${esc(code)}</a>`;
-  return `<code class="code muted">${esc(code)}</code>`;
+  if (it) return `<a href="#${esc(code)}">${esc(it.name)}</a>`;
+  const sl = P.slot(code);
+  return esc(sl ? sl.name : code);
 };
+/** 글 속에 섞인 카탈로그 코드 · 빈칸 경로를 이름으로 바꿔 보여 준다 */
+function human(text) {
+  return esc(text).replace(/\b(?:tb|tc|c|b|s|l)-[a-z][a-z0-9-]*(?:\.[a-z][a-z0-9.-]*)?/g, (code) => {
+    const it = P.item(code);
+    if (it) return it.name;
+    const sl = P.slot(code);
+    if (sl) return sl.name;
+    // 빈칸 경로의 앞부분만 아는 경우 (b-content.column.body → 컨텐트 · column.body)
+    const [head, ...rest] = code.split('.');
+    const h = P.item(head);
+    return h ? `${h.name} ${rest.join('.')}` : code;
+  });
+}
 const table = (cols, rows) => `<div class="tw"><table class="t"><thead><tr>${cols.map((c) => `<th>${c}</th>`).join('')}</tr></thead><tbody>${rows.join('') || `<tr><td colspan="${cols.length}" class="muted">없음</td></tr>`}</tbody></table></div>`;
 const check = (on, label) => `<span class="ck ${on ? 'on' : 'off'}">${on ? '<svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="8"/><path d="M4.5 8.2l2.2 2.2 4.8-4.8" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>' : '<svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="7.2" fill="none" stroke-width="1.6"/></svg>'}${esc(label)}</span>`;
 const editBtn = (key, label = '편집') => `<button type="button" class="edit-btn${ui.edit === key ? ' on' : ''}" data-act="edit" data-k="${esc(key)}">${ui.edit === key ? '닫기' : `✎ ${label}`}</button>`;
@@ -157,7 +171,7 @@ export function page(route) {
 }
 export const isPage = (r) => page(r) !== null;
 
-const head = (eyebrow, title, lead, extra = '') => `<p class="eyebrow">${esc(eyebrow)}</p><h1>${esc(title)}</h1>${lead ? `<p class="lead">${esc(lead)}</p>` : ''}${extra}`;
+const head = (eyebrow, title, lead, extra = '') => `<p class="eyebrow">${esc(eyebrow)}</p><h1>${esc(title)}</h1>${lead ? `<p class="lead">${human(lead)}</p>` : ''}${extra}`;
 
 function pageOverview() {
   const I = P.items();
@@ -194,10 +208,10 @@ function pageStack() {
   ];
   return `${head('시작하기', '조립 구조', '화면은 큰 단위에서 작은 단위로 쌓아 조립합니다. SB Studio는 4단계에서 이 순서대로 놓고 5단계에서 디자인 에셋을 입힙니다.')}
   <h2 id="stack">Stack</h2>
-  <ol class="stk">${rows.map((x, i) => `<li><span class="sn">${i + 1}</span><a href="#${x[4]}"><b>${x[0]}</b></a><code>${x[1]}</code><span>${x[2]}</span><em>${x[3]}개</em></li>`).join('')}</ol>
+  <ol class="stk">${rows.map((x, i) => `<li><span class="sn">${i + 1}</span><a href="#${x[4]}"><b>${x[0]}</b></a><span>${x[2]}</span><em>${x[3]}개</em></li>`).join('')}</ol>
   <h2 id="types">화면 유형 판정 순서</h2>
-  <p>규칙 <a class="code" href="#rules">R-WC-01</a> 순서로 판정합니다.</p>
-  <ul><li><b>특수형</b> · 표준 틀로 만들 수 없는 예외 화면 · Stack 조립 제외 · 포털 승인 담당 승인</li><li><b>노드형</b> · 단계가 한 방향으로 이어지는 절차형 업무 · <a class="code" href="#s-node">s-node</a></li><li><b>일반형</b> · 조회조건 → 상세정보 → 컨텐트 · <a class="code" href="#l-general">l-general</a></li><li><b>팝업</b> · 바탕 화면 위 레이어 · <a class="code" href="#l-popup">l-popup</a></li></ul>
+  <p>규칙 <a href="#rules">R-WC-01</a> 순서로 판정합니다.</p>
+  <ul><li><b>특수형</b> · 표준 틀로 만들 수 없는 예외 화면 · Stack 조립 제외 · 포털 승인 담당 승인</li><li><b>노드형</b> · 단계가 한 방향으로 이어지는 절차형 업무 · <a href="#s-node">노드 쉘</a></li><li><b>일반형</b> · 조회조건 → 상세정보 → 컨텐트 · <a href="#l-general">일반형 레이아웃</a></li><li><b>팝업</b> · 바탕 화면 위 레이어 · <a href="#l-popup">팝업 레이아웃</a></li></ul>
   <h2 id="owners">기준 원본 · 관리</h2>
   ${table(['대상', '원본', '편집', '게시'], [
     ['앱쉘 · 블록 · 컴포넌트 (모양)', 'Figma 디자인 시스템', P.ROLES.ds, P.ROLES.approver],
@@ -237,14 +251,14 @@ function pageList(kind) {
   ${kind === 'block' ? '<h2 id="shell">앱쉘</h2>' + grid(I.filter((i) => i.kind === 'shell')) + '<h2 id="block">블록</h2>' + grid(I.filter((i) => i.kind === 'block')) : `<h2 id="all" class="sr">전체</h2>${grid(I)}`}`;
 }
 function grid(L) {
-  return `<div class="cards">${L.map((i) => `<a class="card" href="#${esc(i.code)}"><span class="card-eb">${esc(i.code)}${i.status !== 'pub' ? ` · ${P.STATUS[i.status]}` : ''}</span><b>${esc(i.name)}${i.nameKo && i.nameKo !== i.name ? ` <small>${esc(i.nameKo)}</small>` : ''}</b><span>${esc(i.meaning)}</span><span class="checks sm">${check(i.design, 'Figma')}${check(i.ux, 'UX')}</span></a>`).join('')}</div>`;
+  return `<div class="cards">${L.map((i) => `<a class="card" href="#${esc(i.code)}">${i.status !== 'pub' ? `<span class="card-eb">${P.STATUS[i.status]}</span>` : ''}<b>${esc(i.name)}${i.nameKo && i.nameKo !== i.name ? ` <small>${esc(i.nameKo)}</small>` : ''}</b><span>${human(i.meaning)}</span><span class="checks sm">${check(i.design, 'Figma')}${check(i.ux, 'UX')}</span></a>`).join('')}</div>`;
 }
 
 function pagePatterns() {
   const L = P.items().filter((i) => i.kind === 'layout');
   return `${head('Patterns', '패턴', '화면을 어떤 순서로 쌓고, 부품을 어떻게 쓰는지 정한 UX 패턴과 레이아웃 규칙입니다.')}
   <h2 id="ux">UX 패턴</h2>
-  <div class="cards">${(ctx.data.patterns || []).map((p) => `<a class="card" href="#pattern-${esc(p.key)}"><span class="card-eb">pattern-${esc(p.key)}</span><b>${esc(p.name)} 패턴</b><span>${esc((p.overview || '').split('\n')[0])}</span></a>`).join('')}</div>
+  <div class="cards">${(ctx.data.patterns || []).map((p) => `<a class="card" href="#pattern-${esc(p.key)}"><b>${esc(p.name)} 패턴</b><span>${esc((p.overview || '').split('\n')[0])}</span></a>`).join('')}</div>
   <h2 id="layouts">레이아웃 규칙</h2>${grid(L)}`;
 }
 
@@ -257,13 +271,12 @@ function pageItem(it) {
   const editing = ui.edit === `item:${it.code}`;
   const d = P.openDraft('item', it.code);
   const kv = [
-    ['코드', `<code>${esc(it.code)}</code>`],
     ['상태', stOf(it.status)],
     it.kind === 'comp' ? ['변형', esc(it.variants)] : null,
-    it.kind === 'block' ? ['놓이는 빈칸', esc(it.slot)] : null,
-    it.kind === 'layout' ? ['적용 빈칸', `<code>${esc(it.slot)}</code>`] : null,
+    it.kind === 'block' ? ['놓이는 빈칸', human(it.slot)] : null,
+    it.kind === 'layout' ? ['적용 빈칸', link(it.slot)] : null,
     it.kind === 'layout' ? ['근거 문서', esc(it.guide)] : null,
-    it.kind === 'shell' ? ['빈칸', esc(it.slots)] : null,
+    it.kind === 'shell' ? ['빈칸', human(it.slots)] : null,
     ['기준 원본', it.design ? '모양 Figma 디자인 시스템 · 뜻 카탈로그' : it.kind === 'layout' ? 'UX표준가이드' : 'UX 패턴 가이드 · 디자인 에셋 없음'],
     it.promotedFrom ? ['승격', `${esc(it.promotedFrom)}에서`] : null,
   ].filter(Boolean);
@@ -271,15 +284,15 @@ function pageItem(it) {
   ${drafts('item', it.code)}
   <div class="sb-ph"><span>${it.design ? '디자인 에셋은 Figma 디자인 시스템에 있습니다 · 미리보기는 노드의 레이어 데이터를 받으면 그려집니다' : '디자인 에셋 없음 · UX 패턴 가이드 기준'}</span></div>
   ${slotsOf.length || parts.length ? `<h2>Anatomy</h2>
-    ${slotsOf.length ? `<h3>빈칸</h3>${table(['경로', '이름', '방식', '들어갈 수 있는 것'], slotsOf.map((s) => `<tr><td><code>${esc(s.path)}</code></td><td>${esc(s.name)}</td><td>${esc(s.mode)}</td><td>${esc(s.accepts)}</td></tr>`))}` : ''}
-    ${parts.length ? `<h3>구성</h3>${table(['자리', '컴포넌트', '필수'], parts.map((p) => `<tr><td>${esc(p.slot)}</td><td>${link(p.comp)} ${esc(P.item(p.comp)?.name || '')}</td><td>${p.required ? '필수' : '선택'}</td></tr>`))}` : ''}` : ''}
+    ${slotsOf.length ? `<h3>빈칸</h3>${table(['이름', '방식', '들어갈 수 있는 것'], slotsOf.map((s) => `<tr><td>${esc(s.name)}</td><td>${esc(s.mode)}</td><td>${human(s.accepts)}</td></tr>`))}` : ''}
+    ${parts.length ? `<h3>구성</h3>${table(['자리', '컴포넌트', '필수'], parts.map((p) => `<tr><td>${esc(p.slot)}</td><td>${link(p.comp)}</td><td>${p.required ? '필수' : '선택'}</td></tr>`))}` : ''}` : ''}
   <h2>Properties ${can(it.kind) ? editBtn(`item:${it.code}`) : ''}</h2>
   ${editing ? itemForm(it, d) : `<dl class="kv">${kv.map(([k, v]) => `<dt>${k}</dt><dd>${v}</dd>`).join('')}</dl>`}
   ${ru.length ? `<h2>Guidelines</h2><h3>UX표준가이드 규칙</h3>${ruleList(ru)}` : ''}
-  ${usedIn.length ? `<h2>Usage</h2><h3>쓰이는 블록</h3><p class="chips">${usedIn.map((b) => `${link(b)} ${esc(P.item(b)?.name || '')}`).join(' · ')}</p>` : ''}`;
+  ${usedIn.length ? `<h2>Usage</h2><h3>쓰이는 블록</h3><p class="chips">${usedIn.map((b) => link(b)).join(' · ')}</p>` : ''}`;
 }
 
-const ruleList = (L) => `<ul class="rl">${L.map((x) => `<li><a class="rid" href="#rules">${esc(x.id)}</a><span class="rk">${esc(x.kind)}</span><p>${esc(x.text)}<small>${esc(x.doc)} · ${esc(x.section)}</small></p></li>`).join('')}</ul>`;
+const ruleList = (L) => `<ul class="rl">${L.map((x) => `<li><a class="rid" href="#rules">${esc(x.id)}</a><span class="rk">${esc(x.kind)}</span><p>${human(x.text)}<small>${esc(x.doc)} · ${esc(x.section)}</small></p></li>`).join('')}</ul>`;
 
 function itemForm(r, d) {
   const v = d ? { ...r, ...d.after } : r;
@@ -303,7 +316,7 @@ function pageRules() {
       <div class="ef-r"><label>종류<select name="kind">${kinds.map((k) => `<option${k === r.kind ? ' selected' : ''}>${k}</option>`).join('')}</select></label><label>절<input name="section" value="${esc(r.section)}"></label><label class="w">내용<input name="text" value="${esc(r.text)}" required></label></div>
       <label>대상 코드 (쉼표로)<input name="targets" value="${esc(r.targets.join(', '))}"></label>
       <div class="row"><button class="btn2 primary sm">초안 저장</button><button type="button" class="btn2 sm" data-act="rule-cancel">취소</button><button type="button" class="btn2 sm danger" data-act="rule-remove" data-id="${esc(r.id)}">삭제 초안</button></div></form></td></tr>`;
-  const rows = L.map((r) => `<tr><td><b class="nw">${esc(r.id)}</b>${P.openDraft('rule', r.id) && isEditor() ? ' <span class="st ai">초안</span>' : ''}<br><span class="rk">${esc(r.kind)}</span></td><td><code>${esc(r.doc)}</code><br><span class="muted">${esc(r.section)}</span></td><td>${esc(r.text)}</td><td class="codes">${r.targets.map(link).join(' ')}</td>${editor ? `<td><button class="edit-btn" data-act="rule-edit" data-id="${esc(r.id)}">✎</button></td>` : ''}</tr>${editor && ui.editRule === r.id ? rowEdit(r) : ''}`);
+  const rows = L.map((r) => `<tr><td><b class="nw">${esc(r.id)}</b>${P.openDraft('rule', r.id) && isEditor() ? ' <span class="st ai">초안</span>' : ''}<br><span class="rk">${esc(r.kind)}</span></td><td>${esc(r.doc)}<br><span class="muted">${esc(r.section)}</span></td><td>${human(r.text)}</td><td class="codes">${r.targets.map(link).join(' · ')}</td>${editor ? `<td><button class="edit-btn" data-act="rule-edit" data-id="${esc(r.id)}">✎</button></td>` : ''}</tr>${editor && ui.editRule === r.id ? rowEdit(r) : ''}`);
   return `${head('UX 거버넌스', '규칙', 'UX표준가이드 규칙 한 줄이 빈칸 → 블록 → 컴포넌트로 이어지는 연결표입니다. SB Studio의 생성 · 미리보기 · Figma 검사 · 독립 검수가 같은 규칙을 씁니다.')}
   ${editor ? `<section class="ed-panel"><div class="ed-h"><b>규칙 추가</b><span>번호는 앞자리 다음 번호로 자동으로 붙고, 게시 뒤에는 바뀌지 않습니다.</span></div><form class="ef" data-form="rule-add">
       <div class="ef-r"><label>번호 앞자리<select name="prefix">${prefixes.map((p) => `<option>${esc(p)}</option>`).join('')}</select></label><label>문서<input name="doc" placeholder="예: layout-work" required></label><label>절<input name="section" placeholder="예: 조회조건" required></label><label>종류<select name="kind">${kinds.map((k) => `<option>${k}</option>`).join('')}</select></label></div>
@@ -318,7 +331,7 @@ function pageRules() {
 function pageSlots() {
   return `${head('UX 거버넌스', '빈칸', '빈칸은 단위가 아니라 자리입니다. 상위 부품(앱쉘 · 레이아웃 규칙 · 블록 · 컨테이너형 컴포넌트)에 딸린 자리를 경로로 적습니다.')}
   <h2 id="list" class="sr">빈칸 목록</h2>
-  ${table(['경로', '이름', '소속', '방식', '들어갈 수 있는 것'], P.slots().map((s) => `<tr><td><code class="nw">${esc(s.path)}</code></td><td>${esc(s.name)}</td><td>${link(s.owner)}</td><td>${esc(s.mode)}</td><td>${esc(s.accepts)}</td></tr>`))}`;
+  ${table(['이름', '소속', '방식', '들어갈 수 있는 것'], P.slots().map((s) => `<tr><td>${esc(s.name)}</td><td>${link(s.owner)}</td><td>${esc(s.mode)}</td><td>${human(s.accepts)}</td></tr>`))}`;
 }
 
 function pageLint() {
@@ -365,7 +378,7 @@ function pagePromo() {
   <div class="checks">${P.PROMO_STAGES.map((s, i) => `<span class="ck on">${i + 1}. ${esc(s.stage)} · ${esc(P.ROLES[s.who])}</span>`).join('')}</div>
   ${role === 'ux' ? `<section class="ed-panel"><div class="ed-h"><b>승격 요청 등록</b></div><form class="ef" data-form="promo-add"><div class="ef-r"><label>임시 코드<input name="code" required pattern="t[bc]-[a-z0-9-]+" placeholder="tb-…"></label><label>이름<input name="name" required></label><label class="w">출처<input name="from" placeholder="SB · 화면 ID · 사용 승인 SB 건수"></label></div><label>변형 판단<input name="judge" placeholder="예: c-date-field 변형 후보"></label><div class="row"><button class="btn2 primary sm">등록</button></div></form></section>` : ''}
   <h2 id="list">요청 목록</h2>
-  ${table(['요청', '코드', '출처', '변형 판단', '심사', '상태', '처리'], L.map((p, k) => `<tr><td class="nw">${esc(p.id)}</td><td>${link(p.code.split(' → ').pop())}<br>${esc(p.name)}</td><td>${esc(p.from)}</td><td>${esc(p.judge)}</td><td class="nw">${esc(p.stage)}</td><td>${st(p.status === '승인' ? 'ok' : p.status === '반려' ? 'ng' : 'hold', p.status)}</td><td class="acts">${actions(p, k)}</td></tr>`))}
+  ${table(['요청', '이름', '출처', '변형 판단', '심사', '상태', '처리'], L.map((p, k) => `<tr><td class="nw">${esc(p.id)}</td><td>${P.item(p.code.split(' → ').pop()) ? link(p.code.split(' → ').pop()) : esc(p.name)}</td><td>${esc(p.from)}</td><td>${human(p.judge)}</td><td class="nw">${esc(p.stage)}</td><td>${st(p.status === '승인' ? 'ok' : p.status === '반려' ? 'ng' : 'hold', p.status)}</td><td class="acts">${actions(p, k)}</td></tr>`))}
   <p class="muted">최종 승인되면 코드 앞자리만 바뀌어(tb- → b-, tc- → c-) 바로 게시됩니다.</p>`;
 }
 
@@ -374,7 +387,7 @@ function pageChg() {
   const opts = ['새 버전 후보', '무시(토큰만)', '포털 승인 담당 승인 요청'];
   return `${head('관리', '변경 감지', 'Figma 디자인 시스템 · UX 패턴 가이드 게시와 SB Studio가 만든 SB의 Figma 수정을 감지합니다. 새 버전 후보는 담당이 해당 페이지에서 Figma를 다시 읽어 초안으로 만듭니다.')}
   <h2 id="list" class="sr">감지 목록</h2>
-  ${table(['감지', '파일', '대상', '변경', '영향', '처리'], L.map((r, k) => `<tr><td class="nw">${esc(r.at)}</td><td>${esc(r.file)}</td><td><code>${esc(r.target)}</code></td><td>${esc(r.change)}</td><td>${esc(r.impact)}</td><td><select data-act="det" data-k="${k}" aria-label="처리">${opts.map((o) => `<option${o === r.action ? ' selected' : ''}>${o}</option>`).join('')}</select></td></tr>`))}`;
+  ${table(['감지', '파일', '대상', '변경', '영향', '처리'], L.map((r, k) => `<tr><td class="nw">${esc(r.at)}</td><td>${esc(r.file)}</td><td>${esc(r.target)}</td><td>${esc(r.change)}</td><td>${esc(r.impact)}</td><td><select data-act="det" data-k="${k}" aria-label="처리">${opts.map((o) => `<option${o === r.action ? ' selected' : ''}>${o}</option>`).join('')}</select></td></tr>`))}`;
 }
 
 // ---------- 컴포넌트 상세 페이지 (미리보기 · 사용 가이드가 있는 것) ----------
@@ -382,7 +395,7 @@ function pageChg() {
 /** 제목 아래: ✓ Figma ✓ 사용 가이드 · 코드 · 상태 */
 export function compChecks(c) {
   const r = P.itemByKey(c.key);
-  return `<div class="checks">${check(true, 'Figma')}${check(!!c.guide, '사용 가이드')}${r ? `<a class="code" href="#${esc(r.code)}">${esc(r.code)}</a>${stOf(r.status)}` : ''}${c.figmaSyncedAt ? `<span class="muted">Figma 읽음 ${fmt(c.figmaSyncedAt)}</span>` : ''}</div>`;
+  return `<div class="checks">${check(true, 'Figma')}${check(!!c.guide, '사용 가이드')}${r ? stOf(r.status) : ''}${c.figmaSyncedAt ? `<span class="muted">Figma 읽음 ${fmt(c.figmaSyncedAt)}</span>` : ''}</div>`;
 }
 
 /** 페이지 위쪽 에디터 칸: 디자인 시스템 담당 = 설명 · Figma 다시 읽기 */
@@ -432,7 +445,7 @@ export function compUsage(c) {
   const usedIn = r ? [...new Set(P.parts().filter((p) => p.comp === r.code).map((p) => p.block))] : [];
   const pats = (ctx.data.patterns || []).filter((p) => (p.components || []).includes(c.key));
   if (!usedIn.length && !pats.length) return '';
-  return `<h2>Usage</h2>${usedIn.length ? `<h3>쓰이는 블록</h3>${table(['블록', '자리', '필수'], P.parts().filter((p) => p.comp === r.code).map((p) => `<tr><td>${link(p.block)} ${esc(P.item(p.block)?.name || '')}</td><td>${esc(p.slot)}</td><td>${p.required ? '필수' : '선택'}</td></tr>`))}` : ''}${pats.length ? `<h3>쓰이는 패턴</h3><p class="chips">${pats.map((p) => `<a class="code" href="#pattern-${esc(p.key)}">${esc(p.name)} 패턴</a>`).join(' ')}</p>` : ''}`;
+  return `<h2>Usage</h2>${usedIn.length ? `<h3>쓰이는 블록</h3>${table(['블록', '자리', '필수'], P.parts().filter((p) => p.comp === r.code).map((p) => `<tr><td>${link(p.block)}</td><td>${esc(p.slot)}</td><td>${p.required ? '필수' : '선택'}</td></tr>`))}` : ''}${pats.length ? `<h3>쓰이는 패턴</h3><p class="chips">${pats.map((p) => `<a href="#pattern-${esc(p.key)}">${esc(p.name)} 패턴</a>`).join(' ')}</p>` : ''}`;
 }
 
 /** 저장소 정책(guide.policy)을 게시된 규칙(번호 포함)으로 바꿔 사용 가이드에 표시 */
