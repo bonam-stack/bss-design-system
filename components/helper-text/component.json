@@ -2,19 +2,19 @@
   "schemaVersion": 2,
   "key": "helper-text",
   "name": "HelperText",
-  "description": "",
+  "description": "입력 필드 아래에 안내·오류 문구를 보여주는 도움말입니다. state: default 기본 안내(회색), error 오류 안내(빨강). message에서 문구를 바꾸고, showLeadingIcon으로 앞 아이콘을, showCount로 글자 수(_Item/HelperText/Count)를 켭니다. 글자는 caption/12/400, 색·치수는 helperText/* 배리어블에 연결합니다. 토큰 이름은 helperText-*입니다.",
   "figma": {
-    "fileKey": "WcoI745J38TaON7iCKcutW",
+    "fileKey": "9AioWOXVOVm5C7kdSxSEEP",
     "nodeId": "2359:22437",
-    "url": "https://www.figma.com/design/WcoI745J38TaON7iCKcutW?node-id=2359-22437",
+    "url": "https://www.figma.com/design/9AioWOXVOVm5C7kdSxSEEP?node-id=2359-22437",
     "page": {
       "nodeId": "2085:5409",
-      "name": "❖ HelperText"
+      "name": "    ❖ HelperText"
     },
     "type": "COMPONENT_SET",
-    "componentKey": "a5a18b22e8a32c6d2a43e3be9b6c45ec438b5d42",
+    "componentKey": "d44f52dc07be2713c536e2dc12999812e04c3c42",
     "requestedFrom": null,
-    "extractedAt": "2026-11-05"
+    "extractedAt": "2026-11-16"
   },
   "props": [
     {
@@ -27,7 +27,7 @@
       "name": "showCount",
       "figmaName": "showCount#2359:4",
       "type": "boolean",
-      "default": true
+      "default": false
     },
     {
       "name": "message",
@@ -49,7 +49,7 @@
   "variants": [
     {
       "nodeId": "2359:22400",
-      "key": "9d8b5668bd898612d8854c33f05dba018d549701",
+      "key": "4e7f371ffd7bb2c039d52bf3c6f82f22278bd728",
       "props": {
         "state": "default"
       },
@@ -119,7 +119,7 @@
                 "name": "messageBox",
                 "type": "FRAME",
                 "size": [
-                  69,
+                  135,
                   16
                 ],
                 "layout": {
@@ -189,11 +189,11 @@
                         "main": {
                           "id": "2223:2621",
                           "name": "size=12",
-                          "key": "83f113e85c16ec59b8141b988c9b1e36883c8a16",
+                          "key": "fc2545de97d49ce62a5cb87bb7c78671f65ccf47",
                           "set": {
                             "id": "2223:2622",
                             "name": "IconSlot",
-                            "key": "fb5130859c0c19bfda36c42da5a722d6c3ae306b"
+                            "key": "348e68d2889eb84fb081f8fc1ba61c992052387f"
                           }
                         },
                         "variables": {
@@ -224,7 +224,7 @@
                             "main": {
                               "id": "2848:102820",
                               "name": "Icon/Line/Asterisk",
-                              "key": "536899af4aa476eaf00e0b04858df7093bcd4b6f"
+                              "key": "d1a6f375b6583b2b4eebef5e419a5783c763a0f5"
                             },
                             "propRefs": {
                               "mainComponent": "icon#2223:0"
@@ -269,7 +269,7 @@
                     "name": "text",
                     "type": "TEXT",
                     "size": [
-                      57,
+                      123,
                       16
                     ],
                     "sizing": [
@@ -323,6 +323,7 @@
                 "id": "4362:11689",
                 "name": "_Item/HelperText/Count",
                 "type": "INSTANCE",
+                "visible": false,
                 "size": [
                   62,
                   16
@@ -348,11 +349,11 @@
                 "main": {
                   "id": "2336:22059",
                   "name": "state=default",
-                  "key": "eb2d2731032e582d0906869567f0620b1e995e4c",
+                  "key": "ed75fbeb67d1803a2c66e3d644460e3660ddae1e",
                   "set": {
                     "id": "2336:22072",
                     "name": "_Item/HelperText/Count",
-                    "key": "9c458a712c1a3f1a4bb9edceab2576cc8e7247d0"
+                    "key": "91159c8ba53b7b2bae3382db7485d24b3f998089"
                   }
                 },
                 "propRefs": {
@@ -361,164 +362,7 @@
                 "variables": {
                   "itemSpacing": "helperText/count/space/gap"
                 },
-                "children": [
-                  {
-                    "id": "I4362:11689;2336:22055",
-                    "name": "count",
-                    "type": "TEXT",
-                    "size": [
-                      30,
-                      16
-                    ],
-                    "sizing": [
-                      "HUG",
-                      "HUG"
-                    ],
-                    "fills": [
-                      {
-                        "type": "SOLID",
-                        "color": "#697582",
-                        "variable": "helperText/count/color/fg/default"
-                      }
-                    ],
-                    "styles": {
-                      "text": "caption/12/400"
-                    },
-                    "text": {
-                      "characters": "count",
-                      "fontFamily": "Pretendard",
-                      "fontStyle": "Regular",
-                      "fontWeight": 400,
-                      "fontSize": 12,
-                      "lineHeight": {
-                        "unit": "PIXELS",
-                        "value": 16
-                      },
-                      "letterSpacing": {
-                        "unit": "PIXELS",
-                        "value": -0.2
-                      },
-                      "align": [
-                        "RIGHT",
-                        "CENTER"
-                      ],
-                      "autoResize": "WIDTH_AND_HEIGHT"
-                    },
-                    "propRefs": {
-                      "characters": "count#2336:2"
-                    },
-                    "variables": {
-                      "letterSpacing[0]": "font/caption/12/400/letterSpacing",
-                      "fontSize[0]": "font/caption/12/400/size",
-                      "fontFamily[0]": "font/caption/12/400/family",
-                      "lineHeight[0]": "font/caption/12/400/lineHeight",
-                      "fontWeight[0]": "font/caption/12/400/weight"
-                    }
-                  },
-                  {
-                    "id": "I4362:11689;2336:22056",
-                    "name": "/",
-                    "type": "TEXT",
-                    "size": [
-                      5,
-                      16
-                    ],
-                    "sizing": [
-                      "HUG",
-                      "HUG"
-                    ],
-                    "fills": [
-                      {
-                        "type": "SOLID",
-                        "color": "#697582",
-                        "variable": "helperText/count/color/fg/default"
-                      }
-                    ],
-                    "styles": {
-                      "text": "caption/12/400"
-                    },
-                    "text": {
-                      "characters": "/",
-                      "fontFamily": "Pretendard",
-                      "fontStyle": "Regular",
-                      "fontWeight": 400,
-                      "fontSize": 12,
-                      "lineHeight": {
-                        "unit": "PIXELS",
-                        "value": 16
-                      },
-                      "letterSpacing": {
-                        "unit": "PIXELS",
-                        "value": -0.2
-                      },
-                      "align": [
-                        "RIGHT",
-                        "CENTER"
-                      ],
-                      "autoResize": "WIDTH_AND_HEIGHT"
-                    },
-                    "variables": {
-                      "letterSpacing[0]": "font/caption/12/400/letterSpacing",
-                      "fontSize[0]": "font/caption/12/400/size",
-                      "fontFamily[0]": "font/caption/12/400/family",
-                      "lineHeight[0]": "font/caption/12/400/lineHeight",
-                      "fontWeight[0]": "font/caption/12/400/weight"
-                    }
-                  },
-                  {
-                    "id": "I4362:11689;2336:22057",
-                    "name": "max",
-                    "type": "TEXT",
-                    "size": [
-                      23,
-                      16
-                    ],
-                    "sizing": [
-                      "HUG",
-                      "HUG"
-                    ],
-                    "fills": [
-                      {
-                        "type": "SOLID",
-                        "color": "#697582",
-                        "variable": "helperText/count/color/fg/default"
-                      }
-                    ],
-                    "styles": {
-                      "text": "caption/12/400"
-                    },
-                    "text": {
-                      "characters": "max",
-                      "fontFamily": "Pretendard",
-                      "fontStyle": "Regular",
-                      "fontWeight": 400,
-                      "fontSize": 12,
-                      "lineHeight": {
-                        "unit": "PIXELS",
-                        "value": 16
-                      },
-                      "letterSpacing": {
-                        "unit": "PIXELS",
-                        "value": -0.2
-                      },
-                      "align": [
-                        "RIGHT",
-                        "CENTER"
-                      ],
-                      "autoResize": "WIDTH_AND_HEIGHT"
-                    },
-                    "propRefs": {
-                      "characters": "max#2336:3"
-                    },
-                    "variables": {
-                      "letterSpacing[0]": "font/caption/12/400/letterSpacing",
-                      "fontSize[0]": "font/caption/12/400/size",
-                      "fontFamily[0]": "font/caption/12/400/family",
-                      "lineHeight[0]": "font/caption/12/400/lineHeight",
-                      "fontWeight[0]": "font/caption/12/400/weight"
-                    }
-                  }
-                ]
+                "children": []
               }
             ]
           }
@@ -527,7 +371,7 @@
     },
     {
       "nodeId": "2359:22438",
-      "key": "df38527ec48ffd98d8413be361045a78ce90467d",
+      "key": "1ce399a60523b59d3b19e265877d1fd4bdf434c3",
       "props": {
         "state": "error"
       },
@@ -594,7 +438,7 @@
                 "name": "messageBox",
                 "type": "FRAME",
                 "size": [
-                  69,
+                  135,
                   16
                 ],
                 "layout": {
@@ -662,11 +506,11 @@
                         "main": {
                           "id": "2223:2621",
                           "name": "size=12",
-                          "key": "83f113e85c16ec59b8141b988c9b1e36883c8a16",
+                          "key": "fc2545de97d49ce62a5cb87bb7c78671f65ccf47",
                           "set": {
                             "id": "2223:2622",
                             "name": "IconSlot",
-                            "key": "fb5130859c0c19bfda36c42da5a722d6c3ae306b"
+                            "key": "348e68d2889eb84fb081f8fc1ba61c992052387f"
                           }
                         },
                         "variables": {
@@ -696,7 +540,7 @@
                             "main": {
                               "id": "2848:102820",
                               "name": "Icon/Line/Asterisk",
-                              "key": "536899af4aa476eaf00e0b04858df7093bcd4b6f"
+                              "key": "d1a6f375b6583b2b4eebef5e419a5783c763a0f5"
                             },
                             "propRefs": {
                               "mainComponent": "icon#2223:0"
@@ -743,7 +587,7 @@
                     "name": "text",
                     "type": "TEXT",
                     "size": [
-                      57,
+                      123,
                       16
                     ],
                     "sizing": [
@@ -798,6 +642,7 @@
               {
                 "name": "_Item/HelperText/Count",
                 "type": "INSTANCE",
+                "visible": false,
                 "size": [
                   62,
                   16
@@ -823,11 +668,11 @@
                 "main": {
                   "id": "2345:22264",
                   "name": "state=error",
-                  "key": "a1459b669bf9a5bbfd0056e1a2257340c8557947",
+                  "key": "05a46244d86e63a1f1df6cb571bdc29735bb9b78",
                   "set": {
                     "id": "2336:22072",
                     "name": "_Item/HelperText/Count",
-                    "key": "9c458a712c1a3f1a4bb9edceab2576cc8e7247d0"
+                    "key": "91159c8ba53b7b2bae3382db7485d24b3f998089"
                   }
                 },
                 "propRefs": {
@@ -836,164 +681,7 @@
                 "variables": {
                   "itemSpacing": "helperText/count/space/gap"
                 },
-                "children": [
-                  {
-                    "name": "count",
-                    "type": "TEXT",
-                    "size": [
-                      30,
-                      16
-                    ],
-                    "sizing": [
-                      "HUG",
-                      "HUG"
-                    ],
-                    "fills": [
-                      {
-                        "type": "SOLID",
-                        "color": "#ED3B3E",
-                        "variable": "helperText/count/color/fg/error"
-                      }
-                    ],
-                    "styles": {
-                      "text": "caption/12/400"
-                    },
-                    "text": {
-                      "characters": "count",
-                      "fontFamily": "Pretendard",
-                      "fontStyle": "Regular",
-                      "fontWeight": 400,
-                      "fontSize": 12,
-                      "lineHeight": {
-                        "unit": "PIXELS",
-                        "value": 16
-                      },
-                      "letterSpacing": {
-                        "unit": "PIXELS",
-                        "value": -0.2
-                      },
-                      "align": [
-                        "RIGHT",
-                        "CENTER"
-                      ],
-                      "autoResize": "WIDTH_AND_HEIGHT"
-                    },
-                    "propRefs": {
-                      "characters": "count#2336:2"
-                    },
-                    "variables": {
-                      "letterSpacing[0]": "font/caption/12/400/letterSpacing",
-                      "fontSize[0]": "font/caption/12/400/size",
-                      "fontFamily[0]": "font/caption/12/400/family",
-                      "lineHeight[0]": "font/caption/12/400/lineHeight",
-                      "fontWeight[0]": "font/caption/12/400/weight"
-                    },
-                    "id": "I4362:9426;2345:22265"
-                  },
-                  {
-                    "name": "/",
-                    "type": "TEXT",
-                    "size": [
-                      5,
-                      16
-                    ],
-                    "sizing": [
-                      "HUG",
-                      "HUG"
-                    ],
-                    "fills": [
-                      {
-                        "type": "SOLID",
-                        "color": "#697582",
-                        "variable": "helperText/count/color/fg/default"
-                      }
-                    ],
-                    "styles": {
-                      "text": "caption/12/400"
-                    },
-                    "text": {
-                      "characters": "/",
-                      "fontFamily": "Pretendard",
-                      "fontStyle": "Regular",
-                      "fontWeight": 400,
-                      "fontSize": 12,
-                      "lineHeight": {
-                        "unit": "PIXELS",
-                        "value": 16
-                      },
-                      "letterSpacing": {
-                        "unit": "PIXELS",
-                        "value": -0.2
-                      },
-                      "align": [
-                        "RIGHT",
-                        "CENTER"
-                      ],
-                      "autoResize": "WIDTH_AND_HEIGHT"
-                    },
-                    "variables": {
-                      "letterSpacing[0]": "font/caption/12/400/letterSpacing",
-                      "fontSize[0]": "font/caption/12/400/size",
-                      "fontFamily[0]": "font/caption/12/400/family",
-                      "lineHeight[0]": "font/caption/12/400/lineHeight",
-                      "fontWeight[0]": "font/caption/12/400/weight"
-                    },
-                    "id": "I4362:9426;2345:22266"
-                  },
-                  {
-                    "name": "max",
-                    "type": "TEXT",
-                    "size": [
-                      23,
-                      16
-                    ],
-                    "sizing": [
-                      "HUG",
-                      "HUG"
-                    ],
-                    "fills": [
-                      {
-                        "type": "SOLID",
-                        "color": "#697582",
-                        "variable": "helperText/count/color/fg/default"
-                      }
-                    ],
-                    "styles": {
-                      "text": "caption/12/400"
-                    },
-                    "text": {
-                      "characters": "max",
-                      "fontFamily": "Pretendard",
-                      "fontStyle": "Regular",
-                      "fontWeight": 400,
-                      "fontSize": 12,
-                      "lineHeight": {
-                        "unit": "PIXELS",
-                        "value": 16
-                      },
-                      "letterSpacing": {
-                        "unit": "PIXELS",
-                        "value": -0.2
-                      },
-                      "align": [
-                        "RIGHT",
-                        "CENTER"
-                      ],
-                      "autoResize": "WIDTH_AND_HEIGHT"
-                    },
-                    "propRefs": {
-                      "characters": "max#2336:3"
-                    },
-                    "variables": {
-                      "letterSpacing[0]": "font/caption/12/400/letterSpacing",
-                      "fontSize[0]": "font/caption/12/400/size",
-                      "fontFamily[0]": "font/caption/12/400/family",
-                      "lineHeight[0]": "font/caption/12/400/lineHeight",
-                      "fontWeight[0]": "font/caption/12/400/weight"
-                    },
-                    "id": "I4362:9426;2345:22267"
-                  }
-                ],
+                "children": [],
                 "id": "4362:9426"
               }
             ],
@@ -1012,7 +700,7 @@
       "type": "STRING",
       "value": "Pretendard",
       "alias": "font/family/pretendard",
-      "key": "4e09e1156f91b2dc77392bf0268e904e43ea98e4"
+      "key": "d4cc04583811d16373e29510e2440fd352618e66"
     },
     {
       "figma": "font/caption/12/400/letterSpacing",
@@ -1021,7 +709,7 @@
       "type": "FLOAT",
       "value": -0.2,
       "alias": "font/letterSpacing/minus0p2",
-      "key": "2f31cae09e6edb6d2cad9445d629b6c972fa77d0"
+      "key": "4dd7731c2a7068449578329f918e4ea54dfbadd7"
     },
     {
       "figma": "font/caption/12/400/lineHeight",
@@ -1030,7 +718,7 @@
       "type": "FLOAT",
       "value": 16,
       "alias": "font/lineHeight/16",
-      "key": "c16f3f8afd1c283378336da5190365338046bc30"
+      "key": "575d745c4629dda57aee460abd609f54dcdeb999"
     },
     {
       "figma": "font/caption/12/400/size",
@@ -1039,7 +727,7 @@
       "type": "FLOAT",
       "value": 12,
       "alias": "font/size/12",
-      "key": "c934a792d27863ba2b215ef56011655746a611fa"
+      "key": "e544ce82e7d62f0b1431ec9f0f6c06f7282f95b4"
     },
     {
       "figma": "font/caption/12/400/weight",
@@ -1048,7 +736,7 @@
       "type": "FLOAT",
       "value": 400,
       "alias": "font/weight/400",
-      "key": "b2645267187d0b4fb72af4cc45c561acdff4d3e1"
+      "key": "9c401e1fc93b80b0151f6ba90707c73dc23ceae5"
     },
     {
       "figma": "helperText/color/fg/default",
@@ -1057,7 +745,7 @@
       "type": "COLOR",
       "value": "#697582",
       "alias": "color/fg/neutral/muted/default",
-      "key": "b9ed9a833a89614d3f606553885db9f6db229e4c"
+      "key": "cbae67420e62784ddb68da6792f97af4d37d219f"
     },
     {
       "figma": "helperText/color/fg/error",
@@ -1066,25 +754,7 @@
       "type": "COLOR",
       "value": "#ED3B3E",
       "alias": "color/fg/danger/strong",
-      "key": "006a5c0d124ee45cd8174cf6169c13ad5a36ec9a"
-    },
-    {
-      "figma": "helperText/count/color/fg/default",
-      "css": "--helper-text-count-color-fg-default",
-      "collection": "Component",
-      "type": "COLOR",
-      "value": "#697582",
-      "alias": "color/fg/neutral/muted/default",
-      "key": "bed78cf0c5177c935fcb7fd132b493b320fa7fac"
-    },
-    {
-      "figma": "helperText/count/color/fg/error",
-      "css": "--helper-text-count-color-fg-error",
-      "collection": "Component",
-      "type": "COLOR",
-      "value": "#ED3B3E",
-      "alias": "color/fg/danger/strong",
-      "key": "cbcbdaaf3efa8f09d3069672dcfd991738bd3373"
+      "key": "4df13bfc675a39b33d77d32fbf81372017272d4d"
     },
     {
       "figma": "helperText/count/space/gap",
@@ -1093,7 +763,7 @@
       "type": "FLOAT",
       "value": 2,
       "alias": "space/2",
-      "key": "379cd5b8a141ddf034969cf70d62d4f229e3fdc9"
+      "key": "495fba40768468d151caa1f294ca8408ed928b13"
     },
     {
       "figma": "helperText/icon/size",
@@ -1102,7 +772,7 @@
       "type": "FLOAT",
       "value": 12,
       "alias": "size/icon/xsmall",
-      "key": "dfa8512ad13e26e0c1d126b2217649aa1696a26c"
+      "key": "8979a168d8a3d3be45663516f83bd3119e3f5d54"
     },
     {
       "figma": "helperText/icon/space/paddingTop",
@@ -1111,7 +781,7 @@
       "type": "FLOAT",
       "value": 2,
       "alias": "space/2",
-      "key": "dba6849796b9820ad73e87b65bd48ebc17afab8b"
+      "key": "9b0edc2bdc81e5ea078074d2a09cf50cbb6ea1bc"
     },
     {
       "figma": "helperText/space/gap",
@@ -1120,14 +790,14 @@
       "type": "FLOAT",
       "value": 4,
       "alias": "space/4",
-      "key": "85de4cd779aba391c08b6a064d1e8a829a6ed3d6"
+      "key": "247ea82b4fd830f667d2d81316cf713a306523fe"
     }
   ],
   "textStyles": [
     {
       "name": "caption/12/400",
       "type": "TEXT",
-      "key": "ae57733f06d07d3f1cd487e212112e73d1801b43",
+      "key": "30da31d91af9b028da23f7550697bd29153b06ee",
       "remote": false
     }
   ],
