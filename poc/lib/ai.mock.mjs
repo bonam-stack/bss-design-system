@@ -32,7 +32,7 @@ export function mockScreen({ bundle, request, feedback }) {
   const fieldWords = [...text.matchAll(/([가-힣A-Za-z]+)\s*(?:입력|필드|조건)/g)].map((m) => m[1]).slice(0, 4);
   if (has("text-field"))
     for (const w of fieldWords.length ? fieldWords : ["검색어"])
-      els.push({ id: id(), area: "조회 조건", block: null, component: "text-field", props: [{ name: "placeholder", value: w }, { name: "size", value: "medium" }], tokens: [], icon: null, note: `${w} 입력` });
+      els.push({ id: id(), area: "조회 조건", block: null, component: "text-field", props: [{ name: "size", value: "medium" }, { name: "showLabel", value: "true" }], tokens: [], icon: null, note: `${w} 입력` });
   if (/메모|내용|사유/.test(text) && has("text-area"))
     els.push({ id: id(), area: "입력", block: null, component: "text-area", props: [], tokens: [], icon: null, note: "긴 글 입력" });
   if (/동의|선택|체크/.test(text) && has("checkbox"))
