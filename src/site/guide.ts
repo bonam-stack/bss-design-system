@@ -18,7 +18,7 @@ export interface GuideDocMeta {
   group: string;
   /** 포털에서 놓이는 섹션 */
   place: Place;
-  /** 이 문서를 근거로 하는 카탈로그 코드 (레이아웃 · 앱쉘 · 블록 · 컴포넌트) */
+  /** 이 문서를 근거로 하는 카탈로그 코드 (레이아웃 · 블록 · 컴포넌트) */
   targets: string[];
   /** 본문에서 가리키는 다른 문서 */
   links: string[];

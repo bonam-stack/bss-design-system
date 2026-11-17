@@ -208,7 +208,7 @@
   "정의된 예외 패턴 없이 기본 흐름을 임의로 변형하지 않습니다."
  ],
  "targets": [
-  "s-node",
+  "l-node",
   "b-node",
   "b-hud",
   "b-actionbar"

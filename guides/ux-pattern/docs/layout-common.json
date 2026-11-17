@@ -199,7 +199,6 @@
   "화면마다 다른 경계값을 임의로 두지 않습니다. (예. 800px)"
  ],
  "targets": [
-  "s-common",
   "b-gnb",
   "b-lnb",
   "b-context-bar"

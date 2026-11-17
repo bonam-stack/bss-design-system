@@ -10,8 +10,8 @@ import { guideRules } from '../guide';
 const KEY = 'bss-design-portal.v2';
 export type Role = 'viewer' | 'ux' | 'ds' | 'approver';
 export const ROLES: Record<Role, string> = { viewer: '보기 (기획자)', ux: 'UX 가이드 담당', ds: '디자인 시스템 담당', approver: '포털 승인 담당' };
-export type Kind = 'shell' | 'layout' | 'block' | 'comp';
-export const KIND: Record<Kind, string> = { shell: '앱쉘', layout: '레이아웃 규칙', block: '블록', comp: '컴포넌트' };
+export type Kind = 'layout' | 'block' | 'comp';
+export const KIND: Record<Kind, string> = { layout: '레이아웃 규칙', block: '블록', comp: '컴포넌트' };
 export type Status = 'pub' | 'draft' | 'tmp';
 export const STATUS: Record<Status, string> = { pub: '게시', draft: '초안', tmp: '임시' };
 export const PROMO_STAGES: { stage: string; who: Role; act: string }[] = [
@@ -19,9 +19,9 @@ export const PROMO_STAGES: { stage: string; who: Role; act: string }[] = [
   { stage: '모양 확인', who: 'ds', act: '모양 확인 · Figma 등록' },
   { stage: '최종 승인', who: 'approver', act: '최종 승인' },
 ];
-// 누가 무엇을 고치나: 모양(앱쉘 · 블록 · 컴포넌트 · Figma)은 디자인 시스템 담당, 쓰는 방법(레이아웃 규칙 · 규칙 · 사용 가이드)은 UX 가이드 담당
+// 누가 무엇을 고치나: 모양(블록 · 컴포넌트 · Figma)은 디자인 시스템 담당, 쓰는 방법(레이아웃 규칙 · 규칙 · 사용 가이드)은 UX 가이드 담당
 export type EditType = Kind | 'figma' | 'code' | 'rule' | 'guide';
-export const EDITOR: Record<EditType, Role> = { shell: 'ds', block: 'ds', comp: 'ds', figma: 'ds', code: 'ds', layout: 'ux', rule: 'ux', guide: 'ux' };
+export const EDITOR: Record<EditType, Role> = { block: 'ds', comp: 'ds', figma: 'ds', code: 'ds', layout: 'ux', rule: 'ux', guide: 'ux' };
 
 export type Bump = 'PATCH' | 'MINOR' | 'MAJOR';
 
@@ -36,7 +36,6 @@ export interface Item {
   meaning: string;
   variants?: string;
   slot?: string;
-  slots?: string;
   guide?: string;
   key?: string;
   promotedFrom?: string;

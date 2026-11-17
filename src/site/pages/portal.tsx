@@ -9,7 +9,7 @@ import { docsFor, docsIn, guideRoute, guideSource } from '../guide';
 import { BumpTag, Check, CodeLink, UxRef, ConfirmButton, DraftBox, Drafts, EditBtn, GuideChips, Head, RulesBlock, St, StOf, Table, fmt, human, joinNodes } from '../ui';
 
 const FIGMA_FILE = '9AioWOXVOVm5C7kdSxSEEP';
-const KIND_LABEL: Record<Kind, string> = { shell: 'App shell', block: 'Blocks', comp: 'Components', layout: 'Layout rules' };
+const KIND_LABEL: Record<Kind, string> = { block: 'Blocks', comp: 'Components', layout: 'Layout rules' };
 const formValues = (f: HTMLFormElement) => Object.fromEntries(new FormData(f)) as Record<string, string>;
 const list = (s?: string) => String(s || '').split(',').map((x) => x.trim()).filter(Boolean);
 
@@ -46,7 +46,7 @@ function Overview() {
     ['patterns', 'Patterns', `레이아웃 규칙 ${n('layout')} · 패턴 ${patterns.length}`, '화면을 어떤 순서로 쌓을지'],
     ['rules', 'UX 거버넌스', `규칙 ${P.rules().length}개`, 'UX표준가이드 규칙과 연결표'],
     ['icons', 'Foundations', `아이콘 ${icons.icons.length}개`, '아이콘 · 디자인 토큰'],
-    ['stack', '조립 구조', 'Stack 5단계', '앱쉘 → 레이아웃 → 빈칸 → 블록 → 컴포넌트'],
+    ['stack', '조립 구조', 'Stack 5단계', '앱 구조 → 레이아웃 → 빈칸 → 블록 → 컴포넌트'],
   ];
   return (
     <>
@@ -121,7 +121,7 @@ function Stack() {
   const I = P.items();
   const n = (k: Kind) => I.filter((i) => i.kind === k).length;
   const rows: [string, string, string, number, string][] = [
-    ['앱쉘', 's-', '화면이 바뀌어도 남는 바탕 틀', n('shell'), 'g-layout-common'],
+    ['앱 구조', 'app', '화면이 바뀌어도 남는 바탕 틀 · GNB · LNB · 콘텍스트 바 · 본문 영역', P.slots().filter((x) => x.owner === 'app').length, 'g-layout-common'],
     ['레이아웃 규칙', 'l-', '본문 영역을 어떤 빈칸 순서로 나눌지 정하는 규칙', n('layout'), 'patterns'],
     ['빈칸(슬롯)', '경로', '부품이 들어갈 자리 · 고정 · 쌓기 · 자유', P.slots().length, 'slots'],
     ['블록', 'b-', '빈칸 하나를 채우는 업무 단위 묶음', n('block'), 'blocks'],
@@ -152,7 +152,7 @@ function Stack() {
           <b>특수형</b> · 표준 틀로 만들 수 없는 예외 화면 · Stack 조립 제외 · 포털 승인 담당 승인
         </li>
         <li>
-          <b>노드형</b> · 단계가 한 방향으로 이어지는 절차형 업무 · <a href="#s-node">노드 쉘</a>
+          <b>노드형</b> · 단계가 한 방향으로 이어지는 절차형 업무 · <a href="#l-node">노드형 레이아웃</a>
         </li>
         <li>
           <b>일반형</b> · 조회조건 → 상세정보 → 컨텐트 · <a href="#l-general">일반형 레이아웃</a>
@@ -165,7 +165,7 @@ function Stack() {
       <Table
         cols={['대상', '원본', '편집', '게시']}
         rows={[
-          ['앱쉘 · 블록 · 컴포넌트 (모양)', 'Figma 디자인 시스템', P.ROLES.ds, P.ROLES.approver],
+          ['블록 · 컴포넌트 (모양)', 'Figma 디자인 시스템', P.ROLES.ds, P.ROLES.approver],
           ['레이아웃 규칙 · 규칙 · 사용 가이드', 'UX표준가이드 · 이 포털', P.ROLES.ux, P.ROLES.approver],
           ['임시 부품 tb- · tc-', 'SB Studio 생성', '승격 심사', P.ROLES.approver],
         ].map((r, i) => (
@@ -358,7 +358,7 @@ function PatternList() {
 
 // ---------- 카탈로그 항목 ----------
 
-/** 카탈로그 항목 페이지 (상세 페이지가 따로 없는 앱쉘 · 블록 · 레이아웃 · 컴포넌트) */
+/** 카탈로그 항목 페이지 (상세 페이지가 따로 없는 블록 · 레이아웃 · 컴포넌트) */
 function ItemPage({ it }: { it: Item }) {
   const { ui, can } = usePortal();
   const parts = P.parts().filter((p) => p.block === it.code);
@@ -374,7 +374,6 @@ function ItemPage({ it }: { it: Item }) {
       it.kind === 'block' ? ['놓이는 빈칸', human(it.slot)] : null,
       it.kind === 'layout' ? ['적용 빈칸', <CodeLink code={it.slot || ''} />] : null,
       it.kind === 'layout' ? ['근거 문서', <UxRef r={it.guide} />] : null,
-      it.kind === 'shell' ? ['빈칸', human(it.slots)] : null,
       ['기준 원본', it.design ? '모양 Figma 디자인 시스템 · 뜻 카탈로그' : it.kind === 'layout' ? 'UX표준가이드' : 'UX 패턴 가이드 · 디자인 에셋 없음'],
       it.promotedFrom ? ['승격', `${it.promotedFrom}에서`] : null,
     ] as ([string, ReactNode] | null)[]
@@ -465,7 +464,7 @@ function ItemPage({ it }: { it: Item }) {
 export function ItemForm({ r, d }: { r: Item; d: Draft | null }) {
   const { role, act, closeEdit } = usePortal();
   const v: Item = d ? { ...r, ...d.after } : r;
-  const extra = r.kind === 'comp' ? (['variants', '변형'] as const) : r.kind === 'shell' ? null : (['slot', r.kind === 'layout' ? '적용 빈칸' : '놓이는 빈칸'] as const);
+  const extra = r.kind === 'comp' ? (['variants', '변형'] as const) : (['slot', r.kind === 'layout' ? '적용 빈칸' : '놓이는 빈칸'] as const);
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const f = formValues(e.currentTarget);
@@ -675,7 +674,7 @@ function Rules() {
 function Slots() {
   return (
     <>
-      <Head eyebrow="UX 거버넌스" title="빈칸" lead="빈칸은 단위가 아니라 자리입니다. 상위 부품(앱쉘 · 레이아웃 규칙 · 블록 · 컨테이너형 컴포넌트)에 딸린 자리를 경로로 적습니다." />
+      <Head eyebrow="UX 거버넌스" title="빈칸" lead="빈칸은 단위가 아니라 자리입니다. 앱 구조(app) · 레이아웃 규칙 · 블록 · 컨테이너형 컴포넌트에 딸린 자리를 경로로 적습니다." />
       <h2 id="list" className="sr">
         빈칸 목록
       </h2>
@@ -698,7 +697,7 @@ function Slots() {
 
 function Lint() {
   const L = [
-    ['R-01', '앱쉘 빈칸에는 블록만', '오류'],
+    ['R-01', '앱 구조 빈칸(GNB · LNB · 콘텍스트 바)에는 블록만', '오류'],
     ['R-02', '고정 빈칸은 허용 목록에서 하나', '오류'],
     ['R-03', '쌓기 빈칸 순서(일반형)', '오류'],
     ['R-04', '임시 코드(tb- · tc-)는 포털 승인 담당 승인 요청 동반', '경고'],

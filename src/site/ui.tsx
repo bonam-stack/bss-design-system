@@ -54,7 +54,7 @@ export function CopyBtn({ value, label }: { value: string; label?: string }) {
 
 /** 글 속에 섞인 카탈로그 코드 · 빈칸 경로를 이름으로 바꿔 보여 준다 */
 export function human(text?: string) {
-  return String(text ?? '').replace(/\b(?:tb|tc|c|b|s|l)-[a-z][a-z0-9-]*(?:\.[a-z][a-z0-9.-]*)?/g, (code) => {
+  return String(text ?? '').replace(/\b(?:(?:tb|tc|c|b|l)-[a-z][a-z0-9-]*(?:\.[a-z][a-z0-9.-]*)?|app\.[a-z][a-z0-9.-]*)/g, (code) => {
     const it = P.item(code);
     if (it) return it.name;
     const sl = P.slot(code);
@@ -67,6 +67,7 @@ export function human(text?: string) {
 }
 
 export function CodeLink({ code }: { code: string }) {
+  if (code === 'app') return <a href="#g-layout-common">앱 구조</a>;
   const it = P.item(code);
   if (it) return <a href={`#${code}`}>{it.name}</a>;
   const sl = P.slot(code);

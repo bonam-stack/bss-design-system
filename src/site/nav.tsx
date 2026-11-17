@@ -144,7 +144,7 @@ export function RoleMenu() {
 export function EditorBar() {
   const { role, isEditor } = usePortal();
   if (!isEditor) return null;
-  const what = { ux: '레이아웃 규칙 · 규칙 · 사용 가이드', ds: '앱쉘 · 블록 · 컴포넌트 코드 · Figma 읽기', approver: '초안 게시 · 반려 · 롤백 · 승격 최종 승인', viewer: '' }[role];
+  const what = { ux: '레이아웃 규칙 · 규칙 · 사용 가이드', ds: '블록 · 컴포넌트 코드 · Figma 읽기', approver: '초안 게시 · 반려 · 롤백 · 승격 최종 승인', viewer: '' }[role];
   const mine = P.drafts((d) => d.status === 'draft' && (role === 'approver' || d.by === role)).length;
   return (
     <div className="ed-bar">

@@ -25,15 +25,15 @@ codes = {i["code"] for i in catalog["items"]}
 PLACE = {"UX 원칙": "start", "파운데이션": "foundations", "패턴": "patterns", "모듈": "blocks", "컴포넌트": "components", "가이드 활용": "governance", "유틸리티": None}
 short = lambda s: re.sub(r"\s*\(.*\)\s*$", "", s)
 
-# 문서 → 이 문서를 근거로 하는 카탈로그 항목 (레이아웃 l- · 앱쉘 s- · 블록 b- · 컴포넌트 c-)
+# 문서 → 이 문서를 근거로 하는 카탈로그 항목 (레이아웃 l- · 블록 b- · 컴포넌트 c-)
 TARGETS = {
     "work-composition": ["l-general", "l-node", "l-special"],
-    "layout-common": ["s-common", "b-gnb", "b-lnb", "b-context-bar"],
-    "layout-layer": ["s-common", "c-popup", "c-dialog", "c-toast"],
+    "layout-common": ["b-gnb", "b-lnb", "b-context-bar"],
+    "layout-layer": ["c-popup", "c-dialog", "c-toast"],
     "msg-system": ["c-callout", "c-toast", "c-dialog", "c-helper-text"],
     "layout-work": ["l-general", "b-top", "b-callout", "b-search-general", "b-detail-info", "b-content"],
     "layout-columns": ["l-columns", "b-content"],
-    "layout-node": ["l-node", "s-node", "b-hud", "b-node", "b-actionbar"],
+    "layout-node": ["l-node", "b-hud", "b-node", "b-actionbar"],
     "layout-special": ["l-special"],
     "grid-board": ["b-table-basic", "b-action", "b-statusbar", "c-pagination"],
     "grid-biggrid": ["b-table-big", "b-action", "b-statusbar"],
@@ -43,8 +43,8 @@ TARGETS = {
     "grid-fullview": ["b-statusbar", "c-popup"], "grid-excel-upload": ["b-action"],
     "form-big": ["c-text-field", "c-helper-text"], "resp-form-validation": ["c-text-field", "c-text-area", "c-password-field", "c-helper-text"],
     "resp-masking": ["c-password-field"],
-    "node-flow-seq": ["s-node", "b-node", "b-hud", "b-actionbar"], "node-flow-branch": ["s-node", "b-node"], "node-flow-skip": ["s-node", "b-node"],
-    "node-flow-fail": ["s-node", "b-node"], "node-flow-reverse": ["s-node", "b-node"],
+    "node-flow-seq": ["l-node", "b-node", "b-hud", "b-actionbar"], "node-flow-branch": ["l-node", "b-node"], "node-flow-skip": ["l-node", "b-node"],
+    "node-flow-fail": ["l-node", "b-node"], "node-flow-reverse": ["l-node", "b-node"],
     "std-target-customer": ["b-search-general"], "std-text-search": ["c-search-field"],
     "mod-general-overview": ["l-general", "b-context-bar", "b-top", "b-callout", "b-search-general", "b-detail-info", "b-content"],
     "search-conditions": ["b-search-general", "c-search-field", "c-date-field", "c-select"],

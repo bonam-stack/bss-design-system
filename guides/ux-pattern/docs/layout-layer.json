@@ -409,7 +409,6 @@
   "고정 헤더·고정 칼럼을 레이어로 다루지 않습니다."
  ],
  "targets": [
-  "s-common",
   "c-popup",
   "c-dialog",
   "c-toast"

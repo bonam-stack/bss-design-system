@@ -110,7 +110,6 @@
    "group": "앱 구조",
    "place": "foundations",
    "targets": [
-    "s-common",
     "b-gnb",
     "b-lnb",
     "b-context-bar"
@@ -147,7 +146,6 @@
    "group": "앱 구조",
    "place": "foundations",
    "targets": [
-    "s-common",
     "c-popup",
     "c-dialog",
     "c-toast"
@@ -242,7 +240,6 @@
    "place": "foundations",
    "targets": [
     "l-node",
-    "s-node",
     "b-hud",
     "b-node",
     "b-actionbar"
@@ -655,7 +652,7 @@
    "group": "노드 진행",
    "place": "patterns",
    "targets": [
-    "s-node",
+    "l-node",
     "b-node",
     "b-hud",
     "b-actionbar"
@@ -677,7 +674,7 @@
    "group": "노드 진행",
    "place": "patterns",
    "targets": [
-    "s-node",
+    "l-node",
     "b-node"
    ],
    "links": [
@@ -692,7 +689,7 @@
    "group": "노드 진행",
    "place": "patterns",
    "targets": [
-    "s-node",
+    "l-node",
     "b-node"
    ],
    "links": [
@@ -710,7 +707,7 @@
    "group": "노드 진행",
    "place": "patterns",
    "targets": [
-    "s-node",
+    "l-node",
     "b-node"
    ],
    "links": [
@@ -729,7 +726,7 @@
    "group": "노드 진행",
    "place": "patterns",
    "targets": [
-    "s-node",
+    "l-node",
     "b-node"
    ],
    "links": [
@@ -1837,7 +1834,6 @@
    "kind": "권장",
    "text": "실제 업무 컨텐트는 가운데 본문 영역에 배치합니다.",
    "targets": [
-    "s-common",
     "b-gnb",
     "b-lnb",
     "b-context-bar"
@@ -1851,7 +1847,6 @@
    "kind": "권장",
    "text": "사이드 내비게이션 바와 커뮤니케이터는 정해진 폭과 위치를 유지합니다.",
    "targets": [
-    "s-common",
     "b-gnb",
     "b-lnb",
     "b-context-bar"
@@ -1865,7 +1860,6 @@
    "kind": "권장",
    "text": "GNB의 주요 버튼은 양쪽 영역에 나누어 배치합니다.",
    "targets": [
-    "s-common",
     "b-gnb",
     "b-lnb",
     "b-context-bar"
@@ -1879,7 +1873,6 @@
    "kind": "권장",
    "text": "1024 ~ 1920px에서는 모듈 규격을 유지하고 개수 · 배치로 폭을 채웁니다.",
    "targets": [
-    "s-common",
     "b-gnb",
     "b-lnb",
     "b-context-bar"
@@ -1893,7 +1886,6 @@
    "kind": "권장",
    "text": "1024px보다 좁으면 레이아웃을 유지하고 가로 스크롤로 처리합니다.",
    "targets": [
-    "s-common",
     "b-gnb",
     "b-lnb",
     "b-context-bar"
@@ -1907,7 +1899,6 @@
    "kind": "권장",
    "text": "1920px보다 넓으면 본문을 상한 없이 늘리고, 넓어진 폭에는 같은 규격의 모듈을 더 배치합니다.",
    "targets": [
-    "s-common",
     "b-gnb",
     "b-lnb",
     "b-context-bar"
@@ -1921,7 +1912,6 @@
    "kind": "금지",
    "text": "사이드 내비게이션 바와 커뮤니케이터에 업무 기능을 임의로 추가하지 않습니다.",
    "targets": [
-    "s-common",
     "b-gnb",
     "b-lnb",
     "b-context-bar"
@@ -1935,7 +1925,6 @@
    "kind": "금지",
    "text": "GNB 높이를 임의로 변경하지 않습니다.",
    "targets": [
-    "s-common",
     "b-gnb",
     "b-lnb",
     "b-context-bar"
@@ -1949,7 +1938,6 @@
    "kind": "금지",
    "text": "화면 폭이 넓어졌다고 모듈 자체를 늘리지 않습니다.",
    "targets": [
-    "s-common",
     "b-gnb",
     "b-lnb",
     "b-context-bar"
@@ -1963,7 +1951,6 @@
    "kind": "금지",
    "text": "모바일용 레이아웃(하단 사이드 내비게이션 바 · 세로 쌓기)을 넣지 않습니다.",
    "targets": [
-    "s-common",
     "b-gnb",
     "b-lnb",
     "b-context-bar"
@@ -1977,7 +1964,6 @@
    "kind": "금지",
    "text": "화면마다 다른 경계값을 임의로 두지 않습니다. (예. 800px)",
    "targets": [
-    "s-common",
     "b-gnb",
     "b-lnb",
     "b-context-bar"
@@ -2099,7 +2085,6 @@
    "kind": "권장",
    "text": "새로 뜨는 요소는 소속 밴드를 먼저 정합니다.",
    "targets": [
-    "s-common",
     "c-popup",
     "c-dialog",
     "c-toast"
@@ -2113,7 +2098,6 @@
    "kind": "권장",
    "text": "딤과 그 위의 컨테이너를 한 밴드로 묶습니다.",
    "targets": [
-    "s-common",
     "c-popup",
     "c-dialog",
     "c-toast"
@@ -2127,7 +2111,6 @@
    "kind": "권장",
    "text": "앱 셸과 겹치는 문제는 위치·폭으로 해결합니다.",
    "targets": [
-    "s-common",
     "c-popup",
     "c-dialog",
     "c-toast"
@@ -2141,7 +2124,6 @@
    "kind": "권장",
    "text": "진행 조작(액션바)은 다른 층에 가려지지 않게 둡니다.",
    "targets": [
-    "s-common",
     "c-popup",
     "c-dialog",
     "c-toast"
@@ -2155,7 +2137,6 @@
    "kind": "권장",
    "text": "화면 위 레이어를 여는 트리거는 화면 안 요소(컨텐트 영역·상세 페이지·사이드 패널)에 둡니다.",
    "targets": [
-    "s-common",
     "c-popup",
     "c-dialog",
     "c-toast"
@@ -2169,7 +2150,6 @@
    "kind": "권장",
    "text": "사이드 패널에서 참조·선택이 필요하면 팝업을 엽니다.",
    "targets": [
-    "s-common",
     "c-popup",
     "c-dialog",
     "c-toast"
@@ -2183,7 +2163,6 @@
    "kind": "권장",
    "text": "팝업의 결과는 팝업을 닫은 뒤 기준 화면에 반영합니다.",
    "targets": [
-    "s-common",
     "c-popup",
     "c-dialog",
     "c-toast"
@@ -2197,7 +2176,6 @@
    "kind": "권장",
    "text": "다음 작업이 업무 단위면 팝업을 닫고 페이지로 넘깁니다.",
    "targets": [
-    "s-common",
     "c-popup",
     "c-dialog",
     "c-toast"
@@ -2211,7 +2189,6 @@
    "kind": "금지",
    "text": "가려지는 문제를 순위를 올려 해결하지 않습니다.",
    "targets": [
-    "s-common",
     "c-popup",
     "c-dialog",
     "c-toast"
@@ -2225,7 +2202,6 @@
    "kind": "금지",
    "text": "팝업을 띄운 채 다른 팝업이나 전체 화면 팝업을 열지 않습니다.",
    "targets": [
-    "s-common",
     "c-popup",
     "c-dialog",
     "c-toast"
@@ -2239,7 +2215,6 @@
    "kind": "금지",
    "text": "팝업을 띄운 채 사이드 패널을 열지 않습니다.",
    "targets": [
-    "s-common",
     "c-popup",
     "c-dialog",
     "c-toast"
@@ -2253,7 +2228,6 @@
    "kind": "금지",
    "text": "다음 단계를 새 층으로 쌓지 않습니다.",
    "targets": [
-    "s-common",
     "c-popup",
     "c-dialog",
     "c-toast"
@@ -2267,7 +2241,6 @@
    "kind": "금지",
    "text": "드롭다운·툴팁에 전역 순위를 주지 않습니다.",
    "targets": [
-    "s-common",
     "c-popup",
     "c-dialog",
     "c-toast"
@@ -2281,7 +2254,6 @@
    "kind": "금지",
    "text": "고정 헤더·고정 칼럼을 레이어로 다루지 않습니다.",
    "targets": [
-    "s-common",
     "c-popup",
     "c-dialog",
     "c-toast"
@@ -2852,7 +2824,6 @@
    "text": "단계가 변경되면 진행 중 노드로 화면을 자동 이동합니다.",
    "targets": [
     "l-node",
-    "s-node",
     "b-hud",
     "b-node",
     "b-actionbar"
@@ -2867,7 +2838,6 @@
    "text": "진행 중 노드는 화면 가로 중앙에 정렬합니다.",
    "targets": [
     "l-node",
-    "s-node",
     "b-hud",
     "b-node",
     "b-actionbar"
@@ -2882,7 +2852,6 @@
    "text": "HUD·액션바·범례는 화면 이동과 확대·축소에도 같은 위치에 고정합니다.",
    "targets": [
     "l-node",
-    "s-node",
     "b-hud",
     "b-node",
     "b-actionbar"
@@ -2897,7 +2866,6 @@
    "text": "화면 이동과 확대·축소는 탐색을 위한 조작으로만 사용합니다.",
    "targets": [
     "l-node",
-    "s-node",
     "b-hud",
     "b-node",
     "b-actionbar"
@@ -2912,7 +2880,6 @@
    "text": "실제 업무 진행은 액션바 또는 노드 내 버튼으로 수행합니다.",
    "targets": [
     "l-node",
-    "s-node",
     "b-hud",
     "b-node",
     "b-actionbar"
@@ -2927,7 +2894,6 @@
    "text": "상시 참조가 필요한 고객 상세 정보는 우측 하단 고객정보 위젯으로 분리합니다.",
    "targets": [
     "l-node",
-    "s-node",
     "b-hud",
     "b-node",
     "b-actionbar"
@@ -2942,7 +2908,6 @@
    "text": "상태 색상은 범례·HUD 스텝 닷·노드 테두리에 동일하게 적용합니다.",
    "targets": [
     "l-node",
-    "s-node",
     "b-hud",
     "b-node",
     "b-actionbar"
@@ -2957,7 +2922,6 @@
    "text": "화면마다 HUD·액션바 위치를 임의로 변경하지 않습니다.",
    "targets": [
     "l-node",
-    "s-node",
     "b-hud",
     "b-node",
     "b-actionbar"
@@ -2972,7 +2936,6 @@
    "text": "고객정보 위젯을 항상 펼쳐 둬 캔버스를 과도하게 가리지 않습니다.",
    "targets": [
     "l-node",
-    "s-node",
     "b-hud",
     "b-node",
     "b-actionbar"
@@ -2987,7 +2950,6 @@
    "text": "주 진행 버튼을 캔버스 여러 위치에 분산하지 않습니다.",
    "targets": [
     "l-node",
-    "s-node",
     "b-hud",
     "b-node",
     "b-actionbar"
@@ -3002,7 +2964,6 @@
    "text": "상태 색상을 임의로 재정의하지 않습니다.",
    "targets": [
     "l-node",
-    "s-node",
     "b-hud",
     "b-node",
     "b-actionbar"
@@ -5616,7 +5577,7 @@
    "kind": "권장",
    "text": "노드는 왼쪽에서 오른쪽으로 순서대로 배치합니다.",
    "targets": [
-    "s-node",
+    "l-node",
     "b-node",
     "b-hud",
     "b-actionbar"
@@ -5630,7 +5591,7 @@
    "kind": "권장",
    "text": "한 노드가 자기 단계의 정보·결정·진행을 모두 갖추게 합니다.",
    "targets": [
-    "s-node",
+    "l-node",
     "b-node",
     "b-hud",
     "b-actionbar"
@@ -5644,7 +5605,7 @@
    "kind": "권장",
    "text": "입력과 그 결과 확인처럼 짝을 이루는 처리는 한 노드로 묶습니다.",
    "targets": [
-    "s-node",
+    "l-node",
     "b-node",
     "b-hud",
     "b-actionbar"
@@ -5658,7 +5619,7 @@
    "kind": "권장",
    "text": "판단에 필요한 정보는 노드 안에서 보여 줍니다.",
    "targets": [
-    "s-node",
+    "l-node",
     "b-node",
     "b-hud",
     "b-actionbar"
@@ -5672,7 +5633,7 @@
    "kind": "권장",
    "text": "남은 단계는 헤더만으로 미리 조망시킵니다.",
    "targets": [
-    "s-node",
+    "l-node",
     "b-node",
     "b-hud",
     "b-actionbar"
@@ -5686,7 +5647,7 @@
    "kind": "권장",
    "text": "완료한 노드는 펼친 채 남겨 지나온 경로를 보이게 합니다.",
    "targets": [
-    "s-node",
+    "l-node",
     "b-node",
     "b-hud",
     "b-actionbar"
@@ -5700,7 +5661,7 @@
    "kind": "권장",
    "text": "기본 흐름을 벗어나야 하면 해당 예외 패턴을 명시적으로 적용합니다.",
    "targets": [
-    "s-node",
+    "l-node",
     "b-node",
     "b-hud",
     "b-actionbar"
@@ -5714,7 +5675,7 @@
    "kind": "금지",
    "text": "여러 노드를 동시에 진행하게 하지 않습니다.",
    "targets": [
-    "s-node",
+    "l-node",
     "b-node",
     "b-hud",
     "b-actionbar"
@@ -5728,7 +5689,7 @@
    "kind": "금지",
    "text": "한 단계의 결정을 다음 노드로 미루지 않습니다.",
    "targets": [
-    "s-node",
+    "l-node",
     "b-node",
     "b-hud",
     "b-actionbar"
@@ -5742,7 +5703,7 @@
    "kind": "금지",
    "text": "결정에 필요한 정보를 다른 화면에서 찾아오게 하지 않습니다.",
    "targets": [
-    "s-node",
+    "l-node",
     "b-node",
     "b-hud",
     "b-actionbar"
@@ -5756,7 +5717,7 @@
    "kind": "금지",
    "text": "넘어가는 수단이 없는 노드를 두지 않습니다.",
    "targets": [
-    "s-node",
+    "l-node",
     "b-node",
     "b-hud",
     "b-actionbar"
@@ -5770,7 +5731,7 @@
    "kind": "금지",
    "text": "한 단계로 묶을 일을 여러 노드로 쪼개 노드 수를 늘리지 않습니다.",
    "targets": [
-    "s-node",
+    "l-node",
     "b-node",
     "b-hud",
     "b-actionbar"
@@ -5784,7 +5745,7 @@
    "kind": "금지",
    "text": "정의된 예외 패턴 없이 기본 흐름을 임의로 변형하지 않습니다.",
    "targets": [
-    "s-node",
+    "l-node",
     "b-node",
     "b-hud",
     "b-actionbar"
@@ -5798,7 +5759,7 @@
    "kind": "권장",
    "text": "분기는 흐름을 나누지 않고, 분기 케이스를 전담하는 노드가 그 지점을 처리하게 합니다.",
    "targets": [
-    "s-node",
+    "l-node",
     "b-node"
    ],
    "source": "UX 패턴 가이드"
@@ -5810,7 +5771,7 @@
    "kind": "권장",
    "text": "조건이 어느 쪽으로 갈리든 앞뒤 흐름은 단일하게 유지합니다.",
    "targets": [
-    "s-node",
+    "l-node",
     "b-node"
    ],
    "source": "UX 패턴 가이드"
@@ -5822,7 +5783,7 @@
    "kind": "권장",
    "text": "결정 결과가 다르면 그에 맞게 다음 노드를 갱신하거나 추가합니다.",
    "targets": [
-    "s-node",
+    "l-node",
     "b-node"
    ],
    "source": "UX 패턴 가이드"
@@ -5834,7 +5795,7 @@
    "kind": "권장",
    "text": "한 경로가 막히면 대체 경로도 같은 노드 안에서 완결합니다.",
    "targets": [
-    "s-node",
+    "l-node",
     "b-node"
    ],
    "source": "UX 패턴 가이드"
@@ -5846,7 +5807,7 @@
    "kind": "권장",
    "text": "최초 로딩에는 기본 경로를 가정해 전체 프로세스를 헤더만으로 조망시킵니다.",
    "targets": [
-    "s-node",
+    "l-node",
     "b-node"
    ],
    "source": "UX 패턴 가이드"
@@ -5858,7 +5819,7 @@
    "kind": "권장",
    "text": "뒷단을 다시 구성할 때 앞단 노드의 식별자는 유지합니다.",
    "targets": [
-    "s-node",
+    "l-node",
     "b-node"
    ],
    "source": "UX 패턴 가이드"
@@ -5870,7 +5831,7 @@
    "kind": "금지",
    "text": "갈래(조건 A · B …)마다 노드를 나눠 캔버스를 여러 갈래로 갈라 놓지 않습니다.",
    "targets": [
-    "s-node",
+    "l-node",
     "b-node"
    ],
    "source": "UX 패턴 가이드"
@@ -5882,7 +5843,7 @@
    "kind": "금지",
    "text": "한 노드로 완결할 분기를 여러 노드로 나누지 않습니다.",
    "targets": [
-    "s-node",
+    "l-node",
     "b-node"
    ],
    "source": "UX 패턴 가이드"
@@ -5894,7 +5855,7 @@
    "kind": "금지",
    "text": "결정을 미룬 채 다음으로 흐름을 넘기지 않습니다.",
    "targets": [
-    "s-node",
+    "l-node",
     "b-node"
    ],
    "source": "UX 패턴 가이드"
@@ -5906,7 +5867,7 @@
    "kind": "금지",
    "text": "한 경로가 막혔다고 대체 없이 흐름을 중단하지 않습니다.",
    "targets": [
-    "s-node",
+    "l-node",
     "b-node"
    ],
    "source": "UX 패턴 가이드"
@@ -5918,7 +5879,7 @@
    "kind": "금지",
    "text": "결정 전이라고 뒷단을 통째로 비워 두지 않습니다. 남은 단계를 가늠할 수 없게 됩니다.",
    "targets": [
-    "s-node",
+    "l-node",
     "b-node"
    ],
    "source": "UX 패턴 가이드"
@@ -5930,7 +5891,7 @@
    "kind": "권장",
    "text": "사용자가 결정할 것이 없는 노드만 스킵합니다.",
    "targets": [
-    "s-node",
+    "l-node",
     "b-node"
    ],
    "source": "UX 패턴 가이드"
@@ -5942,7 +5903,7 @@
    "kind": "권장",
    "text": "앞 노드를 고치거나 업무가 갱신돼 다시 구성할 때는 스킵할지 다시 판정합니다.",
    "targets": [
-    "s-node",
+    "l-node",
     "b-node"
    ],
    "source": "UX 패턴 가이드"
@@ -5954,7 +5915,7 @@
    "kind": "권장",
    "text": "갱신된 노드보다 앞에 있는 노드는 완료 상태 그대로 둡니다.",
    "targets": [
-    "s-node",
+    "l-node",
     "b-node"
    ],
    "source": "UX 패턴 가이드"
@@ -5966,7 +5927,7 @@
    "kind": "금지",
    "text": "확인을 받아야 하는 값을 자동으로 확정해 넘기지 않습니다.",
    "targets": [
-    "s-node",
+    "l-node",
     "b-node"
    ],
    "source": "UX 패턴 가이드"
@@ -5978,7 +5939,7 @@
    "kind": "금지",
    "text": "확인이 실패한 노드를 스킵하지 않습니다.",
    "targets": [
-    "s-node",
+    "l-node",
     "b-node"
    ],
    "source": "UX 패턴 가이드"
@@ -5990,7 +5951,7 @@
    "kind": "금지",
    "text": "갱신된 노드 뒤에 오는 노드를 완료로 둔 채 지나치지 않습니다.",
    "targets": [
-    "s-node",
+    "l-node",
     "b-node"
    ],
    "source": "UX 패턴 가이드"
@@ -6002,7 +5963,7 @@
    "kind": "금지",
    "text": "한 번 스킵된 노드를 계속 스킵하는 노드로 고정하지 않습니다.",
    "targets": [
-    "s-node",
+    "l-node",
     "b-node"
    ],
    "source": "UX 패턴 가이드"
@@ -6014,7 +5975,7 @@
    "kind": "권장",
    "text": "노드 프로세스를 진행하다 발생한 오류는 완결형 노드 모듈로 처리합니다.",
    "targets": [
-    "s-node",
+    "l-node",
     "b-node"
    ],
    "source": "UX 패턴 가이드"
@@ -6026,7 +5987,7 @@
    "kind": "권장",
    "text": "막힌 자리에는 다음에 무엇을 할지 함께 둡니다.",
    "targets": [
-    "s-node",
+    "l-node",
     "b-node"
    ],
    "source": "UX 패턴 가이드"
@@ -6038,7 +5999,7 @@
    "kind": "권장",
    "text": "권한이 없는 노드가 편성돼 있으면 업무를 시작할 때 그 노드로 이동합니다.",
    "targets": [
-    "s-node",
+    "l-node",
     "b-node"
    ],
    "source": "UX 패턴 가이드"
@@ -6050,7 +6011,7 @@
    "kind": "권장",
    "text": "권한이 승인되면 막힌 노드부터 이어서 진행합니다.",
    "targets": [
-    "s-node",
+    "l-node",
     "b-node"
    ],
    "source": "UX 패턴 가이드"
@@ -6062,7 +6023,7 @@
    "kind": "금지",
    "text": "노드 프로세스에서 발생한 오류를 Global Message로 올리지 않습니다.",
    "targets": [
-    "s-node",
+    "l-node",
     "b-node"
    ],
    "source": "UX 패턴 가이드"
@@ -6074,7 +6035,7 @@
    "kind": "금지",
    "text": "노드 하나가 막혔다고 화면을 덮지 않습니다.",
    "targets": [
-    "s-node",
+    "l-node",
     "b-node"
    ],
    "source": "UX 패턴 가이드"
@@ -6086,7 +6047,7 @@
    "kind": "금지",
    "text": "원인만 알리고 다음 행동을 주지 않습니다.",
    "targets": [
-    "s-node",
+    "l-node",
     "b-node"
    ],
    "source": "UX 패턴 가이드"
@@ -6098,7 +6059,7 @@
    "kind": "금지",
    "text": "진행 불가 상태의 노드를 그대로 통과시키지 않습니다.",
    "targets": [
-    "s-node",
+    "l-node",
     "b-node"
    ],
    "source": "UX 패턴 가이드"
@@ -6110,7 +6071,7 @@
    "kind": "권장",
    "text": "완료 노드에는 [수정]을 두어 언제든 되돌아가 수정하게 합니다.",
    "targets": [
-    "s-node",
+    "l-node",
     "b-node"
    ],
    "source": "UX 패턴 가이드"
@@ -6122,7 +6083,7 @@
    "kind": "권장",
    "text": "수정한 뒤에는 그 뒤 노드를 새 내용으로 다시 구성해 이어 줍니다.",
    "targets": [
-    "s-node",
+    "l-node",
     "b-node"
    ],
    "source": "UX 패턴 가이드"
@@ -6134,7 +6095,7 @@
    "kind": "권장",
    "text": "시스템 저장이 걸린 노드는 넘어가기 전에 알리고 확인 창으로 저장 여부를 되묻습니다.",
    "targets": [
-    "s-node",
+    "l-node",
     "b-node"
    ],
    "source": "UX 패턴 가이드"
@@ -6146,7 +6107,7 @@
    "kind": "권장",
    "text": "저장된 노드에는 [수정 요청]을 두어 관련 업무로 조치할 길을 남깁니다.",
    "targets": [
-    "s-node",
+    "l-node",
     "b-node"
    ],
    "source": "UX 패턴 가이드"
@@ -6158,7 +6119,7 @@
    "kind": "금지",
    "text": "완료했다는 이유로 노드를 수정할 수 없게 만들지 않습니다.",
    "targets": [
-    "s-node",
+    "l-node",
     "b-node"
    ],
    "source": "UX 패턴 가이드"
@@ -6170,7 +6131,7 @@
    "kind": "금지",
    "text": "되돌아가 수정하는 횟수를 제한하지 않습니다.",
    "targets": [
-    "s-node",
+    "l-node",
     "b-node"
    ],
    "source": "UX 패턴 가이드"
@@ -6182,7 +6143,7 @@
    "kind": "금지",
    "text": "저장 시점에 확인 없이 즉시 저장하지 않습니다.",
    "targets": [
-    "s-node",
+    "l-node",
     "b-node"
    ],
    "source": "UX 패턴 가이드"
@@ -6194,7 +6155,7 @@
    "kind": "금지",
    "text": "저장 여부와 수정 가능 여부를 숨기지 않습니다.",
    "targets": [
-    "s-node",
+    "l-node",
     "b-node"
    ],
    "source": "UX 패턴 가이드"
@@ -6206,7 +6167,7 @@
    "kind": "금지",
    "text": "되돌아가 수정한 뒤 그 뒤 노드를 옛 내용 그대로 두지 않습니다.",
    "targets": [
-    "s-node",
+    "l-node",
     "b-node"
    ],
    "source": "UX 패턴 가이드"
