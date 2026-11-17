@@ -267,10 +267,15 @@ details.gx-rules .rl { margin-top: 8px; }
 .gx-tag { padding: 2px 8px; border-radius: 999px; background: var(--bg-subtle); font-size: 12px; color: var(--fg-muted); }
 .gx-chip { margin-top: auto; padding: 3px 10px; border-radius: 999px; background: #e6f0ff; color: #0b5fd8; font-size: 12px; font-weight: 600; }
 
-/* ---------- 에디터 모드: 눌러서 고치는 글 ---------- */
-.ed-text { cursor: text; border-radius: 4px; outline: 1px dashed transparent; outline-offset: 2px; transition: outline-color 0.1s, background 0.1s; }
-.ed-text:hover, .ed-text:focus-visible { outline-color: var(--accent); background: var(--accent-soft); }
-.ed-text.on { display: block; outline: 2px solid var(--accent); background: #fff; color: var(--fg); padding: 2px 4px; white-space: pre-wrap; }
+/* ---------- 에디터 모드: 설명 편집 ---------- */
+.ed-toggle { margin-left: 4px; padding: 3px 12px; border: 1px solid rgba(255,255,255,0.7); border-radius: 999px; background: transparent; color: inherit; font: inherit; font-size: 13px; font-weight: 600; cursor: pointer; }
+.ed-toggle.on { background: #fff; color: var(--accent); }
+.ed-field { display: inline-block; width: 100%; min-height: 32px; margin: 0; padding: 6px 8px; border: 1px dashed var(--accent); border-radius: 6px; background: #fff; color: var(--fg); font: inherit; line-height: 1.6; resize: none; overflow: hidden; vertical-align: top; }
+.ed-field.block { display: block; margin: 0 0 12px; }
+.ed-field:focus { outline: 2px solid var(--accent); border-style: solid; }
+.ed-field.changed { border-style: solid; background: #fffbe6; }
+.te-bar { position: fixed; left: 50%; bottom: max(16px, env(safe-area-inset-bottom)); transform: translateX(-50%); z-index: 60; display: flex; flex-wrap: wrap; align-items: center; gap: 10px; max-width: calc(100vw - 32px); padding: 10px 14px; border-radius: 14px; background: #1c1f23; color: #fff; box-shadow: 0 8px 30px rgba(0,0,0,0.25); font-size: 14px; }
+.te-bar .btn2:not(.primary) { background: #2b2f35; color: #fff; border-color: #444b55; }
 
 /* ---------- 컴포넌트 코드 AI 채팅 ---------- */
 .cc { display: grid; gap: 10px; margin-top: 12px; }
@@ -287,3 +292,4 @@ details.gx-rules .rl { margin-top: 8px; }
 .cc-tag { display: inline-block; margin-right: 6px; padding: 0 6px; border-radius: 4px; background: #fff; font-size: 11px; color: var(--fg-muted); }
 .cc-input { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 8px; align-items: end; }
 .cc-input textarea { width: 100%; padding: 8px 10px; border: 1px solid var(--border); border-radius: 10px; font: inherit; font-size: 14px; resize: vertical; background: var(--bg); color: var(--fg); }
+.content { padding-bottom: 96px; }

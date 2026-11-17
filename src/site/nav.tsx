@@ -142,7 +142,7 @@ export function RoleMenu() {
 
 /** 에디터 모드 띠: 역할 · 고칠 수 있는 것 · 초안 수 */
 export function EditorBar() {
-  const { role, isEditor } = usePortal();
+  const { role, isEditor, can, textEdit, setTextEdit } = usePortal();
   if (!isEditor) return null;
   const what = { ux: '레이아웃 규칙 · 규칙 · 사용 가이드', ds: '블록 · 컴포넌트 코드 · Figma 읽기', approver: '초안 게시 · 반려 · 롤백 · 승격 최종 승인', viewer: '' }[role];
   const mine = P.drafts((d) => d.status === 'draft' && (role === 'approver' || d.by === role)).length;
@@ -155,7 +155,56 @@ export function EditorBar() {
       <a href="#pub">
         {role === 'approver' ? '게시 대기' : '내 초안'} {mine}건
       </a>
+      {can('text') ? (
+        <button type="button" className={`ed-toggle${textEdit ? ' on' : ''}`} aria-pressed={textEdit} onClick={() => setTextEdit(!textEdit)}>
+          {textEdit ? '✎ 설명 편집 중 · 끄기' : '✎ 설명 편집'}
+        </button>
+      ) : null}
       <span className="ed-ver">게시 {P.version()}</span>
+    </div>
+  );
+}
+
+/** 설명 편집 모드의 아래 띠: 고친 곳 수 · 한 번에 초안 저장 · 취소 */
+export function TextEditBar() {
+  const { role, textEdit, setTextEdit, pending, setPending, toast } = usePortal();
+  if (!textEdit) return null;
+  const L = Object.values(pending).filter((x) => x.value.trim() !== x.before.trim());
+  const save = () => {
+    const ids = new Set<string>();
+    const fails: string[] = [];
+    for (const x of L) {
+      try {
+        const d = x.onSave ? x.onSave(x.value.trim()) : P.draftText(role, x.scopeKey, x.scopeName, x.path, x.label, x.before, x.value.trim());
+        if (d && typeof d === 'object' && 'id' in d) ids.add(String((d as { id: string }).id));
+      } catch (e) {
+        fails.push(`${x.label}: ${(e as Error).message}`);
+      }
+    }
+    setPending({});
+    toast(fails.length ? fails.join(' · ') : `${L.length}곳을 초안 ${[...ids].join(', ')}에 담았습니다 · 포털 승인 담당이 게시하면 반영됩니다`);
+  };
+  return (
+    <div className="te-bar" role="region" aria-label="설명 편집">
+      <b>설명 편집 중</b>
+      <span>{L.length ? `고친 곳 ${L.length}` : '입력칸의 글을 고치세요'}</span>
+      <button type="button" className="btn2 primary sm" disabled={!L.length} onClick={save}>
+        초안 저장
+      </button>
+      <button type="button" className="btn2 sm" disabled={!L.length} onClick={() => setPending({})}>
+        고친 것 되돌리기
+      </button>
+      <button
+        type="button"
+        className="btn2 sm"
+        onClick={() => {
+          if (L.length && !confirm(`저장하지 않은 ${L.length}곳이 있습니다. 버리고 끌까요?`)) return;
+          setPending({});
+          setTextEdit(false);
+        }}
+      >
+        끄기
+      </button>
     </div>
   );
 }

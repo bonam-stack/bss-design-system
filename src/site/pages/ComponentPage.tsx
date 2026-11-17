@@ -100,7 +100,7 @@ export function ComponentPage({ sc }: { sc: SiteComponent }) {
   const base = sc.data;
   const key = base.key;
   const c = (P.comp(key) as ComponentData & { figmaSyncedAt?: string }) || base;
-  const { ui, can, role, act, closeEdit } = usePortal();
+  const { ui, can, role, act, closeEdit, isEditor } = usePortal();
   const g = useMemo(() => applyGuide(key, sc.guide), [key, sc.guide, P.revision()]); // eslint-disable-line react-hooks/exhaustive-deps
   const ok = isRenderable(base);
   const a = analyze(base);
@@ -133,8 +133,6 @@ export function ComponentPage({ sc }: { sc: SiteComponent }) {
   const ru = compRules(key);
   const itemMeaning = P.itemByKey(key)?.meaning;
   const itemCode = P.itemByKey(key)?.code;
-  const { toast } = usePortal();
-  const toastDraft = (id: string) => toast(`초안 ${id}에 담았습니다 · 포털 승인 담당이 게시하면 반영됩니다`);
   const onSel = (v: string) => a.selectProp && update({ ...sel, [a.selectProp.name]: v });
 
   const saveDraft = () =>
@@ -150,7 +148,7 @@ export function ComponentPage({ sc }: { sc: SiteComponent }) {
     <LiveCtx.Provider value={live}>
       <p className="eyebrow">Components</p>
       <h1>{base.name}</h1>
-      <Editable as="p" className="lead" path="lead" label="페이지 설명" value={itemMeaning || c.description || ''} onSave={itemCode ? (v) => Promise.resolve(P.draftItem(role, itemCode, { meaning: v })).then((d) => toastDraft(d.id)) : undefined} />
+      <Editable as="p" className="lead" path="lead" label="페이지 설명" value={(isEditor && itemCode ? P.openDraft('item', itemCode)?.after.meaning : undefined) || itemMeaning || c.description || ''} onSave={itemCode ? (v) => P.draftItem(role, itemCode, { meaning: v }) : undefined} />
       <CompChecks c={c} hasGuide={!!sc.guide} />
       <TocInline />
       <PatternLinks k={key} />

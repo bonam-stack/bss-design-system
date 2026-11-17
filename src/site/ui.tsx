@@ -362,64 +362,39 @@ export function useText() {
   };
 }
 
-/** 에디터 모드에서 눌러서 그 자리에서 고치는 글. Enter로 저장(Shift+Enter 줄바꿈), Esc로 취소.
- *  고친 글은 초안이 되고 포털 승인 담당이 게시하면 모두에게 보인다 */
-export function Editable({ path, value, label, as: Tag = 'span', className, onSave, placeholder }: { path: string; value: string; label: string; as?: 'span' | 'p' | 'div'; className?: string; onSave?: (v: string) => Promise<unknown>; placeholder?: string }) {
+/** 고칠 수 있는 글. 에디터 모드에서 "설명 편집"을 켜면 입력칸이 되고, 고친 글은 아래 띠의 "초안 저장"으로 한 번에 초안이 된다.
+ *  포털 승인 담당이 게시하면 모두에게 보인다 */
+export function Editable({ path, value, label, as: Tag = 'span', className, onSave, placeholder }: { path: string; value: string; label: string; as?: 'span' | 'p' | 'div'; className?: string; onSave?: (v: string) => unknown; placeholder?: string }) {
   const scope = useContext(TextScope);
-  const { role, can, act } = usePortal();
+  const { can, textEdit, pending, setPending } = usePortal();
   const get = useText();
   const shown = onSave ? value : get(path, value);
-  const [editing, setEditing] = useState(false);
-  const ref = useRef<HTMLElement>(null);
-  const editable = onSave ? can('comp') : !!scope && can('text');
-  useEffect(() => {
-    if (!editing || !ref.current) return;
-    const el = ref.current;
-    el.innerText = shown;
-    el.focus();
-    const r = document.createRange();
-    r.selectNodeContents(el);
-    r.collapse(false);
-    window.getSelection()?.removeAllRanges();
-    window.getSelection()?.addRange(r);
-  }, [editing]); // eslint-disable-line react-hooks/exhaustive-deps
+  const editable = textEdit && (onSave ? can('comp') : !!scope && can('text'));
   if (!editable) return <Tag className={className}>{shown ? lineBreaks(shown) : placeholder}</Tag>;
-  const commit = () => {
-    const next = (ref.current?.innerText ?? shown).replace(/\n{3,}/g, '\n\n').trim();
-    setEditing(false);
-    if (next === shown || !next) return;
-    if (onSave) act(() => onSave(next), undefined);
-    else act(() => P.draftText(role, scope!.key, scope!.name, path, label, value, next), (d) => `초안 ${d.id}에 담았습니다 · 포털 승인 담당이 게시하면 반영됩니다`);
-  };
-  if (editing)
-    return (
-      <Tag
-        key="editing"
-        ref={ref as never}
-        className={`${className || ''} ed-text on`}
-        contentEditable="plaintext-only"
-        suppressContentEditableWarning
-        role="textbox"
-        aria-label={`${label} 고치기`}
-        onBlur={commit}
-        onKeyDown={(e) => {
-          if (e.key === 'Enter' && !e.shiftKey) {
-            e.preventDefault();
-            ref.current?.blur();
-          }
-          if (e.key === 'Escape') {
-            e.preventDefault();
-            if (ref.current) ref.current.innerText = shown;
-            setEditing(false);
-          }
-        }}
-      />
-    );
+  const pk = `${scope?.key || ''}|${path}`;
+  const cur = pending[pk]?.value ?? shown;
   return (
-    <Tag key="view" className={`${className || ''} ed-text`} role="button" tabIndex={0} title={`${label} · 눌러서 고치기`} onClick={() => setEditing(true)} onKeyDown={(e) => e.key === 'Enter' && setEditing(true)}>
-      {shown ? lineBreaks(shown) : placeholder}
-    </Tag>
+    <AutoText
+      className={`ed-field${Tag === 'p' ? ' block' : ''}${pending[pk] && cur !== shown ? ' changed' : ''}`}
+      value={cur}
+      placeholder={placeholder || label}
+      aria-label={label}
+      title={label}
+      onChange={(v) => setPending((P0) => ({ ...P0, [pk]: { scopeKey: scope?.key || '', scopeName: scope?.name || '', path, label, before: shown, value: v, onSave } }))}
+    />
   );
+}
+
+/** 글 길이에 맞춰 높이가 늘어나는 입력칸 */
+function AutoText({ value, onChange, className, ...rest }: { value: string; onChange: (v: string) => void; className: string; placeholder?: string; 'aria-label': string; title: string }) {
+  const ref = useRef<HTMLTextAreaElement>(null);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    el.style.height = 'auto';
+    el.style.height = `${el.scrollHeight + 2}px`;
+  }, [value]);
+  return <textarea ref={ref} rows={1} className={className} value={value} onChange={(e) => onChange(e.target.value)} {...rest} />;
 }
 
 const lineBreaks = (t: string) => t.split('\n').map((p, i) => (i ? [<br key={i} />, p] : p));

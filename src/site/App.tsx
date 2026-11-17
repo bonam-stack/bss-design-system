@@ -3,9 +3,9 @@ import { useCallback, useEffect, useLayoutEffect, useRef, useState, useSyncExter
 import * as P from './portal/store';
 import type { Role } from './portal/store';
 import { Ctx, emptyUi } from './portal/ctx';
-import type { PortalCtx, TocItem, UiState } from './portal/ctx';
+import type { PendingText, PortalCtx, TocItem, UiState } from './portal/ctx';
 import { catalog, components, componentByKey, patterns } from './data';
-import { EditorBar, Pager, RoleMenu, SideNav, TopNav } from './nav';
+import { EditorBar, Pager, RoleMenu, SideNav, TextEditBar, TopNav } from './nav';
 import { LastUpdated, TocList, setToast } from './ui';
 import { portalPage } from './pages/portal';
 import { ComponentPage } from './pages/ComponentPage';
@@ -63,6 +63,8 @@ export function App() {
     return r && r in P.ROLES ? r : 'viewer';
   });
   const [ui, setUi] = useState<UiState>(emptyUi);
+  const [textEdit, setTextEdit] = useState(false);
+  const [pending, setPending] = useState<Record<string, PendingText>>({});
   const [menuOpen, setMenuOpen] = useState(false);
   const [toastMsg, setToastMsg] = useState<{ text: string; n: number } | null>(null);
   const [toc, setToc] = useState<{ title: string; items: TocItem[] }>({ title: '', items: [] });
@@ -156,7 +158,7 @@ export function App() {
     return () => mo.disconnect();
   }, [route]);
 
-  const ctx: PortalCtx = { role, setRole, ui, setUi, toast, toc };
+  const ctx: PortalCtx = { role, setRole, ui, setUi, toast, toc, textEdit: textEdit && P.EDITOR.text === role, setTextEdit, pending, setPending };
   return (
     <Ctx.Provider value={ctx}>
       <header className="topbar">
@@ -200,6 +202,7 @@ export function App() {
           ) : null}
         </aside>
       </div>
+      <TextEditBar />
       <div className={`toast${toastMsg ? ' show' : ''}`} role="status">
         {toastMsg?.text}
       </div>
