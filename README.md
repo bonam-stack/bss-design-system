@@ -8,7 +8,10 @@ Figma 기준 파일: `9AioWOXVOVm5C7kdSxSEEP` ((공유용) BSS_DS_Library_Compon
 
 - 공유 링크: https://claude.ai/artifact/PU6iNoAkpJhThz5v2qvbKg
 - 로컬: `python3 -m http.server 8791 --directory design-system` 후 http://localhost:8791 (JSON을 fetch하므로 더블클릭으로는 안 열림)
-- 페이지: `#overview`, `#components`, `#blocks`, `#patterns`, `#rules`, `#icons`, `#<카탈로그 코드>` (예: `#c-button`, `#b-search-general`; 예전 `#button`도 열림), 관리 `#pub` · `#promo` · `#chg`
+- IA (SEED 문서 사이트와 같은 기획, 다른 스타일): 시작하기 · Foundations(색상 · 타이포그래피 · 간격 · 아이콘 · 디자인 토큰) · Components(개요 · 진행 현황) · Blocks · Patterns · Develop · UX 거버넌스 · AI & Tools · Updates
+- 컴포넌트는 디자인 문서 `#c-<key>`(대표 이미지 → Anatomy → Properties → Guidelines → Specification → Usage)와 개발 문서 `#dev-c-<key>`(미리보기 · 코드 → 사용하기 → Props → Examples → Figma · 변형 · 토큰)로 나뉜다. Specification 표는 `component.json`의 토큰 경로에서 만든다 (`site/spec.js`)
+- 공통: 검색(Ctrl/Cmd+K), 테마 전환, 페이지마다 "AI용 복사", 스크롤을 따라가는 목차, 이전 · 다음 문서, 바닥글
+- 페이지: `#overview`, `#foundations`, `#components`, `#develop`, `#ai`, `#updates`, `#<카탈로그 코드>` (예: `#c-button`, `#b-search-general`; 예전 `#button`도 열림), 관리 `#pub` · `#promo` · `#chg`
 
 컴포넌트 추가: Figma 링크로 `figma-to-json` 스킬 실행 → `components/<key>/component.json` + `components/index.json` 갱신 → 사이트에 자동으로 나타남.
 공유 링크 갱신: `python3 scripts/build_publish_page.py`로 `dist/index.html`을 만든 뒤 같은 링크로 다시 올린다 (새 JSON·SVG 파일도 함께).

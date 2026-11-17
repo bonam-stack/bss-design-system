@@ -6,6 +6,7 @@
 import { renderVariant, isRenderable } from './render.js';
 import { pagePattern, bindPattern } from './pattern.js';
 import { guideIntro, guideSections, bindGuide } from './guide.js';
+import { specSection } from './spec.js';
 import * as P from './portal/store.js';
 import * as V from './portal/views.js';
 
@@ -16,6 +17,7 @@ const topNav = document.getElementById('topNav');
 const topR = document.getElementById('topR');
 const edBar = document.getElementById('edBar');
 const tocEl = document.getElementById('toc');
+const foot = document.getElementById('siteFoot');
 
 const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]);
 const figmaUrl = (fileKey, nodeId) => `https://www.figma.com/design/${fileKey}/?node-id=${nodeId.replace(':', '-')}`;
@@ -134,30 +136,6 @@ function tokenSection(c) {
     ${tables}`;
 }
 
-// Developer details (node IDs, keys, tokens) live in one collapsed block at the bottom.
-function figmaDetails(c) {
-  const styles = [...(c.textStyles || []), ...(c.otherStyles || [])];
-  const styleRows = styles.map((s) => `<tr><td class="mono">${esc(s.name)}</td><td class="mono">${esc(s.type)}</td><td>${copyBtn(s.key)}</td></tr>`).join('');
-  return `
-    <details class="dev">
-      <summary>개발 정보 · Figma 노드 ID · 컴포넌트 키 · 변형 · 토큰</summary>
-    <div class="btn-row"><a class="btn" href="${esc(c.figma.url)}" target="_blank" rel="noopener">Figma에서 보기 ↗</a></div>
-    <h2>Figma 정보</h2>
-    <dl class="dl">
-      <dt>세트 노드 ID</dt><dd>${copyBtn(c.figma.nodeId)}</dd>
-      <dt>세트 컴포넌트 키</dt><dd>${c.figma.componentKey ? copyBtn(c.figma.componentKey) : '-'}</dd>
-      <dt>Figma 페이지</dt><dd>${esc(c.figma.page?.name || '-')} <span class="count mono">${esc(c.figma.page?.nodeId || '')}</span></dd>
-      <dt>JSON 파일</dt><dd>${copyBtn(`components/${c.key}/component.json`)}</dd>
-      <dt>읽은 날짜</dt><dd>${esc(c.figma.extractedAt || '-')}</dd>
-    </dl>
-
-    ${variantSection(c)}
-    ${tokenSection(c)}
-    ${styles.length ? `<h2>스타일 <span class="count">${styles.length}</span></h2>
-      <div class="table-wrap"><table class="data"><thead><tr><th>이름</th><th>종류</th><th>스타일 키</th></tr></thead><tbody>${styleRows}</tbody></table></div>` : ''}
-    </details>`;
-}
-
 // ---------- component page: Storybook-style playground ----------
 // Variant props become controls; a "state" prop with hover/pressed is driven by the pointer instead,
 // and a selection prop (checked/selected) toggles on click. Everything is drawn from component.json.
@@ -228,20 +206,68 @@ function patternLinks(c, patterns) {
 
 // 한 단계 낮춘 제목 (가이드 조각을 Anatomy · Properties · Guidelines 아래에 넣을 때)
 const demote = (html) => html.replace(/<(\/?)h3>/g, '<$1h4>').replace(/<(\/?)h2>/g, '<$1h3>');
+const cap = (s) => s.charAt(0).toUpperCase() + s.slice(1);
 
-// 컴포넌트 페이지 구성 (SEED 문서형): 미리보기 → Anatomy → Properties → Guidelines → Usage → 개발 정보
+// 가이드 표(상태 · 변형)가 이미 보여 주는 속성
+function guideCovers(g) {
+  const keys = new Set();
+  const add = (rows) => (rows || []).forEach((r) => Object.keys(r.props || {}).forEach((k) => keys.add(k)));
+  add(g?.states?.rows);
+  (g?.variants?.groups || []).forEach((grp) => add(grp.rows));
+  return keys;
+}
+
+// 문서 머리: 분류 · 제목 · 설명 · 준비 상태 · 다른 문서 링크
+function docHead(c, kind) {
+  const code = P.itemByKey(c.key)?.code || `c-${c.key}`;
+  const links = kind === 'design'
+    ? `<a class="plat" href="#dev-${esc(code)}"><b>Develop</b><span>HTML · CSS 코드</span></a>`
+    : `<a class="plat" href="#${esc(code)}"><b>Design</b><span>사용 가이드 · 스펙</span></a>`;
+  return `
+    <p class="eyebrow">${kind === 'design' ? 'Components' : 'Develop · HTML · CSS'}</p>
+    <h1>${esc(c.name)}</h1>
+    <p class="lead">${esc(P.itemByKey(c.key)?.meaning || c.description || '')}</p>
+    ${V.compChecks(c)}
+    <div class="plats">${links}<a class="plat" href="${esc(c.figma.url)}" target="_blank" rel="noopener"><b>Figma ↗</b><span>${esc(c.figma.nodeId)}</span></a></div>`;
+}
+
+// 컴포넌트 디자인 문서 (SEED 문서와 같은 구성): 대표 이미지 → Anatomy → Properties → Guidelines → Specification → Usage
+// 미리보기 놀이터 · 코드 · 속성 목록 · Figma 정보는 개발 문서(#dev-…)에 있다.
 function pageComponent(c, patterns = []) {
   const ok = isRenderable(c);
   const g = c.guide;
   const S = g ? guideSections(c, g) : {};
-  const propRows = c.props.map((p) => `<tr><td class="mono">${esc(p.name)}</td><td>${esc(p.type)}</td><td class="mono">${esc(JSON.stringify(p.default))}</td><td>${p.options ? p.options.map((o) => `<code>${esc(o)}</code>`).join(' ') : '-'}</td></tr>`).join('');
+  const covered = guideCovers(g);
+  const caseProps = ok ? analyze(c).vprops.filter((p) => !covered.has(p.name) && p.options.length > 1) : [];
   return `
-    <p class="eyebrow">Components</p>
-    <h1>${esc(c.name)}</h1>
-    <p class="lead">${esc(P.itemByKey(c.key)?.meaning || c.description || '')}</p>
-    ${V.compChecks(c)}
+    ${docHead(c, 'design')}
     ${patternLinks(c, patterns)}
     ${V.compEditor(c)}
+    ${ok ? '<div class="hero-canvas"><span class="hero-stage" id="heroStage"></span></div>' : `
+    <p class="error">이 컴포넌트는 예전 형식 JSON이라 그림을 그릴 수 없어요. Figma 링크로 다시 읽으면 나타나요.</p>`}
+    <div id="guideBody">
+      ${S.anatomy ? `<h2>Anatomy</h2>${demote(S.anatomy)}` : ''}
+      ${S.states || S.variants || caseProps.length ? `<h2>Properties</h2>
+      ${demote(S.states || '')}${demote(S.variants || '')}
+      ${caseProps.map((p) => `<h3>${esc(cap(p.name))}</h3><p class="note"><code>${esc(p.name)}</code> 속성의 값 ${p.options.length}가지입니다.</p><div class="cases" data-case-prop="${esc(p.name)}"></div>`).join('')}` : ''}
+      ${g || V.compRules(c) ? `<h2>Guidelines</h2>
+      ${g?.overview ? guideIntro(c, g) : ''}
+      ${V.guideEditor(c)}
+      ${S.policy ? demote(S.policy) : ''}${S.notes || ''}
+      ${V.compRules(c)}` : ''}
+      ${S.spec || c.tokens?.length ? `${specSection(c).replace('<h2>Specification</h2>', `<h2>Specification</h2>${demote(S.spec || '')}`)}` : ''}
+    </div>
+    ${V.compUsage(c)}`;
+}
+
+// 컴포넌트 개발 문서: 놀이터(미리보기 · 코드) → 사용하기 → Props → Examples → Figma · 변형 · 토큰
+function pageDev(c) {
+  const ok = isRenderable(c);
+  const propRows = c.props.map((p) => `<tr><td class="mono">${esc(p.name)}</td><td>${esc(p.type)}</td><td class="mono">${esc(JSON.stringify(p.default))}</td><td>${p.options ? p.options.map((o) => `<code>${esc(o)}</code>`).join(' ') : '-'}</td></tr>`).join('');
+  const styles = [...(c.textStyles || []), ...(c.otherStyles || [])];
+  const styleRows = styles.map((s) => `<tr><td class="mono">${esc(s.name)}</td><td class="mono">${esc(s.type)}</td><td>${copyBtn(s.key)}</td></tr>`).join('');
+  return `
+    ${docHead(c, 'dev')}
     ${ok ? `
     <section class="sb" id="sb">
       <div class="sb-tabs" role="tablist">
@@ -261,22 +287,56 @@ function pageComponent(c, patterns = []) {
     </section>
     ${analyze(c).stateProp || analyze(c).selectProp ? '<p class="note">마우스를 올리거나 눌러 보세요. 키보드 Tab으로 포커스할 수도 있어요.</p>' : ''}` : `
     <p class="error">이 컴포넌트는 예전 형식 JSON이라 미리보기를 그릴 수 없어요. Figma 링크로 다시 읽으면 나타나요.</p>`}
-    <div id="guideBody">
-      ${S.anatomy ? `<h2>Anatomy</h2>${demote(S.anatomy)}` : ''}
-      <h2>Properties</h2>
-      ${demote(S.states || '')}${demote(S.variants || '')}
-      ${ok && !g?.states ? '<h3>케이스</h3><p class="note">속성 조합별 모양입니다.</p><div id="sbCases"></div>' : ''}
-      ${demote(S.spec || '')}
-      <h3>속성 목록 <span class="count">${c.props.length}</span></h3>
-      <div class="table-wrap"><table class="data"><thead><tr><th>이름</th><th>타입</th><th>기본값</th><th>옵션</th></tr></thead><tbody>${propRows}</tbody></table></div>
-      ${g || V.compRules(c) ? `<h2>Guidelines</h2>
-      ${g?.overview ? guideIntro(c, g) : ''}
-      ${V.guideEditor(c)}
-      ${S.policy ? demote(S.policy) : ''}${S.notes || ''}
-      ${V.compRules(c)}` : ''}
-    </div>
-    ${V.compUsage(c)}
-    ${figmaDetails(c)}`;
+    <h2>사용하기</h2>
+    <ol class="flow"><li><strong>변형 고르기</strong><span>위 미리보기 오른쪽에서 속성을 고릅니다.</span></li>
+      <li><strong>코드 복사</strong><span><b>코드</b> 탭의 HTML · CSS를 복사합니다. 클래스 앞자리는 <code>ds-${esc(c.key)}</code>입니다.</span></li>
+      <li><strong>토큰 연결</strong><span>CSS 안의 값은 아래 <b>연결된 토큰</b>의 CSS 변수로 바꿔 씁니다.</span></li></ol>
+    <h2>Props <span class="count">${c.props.length}</span></h2>
+    <div class="table-wrap"><table class="data"><thead><tr><th>이름</th><th>타입</th><th>기본값</th><th>옵션</th></tr></thead><tbody>${propRows}</tbody></table></div>
+    ${ok ? '<h2>Examples</h2><p class="note">속성 값마다 모양입니다.</p><div id="sbCases"></div>' : ''}
+    <h2>Figma 정보</h2>
+    <dl class="dl">
+      <dt>세트 노드 ID</dt><dd>${copyBtn(c.figma.nodeId)}</dd>
+      <dt>세트 컴포넌트 키</dt><dd>${c.figma.componentKey ? copyBtn(c.figma.componentKey) : '-'}</dd>
+      <dt>Figma 페이지</dt><dd>${esc(c.figma.page?.name || '-')} <span class="count mono">${esc(c.figma.page?.nodeId || '')}</span></dd>
+      <dt>JSON 파일</dt><dd>${copyBtn(`components/${c.key}/component.json`)}</dd>
+      <dt>읽은 날짜</dt><dd>${esc(c.figma.extractedAt || '-')}</dd>
+    </dl>
+    ${variantSection(c)}
+    ${tokenSection(c)}
+    ${styles.length ? `<h2>스타일 <span class="count">${styles.length}</span></h2>
+      <div class="table-wrap"><table class="data"><thead><tr><th>이름</th><th>종류</th><th>스타일 키</th></tr></thead><tbody>${styleRows}</tbody></table></div>` : ''}`;
+}
+
+// 디자인 문서의 그림: 대표 이미지 · 속성별 케이스 · 가이드 예시. "코드" 버튼은 개발 문서에서 그 변형을 연다.
+async function bindDesign(c, ctx) {
+  if (!isRenderable(c)) return;
+  const icons = await iconMap(c, ctx.icons);
+  const hero = document.getElementById('heroStage');
+  if (!hero) return; // navigated away while loading
+  const a = analyze(c);
+  const base = Object.fromEntries(a.vprops.map((p) => [p.name, p.default]));
+  const values = Object.fromEntries(c.props.filter((p) => p.type !== 'variant').map((p) => [p.figmaName, p.default]));
+  let seq = 0;
+  const draw = (target, variant) => {
+    const { html, css } = renderVariant(c, variant.layer, { values, icons, prefix: `d${++seq}` });
+    target.innerHTML = `<style>${css}</style>${html}`;
+  };
+  draw(hero, findVariant(c, base));
+  const widest = Math.max(...c.variants.map((v) => v.size?.[0] || 0));
+  document.querySelectorAll('[data-case-prop]').forEach((box) => {
+    const p = a.vprops.find((x) => x.name === box.dataset.caseProp);
+    box.style.setProperty('--case-w', `${Math.max(150, Math.ceil(widest) + 40)}px`);
+    box.innerHTML = p.options.map((o, i) => `<div class="case"><span class="case-stage" id="dc-${esc(p.name)}-${i}"></span><span class="case-name">${esc(o)}</span></div>`).join('');
+    p.options.forEach((o, i) => draw(document.getElementById(`dc-${p.name}-${i}`), findVariant(c, { ...base, [p.name]: o }, p.name)));
+  });
+  if (c.guide) bindGuide(c, c.guide, icons, values);
+  document.getElementById('guideBody').addEventListener('click', (e) => {
+    const b = e.target.closest('[data-show-variant]');
+    if (!b) return;
+    try { sessionStorage.setItem('bss-design-portal.devVariant', b.dataset.showVariant); } catch { /* 없어도 페이지는 열림 */ }
+    location.hash = `#dev-${P.itemByKey(c.key)?.code || `c-${c.key}`}`;
+  });
 }
 
 async function bindComponent(c, ctx) {
@@ -438,17 +498,12 @@ async function bindComponent(c, ctx) {
     renderCases();
   });
 
-  // the guide's "코드" buttons put that exact variant in the playground above and open its code
-  if (c.guide) {
-    bindGuide(c, c.guide, icons, values);
-    document.getElementById('guideBody').addEventListener('click', (e) => {
-      const b = e.target.closest('[data-show-variant]');
-      if (!b) return;
-      Object.assign(sel, JSON.parse(b.dataset.showVariant));
-      refresh();
-      document.querySelector('.sb-tabs [data-tab="code"]').click();
-      document.getElementById('sb').scrollIntoView({ block: 'start', behavior: 'smooth' });
-    });
+  // 디자인 문서의 "코드" 버튼으로 왔으면 그 변형을 띄우고 코드 탭을 연다
+  let preset = null;
+  try { preset = sessionStorage.getItem('bss-design-portal.devVariant'); sessionStorage.removeItem('bss-design-portal.devVariant'); } catch { /* 없음 */ }
+  if (preset) {
+    Object.assign(sel, JSON.parse(preset));
+    queueMicrotask(() => document.querySelector('.sb-tabs [data-tab="code"]')?.click());
   }
 
   document.querySelector('.sb-tabs').addEventListener('click', (e) => {
@@ -583,29 +638,122 @@ async function boot() {
     comps: Object.fromEntries(components.map((c) => [c.key, c])),
     guides: Object.fromEntries(components.filter((c) => c.guide?.policy).map((c) => [c.key, c.guide.policy])),
   });
+  const tokens = await getJson('tokens/variables.json').catch(() => ({ tokens: {} }));
   const ctx = { components, icons };
   const codeOf = (key) => P.itemByKey(key)?.code || `c-${key}`;
 
-  // 목차: 본문 h2 · h3 (해시는 페이지 경로로 쓰므로 목차는 버튼으로 스크롤)
+  // 목차: 본문 h2 · h3 (해시는 페이지 경로로 쓰므로 목차는 버튼으로 스크롤). h2에는 01, 02 … 번호를 붙인다.
+  let spy = null;
   function buildToc() {
-    const hs = [...content.querySelectorAll('h2, h3')].filter((h) => !h.closest('.ed-panel, dialog, details.dev, .dbox') && !h.classList.contains('sr') && h.textContent.trim());
+    const hs = [...content.querySelectorAll('h2, h3')].filter((h) => !h.closest('.ed-panel, dialog, .dbox, .rel') && !h.classList.contains('sr') && h.textContent.trim());
     hs.forEach((h, i) => { if (!h.id) h.id = `s-${i}`; });
+    let n = 0;
+    hs.filter((h) => h.tagName === 'H2').forEach((h) => { h.dataset.n = String(++n).padStart(2, '0'); });
     const title = content.querySelector('h1')?.textContent.trim() || '';
-    const label = (h) => [...h.childNodes].filter((n) => n.nodeType === 3 || (n.nodeType === 1 && !n.matches('button, .count, .rule-id'))).map((n) => n.textContent).join('').trim();
-    const list = hs.length > 1 ? `<ul>${hs.map((h) => `<li class="${h.tagName === 'H3' ? 'sub' : ''}"><button type="button" data-toc="${h.id}">${esc(label(h))}</button></li>`).join('')}</ul>` : '';
-    tocEl.innerHTML = list ? `<p class="toc-t">목차</p><p class="toc-n">${esc(title)}</p>${list}` : '';
+    const label = (h) => [...h.childNodes].filter((x) => x.nodeType === 3 || (x.nodeType === 1 && !x.matches('button, .count, .rule-id'))).map((x) => x.textContent).join('').trim();
+    const list = hs.length > 1 ? `<ul>${hs.map((h) => `<li class="${h.tagName === 'H3' ? 'sub' : ''}"><button type="button" data-toc="${h.id}">${h.tagName === 'H2' ? `<span class="toc-num">${h.dataset.n}</span>` : ''}${esc(label(h))}</button></li>`).join('')}</ul>` : '';
+    tocEl.innerHTML = list ? `<div class="toc-box"><p class="toc-t">이 페이지</p><p class="toc-n">${esc(title)}</p>${list}<button type="button" class="toc-top" data-toc-top>맨 위로 ↑</button></div>` : '';
     // 좁은 화면: 오른쪽 목차 대신 본문 위쪽에 접힌 목차
     content.querySelector('.toc-inline')?.remove();
-    if (list) content.querySelector('.checks, .lead, h1')?.insertAdjacentHTML('afterend', `<details class="toc-inline"><summary>목차</summary>${list}</details>`);
+    if (list) ['.plats', '.checks', '.lead', 'h1'].map((q) => content.querySelector(q)).find(Boolean)?.insertAdjacentHTML('afterend', `<details class="toc-inline"><summary>이 페이지 목차</summary>${list}</details>`);
+    // 스크롤 위치의 절을 목차에서 표시
+    spy?.disconnect();
+    if (!list) return;
+    const seen = new Map();
+    spy = new IntersectionObserver((ents) => {
+      ents.forEach((e) => seen.set(e.target.id, e.isIntersecting ? e.boundingClientRect.top : null));
+      const vis = hs.filter((h) => seen.get(h.id) != null);
+      let cur = vis[0];
+      if (!cur) { // 화면에 제목이 없으면 바로 위의 제목
+        cur = [...hs].reverse().find((h) => h.getBoundingClientRect().top < 120);
+      }
+      tocEl.querySelectorAll('[data-toc]').forEach((b) => b.classList.toggle('on', b.dataset.toc === cur?.id));
+    }, { rootMargin: '-80px 0px -55% 0px' });
+    hs.forEach((h) => spy.observe(h));
   }
   content.addEventListener('click', (e) => {
     const b = e.target.closest('.toc-inline [data-toc]');
     if (b) document.getElementById(b.dataset.toc)?.scrollIntoView({ block: 'start' });
+    if (e.target.closest('[data-llm]')) copy(pageMarkdown(), null);
   });
   tocEl.addEventListener('click', (e) => {
+    const smooth = matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth';
     const b = e.target.closest('[data-toc]');
-    if (b) document.getElementById(b.dataset.toc)?.scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start' });
+    if (b) document.getElementById(b.dataset.toc)?.scrollIntoView({ behavior: smooth, block: 'start' });
+    if (e.target.closest('[data-toc-top]')) window.scrollTo({ top: 0, behavior: smooth });
   });
+
+  // 페이지 본문을 AI가 읽기 좋은 마크다운으로 (편집 칸 · 미리보기 놀이터 빼고)
+  function pageMarkdown() {
+    const out = [];
+    const walk = (el) => {
+      for (const n of el.children) {
+        if (n.matches('.ed-panel, .dbox, .toc-inline, .page-acts, .sb, .pager, .updated, dialog, style, script, .hero-canvas, .cases')) continue;
+        const t = n.tagName;
+        const txt = () => n.innerText.replace(/\s+\n/g, '\n').trim();
+        if (/^H[1-4]$/.test(t)) out.push(`${'#'.repeat(Number(t[1]))} ${txt().replace(/^\d\d\s*/, '')}`);
+        else if (t === 'TABLE') out.push([...n.rows].map((r) => `| ${[...r.cells].map((c) => c.innerText.trim().replace(/\n/g, ' ')).join(' | ')} |`).join('\n'));
+        else if (t === 'UL' || t === 'OL') out.push([...n.children].map((li) => `- ${li.innerText.trim().replace(/\n+/g, ' · ')}`).join('\n'));
+        else if (t === 'P' || t === 'DL' || t === 'PRE') { const x = txt(); if (x) out.push(x); }
+        else walk(n);
+      }
+    };
+    walk(content);
+    return `${out.join('\n\n')}\n\n(출처: BSS 디자인 포털 ${location.href})`;
+  }
+
+  // 검색 (Ctrl/Cmd+K · /)
+  const sDlg = document.getElementById('searchDlg');
+  const sIn = document.getElementById('searchIn');
+  const sList = document.getElementById('searchList');
+  let sHits = [];
+  let sAt = 0;
+  function renderSearch() {
+    const q = sIn.value.trim().toLowerCase();
+    const all = V.searchIndex();
+    sHits = (q ? all.filter((x) => `${x.label} ${x.route} ${x.section} ${x.meaning}`.toLowerCase().includes(q)) : all.filter((x) => ['overview', 'foundations', 'components', 'blocks', 'patterns', 'develop', 'rules', 'ai', 'updates'].includes(x.route))).slice(0, 40);
+    sAt = Math.min(sAt, Math.max(0, sHits.length - 1));
+    sList.innerHTML = sHits.length ? sHits.map((x, i) => `<li role="option" aria-selected="${i === sAt}"><a href="#${esc(x.route)}"><span class="sd-sec">${esc(x.section)}</span><b>${esc(x.label)}</b>${x.meaning ? `<small>${esc(x.meaning)}</small>` : ''}</a></li>`).join('') : '<li class="sd-none">찾는 문서가 없어요</li>';
+  }
+  function openSearch() {
+    sIn.value = '';
+    sAt = 0;
+    renderSearch();
+    sDlg.showModal();
+    sIn.focus();
+  }
+  sIn.addEventListener('input', () => { sAt = 0; renderSearch(); });
+  sIn.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+      e.preventDefault();
+      sAt = (sAt + (e.key === 'ArrowDown' ? 1 : -1) + sHits.length) % Math.max(1, sHits.length);
+      renderSearch();
+      sList.querySelector('[aria-selected="true"]')?.scrollIntoView({ block: 'nearest' });
+    } else if (e.key === 'Enter' && sHits[sAt]) {
+      e.preventDefault();
+      sDlg.close();
+      location.hash = `#${sHits[sAt].route}`;
+    }
+  });
+  sList.addEventListener('click', (e) => { if (e.target.closest('a')) sDlg.close(); });
+  sDlg.addEventListener('click', (e) => { if (e.target === sDlg) sDlg.close(); });
+  document.addEventListener('keydown', (e) => {
+    const typing = e.target.closest('input, textarea, select, [contenteditable]');
+    if ((e.key === 'k' && (e.metaKey || e.ctrlKey)) || (e.key === '/' && !typing)) {
+      e.preventDefault();
+      if (!sDlg.open) openSearch();
+    }
+  });
+
+  // 문서 머리 위 줄: 분류 경로 · AI용 복사
+  function pageActs() {
+    const eb = content.querySelector('.eyebrow');
+    if (!eb) return;
+    eb.insertAdjacentHTML('beforebegin', '<div class="page-acts"></div>');
+    const row = content.querySelector('.page-acts');
+    row.append(eb);
+    row.insertAdjacentHTML('beforeend', '<button type="button" class="llm-btn" data-llm title="이 페이지를 마크다운으로 복사">AI용 복사</button>');
+  }
 
   // scroll: 페이지를 옮길 때만 맨 위로 (편집 뒤 다시 그릴 때는 자리 유지)
   function render(scroll) {
@@ -614,16 +762,18 @@ async function boot() {
     const alias = { cmp: 'components', blk: 'blocks', gov: 'rules', 'gov-layouts': 'patterns', 'gov-slots': 'slots', 'gov-lint': 'lint', 'gov-patterns': 'patterns' };
     if (alias[route]) { location.replace(`#${alias[route]}`); return; }
     if (components.some((c) => c.key === route)) { location.replace(`#${codeOf(route)}`); return; }
-    const it = P.item(route);
+    const dev = route.startsWith('dev-');
+    const it = P.item(dev ? route.slice(4) : route);
     const key = it?.key;
     const comp = key && components.some((c) => c.key === key) ? structuredClone(P.comp(key)) : null;
-    const pcomp = key && !comp ? P.comp(key) : null;
+    const pcomp = key && !comp && !dev ? P.comp(key) : null;
     const pattern = patterns.find((p) => `pattern-${p.key}` === route);
 
     topNav.innerHTML = V.topNav(route);
-    topR.innerHTML = V.roleMenu();
+    topR.innerHTML = V.topTools();
     edBar.innerHTML = V.editorBar();
     sidebar.innerHTML = V.sideNav(route);
+    foot.innerHTML = V.footer();
     let body = '';
     try {
       if (route === 'icons') {
@@ -634,26 +784,42 @@ async function boot() {
       } else if (pattern) {
         content.innerHTML = pagePattern(pattern, pattern.iconSvg) + V.lastUpdated() + V.pager(route);
         bindPattern(pattern);
+      } else if (comp && dev) {
+        content.innerHTML = pageDev(comp) + V.lastUpdated() + V.pager(route);
+        bindVariantFilter();
+        bindComponent(comp, ctx).catch((err) => {
+          document.getElementById('sbStage')?.insertAdjacentHTML('beforeend', `<p class="error">미리보기를 그리지 못했어요: ${esc(err.message)}</p>`);
+        });
       } else if (comp) {
         const c = V.applyGuide(comp);
         content.innerHTML = pageComponent(c, patterns) + V.lastUpdated() + V.pager(route);
-        bindVariantFilter();
-        bindComponent(c, ctx).catch((err) => {
-          document.getElementById('sbStage')?.insertAdjacentHTML('beforeend', `<p class="error">미리보기를 그리지 못했어요: ${esc(err.message)}</p>`);
+        bindDesign(c, ctx).catch((err) => {
+          document.getElementById('heroStage')?.insertAdjacentHTML('beforeend', `<p class="error">그림을 그리지 못했어요: ${esc(err.message)}</p>`);
         });
       } else if (pcomp) content.innerHTML = V.portalOnlyPage(pcomp) + V.lastUpdated() + V.pager(route);
-      else if ((body = V.page(route)) !== null) content.innerHTML = body + (it ? V.lastUpdated() : '') + V.pager(route);
+      else if (!dev && (body = V.page(route)) !== null) content.innerHTML = body + (it ? V.lastUpdated() : '') + V.pager(route);
       else { location.replace('#overview'); return; }
     } catch (err) {
       content.innerHTML = `<p class="error">페이지를 그리지 못했어요: ${esc(err.message)}</p>`;
       console.error(err);
     }
+    pageActs();
     buildToc();
     sidebar.classList.remove('open');
     menuBtn.setAttribute('aria-expanded', 'false');
     if (scroll) window.scrollTo(0, 0);
   }
-  V.init({ rerender: () => render(false), toast, data: { patterns, icons } });
+  V.applyTheme();
+  V.init({
+    rerender: () => render(false),
+    toast,
+    openSearch,
+    data: {
+      patterns, icons, tokens, components,
+      devKeys: components.filter((c) => isRenderable(c)).map((c) => c.key),
+      guideKeys: guideList.guides,
+    },
+  });
   window.addEventListener('hashchange', () => { V.resetUi(); render(true); });
   render(true);
 }

@@ -16,5 +16,10 @@
     <main class="content" id="content" tabindex="-1"></main>
     <aside class="toc" id="toc" aria-label="목차"></aside>
   </div>
+  <footer class="site-foot" id="siteFoot"></footer>
+  <dialog class="search-dlg" id="searchDlg" aria-label="문서 검색">
+    <div class="sd-in"><input type="search" id="searchIn" placeholder="문서 · 컴포넌트 · 블록 검색" aria-label="검색어" autocomplete="off" /><kbd>Esc</kbd></div>
+    <ul class="sd-list" id="searchList" role="listbox" aria-label="검색 결과"></ul>
+  </dialog>
   <div class="toast" id="toast" role="status"></div>
   <script type="module" src="site/app.js"></script>

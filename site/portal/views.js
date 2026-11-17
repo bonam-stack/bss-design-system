@@ -76,15 +76,23 @@ const drafts = (type, target) => (isEditor() ? draftBox(P.openDraft(type, target
 
 // ---------- 머리 · 메뉴 ----------
 
+// IA (SEED 문서 사이트와 같은 기획): 시작하기 · Foundations · Components · Blocks · Patterns · Develop · UX 거버넌스 · AI & Tools · Updates
+// 항목은 [경로, 이름, 그 앞에 붙는 소제목?]. 디자인 문서(#c-…)와 개발 문서(#dev-c-…)를 나눠 두고 서로 링크한다.
 export function sections() {
   const I = P.items();
+  const comps = I.filter((i) => i.kind === 'comp').sort((a, b) => a.name.localeCompare(b.name, 'en'));
+  const dev = comps.filter((i) => (ctx.data.devKeys || []).includes(i.key));
+  const sub = (L, title) => L.map((x, n) => (n ? x : [...x, title]));
   const S = [
-    ['start', '시작하기', [['overview', '개요'], ['stack', '조립 구조'], ['updates', '업데이트']]],
-    ['foundations', 'Foundations', [['icons', '아이콘'], ['tokens', '디자인 토큰']]],
-    ['components', 'Components', [['components', '전체'], ...I.filter((i) => i.kind === 'comp').sort((a, b) => a.name.localeCompare(b.name, 'en')).map((i) => [i.code, i.name])]],
-    ['blocks', 'Blocks', [['blocks', '전체'], ...I.filter((i) => i.kind === 'shell' || i.kind === 'block').map((i) => [i.code, i.name])]],
-    ['patterns', 'Patterns', [['patterns', '전체'], ...(ctx.data.patterns || []).map((p) => [`pattern-${p.key}`, `${p.name} 패턴`]), ...I.filter((i) => i.kind === 'layout').map((i) => [i.code, `${i.name} 레이아웃`])]],
+    ['start', '시작하기', [['overview', '개요'], ['stack', '조립 구조']]],
+    ['foundations', 'Foundations', [['foundations', '개요'], ['color', '색상', '기본 요소'], ['typography', '타이포그래피'], ['dimension', '간격 · 모서리'], ['icons', '아이콘'], ['tokens', '디자인 토큰', '레퍼런스']]],
+    ['components', 'Components', [['components', '개요'], ['progress', '진행 현황'], ...sub(comps.map((i) => [i.code, i.name]), '컴포넌트')]],
+    ['blocks', 'Blocks', [['blocks', '개요'], ...I.filter((i) => i.kind === 'shell' || i.kind === 'block').map((i) => [i.code, i.name])]],
+    ['patterns', 'Patterns', [['patterns', '개요'], ...(ctx.data.patterns || []).map((p) => [`pattern-${p.key}`, `${p.name} 패턴`]), ...I.filter((i) => i.kind === 'layout').map((i) => [i.code, `${i.name} 레이아웃`])]],
+    ['develop', 'Develop', [['develop', '시작하기'], ...sub(dev.map((i) => [`dev-${i.code}`, i.name]), 'HTML · CSS 컴포넌트')]],
     ['governance', 'UX 거버넌스', [['rules', '규칙'], ['slots', '빈칸'], ['lint', '검증 규칙']]],
+    ['ai', 'AI & Tools', [['ai', '개요'], ['ai-figma', 'Figma 연동'], ['ai-studio', 'SB Studio 연계'], ['ai-llms', 'LLMS.txt']]],
+    ['updates', 'Updates', [['updates', '릴리스 노트']]],
   ];
   if (isEditor()) S.push(['admin', '관리', [['pub', '초안 · 게시'], ['promo', '승격 요청'], ['chg', '변경 감지']]]);
   return S;
@@ -93,12 +101,47 @@ export function sections() {
 export function sectionOf(route) {
   for (const [k, , items] of sections()) if (items.some(([r]) => r === route)) return k;
   if (route.startsWith('pattern-')) return 'patterns';
+  if (route.startsWith('dev-')) return 'develop';
   return 'start';
 }
 
 export function topNav(route) {
   const cur = sectionOf(route);
   return sections().map(([k, label, items]) => `<a href="#${items[0][0]}" class="${k === cur ? 'on' : ''}${k === 'admin' ? ' admin' : ''}"${k === cur ? ' aria-current="true"' : ''}>${label}${k === 'admin' ? count() : ''}</a>`).join('');
+}
+
+/** 머리 오른쪽: 검색 · 테마 · 역할 */
+export function topTools() {
+  const th = theme();
+  const label = { system: '시스템 테마', light: '밝은 테마', dark: '어두운 테마' }[th];
+  const icon = {
+    system: '<svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><circle cx="8" cy="8" r="6" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M8 2a6 6 0 0 1 0 12z" fill="currentColor"/></svg>',
+    light: '<svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><circle cx="8" cy="8" r="3" fill="currentColor"/><path d="M8 1v2M8 13v2M1 8h2M13 8h2M3 3l1.4 1.4M11.6 11.6L13 13M3 13l1.4-1.4M11.6 4.4L13 3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>',
+    dark: '<svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="M13.5 10.2A6 6 0 0 1 5.8 2.5a6 6 0 1 0 7.7 7.7z" fill="currentColor"/></svg>',
+  }[th];
+  return `<button type="button" class="tool-btn search-btn" data-act="search" aria-label="검색 (Ctrl+K)"><svg viewBox="0 0 16 16" width="15" height="15" aria-hidden="true"><circle cx="7" cy="7" r="4.5" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M10.5 10.5L14 14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg><span class="sb-l">검색</span><kbd>⌘K</kbd></button>
+    <button type="button" class="tool-btn" data-act="theme" aria-label="테마 전환 · 지금 ${label}" title="${label}">${icon}</button>${roleMenu()}`;
+}
+const theme = () => lsGet('bss-design-portal.theme') || 'system';
+export function applyTheme() {
+  const t = theme();
+  if (t === 'system') delete document.documentElement.dataset.theme;
+  else document.documentElement.dataset.theme = t;
+}
+
+/** 검색 대상: 모든 섹션의 문서 */
+export function searchIndex() {
+  return sections().flatMap(([, sec, items]) => items.map(([r, l]) => ({ route: r, label: l, section: sec, meaning: P.item(r)?.meaning || '' })));
+}
+
+/** 사이트 아래 바닥글 */
+export function footer() {
+  const S = sections().filter(([k]) => k !== 'admin');
+  return `<div class="sf-in"><div class="sf-brand"><span class="brand-mark" aria-hidden="true"></span><b>BSS Design</b><p>BSS 백오피스 화면을 만드는 기준 · 게시 ${esc(P.version())}</p></div>
+    <nav class="sf-nav" aria-label="바닥글 메뉴"><div><p>문서</p>${S.slice(0, 5).map(([, l, it]) => `<a href="#${esc(it[0][0])}">${esc(l)}</a>`).join('')}</div>
+    <div><p>더 보기</p>${S.slice(5).map(([, l, it]) => `<a href="#${esc(it[0][0])}">${esc(l)}</a>`).join('')}</div>
+    <div><p>원본</p><a href="https://www.figma.com/design/${FIGMA_FILE}/" target="_blank" rel="noopener">Figma 라이브러리 ↗</a><a href="#ai-studio">SB Studio</a></div></nav></div>
+    <p class="sf-copy">© 2026 BSS Design System · POC</p>`;
 }
 function count() {
   const n = P.drafts((d) => d.status === 'draft').length + P.promotions().filter((p) => p.status === '대기').length;
@@ -107,12 +150,13 @@ function count() {
 
 export function sideNav(route) {
   const cur = sectionOf(route);
-  const [, label, items] = sections().find(([k]) => k === cur);
+  const [, label, items] = sections().find(([k]) => k === cur) || sections()[0];
   const kindOf = (r) => P.item(r)?.kind;
   // 좁은 화면에서는 위쪽 섹션 메뉴가 숨으므로 목록 위에 섹션을 둔다
   let html = `<div class="m-sec">${sections().map(([k, l, it]) => `<a href="#${it[0][0]}" class="${k === cur ? 'on' : ''}">${esc(l)}</a>`).join('')}</div><div class="nav-title">${esc(label)}</div>`;
   let lastKind = null;
-  for (const [r, l] of items) {
+  for (const [r, l, subTitle] of items) {
+    if (subTitle) html += `<div class="nav-sub">${esc(subTitle)}</div>`;
     const k = kindOf(r);
     if (cur === 'blocks' && k && k !== lastKind) { html += `<div class="nav-sub">${k === 'shell' ? '앱쉘' : '블록'}</div>`; lastKind = k; }
     if (cur === 'patterns' && k === 'layout' && lastKind !== 'layout') { html += '<div class="nav-sub">레이아웃 규칙</div>'; lastKind = 'layout'; }
@@ -126,7 +170,7 @@ export function sideNav(route) {
 
 /** 이전 · 다음 (같은 섹션 안에서) */
 export function pager(route) {
-  const items = sections().find(([k]) => k === sectionOf(route))[2];
+  const items = sections().find(([k]) => k === sectionOf(route))?.[2] || [];
   const i = items.findIndex(([r]) => r === route);
   if (i < 0) return '';
   const prev = items[i - 1];
@@ -154,7 +198,17 @@ export function page(route) {
     case 'overview': return pageOverview();
     case 'stack': return pageStack();
     case 'updates': return pageUpdates();
+    case 'foundations': return pageFoundations();
+    case 'color': return pageColor();
+    case 'typography': return pageType();
+    case 'dimension': return pageDimension();
     case 'tokens': return pageTokens();
+    case 'progress': return pageProgress();
+    case 'develop': return pageDevelop();
+    case 'ai': return pageAi();
+    case 'ai-figma': return pageAiFigma();
+    case 'ai-studio': return pageAiStudio();
+    case 'ai-llms': return pageLlms();
     case 'components': return pageList('comp');
     case 'blocks': return pageList('block');
     case 'patterns': return pagePatterns();
@@ -182,14 +236,16 @@ function pageOverview() {
     ['blocks', 'Blocks', `앱쉘 ${n('shell')} · 블록 ${n('block')}`, '빈칸 하나를 채우는 업무 단위 묶음'],
     ['patterns', 'Patterns', `레이아웃 규칙 ${n('layout')} · 패턴 ${(ctx.data.patterns || []).length}`, '화면을 어떤 순서로 쌓을지'],
     ['rules', 'UX 거버넌스', `규칙 ${P.rules().length}개`, 'UX표준가이드 규칙과 연결표'],
-    ['icons', 'Foundations', `아이콘 ${ctx.data.icons?.icons.length || 0}개`, '아이콘 · 디자인 토큰'],
+    ['foundations', 'Foundations', `토큰 ${Object.keys(ctx.data.tokens?.tokens || {}).length}개 · 아이콘 ${ctx.data.icons?.icons.length || 0}개`, '색상 · 타이포그래피 · 간격 · 아이콘'],
+    ['develop', 'Develop', `HTML · CSS ${(ctx.data.devKeys || []).length}개`, '코드 · 속성 · 토큰'],
+    ['ai', 'AI & Tools', 'Figma · SB Studio · LLMS.txt', 'AI 도구가 같은 기준을 읽도록'],
     ['stack', '조립 구조', 'Stack 5단계', '앱쉘 → 레이아웃 → 빈칸 → 블록 → 컴포넌트'],
   ];
   return `${head('BSS Design System', 'BSS 디자인 포털', 'BSS 백오피스 화면을 만드는 기준입니다. SB Studio는 이 포털에 게시된 버전만 읽어 화면을 조립합니다.', `<div class="checks">${check(true, `게시 ${P.version()}`)}${check(true, '카탈로그 0.5')}${check(true, 'UX표준가이드 1.2')}${check(true, '디자인 토큰 v0.5')}</div>`)}
     <div class="cards">${cards.map((c) => `<a class="card" href="#${c[0]}"><span class="card-eb">${esc(c[1])}</span><b>${esc(c[2])}</b><span>${esc(c[3])}</span></a>`).join('')}</div>
     <h2 id="latest">최근 업데이트</h2>
     ${H.slice(0, 3).map(relCard).join('')}
-    <p><a class="lnk" href="#updates">업데이트 전체 보기</a></p>`;
+    <p><a class="lnk" href="#updates">릴리스 노트 전체 보기</a></p>`;
 }
 
 function relCard(h) {
@@ -221,18 +277,227 @@ function pageStack() {
 }
 
 function pageUpdates() {
-  return `${head('시작하기', '업데이트', '게시된 버전과 변경 노트입니다. MAJOR는 기존 것을 고치거나 지울 때(이미 만든 SB 재검수), MINOR는 추가 · 승격, PATCH는 설명 수정입니다.')}
+  return `${head('Updates', '릴리스 노트', '게시된 버전과 변경 노트입니다. MAJOR는 기존 것을 고치거나 지울 때(이미 만든 SB 재검수), MINOR는 추가 · 승격, PATCH는 설명 수정입니다.')}
   ${P.history().map((h, i) => `<h2 id="v-${i}" class="sr">${esc(h.version)}</h2>${relCard(h)}`).join('')}`;
 }
 
-function pageTokens() {
-  const tk = [
-    ['--color-bg-brand-strongest-default', '브랜드 · 주 버튼'], ['--color-bg-brand-faint-default', '브랜드 옅은 배경'], ['--color-fg-neutral-strongest', '본문 글자'], ['--color-fg-neutral-muted-default', '보조 글자'],
-    ['--color-bg-neutral-muted', '회색 배경'], ['--color-border-neutral-muted', '테두리'], ['--color-bg-success-strongest', '성공'], ['--color-fg-danger-strong', '위험 글자'],
+// ---------- Foundations ----------
+
+const TK = () => Object.entries(ctx.data.tokens?.tokens || {}).map(([css, t]) => ({ css, ...t }));
+const swatch = (hex) => `<i class="sw" style="background:${esc(hex)}"></i>`;
+const COLOR_ROLE = { bg: '배경 (bg)', fg: '글자 · 아이콘 (fg)', border: '테두리 (border)' };
+
+function pageFoundations() {
+  const n = (col) => TK().filter((t) => t.collection === col).length;
+  const cards = [
+    ['color', '색상', `Semantic ${TK().filter((t) => t.collection === 'Semantic' && t.type === 'COLOR').length} · Primitive ${n('Primitive')}`, '역할(배경 · 글자 · 테두리)로 고르는 색'],
+    ['typography', '타이포그래피', `${typeStyles().length}개 스타일`, 'Pretendard · 크기 · 줄 높이 · 굵기'],
+    ['dimension', '간격 · 모서리', `${dimTokens().length}개 값`, '간격 · 크기 · 둥글기 · 두께'],
+    ['icons', '아이콘', `${ctx.data.icons?.icons.length || 0}개`, 'Line · Filled · Colored'],
+    ['tokens', '디자인 토큰', `${TK().length}개`, 'Primitive → Semantic → Component 전체 목록'],
   ];
-  return `${head('Foundations', '디자인 토큰', '색 · 글꼴 · 모서리는 모두 디자인 토큰 v0.5를 씁니다. Figma 변수에서 읽은 값입니다.')}
-  <h2 id="semantic">Semantic 색</h2>
-  <div class="tk">${tk.map(([k, l]) => `<div><i style="background:var(${k})"></i><b>${esc(l)}</b><code>${k}</code></div>`).join('')}</div>`;
+  return `${head('Foundations', 'Foundations', '컴포넌트와 블록이 공통으로 쓰는 색 · 글자 · 간격 · 아이콘의 기준입니다. 값은 Figma 변수에서 읽은 디자인 토큰으로만 씁니다.')}
+  <h2 id="principle">원칙</h2>
+  <ol class="flow"><li><strong>값이 아니라 역할로 고릅니다</strong><span>#3617CE 대신 <code>color/bg/brand/strongest</code>처럼 쓰임새가 이름에 드러난 Semantic 토큰을 씁니다.</span></li>
+  <li><strong>세 단계로 이어집니다</strong><span>Primitive(팔레트) → Semantic(역할) → Component(부품 전용). 부품은 Component 토큰만 보고, 바꿀 때는 Semantic에서 한 번에 바뀝니다.</span></li>
+  <li><strong>Figma가 원본입니다</strong><span>디자인 시스템 담당이 Figma 변수를 고치면 포털이 다시 읽어 게시합니다.</span></li></ol>
+  <h2 id="all">구성</h2>
+  <div class="cards">${cards.map((c) => `<a class="card" href="#${c[0]}"><span class="card-eb">${esc(c[1])}</span><b>${esc(c[2])}</b><span>${esc(c[3])}</span></a>`).join('')}</div>`;
+}
+
+function pageColor() {
+  const sem = TK().filter((t) => t.collection === 'Semantic' && t.type === 'COLOR');
+  const prim = TK().filter((t) => t.collection === 'Primitive');
+  const role = (t) => t.figma.split('/')[1];
+  const roles = [...new Set(sem.map(role))];
+  const hues = [...new Set(prim.map((t) => t.figma.split('/')[1]))];
+  return `${head('Foundations', '색상', '색은 역할(Color role)로 고르고, 역할은 팔레트(Palette)의 색 하나를 가리킵니다. 컴포넌트는 역할 토큰을 통해서만 색을 씁니다.')}
+  <h2 id="role">Color role</h2>
+  <p class="note">배경 · 글자 · 테두리마다 강도(faint → strongest)와 의미(brand · neutral · danger …)를 조합한 이름입니다.</p>
+  ${roles.map((r) => `<h3 id="role-${esc(r)}">${esc(COLOR_ROLE[r] || r)} <span class="count">${sem.filter((t) => role(t) === r).length}</span></h3>
+    ${table(['', '토큰', '값', '팔레트'], sem.filter((t) => role(t) === r).map((t) => `<tr><td class="sw-c">${swatch(t.value)}</td><td><code>${esc(t.figma)}</code></td><td class="mono">${esc(t.value)}</td><td class="mono muted">${esc(t.ref ? t.ref.replace(/^--/, '').replace(/-/g, '/') : '-')}</td></tr>`))}`).join('')}
+  <h2 id="palette">Palette</h2>
+  <p class="note">Primitive 색입니다. 화면에서 바로 쓰지 않고 Color role이 가리키는 원본으로만 씁니다.</p>
+  ${hues.map((h) => {
+    const L = prim.filter((t) => t.figma.split('/')[1] === h);
+    return `<h3 id="pal-${esc(h)}">${esc(h)}</h3><div class="pal">${L.map((t) => `<div title="${esc(t.figma)}"><i style="background:${esc(t.value)}"></i><b>${esc(t.figma.split('/').slice(2).join('/') || h)}</b><span class="mono">${esc(t.value)}</span></div>`).join('')}</div>`;
+  }).join('')}`;
+}
+
+/** Semantic font 토큰을 스타일(font/<역할>/<크기>/<굵기>) 단위로 묶는다 */
+function typeStyles() {
+  const comps = ctx.data.components || [];
+  const map = new Map();
+  for (const c of comps) for (const t of c.tokens) {
+    const s = t.figma.split('/');
+    if (s[0] !== 'font' || s.length !== 5) continue;
+    const name = s.slice(1, 4).join('/');
+    if (!map.has(name)) map.set(name, { name, role: s[1], used: new Set() });
+    map.get(name)[s[4]] = t.value;
+    map.get(name).used.add(c.name);
+  }
+  return [...map.values()].sort((a, b) => a.role.localeCompare(b.role) || Number(b.name.split('/')[1]) - Number(a.name.split('/')[1]));
+}
+
+function pageType() {
+  const L = typeStyles();
+  const fam = TK().filter((t) => t.figma.startsWith('font/'));
+  return `${head('Foundations', '타이포그래피', '글꼴은 Pretendard 하나를 씁니다. 스타일 이름은 역할/크기/굵기(예: label/14/400)이고, 줄 높이와 자간이 함께 정해져 있습니다.')}
+  <h2 id="scale">Type scale</h2>
+  <div class="ts">${L.map((s) => `<div class="ts-r"><span class="ts-n"><code>${esc(s.name)}</code><small>${esc(s.size)} / ${esc(s.lineHeight)} · ${esc(s.weight)}</small></span><span class="ts-x" style="font-size:${Number(s.size)}px;line-height:${Number(s.lineHeight)}px;font-weight:${Number(s.weight)};letter-spacing:${Number(s.letterSpacing) || 0}px">BSS 백오피스 화면 Aa 123</span></div>`).join('')}</div>
+  <h2 id="styles">스타일 목록</h2>
+  ${table(['스타일', '크기', '줄 높이', '굵기', '자간', '쓰는 컴포넌트'], L.map((s) => `<tr><td><code>${esc(s.name)}</code></td><td class="mono">${esc(s.size)}</td><td class="mono">${esc(s.lineHeight)}</td><td class="mono">${esc(s.weight)}</td><td class="mono">${esc(s.letterSpacing)}</td><td>${[...s.used].map(esc).join(' · ')}</td></tr>`))}
+  <h2 id="primitive">글자 토큰</h2>
+  ${table(['토큰', '값'], fam.map((t) => `<tr><td><code>${esc(t.figma)}</code></td><td class="mono">${esc(t.value)}</td></tr>`))}`;
+}
+
+/** 컴포넌트 토큰이 가리키는 간격 · 크기 · 둥글기 · 두께 값 */
+function dimTokens() {
+  const map = new Map();
+  for (const c of ctx.data.components || []) for (const t of c.tokens) {
+    const a = t.alias || '';
+    const kind = a.split('/')[0];
+    if (!['space', 'size', 'radius', 'borderWidth'].includes(kind)) continue;
+    if (!map.has(a)) map.set(a, { alias: a, kind, value: t.value, used: new Set() });
+    map.get(a).used.add(c.name);
+  }
+  const num = (x) => (Number.isFinite(Number(x.value)) ? Number(x.value) : 0);
+  return [...map.values()].sort((a, b) => a.kind.localeCompare(b.kind) || num(a) - num(b));
+}
+
+function pageDimension() {
+  const L = dimTokens();
+  const K = { space: ['간격', 'space', '요소 사이 · 안쪽 여백'], size: ['크기', 'size', '컨트롤 높이 · 아이콘 크기'], radius: ['모서리', 'radius', '둥글기 (full = 알약 모양)'], borderWidth: ['두께', 'border-width', '테두리 · 포커스 링 두께'] };
+  return `${head('Foundations', '간격 · 모서리', '간격 · 크기 · 둥글기 · 두께는 정해진 단계만 씁니다. 아래 값은 컴포넌트 토큰이 실제로 가리키는 단계입니다.')}
+  ${Object.entries(K).map(([k, [title, id, lead]]) => {
+    const R = L.filter((x) => x.kind === k);
+    if (!R.length) return '';
+    return `<h2 id="${id}">${esc(title)} <span class="count">${R.length}</span></h2><p class="note">${esc(lead)}</p>
+    ${table(['토큰', '값', '미리보기', '쓰는 컴포넌트'], R.map((x) => {
+      const v = Math.min(Number(x.value) || 0, 96);
+      const vis = k === 'radius' ? `<i class="dm dm-r" style="border-radius:${Math.min(Number(x.value) || 0, 24)}px"></i>` : k === 'borderWidth' ? `<i class="dm dm-b" style="border-width:${Number(x.value)}px"></i>` : `<i class="dm dm-s" style="width:${v}px"></i>`;
+      return `<tr><td><code>${esc(x.alias)}</code></td><td class="mono">${esc(x.value)}</td><td>${vis}</td><td>${[...x.used].map(esc).join(' · ')}</td></tr>`;
+    }))}`;
+  }).join('')}`;
+}
+
+function pageTokens() {
+  const cols = ['Primitive', 'Semantic', 'Component'];
+  const all = TK();
+  return `${head('Foundations', '디자인 토큰', `Figma 변수에서 읽은 토큰 ${all.length}개의 전체 목록입니다. Primitive → Semantic → Component 순서로 이어지고, CSS 변수 이름으로 씁니다.`)}
+  <h2 id="layers">토큰 단계</h2>
+  ${table(['단계', '개수', '뜻', '예'], [
+    ['Primitive', all.filter((t) => t.collection === 'Primitive').length, '팔레트 · 원본 값', 'color/gray/50'],
+    ['Semantic', all.filter((t) => t.collection === 'Semantic').length, '역할 · 화면에서 쓰는 이름', 'color/bg/brand/strongest/default'],
+    ['Component', all.filter((t) => t.collection === 'Component').length, '부품 전용 · Semantic을 가리킴', 'button/primary/color/bg/default'],
+  ].map((r) => `<tr><td><b>${r[0]}</b></td><td class="mono">${r[1]}</td><td>${r[2]}</td><td><code>${r[3]}</code></td></tr>`))}
+  ${cols.map((col) => {
+    const L = all.filter((t) => t.collection === col);
+    return `<h2 id="ref-${col.toLowerCase()}">${col} <span class="count">${L.length}</span></h2>
+    <details class="ref"><summary>${col} 토큰 ${L.length}개 펼치기</summary>
+    ${table(['Figma 변수', 'CSS 변수', '값', '가리키는 토큰'], L.map((t) => `<tr><td><code>${esc(t.figma)}</code></td><td><button class="copy" data-copy="var(${esc(t.css)})" title="클릭해서 복사">${esc(t.css)}</button></td><td class="mono nw">${t.type === 'COLOR' ? swatch(t.value) : ''}${esc(t.value)}</td><td class="mono muted">${esc(t.ref || '-')}</td></tr>`))}</details>`;
+  }).join('')}`;
+}
+
+// ---------- Components 진행 현황 ----------
+
+function pageProgress() {
+  const I = P.items().filter((i) => i.kind === 'comp').sort((a, b) => a.name.localeCompare(b.name, 'en'));
+  const devKeys = ctx.data.devKeys || [];
+  const guideKeys = ctx.data.guideKeys || [];
+  const has = (i) => ({ fig: !!i.design, guide: !!i.key && guideKeys.includes(i.key), dev: !!i.key && devKeys.includes(i.key), ux: !!i.ux });
+  const n = (f) => I.filter((i) => has(i)[f]).length;
+  const bar = (k, label) => `<div class="pg"><span>${label}</span><b>${n(k)} / ${I.length}</b><i style="--p:${Math.round((n(k) / I.length) * 100)}%"></i></div>`;
+  const mk = (on) => (on ? '<span class="ok-dot" aria-label="있음">●</span>' : '<span class="no-dot" aria-label="없음">○</span>');
+  return `${head('Components', '진행 현황', '컴포넌트마다 Figma 디자인 에셋 · 사용 가이드 · 개발 문서 · UX 규칙이 어디까지 준비됐는지 보여 줍니다.')}
+  <h2 id="summary">요약</h2>
+  <div class="pgs">${bar('fig', 'Figma 에셋')}${bar('guide', '사용 가이드')}${bar('dev', '개발 문서')}${bar('ux', 'UX 규칙')}</div>
+  <h2 id="board">컴포넌트별</h2>
+  ${table(['컴포넌트', '상태', 'Figma', '사용 가이드', '개발 문서', 'UX 규칙'], I.map((i) => {
+    const h = has(i);
+    return `<tr><td><a href="#${esc(i.code)}">${esc(i.name)}</a></td><td>${stOf(i.status)}</td><td>${mk(h.fig)}</td><td>${mk(h.guide)}</td><td>${h.dev ? `<a href="#dev-${esc(i.code)}">${mk(true)}</a>` : mk(false)}</td><td>${mk(h.ux)}</td></tr>`;
+  }))}`;
+}
+
+// ---------- Develop ----------
+
+function pageDevelop() {
+  const I = P.items().filter((i) => i.kind === 'comp' && (ctx.data.devKeys || []).includes(i.key)).sort((a, b) => a.name.localeCompare(b.name, 'en'));
+  return `${head('Develop', 'HTML · CSS로 시작하기', '컴포넌트마다 Figma 레이어를 그대로 옮긴 HTML · CSS 코드를 제공합니다. 디자인 문서(언제 · 어떻게 쓰는지)와 달리 개발 문서는 코드 · 속성 · 토큰을 다룹니다.')}
+  <h2 id="install">준비</h2>
+  <ol class="flow"><li><strong>글꼴</strong><span>Pretendard Variable을 불러옵니다. <code>site/fonts/PretendardVariable.woff2</code></span></li>
+  <li><strong>토큰</strong><span>CSS 변수는 <a href="#tokens">디자인 토큰</a>의 이름을 그대로 씁니다. 예: <code>var(--button-primary-color-bg-default)</code></span></li>
+  <li><strong>코드 복사</strong><span>컴포넌트 페이지의 <b>코드</b> 탭에서 고른 변형의 HTML · CSS를 복사합니다. 클래스 이름 앞자리는 <code>ds-&lt;컴포넌트&gt;</code>입니다.</span></li></ol>
+  <h2 id="usage">SB Studio에서 쓰기</h2>
+  <p>SB Studio는 코드를 복사하지 않고 카탈로그 코드(예: <code>c-button</code>)로 부품을 참조합니다. 포털에 게시된 버전(${esc(P.version())})만 읽습니다. 자세한 내용은 <a href="#ai-studio">SB Studio 연계</a>를 봅니다.</p>
+  <h2 id="list">컴포넌트 <span class="count">${I.length}</span></h2>
+  <div class="cards">${I.map((i) => `<a class="card" href="#dev-${esc(i.code)}"><span class="card-eb">${esc(i.code)}</span><b>${esc(i.name)}</b><span>${human(i.meaning)}</span></a>`).join('')}</div>`;
+}
+
+// ---------- AI & Tools ----------
+
+function pageAi() {
+  return `${head('AI & Tools', 'AI & Tools', '포털의 기준을 사람만이 아니라 AI 도구도 그대로 읽도록 연결합니다. 게시된 버전 하나를 Figma · SB Studio · AI가 같이 씁니다.')}
+  <h2 id="tools">도구</h2>
+  <div class="cards">
+    <a class="card" href="#ai-figma"><span class="card-eb">Figma</span><b>Figma 연동</b><span>Figma 노드 주소로 컴포넌트 JSON을 만들고 다시 읽어 차이를 비교합니다</span></a>
+    <a class="card" href="#ai-studio"><span class="card-eb">SB Studio</span><b>SB Studio 연계</b><span>Studio의 AI 화면 생성이 게시된 카탈로그 · 규칙만 쓰도록 합니다</span></a>
+    <a class="card" href="#ai-llms"><span class="card-eb">LLMS.txt</span><b>AI용 텍스트</b><span>포털 전체를 AI가 읽기 좋은 한 장의 텍스트로 복사합니다</span></a>
+  </div>
+  <h2 id="page-copy">페이지마다 복사</h2>
+  <p>모든 문서 위쪽의 <b>AI용 복사</b> 버튼은 그 페이지 본문을 마크다운 텍스트로 복사합니다. 대화형 AI에 붙여 넣어 질문할 때 씁니다.</p>`;
+}
+
+function pageAiFigma() {
+  return `${head('AI & Tools', 'Figma 연동', '컴포넌트 모양의 원본은 Figma 라이브러리입니다. 포털은 노드를 읽어 JSON으로 바꾸고, 다시 읽을 때 게시본과 비교해 초안을 만듭니다.')}
+  <h2 id="flow">흐름</h2>
+  <ol class="flow"><li><strong>Figma 노드 주소</strong><span>디자인 시스템 담당이 컴포넌트 세트의 주소(<code>?node-id=…</code>)를 넣습니다.</span></li>
+  <li><strong>JSON 변환</strong><span>속성 · 변형 · 레이어 · 연결 토큰을 <code>components/&lt;key&gt;/component.json</code> 형식으로 바꿉니다 (figma-to-json 스킬과 같은 형식).</span></li>
+  <li><strong>비교 · 초안</strong><span>게시본과 다르면 변형 추가 · 삭제 · 토큰 변경을 줄 단위로 보여 주고 초안으로 저장합니다.</span></li>
+  <li><strong>게시</strong><span>포털 승인 담당이 게시하면 버전이 오르고 미리보기 · 개발 코드가 바로 바뀝니다.</span></li></ol>
+  <h2 id="source">기준 파일</h2>
+  ${table(['항목', '값'], [
+    `<tr><td>Figma 파일</td><td><a href="https://www.figma.com/design/${FIGMA_FILE}/" target="_blank" rel="noopener">BSS_DS_Library_Component v2.0 ↗</a></td></tr>`,
+    `<tr><td>읽은 컴포넌트</td><td>${(ctx.data.devKeys || []).length}개</td></tr>`,
+    `<tr><td>아이콘</td><td>${ctx.data.icons?.icons.length || 0}개 · ❖ Icon Resource</td></tr>`,
+  ])}`;
+}
+
+function pageAiStudio() {
+  return `${head('AI & Tools', 'SB Studio 연계', '포털은 기준만 내주고, AI 화면 생성은 SB Studio 안에서 합니다. Studio는 포털에 게시된 버전만 읽습니다.')}
+  <h2 id="read">Studio가 읽는 것</h2>
+  ${table(['대상', '쓰임'], [
+    ['카탈로그 (앱쉘 · 레이아웃 · 블록 · 컴포넌트)', '화면을 Stack 순서로 조립'],
+    ['빈칸', '어떤 블록이 어디 들어갈 수 있는지'],
+    ['UX표준가이드 규칙', '생성 · 미리보기 · 검수가 같은 규칙'],
+    ['디자인 토큰', '5단계에서 디자인 에셋을 입힐 때'],
+  ].map((r) => `<tr><td>${r[0]}</td><td>${r[1]}</td></tr>`))}
+  <h2 id="back">Studio에서 돌아오는 것</h2>
+  <p>Studio에서 만든 임시 부품(<code>tb-</code> · <code>tc-</code>)은 <b>승격 요청</b>으로 포털에 올라오고, 구조 확인 → 모양 확인 → 최종 승인을 거쳐 정식 부품이 됩니다.</p>`;
+}
+
+/** 포털 전체를 AI가 읽기 좋은 텍스트로 */
+export function llmsText() {
+  const I = P.items();
+  const lines = [`# BSS Design System (게시 ${P.version()})`, '', 'BSS 백오피스 화면을 만드는 기준. Stack: 앱쉘 → 레이아웃 규칙 → 빈칸 → 블록 → 컴포넌트.', ''];
+  for (const [k, label] of [['shell', '앱쉘'], ['layout', '레이아웃 규칙'], ['block', '블록'], ['comp', '컴포넌트']]) {
+    lines.push(`## ${label}`);
+    for (const i of I.filter((x) => x.kind === k)) lines.push(`- ${i.code} ${i.name}: ${i.meaning || ''}`);
+    lines.push('');
+  }
+  lines.push('## 빈칸');
+  for (const s of P.slots()) lines.push(`- ${s.path} ${s.name} (${s.mode}): ${s.accepts}`);
+  lines.push('', '## UX 규칙');
+  for (const r of P.rules()) lines.push(`- ${r.id} [${r.kind}] ${r.text} (대상: ${r.targets.join(', ')})`);
+  return lines.join('\n');
+}
+
+function pageLlms() {
+  const t = llmsText();
+  return `${head('AI & Tools', 'LLMS.txt', '카탈로그 · 빈칸 · UX 규칙을 한 장의 텍스트로 묶었습니다. AI 도구에 붙여 넣으면 포털 기준으로 답합니다.')}
+  <div class="btn-row"><button class="btn2 primary sm" data-copy="${esc(t)}">전체 복사 (${t.length.toLocaleString()}자)</button></div>
+  <h2 id="text">미리보기</h2>
+  <pre class="llms">${esc(t)}</pre>`;
 }
 
 function pageList(kind) {
@@ -509,6 +774,13 @@ function onClick(e) {
   if (!t || t.tagName === 'SELECT') return;
   const d = t.dataset;
   switch (d.act) {
+    case 'theme': {
+      const order = ['system', 'light', 'dark'];
+      lsSet('bss-design-portal.theme', order[(order.indexOf(theme()) + 1) % 3]);
+      applyTheme();
+      return ctx.rerender();
+    }
+    case 'search': return ctx.openSearch?.();
     case 'edit': ui.edit = ui.edit === d.k ? null : d.k; return ctx.rerender();
     case 'kd': ui.kd = d.k; return ctx.rerender();
     case 'rule-edit': ui.editRule = ui.editRule === d.id ? null : d.id; return ctx.rerender();
