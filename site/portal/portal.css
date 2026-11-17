@@ -243,7 +243,7 @@ table.spec td:not(:first-child) { border-bottom-color: color-mix(in srgb, var(--
 
 /* 상태 · 버전 자리 */
 .st { display: inline-flex; align-items: center; font-size: 11px; line-height: 14px; border-radius: 4px; padding: 2px 6px; white-space: nowrap; background: var(--surface-card); color: var(--fg-muted); }
-.st.ok { background: var(--ok-bg); color: var(--ok-fg); }
+.st.ok { background: var(--ok-bg); color: var(--on-ok); }
 .st.ai { background: var(--ed-soft); color: var(--ed); }
 .st.hold { background: var(--hold-bg); color: var(--hold-fg); }
 .st.ng { background: var(--bad-bg); color: var(--bad-fg); }
@@ -351,3 +351,10 @@ table.cm td.cm-c { white-space: nowrap; }
 table.cm td.cm-c .tok { font-size: 11.5px; }
 .cm-x { color: var(--border); text-align: center; }
 .dv { font: 600 13px var(--mono); }
+
+/* 컴포넌트 카드: 위쪽 그림판 + 아래 글 */
+.card.has-thumb { padding: 0; gap: 0; overflow: hidden; }
+.card.has-thumb .card-in { display: flex; flex-direction: column; gap: 6px; padding: 14px 18px 16px; }
+.card-thumb { display: grid; place-items: center; height: 120px; border-bottom: 1px solid var(--border); background-color: #fbfbff; background-image: linear-gradient(#efeefb 1px, transparent 1px), linear-gradient(90deg, #efeefb 1px, transparent 1px); background-size: 16px 16px; overflow: hidden; color: #1c1f23; pointer-events: none; }
+.card-thumb-in { display: inline-grid; place-items: center; text-align: left; min-width: 60%; }
+.card-thumb.empty { font-size: 12px; color: #8a90a0; background-image: none; background-color: var(--bg-subtle); }

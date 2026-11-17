@@ -520,6 +520,26 @@ async function bindComponent(c, ctx) {
   refresh();
 }
 
+// 목록 카드의 작은 그림: 컴포넌트 기본 변형을 그린다
+async function bindThumbs(ctx) {
+  const boxes = [...document.querySelectorAll('[data-thumb]')];
+  let n = 0;
+  await Promise.all(boxes.map(async (box) => {
+    const c = ctx.components.find((x) => x.key === box.dataset.thumb);
+    if (!c || !isRenderable(c)) return;
+    const icons = await iconMap(c, ctx.icons);
+    const base = Object.fromEntries(c.props.filter((p) => p.type === 'variant').map((p) => [p.name, p.default]));
+    const values = Object.fromEntries(c.props.filter((p) => p.type !== 'variant').map((p) => [p.figmaName, p.default]));
+    const { html, css } = renderVariant(c, findVariant(c, base).layer, { values, icons, prefix: `t${++n}` });
+    box.innerHTML = `<span class="card-thumb-in"><style>${css}</style>${html}</span>`;
+    // 카드 그림판보다 크면 줄인다 (가로 · 세로 24px 여백)
+    const inner = box.firstElementChild;
+    const w = inner.scrollWidth, h = inner.scrollHeight;
+    const k = Math.min(1, (box.clientWidth - 24) / w, (box.clientHeight - 24) / h);
+    if (k < 1) inner.style.zoom = k.toFixed(3);
+  }));
+}
+
 // Icon SVGs used anywhere in the component, keyed by Figma component key.
 async function iconMap(c, icons) {
   const byKey = new Map(icons.icons.map((i) => [i.key, i]));
@@ -767,7 +787,10 @@ async function boot() {
           document.getElementById('heroStage')?.insertAdjacentHTML('beforeend', `<p class="error">그림을 그리지 못했어요: ${esc(err.message)}</p>`);
         });
       } else if (pcomp) content.innerHTML = V.portalOnlyPage(pcomp) + V.lastUpdated() + V.pager(route);
-      else if ((body = V.page(route)) !== null) content.innerHTML = body + (it ? V.lastUpdated() : '') + V.pager(route);
+      else if ((body = V.page(route)) !== null) {
+        content.innerHTML = body + (it ? V.lastUpdated() : '') + V.pager(route);
+        bindThumbs(ctx).catch(() => { /* 그림 없이도 카드는 동작 */ });
+      }
       else { location.replace('#overview'); return; }
     } catch (err) {
       content.innerHTML = `<p class="error">페이지를 그리지 못했어요: ${esc(err.message)}</p>`;

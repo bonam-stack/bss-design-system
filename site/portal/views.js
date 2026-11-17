@@ -487,12 +487,17 @@ function pageList(kind) {
         <label class="w">Figma 노드 주소<input name="url" required placeholder="https://www.figma.com/design/…?node-id=…"></label></div>
         <div class="row"><button class="btn2 primary sm">읽기 · 초안 저장</button><button type="button" class="lnk" data-act="sample">예시: Chip 노드 (흉내)</button></div></form>
       ${pend.map(draftBox).join('')}</section>` : '';
-  return `${head(isComp ? 'Components' : 'Blocks', isComp ? '컴포넌트' : '블록', isComp ? '블록 안에 들어가는 최소 부품입니다. ✓ 표시는 Figma 디자인 에셋과 사용 가이드가 있는 것입니다.' : '앱쉘은 화면의 바탕 틀, 블록은 빈칸 하나를 채우는 업무 단위 묶음입니다.')}
+  return `${head(isComp ? 'Components' : 'Blocks', isComp ? '컴포넌트' : '블록', isComp ? '블록 안에 들어가는 최소 부품입니다. 그림은 Figma에서 읽은 기본 모양입니다.' : '앱쉘은 화면의 바탕 틀, 블록은 빈칸 하나를 채우는 업무 단위 묶음입니다.')}
   ${add}
   ${kind === 'block' ? '<h2 id="shell">앱쉘</h2>' + grid(I.filter((i) => i.kind === 'shell')) + '<h2 id="block">블록</h2>' + grid(I.filter((i) => i.kind === 'block')) : `<h2 id="all" class="sr">전체</h2>${grid(I)}`}`;
 }
+// 카드: 컴포넌트는 위쪽에 실제 컴포넌트 그림(기본 변형, app.js가 그림)을 두고, Figma · UX 표시는 두지 않는다
 function grid(L) {
-  return `<div class="cards">${L.map((i) => `<a class="card" href="#${esc(i.code)}">${i.status !== 'pub' ? `<span class="card-eb">${P.STATUS[i.status]}</span>` : ''}<b>${esc(i.name)}${i.nameKo && i.nameKo !== i.name ? ` <small>${esc(i.nameKo)}</small>` : ''}</b><span>${human(i.meaning)}</span><span class="checks sm">${check(i.design, 'Figma')}${check(i.ux, 'UX')}</span></a>`).join('')}</div>`;
+  const thumbs = ctx.data.devKeys || [];
+  return `<div class="cards">${L.map((i) => {
+    const thumb = i.kind === 'comp' ? (i.key && thumbs.includes(i.key) ? `<span class="card-thumb" data-thumb="${esc(i.key)}" aria-hidden="true"></span>` : '<span class="card-thumb empty" aria-hidden="true">그림 준비 중</span>') : '';
+    return `<a class="card${thumb ? ' has-thumb' : ''}" href="#${esc(i.code)}">${thumb}<span class="card-in">${i.status !== 'pub' ? `<span class="card-eb">${P.STATUS[i.status]}</span>` : ''}<b>${esc(i.name)}${i.nameKo && i.nameKo !== i.name ? ` <small>${esc(i.nameKo)}</small>` : ''}</b><span>${human(i.meaning)}</span></span></a>`;
+  }).join('')}</div>`;
 }
 
 function pagePatterns() {
