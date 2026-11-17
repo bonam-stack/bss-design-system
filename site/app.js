@@ -243,7 +243,8 @@ function pageComponent(c, patterns = []) {
     ${docHead(c, 'design')}
     ${patternLinks(c, patterns)}
     ${V.compEditor(c)}
-    ${ok ? '<div class="hero-canvas"><span class="hero-stage" id="heroStage"></span></div>' : `
+    <div id="codeEdMount"></div>
+    ${ok ? `<div class="hero-canvas"><span class="hero-stage" id="heroStage"${P.pubCode(P.itemByKey(c.key)?.code || `c-${c.key}`) ? ' hidden' : ''}></span>${P.pubCode(P.itemByKey(c.key)?.code || `c-${c.key}`) ? `<div class="code-view" data-code-view="${esc(P.itemByKey(c.key)?.code || `c-${c.key}`)}"></div>` : ''}</div>` : `
     <p class="error">이 컴포넌트는 예전 형식 JSON이라 그림을 그릴 수 없어요. Figma 링크로 다시 읽으면 나타나요.</p>`}
     <div id="guideBody">
       ${S.anatomy ? `<h2>Anatomy</h2>${demote(S.anatomy)}` : ''}
@@ -279,6 +280,7 @@ function pageDev(c) {
         <div class="sb-controls" id="sbControls"></div>
       </div>
       <div class="sb-body sb-code" data-panel="code" hidden>
+        <p class="note code-src-note"></p>
         <div class="code-head"><span>HTML</span><button class="btn" data-copy-target="codeHtml">복사</button></div>
         <pre id="codeHtml"></pre>
         <div class="code-head"><span>CSS</span><button class="btn" data-copy-target="codeCss">복사</button></div>
@@ -323,6 +325,13 @@ async function bindDesign(c, ctx) {
     target.innerHTML = `<style>${css}</style>${html}`;
   };
   draw(hero, findVariant(c, base));
+  // 디자인 시스템 담당: 기본 변형의 코드(Figma에서 그린 것)로 편집 칸을 연다. 게시된 코드가 있으면 그 코드로
+  const mount = document.getElementById('codeEdMount');
+  if (mount) {
+    const gen = renderVariant(c, findVariant(c, base).layer, { values, icons, prefix: `ds-${c.key}` });
+    mount.outerHTML = V.codeEditor(P.itemByKey(c.key)?.code || `c-${c.key}`, { ...gen, from: 'Figma에서 그린 기본 코드', resetLabel: 'Figma 기준 코드로 되돌리기' });
+    V.bindCode();
+  }
   const widest = Math.max(...c.variants.map((v) => v.size?.[0] || 0));
   document.querySelectorAll('[data-case-prop]').forEach((box) => {
     const p = a.vprops.find((x) => x.name === box.dataset.caseProp);
@@ -376,9 +385,12 @@ async function bindComponent(c, ctx) {
   }
   function paintCode() {
     const v = findVariant(c, want(false));
-    const { html, css } = renderVariant(c, v.layer, { values, icons, prefix: `ds-${c.key}` });
+    // 게시된 코드가 있으면 그 코드를 보여 준다 (디자인 시스템 담당이 고쳐 게시한 것)
+    const pub = P.pubCode(P.itemByKey(c.key)?.code || `c-${c.key}`);
+    const { html, css } = pub || renderVariant(c, v.layer, { values, icons, prefix: `ds-${c.key}` });
     document.getElementById('codeHtml').textContent = html;
     document.getElementById('codeCss').textContent = css;
+    document.querySelectorAll('.code-src-note').forEach((n) => { n.textContent = pub ? '게시된 코드 (디자인 시스템 담당이 고친 코드)' : 'Figma에서 그린 코드 · 고른 변형'; });
   }
 
   // options still possible given the other props chosen before this one
@@ -796,6 +808,7 @@ async function boot() {
       content.innerHTML = `<p class="error">페이지를 그리지 못했어요: ${esc(err.message)}</p>`;
       console.error(err);
     }
+    V.bindCode();
     buildToc();
     sidebar.classList.remove('open');
     menuBtn.setAttribute('aria-expanded', 'false');

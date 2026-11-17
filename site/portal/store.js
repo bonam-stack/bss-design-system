@@ -13,7 +13,7 @@ export const PROMO_STAGES = [
   { stage: '최종 승인', who: 'approver', act: '최종 승인' },
 ];
 // 누가 무엇을 고치나: 모양(앱쉘 · 블록 · 컴포넌트 · Figma)은 디자인 시스템 담당, 쓰는 방법(레이아웃 규칙 · 규칙 · 사용 가이드)은 UX 가이드 담당
-export const EDITOR = { shell: 'ds', block: 'ds', comp: 'ds', figma: 'ds', layout: 'ux', rule: 'ux', guide: 'ux' };
+export const EDITOR = { shell: 'ds', block: 'ds', comp: 'ds', figma: 'ds', code: 'ds', layout: 'ux', rule: 'ux', guide: 'ux' };
 
 let base = null; // { catalog, comps: {key: 저장소 컴포넌트}, guides: {key: 정책} }
 let S = null;
@@ -30,7 +30,7 @@ function fresh() {
   return {
     v: 2,
     version: base.catalog.meta.version,
-    pub: { items: {}, added: [], rules: {}, addedRules: [], guides: {}, comps: {} },
+    pub: { items: {}, added: [], rules: {}, addedRules: [], guides: {}, comps: {}, code: {} },
     drafts: [],
     promotions: clone(base.catalog.promotions),
     detections: clone(base.catalog.detections),
@@ -47,6 +47,7 @@ export function init(b) {
   base = b;
   try { S = JSON.parse(localStorage.getItem(KEY) || 'null'); } catch { S = null; }
   if (!S || S.v !== 2) { S = fresh(); save(); }
+  S.pub.code = S.pub.code || {}; // 코드 편집이 생기기 전에 저장된 상태
 }
 export function reset() { S = fresh(); save(); }
 export const version = () => S.version;
@@ -103,6 +104,9 @@ export function comp(key) {
   if (base.comps[key]) return p ? { ...base.comps[key], description: p.description ?? base.comps[key].description, figmaSyncedAt: p.syncedAt } : base.comps[key];
   return p ? { ...p, portalOnly: true } : null;
 }
+/** 게시된 코드(HTML · CSS). 컴포넌트는 카탈로그 코드(c-…), 블록 · 앱쉘도 카탈로그 코드로 찾는다 */
+export const pubCode = (target) => (S.pub.code[target] ? clone(S.pub.code[target]) : null);
+
 export const newComps = () => Object.values(S.pub.comps).filter((c) => !base.comps[c.key]);
 export const promotions = () => S.promotions;
 export const detections = () => S.detections;
@@ -218,6 +222,18 @@ export async function draftFigma(role, { key, code, url }) {
   return upsertDraft({ type: 'figma', target: key ? k : target, key: k, code: key ? itemByKey(k)?.code : target, title: key ? `${k} Figma 다시 읽기` : `${r.name} 추가 (Figma)`, after, isNew: !key, source: { url, mode: conv.mode }, lines: diff.lines, bump: diff.bump }, role);
 }
 
+/** 코드(HTML · CSS) 수정. 처음 넣는 코드는 MINOR, 게시된 코드를 바꾸면 이미 만든 SB 재검수 대상이라 MAJOR */
+export function draftCode(role, target, { html, css }, problems = []) {
+  must(role, 'code');
+  const it = item(target);
+  if (!it) throw new Error(`${target}가 없습니다`);
+  if (problems.some((p) => p.level === 'error')) throw new Error(`저장할 수 없습니다: ${problems.filter((p) => p.level === 'error').map((p) => p.text).join(' · ')}`);
+  const cur = pubCode(target);
+  if (cur && cur.html === html && cur.css === css) throw new Error('바뀐 내용이 없습니다');
+  const lines = [cur ? '코드 수정' : '코드 처음 등록', `HTML ${html.split('\n').length}줄 · CSS ${css.split('\n').length}줄`, ...problems.map((p) => `확인: ${p.text}`)];
+  return upsertDraft({ type: 'code', target, title: `${it.name} 코드 ${cur ? '수정' : '등록'}`, after: { html, css }, lines, bump: cur ? 'MAJOR' : 'MINOR' }, role);
+}
+
 export function discard(role, id) {
   const d = S.drafts.find((x) => x.id === id);
   if (!d || d.status !== 'draft') throw new Error('초안이 아닙니다');
@@ -242,6 +258,7 @@ function apply(d) {
     else if (added >= 0) { if (d.after) P.addedRules[added] = d.after; else P.addedRules.splice(added, 1); }
     else P.rules[d.target] = d.after ? { ...d.after } : null;
   } else if (d.type === 'guide') P.guides[d.target] = d.after;
+  else if (d.type === 'code') P.code[d.target] = { ...d.after, at: now() };
   else if (d.type === 'figma') {
     if (d.isNew) {
       P.comps[d.key] = { ...d.after, syncedAt: now() };

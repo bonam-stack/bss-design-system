@@ -22,6 +22,7 @@ export function init(c) {
   document.addEventListener('submit', onSubmit);
   document.addEventListener('change', onChange);
   document.addEventListener('input', (e) => {
+    if (e.target.closest('#codeEd')) { clearTimeout(init.c); init.c = setTimeout(refreshCodeEd, 150); return; }
     if (e.target.id !== 'rq') return;
     ui.q = e.target.value;
     clearTimeout(init.t);
@@ -31,6 +32,81 @@ export function init(c) {
 export const currentRole = () => role;
 export const isEditor = () => role !== 'viewer';
 export function resetUi() { ui.edit = null; ui.editRule = null; }
+
+// ---------- 코드 편집 (디자인 시스템 담당) ----------
+// 컴포넌트 · 블록 · 앱쉘 페이지에서 HTML · CSS를 고치고 바로 미리 본다. 저장하면 초안, 포털 승인 담당이 게시하면 모두에게 그 코드가 보인다.
+
+/** 미리보기: 그림자 DOM 안에 그려 페이지 CSS와 섞이지 않게 한다 (스크립트는 실행되지 않음) */
+export function renderInto(host, html, css) {
+  if (!host) return;
+  const root = host.shadowRoot || host.attachShadow({ mode: 'open' });
+  root.innerHTML = `<style>:host{all:initial;display:block;color:#1c1f23;font-family:Pretendard,'Pretendard Variable',system-ui,sans-serif;font-size:14px;line-height:1.5}${css}</style>${html}`;
+}
+
+/** 저장 전 자동 검사: 스크립트 금지(오류) · 색은 토큰으로(경고) · 없는 토큰 이름(경고) */
+export function checkCode(html, css) {
+  const out = [];
+  const all = `${html}\n${css}`;
+  if (!html.trim()) out.push({ level: 'error', text: 'HTML이 비어 있습니다' });
+  if (/<script\b/i.test(all)) out.push({ level: 'error', text: '<script>는 쓸 수 없습니다' });
+  if (/\son[a-z]+\s*=/i.test(html) || /javascript:/i.test(all)) out.push({ level: 'error', text: '이벤트 속성(onclick 등) · javascript: 링크는 쓸 수 없습니다' });
+  const bare = all.replace(/var\(\s*--[\w-]+\s*,[^)]*\)/g, 'var()'); // var(--토큰, #대체값)의 대체값은 괜찮다
+  const hex = [...new Set(bare.match(/#[0-9a-f]{3,8}\b|rgba?\([^)]*\)/gi) || [])];
+  if (hex.length) out.push({ level: 'warn', text: `색을 값으로 썼습니다: ${hex.slice(0, 4).join(', ')}${hex.length > 4 ? ' …' : ''} → var(--토큰)으로 바꿔 주세요` });
+  const known = new Set(Object.keys(ctx.data.tokens?.tokens || {}));
+  const unknown = [...new Set([...all.matchAll(/var\(\s*(--[\w-]+)/g)].map((m) => m[1]))].filter((t) => !known.has(t));
+  if (unknown.length) out.push({ level: 'warn', text: `토큰 목록에 없는 이름: ${unknown.slice(0, 4).join(', ')}${unknown.length > 4 ? ' …' : ''}` });
+  return out;
+}
+
+const codeDefaults = {};
+/** 편집 칸 (디자인 시스템 담당에게만). 시작 값: 열린 초안 → 게시된 코드 → 기본 코드(Figma에서 그린 코드 또는 블록 틀) */
+export function codeEditor(target, defaults) {
+  if (!can('code')) return '';
+  codeDefaults[target] = defaults;
+  const d = P.openDraft('code', target);
+  const v = d?.after || P.pubCode(target) || defaults;
+  const src = d ? `초안 ${d.id}` : P.pubCode(target) ? '게시된 코드' : defaults.from;
+  return `${draftBox(d)}<section class="ed-panel code-ed" id="codeEd" data-target="${esc(target)}" aria-label="코드 편집">
+    <div class="ed-h"><b>코드 편집</b><span>디자인 시스템 담당 · 고치면 오른쪽 미리보기가 바로 바뀝니다 · 지금: ${esc(src)}</span></div>
+    <form class="ef" data-form="code" data-target="${esc(target)}">
+      <div class="ce-grid">
+        <div class="ce-src">
+          <label>HTML<textarea name="html" id="ceHtml" rows="10" spellcheck="false">${esc(v.html)}</textarea></label>
+          <label>CSS<textarea name="css" id="ceCss" rows="10" spellcheck="false">${esc(v.css)}</textarea></label>
+        </div>
+        <div class="ce-out"><span class="ce-cap">미리보기</span><div class="ce-stage"><div id="cePreview"></div></div><ul class="ce-checks" id="ceChecks"></ul></div>
+      </div>
+      <div class="row"><button class="btn2 primary sm">초안 저장</button><button type="button" class="btn2 sm" data-act="code-reset">${esc(defaults.resetLabel || '기본 코드로 되돌리기')}</button><span class="muted">포털 승인 담당이 게시하면 모두에게 보입니다</span></div>
+    </form></section>`;
+}
+
+function refreshCodeEd() {
+  const html = document.getElementById('ceHtml')?.value ?? '';
+  const css = document.getElementById('ceCss')?.value ?? '';
+  renderInto(document.getElementById('cePreview'), html, css);
+  const list = document.getElementById('ceChecks');
+  if (!list) return;
+  const pr = checkCode(html, css);
+  list.innerHTML = pr.length ? pr.map((p) => `<li class="${p.level}">${p.level === 'error' ? '오류' : '확인'} · ${esc(p.text)}</li>`).join('') : '<li class="ok">자동 검사 통과 · 토큰만 사용 · 스크립트 없음</li>';
+}
+
+/** 화면을 그린 뒤: 편집 칸 미리보기와 게시된 코드 보기([data-code-view])를 그린다 */
+export function bindCode() {
+  if (document.getElementById('codeEd')) refreshCodeEd();
+  document.querySelectorAll('[data-code-view]').forEach((el) => {
+    const c = P.pubCode(el.dataset.codeView);
+    if (c) renderInto(el, c.html, c.css);
+  });
+}
+
+/** 블록 · 앱쉘에 코드가 아직 없을 때 편집을 시작하는 틀 (색은 토큰, 간격 · 모서리는 베이스 토큰이 아직 없어 값) */
+const blockTemplate = (it) => ({
+  from: '블록 기본 틀',
+  resetLabel: '기본 틀로 되돌리기',
+  html: `<section class="blk">\n  <header class="blk-head">\n    <h3 class="blk-title">${it.name}</h3>\n  </header>\n  <div class="blk-body">${it.meaning || ''}</div>\n</section>`,
+  css: `.blk {\n  display: grid;\n  gap: 12px;\n  padding: 16px 20px;\n  border: 1px solid var(--color-border-neutral-muted, #DCE0E5);\n  border-radius: 8px;\n  background: var(--color-bg-base, #FFFFFF);\n}\n.blk-title {\n  margin: 0;\n  font-size: 16px;\n  font-weight: 600;\n  color: var(--color-fg-neutral-strongest, #1C1F23);\n}\n.blk-body {\n  color: var(--color-fg-neutral-muted-default, #697582);\n}`,
+});
 
 // ---------- 조각 ----------
 
@@ -196,7 +272,7 @@ export function roleMenu() {
 /** 에디터 모드 띠: 역할 · 고칠 수 있는 것 · 초안 수 */
 export function editorBar() {
   if (!isEditor()) return '';
-  const what = { ux: '레이아웃 규칙 · 규칙 · 사용 가이드', ds: '앱쉘 · 블록 · 컴포넌트 · Figma 읽기', approver: '초안 게시 · 반려 · 롤백 · 승격 최종 승인' }[role];
+  const what = { ux: '레이아웃 규칙 · 규칙 · 사용 가이드', ds: '앱쉘 · 블록 · 컴포넌트 · 코드 · Figma 읽기', approver: '초안 게시 · 반려 · 롤백 · 승격 최종 승인' }[role];
   const mine = P.drafts((d) => d.status === 'draft' && (role === 'approver' || d.by === role)).length;
   return `<div class="ed-bar"><b>에디터 모드</b><span>${esc(P.ROLES[role])} · ${esc(what)}</span><a href="#pub">${role === 'approver' ? '게시 대기' : '내 초안'} ${mine}건</a><span class="ed-ver">게시 ${esc(P.version())}</span></div>`;
 }
@@ -544,7 +620,8 @@ function pageItem(it) {
   ].filter(Boolean);
   return `${head(isSb(it) ? 'Blocks · SB 블록' : it.kind === 'block' ? 'Blocks · 공통 블록' : KIND_LABEL[it.kind], it.name, it.meaning, `<div class="checks">${check(it.design, 'Figma')}${check(it.ux, 'UX 가이드')}${check(it.status === 'pub', P.STATUS[it.status])}</div>`)}
   ${drafts('item', it.code)}
-  <div class="sb-ph"><span>${it.design ? '디자인 에셋은 Figma 디자인 시스템에 있습니다 · 미리보기는 노드의 레이어 데이터를 받으면 그려집니다' : '디자인 에셋 없음 · UX 패턴 가이드 기준'}</span></div>
+  ${P.pubCode(it.code) ? `<div class="hero-canvas code-hero"><div class="code-view" data-code-view="${esc(it.code)}"></div></div>` : `<div class="sb-ph"><span>${it.kind === 'layout' ? '레이아웃 규칙은 UX표준가이드 기준입니다' : '코드가 아직 없습니다 · 디자인 시스템 담당이 코드를 등록하고 게시하면 여기에 미리보기가 나타납니다'}</span></div>`}
+  ${it.kind !== 'layout' ? codeEditor(it.code, blockTemplate(it)) : ''}
   ${slotsOf.length || parts.length ? `<h2>Anatomy</h2>
     ${slotsOf.length ? `<h3>빈칸</h3>${table(['이름', '방식', '들어갈 수 있는 것'], slotsOf.map((s) => `<tr><td>${esc(s.name)}</td><td>${esc(s.mode)}</td><td>${human(s.accepts)}</td></tr>`))}` : ''}
     ${parts.length ? `<h3>구성</h3>${table(['자리', '컴포넌트', '필수'], parts.map((p) => `<tr><td>${esc(p.slot)}</td><td>${link(p.comp)}</td><td>${p.required ? '필수' : '선택'}</td></tr>`))}` : ''}` : ''}
@@ -609,8 +686,8 @@ function pagePub() {
   const done = P.drafts((d) => d.status !== 'draft');
   const last = P.history()[0];
   const approver = role === 'approver';
-  const typeName = { item: '카탈로그', rule: '규칙', guide: '사용 가이드', figma: 'Figma' };
-  const where = (d) => (d.type === 'rule' ? '#rules' : d.type === 'guide' || d.type === 'figma' ? `#${P.itemByKey(d.key || d.target)?.code || d.code || d.target}` : `#${d.target}`);
+  const typeName = { item: '카탈로그', rule: '규칙', guide: '사용 가이드', figma: 'Figma', code: '코드' };
+  const where = (d) => (d.type === 'code' ? `#${d.target}` : d.type === 'rule' ? '#rules' : d.type === 'guide' || d.type === 'figma' ? `#${P.itemByKey(d.key || d.target)?.code || d.code || d.target}` : `#${d.target}`);
   return `${head('관리', '초안 · 게시', '담당이 고친 내용은 초안으로 쌓이고, 포털 승인 담당이 게시하면 버전이 오르고 SB Studio가 읽는 게시본이 바뀝니다.')}
   <h2 id="pending">게시 대기 ${pend.length}건</h2>
   <form data-form="publish">${table(['', '초안', '종류', '내용', '담당', '자리', ''], pend.map((d) => `<tr><td>${approver ? `<input type="checkbox" name="ids" value="${d.id}" checked aria-label="${d.id} 고르기">` : ''}</td><td><b class="nw">${esc(d.id)}</b></td><td class="nw">${typeName[d.type]}</td><td><a href="${esc(where(d))}">${esc(d.title)}</a><ul class="mini">${d.lines.map((l) => `<li>${esc(l)}</li>`).join('')}</ul></td><td class="nw">${esc(P.ROLES[d.by])}</td><td>${bump(d.bump)}</td><td class="nw">${approver ? `<button type="button" class="btn2 sm" data-act="discard" data-id="${d.id}">반려</button>` : role === d.by ? `<button type="button" class="btn2 sm" data-act="discard" data-id="${d.id}">버리기</button>` : ''}</td></tr>`))}
@@ -789,6 +866,14 @@ function onClick(e) {
       f.code.value = 'c-chip';
       return;
     }
+    case 'code-reset': {
+      const ed = document.getElementById('codeEd');
+      const def = ed && codeDefaults[ed.dataset.target];
+      if (!def) return;
+      document.getElementById('ceHtml').value = def.html;
+      document.getElementById('ceCss').value = def.css;
+      return refreshCodeEd();
+    }
     case 'discard': return act(() => P.discard(role, d.id), (x) => (x.status === 'rejected' ? `${x.id} 반려` : `${x.id} 초안을 버렸습니다`));
     case 'publish-one': return act(() => P.publish(role, [d.id]), (h) => `게시 ${h.version}`);
     case 'promo': {
@@ -837,6 +922,11 @@ function onSubmit(e) {
       const nr = f.querySelector('[data-new]');
       const add = [{ kind: nr.querySelector('[name=kind]').value, text: nr.querySelector('[name=text]').value }];
       return act(() => P.draftGuide(role, f.dataset.key, { lead: v.lead, rules: rows, add }), (d) => `초안 ${d.id} 저장 · 포털 승인 담당 게시 대기`).then(closeEdit);
+    }
+    case 'code': {
+      const html = f.querySelector('[name=html]').value;
+      const css = f.querySelector('[name=css]').value;
+      return act(() => P.draftCode(role, f.dataset.target, { html, css }, checkCode(html, css)), (d) => `초안 ${d.id} 저장 · 포털 승인 담당 게시 대기`);
     }
     case 'figma-re':
       return act(() => P.draftFigma(role, { key: f.dataset.key, url: v.url.trim() }), (d) => `Figma 읽기 · ${d.lines.join(' · ')} · 초안 ${d.id}`).then(closeEdit);
