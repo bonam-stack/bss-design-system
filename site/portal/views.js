@@ -93,7 +93,7 @@ export function sections() {
   const S = [
     ['governance', 'UX 거버넌스', [['rules', '규칙'], ['slots', '빈칸'], ['lint', '검증 규칙']]],
     ['start', '시작하기', [['overview', '개요'], ['stack', '조립 구조']]],
-    ['foundations', 'Foundations', [['foundations', '개요'], ['color', '색상', '기본 요소'], ['typography', '타이포그래피'], ['dimension', '간격 · 모서리'], ['icons', '아이콘'], ['tokens', '토큰 구조', '구조']]],
+    ['foundations', 'Foundations', [['foundations', '개요'], ['color', '색상', '기본 요소'], ['typography', '타이포그래피'], ['dimension', '간격 · 모서리'], ['icons', '아이콘'], ['elevation', '그림자'], ['motion', '모션'], ['writing', '문구 (보이스 · 표기)'], ['tokens', '토큰 구조', '구조']]],
     ['components', 'Components', [['components', '개요'], ['progress', '진행 현황'], ...sub(comps.map((i) => [i.code, i.name]), '컴포넌트')]],
     ['blocks', 'Blocks', [['blocks', '개요'],
       ...sub(I.filter((i) => i.kind === 'shell').map((i) => [i.code, i.name]), '앱쉘'),
@@ -213,6 +213,9 @@ export function page(route) {
     case 'typography': return pageType();
     case 'dimension': return pageDimension();
     case 'tokens': return pageTokens();
+    case 'elevation': return pagePending('그림자', '화면 층(바닥 · 카드 · 팝업 · 토스트)마다 쓰는 그림자 단계를 정합니다.', ['단계별 그림자 값과 쓰는 곳', '팝업 · 드롭다운처럼 위로 뜨는 요소의 기준']);
+    case 'motion': return pagePending('모션', '열기 · 닫기 · 전환 · 상태 변화에 쓰는 시간과 움직임 곡선을 정합니다.', ['시간(짧게 · 보통 · 길게)과 곡선', '팝업 · 토스트 · 펼침 등 컴포넌트별 적용']);
+    case 'writing': return pagePending('문구 (보이스 · 표기)', '화면 문구의 말투와 표기 규칙을 정합니다.', ['말투 · 존댓말 기준', '버튼 · 안내 · 오류 문구 패턴', '숫자 · 날짜 · 단위 표기 (UX표준가이드 표기 규칙과 연결)']);
     case 'dev-tokens': return pageTokenRef();
     case 'progress': return pageProgress();
     case 'components': return pageList('comp');
@@ -298,6 +301,9 @@ function pageFoundations() {
     ['typography', '타이포그래피', `${typeStyles().length}개 스타일`, 'Pretendard · 크기 · 줄 높이 · 굵기'],
     ['dimension', '간격 · 모서리', `${dimTokens().length}개 값`, '간격 · 크기 · 둥글기 · 두께'],
     ['icons', '아이콘', `${ctx.data.icons?.icons.length || 0}개`, 'Line · Filled · Colored'],
+    ['elevation', '그림자', '준비 중', '화면 층마다 쓰는 그림자 단계'],
+    ['motion', '모션', '준비 중', '열기 · 닫기 · 전환의 시간과 곡선'],
+    ['writing', '문구', '준비 중', '말투 · 버튼 · 오류 문구 · 표기'],
     ['tokens', '토큰 구조', '베이스 → 역할 → 컴포넌트', '색에서 컴포넌트 변형까지 이어지는 방식'],
   ];
   return `${head('Foundations', 'Foundations', '컴포넌트와 블록이 공통으로 쓰는 색 · 글자 · 간격 · 아이콘의 기준입니다. 값은 Figma 변수에서 읽은 디자인 토큰으로만 씁니다.')}
@@ -398,6 +404,14 @@ function chainOf(comp, t) {
     cur = cur.ref ? TK().find((x) => x.css === cur.ref) : null;
   }
   return out;
+}
+
+/** 아직 내용이 없는 Foundations 문서: 자리만 두고 채울 항목을 보여 준다 */
+function pagePending(title, lead, todo) {
+  return `${head('Foundations', title, lead, '<div class="checks"><span class="st">준비 중</span></div>')}
+  <h2 id="todo">채울 내용</h2>
+  <ul>${todo.map((t) => `<li>${esc(t)}</li>`).join('')}</ul>
+  <p class="note">기준이 정해지면 디자인 시스템 담당 · UX 가이드 담당이 이 문서를 채웁니다.</p>`;
 }
 
 function pageTokens() {
