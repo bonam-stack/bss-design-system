@@ -297,3 +297,18 @@ details.gx-rules .rl { margin-top: 8px; }
 .cc-input { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 8px; align-items: end; }
 .cc-input textarea { width: 100%; padding: 8px 10px; border: 1px solid var(--border); border-radius: 10px; font: inherit; font-size: 14px; resize: vertical; background: var(--bg); color: var(--fg); }
 .content { padding-bottom: 96px; }
+
+/* ---------- 역할 버튼 · 에디터 모드 ---------- */
+.role-menu { position: relative; }
+.role-btn { display: inline-flex; align-items: center; gap: 4px; height: 36px; padding: 0 14px; border: 1px solid var(--border); border-radius: 999px; background: var(--bg); color: var(--fg); font: inherit; font-size: 13px; cursor: pointer; white-space: nowrap; }
+.role-btn.on { border-color: var(--ed); background: var(--ed); color: var(--on-accent); font-weight: 600; }
+.role-btn:focus-visible { outline: 2px solid var(--ed); outline-offset: 2px; }
+.role-badge { min-width: 18px; height: 18px; padding: 0 5px; border-radius: 999px; background: #fff; color: var(--ed); font-size: 11px; font-style: normal; font-weight: 700; line-height: 18px; text-align: center; }
+.role-pop { position: absolute; right: 0; top: calc(100% + 8px); z-index: 70; width: min(300px, calc(100vw - 32px)); padding: 14px; border: 1px solid var(--border); border-radius: 14px; background: var(--bg-raised); box-shadow: 0 12px 32px rgba(17, 19, 23, 0.16); font-size: 13px; }
+.role-pop-t { margin: 0 0 6px; font-weight: 700; color: var(--ed); }
+.role-pop-d { margin: 0 0 10px; color: var(--fg-muted); line-height: 1.55; }
+.role-pop-d b { color: var(--fg); font-weight: 600; }
+.role-pop-row { display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-top: 1px solid var(--border); color: var(--fg); text-decoration: none; }
+a.role-pop-row:hover b { color: var(--ed); }
+.role-pop-sel { display: grid; gap: 6px; padding-top: 10px; border-top: 1px solid var(--border); color: var(--fg-muted); }
+.role-pop-sel select { height: 34px; border: 1px solid var(--border); border-radius: 8px; padding: 0 8px; background: var(--bg); color: var(--fg); font: inherit; }

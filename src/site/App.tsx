@@ -5,7 +5,7 @@ import type { Role } from './portal/store';
 import { Ctx, emptyUi } from './portal/ctx';
 import type { PendingText, PortalCtx, TocItem, UiState } from './portal/ctx';
 import { catalog, components, componentByKey, patterns } from './data';
-import { EditorBar, Pager, RoleMenu, SideNav, TextEditBar, TopNav } from './nav';
+import { Pager, RoleMenu, SideNav, TextEditBar, TopNav } from './nav';
 import { LastUpdated, TocList, setToast } from './ui';
 import { portalPage } from './pages/portal';
 import { ComponentPage } from './pages/ComponentPage';
@@ -177,7 +177,6 @@ export function App() {
             <RoleMenu />
           </div>
         </div>
-        <EditorBar />
       </header>
       <div className="layout">
         <nav className={`sidebar${menuOpen ? ' open' : ''}`} id="sidebar" aria-label="문서 탐색">

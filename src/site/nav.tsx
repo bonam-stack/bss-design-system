@@ -1,6 +1,7 @@
 // 위쪽 섹션 메뉴 · 왼쪽 목록 · 이전/다음 · 역할 선택 · 에디터 모드 띠.
 // 누구에게나 같은 문서 사이트가 보이고, 오른쪽 위에서 담당 역할을 고르면 같은 페이지에 에디터 모드가 켜진다.
 // 관리 메뉴(초안 · 게시, 승격 요청, 변경 감지)는 담당 역할에서만 보인다.
+import { useEffect, useRef, useState } from 'react';
 import * as P from './portal/store';
 import type { Role } from './portal/store';
 import { usePortal } from './portal/ctx';
@@ -124,38 +125,65 @@ export function Pager({ route }: { route: string }) {
   );
 }
 
+const CAN_DO: Record<Role, string> = {
+  viewer: '문서를 읽습니다. 담당 역할로 바꾸면 그 자리에서 고칠 수 있습니다.',
+  ux: '레이아웃 규칙 · 규칙 · 컴포넌트 설명 · 사용 가이드',
+  ds: '블록 · 컴포넌트 설명 · 사용 가이드 · 컴포넌트 코드 · Figma 읽기',
+  approver: '초안 게시 · 반려 · 롤백 · 승격 최종 승인',
+};
+
+/** 오른쪽 위 역할 버튼: 에디터 모드면 색이 바뀌고 초안 수 배지가 붙는다. 누르면 고칠 수 있는 것 · 내 초안 · 게시 버전 · 역할 바꾸기 */
 export function RoleMenu() {
   const { role, setRole, isEditor } = usePortal();
-  return (
-    <label className={`role-pick${isEditor ? ' on' : ''}`}>
-      <span className="sr">역할</span>
-      <select id="ptRole" aria-label="역할 (POC: SB Studio 로그인 대신)" value={role} onChange={(e) => setRole(e.target.value as Role)}>
-        {(Object.entries(P.ROLES) as [Role, string][]).map(([k, v]) => (
-          <option key={k} value={k}>
-            {v}
-          </option>
-        ))}
-      </select>
-    </label>
-  );
-}
-
-/** 에디터 모드 띠: 역할 · 고칠 수 있는 것 · 초안 수 */
-export function EditorBar() {
-  const { role, isEditor } = usePortal();
-  if (!isEditor) return null;
-  const what = { ux: '레이아웃 규칙 · 규칙 · 컴포넌트 설명 · 사용 가이드', ds: '블록 · 컴포넌트 설명 · 사용 가이드 · 코드 · Figma 읽기', approver: '초안 게시 · 반려 · 롤백 · 승격 최종 승인', viewer: '' }[role];
+  const [open, setOpen] = useState(false);
+  const box = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    if (!open) return;
+    const close = (e: MouseEvent | KeyboardEvent) => {
+      if (e instanceof KeyboardEvent ? e.key === 'Escape' : !box.current?.contains(e.target as Node)) setOpen(false);
+    };
+    document.addEventListener('mousedown', close);
+    document.addEventListener('keydown', close);
+    return () => {
+      document.removeEventListener('mousedown', close);
+      document.removeEventListener('keydown', close);
+    };
+  }, [open]);
   const mine = P.drafts((d) => d.status === 'draft' && (role === 'approver' || d.by === role)).length;
   return (
-    <div className="ed-bar">
-      <b>에디터 모드</b>
-      <span>
-        {P.ROLES[role]} · {what}
-      </span>
-      <a href="#pub">
-        {role === 'approver' ? '게시 대기' : '내 초안'} {mine}건
-      </a>
-      <span className="ed-ver">게시 {P.version()}</span>
+    <div className="role-menu" ref={box}>
+      <button type="button" className={`role-btn${isEditor ? ' on' : ''}`} aria-expanded={open} aria-haspopup="dialog" onClick={() => setOpen((o) => !o)}>
+        {isEditor ? '✎ ' : ''}
+        {P.ROLES[role]}
+        {isEditor && mine ? <em className="role-badge" aria-label={`초안 ${mine}건`}>{mine}</em> : null}
+        <span aria-hidden="true"> ▾</span>
+      </button>
+      {open ? (
+        <div className="role-pop" role="dialog" aria-label="역할 · 에디터 모드">
+          <p className="role-pop-t">{isEditor ? '에디터 모드' : '보기 모드'}</p>
+          <p className="role-pop-d">{isEditor ? <>고칠 수 있는 것<br /><b>{CAN_DO[role]}</b></> : CAN_DO.viewer}</p>
+          {isEditor ? (
+            <a className="role-pop-row" href="#pub" onClick={() => setOpen(false)}>
+              <span>{role === 'approver' ? '게시 대기' : '내 초안'}</span>
+              <b>{mine}건 →</b>
+            </a>
+          ) : null}
+          <div className="role-pop-row">
+            <span>게시 버전</span>
+            <b className="mono">{P.version()}</b>
+          </div>
+          <label className="role-pop-sel">
+            <span>역할 바꾸기 (POC: SB Studio 로그인 대신)</span>
+            <select id="ptRole" value={role} onChange={(e) => (setRole(e.target.value as Role), setOpen(false))}>
+              {(Object.entries(P.ROLES) as [Role, string][]).map(([k, v]) => (
+                <option key={k} value={k}>
+                  {v}
+                </option>
+              ))}
+            </select>
+          </label>
+        </div>
+      ) : null}
     </div>
   );
 }
