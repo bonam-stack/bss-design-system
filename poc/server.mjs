@@ -57,8 +57,8 @@ const server = http.createServer(async (req, res) => {
       }
       return send(res, 404, { error: "없는 API입니다" });
     }
-    // 기존 문서 사이트(저장소 루트)는 /ds/ 아래로 그대로 연다
-    if (url.pathname.startsWith("/ds/")) return serveFile(res, REPO_DIR, decodeURIComponent(url.pathname.slice(4)) || "index.html");
+    // 문서 사이트(React)는 저장소 루트에서 npm run build로 만든 dist/를 /ds/ 아래로 연다
+    if (url.pathname.startsWith("/ds/")) return serveFile(res, path.join(REPO_DIR, "dist"), decodeURIComponent(url.pathname.slice(4)) || "index.html");
     if (url.pathname === "/ds") {
       res.writeHead(302, { Location: "/ds/" });
       return res.end();

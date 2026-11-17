@@ -2,44 +2,107 @@
 
 Figma 기준 파일: `9AioWOXVOVm5C7kdSxSEEP` ((공유용) BSS_DS_Library_Component v2.0, 2026-11-13부터. 이전: `WcoI745J38TaON7iCKcutW` Components Library v0.5)
 
-## 문서 사이트
+## 문서 사이트 (React)
 
-디자인 시스템은 JSON으로 만들고, 사이트(`index.html`, `site/`)가 그 JSON을 읽어 페이지를 만든다.
+Vite + React 18 + TypeScript. 컴포넌트는 손으로 짠 React 코드(`src/ds/components/*.tsx`)이고, Figma에서 뽑은 `component.json`은 기준(원본)으로 둔다.
 
-- 공유 링크: https://claude.ai/artifact/PU6iNoAkpJhThz5v2qvbKg
-- 로컬: `python3 -m http.server 8791 --directory design-system` 후 http://localhost:8791 (JSON을 fetch하므로 더블클릭으로는 안 열림)
-- IA: UX 거버넌스(맨 앞) · 시작하기 · Foundations(색상 · 타이포그래피 · 간격 · 아이콘 · 토큰 구조) · Components(개요 · 진행 현황) · Blocks(공통 블록 `b-` · SB 블록 `tb-`) · Patterns · Updates. SEED의 Develop · AI & Tools는 메뉴로 두지 않는다. 컴포넌트 코드 페이지(`#dev-c-<key>`)와 토큰 레퍼런스(`#dev-tokens`)는 메뉴 없이 링크로만 연다 (Figma 읽기 · SB Studio 연계는 포털 뒤에서 도는 기능)
-- 컴포넌트는 디자인 문서 `#c-<key>`(대표 이미지 → Anatomy → Properties → Guidelines → Specification → Usage)와 개발 문서 `#dev-c-<key>`(미리보기 · 코드 → 사용하기 → Props → Examples → Figma · 변형 · 토큰)로 나뉜다. Specification(색 매트릭스 · 크기 표)은 `component.json`의 토큰 경로에서 만든다 (`site/spec.js`)
-- 공통: 검색(Ctrl/Cmd+K), 테마 전환, 스크롤을 따라가는 목차, 이전 · 다음 문서, 바닥글
-- 페이지: `#overview`, `#foundations`, `#components`, `#updates`, `#<카탈로그 코드>` (예: `#c-button`, `#b-search-general`; 예전 `#button`도 열림), 관리 `#pub` · `#promo` · `#chg`
+- 사이트: https://bonam-stack.github.io/bss-design-system/ (`main`에 올리면 GitHub Actions가 빌드해서 배포, 1~2분)
+- 로컬: `npm install` 후 `npm run dev` (http://localhost:5173). 배포본 확인은 `npm run build && npm run preview`
+- 페이지: `#overview`, `#components`, `#blocks`, `#patterns`, `#rules`, `#icons`, `#<카탈로그 코드>` (예: `#c-button`), `#compare-<key>`(모든 변형 Figma 비교), 관리 `#pub` · `#promo` · `#chg`
 
-컴포넌트 추가: Figma 링크로 `figma-to-json` 스킬 실행 → `components/<key>/component.json` + `components/index.json` 갱신 → 사이트에 자동으로 나타남.
-공유 링크 갱신: `python3 scripts/build_publish_page.py`로 `dist/index.html`을 만든 뒤 같은 링크로 다시 올린다 (새 JSON·SVG 파일도 함께).
+```
+src/ds/                       BSS 디자인 시스템 React 컴포넌트
+  components/<Name>.tsx       컴포넌트 하나 = 파일 하나 (구조 · 동작 · 스타일 모두 TSX 안, CSS 파일 없음)
+  shared.tsx                  토큰 tok() · 글자 font() · Icon · 상호작용(hover · pressed · 포커스) · FocusRing
+  field.tsx                   입력 칸 공통 (TextField · PasswordField · TextArea)
+  index.ts                    모든 컴포넌트 · Props 타입 export
+  figma/                      Figma 원본 그리기 (component.json 레이어 → 그림). React 컴포넌트와 견주는 기준
+src/site/                     문서 사이트 · 디자인 포털 화면
+  App.tsx · nav.tsx · ui.tsx  틀 · 메뉴 · 공통 조각
+  pages/                      컴포넌트 · Figma 비교 · 아이콘 · 패턴 · 포털 페이지
+  live.ts                     포털에서 고친 TSX를 브라우저에서 바로 컴파일 (sucrase)
+  portal/store.ts             포털 상태 (초안 · 게시 · 롤백 · 승격, localStorage)
+  portal/portal-core.js       생성: Figma 변환 코어 (poc에서 npm run build:site)
+.github/workflows/pages.yml   main → 빌드 → GitHub Pages
+```
+
+### 역할별 페이지
+
+- 보기(기획자): 문서 페이지. 미리보기는 실제 React 컴포넌트라 누르고 입력해 볼 수 있고, 코드 탭에 사용 예와 컴포넌트 코드가 있다.
+- 디자인 시스템 담당(에디터 모드): 페이지의 설명 글(페이지 설명 · 개요 · Anatomy · States · Variants · Spec 설명, 가이드에 없는 상태의 설명)을 눌러 그 자리에서 고친다. Enter로 저장, Esc로 취소. 한 컴포넌트에서 고친 글은 "설명 수정" 초안 하나에 모이고, 포털 승인 담당이 게시하면 모두에게 보인다.
+- 디자인 시스템 담당: "AI로 코드 고치기"에서 고칠 점을 말로 요청하면 Claude(Opus 5.5)가 컴포넌트 TSX를 고쳐 미리보기 · 예시에 바로 반영한다. 정적 사이트라 담당이 자기 Anthropic API 키를 넣어 브라우저에서 바로 부르고(키는 그 브라우저에만 저장), 키가 없으면 "A를 B로 바꿔 줘" 글자 바꾸기 흉내 모드로 돈다. "코드 보기 · 직접 고치기"로 코드를 직접 고칠 수도 있다.
+  "Figma 원본과 나란히" · `#compare-<key>`로 Figma와 견주고 "초안 저장" → 포털 승인 담당 게시. 속성(Props) 정의가 바뀌면 MAJOR, 아니면 PATCH. 롤백 · 저장소 코드로 되돌리기 가능.
+- 게시된 코드는 POC라 브라우저(localStorage)에만 있다. 저장소에 반영하려면 그 코드를 `src/ds/components/<Name>.tsx`에 넣어 커밋한다.
+
+### React 컴포넌트 쓰기
+
+Figma 속성 이름이 그대로 React 속성이다. 실제 `<input>` · `<button>`을 쓰므로 폼 · 키보드 · 보조기기가 그대로 동작한다.
+
+```tsx
+import { Checkbox, Button, TextField, PasswordField, TextArea, RadioGroup, Radio } from './ds';
+
+<Checkbox label="약관 동의" name="agree" />                               // 누르면 checked ↔ unchecked
+<Checkbox selection={agree} onSelectionChange={setAgree} label="전체 동의" /> // 제어 컴포넌트
+<Button type="square" variants="primary" size="medium" label="조회" onClick={search} />
+<TextField size="medium" importance="required" label="고객명" showLabel value={name} onChange={setName} invalid={!name} helperText="필수 항목입니다" />
+<PasswordField size="medium" placeholder="비밀번호" />
+<TextArea maxLength={200} helperText="200자 이내" />
+<RadioGroup value={type} onValueChange={setType}><Radio value="p" label="개인" /><Radio value="c" label="법인" /></RadioGroup>
+```
+
+- `state`는 문서 예시처럼 모양을 고정할 때만 쓴다. 비워 두면 포인터 · 포커스 · 값에 따라 hover · focus · entered가 저절로 그려진다.
+- 색 · 치수는 `var(--토큰, Figma 값)`이라 토큰 CSS 없이도 Figma 값으로 그려지고, 토큰 CSS를 올리면 그 값을 따른다.
+- Figma와 일치: 모든 변형을 그려 비교한 결과 Button 172 · Checkbox 24 · Radio 16 · RadioGroup 2 · Divider 4 · HelperText 2 · TextField 108 · TextArea 36개가 픽셀 단위로 같다. PasswordField는 Figma가 `********`를 글자로 그린 자리를 브라우저가 `●`로 가리는 차이만 있다.
+
+## UX 패턴 가이드 반영 (NEXT BSS UX Pattern Guide)
+
+caumuse에 게시된 UX 패턴 가이드(https://mocks.caumuse.kr/release/20261106/)의 문서를 그대로 붙이지 않고, 포털 구조로 나눠 넣었다.
+
+| 가이드 | 포털 | 형식 |
+|---|---|---|
+| UX 원칙 (3) | 시작하기 | 문서 페이지 |
+| 파운데이션 (14) | Foundations (앱 구조 · 화면 유형 · 사용 환경) | 문서 페이지 |
+| 패턴 (31) | Patterns (화면 편성 · 조회·목록 · 편집 · 응답·예외 · 노드 진행 · 외부 연동 · 표준 기능) | 문서 페이지 |
+| 모듈 (18) | Blocks (일반형 화면 · 노드 · 상세·처리 모듈) | 문서 페이지 + 관련 블록 페이지에 연결 |
+| 컴포넌트 (13) | Components (컴포넌트 가이드) | 문서 페이지 + 관련 컴포넌트 페이지에 연결 |
+| Do / Don't (878) | UX 거버넌스 › 규칙 (권장 451 · 금지 427, 번호 `GRID-BOARD-01` …) | 대상 블록 · 컴포넌트 · 레이아웃에 걸림 |
+| 용어사전 (222) | UX 거버넌스 › 용어사전 | 검색되는 표 |
+| SB 작성 가이드 | UX 거버넌스 | 문서 페이지 |
+
+문서 페이지(`#g-<문서 id>`)는 Overview(언제 쓰나 · 다른 것을 쓰나) → 구성요소(번호) · 동작 · 규격 표 → Do / Don't → Usage(이 기준을 따르는 블록 · 컴포넌트, 함께 볼 문서) 순이다.
+화면 예시 목업과 "실제 예시" 절은 빼고 글 · 표 · 규칙만 옮겼다. 버전 이력은 추출본에 내용이 없어 넣지 않았다.
+
+```
+guides/ux-pattern/<id>.md          원문 (split_ux_guide.py가 전체 마크다운에서 나눔)
+guides/ux-pattern/index.json       원문 문서 목록
+guides/ux-pattern/docs/<id>.json   포털 구조로 나눈 문서 (structure_ux_guide.py)
+guides/ux-pattern/structure.json   배치(place) · 대상 코드(targets) · 권장 · 금지 규칙
+guides/ux-pattern/glossary.json    용어사전
+scripts/split_ux_guide.py          가이드 전체 마크다운 → 원문 파일
+scripts/structure_ux_guide.py      원문 → 포털 구조. 문서별 대상 코드(TARGETS)와 구성요소 이름 보정(FORCE_NAMES)이 여기 있다
+```
+
+새 릴리스 반영: `python3 scripts/split_ux_guide.py <전체 마크다운>` → `python3 scripts/structure_ux_guide.py` → 커밋.
 
 ## BSS 디자인 포털
 
-SB Studio 안의 메뉴로 들어가는 디자인 포털이다. 흐름은 덱 「BSS SB Studio 디자인 포맷 정의 및 연계 방식」을 따른다.
-누구에게나 같은 문서(UX 거버넌스 · 시작하기 · Foundations · Components · Blocks · Patterns · Updates)와 **내 요청**이 보이고,
-역할(SB Studio 계정에서 받음, POC는 오른쪽 위에서 고름)에 따라 작업 메뉴와 문서 안 편집 칸이 켜진다.
+SB Studio 안의 메뉴로 들어가는 디자인 포털이다. 누구에게나 같은 문서 사이트(시작하기 · Foundations · Components · Blocks · Patterns · UX 거버넌스)가 보이고,
+오른쪽 위에서 담당 역할을 고르면 같은 페이지에 에디터 모드가 켜진다.
 
-| 역할 | 작업 메뉴 | 하는 일 |
-|---|---|---|
-| 보기 | 내 요청 | 아이콘 · 컴포넌트 · 공통 블록 · 토큰 요청, 진행 상태 (아이콘은 AI 더미로 기획 계속, 완성 시 교체 · 알림) |
-| UX 담당자 | UX 편집: 기준 편집 · SB library 편집 · 내 변경 · 승격 심사 | UX 패턴 · 레이아웃 규칙 · 사용 가이드 · 규칙(번호 자동) · SB 블록 소스, SB팀 표준 심사 |
-| DS 담당자 | DS 작업: 디자인 요청 · 소스 변환 · 내 변경 · 승격 심사 | 토큰 · 컴포넌트 · 공통 블록 (Figma 주소 변환, 코드 · 토큰 편집), 요청 단계 처리, UI팀 디자인 심사 |
-| 관리자 | 관리자: 운영 서버 배포 · 재검수 대상 SB · 권한 확인 · 승격 심사 | 배포 요청 처리(정기 · 수동, 수동은 사유 필수) · 롤백 · 재검수 대상 확인 |
+- 디자인 시스템 담당: 컴포넌트 · 블록 · 앱쉘 페이지의 설명 · 변형 · 상태 편집, Figma에서 다시 읽기, 컴포넌트 목록에서 컴포넌트 추가
+- UX 가이드 담당: 레이아웃 규칙 편집, 규칙 페이지에서 규칙 추가 · 수정 · 삭제(번호 자동), 컴포넌트 사용 가이드 편집(UX-BUTTON-NN)
+- 포털 승인 담당: 초안 게시 · 반려 · 롤백
+- 담당 역할에서만 보이는 "관리" 메뉴: 초안 · 게시, 승격 요청(구조 확인 → 모양 확인 → 최종 승인), 변경 감지
 
-변경 흐름: 담당자가 고치면 초안 → 미리보기 확인 → **배포 요청** → 관리자 배포 → 운영 버전 (다음 버전은 `1.4.0-preview.3`처럼 표시).
-코드 편집은 미리보기 · 자동 검사(script 금지 · 색은 토큰 · 없는 토큰 이름), 토큰 편집은 베이스=값 · 역할 · 컴포넌트=가리키는 토큰, 게시되면 토큰 소스(:root CSS) · 미리보기에 반영.
-
-기준 카탈로그는 `catalog/catalog.json`(레이아웃 l- · 빈칸 · 공통 블록 b- · SB 블록 tb- · 컴포넌트 c- · 규칙 R-),
-컴포넌트 상세는 `components/`에서 온다. 화면 코드는 `site/portal/`. POC라 초안 · 배포 · 요청 상태는 브라우저에만 저장된다.
+기준 카탈로그는 `catalog/catalog.json`(SB Studio 포털 카탈로그 0.5: 앱쉘 s- · 레이아웃 l- · 빈칸 · 블록 b- · 컴포넌트 c- · 규칙 R-),
+컴포넌트 상세(미리보기 · 사용 가이드)는 `components/`에서 온다. 화면 코드는 `src/site/`. POC라 초안 · 게시 상태는 브라우저에만 저장된다.
 
 ## 컴포넌트
 
 ```
-components/index.json            사이트에 보일 컴포넌트 key 목록
-components/<key>/component.json  Figma에서 읽은 노드 ID·키·속성·변형·연결 토큰 (figma-to-json 스킬이 생성)
+components/index.json            사이트에 보일 컴포넌트 key 목록 (React 컴포넌트는 src/ds/components/<Name>.tsx)
+components/<key>/component.json  Figma에서 읽은 노드 ID·키·속성·변형·레이어·연결 토큰 (figma-to-json 스킬이 생성)
+components/<key>/guide.json      사용 가이드 (components/guides.json에 있는 것만)
 ```
 
 ## 아이콘

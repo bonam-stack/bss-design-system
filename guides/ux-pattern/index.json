@@ -1,0 +1,907 @@
+{
+  "$description": "NEXT BSS UX Pattern Guide 문서 목록. scripts/split_ux_guide.py가 만든다. 본문은 같은 폴더의 <id>.md",
+  "title": "NEXT BSS · UX Pattern Guide (전체)",
+  "source": "https://mocks.caumuse.kr/release/20261106/",
+  "generated": "2026-11-17",
+  "docs": [
+    {
+      "id": "intro-guide",
+      "title": "가이드라인 소개",
+      "section": "UX 원칙 (Principles)",
+      "path": [
+        "UX 원칙 (Principles)",
+        "가이드라인 소개"
+      ],
+      "file": "pages/intro-guide.html"
+    },
+    {
+      "id": "intro-principles",
+      "title": "UX 설계 원칙",
+      "section": "UX 원칙 (Principles)",
+      "path": [
+        "UX 원칙 (Principles)",
+        "UX 설계 원칙"
+      ],
+      "file": "pages/intro-principles.html"
+    },
+    {
+      "id": "intro-heuristics",
+      "title": "UX 점검 기준 (Usability Goals)",
+      "section": "UX 원칙 (Principles)",
+      "path": [
+        "UX 원칙 (Principles)",
+        "UX 점검 기준"
+      ],
+      "file": "pages/intro-heuristics.html"
+    },
+    {
+      "id": "device-spec",
+      "title": "디바이스 정책",
+      "section": "파운데이션 (Foundations)",
+      "path": [
+        "파운데이션 (Foundations)",
+        "앱 구조",
+        "디바이스 정책"
+      ],
+      "file": "pages/device-spec.html"
+    },
+    {
+      "id": "adaptive",
+      "title": "적응형 레이아웃",
+      "section": "파운데이션 (Foundations)",
+      "path": [
+        "파운데이션 (Foundations)",
+        "앱 구조",
+        "적응형 레이아웃"
+      ],
+      "file": "pages/adaptive.html"
+    },
+    {
+      "id": "layout-common",
+      "title": "PC 앱 레이아웃",
+      "section": "파운데이션 (Foundations)",
+      "path": [
+        "파운데이션 (Foundations)",
+        "앱 구조",
+        "PC 앱 레이아웃"
+      ],
+      "file": "pages/layout-common.html"
+    },
+    {
+      "id": "layout-mobile",
+      "title": "모바일 앱 레이아웃",
+      "section": "파운데이션 (Foundations)",
+      "path": [
+        "파운데이션 (Foundations)",
+        "앱 구조",
+        "모바일 앱 레이아웃"
+      ],
+      "file": "pages/layout-mobile.html"
+    },
+    {
+      "id": "layout-layer",
+      "title": "레이어 구조",
+      "section": "파운데이션 (Foundations)",
+      "path": [
+        "파운데이션 (Foundations)",
+        "앱 구조",
+        "레이어 구조"
+      ],
+      "file": "pages/layout-layer.html"
+    },
+    {
+      "id": "msg-system",
+      "title": "피드백 체계",
+      "section": "파운데이션 (Foundations)",
+      "path": [
+        "파운데이션 (Foundations)",
+        "앱 구조",
+        "피드백 체계"
+      ],
+      "file": "pages/msg-system.html"
+    },
+    {
+      "id": "layout-work",
+      "title": "일반형 화면 구조",
+      "section": "파운데이션 (Foundations)",
+      "path": [
+        "파운데이션 (Foundations)",
+        "화면 유형",
+        "일반형 화면",
+        "일반형 화면 구조"
+      ],
+      "file": "pages/layout-work.html"
+    },
+    {
+      "id": "layout-columns",
+      "title": "다단 구성",
+      "section": "파운데이션 (Foundations)",
+      "path": [
+        "파운데이션 (Foundations)",
+        "화면 유형",
+        "일반형 화면",
+        "다단 구성"
+      ],
+      "file": "pages/layout-columns.html"
+    },
+    {
+      "id": "layout-node",
+      "title": "노드형 화면",
+      "section": "파운데이션 (Foundations)",
+      "path": [
+        "파운데이션 (Foundations)",
+        "화면 유형",
+        "노드형 화면"
+      ],
+      "file": "pages/layout-node.html"
+    },
+    {
+      "id": "layout-special",
+      "title": "특수형 화면",
+      "section": "파운데이션 (Foundations)",
+      "path": [
+        "파운데이션 (Foundations)",
+        "화면 유형",
+        "특수형 화면"
+      ],
+      "file": "pages/layout-special.html"
+    },
+    {
+      "id": "ws-split-view",
+      "title": "화면 분할",
+      "section": "파운데이션 (Foundations)",
+      "path": [
+        "파운데이션 (Foundations)",
+        "사용 환경",
+        "화면 분할"
+      ],
+      "file": "pages/ws-split-view.html"
+    },
+    {
+      "id": "ws-multi-screen",
+      "title": "멀티스크린",
+      "section": "파운데이션 (Foundations)",
+      "path": [
+        "파운데이션 (Foundations)",
+        "사용 환경",
+        "멀티스크린"
+      ],
+      "file": "pages/ws-multi-screen.html"
+    },
+    {
+      "id": "ws-window-detach",
+      "title": "창 분리",
+      "section": "파운데이션 (Foundations)",
+      "path": [
+        "파운데이션 (Foundations)",
+        "사용 환경",
+        "창 분리"
+      ],
+      "file": "pages/ws-window-detach.html"
+    },
+    {
+      "id": "ws-shortcuts",
+      "title": "단축키 체계",
+      "section": "파운데이션 (Foundations)",
+      "path": [
+        "파운데이션 (Foundations)",
+        "사용 환경",
+        "단축키 체계"
+      ],
+      "file": "pages/ws-shortcuts.html"
+    },
+    {
+      "id": "work-composition",
+      "title": "업무 화면 편성",
+      "section": "패턴 (Patterns)",
+      "path": [
+        "패턴 (Patterns)",
+        "화면 편성·여정",
+        "업무 화면 편성"
+      ],
+      "file": "pages/work-composition.html"
+    },
+    {
+      "id": "work-connect",
+      "title": "업무 연결",
+      "section": "패턴 (Patterns)",
+      "path": [
+        "패턴 (Patterns)",
+        "화면 편성·여정",
+        "업무 연결"
+      ],
+      "file": "pages/work-connect.html"
+    },
+    {
+      "id": "grid-board",
+      "title": "일반목록",
+      "section": "패턴 (Patterns)",
+      "path": [
+        "패턴 (Patterns)",
+        "조회·목록",
+        "일반목록"
+      ],
+      "file": "pages/grid-board.html"
+    },
+    {
+      "id": "grid-biggrid",
+      "title": "빅 테이블",
+      "section": "패턴 (Patterns)",
+      "path": [
+        "패턴 (Patterns)",
+        "조회·목록",
+        "빅 테이블"
+      ],
+      "file": "pages/grid-biggrid.html"
+    },
+    {
+      "id": "grid-tree",
+      "title": "트리형 목록",
+      "section": "패턴 (Patterns)",
+      "path": [
+        "패턴 (Patterns)",
+        "조회·목록",
+        "트리형 목록"
+      ],
+      "file": "pages/grid-tree.html"
+    },
+    {
+      "id": "grid-group",
+      "title": "피벗 목록",
+      "section": "패턴 (Patterns)",
+      "path": [
+        "패턴 (Patterns)",
+        "조회·목록",
+        "피벗 목록"
+      ],
+      "file": "pages/grid-group.html"
+    },
+    {
+      "id": "grid-sum",
+      "title": "합계통계형 목록",
+      "section": "패턴 (Patterns)",
+      "path": [
+        "패턴 (Patterns)",
+        "조회·목록",
+        "합계통계형 목록"
+      ],
+      "file": "pages/grid-sum.html"
+    },
+    {
+      "id": "grid-select",
+      "title": "멀티선택형 목록",
+      "section": "패턴 (Patterns)",
+      "path": [
+        "패턴 (Patterns)",
+        "조회·목록",
+        "멀티선택형 목록"
+      ],
+      "file": "pages/grid-select.html"
+    },
+    {
+      "id": "grid-composite",
+      "title": "복합형 테이블",
+      "section": "패턴 (Patterns)",
+      "path": [
+        "패턴 (Patterns)",
+        "조회·목록",
+        "복합형 테이블"
+      ],
+      "file": "pages/grid-composite.html"
+    },
+    {
+      "id": "grid-inline",
+      "title": "인라인 편집 테이블",
+      "section": "패턴 (Patterns)",
+      "path": [
+        "패턴 (Patterns)",
+        "편집",
+        "인라인 편집 테이블"
+      ],
+      "file": "pages/grid-inline.html"
+    },
+    {
+      "id": "grid-expand",
+      "title": "행확장 편집",
+      "section": "패턴 (Patterns)",
+      "path": [
+        "패턴 (Patterns)",
+        "편집",
+        "행확장 편집"
+      ],
+      "file": "pages/grid-expand.html"
+    },
+    {
+      "id": "grid-dnd-sort",
+      "title": "순서 편집 테이블",
+      "section": "패턴 (Patterns)",
+      "path": [
+        "패턴 (Patterns)",
+        "편집",
+        "순서 편집 테이블"
+      ],
+      "file": "pages/grid-dnd-sort.html"
+    },
+    {
+      "id": "form-big",
+      "title": "빅 폼 (Big Form)",
+      "section": "패턴 (Patterns)",
+      "path": [
+        "패턴 (Patterns)",
+        "편집",
+        "빅 폼"
+      ],
+      "file": "pages/form-big.html"
+    },
+    {
+      "id": "resp-form-validation",
+      "title": "폼 유효성 체크 (Form Validation)",
+      "section": "패턴 (Patterns)",
+      "path": [
+        "패턴 (Patterns)",
+        "응답·예외",
+        "폼 유효성 체크"
+      ],
+      "file": "pages/resp-form-validation.html"
+    },
+    {
+      "id": "resp-permission",
+      "title": "권한 제한 처리",
+      "section": "패턴 (Patterns)",
+      "path": [
+        "패턴 (Patterns)",
+        "응답·예외",
+        "권한 제한 처리"
+      ],
+      "file": "pages/resp-permission.html"
+    },
+    {
+      "id": "resp-masking",
+      "title": "마스킹 처리",
+      "section": "패턴 (Patterns)",
+      "path": [
+        "패턴 (Patterns)",
+        "응답·예외",
+        "마스킹 처리"
+      ],
+      "file": "pages/resp-masking.html"
+    },
+    {
+      "id": "resp-error-page",
+      "title": "전역 예외 화면 (Error Pages)",
+      "section": "패턴 (Patterns)",
+      "path": [
+        "패턴 (Patterns)",
+        "응답·예외",
+        "전역 예외 화면"
+      ],
+      "file": "pages/resp-error-page.html"
+    },
+    {
+      "id": "node-flow-seq",
+      "title": "순차진행(일반)",
+      "section": "패턴 (Patterns)",
+      "path": [
+        "패턴 (Patterns)",
+        "노드 진행",
+        "순차진행(일반)"
+      ],
+      "file": "pages/node-flow-seq.html"
+    },
+    {
+      "id": "node-flow-branch",
+      "title": "분기 진행",
+      "section": "패턴 (Patterns)",
+      "path": [
+        "패턴 (Patterns)",
+        "노드 진행",
+        "분기 진행"
+      ],
+      "file": "pages/node-flow-branch.html"
+    },
+    {
+      "id": "node-flow-skip",
+      "title": "스킵",
+      "section": "패턴 (Patterns)",
+      "path": [
+        "패턴 (Patterns)",
+        "노드 진행",
+        "스킵"
+      ],
+      "file": "pages/node-flow-skip.html"
+    },
+    {
+      "id": "node-flow-fail",
+      "title": "오류처리",
+      "section": "패턴 (Patterns)",
+      "path": [
+        "패턴 (Patterns)",
+        "노드 진행",
+        "오류처리"
+      ],
+      "file": "pages/node-flow-fail.html"
+    },
+    {
+      "id": "node-flow-reverse",
+      "title": "역방향 진행",
+      "section": "패턴 (Patterns)",
+      "path": [
+        "패턴 (Patterns)",
+        "노드 진행",
+        "역방향 진행"
+      ],
+      "file": "pages/node-flow-reverse.html"
+    },
+    {
+      "id": "integration-levels",
+      "title": "통합 레벨 프레임워크",
+      "section": "패턴 (Patterns)",
+      "path": [
+        "패턴 (Patterns)",
+        "외부 솔루션 연동",
+        "통합 레벨 프레임워크"
+      ],
+      "file": "pages/integration-levels.html"
+    },
+    {
+      "id": "integration-ux",
+      "title": "외부 화면 연동 처리",
+      "section": "패턴 (Patterns)",
+      "path": [
+        "패턴 (Patterns)",
+        "외부 솔루션 연동",
+        "외부 화면 연동 처리"
+      ],
+      "file": "pages/integration-ux.html"
+    },
+    {
+      "id": "std-target-customer",
+      "title": "단계별 조회조건 지정하기",
+      "section": "패턴 (Patterns)",
+      "path": [
+        "패턴 (Patterns)",
+        "표준 기능",
+        "단계별 조회조건 지정하기"
+      ],
+      "file": "pages/std-target-customer.html"
+    },
+    {
+      "id": "std-address",
+      "title": "주소찾기",
+      "section": "패턴 (Patterns)",
+      "path": [
+        "패턴 (Patterns)",
+        "표준 기능",
+        "주소찾기"
+      ],
+      "file": "pages/std-address.html"
+    },
+    {
+      "id": "form-file-upload",
+      "title": "파일 업로드하기",
+      "section": "패턴 (Patterns)",
+      "path": [
+        "패턴 (Patterns)",
+        "표준 기능",
+        "파일 업로드하기"
+      ],
+      "file": "pages/form-file-upload.html"
+    },
+    {
+      "id": "grid-excel-upload",
+      "title": "엑셀 업로드하기",
+      "section": "패턴 (Patterns)",
+      "path": [
+        "패턴 (Patterns)",
+        "표준 기능",
+        "엑셀 업로드하기"
+      ],
+      "file": "pages/grid-excel-upload.html"
+    },
+    {
+      "id": "grid-fullview",
+      "title": "테이블 전체보기",
+      "section": "패턴 (Patterns)",
+      "path": [
+        "패턴 (Patterns)",
+        "표준 기능",
+        "테이블 전체보기"
+      ],
+      "file": "pages/grid-fullview.html"
+    },
+    {
+      "id": "std-file-download",
+      "title": "파일 다운로드하기",
+      "section": "패턴 (Patterns)",
+      "path": [
+        "패턴 (Patterns)",
+        "표준 기능",
+        "파일 다운로드하기"
+      ],
+      "file": "pages/std-file-download.html"
+    },
+    {
+      "id": "std-text-search",
+      "title": "컨텐트 텍스트 검색하기",
+      "section": "패턴 (Patterns)",
+      "path": [
+        "패턴 (Patterns)",
+        "표준 기능",
+        "컨텐트 텍스트 검색하기"
+      ],
+      "file": "pages/std-text-search.html"
+    },
+    {
+      "id": "mod-general-overview",
+      "title": "일반형 화면 모듈 개요",
+      "section": "모듈 (Modules)",
+      "path": [
+        "모듈 (Modules)",
+        "일반형 화면 모듈",
+        "일반형 화면 모듈 개요"
+      ],
+      "file": "pages/mod-general-overview.html"
+    },
+    {
+      "id": "search-conditions",
+      "title": "조회조건 모듈",
+      "section": "모듈 (Modules)",
+      "path": [
+        "모듈 (Modules)",
+        "일반형 화면 모듈",
+        "조회조건 모듈"
+      ],
+      "file": "pages/search-conditions.html"
+    },
+    {
+      "id": "layout-content",
+      "title": "컨텐트 모듈 개요",
+      "section": "모듈 (Modules)",
+      "path": [
+        "모듈 (Modules)",
+        "일반형 화면 모듈",
+        "컨텐트 모듈",
+        "컨텐트 모듈 개요"
+      ],
+      "file": "pages/layout-content.html"
+    },
+    {
+      "id": "search-detail",
+      "title": "컨텐트 유틸리티",
+      "section": "모듈 (Modules)",
+      "path": [
+        "모듈 (Modules)",
+        "일반형 화면 모듈",
+        "컨텐트 모듈",
+        "컨텐트 유틸리티"
+      ],
+      "file": "pages/search-detail.html"
+    },
+    {
+      "id": "grid-basic-behavior",
+      "title": "테이블 모듈 공통 정의",
+      "section": "모듈 (Modules)",
+      "path": [
+        "모듈 (Modules)",
+        "일반형 화면 모듈",
+        "컨텐트 모듈",
+        "테이블 모듈 공통 정의"
+      ],
+      "file": "pages/grid-basic-behavior.html"
+    },
+    {
+      "id": "form-basic",
+      "title": "입력 폼 모듈 공통 정의 (check and go)",
+      "section": "모듈 (Modules)",
+      "path": [
+        "모듈 (Modules)",
+        "일반형 화면 모듈",
+        "컨텐트 모듈",
+        "입력 폼 모듈 공통 정의"
+      ],
+      "file": "pages/form-basic.html"
+    },
+    {
+      "id": "mod-split-content",
+      "title": "분할 모듈",
+      "section": "모듈 (Modules)",
+      "path": [
+        "모듈 (Modules)",
+        "일반형 화면 모듈",
+        "컨텐트 모듈",
+        "분할 모듈"
+      ],
+      "file": "pages/mod-split-content.html"
+    },
+    {
+      "id": "node-comp-view",
+      "title": "조회형 모듈",
+      "section": "모듈 (Modules)",
+      "path": [
+        "모듈 (Modules)",
+        "노드 모듈",
+        "조회형 모듈"
+      ],
+      "file": "pages/node-comp-view.html"
+    },
+    {
+      "id": "node-comp-select",
+      "title": "선택형 모듈",
+      "section": "모듈 (Modules)",
+      "path": [
+        "모듈 (Modules)",
+        "노드 모듈",
+        "선택형 모듈"
+      ],
+      "file": "pages/node-comp-select.html"
+    },
+    {
+      "id": "node-comp-input",
+      "title": "입력형 모듈",
+      "section": "모듈 (Modules)",
+      "path": [
+        "모듈 (Modules)",
+        "노드 모듈",
+        "입력형 모듈"
+      ],
+      "file": "pages/node-comp-input.html"
+    },
+    {
+      "id": "node-comp-interaction",
+      "title": "상호작용형 모듈",
+      "section": "모듈 (Modules)",
+      "path": [
+        "모듈 (Modules)",
+        "노드 모듈",
+        "상호작용형 모듈"
+      ],
+      "file": "pages/node-comp-interaction.html"
+    },
+    {
+      "id": "node-comp-process",
+      "title": "처리형 모듈",
+      "section": "모듈 (Modules)",
+      "path": [
+        "모듈 (Modules)",
+        "노드 모듈",
+        "처리형 모듈"
+      ],
+      "file": "pages/node-comp-process.html"
+    },
+    {
+      "id": "node-comp-end",
+      "title": "완결형 모듈",
+      "section": "모듈 (Modules)",
+      "path": [
+        "모듈 (Modules)",
+        "노드 모듈",
+        "완결형 모듈"
+      ],
+      "file": "pages/node-comp-end.html"
+    },
+    {
+      "id": "node-comp-fixed",
+      "title": "기능형 모듈",
+      "section": "모듈 (Modules)",
+      "path": [
+        "모듈 (Modules)",
+        "노드 모듈",
+        "기능형 모듈"
+      ],
+      "file": "pages/node-comp-fixed.html"
+    },
+    {
+      "id": "option-panel",
+      "title": "사이드 패널",
+      "section": "모듈 (Modules)",
+      "path": [
+        "모듈 (Modules)",
+        "상세·처리 모듈",
+        "사이드 패널"
+      ],
+      "file": "pages/option-panel.html"
+    },
+    {
+      "id": "popup",
+      "title": "상세 팝업",
+      "section": "모듈 (Modules)",
+      "path": [
+        "모듈 (Modules)",
+        "상세·처리 모듈",
+        "상세 팝업"
+      ],
+      "file": "pages/popup.html"
+    },
+    {
+      "id": "view-full-popup",
+      "title": "전체 화면 팝업 (Full Page Popup)",
+      "section": "모듈 (Modules)",
+      "path": [
+        "모듈 (Modules)",
+        "상세·처리 모듈",
+        "전체 화면 팝업"
+      ],
+      "file": "pages/view-full-popup.html"
+    },
+    {
+      "id": "view-transitions",
+      "title": "전체 화면 전환 (Full Page Transitions)",
+      "section": "모듈 (Modules)",
+      "path": [
+        "모듈 (Modules)",
+        "상세·처리 모듈",
+        "전체 화면 전환"
+      ],
+      "file": "pages/view-transitions.html"
+    },
+    {
+      "id": "layout-gnb",
+      "title": "GNB",
+      "section": "컴포넌트 (Components)",
+      "path": [
+        "컴포넌트 (Components)",
+        "내비게이션",
+        "GNB"
+      ],
+      "file": "pages/layout-gnb.html"
+    },
+    {
+      "id": "layout-lnb",
+      "title": "사이드 내비게이션 바",
+      "section": "컴포넌트 (Components)",
+      "path": [
+        "컴포넌트 (Components)",
+        "내비게이션",
+        "사이드 내비게이션 바"
+      ],
+      "file": "pages/layout-lnb.html"
+    },
+    {
+      "id": "layout-action",
+      "title": "버튼 구조 및 동작",
+      "section": "컴포넌트 (Components)",
+      "path": [
+        "컴포넌트 (Components)",
+        "버튼",
+        "버튼 구조 및 동작"
+      ],
+      "file": "pages/layout-action.html"
+    },
+    {
+      "id": "layout-button-label",
+      "title": "버튼 라벨 · 아이콘",
+      "section": "컴포넌트 (Components)",
+      "path": [
+        "컴포넌트 (Components)",
+        "버튼",
+        "버튼 라벨 · 아이콘"
+      ],
+      "file": "pages/layout-button-label.html"
+    },
+    {
+      "id": "ui-comp-input",
+      "title": "일반 입력",
+      "section": "컴포넌트 (Components)",
+      "path": [
+        "컴포넌트 (Components)",
+        "입력",
+        "일반 입력"
+      ],
+      "file": "pages/ui-comp-input.html"
+    },
+    {
+      "id": "ui-comp-input-extended",
+      "title": "특이 데이터 입력",
+      "section": "컴포넌트 (Components)",
+      "path": [
+        "컴포넌트 (Components)",
+        "입력",
+        "특이 데이터 입력"
+      ],
+      "file": "pages/ui-comp-input-extended.html"
+    },
+    {
+      "id": "ui-comp-table",
+      "title": "테이블",
+      "section": "컴포넌트 (Components)",
+      "path": [
+        "컴포넌트 (Components)",
+        "테이블"
+      ],
+      "file": "pages/ui-comp-table.html"
+    },
+    {
+      "id": "ui-comp-list",
+      "title": "리스트",
+      "section": "컴포넌트 (Components)",
+      "path": [
+        "컴포넌트 (Components)",
+        "리스트"
+      ],
+      "file": "pages/ui-comp-list.html"
+    },
+    {
+      "id": "ui-comp-container",
+      "title": "컨테이너",
+      "section": "컴포넌트 (Components)",
+      "path": [
+        "컴포넌트 (Components)",
+        "컨테이너"
+      ],
+      "file": "pages/ui-comp-container.html"
+    },
+    {
+      "id": "ui-comp-graph",
+      "title": "그래프",
+      "section": "컴포넌트 (Components)",
+      "path": [
+        "컴포넌트 (Components)",
+        "그래프"
+      ],
+      "file": "pages/ui-comp-graph.html"
+    },
+    {
+      "id": "ui-comp-feedback",
+      "title": "Feedback & Notification",
+      "section": "컴포넌트 (Components)",
+      "path": [
+        "컴포넌트 (Components)",
+        "피드백·알림",
+        "Feedback & Notification"
+      ],
+      "file": "pages/ui-comp-feedback.html"
+    },
+    {
+      "id": "resp-dialog",
+      "title": "확인·경고 다이얼로그 (Dialog & Alert)",
+      "section": "컴포넌트 (Components)",
+      "path": [
+        "컴포넌트 (Components)",
+        "피드백·알림",
+        "확인·경고 다이얼로그"
+      ],
+      "file": "pages/resp-dialog.html"
+    },
+    {
+      "id": "resp-toast",
+      "title": "토스트·스낵바 (Toast & Snackbar)",
+      "section": "컴포넌트 (Components)",
+      "path": [
+        "컴포넌트 (Components)",
+        "피드백·알림",
+        "토스트·스낵바"
+      ],
+      "file": "pages/resp-toast.html"
+    },
+    {
+      "id": "intro-sb-guide",
+      "title": "SB 작성 가이드",
+      "section": "가이드 활용 (Resources)",
+      "path": [
+        "가이드 활용 (Resources)",
+        "SB 작성 가이드"
+      ],
+      "file": "pages/intro-sb-guide.html"
+    },
+    {
+      "id": "glossary",
+      "title": "용어사전",
+      "section": "가이드 활용 (Resources)",
+      "path": [
+        "가이드 활용 (Resources)",
+        "용어사전"
+      ],
+      "file": "pages/glossary.html"
+    },
+    {
+      "id": "version-history",
+      "title": "버전 이력",
+      "section": "유틸리티",
+      "path": [
+        "유틸리티",
+        "버전 이력"
+      ],
+      "file": "pages/version-history.html"
+    }
+  ]
+}
