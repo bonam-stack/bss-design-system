@@ -329,3 +329,18 @@ table.spec td:not(:first-child) { border-bottom-color: color-mix(in srgb, var(--
 .gd-canvas, .pt-canvas { border: 1px solid var(--border); border-radius: 8px; background-color: #fbfbff; background-image: linear-gradient(#ecebfb 1px, transparent 1px), linear-gradient(90deg, #ecebfb 1px, transparent 1px); background-size: 24px 24px; }
 .gd-when-col, .gd-do, .gd-dont { border-radius: 8px; }
 .gd-example, .pt-example { border-radius: 6px; }
+
+/* 토큰 구조: 베이스 → 역할 → 컴포넌트 사슬 */
+.chains { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 380px), 1fr)); gap: 12px; }
+.chain { padding: 14px 16px; border: 1px solid var(--border); border-radius: 8px; min-width: 0; }
+.chain-t { margin: 0 0 8px; font-weight: 600; font-size: 14px; }
+.chain ol { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
+.chain li { position: relative; display: flex; align-items: center; gap: 4px; min-width: 0; font-size: 12.5px; }
+.chain li + li::before { content: '↓'; position: absolute; left: 22px; top: -13px; font-size: 10px; color: var(--fg-muted); }
+.chain code { overflow-wrap: anywhere; }
+.chain-l { flex: none; width: 64px; font-size: 11px; color: var(--fg-muted); }
+/* Specification 매트릭스 */
+table.cm td.cm-c { white-space: nowrap; }
+table.cm td.cm-c .tok { font-size: 11.5px; }
+.cm-x { color: var(--border); text-align: center; }
+.dv { font: 600 13px var(--mono); }

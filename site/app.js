@@ -797,7 +797,7 @@ async function boot() {
           document.getElementById('heroStage')?.insertAdjacentHTML('beforeend', `<p class="error">그림을 그리지 못했어요: ${esc(err.message)}</p>`);
         });
       } else if (pcomp) content.innerHTML = V.portalOnlyPage(pcomp) + V.lastUpdated() + V.pager(route);
-      else if (!dev && (body = V.page(route)) !== null) content.innerHTML = body + (it ? V.lastUpdated() : '') + V.pager(route);
+      else if ((body = V.page(route)) !== null) content.innerHTML = body + (it ? V.lastUpdated() : '') + V.pager(route);
       else { location.replace('#overview'); return; }
     } catch (err) {
       content.innerHTML = `<p class="error">페이지를 그리지 못했어요: ${esc(err.message)}</p>`;

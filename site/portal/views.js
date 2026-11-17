@@ -85,11 +85,11 @@ export function sections() {
   const sub = (L, title) => L.map((x, n) => (n ? x : [...x, title]));
   const S = [
     ['start', '시작하기', [['overview', '개요'], ['stack', '조립 구조']]],
-    ['foundations', 'Foundations', [['foundations', '개요'], ['color', '색상', '기본 요소'], ['typography', '타이포그래피'], ['dimension', '간격 · 모서리'], ['icons', '아이콘'], ['tokens', '디자인 토큰', '레퍼런스']]],
+    ['foundations', 'Foundations', [['foundations', '개요'], ['color', '색상', '기본 요소'], ['typography', '타이포그래피'], ['dimension', '간격 · 모서리'], ['icons', '아이콘'], ['tokens', '토큰 구조', '구조']]],
     ['components', 'Components', [['components', '개요'], ['progress', '진행 현황'], ...sub(comps.map((i) => [i.code, i.name]), '컴포넌트')]],
     ['blocks', 'Blocks', [['blocks', '개요'], ...I.filter((i) => i.kind === 'shell' || i.kind === 'block').map((i) => [i.code, i.name])]],
     ['patterns', 'Patterns', [['patterns', '개요'], ...(ctx.data.patterns || []).map((p) => [`pattern-${p.key}`, `${p.name} 패턴`]), ...I.filter((i) => i.kind === 'layout').map((i) => [i.code, `${i.name} 레이아웃`])]],
-    ['develop', 'Develop', [['develop', '시작하기'], ...sub(dev.map((i) => [`dev-${i.code}`, i.name]), 'HTML · CSS 컴포넌트')]],
+    ['develop', 'Develop', [['develop', '시작하기'], ['dev-tokens', '토큰 레퍼런스'], ...sub(dev.map((i) => [`dev-${i.code}`, i.name]), 'HTML · CSS 컴포넌트')]],
     ['governance', 'UX 거버넌스', [['rules', '규칙'], ['slots', '빈칸'], ['lint', '검증 규칙']]],
     ['ai', 'AI & Tools', [['ai', '개요'], ['ai-figma', 'Figma 연동'], ['ai-studio', 'SB Studio 연계'], ['ai-llms', 'LLMS.txt']]],
     ['updates', 'Updates', [['updates', '릴리스 노트']]],
@@ -203,6 +203,7 @@ export function page(route) {
     case 'typography': return pageType();
     case 'dimension': return pageDimension();
     case 'tokens': return pageTokens();
+    case 'dev-tokens': return pageTokenRef();
     case 'progress': return pageProgress();
     case 'develop': return pageDevelop();
     case 'ai': return pageAi();
@@ -294,7 +295,7 @@ function pageFoundations() {
     ['typography', '타이포그래피', `${typeStyles().length}개 스타일`, 'Pretendard · 크기 · 줄 높이 · 굵기'],
     ['dimension', '간격 · 모서리', `${dimTokens().length}개 값`, '간격 · 크기 · 둥글기 · 두께'],
     ['icons', '아이콘', `${ctx.data.icons?.icons.length || 0}개`, 'Line · Filled · Colored'],
-    ['tokens', '디자인 토큰', `${TK().length}개`, 'Primitive → Semantic → Component 전체 목록'],
+    ['tokens', '토큰 구조', '베이스 → 역할 → 컴포넌트', '색에서 컴포넌트 변형까지 이어지는 방식'],
   ];
   return `${head('Foundations', 'Foundations', '컴포넌트와 블록이 공통으로 쓰는 색 · 글자 · 간격 · 아이콘의 기준입니다. 값은 Figma 변수에서 읽은 디자인 토큰으로만 씁니다.')}
   <h2 id="principle">원칙</h2>
@@ -311,17 +312,19 @@ function pageColor() {
   const role = (t) => t.figma.split('/')[1];
   const roles = [...new Set(sem.map(role))];
   const hues = [...new Set(prim.map((t) => t.figma.split('/')[1]))];
-  return `${head('Foundations', '색상', '색은 역할(Color role)로 고르고, 역할은 팔레트(Palette)의 색 하나를 가리킵니다. 컴포넌트는 역할 토큰을 통해서만 색을 씁니다.')}
-  <h2 id="role">Color role</h2>
-  <p class="note">배경 · 글자 · 테두리마다 강도(faint → strongest)와 의미(brand · neutral · danger …)를 조합한 이름입니다.</p>
-  ${roles.map((r) => `<h3 id="role-${esc(r)}">${esc(COLOR_ROLE[r] || r)} <span class="count">${sem.filter((t) => role(t) === r).length}</span></h3>
-    ${table(['', '토큰', '값', '팔레트'], sem.filter((t) => role(t) === r).map((t) => `<tr><td class="sw-c">${swatch(t.value)}</td><td><code>${esc(t.figma)}</code></td><td class="mono">${esc(t.value)}</td><td class="mono muted">${esc(t.ref ? t.ref.replace(/^--/, '').replace(/-/g, '/') : '-')}</td></tr>`))}`).join('')}
-  <h2 id="palette">Palette</h2>
-  <p class="note">Primitive 색입니다. 화면에서 바로 쓰지 않고 Color role이 가리키는 원본으로만 씁니다.</p>
+  const primName = (css) => TK().find((t) => t.css === css)?.figma.replace(/^color\//, '') || '-';
+  const usedBy = (css) => sem.filter((t) => t.ref === css).length;
+  return `${head('Foundations', '색상', `색은 베이스(Palette) ${prim.length}개에서 시작합니다. 역할(Color role) ${sem.length}개가 베이스 색 하나씩을 가리키고, 컴포넌트는 역할을 변형 · 상태별로 다시 가리킵니다. 색 값은 이 페이지에만 있습니다.`)}
+  <h2 id="palette">Palette <span class="count">베이스 · ${prim.length}</span></h2>
+  <p class="note">Primitive 색입니다. 화면에서 바로 쓰지 않고 아래 Color role이 가리키는 원본으로만 씁니다. 숫자는 이 색을 가리키는 역할 수입니다.</p>
   ${hues.map((h) => {
     const L = prim.filter((t) => t.figma.split('/')[1] === h);
-    return `<h3 id="pal-${esc(h)}">${esc(h)}</h3><div class="pal">${L.map((t) => `<div title="${esc(t.figma)}"><i style="background:${esc(t.value)}"></i><b>${esc(t.figma.split('/').slice(2).join('/') || h)}</b><span class="mono">${esc(t.value)}</span></div>`).join('')}</div>`;
-  }).join('')}`;
+    return `<h3 id="pal-${esc(h)}">${esc(h)}</h3><div class="pal">${L.map((t) => `<div title="${esc(t.figma)}"><i style="background:${esc(t.value)}"></i><b>${esc(t.figma.split('/').slice(2).join('/') || h)}</b><span class="mono">${esc(t.value)}${usedBy(t.css) ? ` · 역할 ${usedBy(t.css)}` : ''}</span></div>`).join('')}</div>`;
+  }).join('')}
+  <h2 id="role">Color role <span class="count">파생 · ${sem.length}</span></h2>
+  <p class="note">배경 · 글자 · 테두리마다 강도(faint → strongest)와 의미(brand · neutral · danger …)를 조합한 이름입니다. 컴포넌트 문서의 색 매트릭스는 이 이름을 씁니다.</p>
+  ${roles.map((r) => `<h3 id="role-${esc(r)}">${esc(COLOR_ROLE[r] || r)} <span class="count">${sem.filter((t) => role(t) === r).length}</span></h3>
+    ${table(['', '역할', '베이스', '값'], sem.filter((t) => role(t) === r).map((t) => `<tr><td class="sw-c">${swatch(t.value)}</td><td><code>${esc(t.figma.replace(/^color\//, ''))}</code></td><td class="mono">${esc(t.ref ? primName(t.ref) : '-')}</td><td class="mono muted">${esc(t.value)}</td></tr>`))}`).join('')}`;
 }
 
 /** Semantic font 토큰을 스타일(font/<역할>/<크기>/<굵기>) 단위로 묶는다 */
@@ -381,20 +384,59 @@ function pageDimension() {
   }).join('')}`;
 }
 
+/** 컴포넌트 토큰 하나를 베이스까지 따라간 사슬 */
+function chainOf(comp, t) {
+  const byFigma = new Map(TK().map((x) => [x.figma, x]));
+  const out = [{ name: t.figma, layer: 'Component', value: t.value }];
+  let cur = byFigma.get(t.alias);
+  if (!cur) return t.alias ? [...out, { name: t.alias, layer: '?', value: t.value }] : out;
+  while (cur) {
+    out.push({ name: cur.figma, layer: cur.collection, value: cur.value });
+    cur = cur.ref ? TK().find((x) => x.css === cur.ref) : null;
+  }
+  return out;
+}
+
 function pageTokens() {
+  const all = TK();
+  const comps = ctx.data.components || [];
+  const pick = (key, path) => { const c = comps.find((x) => x.key === key); const t = c?.tokens.find((x) => x.figma === path); return t ? chainOf(c, t) : null; };
+  const examples = [
+    ['Button · primary · hover 배경', pick('button', 'button/primary/color/bg/hover')],
+    ['Checkbox · checked · default 배경', pick('checkbox', 'checkbox/checked/color/bg/default')],
+    ['Checkbox · 미선택 hover 배경 (공유)', pick('checkbox', 'selectionControl/color/bg/hover')],
+    ['TextField · error 테두리', pick('text-field', 'field/color/border/error')],
+  ].filter((x) => x[1]);
+  const LAYER = { Primitive: '베이스', Semantic: '역할', Component: '컴포넌트' };
+  return `${head('Foundations', '토큰 구조', '토큰은 베이스 색에서 시작해 역할 → 컴포넌트 변형 순서로 이어집니다. 값은 베이스에만 있고, 그 아래 단계는 위 단계의 이름을 가리킵니다.')}
+  <h2 id="layers">세 단계</h2>
+  ${table(['단계', '개수', '뜻', '값이 있는 곳'], [
+    ['베이스 · Primitive', all.filter((t) => t.collection === 'Primitive').length, '팔레트 원본 색 (예: gray/50)', '<a href="#color">색상 › Palette</a>'],
+    ['역할 · Semantic', all.filter((t) => t.collection === 'Semantic').length, '배경 · 글자 · 테두리 역할과 글자 스타일. 베이스를 가리킴', '<a href="#color">색상 › Color role</a> · <a href="#typography">타이포그래피</a>'],
+    ['컴포넌트 · Component', all.filter((t) => t.collection === 'Component').length, '부품의 변형 × 상태별 값. 역할을 가리킴', '각 컴포넌트 문서 › Specification'],
+  ].map((r) => `<tr><td><b>${r[0]}</b></td><td class="mono">${r[1]}</td><td>${r[2]}</td><td>${r[3]}</td></tr>`))}
+  <h2 id="chain">이어지는 예</h2>
+  <p class="note">컴포넌트 토큰을 베이스까지 따라간 실제 사슬입니다. 베이스 색을 바꾸면 같은 사슬 위의 모든 컴포넌트가 함께 바뀝니다.</p>
+  <div class="chains">${examples.map(([label, ch]) => `<div class="chain"><p class="chain-t">${esc(label)}</p><ol>${[...ch].reverse().map((x) => `<li><span class="chain-l">${esc(LAYER[x.layer] || x.layer)}</span>${/^#/.test(x.value) ? swatch(x.value) : ''}<code>${esc(x.name)}</code></li>`).join('')}</ol></div>`).join('')}</div>
+  <h2 id="naming">이름 규칙</h2>
+  ${table(['단계', '형식', '예'], [
+    ['베이스', '<code>color/색상/단계</code>', '<code>color/indigo/600</code>'],
+    ['역할', '<code>color/역할/의미/강도/상태</code>', '<code>color/bg/brand/strongest/hover</code>'],
+    ['컴포넌트', '<code>부품/변형/color/역할/상태</code>', '<code>button/primary/color/bg/hover</code>'],
+  ].map((r) => `<tr><td><b>${r[0]}</b></td><td>${r[1]}</td><td>${r[2]}</td></tr>`))}
+  <h2 id="gap">간격 · 모서리의 베이스</h2>
+  <p>컴포넌트 토큰이 <code>space/16</code> · <code>radius/8</code> 같은 이름을 가리키지만, 그 베이스 변수는 아직 토큰 파일에 없습니다. 지금 <a href="#dimension">간격 · 모서리</a> 페이지는 컴포넌트 토큰이 가리키는 값을 모아 보여 줍니다. Figma에서 space · radius 변수를 읽어 오면 색과 같은 구조가 됩니다.</p>
+  <p class="note">CSS 변수 전체 목록은 <a href="#dev-tokens">Develop › 토큰 레퍼런스</a>에 있습니다.</p>`;
+}
+
+function pageTokenRef() {
   const cols = ['Primitive', 'Semantic', 'Component'];
   const all = TK();
-  return `${head('Foundations', '디자인 토큰', `Figma 변수에서 읽은 토큰 ${all.length}개의 전체 목록입니다. Primitive → Semantic → Component 순서로 이어지고, CSS 변수 이름으로 씁니다.`)}
-  <h2 id="layers">토큰 단계</h2>
-  ${table(['단계', '개수', '뜻', '예'], [
-    ['Primitive', all.filter((t) => t.collection === 'Primitive').length, '팔레트 · 원본 값', 'color/gray/50'],
-    ['Semantic', all.filter((t) => t.collection === 'Semantic').length, '역할 · 화면에서 쓰는 이름', 'color/bg/brand/strongest/default'],
-    ['Component', all.filter((t) => t.collection === 'Component').length, '부품 전용 · Semantic을 가리킴', 'button/primary/color/bg/default'],
-  ].map((r) => `<tr><td><b>${r[0]}</b></td><td class="mono">${r[1]}</td><td>${r[2]}</td><td><code>${r[3]}</code></td></tr>`))}
+  return `${head('Develop', '토큰 레퍼런스', `Figma 변수에서 읽은 토큰 ${all.length}개의 CSS 변수 목록입니다. 이름을 누르면 var(--…) 형태로 복사됩니다. 구조 설명은 Foundations › 토큰 구조에 있습니다.`)}
   ${cols.map((col) => {
     const L = all.filter((t) => t.collection === col);
     return `<h2 id="ref-${col.toLowerCase()}">${col} <span class="count">${L.length}</span></h2>
-    <details class="ref"><summary>${col} 토큰 ${L.length}개 펼치기</summary>
+    <details class="ref"${col === 'Component' ? '' : ''}><summary>${col} 토큰 ${L.length}개 펼치기</summary>
     ${table(['Figma 변수', 'CSS 변수', '값', '가리키는 토큰'], L.map((t) => `<tr><td><code>${esc(t.figma)}</code></td><td><button class="copy" data-copy="var(${esc(t.css)})" title="클릭해서 복사">${esc(t.css)}</button></td><td class="mono nw">${t.type === 'COLOR' ? swatch(t.value) : ''}${esc(t.value)}</td><td class="mono muted">${esc(t.ref || '-')}</td></tr>`))}</details>`;
   }).join('')}`;
 }
