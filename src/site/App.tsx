@@ -13,8 +13,9 @@ import { PortalOnlyPage } from './pages/compPortal';
 import { IconsPage } from './pages/IconsPage';
 import { PatternPage } from './pages/PatternPage';
 import { ComparePage } from './pages/ComparePage';
-import { UxDocPage, UxIndexPage } from './pages/UxGuidePage';
-import { uxDoc } from './uxguide';
+import { GuidePage } from './pages/GuidePage';
+import { GlossaryPage } from './pages/GlossaryPage';
+import { guideDoc } from './guide';
 
 // BSS 디자인 포털: 저장소 JSON + SB Studio 카탈로그가 기준, 게시된 변경은 브라우저 저장소에서
 P.init({
@@ -100,10 +101,17 @@ export function App() {
   const sc = key ? componentByKey(key) : null;
   const pattern = patterns.find((p) => `pattern-${p.key}` === route);
   if (ALIAS[route]) redirect = ALIAS[route];
+  // 예전 UX 가이드 주소(#ux, #ux-<id>)는 포털 섹션에 놓인 문서로
+  else if (route === 'ux') redirect = 'patterns';
+  else if (route.startsWith('ux-')) redirect = route.slice(3) === 'glossary' ? 'glossary' : guideDoc(route.slice(3)) ? `g-${route.slice(3)}` : 'overview';
+  else if (route === 'g-glossary') redirect = 'glossary';
   else if (componentByKey(route)) redirect = codeOf(route);
   else if (route === 'icons') page = <IconsPage />;
-  else if (route === 'ux') page = <UxIndexPage />;
-  else if (route.startsWith('ux-') && uxDoc(route.slice(3))) page = <UxDocPage key={route} id={route.slice(3)} />;
+  else if (route === 'glossary') page = <GlossaryPage />;
+  else if (route.startsWith('g-') && guideDoc(route.slice(2))) {
+    page = <GuidePage key={route} id={route.slice(2)} />;
+    withUpdated = false;
+  }
   else if (route.startsWith('compare-') && componentByKey(route.slice(8))) page = <ComparePage sc={componentByKey(route.slice(8))!} />;
   else if (pattern) {
     page = <PatternPage key={pattern.key} p={pattern} />;

@@ -245,3 +245,18 @@ button.chip { height: 28px; padding: 0 12px; font: inherit; font-size: 12px; }
 .ux-doc th { background: var(--bg-subtle); font-weight: 600; white-space: nowrap; }
 .ux-doc blockquote { margin: 12px 0; padding: 8px 14px; border-left: 3px solid var(--border); color: var(--fg-muted); }
 .ux-links { margin-top: 48px; padding-top: 8px; border-top: 1px solid var(--border); }
+
+/* ---------- UX 패턴 가이드 문서 (#g-<id>) ---------- */
+.gx-list { padding-left: 22px; line-height: 1.7; }
+.gx-list li { margin: 4px 0; }
+.gx-note { margin: 14px 0; padding: 12px 16px; border-radius: 10px; background: var(--surface-weak, #f5f6fa); line-height: 1.7; }
+.gx-note b { display: block; margin-bottom: 4px; font-size: 13px; color: var(--accent); }
+.gx-note p { margin: 0; }
+.gx-table td, .gx-table th { vertical-align: top; line-height: 1.6; }
+.gx-table code, .pt-text code, .gx-list code, .pt-parts code { padding: 1px 5px; border-radius: 4px; background: var(--bg-subtle); font: 0.9em var(--mono); }
+.gx-sub { display: block; margin-top: 2px; font-size: 12px; color: var(--fg-muted); font-weight: 400; }
+.pt-parts .gx-wide { grid-column: 2 / -1; }
+.gx-chips .chip a { color: inherit; }
+details.gx-rules { margin: 6px 0; padding: 6px 12px; border: 1px solid var(--border); border-radius: 8px; }
+details.gx-rules summary { cursor: pointer; font-size: 14px; }
+details.gx-rules .rl { margin-top: 8px; }

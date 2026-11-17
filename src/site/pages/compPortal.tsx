@@ -6,7 +6,7 @@ import { usePortal } from '../portal/ctx';
 import { patterns } from '../data';
 import type { Guide } from '../data';
 import type { ComponentData } from '../../ds/figma/types';
-import { Check, CodeLink, DraftBox, EditBtn, Head, RuleList, StOf, Table, fmt } from '../ui';
+import { Check, CodeLink, DraftBox, EditBtn, GuideChips, Head, RulesBlock, StOf, Table, fmt } from '../ui';
 import { ItemForm } from './portal';
 
 /** 제목 아래: ✓ Figma ✓ 사용 가이드 · 상태 */
@@ -148,12 +148,13 @@ export function compRules(key: string) {
 }
 export function CompRules({ k }: { k: string }) {
   const ru = compRules(k);
-  return ru.length ? (
+  const code = P.itemByKey(k)?.code;
+  return (
     <>
-      <h3>UX표준가이드 규칙</h3>
-      <RuleList list={ru} />
+      {code ? <GuideChips code={code} /> : null}
+      {ru.length ? <RulesBlock list={ru} /> : null}
     </>
-  ) : null;
+  );
 }
 
 /** Usage: 이 컴포넌트를 쓰는 블록 · 패턴 */

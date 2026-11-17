@@ -5,20 +5,25 @@ import * as P from './portal/store';
 import type { Role } from './portal/store';
 import { usePortal } from './portal/ctx';
 import { patterns, icons } from './data';
-import { shortSection, ux, uxRoute } from './uxguide';
+import { docsIn, guideRoute } from './guide';
+import type { Place } from './guide';
 
-export type Section = [key: string, label: string, items: [route: string, label: string][]];
+/** [경로, 이름, 왼쪽 목록 소제목] */
+export type NavItem = [route: string, label: string, sub?: string];
+export type Section = [key: string, label: string, items: NavItem[]];
+
+/** UX 패턴 가이드 문서를 그 섹션 목록에 (소제목 = 가이드의 묶음) */
+const guideItems = (place: Place, sub: (group: string) => string): NavItem[] => docsIn(place).map((d) => [guideRoute(d.id), d.title, sub(d.group.split(' › ')[0])]);
 
 export function sections(isEditor: boolean): Section[] {
   const I = P.items();
   const S: Section[] = [
-    ['start', '시작하기', [['overview', '개요'], ['stack', '조립 구조'], ['updates', '업데이트']]],
-    ['foundations', 'Foundations', [['icons', '아이콘'], ['tokens', '디자인 토큰']]],
-    ['components', 'Components', [['components', '전체'], ...I.filter((i) => i.kind === 'comp').sort((a, b) => a.name.localeCompare(b.name, 'en')).map((i): [string, string] => [i.code, i.name])]],
-    ['blocks', 'Blocks', [['blocks', '전체'], ...I.filter((i) => i.kind === 'shell' || i.kind === 'block').map((i): [string, string] => [i.code, i.name])]],
-    ['patterns', 'Patterns', [['patterns', '전체'], ...patterns.map((p): [string, string] => [`pattern-${p.key}`, `${p.name} 패턴`]), ...I.filter((i) => i.kind === 'layout').map((i): [string, string] => [i.code, `${i.name} 레이아웃`])]],
-    ['governance', 'UX 거버넌스', [['rules', '규칙'], ['slots', '빈칸'], ['lint', '검증 규칙']]],
-    ['uxguide', 'UX 가이드', [['ux', '전체 · 검색'], ...ux.docs.map((d): [string, string] => [uxRoute(d.id), d.title])]],
+    ['start', '시작하기', [['overview', '개요'], ['stack', '조립 구조'], ['updates', '업데이트'], ...guideItems('start', () => 'UX 원칙')]],
+    ['foundations', 'Foundations', [['icons', '아이콘', '디자인 에셋'], ['tokens', '디자인 토큰', '디자인 에셋'], ...guideItems('foundations', (g) => g || '파운데이션')]],
+    ['components', 'Components', [['components', '전체'], ...I.filter((i) => i.kind === 'comp').sort((a, b) => a.name.localeCompare(b.name, 'en')).map((i): NavItem => [i.code, i.name, '컴포넌트']), ...guideItems('components', (g) => `컴포넌트 가이드${g ? ` · ${g}` : ''}`)]],
+    ['blocks', 'Blocks', [['blocks', '전체'], ...I.filter((i) => i.kind === 'shell' || i.kind === 'block').map((i): NavItem => [i.code, i.name, i.kind === 'shell' ? '앱쉘' : '블록']), ...guideItems('blocks', (g) => `모듈${g ? ` · ${g}` : ''}`)]],
+    ['patterns', 'Patterns', [['patterns', '전체'], ...patterns.map((p): NavItem => [`pattern-${p.key}`, `${p.name} 패턴`, 'Figma 패턴']), ...guideItems('patterns', (g) => g || '패턴'), ...I.filter((i) => i.kind === 'layout').map((i): NavItem => [i.code, `${i.name} 레이아웃`, '레이아웃 규칙'])]],
+    ['governance', 'UX 거버넌스', [['rules', '규칙'], ['slots', '빈칸'], ['lint', '검증 규칙'], ['glossary', '용어사전'], ...guideItems('governance', () => '작성 기준').filter(([r]) => r !== guideRoute('glossary'))]],
   ];
   if (isEditor) S.push(['admin', '관리', [['pub', '초안 · 게시'], ['promo', '승격 요청'], ['chg', '변경 감지']]]);
   return S;
@@ -27,7 +32,6 @@ export function sections(isEditor: boolean): Section[] {
 export function sectionOf(route: string, isEditor: boolean) {
   for (const [k, , items] of sections(isEditor)) if (items.some(([r]) => r === route)) return k;
   if (route.startsWith('pattern-')) return 'patterns';
-  if (route.startsWith('ux-')) return 'uxguide';
   return 'start';
 }
 
@@ -61,22 +65,11 @@ export function SideNav({ route }: { route: string }) {
   const [, label, items] = all.find(([k]) => k === cur)!;
   const out: JSX.Element[] = [];
   let lastKind: string | null = null;
-  for (const [r, l] of items) {
+  for (const [r, l, sub] of items) {
     const it = P.item(r);
-    const k = it?.kind;
-    if (cur === 'blocks' && k && k !== lastKind) {
-      out.push(<div key={`sub-${k}`} className="nav-sub">{k === 'shell' ? '앱쉘' : '블록'}</div>);
-      lastKind = k;
-    }
-    // UX 가이드: 섹션이 바뀔 때마다 소제목
-    const ud = cur === 'uxguide' && r.startsWith('ux-') ? ux.docs.find((d) => uxRoute(d.id) === r) : null;
-    if (ud && ud.section !== lastKind) {
-      out.push(<div key={`sub-${ud.section}`} className="nav-sub">{shortSection(ud.section)}</div>);
-      lastKind = ud.section;
-    }
-    if (cur === 'patterns' && k === 'layout' && lastKind !== 'layout') {
-      out.push(<div key="sub-layout" className="nav-sub">레이아웃 규칙</div>);
-      lastKind = 'layout';
+    if (sub && sub !== lastKind) {
+      out.push(<div key={`sub-${sub}`} className="nav-sub">{sub}</div>);
+      lastKind = sub;
     }
     const draft = isEditor && it && (P.openDraft('item', r) || P.openDraft('guide', it.key) || P.openDraft('figma', it.key) || P.openDraft('code', it.key));
     out.push(

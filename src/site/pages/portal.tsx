@@ -5,8 +5,8 @@ import * as P from '../portal/store';
 import type { Draft, HistoryEntry, Item, Kind } from '../portal/store';
 import { usePortal } from '../portal/ctx';
 import { patterns, icons } from '../data';
-import { groupOf, ux, uxRoute } from '../uxguide';
-import { BumpTag, Check, CodeLink, UxRef, ConfirmButton, DraftBox, Drafts, EditBtn, Head, RuleList, St, StOf, Table, fmt, human, joinNodes } from '../ui';
+import { docsFor, docsIn, guideRoute, guideSource } from '../guide';
+import { BumpTag, Check, CodeLink, UxRef, ConfirmButton, DraftBox, Drafts, EditBtn, GuideChips, Head, RulesBlock, St, StOf, Table, fmt, human, joinNodes } from '../ui';
 
 const FIGMA_FILE = '9AioWOXVOVm5C7kdSxSEEP';
 const KIND_LABEL: Record<Kind, string> = { shell: 'App shell', block: 'Blocks', comp: 'Components', layout: 'Layout rules' };
@@ -46,7 +46,6 @@ function Overview() {
     ['patterns', 'Patterns', `레이아웃 규칙 ${n('layout')} · 패턴 ${patterns.length}`, '화면을 어떤 순서로 쌓을지'],
     ['rules', 'UX 거버넌스', `규칙 ${P.rules().length}개`, 'UX표준가이드 규칙과 연결표'],
     ['icons', 'Foundations', `아이콘 ${icons.icons.length}개`, '아이콘 · 디자인 토큰'],
-    ['ux', 'UX 가이드', `문서 ${ux.docs.length}개`, 'NEXT BSS UX Pattern Guide · 원칙 · 패턴 · 모듈 · 컴포넌트'],
     ['stack', '조립 구조', 'Stack 5단계', '앱쉘 → 레이아웃 → 빈칸 → 블록 → 컴포넌트'],
   ];
   return (
@@ -186,7 +185,7 @@ function Updates() {
     <>
       <Head eyebrow="시작하기" title="업데이트" lead="게시된 버전과 변경 노트입니다. MAJOR는 기존 것을 고치거나 지울 때(이미 만든 SB 재검수), MINOR는 추가 · 승격, PATCH는 설명 수정입니다." />
       <p className="note">
-        UX 패턴 가이드 쪽 변경은 <a href="#ux-version-history">UX 가이드 버전 이력</a>에 있습니다 (지금 반영본: {ux.source.replace(/^.*release\/(\d+)\/?$/, '$1')} 릴리스).
+        UX 패턴 가이드는 {guideSource.release} 릴리스를 반영했습니다 ({guideSource.generated} 추출). 파운데이션 · 패턴 · 모듈 · 컴포넌트 가이드는 각 섹션에, 권장 · 금지는 <a href="#rules">규칙</a>에, 용어는 <a href="#glossary">용어사전</a>에 있습니다.
       </p>
       {P.history().map((h, i) => (
         <div key={i}>
@@ -338,7 +337,7 @@ function PatternList() {
   return (
     <>
       <Head eyebrow="Patterns" title="패턴" lead="화면을 어떤 순서로 쌓고, 부품을 어떻게 쓰는지 정한 UX 패턴과 레이아웃 규칙입니다." />
-      <h2 id="ux">UX 패턴</h2>
+      <h2 id="ux">Figma 패턴</h2>
       <div className="cards">
         {patterns.map((p) => (
           <a key={p.key} className="card" href={`#pattern-${p.key}`}>
@@ -347,22 +346,23 @@ function PatternList() {
           </a>
         ))}
       </div>
+      {[...new Set(docsIn('patterns').map((d) => d.group))].map((g) => (
+        <div key={g}>
+          <h2>{g || 'UX 패턴'}</h2>
+          <div className="cards">
+            {docsIn('patterns')
+              .filter((d) => d.group === g)
+              .map((d) => (
+                <a key={d.id} className="card" href={`#${guideRoute(d.id)}`}>
+                  <b>{d.title}</b>
+                  <span>{d.lead}</span>
+                </a>
+              ))}
+          </div>
+        </div>
+      ))}
       <h2 id="layouts">레이아웃 규칙</h2>
       <Grid list={L} />
-      <h2 id="ux-patterns">UX 패턴 가이드의 패턴</h2>
-      <p className="note">
-        NEXT BSS UX Pattern Guide의 패턴 문서입니다. <a href="#ux">UX 가이드 전체</a>
-      </p>
-      <div className="cards">
-        {ux.docs
-          .filter((d) => d.section.startsWith('패턴'))
-          .map((d) => (
-            <a key={d.id} className="card" href={`#${uxRoute(d.id)}`}>
-              {groupOf(d) ? <span className="card-eb">{groupOf(d)}</span> : null}
-              <b>{d.title}</b>
-            </a>
-          ))}
-      </div>
     </>
   );
 }
@@ -455,11 +455,11 @@ function ItemPage({ it }: { it: Item }) {
           {kv.map(([k, v]) => [<dt key={`t-${k}`}>{k}</dt>, <dd key={`d-${k}`}>{v}</dd>])}
         </dl>
       )}
-      {ru.length ? (
+      {ru.length || docsFor(it.code).length ? (
         <>
           <h2>Guidelines</h2>
-          <h3>UX표준가이드 규칙</h3>
-          <RuleList list={ru} />
+          <GuideChips code={it.code} />
+          <RulesBlock list={ru} />
         </>
       ) : null}
       {usedIn.length ? (
@@ -543,7 +543,7 @@ function Rules() {
   };
   return (
     <>
-      <Head eyebrow="UX 거버넌스" title="규칙" lead="UX표준가이드 규칙 한 줄이 빈칸 → 블록 → 컴포넌트로 이어지는 연결표입니다. SB Studio의 생성 · 미리보기 · Figma 검사 · 독립 검수가 같은 규칙을 씁니다." />
+      <Head eyebrow="UX 거버넌스" title="규칙" lead="UX표준가이드 규칙 한 줄이 빈칸 → 블록 → 컴포넌트로 이어지는 연결표입니다. UX 패턴 가이드의 Do · Don't는 권장 · 금지 규칙으로 함께 올라 있습니다. SB Studio의 생성 · 미리보기 · Figma 검사 · 독립 검수가 같은 규칙을 씁니다." />
       {editor ? (
         <section className="ed-panel">
           <div className="ed-h">
@@ -601,12 +601,12 @@ function Rules() {
       </h2>
       <div className="filter">
         <input type="search" id="rq" value={ui.q} placeholder="규칙 · 빈칸 · 블록 · 컴포넌트 검색" aria-label="규칙 검색" onChange={(e) => setUi((u) => ({ ...u, q: e.target.value }))} />
-        {['', ...KINDS].map((x) => (
+        {['', ...KINDS, '권장', '금지'].map((x) => (
           <button key={x} type="button" className={`chip${ui.kd === x ? ' on' : ''}`} onClick={() => setUi((u) => ({ ...u, kd: x }))}>
             {x || '전체'}
           </button>
         ))}
-        <span className="muted">{L.length}건 · UX표준가이드 1.2</span>
+        <span className="muted">{L.length}건 · UX표준가이드 1.2 · UX 패턴 가이드 {guideSource.release} (권장 · 금지)</span>
       </div>
       <Table
         cols={['규칙', '문서', '내용', '대상', ...(editor ? [''] : [])]}

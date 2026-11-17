@@ -5,6 +5,7 @@
 import { convertFromUrl, diffComponent } from './portal-core.js';
 import type { ComponentData } from '../../ds/figma/types';
 import type { Policy } from '../data';
+import { guideRules } from '../guide';
 
 const KEY = 'bss-design-portal.v2';
 export type Role = 'viewer' | 'ux' | 'ds' | 'approver';
@@ -42,6 +43,8 @@ export interface Item {
 }
 export interface Rule {
   id: string;
+  /** UX 패턴 가이드에서 온 규칙 */
+  source?: string;
   doc: string;
   section: string;
   kind: string;
@@ -267,7 +270,8 @@ export const parts = () => base.catalog.parts;
 export const catalogMeta = () => base.catalog.meta;
 
 export function rules(): Rule[] {
-  const L = base.catalog.rules.filter((r) => S.pub.rules[r.id] !== null).map((r) => (S.pub.rules[r.id] ? { ...r, ...S.pub.rules[r.id] } : r));
+  // 포털 규칙(카탈로그) + UX 패턴 가이드의 Do/Don't(권장 · 금지)
+  const L = [...base.catalog.rules, ...guideRules].filter((r) => S.pub.rules[r.id] !== null).map((r) => (S.pub.rules[r.id] ? { ...r, ...S.pub.rules[r.id] } : r));
   return L.concat(S.pub.addedRules.map(clone));
 }
 export const rulesFor = (code: string) => rules().filter((r) => r.targets.includes(code));

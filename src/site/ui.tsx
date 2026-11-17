@@ -4,7 +4,7 @@ import type { ReactNode } from 'react';
 import * as P from './portal/store';
 import type { Draft, Rule } from './portal/store';
 import { usePortal } from './portal/ctx';
-import { uxRef, uxRoute } from './uxguide';
+import { docsFor, guideDoc, guideRef, guideRoute } from './guide';
 
 export const fmt = (iso?: string) => (iso ? new Date(iso).toLocaleString('ko-KR', { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' }) : '');
 export const figmaUrl = (fileKey: string, nodeId: string) => `https://www.figma.com/design/${fileKey}/?node-id=${nodeId.replace(':', '-')}`;
@@ -75,10 +75,10 @@ export function CodeLink({ code }: { code: string }) {
 
 /** 근거 문서 표기(work-composition, form-big.html)가 UX 가이드 문서면 그 페이지로 잇는다 */
 export function UxRef({ r, label }: { r?: string; label?: string }) {
-  const d = uxRef(r);
+  const d = guideRef(r);
   if (!d) return <>{label ?? r ?? ''}</>;
   return (
-    <a href={`#${uxRoute(d.id)}`} title={`UX 가이드 · ${d.title}`}>
+    <a href={`#${guideRoute(d.id)}`} title={`UX 패턴 가이드 · ${d.title}`}>
       {label ?? d.title}
     </a>
   );
@@ -256,6 +256,59 @@ export function RuleList({ list }: { list: Rule[] }) {
         </li>
       ))}
     </ul>
+  );
+}
+
+/** 이 카탈로그 코드의 근거가 되는 UX 패턴 가이드 문서 */
+export function GuideChips({ code }: { code: string }) {
+  const L = docsFor(code);
+  if (!L.length) return null;
+  return (
+    <>
+      <h3>UX 패턴 가이드</h3>
+      <p className="chips gx-chips">
+        {L.map((d) => (
+          <a key={d.id} className="chip" href={`#${guideRoute(d.id)}`}>
+            {d.title}
+          </a>
+        ))}
+      </p>
+    </>
+  );
+}
+
+/** 한 대상에 걸린 규칙: 포털 규칙은 목록으로, UX 패턴 가이드의 권장 · 금지는 문서별로 접어서 */
+export function RulesBlock({ list }: { list: Rule[] }) {
+  const own = list.filter((r) => !r.source);
+  const byDoc = new Map<string, Rule[]>();
+  for (const r of list.filter((x) => x.source)) byDoc.set(r.doc, [...(byDoc.get(r.doc) || []), r]);
+  return (
+    <>
+      {own.length ? (
+        <>
+          <h3>UX표준가이드 규칙</h3>
+          <RuleList list={own} />
+        </>
+      ) : null}
+      {byDoc.size ? (
+        <>
+          <h3>UX 패턴 가이드 권장 · 금지</h3>
+          {[...byDoc].map(([doc, L]) => (
+            <details key={doc} className="gx-rules">
+              <summary>
+                <a href={`#${guideRoute(doc)}`} onClick={(e) => e.stopPropagation()}>
+                  {guideDoc(doc)?.title || doc}
+                </a>{' '}
+                <span className="muted">
+                  권장 {L.filter((r) => r.kind === '권장').length} · 금지 {L.filter((r) => r.kind === '금지').length}
+                </span>
+              </summary>
+              <RuleList list={L} />
+            </details>
+          ))}
+        </>
+      ) : null}
+    </>
   );
 }
 

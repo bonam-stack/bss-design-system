@@ -14,7 +14,6 @@ import { FigmaView } from '../../ds/figma/FigmaView';
 import { compile, fileOf, repoSource } from '../live';
 import type { LiveComponent, Meta } from '../live';
 import { CopyBtn, DraftBox, EditBtn, Lines, TocInline, UxRef, copy, figmaUrl } from '../ui';
-import { UX_FOR_COMPONENT, uxDoc, uxRoute } from '../uxguide';
 import { CompChecks, CompEditor, CompRules, CompUsage, GuideEditor, applyGuide, compRules } from './compPortal';
 
 type Sel = Record<string, string>;
@@ -280,18 +279,6 @@ export function ComponentPage({ sc }: { sc: SiteComponent }) {
               </ul>
             ) : null}
             <CompRules k={key} />
-          </>
-        ) : null}
-        {(UX_FOR_COMPONENT[key] || []).length ? (
-          <>
-            <h3>UX 가이드</h3>
-            <p className="chips">
-              {UX_FOR_COMPONENT[key].map((id) => uxDoc(id)).filter(Boolean).map((d) => (
-                <a key={d!.id} className="chip" href={`#${uxRoute(d!.id)}`}>
-                  {d!.title}
-                </a>
-              ))}
-            </p>
           </>
         ) : null}
       </div>
