@@ -370,7 +370,8 @@ for d in index["docs"]:
         for t in s[kind]:
             rid = f"{pre}-{len(s['ruleIds']['do']) + len(s['ruleIds']['dont']) + 1:02d}"
             s["ruleIds"][kind].append(rid)
-            rules.append({"id": rid, "doc": d["id"], "section": d["title"], "kind": label, "text": plain(t), "targets": s["targets"], "source": "UX 패턴 가이드"})
+            # 대상은 비워 둔다: 가이드의 권장 · 금지를 여러 컴포넌트에 한꺼번에 걸지 않는다 (규칙은 컴포넌트마다 달라질 수 있다)
+            rules.append({"id": rid, "doc": d["id"], "section": d["title"], "kind": label, "text": plain(t), "targets": [], "source": "UX 패턴 가이드"})
     (OUT / f"{d['id']}.json").write_text(json.dumps(s, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
     docs.append({k: s[k] for k in ("id", "title", "section", "group", "place", "targets", "links")} | {"lead": plain(s["lead"].split("\n")[0])})
 

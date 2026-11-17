@@ -2,7 +2,7 @@
 // 놓이는 섹션(Foundations · Patterns · Blocks · Components · 시작하기 · UX 거버넌스)은 문서마다 정해져 있다.
 import { useEffect, useState } from 'react';
 import type { ReactNode } from 'react';
-import { CodeLink, Head } from '../ui';
+import { Head } from '../ui';
 import { guideDoc, guideRoute, guideSource, inline, loadGuideDoc } from '../guide';
 import type { Block, GuideDoc, Place } from '../guide';
 
@@ -187,33 +187,16 @@ export function GuidePage({ id }: { id: string }) {
               </p>
             </>
           ) : null}
-          {meta.targets.length || related.length ? (
+          {related.length ? (
             <>
-              <h2>Usage</h2>
-              {meta.targets.length ? (
-                <>
-                  <h3>이 기준을 따르는 레이아웃 · 블록 · 컴포넌트</h3>
-                  <p className="chips gx-chips">
-                    {meta.targets.map((c) => (
-                      <span key={c} className="chip">
-                        <CodeLink code={c} />
-                      </span>
-                    ))}
-                  </p>
-                </>
-              ) : null}
-              {related.length ? (
-                <>
-                  <h3>함께 보기</h3>
-                  <p className="chips gx-chips">
-                    {related.map((r) => (
-                      <a key={r.id} className="chip" href={`#${guideRoute(r.id)}`}>
-                        {r.title}
-                      </a>
-                    ))}
-                  </p>
-                </>
-              ) : null}
+              <h2>함께 보기</h2>
+              <p className="chips gx-chips">
+                {related.map((r) => (
+                  <a key={r.id} className="chip" href={`#${guideRoute(r.id)}`}>
+                    {r.title}
+                  </a>
+                ))}
+              </p>
             </>
           ) : null}
         </>
