@@ -221,10 +221,10 @@ function guideCovers(g) {
 function docHead(c, kind) {
   const code = P.itemByKey(c.key)?.code || `c-${c.key}`;
   const links = kind === 'design'
-    ? `<a class="plat" href="#dev-${esc(code)}"><b>Develop</b><span>HTML · CSS 코드</span></a>`
+    ? `<a class="plat" href="#dev-${esc(code)}"><b>코드 보기</b><span>미리보기 · HTML · CSS</span></a>`
     : `<a class="plat" href="#${esc(code)}"><b>Design</b><span>사용 가이드 · 스펙</span></a>`;
   return `
-    <p class="eyebrow">${kind === 'design' ? 'Components' : 'Develop · HTML · CSS'}</p>
+    <p class="eyebrow">${kind === 'design' ? 'Components' : 'Components · 코드'}</p>
     <h1>${esc(c.name)}</h1>
     <p class="lead">${esc(P.itemByKey(c.key)?.meaning || c.description || '')}</p>
     ${V.compChecks(c)}
@@ -711,7 +711,7 @@ async function boot() {
   function renderSearch() {
     const q = sIn.value.trim().toLowerCase();
     const all = V.searchIndex();
-    sHits = (q ? all.filter((x) => `${x.label} ${x.route} ${x.section} ${x.meaning}`.toLowerCase().includes(q)) : all.filter((x) => ['overview', 'foundations', 'components', 'blocks', 'patterns', 'develop', 'rules', 'updates'].includes(x.route))).slice(0, 40);
+    sHits = (q ? all.filter((x) => `${x.label} ${x.route} ${x.section} ${x.meaning}`.toLowerCase().includes(q)) : all.filter((x) => ['overview', 'foundations', 'components', 'blocks', 'patterns', 'rules', 'updates'].includes(x.route))).slice(0, 40);
     sAt = Math.min(sAt, Math.max(0, sHits.length - 1));
     sList.innerHTML = sHits.length ? sHits.map((x, i) => `<li role="option" aria-selected="${i === sAt}"><a href="#${esc(x.route)}"><span class="sd-sec">${esc(x.section)}</span><b>${esc(x.label)}</b>${x.meaning ? `<small>${esc(x.meaning)}</small>` : ''}</a></li>`).join('') : '<li class="sd-none">찾는 문서가 없어요</li>';
   }

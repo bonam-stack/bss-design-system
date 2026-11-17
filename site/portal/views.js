@@ -81,12 +81,11 @@ const drafts = (type, target) => (isEditor() ? draftBox(P.openDraft(type, target
 
 // ---------- 머리 · 메뉴 ----------
 
-// IA (SEED 문서 사이트와 같은 기획): 시작하기 · Foundations · Components · Blocks · Patterns · Develop · UX 거버넌스 · Updates
+// IA (SEED 문서 사이트와 같은 기획): 시작하기 · Foundations · Components · Blocks · Patterns · UX 거버넌스 · Updates
 // 항목은 [경로, 이름, 그 앞에 붙는 소제목?]. 디자인 문서(#c-…)와 개발 문서(#dev-c-…)를 나눠 두고 서로 링크한다.
 export function sections() {
   const I = P.items();
   const comps = I.filter((i) => i.kind === 'comp').sort((a, b) => a.name.localeCompare(b.name, 'en'));
-  const dev = comps.filter((i) => (ctx.data.devKeys || []).includes(i.key));
   const sub = (L, title) => L.map((x, n) => (n ? x : [...x, title]));
   const S = [
     ['start', '시작하기', [['overview', '개요'], ['stack', '조립 구조']]],
@@ -94,7 +93,6 @@ export function sections() {
     ['components', 'Components', [['components', '개요'], ['progress', '진행 현황'], ...sub(comps.map((i) => [i.code, i.name]), '컴포넌트')]],
     ['blocks', 'Blocks', [['blocks', '개요'], ...I.filter((i) => i.kind === 'shell' || i.kind === 'block').map((i) => [i.code, i.name])]],
     ['patterns', 'Patterns', [['patterns', '개요'], ...(ctx.data.patterns || []).map((p) => [`pattern-${p.key}`, `${p.name} 패턴`]), ...I.filter((i) => i.kind === 'layout').map((i) => [i.code, `${i.name} 레이아웃`])]],
-    ['develop', 'Develop', [['develop', '시작하기'], ['dev-tokens', '토큰 레퍼런스'], ...sub(dev.map((i) => [`dev-${i.code}`, i.name]), 'HTML · CSS 컴포넌트')]],
     ['governance', 'UX 거버넌스', [['rules', '규칙'], ['slots', '빈칸'], ['lint', '검증 규칙']]],
     ['updates', 'Updates', [['updates', '릴리스 노트']]],
   ];
@@ -105,7 +103,9 @@ export function sections() {
 export function sectionOf(route) {
   for (const [k, , items] of sections()) if (items.some(([r]) => r === route)) return k;
   if (route.startsWith('pattern-')) return 'patterns';
-  if (route.startsWith('dev-')) return 'develop';
+  // 개발 문서는 지금 메뉴에 없다: 토큰 목록은 Foundations, 컴포넌트 코드는 Components 아래로 표시
+  if (route === 'dev-tokens') return 'foundations';
+  if (route.startsWith('dev-')) return 'components';
   return 'start';
 }
 
@@ -167,7 +167,8 @@ export function sideNav(route) {
     const it = P.item(r);
     const tag = it && it.status !== 'pub' ? `<span class="nv-st">${P.STATUS[it.status]}</span>` : '';
     const d = isEditor() && it && (P.openDraft('item', r) || P.openDraft('guide', it.key) || P.openDraft('figma', it.key)) ? '<i class="nv-dot" title="초안 있음"></i>' : '';
-    html += `<a href="#${esc(r)}" class="${r === route ? 'on' : ''}"${r === route ? ' aria-current="page"' : ''}>${esc(l)}${tag}${d}</a>`;
+    const here = r === route || route === `dev-${r}` || (route === 'dev-tokens' && r === 'tokens');
+    html += `<a href="#${esc(r)}" class="${here ? 'on' : ''}"${here ? ' aria-current="page"' : ''}>${esc(l)}${tag}${d}</a>`;
   }
   return html;
 }
@@ -209,7 +210,6 @@ export function page(route) {
     case 'tokens': return pageTokens();
     case 'dev-tokens': return pageTokenRef();
     case 'progress': return pageProgress();
-    case 'develop': return pageDevelop();
     case 'components': return pageList('comp');
     case 'blocks': return pageList('block');
     case 'patterns': return pagePatterns();
@@ -238,7 +238,6 @@ function pageOverview() {
     ['patterns', 'Patterns', `레이아웃 규칙 ${n('layout')} · 패턴 ${(ctx.data.patterns || []).length}`, '화면을 어떤 순서로 쌓을지'],
     ['rules', 'UX 거버넌스', `규칙 ${P.rules().length}개`, 'UX표준가이드 규칙과 연결표'],
     ['foundations', 'Foundations', `토큰 ${Object.keys(ctx.data.tokens?.tokens || {}).length}개 · 아이콘 ${ctx.data.icons?.icons.length || 0}개`, '색상 · 타이포그래피 · 간격 · 아이콘'],
-    ['develop', 'Develop', `HTML · CSS ${(ctx.data.devKeys || []).length}개`, '코드 · 속성 · 토큰'],
     ['stack', '조립 구조', 'Stack 5단계', '앱쉘 → 레이아웃 → 빈칸 → 블록 → 컴포넌트'],
   ];
   return `${head('BSS Design System', 'BSS 디자인 포털', 'BSS 백오피스 화면을 만드는 기준입니다. SB Studio는 이 포털에 게시된 버전만 읽어 화면을 조립합니다.', `<div class="checks">${check(true, `게시 ${P.version()}`)}${check(true, '카탈로그 0.5')}${check(true, 'UX표준가이드 1.2')}${check(true, '디자인 토큰 v0.5')}</div>`)}
@@ -425,13 +424,13 @@ function pageTokens() {
   ].map((r) => `<tr><td><b>${r[0]}</b></td><td>${r[1]}</td><td>${r[2]}</td></tr>`))}
   <h2 id="gap">간격 · 모서리의 베이스</h2>
   <p>컴포넌트 토큰이 <code>space/16</code> · <code>radius/8</code> 같은 이름을 가리키지만, 그 베이스 변수는 아직 토큰 파일에 없습니다. 지금 <a href="#dimension">간격 · 모서리</a> 페이지는 컴포넌트 토큰이 가리키는 값을 모아 보여 줍니다. Figma에서 space · radius 변수를 읽어 오면 색과 같은 구조가 됩니다.</p>
-  <p class="note">CSS 변수 전체 목록은 <a href="#dev-tokens">Develop › 토큰 레퍼런스</a>에 있습니다.</p>`;
+  <p class="note">CSS 변수 전체 목록은 <a href="#dev-tokens">토큰 레퍼런스</a>에 있습니다.</p>`;
 }
 
 function pageTokenRef() {
   const cols = ['Primitive', 'Semantic', 'Component'];
   const all = TK();
-  return `${head('Develop', '토큰 레퍼런스', `Figma 변수에서 읽은 토큰 ${all.length}개의 CSS 변수 목록입니다. 이름을 누르면 var(--…) 형태로 복사됩니다. 구조 설명은 Foundations › 토큰 구조에 있습니다.`)}
+  return `${head('Foundations', '토큰 레퍼런스', `Figma 변수에서 읽은 토큰 ${all.length}개의 CSS 변수 목록입니다. 이름을 누르면 var(--…) 형태로 복사됩니다. 구조 설명은 Foundations › 토큰 구조에 있습니다.`)}
   ${cols.map((col) => {
     const L = all.filter((t) => t.collection === col);
     return `<h2 id="ref-${col.toLowerCase()}">${col} <span class="count">${L.length}</span></h2>
@@ -460,20 +459,6 @@ function pageProgress() {
   }))}`;
 }
 
-// ---------- Develop ----------
-
-function pageDevelop() {
-  const I = P.items().filter((i) => i.kind === 'comp' && (ctx.data.devKeys || []).includes(i.key)).sort((a, b) => a.name.localeCompare(b.name, 'en'));
-  return `${head('Develop', 'HTML · CSS로 시작하기', '컴포넌트마다 Figma 레이어를 그대로 옮긴 HTML · CSS 코드를 제공합니다. 디자인 문서(언제 · 어떻게 쓰는지)와 달리 개발 문서는 코드 · 속성 · 토큰을 다룹니다.')}
-  <h2 id="install">준비</h2>
-  <ol class="flow"><li><strong>글꼴</strong><span>Pretendard Variable을 불러옵니다. <code>site/fonts/PretendardVariable.woff2</code></span></li>
-  <li><strong>토큰</strong><span>CSS 변수는 <a href="#tokens">디자인 토큰</a>의 이름을 그대로 씁니다. 예: <code>var(--button-primary-color-bg-default)</code></span></li>
-  <li><strong>코드 복사</strong><span>컴포넌트 페이지의 <b>코드</b> 탭에서 고른 변형의 HTML · CSS를 복사합니다. 클래스 이름 앞자리는 <code>ds-&lt;컴포넌트&gt;</code>입니다.</span></li></ol>
-  <h2 id="usage">SB Studio에서 쓰기</h2>
-  <p>SB Studio는 코드를 복사하지 않고 카탈로그 코드(예: <code>c-button</code>)로 부품을 참조합니다. 포털에 게시된 버전(${esc(P.version())})만 읽습니다.</p>
-  <h2 id="list">컴포넌트 <span class="count">${I.length}</span></h2>
-  <div class="cards">${I.map((i) => `<a class="card" href="#dev-${esc(i.code)}"><span class="card-eb">${esc(i.code)}</span><b>${esc(i.name)}</b><span>${human(i.meaning)}</span></a>`).join('')}</div>`;
-}
 
 
 function pageList(kind) {
