@@ -712,7 +712,7 @@ function PolicySection({ pl }: { pl: NonNullable<Guide['policy']> }) {
         <p className="gd-related">
           함께 보기{' '}
           {pl.related!.map((r) => (
-            <span key={r.name} className="chip" title={r.file}>
+            <span key={r.name} className="chip">
               <UxRef r={r.file} label={r.name} /> · {r.desc}
             </span>
           ))}
@@ -720,8 +720,13 @@ function PolicySection({ pl }: { pl: NonNullable<Guide['policy']> }) {
       ) : null}
       {src ? (
         <p className="gd-source">
-          정책 출처 <UxRef r={src.id} label={src.title} /> 문서 ({src.id}
-          {src.status ? ` · ${src.status}` : ''})
+          정책 출처 UX 패턴 가이드{src.release ? ` ${src.release}` : ''} ·{' '}
+          {(pl.sources || [src]).map((x, i) => (
+            <span key={x.id}>
+              {i ? ' · ' : ''}
+              <UxRef r={x.id} label={x.title} />
+            </span>
+          ))}
         </p>
       ) : null}
     </>
