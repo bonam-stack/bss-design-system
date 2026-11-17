@@ -84,6 +84,21 @@ function BlockView({ b }: { b: Block }): ReactNode {
           </table>
         </div>
       );
+    case 'cards':
+      return (
+        <div className="gx-cards">
+          {b.items.map((c, i) => (
+            <section key={i} className="gx-card">
+              {c.tag ? <span className="gx-tag">{c.tag}</span> : null}
+              <h4 dangerouslySetInnerHTML={{ __html: inline(c.title) }} />
+              {c.body.map((t, j) => (
+                <Html as="p" key={j} text={t} />
+              ))}
+              {c.chip ? <span className="gx-chip">{c.chip}</span> : null}
+            </section>
+          ))}
+        </div>
+      );
     case 'h':
       return <h3>{b.text}</h3>;
     case 'h4':

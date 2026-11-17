@@ -32,7 +32,8 @@ export type Block =
   | { type: 'parts'; items: { n: number; name: string; desc: string }[] }
   | { type: 'table'; head: string[]; rows: string[][] }
   | { type: 'h' | 'h4'; text: string }
-  | { type: 'when'; title: string; use?: string[]; avoid?: { text: string; alt?: string }[] };
+  | { type: 'when'; title: string; use?: string[]; avoid?: { text: string; alt?: string }[] }
+  | { type: 'cards'; items: { tag: string; title: string; body: string[]; chip: string }[] };
 
 export interface GuideDoc extends GuideDocMeta {
   overview: Block[];

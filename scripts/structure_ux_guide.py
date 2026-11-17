@@ -171,7 +171,7 @@ fix = lambda x: re.sub(r"([다요])\.(?=[^\s.,)\]”’\"0-9])", r"\1.\n", x)
 
 # ---------- 본문 → 블록 ----------
 DROP_SECTIONS = ("실제 예시", "사용 예시", "적응형 시뮬레이션")
-NOTE_HEAD = re.compile(r"^(핵심 원칙|Why\?|이 사전을 읽는 법|참고|주의|유의 사항|판단 기준|정리)(?=\S)")
+NOTE_HEAD = re.compile(r"^(핵심 원칙|Why\?|이 사전을 읽는 법|참고|주의|유의 사항|유의사항|판단 기준|정리)(?=\S)")
 noise = lambda l: "새 탭에서 크게 보기" in l or "※ 예시 이미지" in l
 
 def when_list(lines):
@@ -181,6 +181,62 @@ def when_list(lines):
         m = re.match(r"^(.*?)\s*→\s*(.+)$", l)
         out.append({"text": m.group(1), "alt": m.group(2)} if m else {"text": l})
     return out
+
+def glue_split(x):
+    """띄어쓰기 없이 붙은 두 말('1024px모바일 앱' → '1024px' · '모바일 앱'). 못 나누면 None"""
+    toks = TOKEN.findall(x)
+    known = lambda w: CORPUS.get(w, 0) > 1
+    pos = 0
+    for w in toks:
+        at = x.index(w, pos)
+        pos = at + len(w)
+        if known(w):
+            continue
+        for i in range(1, len(w)):
+            left_ok = known(w[:i]) or re.fullmatch(r"\d+(?:px|%|건|개)", w[:i])
+            if left_ok and known(w[i:]) and w[i] not in PARTICLE:
+                return x[: at + i].strip(), x[at + i:].strip()
+    # 기호 바로 뒤에 붙은 짧은 말 ('휠 · 줌 −/+맞춤' → '휠 · 줌 −/+' · '맞춤')
+    m = re.match(r"^(.*[^\s가-힣A-Za-z0-9])([가-힣A-Za-z]{1,8})$", x)
+    if m and len(m.group(1).strip()) > 1:
+        return m.group(1).strip().rstrip("·").strip(), m.group(2)
+    return None
+
+
+is_tag = lambda l: 0 < len(l.strip()) <= 30 and not l.startswith(("#", "-", "|")) and not re.match(r"^\d+\. ", l) and "다." not in l
+
+
+def card_run(lines, i):
+    """카드 묶음: [태그][##### 제목] 설명… [칩+다음 태그][##### 제목] … 원문 추출에서 칩과 다음 카드 태그가 한 줄로 붙는다."""
+    cards, tag, chips = [], lines[i].strip(), False
+    while True:
+        title, j, body = lines[i + 1][6:].strip(), i + 2, []
+        while j < len(lines) and not lines[j].startswith(("#### ", "##### ")) and not (j + 1 < len(lines) and lines[j + 1].startswith("##### ") and is_tag(lines[j])):
+            body.append(lines[j]); j += 1
+        paras = [p.strip() for p in "\n".join(body).split("\n\n") if p.strip()]
+        card = {"tag": tag, "title": title, "body": [fix(p) for p in paras], "chip": ""}
+        if j + 1 < len(lines) and lines[j + 1].startswith("##### ") and is_tag(lines[j]):
+            x = lines[j].strip()
+            g = glue_split(x)
+            if g and len(g[1]) <= 20:
+                card["chip"], chips = g[0], True
+                cards.append(card); tag, i = g[1], j; continue
+            if chips:  # 앞 카드들에 칩이 있었으면 이 줄은 마지막 카드의 칩이다
+                card["chip"] = x
+                cards.append(card)
+                return cards, j + 1, []
+            cards.append(card); tag, i = x, j; continue
+        # 마지막 카드: 다른 카드에 칩이 있었으면 설명 뒤 첫 짧은 글이 칩이고, 그 뒤는 카드 밖의 글이다
+        rest = []
+        if chips:
+            k = next((k for k, b in enumerate(card["body"]) if k > 0 and len(b) <= 20), None)
+            if k is not None:
+                card["chip"] = card["body"][k]
+                rest = card["body"][k + 1:]
+                card["body"] = card["body"][:k]
+        cards.append(card)
+        return cards, j, rest
+
 
 def blocks_of(lines, doc_text=""):
     blocks, i, para = [], 0, []
@@ -197,6 +253,22 @@ def blocks_of(lines, doc_text=""):
             continue
         if not l.strip():
             flush(); i += 1; continue
+        if is_tag(l) and i + 1 < len(lines) and lines[i + 1].startswith("##### ") and not para:
+            cards, i, rest = card_run(lines, i)
+            if len(cards) >= 2:
+                blocks.append({"type": "cards", "items": cards})
+                for t in rest:  # 카드 뒤에 붙어 있던 글
+                    m = NOTE_HEAD.match(t)
+                    blocks.append({"type": "note", "title": m.group(1), "text": t[m.end():].strip()} if m else {"type": "text", "text": t})
+                continue
+            # 카드가 하나뿐이면 묶음이 아니다: 글과 제목으로 둔다
+            c = cards[0]
+            blocks.append({"type": "text", "text": c["tag"]})
+            blocks.append({"type": "h", "text": c["title"]})
+            blocks += [{"type": "text", "text": b} for b in c["body"] + rest]
+            if c["chip"]:
+                blocks.append({"type": "text", "text": c["chip"]})
+            continue
         if l.startswith("###### ") or l.startswith("##### "):
             flush()
             title = l.lstrip("#").strip()
@@ -235,7 +307,17 @@ def blocks_of(lines, doc_text=""):
     flush()
     return blocks
 
+# 원문 추출에서 붙어 버려 규칙으로 못 나누는 곳 (카드 칩과 그 뒤 글)
+RAW_FIXES = {
+    "현재 노드 재포커스포커스": "현재 노드 재포커스 ·포커스",
+    "고정 폭 · 참고 350px영역 치수(px)는": "고정 폭 · 참고 350px\n\n영역 치수(px)는",
+    "Lv5유의사항사용자의": "Lv5\n\n유의사항사용자의",
+}
+
+
 def parse(doc, body):
+    for a, b in RAW_FIXES.items():
+        body = body.replace(a, b)
     lead, *secs = re.split(r"^#### ", body, flags=re.M)
     out = {"id": doc["id"], "title": doc["title"], "section": short(doc["section"]), "group": " › ".join(doc["path"][1:-1]),
            "place": PLACE[short(doc["section"])], "lead": "\n".join(l for l in lead.strip().splitlines() if not noise(l)),
