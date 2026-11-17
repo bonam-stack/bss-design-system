@@ -1,4 +1,4 @@
-// 모든 변형을 React 컴포넌트와 Figma 원본으로 나란히 그린다 (#compare-<key>). 디자인 시스템 담당이 코드를 고친 뒤 확인하는 화면.
+// 모든 변형을 React 컴포넌트와 Figma 원본으로 나란히 그린다 (#compare-<key>). DS 담당자이 코드를 고친 뒤 확인하는 화면.
 import { Component as ReactComponent } from 'react';
 import type { ReactNode } from 'react';
 import type { SiteComponent } from '../data';

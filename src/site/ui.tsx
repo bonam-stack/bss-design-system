@@ -193,13 +193,14 @@ export function DraftBox({ d }: { d: Draft | null }) {
   const { role, isEditor, act } = usePortal();
   if (!d) return null;
   const mine = role === d.by;
+  const discard = () => act(() => P.discard(role, d.id), (x) => (x.status === 'rejected' ? `${x.id} 반려` : `${x.id} 초안을 버렸습니다`));
   return (
     <div className="dbox" role="note">
       <div className="dbox-h">
         <b>초안 {d.id}</b>
         <BumpTag b={d.bump} />
         <span>
-          {P.ROLES[d.by]} · {fmt(d.at)} · 게시 대기
+          {P.ROLES[d.by]} · {fmt(d.at)} · {d.requested ? '배포 요청됨 · 관리자 배포 대기' : '작성 중 · 미리보기 확인 후 배포 요청'}
         </span>
       </div>
       <ul>
@@ -208,24 +209,29 @@ export function DraftBox({ d }: { d: Draft | null }) {
         ))}
       </ul>
       <div className="row">
-        {role === 'approver' ? (
+        {mine && !d.requested ? (
+          <button className="btn2 primary sm" onClick={() => act(() => P.requestDeploy(role, d.id), (x) => `${x.id} 배포 요청 · 관리자 배포 대기`)}>
+            미리보기 확인 · 배포 요청
+          </button>
+        ) : null}
+        {role === 'approver' && d.requested ? (
           <>
-            <button className="btn2 primary sm" onClick={() => act(() => P.publish(role, [d.id]), (h) => `게시 ${h.version}`)}>
-              게시
+            <button className="btn2 primary sm" onClick={() => act(() => P.publish(role, [d.id], `${d.id} 개별 배포`, '수동'), (h) => `수동 배포 ${h.version}`)}>
+              수동 배포
             </button>
-            <button className="btn2 sm" onClick={() => act(() => P.discard(role, d.id), (x) => (x.status === 'rejected' ? `${x.id} 반려` : `${x.id} 초안을 버렸습니다`))}>
+            <button className="btn2 sm" onClick={discard}>
               반려
             </button>
           </>
         ) : null}
         {mine ? (
-          <button className="btn2 sm" onClick={() => act(() => P.discard(role, d.id), (x) => (x.status === 'rejected' ? `${x.id} 반려` : `${x.id} 초안을 버렸습니다`))}>
+          <button className="btn2 sm" onClick={discard}>
             초안 버리기
           </button>
         ) : null}
         {isEditor ? (
-          <a className="lnk" href="#pub">
-            초안 · 게시
+          <a className="lnk" href={role === 'approver' ? '#deploy' : '#my'}>
+            {role === 'approver' ? '운영 서버 배포' : '내 변경'}
           </a>
         ) : null}
       </div>
@@ -363,7 +369,7 @@ export function useText() {
 }
 
 /** 에디터 모드에서 눌러서 그 자리에서 고치는 글. Enter로 저장(Shift+Enter 줄바꿈), Esc로 취소.
- *  고친 글은 초안이 되고 포털 승인 담당이 게시하면 모두에게 보인다 */
+ *  고친 글은 초안이 되고 관리자가 배포하면 모두에게 보인다 */
 export function Editable({ path, value, label, as: Tag = 'span', className, onSave, placeholder }: { path: string; value: string; label: string; as?: 'span' | 'p' | 'div'; className?: string; onSave?: (v: string) => Promise<unknown>; placeholder?: string }) {
   const scope = useContext(TextScope);
   const { role, can, act } = usePortal();
@@ -389,7 +395,7 @@ export function Editable({ path, value, label, as: Tag = 'span', className, onSa
     setEditing(false);
     if (next === shown || !next) return;
     if (onSave) act(() => onSave(next), undefined);
-    else act(() => P.draftText(role, scope!.key, scope!.name, path, label, value, next), (d) => `초안 ${d.id}에 담았습니다 · 포털 승인 담당이 게시하면 반영됩니다`);
+    else act(() => P.draftText(role, scope!.key, scope!.name, path, label, value, next), (d) => `초안 ${d.id}에 담았습니다 · 관리자가 배포하면 반영됩니다`);
   };
   if (editing)
     return (

@@ -1,34 +1,50 @@
-// BSS 디자인 포털 페이지: 시작하기 · Foundations(토큰) · 목록 · 카탈로그 항목 · UX 거버넌스 · 관리.
-// 고친 내용은 초안 → 포털 승인 담당 게시.
+// BSS 디자인 포털 페이지: 시작하기 · 목록 · 카탈로그 항목 · UX 거버넌스 · 승격 심사, 그리고 Foundations · 역할별 작업 페이지로 나눈다.
+// 고친 내용은 초안 → 미리보기 확인 → 배포 요청 → 관리자 배포.
 import type { FormEvent, ReactNode } from 'react';
 import * as P from '../portal/store';
-import type { Draft, HistoryEntry, Item, Kind } from '../portal/store';
+import type { Draft, HistoryEntry, Item, Kind, Role } from '../portal/store';
 import { usePortal } from '../portal/ctx';
-import { patterns, icons } from '../data';
+import { patterns } from '../data';
 import { docsFor, docsIn, guideRoute, guideSource } from '../guide';
-import { BumpTag, Check, CodeLink, UxRef, ConfirmButton, DraftBox, Drafts, EditBtn, GuideChips, Head, RulesBlock, St, StOf, Table, fmt, human, joinNodes } from '../ui';
+import { BumpTag, Check, CodeLink, UxRef, DraftBox, Drafts, EditBtn, GuideChips, Head, RulesBlock, St, StOf, Table, fmt, human, joinNodes } from '../ui';
+import { ColorPage, DimensionPage, FoundationsOverview, PendingPage, TokensPage, TypographyPage } from './foundations';
+import { Convert, Deploy, My, MyRequests, Recheck, Requests, Roles, SbEdit, SbStatus, UxEdit } from './work';
 
-const FIGMA_FILE = '9AioWOXVOVm5C7kdSxSEEP';
 const KIND_LABEL: Record<Kind, string> = { block: 'Blocks', comp: 'Components', layout: 'Layout rules' };
 const formValues = (f: HTMLFormElement) => Object.fromEntries(new FormData(f)) as Record<string, string>;
 const list = (s?: string) => String(s || '').split(',').map((x) => x.trim()).filter(Boolean);
 
 /** 라우트 → 포털 페이지 (없으면 null) */
-export function portalPage(route: string, isEditor: boolean): ReactNode | null {
+export function portalPage(route: string, role: Role): ReactNode | null {
+  const isEditor = role !== 'viewer';
   switch (route) {
     case 'overview': return <Overview />;
     case 'stack': return <Stack />;
     case 'updates': return <Updates />;
-    case 'tokens': return <Tokens />;
+    case 'foundations': return <FoundationsOverview />;
+    case 'color': return <ColorPage />;
+    case 'typography': return <TypographyPage />;
+    case 'dimension': return <DimensionPage />;
+    case 'tokens': return <TokensPage />;
+    case 'elevation': return <PendingPage title="그림자" lead="화면 층(바닥 · 카드 · 팝업 · 토스트)마다 쓰는 그림자 단계를 정합니다." todo={['단계별 그림자 값과 쓰는 곳', '팝업 · 드롭다운처럼 위로 뜨는 요소의 기준']} />;
+    case 'motion': return <PendingPage title="모션" lead="열기 · 닫기 · 전환 · 상태 변화에 쓰는 시간과 움직임 곡선을 정합니다." todo={['시간(짧게 · 보통 · 길게)과 곡선', '팝업 · 토스트 · 펼침 등 컴포넌트별 적용']} />;
+    case 'writing': return <PendingPage title="문구 (보이스 · 표기)" lead="화면 문구의 말투와 표기 규칙을 정합니다." todo={['말투 · 존댓말 기준', '버튼 · 안내 · 오류 문구 패턴', '숫자 · 날짜 · 단위 표기 (UX 규칙의 표기 규칙과 연결)']} />;
+    case 'my-requests': return <MyRequests />;
+    case 'ux-edit': return role === 'ux' ? <UxEdit /> : null;
+    case 'sb-edit': return role === 'ux' ? <SbEdit /> : null;
+    case 'my': return role === 'ux' || role === 'ds' ? <My /> : null;
+    case 'requests': return role === 'ds' ? <Requests /> : null;
+    case 'convert': return role === 'ds' ? <Convert /> : null;
+    case 'deploy': return role === 'approver' ? <Deploy /> : null;
+    case 'recheck': return role === 'approver' ? <Recheck /> : null;
+    case 'roles': return role === 'approver' ? <Roles /> : null;
     case 'components': return <ItemList kind="comp" />;
     case 'blocks': return <ItemList kind="block" />;
     case 'patterns': return <PatternList />;
     case 'rules': return <Rules />;
     case 'slots': return <Slots />;
     case 'lint': return <Lint />;
-    case 'pub': return isEditor ? <Pub /> : null;
     case 'promo': return isEditor ? <Promo /> : null;
-    case 'chg': return isEditor ? <Chg /> : null;
   }
   const it = P.item(route);
   if (it && !it.key) return <ItemPage it={it} />;
@@ -38,15 +54,13 @@ export function portalPage(route: string, isEditor: boolean): ReactNode | null {
 // ---------- 시작하기 ----------
 
 function Overview() {
-  const I = P.items();
-  const n = (k: Kind) => I.filter((i) => i.kind === k).length;
   const cards = [
-    ['components', 'Components', `컴포넌트 ${n('comp')}개`, '블록 안에 들어가는 최소 부품'],
-    ['blocks', 'Blocks', `블록 ${n('block')}`, '빈칸 하나를 채우는 업무 단위 묶음'],
-    ['patterns', 'Patterns', `레이아웃 규칙 ${n('layout')} · 패턴 ${patterns.length}`, '화면을 어떤 순서로 쌓을지'],
-    ['rules', 'UX 거버넌스', `규칙 ${P.rules().length}개`, 'UX표준가이드 규칙과 연결표'],
-    ['icons', 'Foundations', `아이콘 ${icons.icons.length}개`, '아이콘 · 디자인 토큰'],
-    ['stack', '조립 구조', 'Stack 5단계', '앱 구조 → 레이아웃 → 빈칸 → 블록 → 컴포넌트'],
+    ['rules', 'UX 거버넌스', '규칙 · 빈칸 · 검증 · 용어', 'UX 패턴 가이드 Do · Don\'t와 연결표 · 모든 화면의 기준'],
+    ['foundations', 'Foundations', '색상 · 타이포 · 간격 · 아이콘 · 토큰', '디자인 에셋 · 앱 구조 · 화면 유형 · 사용 환경'],
+    ['components', 'Components', '컴포넌트 · 컴포넌트 가이드', '블록 안에 들어가는 최소 부품'],
+    ['blocks', 'Blocks', '공통 블록 · SB 블록 · 모듈', '빈칸 하나를 채우는 업무 단위 묶음'],
+    ['patterns', 'Patterns', 'UX 패턴 · 레이아웃 규칙', '화면을 어떤 순서로 쌓을지'],
+    ['my-requests', '내 요청', '아이콘 · 컴포넌트 · 블록 · 토큰 요청', 'DS 담당자에게 요청하고 진행 상태 보기'],
   ];
   return (
     <>
@@ -149,7 +163,7 @@ function Stack() {
       </p>
       <ul>
         <li>
-          <b>특수형</b> · 표준 틀로 만들 수 없는 예외 화면 · Stack 조립 제외 · 포털 승인 담당 승인
+          <b>특수형</b> · 표준 틀로 만들 수 없는 예외 화면 · Stack 조립 제외 · 관리자 승인
         </li>
         <li>
           <b>노드형</b> · 단계가 한 방향으로 이어지는 절차형 업무 · <a href="#l-node">노드형 레이아웃</a>
@@ -199,34 +213,6 @@ function Updates() {
   );
 }
 
-function Tokens() {
-  const tk = [
-    ['--color-bg-brand-strongest-default', '브랜드 · 주 버튼'],
-    ['--color-bg-brand-faint-default', '브랜드 옅은 배경'],
-    ['--color-fg-neutral-strongest', '본문 글자'],
-    ['--color-fg-neutral-muted-default', '보조 글자'],
-    ['--color-bg-neutral-muted', '회색 배경'],
-    ['--color-border-neutral-muted', '테두리'],
-    ['--color-bg-success-strongest', '성공'],
-    ['--color-fg-danger-strong', '위험 글자'],
-  ];
-  return (
-    <>
-      <Head eyebrow="Foundations" title="디자인 토큰" lead="색 · 글꼴 · 모서리는 모두 디자인 토큰 v0.5를 씁니다. Figma 변수에서 읽은 값입니다." />
-      <h2 id="semantic">Semantic 색</h2>
-      <div className="tk">
-        {tk.map(([k, l]) => (
-          <div key={k}>
-            <i style={{ background: `var(${k})` }} />
-            <b>{l}</b>
-            <code>{k}</code>
-          </div>
-        ))}
-      </div>
-    </>
-  );
-}
-
 // ---------- 목록 ----------
 
 function Grid({ list: L }: { list: Item[] }) {
@@ -256,67 +242,68 @@ function Grid({ list: L }: { list: Item[] }) {
 }
 
 function ItemList({ kind }: { kind: 'comp' | 'block' }) {
-  const { role, can, act } = usePortal();
+  const { can } = usePortal();
   const I = P.items().filter((i) => i.kind === kind);
   const isComp = kind === 'comp';
-  const pend = P.drafts((d) => d.status === 'draft' && d.type === 'figma' && !!d.isNew);
-  const onAdd = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const v = formValues(e.currentTarget);
-    act(() => P.draftFigma(role, { code: v.code || null, url: v.url.trim() }), (d) => `${d.after.name} 읽기 · 초안 ${d.id} 저장`);
-  };
-  const sample = (e: React.MouseEvent<HTMLButtonElement>) => {
-    const f = e.currentTarget.form!;
-    (f.elements.namedItem('url') as HTMLInputElement).value = `https://www.figma.com/design/${FIGMA_FILE}/Lib?node-id=9000-1`;
-    (f.elements.namedItem('code') as HTMLSelectElement).value = 'c-chip';
-  };
   return (
     <>
       <Head
         eyebrow={isComp ? 'Components' : 'Blocks'}
         title={isComp ? '컴포넌트' : '블록'}
-        lead={isComp ? '블록 안에 들어가는 최소 부품입니다. ✓ 표시는 Figma 디자인 에셋과 사용 가이드가 있는 것입니다.' : '블록은 빈칸 하나를 채우는 업무 단위 묶음입니다. 아래쪽 모듈은 UX 패턴 가이드의 모듈 정의입니다.'}
+        lead={isComp ? '블록 안에 들어가는 최소 부품입니다. ✓ 표시는 Figma 디자인 에셋과 사용 가이드가 있는 것입니다.' : '블록은 빈칸 하나를 채우는 업무 단위 묶음입니다. 포털이 관리하는 공통 블록과 SB Studio에서 만든 SB 블록으로 나뉩니다. 모듈은 UX 패턴 가이드의 모듈 정의입니다.'}
       />
       {isComp && can('figma') ? (
-        <section className="ed-panel" aria-label="컴포넌트 추가">
-          <div className="ed-h">
-            <b>컴포넌트 추가</b>
-            <span>UI팀이 Figma 디자인 시스템에 만든 컴포넌트 노드를 읽어 옵니다. 카탈로그 코드에 연결하면 그 항목의 디자인 에셋이 됩니다.</span>
-          </div>
-          <form className="ef" onSubmit={onAdd}>
-            <div className="ef-r">
-              <label>
-                카탈로그 코드
-                <select name="code" defaultValue="">
-                  <option value="">새 코드 (c-이름)</option>
-                  {I.filter((i) => !i.key).map((i) => (
-                    <option key={i.code} value={i.code}>
-                      {i.code} {i.name}
-                    </option>
-                  ))}
-                </select>
-              </label>
-              <label className="w">
-                Figma 노드 주소
-                <input name="url" required placeholder="https://www.figma.com/design/…?node-id=…" />
-              </label>
-            </div>
-            <div className="row">
-              <button className="btn2 primary sm">읽기 · 초안 저장</button>
-              <button type="button" className="lnk" onClick={sample}>
-                예시: Chip 노드 (흉내)
-              </button>
-            </div>
-          </form>
-          {pend.map((d) => (
-            <DraftBox key={d.id} d={d} />
-          ))}
-        </section>
+        <p className="row">
+          <a className="btn2 sm" href="#convert">
+            새 컴포넌트는 DS 작업 › 소스 변환에서 Figma 주소로 추가
+          </a>
+        </p>
       ) : null}
-      <h2 id="all" className="sr">
-        전체
-      </h2>
-      <Grid list={I} />
+      {isComp ? (
+        <>
+          <h2 id="all" className="sr">
+            전체
+          </h2>
+          <Grid list={I} />
+        </>
+      ) : (
+        <BlockSections list={I} />
+      )}
+    </>
+  );
+}
+
+/** Blocks: 공통 블록 · SB 블록(+ 승격 진행) */
+function BlockSections({ list: I }: { list: Item[] }) {
+  const sb = I.filter((i) => P.isSb(i));
+  const promos = P.promotions().filter((p) => /^tb-/.test(p.code));
+  return (
+    <>
+      <h2 id="common">공통 블록</h2>
+      <p className="note">Figma 디자인 시스템 기준으로 포털이 관리하는 블록입니다. DS 담당자가 고치고 관리자가 배포합니다. SB Studio는 이 블록을 먼저 고릅니다.</p>
+      <Grid list={I.filter((i) => !P.isSb(i))} />
+      <h2 id="sb">SB 블록</h2>
+      <p className="note">공통 블록으로 만들 수 없는 부분을 위해 SB Studio 미리보기에서 자동으로 만들어지는 업무 전용 블록입니다. SB 설계가 완료되면 이 목록에 게시되고, 여러 SB에서 쓰이면 승격 심사를 거쳐 공통 블록이 됩니다.</p>
+      {sb.length ? <Grid list={sb} /> : <p className="muted">지금 게시된 SB 블록이 없습니다.</p>}
+      {promos.length ? (
+        <>
+          <h3>승격 진행</h3>
+          <Table
+            cols={['SB 블록', '사용', '판단', '단계', '상태']}
+            rows={promos.map((p) => (
+              <tr key={p.id}>
+                <td>{p.name}</td>
+                <td>{p.from}</td>
+                <td>{human(p.judge)}</td>
+                <td className="nw">{p.stage}</td>
+                <td>
+                  <SbStatus p={p} />
+                </td>
+              </tr>
+            ))}
+          />
+        </>
+      ) : null}
     </>
   );
 }
@@ -434,7 +421,7 @@ function ItemPage({ it }: { it: Item }) {
         </>
       ) : null}
       <h2>
-        Properties {can(it.kind) ? <EditBtn k={`item:${it.code}`} /> : null}
+        Properties {can(P.editKind(it)) ? <EditBtn k={`item:${it.code}`} /> : null}
       </h2>
       {editing ? (
         <ItemForm r={it} d={d} />
@@ -471,7 +458,7 @@ export function ItemForm({ r, d }: { r: Item; d: Draft | null }) {
     const fields: Partial<Item> = { name: f.name, meaning: f.meaning, status: f.status as P.Status };
     if ('variants' in f) fields.variants = f.variants;
     if ('slot' in f) fields.slot = f.slot;
-    act(() => P.draftItem(role, r.code, fields), (x) => `초안 ${x.id} 저장 · 포털 승인 담당 게시 대기`).then((x) => x && closeEdit());
+    act(() => P.draftItem(role, r.code, fields), (x) => `초안 ${x.id} 저장 · 내 변경에서 미리보기 확인 후 배포 요청`).then((x) => x && closeEdit());
   };
   return (
     <form className="ef ed-panel" onSubmit={onSubmit}>
@@ -501,7 +488,7 @@ export function ItemForm({ r, d }: { r: Item; d: Draft | null }) {
       </label>
       <div className="row">
         <button className="btn2 primary sm">초안 저장</button>
-        <span className="muted">포털 승인 담당이 게시하면 반영됩니다</span>
+        <span className="muted">관리자가 배포하면 반영됩니다</span>
       </div>
     </form>
   );
@@ -700,7 +687,7 @@ function Lint() {
     ['R-01', '앱 구조 빈칸(GNB · LNB · 콘텍스트 바)에는 블록만', '오류'],
     ['R-02', '고정 빈칸은 허용 목록에서 하나', '오류'],
     ['R-03', '쌓기 빈칸 순서(일반형)', '오류'],
-    ['R-04', '임시 코드(tb- · tc-)는 포털 승인 담당 승인 요청 동반', '경고'],
+    ['R-04', '임시 코드(tb- · tc-)는 관리자 승인 요청 동반', '경고'],
     ['R-05', '용어 대조(로제타)', '경고'],
     ['R-06', '출처 ID 반영률 100%', '오류'],
     ['R-07', '특수형 화면은 승인 기록 동반', '경고'],
@@ -729,129 +716,7 @@ function Lint() {
   );
 }
 
-// ---------- 관리 (담당 역할에서만) ----------
-
-const TYPE_NAME: Record<P.DraftType, string> = { item: '카탈로그', rule: '규칙', guide: '사용 가이드', figma: 'Figma', code: '코드', text: '설명' };
-
-function nextVersion(L: Draft[]) {
-  const B: P.Bump[] = ['PATCH', 'MINOR', 'MAJOR'];
-  return P.bumpVersion(P.version(), B[Math.max(...L.map((d) => B.indexOf(d.bump)))]);
-}
-
-function Pub() {
-  const { role, act } = usePortal();
-  const pend = P.drafts((d) => d.status === 'draft');
-  const done = P.drafts((d) => d.status !== 'draft');
-  const last = P.history()[0];
-  const approver = role === 'approver';
-  const where = (d: Draft) => (d.type === 'rule' ? '#rules' : d.type === 'guide' || d.type === 'figma' || d.type === 'code' || d.type === 'text' ? `#${P.itemByKey(d.key || d.target)?.code || d.code || d.target}` : `#${d.target}`);
-  const discard = (d: Draft) => act(() => P.discard(role, d.id), (x) => (x.status === 'rejected' ? `${x.id} 반려` : `${x.id} 초안을 버렸습니다`));
-  const onPublish = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const f = e.currentTarget;
-    const ids = [...f.querySelectorAll<HTMLInputElement>('input[name=ids]:checked')].map((x) => x.value);
-    act(() => P.publish(role, ids, formValues(f).reason), (h) => `게시 ${h.version} · SB Studio가 이 버전을 읽습니다`);
-  };
-  const onRollback = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    act(() => P.rollback(role, formValues(e.currentTarget).reason), (h) => `${h.version}(으)로 되돌렸습니다`);
-  };
-  const result: Record<string, (d: Draft) => string> = { published: (d) => `게시 ${d.version}`, rejected: () => '반려', discarded: () => '버림', rolled_back: () => '롤백' };
-  return (
-    <>
-      <Head eyebrow="관리" title="초안 · 게시" lead="담당이 고친 내용은 초안으로 쌓이고, 포털 승인 담당이 게시하면 버전이 오르고 SB Studio가 읽는 게시본이 바뀝니다." />
-      <h2 id="pending">게시 대기 {pend.length}건</h2>
-      <form onSubmit={onPublish}>
-        <Table
-          cols={['', '초안', '종류', '내용', '담당', '자리', '']}
-          rows={pend.map((d) => (
-            <tr key={d.id}>
-              <td>{approver ? <input type="checkbox" name="ids" value={d.id} defaultChecked aria-label={`${d.id} 고르기`} /> : null}</td>
-              <td>
-                <b className="nw">{d.id}</b>
-              </td>
-              <td className="nw">{TYPE_NAME[d.type]}</td>
-              <td>
-                <a href={where(d)}>{d.title}</a>
-                <ul className="mini">
-                  {d.lines.map((l, i) => (
-                    <li key={i}>{l}</li>
-                  ))}
-                </ul>
-              </td>
-              <td className="nw">{P.ROLES[d.by]}</td>
-              <td>
-                <BumpTag b={d.bump} />
-              </td>
-              <td className="nw">
-                {approver ? (
-                  <button type="button" className="btn2 sm" onClick={() => discard(d)}>
-                    반려
-                  </button>
-                ) : role === d.by ? (
-                  <button type="button" className="btn2 sm" onClick={() => discard(d)}>
-                    버리기
-                  </button>
-                ) : null}
-              </td>
-            </tr>
-          ))}
-        />
-        {approver && pend.length ? (
-          <div className="row pad">
-            <input name="reason" id="pubReason" className="grow" placeholder="게시 메모 (선택)" />
-            <button className="btn2 primary">고른 초안 게시 → {nextVersion(pend)}</button>
-          </div>
-        ) : pend.length ? (
-          <p className="muted">게시는 포털 승인 담당이 합니다.</p>
-        ) : null}
-      </form>
-      {approver && last.prevPub ? (
-        <>
-          <h2 id="rollback">롤백</h2>
-          <form className="row" onSubmit={onRollback}>
-            <span>
-              지금 게시 <b className="mono">{P.version()}</b>
-            </span>
-            <input name="reason" id="rbReason" className="grow" placeholder="롤백 사유" />
-            <ConfirmButton type="submit" className="btn2 sm danger">
-              {last.from}(으)로 되돌리기
-            </ConfirmButton>
-          </form>
-        </>
-      ) : null}
-      {done.length ? (
-        <>
-          <h2 id="done">처리된 초안</h2>
-          <Table
-            cols={['초안', '내용', '담당', '결과']}
-            rows={done.map((d) => (
-              <tr key={d.id}>
-                <td className="nw">{d.id}</td>
-                <td>{d.title}</td>
-                <td className="nw">{P.ROLES[d.by]}</td>
-                <td>
-                  <St c={d.status === 'published' ? 'ok' : 'ng'} t={result[d.status]?.(d) || d.status} />
-                </td>
-              </tr>
-            ))}
-          />
-        </>
-      ) : null}
-      {approver ? (
-        <>
-          <h2 id="reset">시연 데이터</h2>
-          <p className="row">
-            <ConfirmButton className="btn2 sm danger" onConfirm={() => act(() => P.reset(), '처음 상태로 되돌렸습니다', '#overview')}>
-              처음 상태로 되돌리기
-            </ConfirmButton>
-            <span className="muted">이 브라우저에 저장된 초안 · 게시 · 승격 진행을 지웁니다</span>
-          </p>
-        </>
-      ) : null}
-    </>
-  );
-}
+// ---------- 승격 심사 (UX 담당자 · DS 담당자 · 관리자) ----------
 
 function Promo() {
   const { role, act } = usePortal();
@@ -864,7 +729,7 @@ function Promo() {
       });
       return;
     }
-    act(() => P.promote(role, k, ok, { url: inp?.value.trim() }), (p) => (p.status === '승인' ? `최종 승인 · ${p.code} · 게시 ${P.version()}` : p.status === '반려' ? '반려했습니다' : `${p.stage} 단계로 넘겼습니다`));
+    act(() => P.promote(role, k, ok, { url: inp?.value.trim() }), (p) => (p.status === '승인' ? `공통 블록으로 배포 · ${p.code} · 운영 ${P.version()}` : p.status === '반려' ? '반려했습니다' : `${p.stage} 단계로 넘겼습니다`));
   };
   const actions = (p: P.Promotion, k: number) => {
     if (p.status !== '대기') return null;
@@ -887,14 +752,14 @@ function Promo() {
     e.preventDefault();
     const f = e.currentTarget;
     const v = formValues(f);
-    act(() => P.addPromotion(role, { code: v.code, name: v.name, from: v.from, judge: v.judge }), (p) => `${p.id} 등록 · 구조 확인 단계`).then((x) => x && f.reset());
+    act(() => P.addPromotion(role, { code: v.code, name: v.name, from: v.from, judge: v.judge }), (p) => `${p.id} 등록 · ${p.stage} 단계`).then((x) => x && f.reset());
   };
   return (
     <>
       <Head
-        eyebrow="관리"
-        title="승격 요청"
-        lead="SB Studio에서 만든 임시 블록 · 컴포넌트(tb- · tc-)를 정식 부품으로 올립니다. 사용 승인 SB가 3건이 되면 자동 등록됩니다."
+        eyebrow={role === 'approver' ? '관리자' : role === 'ds' ? 'DS 작업' : 'UX 편집'}
+        title="승격 심사"
+        lead="여러 Storyboard에서 반복해 쓰인 SB 블록(tb-)을 2단 심사(SB팀 표준 → UI팀 디자인)를 거쳐 공통 블록으로 올립니다. 마지막은 관리자가 배포합니다."
         extra={
           <div className="checks">
             {P.PROMO_STAGES.map((s, i) => (
@@ -908,7 +773,7 @@ function Promo() {
       {role === 'ux' ? (
         <section className="ed-panel">
           <div className="ed-h">
-            <b>승격 요청 등록</b>
+            <b>승격 후보 등록</b>
           </div>
           <form className="ef" onSubmit={onAdd}>
             <div className="ef-r">
@@ -935,9 +800,9 @@ function Promo() {
           </form>
         </section>
       ) : null}
-      <h2 id="list">요청 목록</h2>
+      <h2 id="list">승격 후보</h2>
       <Table
-        cols={['요청', '이름', '출처', '변형 판단', '심사', '상태', '처리']}
+        cols={['후보', '이름', '사용', '변형 판단', '심사 단계', '상태', '처리']}
         rows={L.map((p, k) => {
           const code = p.code.split(' → ').pop()!;
           return (
@@ -955,40 +820,8 @@ function Promo() {
           );
         })}
       />
-      <p className="muted">최종 승인되면 코드 앞자리만 바뀌어(tb- → b-, tc- → c-) 바로 게시됩니다.</p>
+      <p className="muted">관리자가 배포하면 코드 앞자리만 바뀌어(tb- → b-, tc- → c-) 공통 블록이 됩니다.</p>
     </>
   );
 }
 
-function Chg() {
-  const { role, act } = usePortal();
-  const L = P.detections();
-  const opts = ['새 버전 후보', '무시(토큰만)', '포털 승인 담당 승인 요청'];
-  return (
-    <>
-      <Head eyebrow="관리" title="변경 감지" lead="Figma 디자인 시스템 · UX 패턴 가이드 게시와 SB Studio가 만든 SB의 Figma 수정을 감지합니다. 새 버전 후보는 담당이 해당 페이지에서 Figma를 다시 읽어 초안으로 만듭니다." />
-      <h2 id="list" className="sr">
-        감지 목록
-      </h2>
-      <Table
-        cols={['감지', '파일', '대상', '변경', '영향', '처리']}
-        rows={L.map((r, k) => (
-          <tr key={k}>
-            <td className="nw">{r.at}</td>
-            <td>{r.file}</td>
-            <td>{r.target}</td>
-            <td>{r.change}</td>
-            <td>{r.impact}</td>
-            <td>
-              <select aria-label="처리" value={r.action} onChange={(e) => act(() => P.handleDetection(role, k, e.target.value), '처리 방식을 바꿨습니다')}>
-                {opts.map((o) => (
-                  <option key={o}>{o}</option>
-                ))}
-              </select>
-            </td>
-          </tr>
-        ))}
-      />
-    </>
-  );
-}

@@ -13,6 +13,7 @@ import iconsJson from '../../icons/icons.json';
 import patternIndex from '../../patterns/index.json';
 import guideIndex from '../../components/guides.json';
 import componentIndex from '../../components/index.json';
+import tokensJson from '../../tokens/variables.json';
 
 // ---------- 사용 가이드 (components/<key>/guide.json) ----------
 
@@ -118,6 +119,8 @@ const iconSvgs = import.meta.glob<string>('../../icons/svg/**/*.svg', { eager: t
 export const catalog = catalogJson as Catalog;
 
 export const icons = iconsJson as IconsData;
+/** 기준 토큰 (Figma 변수). 게시된 추가 · 수정은 portal/store의 tokens() */
+export const baseTokens = (tokensJson as unknown as { tokens: Record<string, import('./portal/store').Token> }).tokens;
 for (const i of icons.icons) if (i.file && !i.svg) i.svg = (iconSvgs[`../../icons/${i.file}`] || '').trim();
 
 export interface SiteComponent {

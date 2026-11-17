@@ -21,7 +21,7 @@ export function CompChecks({ c, hasGuide }: { c: { key: string; figmaSyncedAt?: 
   );
 }
 
-/** 페이지 위쪽 에디터 칸: 디자인 시스템 담당 = 설명 · Figma 다시 읽기 */
+/** 페이지 위쪽 에디터 칸: DS 담당자 = 설명 · Figma 다시 읽기 */
 export function CompEditor({ c }: { c: { key: string; figma?: { url?: string } } }) {
   const { role, ui, isEditor, can, act, closeEdit } = usePortal();
   if (!isEditor) return null;
@@ -39,7 +39,7 @@ export function CompEditor({ c }: { c: { key: string; figma?: { url?: string } }
       {can('figma') ? (
         <section className="ed-panel">
           <div className="ed-h">
-            <b>디자인 시스템 담당</b>
+            <b>DS 담당자</b>
             <span>모양은 Figma에서 고친 뒤 다시 읽습니다. 설명은 페이지의 글을 눌러 그 자리에서 고치고, 컴포넌트 코드는 아래 AI 채팅으로 고칩니다</span>
           </div>
           <div className="row">
@@ -62,7 +62,7 @@ export function CompEditor({ c }: { c: { key: string; figma?: { url?: string } }
   );
 }
 
-/** 사용 가이드(Policy) 앞에 붙는 UX 가이드 담당 편집 칸 */
+/** 사용 가이드(Policy) 앞에 붙는 UX 담당자 편집 칸 */
 export function GuideEditor({ k }: { k: string }) {
   const { role, ui, isEditor, can, act, closeEdit } = usePortal();
   if (!isEditor || !P.guide(k)) return null;
@@ -82,14 +82,14 @@ export function GuideEditor({ k }: { k: string }) {
     const nr = f.querySelector('[data-new]')!;
     const add = [{ kind: (nr.querySelector('[name=kind]') as HTMLSelectElement).value as GuideRule['kind'], text: (nr.querySelector('[name=text]') as HTMLInputElement).value }];
     const lead = (f.elements.namedItem('lead') as HTMLTextAreaElement).value;
-    act(() => P.draftGuide(role, k, { lead, rules: rows, add }), (x) => `초안 ${x.id} 저장 · 포털 승인 담당 게시 대기`).then((x) => x && closeEdit());
+    act(() => P.draftGuide(role, k, { lead, rules: rows, add }), (x) => `초안 ${x.id} 저장 · 내 변경에서 미리보기 확인 후 배포 요청`).then((x) => x && closeEdit());
   };
   return (
     <>
       <DraftBox d={d} />
       <section className="ed-panel">
         <div className="ed-h">
-          <b>UX 가이드 담당</b>
+          <b>UX 담당자</b>
           <span>규칙 번호(UX-{k.toUpperCase()}-NN)는 저장할 때 붙고 고쳐도 바뀌지 않습니다</span>
         </div>
         <div className="row">

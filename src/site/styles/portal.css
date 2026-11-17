@@ -287,3 +287,49 @@ details.gx-rules .rl { margin-top: 8px; }
 .cc-tag { display: inline-block; margin-right: 6px; padding: 0 6px; border-radius: 4px; background: #fff; font-size: 11px; color: var(--fg-muted); }
 .cc-input { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 8px; align-items: end; }
 .cc-input textarea { width: 100%; padding: 8px 10px; border: 1px solid var(--border); border-radius: 10px; font: inherit; font-size: 14px; resize: vertical; background: var(--bg); color: var(--fg); }
+
+/* ---------- Foundations · 작업 페이지 (BSS SB Studio 흐름) ---------- */
+.sw { display: inline-block; width: 14px; height: 14px; margin-right: 6px; vertical-align: -2px; border-radius: 3px; box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.12); }
+.sw-c { width: 1%; }
+.sw-c .sw { width: 28px; height: 20px; margin: 0; }
+.pal { display: grid; grid-template-columns: repeat(auto-fill, minmax(96px, 1fr)); gap: 8px; }
+.pal div { display: grid; gap: 1px; font-size: 12px; }
+.pal i { height: 44px; border-radius: 6px; margin-bottom: 4px; box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.08); }
+.pal span { font-size: 10.5px; color: var(--fg-muted); }
+.ts { display: grid; gap: 0; border: 1px solid var(--border); border-radius: 10px; }
+.ts-r { display: grid; grid-template-columns: 160px minmax(0, 1fr); gap: 16px; align-items: center; padding: 12px 16px; border-bottom: 1px solid var(--border); }
+.ts-r:last-child { border-bottom: 0; }
+.ts-n { display: grid; gap: 2px; }
+.ts-n small { font-size: 11px; color: var(--fg-muted); }
+.ts-x { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.dm { display: inline-block; vertical-align: middle; }
+.dm-s { height: 12px; min-width: 1px; background: color-mix(in srgb, var(--accent) 35%, transparent); border-left: 1px solid var(--accent); border-right: 1px solid var(--accent); }
+.dm-r { width: 40px; height: 28px; border: 1.5px solid var(--accent); background: var(--accent-soft); }
+.dm-b { width: 40px; height: 20px; border-style: solid; border-color: var(--accent); border-radius: 3px; }
+.chains { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 360px), 1fr)); gap: 12px; }
+.chain { padding: 14px 16px; border: 1px solid var(--border); border-radius: 10px; min-width: 0; }
+.chain-t { margin: 0 0 8px; font-weight: 600; font-size: 14px; }
+.chain ol { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
+.chain li { display: flex; align-items: center; gap: 4px; min-width: 0; font-size: 12.5px; }
+.chain code { overflow-wrap: anywhere; }
+.chain-l { flex: none; width: 64px; font-size: 11px; color: var(--fg-muted); }
+details.ref { margin: 0 0 8px; }
+details.ref summary { cursor: pointer; padding: 8px 0; font-size: 13px; color: var(--accent); }
+pre.tk-src { max-height: 320px; overflow: auto; margin: 0; padding: 14px 16px; border: 1px solid var(--border); border-radius: 10px; background: var(--bg-subtle); font: 12px/1.6 var(--mono); white-space: pre; }
+.tk-val { display: flex; gap: 6px; align-items: center; }
+.tk-val input[type='color'] { width: 38px; height: 34px; padding: 2px; border: 1px solid var(--border); border-radius: 6px; background: var(--bg); flex: none; }
+.steps { display: inline-flex; gap: 3px; vertical-align: 1px; margin-right: 2px; }
+.steps i { width: 8px; height: 8px; border-radius: 2px; background: var(--border); }
+.steps i.on { background: var(--accent); }
+.flowline { display: flex; flex-wrap: wrap; margin: 0 0 8px; }
+.flowline span { padding: 6px 22px 6px 14px; background: var(--fg); color: var(--bg); font-size: 13px; font-weight: 600; clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 50%, calc(100% - 10px) 100%, 0 100%, 10px 50%); margin-right: -4px; }
+.flowline span:first-child { clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 50%, calc(100% - 10px) 100%, 0 100%); }
+.deploy-mode { display: flex; flex-wrap: wrap; gap: 8px 24px; margin: 14px 0 0; font-size: 14px; }
+.deploy-mode label { display: inline-flex; align-items: center; gap: 6px; cursor: pointer; }
+.deploy-mode .muted { font-size: 12px; }
+ol.flow { display: grid; gap: 10px; margin: 0; padding: 0; list-style: none; counter-reset: step; }
+ol.flow li { counter-increment: step; display: grid; grid-template-columns: 28px minmax(0, 1fr); gap: 10px; }
+ol.flow li::before { content: counter(step); display: grid; place-items: center; width: 24px; height: 24px; border-radius: 50%; background: var(--accent-soft); color: var(--accent); font-size: 12px; font-weight: 700; }
+ol.flow strong { display: block; }
+ol.flow span { color: var(--fg-muted); font-size: 14px; }
+@media (max-width: 720px) { .ts-r { grid-template-columns: minmax(0, 1fr); gap: 4px; } }

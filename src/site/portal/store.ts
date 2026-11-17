@@ -1,5 +1,5 @@
-// BSS 디자인 포털 상태: 게시본(카탈로그 · 규칙 · 가이드 · 컴포넌트) + 초안 + 승격 + 버전.
-// 편집 권한이 있는 담당이 고치면 초안이 되고, 포털 승인 담당이 게시하면 버전이 오르고 SB Studio가 읽는 게시본이 바뀐다.
+// BSS 디자인 포털 상태: 게시본(카탈로그 · 규칙 · 가이드 · 컴포넌트 · 코드 · 토큰) + 초안 + 요청 + 승격 + 버전.
+// 담당자가 고치면 초안 → 미리보기 확인 → 배포 요청 → 관리자가 운영 서버에 배포(정기 · 수동)하면 버전이 오르고 SB Studio가 읽는 게시본이 바뀐다.
 // 저장은 이 브라우저의 localStorage (POC). 게시본 = 저장소 JSON(기준) + 게시된 변경(pub).
 // 바뀔 때마다 subscribe한 화면(useSyncExternalStore)이 다시 그려진다.
 import { convertFromUrl, diffComponent } from './portal-core.js';
@@ -9,19 +9,29 @@ import { guideRules } from '../guide';
 
 const KEY = 'bss-design-portal.v2';
 export type Role = 'viewer' | 'ux' | 'ds' | 'approver';
-export const ROLES: Record<Role, string> = { viewer: '보기 (기획자)', ux: 'UX 가이드 담당', ds: '디자인 시스템 담당', approver: '포털 승인 담당' };
+// 역할은 BSS SB Studio 계정에서 받는다 (POC는 오른쪽 위에서 고름)
+export const ROLES: Record<Role, string> = { viewer: '보기', ux: 'UX 담당자', ds: 'DS 담당자', approver: '관리자' };
 export type Kind = 'layout' | 'block' | 'comp';
 export const KIND: Record<Kind, string> = { layout: '레이아웃 규칙', block: '블록', comp: '컴포넌트' };
 export type Status = 'pub' | 'draft' | 'tmp';
 export const STATUS: Record<Status, string> = { pub: '게시', draft: '초안', tmp: '임시' };
+// 승격: 여러 Storyboard에서 쓰인 SB 블록 → 2단 심사(SB팀 표준 → UI팀 디자인) → 관리자 배포로 공통 블록
 export const PROMO_STAGES: { stage: string; who: Role; act: string }[] = [
-  { stage: '구조 확인', who: 'ux', act: '구조 확인 통과' },
-  { stage: '모양 확인', who: 'ds', act: '모양 확인 · Figma 등록' },
-  { stage: '최종 승인', who: 'approver', act: '최종 승인' },
+  { stage: 'SB팀 표준', who: 'ux', act: '표준 확인 통과' },
+  { stage: 'UI팀 디자인', who: 'ds', act: '디자인 · Figma 등록' },
+  { stage: '배포', who: 'approver', act: '공통 블록으로 배포' },
 ];
-// 누가 무엇을 고치나: 모양(블록 · 컴포넌트 · Figma)은 디자인 시스템 담당, 쓰는 방법(레이아웃 규칙 · 규칙 · 사용 가이드)은 UX 가이드 담당
-export type EditType = Kind | 'figma' | 'code' | 'text' | 'rule' | 'guide';
-export const EDITOR: Record<EditType, Role> = { block: 'ds', comp: 'ds', figma: 'ds', code: 'ds', text: 'ds', layout: 'ux', rule: 'ux', guide: 'ux' };
+// 디자인 요청(케이스 1 · 4): 요청 → DS 담당자 작업 → 미리보기 확인 → 완료
+export type ReqKind = 'icon' | 'comp' | 'block' | 'token';
+export const REQ_KINDS: Record<ReqKind, string> = { icon: '아이콘 제작', comp: '컴포넌트 수정', block: '공통 블록 수정', token: '토큰 추가 · 수정' };
+export const REQ_STAGES = ['요청됨', '디자인 작업', '미리보기 확인', '완료'] as const;
+// 누가 무엇을 고치나: 토큰 · 컴포넌트 · 공통 블록 · Figma 변환은 DS 담당자, 레이아웃 규칙 · 규칙 · 사용 가이드 · SB 블록은 UX 담당자
+export type EditType = Kind | 'sb' | 'figma' | 'code' | 'text' | 'rule' | 'guide' | 'token';
+export const EDITOR: Record<EditType, Role> = { block: 'ds', comp: 'ds', figma: 'ds', code: 'ds', text: 'ds', token: 'ds', sb: 'ux', layout: 'ux', rule: 'ux', guide: 'ux' };
+/** SB 블록(tb-): SB Studio 미리보기에서 자동 생성 → SB 설계 완료 시 게시 → 여러 SB에서 쓰이면 승격 */
+export const isSb = (i: { kind: string; code: string }) => i.kind === 'block' && /^tb-/.test(i.code);
+/** 이 항목을 고치는 권한 종류 (SB 블록은 UX 담당자) */
+export const editKind = (i: { kind: Kind; code: string }): EditType => (isSb(i) ? 'sb' : i.kind);
 
 export type Bump = 'PATCH' | 'MINOR' | 'MAJOR';
 
@@ -104,7 +114,7 @@ export interface GuideDoc {
   rules: GuideRule[];
   next: number;
 }
-export type DraftType = 'item' | 'rule' | 'guide' | 'figma' | 'code' | 'text';
+export type DraftType = 'item' | 'rule' | 'guide' | 'figma' | 'code' | 'text' | 'token';
 export type DraftStatus = 'draft' | 'published' | 'rejected' | 'discarded' | 'rolled_back';
 export interface Draft {
   id: string;
@@ -125,6 +135,28 @@ export interface Draft {
   code?: string;
   version?: string;
   source?: { url: string; mode: string };
+  /** 담당자가 미리보기로 확인하고 배포 요청함 */
+  requested?: boolean;
+}
+export interface Request {
+  id: string;
+  kind: ReqKind;
+  title: string;
+  detail: string;
+  by: Role;
+  stage: (typeof REQ_STAGES)[number];
+  /** 아이콘: AI 더미로 기획 계속 중 */
+  dummy?: boolean;
+  notified?: boolean;
+  log: { at: string; by: Role; text: string }[];
+}
+export interface Token {
+  figma: string;
+  collection: 'Primitive' | 'Semantic' | 'Component';
+  type: string;
+  value: string;
+  ref: string | null;
+  key?: string;
 }
 export interface PortalComp {
   key: string;
@@ -148,6 +180,8 @@ interface Pub {
   code: Record<string, string>;
   /** 게시된 글 수정 (컴포넌트 key → 글 자리 → 글). 페이지에서 바로 고친 설명 */
   texts: Record<string, Record<string, string>>;
+  /** 게시된 토큰 추가 · 수정(null = 삭제), CSS 변수 이름 → 토큰 */
+  tokens: Record<string, Token | null>;
 }
 export interface HistoryNote {
   id?: string;
@@ -175,12 +209,15 @@ interface State {
   promotions: Promotion[];
   detections: Detection[];
   history: HistoryEntry[];
-  seq: { draft: number };
+  requests: Request[];
+  seq: { draft: number; req: number; preview: number };
 }
 interface Base {
   catalog: Catalog;
   comps: Record<string, ComponentData>;
   guides: Record<string, Policy>;
+  /** 기준 토큰 (tokens/variables.json, Figma 변수) */
+  tokens: Record<string, Token>;
 }
 
 let base: Base;
@@ -200,13 +237,23 @@ function fresh(): State {
   return {
     v: 2,
     version: base.catalog.meta.version,
-    pub: { items: {}, added: [], rules: {}, addedRules: [], guides: {}, comps: {}, code: {}, texts: {} },
+    pub: { items: {}, added: [], rules: {}, addedRules: [], guides: {}, comps: {}, code: {}, texts: {}, tokens: {} },
     drafts: [],
     promotions: clone(base.catalog.promotions),
     detections: clone(base.catalog.detections),
     history: [{ version: base.catalog.meta.version, at: now(), mode: '구축', by: 'approver', notes: [{ title: 'SB Studio 포털 카탈로그 0.5 · 저장소 컴포넌트 · UX표준가이드 1.2 이관' }] }],
-    seq: { draft: 1 },
+    requests: seedRequests(),
+    seq: { draft: 1, req: 3, preview: 0 },
   };
+}
+
+// 시연용 요청 2건 (Storyboard 작성 중 발견)
+function seedRequests(): Request[] {
+  const t = now();
+  return [
+    { id: 'RQ-0001', kind: 'icon', title: 'export 아이콘', detail: '엑셀 내려받기 버튼 · 16px · SVC-02-001 조회 화면', by: 'viewer', stage: '디자인 작업', dummy: true, log: [{ at: t, by: 'viewer', text: '요청 (AI 더미로 기획 계속)' }, { at: t, by: 'ds', text: '디자인 작업 시작' }] },
+    { id: 'RQ-0002', kind: 'comp', title: 'DateField 빠른 기간 버튼', detail: '오늘 · 1주 · 1개월 버튼을 변형으로 추가 · 부가서비스 가입 관리 SB', by: 'viewer', stage: '요청됨', log: [{ at: t, by: 'viewer', text: '요청' }] },
+  ];
 }
 
 function save() {
@@ -238,6 +285,15 @@ export function init(b: Base) {
   }
   S.pub.code ||= {}; // 코드 편집 전에 저장된 상태
   S.pub.texts ||= {};
+  S.pub.tokens ||= {};
+  S.requests ||= seedRequests();
+  S.seq.req ||= 3;
+  S.seq.preview ||= 0;
+  // 예전 심사 단계 이름 → 2단 심사 이름
+  const OLD: Record<string, string> = { '구조 확인': 'SB팀 표준', '모양 확인': 'UI팀 디자인', '최종 승인': '배포' };
+  S.promotions.forEach((p) => {
+    if (OLD[p.stage]) p.stage = OLD[p.stage];
+  });
 }
 export function reset() {
   S = fresh();
@@ -332,7 +388,7 @@ const ITEM_LABEL: Record<string, string> = { name: '이름', meaning: '뜻', var
 export function draftItem(role: Role, code: string, fields: Partial<Item>) {
   const cur = item(code);
   if (!cur) throw new Error(`${code}가 없습니다`);
-  must(role, cur.kind);
+  must(role, editKind(cur));
   const lines: string[] = [];
   let bump: Bump = 'PATCH';
   for (const [k, v] of Object.entries(fields) as [keyof Item, string][]) {
@@ -438,7 +494,7 @@ function lineDiff(a: string, b: string) {
   return { add, del };
 }
 
-/** 컴포넌트 React 코드 편집 (디자인 시스템 담당). repo면 저장소 코드로 되돌리는 초안 */
+/** 컴포넌트 React 코드 편집 (DS 담당자). repo면 저장소 코드로 되돌리는 초안 */
 export function draftCode(role: Role, key: string, file: string, source: string, repoSource: string) {
   must(role, 'code');
   const before = publishedCode(key) ?? repoSource;
@@ -476,17 +532,151 @@ export function draftText(role: Role, key: string, name: string, path: string, l
   return upsertDraft({ type: 'text', target: key, key, title: `${name} 설명 수정`, after: { fields, labels, original }, lines, bump: 'PATCH' }, role);
 }
 
+// ---------- 토큰 (DS 담당자) ----------
+// 기준: tokens/variables.json(Figma 변수) + 게시된 추가 · 수정 · 삭제. 가리키는 토큰(ref)이 있으면 값은 그 토큰을 따라간다.
+
+/** Figma 이름 → CSS 변수 이름 (color/bg/brand → --color-bg-brand, iconOnly → icon-only) */
+export const cssName = (figma: string) => `--${String(figma).trim().replace(/([a-z0-9])([A-Z])/g, '$1-$2').toLowerCase().replace(/[^a-z0-9/._-]/g, '').replace(/[/.]+/g, '-')}`;
+
+export function tokens(): Record<string, Token> {
+  const T: Record<string, Token> = clone(base.tokens || {});
+  for (const [css, t] of Object.entries(S.pub.tokens)) {
+    if (t === null) delete T[css];
+    else T[css] = { ...(T[css] || {}), ...t };
+  }
+  // 값 풀기: 가리키는 토큰의 값을 따라간다 (베이스 색이 바뀌면 역할 · 컴포넌트도 같이 바뀜)
+  const resolve = (css: string, seen = new Set<string>()): string | undefined => {
+    const t = T[css];
+    if (!t || !t.ref || seen.has(css)) return t?.value;
+    seen.add(css);
+    return T[t.ref] ? resolve(t.ref, seen) : t.value;
+  };
+  for (const css of Object.keys(T)) T[css] = { ...T[css], value: resolve(css) ?? T[css].value };
+  return T;
+}
+
+/** 토큰 추가 · 수정 · 삭제 초안. 추가는 MINOR, 기존 토큰 수정 · 삭제는 쓰는 부품이 바뀌어 MAJOR */
+export function draftToken(role: Role, f: { figma: string; collection?: string; value?: string; ref?: string }, remove = false) {
+  must(role, 'token');
+  const T = tokens();
+  const figma = String(f.figma || '').trim().replace(/^\/+|\/+$/g, '');
+  if (!/^[a-zA-Z][\w./-]*$/.test(figma)) throw new Error('토큰 이름은 color/bg/brand/default처럼 영문 · 숫자 · / 로 씁니다');
+  const css = cssName(figma);
+  const cur = T[css] || null;
+  if (remove) {
+    if (!cur) throw new Error(`${figma} 토큰이 없습니다`);
+    const users = Object.entries(T).filter(([, t]) => t.ref === css).map(([k]) => k);
+    if (users.length) throw new Error(`이 토큰을 가리키는 토큰이 있어 지울 수 없습니다: ${users.slice(0, 3).join(', ')}${users.length > 3 ? ' …' : ''}`);
+    return upsertDraft({ type: 'token', target: css, title: `${figma} 토큰 삭제`, after: null, lines: [`토큰 삭제: ${figma} (${cur.value})`], bump: 'MAJOR' }, role);
+  }
+  const collection = f.collection as Token['collection'];
+  if (!['Primitive', 'Semantic', 'Component'].includes(collection)) throw new Error('단계를 고르세요');
+  const refIn = (f.ref || '').trim();
+  const refCss = refIn ? (refIn.startsWith('--') ? refIn : cssName(refIn)) : null;
+  if (collection !== 'Primitive' && !refCss) throw new Error('역할 · 컴포넌트 토큰은 가리키는 토큰을 고릅니다 (값을 직접 넣지 않음)');
+  if (refCss && !T[refCss]) throw new Error(`가리키는 토큰이 없습니다: ${refIn}`);
+  if (refCss === css) throw new Error('자기 자신을 가리킬 수 없습니다');
+  const type = refCss ? T[refCss].type : 'COLOR';
+  const value = refCss ? T[refCss].value : String(f.value || '').trim();
+  if (!refCss && !/^#([0-9a-f]{6}|[0-9a-f]{8})$/i.test(value) && !Number.isFinite(Number(value))) throw new Error('값은 #RRGGBB 색이나 숫자로 넣습니다');
+  const after: Token = { figma, collection, type: refCss ? type : /^#/.test(value) ? 'COLOR' : 'FLOAT', value, ref: refCss };
+  const lines: string[] = [];
+  if (!cur) lines.push(`토큰 추가: ${figma} = ${refCss ? `→ ${T[refCss].figma}` : value}`);
+  else {
+    if (cur.collection !== collection) lines.push(`단계: ${cur.collection} → ${collection}`);
+    if ((cur.ref || null) !== after.ref) lines.push(`가리키는 토큰: ${cur.ref ? T[cur.ref]?.figma || cur.ref : '-'} → ${refCss ? T[refCss].figma : '-'}`);
+    if (!refCss && cur.value !== value) lines.push(`값: ${cur.value} → ${value}`);
+    if (!lines.length) throw new Error('바뀐 내용이 없습니다');
+    const users = Object.values(T).filter((t) => t.ref === css).length;
+    if (users) lines.push(`이 토큰을 가리키는 토큰 ${users}개도 함께 바뀜`);
+  }
+  return upsertDraft({ type: 'token', target: css, title: `${figma} 토큰 ${cur ? '수정' : '추가'}`, after, isNew: !cur, lines, bump: cur ? 'MAJOR' : 'MINOR' }, role);
+}
+
+// ---------- 요청 (내 요청 · 디자인 요청) ----------
+
+export const requests = () => S.requests;
+
+export function addRequest(role: Role, f: { kind: string; title: string; detail?: string }) {
+  if (!(f.kind in REQ_KINDS)) throw new Error('요청 종류를 고르세요');
+  if (!String(f.title || '').trim()) throw new Error('무엇이 필요한지 적어 주세요');
+  const id = `RQ-${String(++S.seq.req).padStart(4, '0')}`;
+  const kind = f.kind as ReqKind;
+  S.requests.unshift({ id, kind, title: f.title.trim(), detail: (f.detail || '').trim(), by: role, stage: '요청됨', dummy: kind === 'icon', log: [{ at: now(), by: role, text: kind === 'icon' ? '요청 (AI 더미로 기획 계속)' : '요청' }] });
+  save();
+  return S.requests[0];
+}
+
+/** DS 담당자가 요청을 다음 단계로. 아이콘이 완료되면 더미를 교체하고 요청자에게 알린다 */
+export function advanceRequest(role: Role, id: string) {
+  if (role !== 'ds') throw new Error('DS 담당자가 처리합니다');
+  const r = S.requests.find((x) => x.id === id);
+  if (!r) throw new Error('없는 요청입니다');
+  const i = REQ_STAGES.indexOf(r.stage);
+  if (i >= REQ_STAGES.length - 1) throw new Error('이미 완료된 요청입니다');
+  r.stage = REQ_STAGES[i + 1];
+  r.log.push({ at: now(), by: role, text: r.stage });
+  if (r.stage === '완료' && r.dummy) {
+    r.dummy = false;
+    r.notified = true;
+    r.log.push({ at: now(), by: role, text: '더미 아이콘 교체 · 요청자에게 알림' });
+  }
+  save();
+  return r;
+}
+
+// ---------- 내 변경 → 배포 요청 ----------
+
+/** 미리보기로 확인한 초안을 관리자에게 배포 요청 (초안을 만든 담당자) */
+export function requestDeploy(role: Role, id: string) {
+  const d = S.drafts.find((x) => x.id === id);
+  if (!d || d.status !== 'draft') throw new Error('초안이 아닙니다');
+  if (d.by !== role) throw new Error('초안을 만든 담당자가 배포 요청합니다');
+  if (d.requested) throw new Error('이미 배포 요청한 초안입니다');
+  d.requested = true;
+  S.seq.preview++;
+  d.log.push({ at: now(), by: role, text: '미리보기 확인 · 배포 요청' });
+  save();
+  return d;
+}
+
+/** 다음 배포 버전의 미리보기 표기 (예: 1.4.0-preview.3) */
+export function previewVersion() {
+  const L = S.drafts.filter((d) => d.status === 'draft' && d.requested);
+  if (!L.length) return null;
+  return `${bumpVersion(S.version, maxBump(L.map((d) => d.bump)))}-preview.${S.seq.preview}`;
+}
+
+export interface RecheckRow {
+  version: string;
+  at: string;
+  target: string;
+  change: string;
+  impact: string;
+  source: string;
+  action?: string;
+  idx?: number;
+}
+/** 재검수 대상: MAJOR로 배포된 변경과 변경 감지에서 SB에 영향이 있는 것 */
+export function recheck(): RecheckRow[] {
+  const fromHistory = S.history
+    .filter((h) => h.bump === 'MAJOR')
+    .flatMap((h) => (h.notes || []).filter((n) => n.bump === 'MAJOR').map((n) => ({ version: h.version, at: h.at, target: n.title, change: (n.lines || []).join(' · '), impact: '이 버전 이전에 만든 SB', source: '배포' })));
+  const fromDetect = S.detections.map((d, idx) => ({ d, idx })).filter(({ d }) => d.impact && !/영향 없음/.test(d.impact)).map(({ d, idx }) => ({ version: '-', at: d.at, target: d.target, change: d.change, impact: d.impact, source: d.file, action: d.action, idx }));
+  return [...fromHistory, ...fromDetect];
+}
+
 export function discard(role: Role, id: string) {
   const d = S.drafts.find((x) => x.id === id);
   if (!d || d.status !== 'draft') throw new Error('초안이 아닙니다');
-  if (role !== d.by && role !== 'approver') throw new Error('초안을 만든 담당이나 포털 승인 담당만 버릴 수 있습니다');
+  if (role !== d.by && role !== 'approver') throw new Error('초안을 만든 담당자나 관리자만 버릴 수 있습니다');
   d.status = role === 'approver' ? 'rejected' : 'discarded';
   d.log.push({ at: now(), by: role, text: role === 'approver' ? '반려' : '초안 버림' });
   save();
   return d;
 }
 
-// ---------- 게시 · 롤백 (포털 승인 담당) ----------
+// ---------- 운영 서버 배포 · 롤백 (관리자) ----------
 
 function apply(d: Draft) {
   const P = S.pub;
@@ -502,6 +692,7 @@ function apply(d: Draft) {
       else P.addedRules.splice(added, 1);
     } else P.rules[d.target] = d.after ? { ...d.after } : null;
   } else if (d.type === 'guide') P.guides[d.target] = d.after;
+  else if (d.type === 'token') P.tokens[d.target] = d.after ? { ...d.after } : null;
   else if (d.type === 'text') P.texts[d.target] = { ...(P.texts[d.target] || {}), ...d.after.fields };
   else if (d.type === 'code') {
     if (d.after.repo) delete P.code[d.target];
@@ -520,10 +711,11 @@ function apply(d: Draft) {
   }
 }
 
-export function publish(role: Role, ids: string[], reason?: string) {
-  if (role !== 'approver') throw new Error('게시는 포털 승인 담당이 합니다');
-  const L = S.drafts.filter((d) => d.status === 'draft' && ids.includes(d.id));
-  if (!L.length) throw new Error('게시할 초안을 고르세요');
+export function publish(role: Role, ids: string[], reason?: string, mode: '정기' | '수동' = '정기') {
+  if (role !== 'approver') throw new Error('배포는 관리자가 합니다');
+  const L = S.drafts.filter((d) => d.status === 'draft' && d.requested && ids.includes(d.id));
+  if (!L.length) throw new Error('배포할 요청을 고르세요 (담당자가 배포 요청한 초안만 배포됩니다)');
+  if (mode === '수동' && !String(reason || '').trim()) throw new Error('수동 배포는 사유를 적어 주세요');
   const prevPub = clone(S.pub);
   const bump = maxBump(L.map((d) => d.bump));
   const from = S.version;
@@ -532,15 +724,15 @@ export function publish(role: Role, ids: string[], reason?: string) {
     apply(d);
     d.status = 'published';
     d.version = S.version;
-    d.log.push({ at: now(), by: role, text: `게시 → ${S.version}` });
+    d.log.push({ at: now(), by: role, text: `${mode} 배포 → ${S.version}` });
   }
-  S.history.unshift({ version: S.version, from, at: now(), mode: '게시', by: role, bump, reason: reason || '', prevPub, notes: L.map((d) => ({ id: d.id, title: d.title, bump: d.bump, lines: d.lines, impact: d.bump === 'MAJOR' ? '이미 만든 SB 재검수' : '영향 없음' })) });
+  S.history.unshift({ version: S.version, from, at: now(), mode: `${mode} 배포`, by: role, bump, reason: reason || '', prevPub, notes: L.map((d) => ({ id: d.id, title: d.title, bump: d.bump, lines: d.lines, impact: d.bump === 'MAJOR' ? '이미 만든 SB 재검수' : '영향 없음' })) });
   save();
   return S.history[0];
 }
 
 export function rollback(role: Role, reason?: string) {
-  if (role !== 'approver') throw new Error('롤백은 포털 승인 담당이 합니다');
+  if (role !== 'approver') throw new Error('롤백은 관리자가 합니다');
   const last = S.history[0];
   if (!last.prevPub) throw new Error('되돌릴 게시가 없습니다');
   S.pub = clone(last.prevPub);
@@ -557,7 +749,7 @@ export function rollback(role: Role, reason?: string) {
   return S.history[0];
 }
 
-// ---------- 승격 요청 ----------
+// ---------- 승격 심사 ----------
 
 export function promote(role: Role, idx: number, ok: boolean, extra: { note?: string; url?: string } = {}) {
   const p = S.promotions[idx];
@@ -577,7 +769,7 @@ export function promote(role: Role, idx: number, ok: boolean, extra: { note?: st
   const i = PROMO_STAGES.indexOf(st);
   if (i < PROMO_STAGES.length - 1) p.stage = PROMO_STAGES[i + 1].stage;
   else {
-    // 최종 승인: 코드 앞자리만 바꿔 정식 부품으로 (tb- → b-, tc- → c-), 바로 게시
+    // 관리자 배포: 코드 앞자리만 바꿔 정식 부품으로 (tb- → b-, tc- → c-), 바로 배포
     const code = p.code.replace(/^tb-/, 'b-').replace(/^tc-/, 'c-');
     const prevPub = clone(S.pub);
     S.pub.added.push({ code, kind: code.startsWith('b-') ? 'block' : 'comp', name: p.name, status: 'pub', design: !!p.figma, ux: true, meaning: `${p.judge} · ${p.from}에서 승격`, variants: '-', slot: '-', promotedFrom: p.code });
@@ -593,9 +785,9 @@ export function promote(role: Role, idx: number, ok: boolean, extra: { note?: st
 }
 
 export function addPromotion(role: Role, f: { code: string; name: string; from?: string; judge?: string }) {
-  if (role !== 'ux' && role !== 'approver') throw new Error('승격 요청 등록은 UX 가이드 담당이 합니다');
+  if (role !== 'ux' && role !== 'approver') throw new Error('승격 후보 등록은 UX 담당자가 합니다');
   const n = S.promotions.length + 12;
-  S.promotions.unshift({ id: `PR-${String(n + 1).padStart(4, '0')}`, code: f.code, name: f.name, from: f.from || '-', judge: f.judge || '-', stage: '구조 확인', status: '대기', log: [{ at: now(), by: role, text: '등록' }] });
+  S.promotions.unshift({ id: `PR-${String(n + 1).padStart(4, '0')}`, code: f.code, name: f.name, from: f.from || '-', judge: f.judge || '-', stage: PROMO_STAGES[0].stage, status: '대기', log: [{ at: now(), by: role, text: '등록' }] });
   save();
   return S.promotions[0];
 }

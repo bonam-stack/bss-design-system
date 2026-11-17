@@ -1,6 +1,6 @@
 // 컴포넌트 페이지 (SEED 문서형): 미리보기 → Anatomy → Properties → Guidelines → Usage → 개발 정보.
 // 미리보기 · 예시는 모두 src/ds/components의 React 컴포넌트로 그린다. 포털에 게시된 코드가 있으면 그 코드로 그린다.
-// 디자인 시스템 담당은 같은 페이지에서 코드를 고치고(미리보기 · 예시가 바로 바뀜) Figma 원본과 견준 뒤 초안으로 저장한다.
+// DS 담당자은 같은 페이지에서 코드를 고치고(미리보기 · 예시가 바로 바뀜) Figma 원본과 견준 뒤 초안으로 저장한다.
 import { Component as ReactComponent, createContext, useContext, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import type { CSSProperties, ReactNode } from 'react';
 import type { SiteComponent, Guide, GuideRow } from '../data';
@@ -105,7 +105,7 @@ export function ComponentPage({ sc }: { sc: SiteComponent }) {
   const ok = isRenderable(base);
   const a = analyze(base);
 
-  // 게시된 코드 → 저장소 코드 순. 디자인 시스템 담당이 편집 중이면 편집 중인 코드
+  // 게시된 코드 → 저장소 코드 순. DS 담당자이 편집 중이면 편집 중인 코드
   const repo = repoSource(sc.name);
   const published = P.publishedCode(key);
   const current = published ?? repo;
@@ -134,11 +134,11 @@ export function ComponentPage({ sc }: { sc: SiteComponent }) {
   const itemMeaning = P.itemByKey(key)?.meaning;
   const itemCode = P.itemByKey(key)?.code;
   const { toast } = usePortal();
-  const toastDraft = (id: string) => toast(`초안 ${id}에 담았습니다 · 포털 승인 담당이 게시하면 반영됩니다`);
+  const toastDraft = (id: string) => toast(`초안 ${id}에 담았습니다 · 관리자가 배포하면 반영됩니다`);
   const onSel = (v: string) => a.selectProp && update({ ...sel, [a.selectProp.name]: v });
 
   const saveDraft = () =>
-    act(() => P.draftCode(role, key, fileOf(sc.name), editorSrc, repo), (d) => `초안 ${d.id} 저장 · 포털 승인 담당이 게시하면 모두에게 반영`).then((d) => {
+    act(() => P.draftCode(role, key, fileOf(sc.name), editorSrc, repo), (d) => `초안 ${d.id} 저장 · 관리자가 배포하면 모두에게 반영`).then((d) => {
       if (d) {
         setDraftSrc(null);
         closeEdit();
@@ -201,7 +201,7 @@ export function ComponentPage({ sc }: { sc: SiteComponent }) {
               <div className="ed-h">
                 <b>컴포넌트 코드</b>
                 <span>
-                  {fileOf(sc.name)} · 고치면 위 미리보기와 아래 예시가 바로 바뀝니다. 초안으로 저장하면 포털 승인 담당이 게시합니다{published ? ' · 지금 게시된 코드가 저장소 코드와 다릅니다' : ''}
+                  {fileOf(sc.name)} · 고치면 위 미리보기와 아래 예시가 바로 바뀝니다. 초안으로 저장하면 관리자이 게시합니다{published ? ' · 지금 게시된 코드가 저장소 코드와 다릅니다' : ''}
                 </span>
               </div>
               <div className="row">

@@ -4,7 +4,7 @@ import * as P from './portal/store';
 import type { Role } from './portal/store';
 import { Ctx, emptyUi } from './portal/ctx';
 import type { PortalCtx, TocItem, UiState } from './portal/ctx';
-import { catalog, components, componentByKey, patterns } from './data';
+import { catalog, components, componentByKey, patterns, baseTokens } from './data';
 import { EditorBar, Pager, RoleMenu, SideNav, TopNav } from './nav';
 import { LastUpdated, TocList, setToast } from './ui';
 import { portalPage } from './pages/portal';
@@ -22,6 +22,7 @@ P.init({
   catalog,
   comps: Object.fromEntries(components.map((c) => [c.data.key, c.data])),
   guides: Object.fromEntries(components.filter((c) => c.guide?.policy).map((c) => [c.data.key, c.guide!.policy!])),
+  tokens: baseTokens,
 });
 
 const ROLE_KEY = 'bss-design-portal.role';
@@ -41,7 +42,7 @@ function lsSet(k: string, v: string) {
 }
 
 // 예전 주소(#cmp, #gov 탭 등)도 열리게
-const ALIAS: Record<string, string> = { cmp: 'components', blk: 'blocks', gov: 'rules', 'gov-layouts': 'patterns', 'gov-slots': 'slots', 'gov-lint': 'lint', 'gov-patterns': 'patterns' };
+const ALIAS: Record<string, string> = { pub: 'deploy', chg: 'recheck', cmp: 'components', blk: 'blocks', gov: 'rules', 'gov-layouts': 'patterns', 'gov-slots': 'slots', 'gov-lint': 'lint', 'gov-patterns': 'patterns' };
 const readRoute = () => location.hash.replace(/^#/, '') || 'overview';
 const codeOf = (key: string) => P.itemByKey(key)?.code || `c-${key}`;
 
@@ -67,7 +68,6 @@ export function App() {
   const [toastMsg, setToastMsg] = useState<{ text: string; n: number } | null>(null);
   const [toc, setToc] = useState<{ title: string; items: TocItem[] }>({ title: '', items: [] });
   const content = useRef<HTMLElement>(null);
-  const isEditor = role !== 'viewer';
 
   const toast = useCallback((text: string) => setToastMsg((t) => ({ text, n: (t?.n || 0) + 1 })), []);
   useEffect(() => setToast(toast), [toast]);
@@ -81,8 +81,10 @@ export function App() {
     setRoleState(r);
     lsSet(ROLE_KEY, r);
     setUi((u) => ({ ...u, edit: null, editRule: null }));
-    // 관리 페이지에 있다가 보기로 바꾸면 개요로
-    if (r === 'viewer' && ['pub', 'promo', 'chg'].includes(readRoute())) location.hash = '#overview';
+    // 그 역할에 없는 작업 페이지에 있으면 개요로
+    const WORK: Record<string, Role[]> = { 'ux-edit': ['ux'], 'sb-edit': ['ux'], my: ['ux', 'ds'], requests: ['ds'], convert: ['ds'], deploy: ['approver'], recheck: ['approver'], roles: ['approver'], promo: ['ux', 'ds', 'approver'] };
+    const cur = readRoute();
+    if (WORK[cur] && !WORK[cur].includes(r)) location.hash = '#overview';
   };
 
   // 페이지를 옮기면 편집 칸을 닫고 맨 위로 (편집 뒤 다시 그릴 때는 자리 유지)
@@ -123,7 +125,7 @@ export function App() {
     page = <PortalOnlyPage c={P.comp(key)!} />;
     withUpdated = true;
   } else {
-    page = portalPage(route, isEditor);
+    page = portalPage(route, role);
     withUpdated = !!it;
     if (page === null) redirect = 'overview';
   }

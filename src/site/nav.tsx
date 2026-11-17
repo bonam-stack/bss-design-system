@@ -1,6 +1,6 @@
 // 위쪽 섹션 메뉴 · 왼쪽 목록 · 이전/다음 · 역할 선택 · 에디터 모드 띠.
-// 누구에게나 같은 문서 사이트가 보이고, 오른쪽 위에서 담당 역할을 고르면 같은 페이지에 에디터 모드가 켜진다.
-// 관리 메뉴(초안 · 게시, 승격 요청, 변경 감지)는 담당 역할에서만 보인다.
+// 누구에게나 같은 문서와 "내 요청"이 보이고, 역할(SB Studio 계정에서 받음)에 따라 작업 메뉴와 문서 안 편집 칸이 켜진다.
+// 작업 메뉴: UX 담당자 = UX 편집, DS 담당자 = DS 작업, 관리자 = 관리자.
 import * as P from './portal/store';
 import type { Role } from './portal/store';
 import { usePortal } from './portal/ctx';
@@ -15,38 +15,69 @@ export type Section = [key: string, label: string, items: NavItem[]];
 /** UX 패턴 가이드 문서를 그 섹션 목록에 (소제목 = 가이드의 묶음) */
 const guideItems = (place: Place, sub: (group: string) => string): NavItem[] => docsIn(place).map((d) => [guideRoute(d.id), d.title, sub(d.group.split(' › ')[0])]);
 
-export function sections(isEditor: boolean): Section[] {
+export function sections(role: Role): Section[] {
   const I = P.items();
   const S: Section[] = [
-    ['start', '시작하기', [['overview', '개요'], ['stack', '조립 구조'], ['updates', '업데이트'], ...guideItems('start', () => 'UX 원칙')]],
-    ['foundations', 'Foundations', [['icons', '아이콘', '디자인 에셋'], ['tokens', '디자인 토큰', '디자인 에셋'], ...guideItems('foundations', (g) => g || '파운데이션')]],
-    ['components', 'Components', [['components', '전체'], ...I.filter((i) => i.kind === 'comp').sort((a, b) => a.name.localeCompare(b.name, 'en')).map((i): NavItem => [i.code, i.name, '컴포넌트']), ...guideItems('components', (g) => `컴포넌트 가이드${g ? ` · ${g}` : ''}`)]],
-    ['blocks', 'Blocks', [['blocks', '전체'], ...I.filter((i) => i.kind === 'block').map((i): NavItem => [i.code, i.name, '블록']), ...guideItems('blocks', (g) => `모듈${g ? ` · ${g}` : ''}`)]],
-    ['patterns', 'Patterns', [['patterns', '전체'], ...patterns.map((p): NavItem => [`pattern-${p.key}`, `${p.name} 패턴`, 'Figma 패턴']), ...guideItems('patterns', (g) => g || '패턴'), ...I.filter((i) => i.kind === 'layout').map((i): NavItem => [i.code, `${i.name} 레이아웃`, '레이아웃 규칙'])]],
     ['governance', 'UX 거버넌스', [['rules', '규칙'], ['slots', '빈칸'], ['lint', '검증 규칙'], ['glossary', '용어사전'], ...guideItems('governance', () => '작성 기준').filter(([r]) => r !== guideRoute('glossary'))]],
+    ['start', '시작하기', [['overview', '개요'], ['stack', '조립 구조'], ['updates', '업데이트'], ...guideItems('start', () => 'UX 원칙')]],
+    [
+      'foundations',
+      'Foundations',
+      [
+        ['foundations', '개요'],
+        ['color', '색상', '디자인 에셋'],
+        ['typography', '타이포그래피', '디자인 에셋'],
+        ['dimension', '간격 · 모서리', '디자인 에셋'],
+        ['icons', '아이콘', '디자인 에셋'],
+        ['elevation', '그림자', '디자인 에셋'],
+        ['motion', '모션', '디자인 에셋'],
+        ['writing', '문구 (보이스 · 표기)', '디자인 에셋'],
+        ['tokens', '디자인 토큰', '디자인 에셋'],
+        ...guideItems('foundations', (g) => g || '파운데이션'),
+      ],
+    ],
+    ['components', 'Components', [['components', '전체'], ...I.filter((i) => i.kind === 'comp').sort((a, b) => a.name.localeCompare(b.name, 'en')).map((i): NavItem => [i.code, i.name, '컴포넌트']), ...guideItems('components', (g) => `컴포넌트 가이드${g ? ` · ${g}` : ''}`)]],
+    [
+      'blocks',
+      'Blocks',
+      [
+        ['blocks', '전체'],
+        ...I.filter((i) => i.kind === 'block' && !P.isSb(i)).map((i): NavItem => [i.code, i.name, '공통 블록']),
+        ...I.filter((i) => P.isSb(i)).map((i): NavItem => [i.code, i.name, 'SB 블록']),
+        ...guideItems('blocks', (g) => `모듈${g ? ` · ${g}` : ''}`),
+      ],
+    ],
+    ['patterns', 'Patterns', [['patterns', '전체'], ...patterns.map((p): NavItem => [`pattern-${p.key}`, `${p.name} 패턴`, 'Figma 패턴']), ...guideItems('patterns', (g) => g || '패턴'), ...I.filter((i) => i.kind === 'layout').map((i): NavItem => [i.code, `${i.name} 레이아웃`, '레이아웃 규칙'])]],
+    ['mine', '내 요청', [['my-requests', '내 요청']]],
   ];
-  if (isEditor) S.push(['admin', '관리', [['pub', '초안 · 게시'], ['promo', '승격 요청'], ['chg', '변경 감지']]]);
+  if (role === 'ux') S.push(['work', 'UX 편집', [['ux-edit', '기준 편집'], ['sb-edit', 'SB library 편집'], ['my', '내 변경'], ['promo', '승격 심사']]]);
+  if (role === 'ds') S.push(['work', 'DS 작업', [['requests', '디자인 요청'], ['convert', '소스 변환'], ['my', '내 변경'], ['promo', '승격 심사']]]);
+  if (role === 'approver') S.push(['work', '관리자', [['deploy', '운영 서버 배포'], ['recheck', '재검수 대상 SB'], ['roles', '권한 확인'], ['promo', '승격 심사']]]);
   return S;
 }
 
-export function sectionOf(route: string, isEditor: boolean) {
-  for (const [k, , items] of sections(isEditor)) if (items.some(([r]) => r === route)) return k;
+export function sectionOf(route: string, role: Role) {
+  for (const [k, , items] of sections(role)) if (items.some(([r]) => r === route)) return k;
   if (route.startsWith('pattern-')) return 'patterns';
   return 'start';
 }
 
-const adminCount = () => P.drafts((d) => d.status === 'draft').length + P.promotions().filter((p) => p.status === '대기').length;
+/** 작업 메뉴 숫자: 관리자 = 배포 요청, DS = 진행 중 요청 + 내 작성 중 초안, UX = 내 작성 중 초안 */
+const workCount = (role: Role) =>
+  role === 'approver'
+    ? P.drafts((d) => d.status === 'draft' && !!d.requested).length
+    : P.drafts((d) => d.status === 'draft' && d.by === role && !d.requested).length + (role === 'ds' ? P.requests().filter((r) => r.stage !== '완료').length : 0);
 
 export function TopNav({ route }: { route: string }) {
-  const { isEditor } = usePortal();
-  const cur = sectionOf(route, isEditor);
-  const n = adminCount();
+  const { role } = usePortal();
+  const cur = sectionOf(route, role);
+  const n = workCount(role);
   return (
     <>
-      {sections(isEditor).map(([k, label, items]) => (
-        <a key={k} href={`#${items[0][0]}`} className={`${k === cur ? 'on' : ''}${k === 'admin' ? ' admin' : ''}`} aria-current={k === cur ? 'true' : undefined}>
+      {sections(role).map(([k, label, items]) => (
+        <a key={k} href={`#${items[0][0]}`} className={`${k === cur ? 'on' : ''}${k === 'work' ? ' admin' : ''}`} aria-current={k === cur ? 'true' : undefined}>
           {label}
-          {k === 'admin' && n ? (
+          {k === 'work' && n ? (
             <>
               {' '}
               <em>{n}</em>
@@ -59,9 +90,9 @@ export function TopNav({ route }: { route: string }) {
 }
 
 export function SideNav({ route }: { route: string }) {
-  const { isEditor } = usePortal();
-  const all = sections(isEditor);
-  const cur = sectionOf(route, isEditor);
+  const { role, isEditor } = usePortal();
+  const all = sections(role);
+  const cur = sectionOf(route, role);
   const [, label, items] = all.find(([k]) => k === cur)!;
   const out: JSX.Element[] = [];
   let lastKind: string | null = null;
@@ -71,7 +102,7 @@ export function SideNav({ route }: { route: string }) {
       out.push(<div key={`sub-${sub}`} className="nav-sub">{sub}</div>);
       lastKind = sub;
     }
-    const draft = isEditor && it && (P.openDraft('item', r) || P.openDraft('guide', it.key) || P.openDraft('figma', it.key) || P.openDraft('code', it.key) || P.openDraft('text', it.key));
+    const draft = isEditor && it && (P.openDraft('item', r) || P.openDraft('guide', it.key) || P.openDraft('figma', it.key) || P.openDraft('code', it.key) || P.openDraft('text', it.key) || P.openDraft('code', r));
     out.push(
       <a key={r} href={`#${r}`} className={r === route ? 'on' : ''} aria-current={r === route ? 'page' : undefined}>
         {l}
@@ -98,8 +129,8 @@ export function SideNav({ route }: { route: string }) {
 
 /** 이전 · 다음 (같은 섹션 안에서) */
 export function Pager({ route }: { route: string }) {
-  const { isEditor } = usePortal();
-  const items = sections(isEditor).find(([k]) => k === sectionOf(route, isEditor))![2];
+  const { role } = usePortal();
+  const items = sections(role).find(([k]) => k === sectionOf(route, role))![2];
   const i = items.findIndex(([r]) => r === route);
   if (i < 0) return null;
   const prev = items[i - 1];
@@ -140,22 +171,24 @@ export function RoleMenu() {
   );
 }
 
-/** 에디터 모드 띠: 역할 · 고칠 수 있는 것 · 초안 수 */
+/** 에디터 모드 띠: 역할 · 하는 일 · 내 변경(관리자는 배포 요청) · 운영 버전 · 다음 미리보기 버전 */
 export function EditorBar() {
   const { role, isEditor } = usePortal();
   if (!isEditor) return null;
-  const what = { ux: '레이아웃 규칙 · 규칙 · 사용 가이드', ds: '블록 · 컴포넌트 코드 · Figma 읽기', approver: '초안 게시 · 반려 · 롤백 · 승격 최종 승인', viewer: '' }[role];
-  const mine = P.drafts((d) => d.status === 'draft' && (role === 'approver' || d.by === role)).length;
+  const what = { ux: '기준 편집(UX 패턴 · 레이아웃 규칙 · 사용 가이드) · SB library 소스 편집', ds: '토큰 · 컴포넌트 · 공통 블록 · 소스 변환 · 디자인 요청', approver: '운영 서버 배포 · 롤백 · 재검수 대상 SB · 권한 확인', viewer: '' }[role];
+  const n = role === 'approver' ? P.drafts((d) => d.status === 'draft' && !!d.requested).length : P.drafts((d) => d.status === 'draft' && d.by === role).length;
+  const pv = P.previewVersion();
   return (
     <div className="ed-bar">
-      <b>에디터 모드</b>
-      <span>
-        {P.ROLES[role]} · {what}
-      </span>
-      <a href="#pub">
-        {role === 'approver' ? '게시 대기' : '내 초안'} {mine}건
+      <b>{P.ROLES[role]}</b>
+      <span>{what}</span>
+      <a href={role === 'approver' ? '#deploy' : '#my'}>
+        {role === 'approver' ? '배포 요청' : '내 변경'} {n}건
       </a>
-      <span className="ed-ver">게시 {P.version()}</span>
+      <span className="ed-ver">
+        운영 {P.version()}
+        {pv ? ` · 다음 ${pv}` : ''}
+      </span>
     </div>
   );
 }
