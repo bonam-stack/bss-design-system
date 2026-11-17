@@ -3,8 +3,12 @@
 // 운영 기준 · poc/fixtures/figma/*.json에서 같은 노드를 찾는다. 같은 입력이면 항상 같은 결과가 나온다.
 import { fixtures } from "./fixtures.mjs";
 
-const TOKEN = process.env.FIGMA_TOKEN || "";
+let TOKEN = process.env.FIGMA_TOKEN || "";
 export const figmaMode = () => (TOKEN ? "live" : "mock");
+/** 브라우저(문서 사이트)에서 담당이 넣은 개인 Figma 토큰으로 바꾼다. 빈 값이면 환경 변수 또는 흉내 모드 */
+export const setFigmaToken = (t) => {
+  TOKEN = t || process.env.FIGMA_TOKEN || "";
+};
 
 export function parseFigmaUrl(url) {
   const m = String(url).match(/figma\.com\/(?:design|file)\/([A-Za-z0-9]+)(?:\/branch\/([A-Za-z0-9]+))?[^?]*(?:\?(.*))?/);

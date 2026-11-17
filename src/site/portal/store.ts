@@ -249,6 +249,7 @@ export function reset() {
 export const version = () => S.version;
 export const history = () => S.history;
 export const drafts = (pred: (d: Draft) => boolean = () => true) => S.drafts.filter(pred);
+export const draftById = (id: string) => S.drafts.find((d) => d.id === id) || null;
 export const openDraft = (type: DraftType, target: string | undefined) => S.drafts.find((d) => d.status === 'draft' && d.type === type && d.target === target) || null;
 
 // ---------- 게시본 ----------
@@ -303,6 +304,11 @@ export function comp(key: string): (ComponentData & { figmaSyncedAt?: string }) 
   const p = S.pub.comps[key];
   if (base.comps[key]) return p ? { ...base.comps[key], description: p.description ?? base.comps[key].description, figmaSyncedAt: p.syncedAt } : base.comps[key];
   return p ? ({ ...p, portalOnly: true } as PortalComp & { portalOnly: true }) : null;
+}
+/** 아직 게시 전인 새 컴포넌트 (Figma 읽기 초안). 담당은 게시 전에 이 페이지에서 코드를 먼저 만든다 */
+export function draftNewComp(key: string): (PortalComp & { portalOnly: true; draftId: string; code?: string }) | null {
+  const d = S.drafts.find((x) => x.status === 'draft' && x.type === 'figma' && x.isNew && x.key === key);
+  return d ? ({ ...(d.after as PortalComp), portalOnly: true, draftId: d.id, code: d.code } as PortalComp & { portalOnly: true; draftId: string; code?: string }) : null;
 }
 export const isRepoComp = (key: string) => !!base.comps[key];
 export const newComps = () => Object.values(S.pub.comps).filter((c) => !base.comps[c.key!]) as PortalComp[];
@@ -450,9 +456,9 @@ export function draftCode(role: Role, key: string, file: string, source: string,
   const repo = source === repoSource;
   const { add, del } = lineDiff(before, source);
   const propsChanged = propsBlock(before) !== propsBlock(source);
-  const lines = [repo ? `저장소 코드로 되돌리기 (${file})` : `${file} 수정 · +${add}줄 −${del}줄`];
-  if (propsChanged) lines.push('속성(Props) 정의가 바뀜 · 이 컴포넌트를 쓰는 화면 확인 필요');
-  return upsertDraft({ type: 'code', target: key, key, title: `${file.split('/').pop()} 코드 수정`, after: { source, repo }, lines, bump: propsChanged ? 'MAJOR' : 'PATCH' }, role);
+  const lines = [repo && repoSource ? `저장소 코드로 되돌리기 (${file})` : !before ? `${file} 새로 만듦 · ${source.split('\n').length}줄` : `${file} 수정 · +${add}줄 −${del}줄`];
+  if (propsChanged && before) lines.push('속성(Props) 정의가 바뀜 · 이 컴포넌트를 쓰는 화면 확인 필요');
+  return upsertDraft({ type: 'code', target: key, key, title: `${file.split('/').pop()} ${before ? '코드 수정' : '새 코드'}`, after: { source, repo }, lines, bump: !before ? 'MINOR' : propsChanged ? 'MAJOR' : 'PATCH' }, role);
 }
 
 /** 게시된 글 수정 (글 자리 → 글) */

@@ -1,7 +1,7 @@
 // BSS 디자인 포털 문서 사이트. 주소는 해시 한 토큰(#overview, #icons, #c-checkbox, #pattern-input …)이라 링크를 나눌 수 있다.
 import { useCallback, useEffect, useLayoutEffect, useRef, useState, useSyncExternalStore } from 'react';
 import * as P from './portal/store';
-import type { Role } from './portal/store';
+import type { PortalComp, Role } from './portal/store';
 import { Ctx, emptyUi } from './portal/ctx';
 import type { PendingText, PortalCtx, TocItem, UiState } from './portal/ctx';
 import { catalog, components, componentByKey, patterns } from './data';
@@ -9,7 +9,7 @@ import { Pager, RoleMenu, SideNav, TextEditBar, TopNav } from './nav';
 import { LastUpdated, TocList, setToast } from './ui';
 import { portalPage } from './pages/portal';
 import { ComponentPage } from './pages/ComponentPage';
-import { PortalOnlyPage } from './pages/compPortal';
+import { PortalOnlyPage } from './pages/PortalCompPage';
 import { IconsPage } from './pages/IconsPage';
 import { PatternPage } from './pages/PatternPage';
 import { ComparePage } from './pages/ComparePage';
@@ -122,8 +122,11 @@ export function App() {
     page = <ComponentPage key={sc.data.key} sc={sc} />;
     withUpdated = true;
   } else if (key && P.comp(key)) {
-    page = <PortalOnlyPage c={P.comp(key)!} />;
+    page = <PortalOnlyPage key={key} c={P.comp(key) as PortalComp} />;
     withUpdated = true;
+  } else if (route.startsWith('new-') && isEditor && P.draftNewComp(route.slice(4))) {
+    // 게시 전 새 컴포넌트: 담당이 코드를 먼저 만든다
+    page = <PortalOnlyPage key={route} c={P.draftNewComp(route.slice(4))!} draft />;
   } else {
     page = portalPage(route, isEditor);
     withUpdated = !!it;

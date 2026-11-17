@@ -54,6 +54,18 @@ import { Checkbox, Button, TextField, PasswordField, TextArea, RadioGroup, Radio
 - 색 · 치수는 `var(--토큰, Figma 값)`이라 토큰 CSS 없이도 Figma 값으로 그려지고, 토큰 CSS를 올리면 그 값을 따른다.
 - Figma와 일치: 모든 변형을 그려 비교한 결과 Button 172 · Checkbox 24 · Radio 16 · RadioGroup 2 · Divider 4 · HelperText 2 · TextField 108 · TextArea 36개가 픽셀 단위로 같다. PasswordField는 Figma가 `********`를 글자로 그린 자리를 브라우저가 `●`로 가리는 차이만 있다.
 
+### 새 컴포넌트 추가 (Figma 주소 → React 코드)
+
+1. 디자인 시스템 담당이 Components 페이지의 "컴포넌트 추가"에 Figma 컴포넌트 노드 주소를 넣고 읽으면, 게시 전 새 컴포넌트 페이지(`#new-<key>`)가 편집 모드로 열린다.
+2. 그 페이지의 "React 코드 만들기"에서 첫 코드를 만든다.
+   - **Figma 보고 AI로 만들기**: Anthropic API 키가 있으면 Claude가 Figma 속성과 레이어(크기 · 색 · 글자, Figma 토큰이 있을 때)를 보고 `src/ds/components/<Name>.tsx`를 처음부터 쓴다.
+   - **속성으로 기본 틀 만들기**: 키 없이도 Figma 속성(변형 · 불리언 · 글)으로 기본 틀을 만든다.
+   - 만든 코드는 바로 미리보기에 그려지고, 채팅으로 다듬은 뒤 초안으로 저장한다.
+3. 포털 승인 담당이 Figma 초안과 코드 초안을 게시하면 모두에게 컴포넌트 목록 · 페이지 · 미리보기가 나온다.
+4. 게시된 페이지에서 `<Name>.tsx`와 `component.json`을 내려받아 저장소에 커밋하면 저장소 컴포넌트가 된다.
+
+Figma 개인 토큰(figd_…)과 Anthropic API 키는 담당의 브라우저(localStorage)에만 저장되고, 각각 api.figma.com · api.anthropic.com으로만 보낸다. 토큰이 없으면 Figma는 흉내 모드(운영 기준 · `poc/fixtures/figma` 예시 노드)로 읽는다.
+
 ## UX 패턴 가이드 반영 (NEXT BSS UX Pattern Guide)
 
 caumuse에 게시된 UX 패턴 가이드(https://mocks.caumuse.kr/release/20261106/)의 문서를 그대로 붙이지 않고, 포털 구조로 나눠 넣었다.

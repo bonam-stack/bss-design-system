@@ -53,7 +53,7 @@ function makeLive(c: ComponentData, C: LiveComponent | null): Live {
 }
 
 /** 고친 코드에서 렌더 오류가 나도 페이지가 멈추지 않게 */
-class Boundary extends ReactComponent<{ resetKey: string; children: ReactNode }, { error: string | null; key: string }> {
+export class Boundary extends ReactComponent<{ resetKey: string; children: ReactNode }, { error: string | null; key: string }> {
   state = { error: null as string | null, key: this.props.resetKey };
   static getDerivedStateFromError(e: Error) {
     return { error: e.message };
@@ -300,7 +300,7 @@ export function ComponentPage({ sc }: { sc: SiteComponent }) {
   );
 }
 
-function CodeBlock({ label, text }: { label: string; text: string }) {
+export function CodeBlock({ label, text }: { label: string; text: string }) {
   return (
     <>
       <div className="code-head">
@@ -315,7 +315,7 @@ function CodeBlock({ label, text }: { label: string; text: string }) {
 }
 
 /** AI 채팅으로 코드 고치기: 말로 요청하면 Claude가 파일을 고쳐 미리보기에 바로 반영한다. 코드를 직접 보고 고칠 수도 있다 */
-function CodeChat(p: { name: string; value: string; onChange: (v: string) => void; error?: string; onSave: () => void; onReset: () => void; onRepo?: () => void; onCompare: () => void }) {
+export function CodeChat(p: { name: string; value: string; onChange: (v: string) => void; error?: string; onSave: () => void; onReset: () => void; onRepo?: () => void; onCompare?: () => void; hint?: string }) {
   const [turns, setTurns] = useState<(ChatTurn & { mode?: string; failed?: boolean })[]>([]);
   const [input, setInput] = useState('');
   const [busy, setBusy] = useState(false);
@@ -374,6 +374,7 @@ function CodeChat(p: { name: string; value: string; onChange: (v: string) => voi
       <div className="cc-log" ref={log} aria-live="polite">
         {!turns.length ? (
           <p className="cc-hint">
+            {p.hint ? <>{p.hint}<br /></> : null}
             예: "체크됐을 때 색을 #E5007E로 바꿔 줘", "라벨과 체크박스 사이를 8px로", "disabled일 때 라벨에 취소선". 고친 코드는 바로 미리보기에 그려지고, 초안 저장 전까지는 이 브라우저에만 있습니다.
           </p>
         ) : null}
@@ -423,9 +424,11 @@ function CodeChat(p: { name: string; value: string; onChange: (v: string) => voi
             <button className="btn2 primary sm" disabled={!!p.error} onClick={p.onSave}>
               초안 저장
             </button>
-            <button className="btn2 sm" onClick={p.onCompare}>
-              Figma 원본과 비교
-            </button>
+            {p.onCompare ? (
+              <button className="btn2 sm" onClick={p.onCompare}>
+                Figma 원본과 비교
+              </button>
+            ) : null}
             <button className="btn2 sm" onClick={p.onReset}>
               고친 것 되돌리기
             </button>
@@ -442,7 +445,7 @@ function CodeChat(p: { name: string; value: string; onChange: (v: string) => voi
 }
 
 /** 코드 편집기: 고정폭 글자, Tab은 공백 2칸, 줄 번호 */
-function CodeEditor({ value, onChange, error, onSave, onReset, onRepo, onCompare }: { value: string; onChange: (v: string) => void; error?: string; onSave: () => void; onReset: () => void; onRepo?: () => void; onCompare: () => void }) {
+function CodeEditor({ value, onChange, error, onSave, onReset, onRepo, onCompare }: { value: string; onChange: (v: string) => void; error?: string; onSave: () => void; onReset: () => void; onRepo?: () => void; onCompare?: () => void }) {
   const ta = useRef<HTMLTextAreaElement>(null);
   const gutter = useRef<HTMLPreElement>(null);
   const lines = value.split('\n').length;
@@ -485,9 +488,11 @@ function CodeEditor({ value, onChange, error, onSave, onReset, onRepo, onCompare
         <button className="btn2 primary sm" disabled={!!error} onClick={onSave}>
           초안 저장 (Ctrl/Cmd+S)
         </button>
-        <button className="btn2 sm" onClick={onCompare}>
-          Figma 원본과 비교
-        </button>
+        {onCompare ? (
+          <button className="btn2 sm" onClick={onCompare}>
+            Figma 원본과 비교
+          </button>
+        ) : null}
         <button className="btn2 sm" onClick={onReset}>
           고친 것 되돌리기
         </button>

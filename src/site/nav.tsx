@@ -33,6 +33,7 @@ export function sections(isEditor: boolean): Section[] {
 export function sectionOf(route: string, isEditor: boolean) {
   for (const [k, , items] of sections(isEditor)) if (items.some(([r]) => r === route)) return k;
   if (route.startsWith('pattern-')) return 'patterns';
+  if (route.startsWith('new-')) return 'components';
   return 'start';
 }
 

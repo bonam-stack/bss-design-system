@@ -256,14 +256,14 @@ function Grid({ list: L }: { list: Item[] }) {
 }
 
 function ItemList({ kind }: { kind: 'comp' | 'block' }) {
-  const { role, can, act } = usePortal();
+  const { role, can, act, setTextEdit } = usePortal();
   const I = P.items().filter((i) => i.kind === kind);
   const isComp = kind === 'comp';
   const pend = P.drafts((d) => d.status === 'draft' && d.type === 'figma' && !!d.isNew);
   const onAdd = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const v = formValues(e.currentTarget);
-    act(() => P.draftFigma(role, { code: v.code || null, url: v.url.trim() }), (d) => `${d.after.name} 읽기 · 초안 ${d.id} 저장`);
+    act(() => P.draftFigma(role, { code: v.code || null, url: v.url.trim() }), (d) => `${d.after.name} 읽기 · 초안 ${d.id} 저장 · 이어서 React 코드를 만드세요`, (d) => `#new-${d.key}`).then((d) => d && setTextEdit(true));
   };
   const sample = (e: React.MouseEvent<HTMLButtonElement>) => {
     const f = e.currentTarget.form!;
@@ -281,7 +281,7 @@ function ItemList({ kind }: { kind: 'comp' | 'block' }) {
         <section className="ed-panel" aria-label="컴포넌트 추가">
           <div className="ed-h">
             <b>컴포넌트 추가</b>
-            <span>UI팀이 Figma 디자인 시스템에 만든 컴포넌트 노드를 읽어 옵니다. 카탈로그 코드에 연결하면 그 항목의 디자인 에셋이 됩니다.</span>
+            <span>① Figma 컴포넌트 노드 주소를 넣고 읽으면 새 컴포넌트 페이지(게시 전)가 열립니다 → ② 그 페이지에서 Figma를 보고 React 코드를 만듭니다(AI 또는 기본 틀) → ③ 포털 승인 담당이 Figma 초안과 코드 초안을 게시합니다.</span>
           </div>
           <form className="ef" onSubmit={onAdd}>
             <div className="ef-r">
@@ -309,7 +309,13 @@ function ItemList({ kind }: { kind: 'comp' | 'block' }) {
             </div>
           </form>
           {pend.map((d) => (
-            <DraftBox key={d.id} d={d} />
+            <div key={d.id}>
+              <DraftBox d={d} />
+              <p className="note">
+                <a href={`#new-${d.key}`}>{d.after.name} 페이지에서 React 코드 만들기 →</a>
+                {P.openDraft('code', d.key) ? ' · 코드 초안 있음' : ' · 아직 코드 없음'}
+              </p>
+            </div>
           ))}
         </section>
       ) : null}

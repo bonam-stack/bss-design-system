@@ -1,12 +1,11 @@
 // 컴포넌트 상세 페이지의 포털 조각: 확인 표시, 담당 편집 칸, 게시된 규칙, 쓰이는 곳, Figma에서만 읽은 컴포넌트 페이지.
 import type { FormEvent } from 'react';
 import * as P from '../portal/store';
-import type { GuideRule, PortalComp } from '../portal/store';
+import type { GuideRule } from '../portal/store';
 import { usePortal } from '../portal/ctx';
 import { patterns } from '../data';
 import type { Guide } from '../data';
-import type { ComponentData } from '../../ds/figma/types';
-import { Check, CodeLink, DraftBox, EditBtn, GuideChips, Head, RulesBlock, StOf, Table, TextEditToggle, fmt } from '../ui';
+import { Check, CodeLink, DraftBox, EditBtn, GuideChips, RulesBlock, StOf, Table, fmt } from '../ui';
 
 /** 제목 아래: ✓ Figma ✓ 사용 가이드 · 상태 */
 export function CompChecks({ c, hasGuide }: { c: { key: string; figmaSyncedAt?: string }; hasGuide: boolean }) {
@@ -214,45 +213,4 @@ export function applyGuide(key: string, guide?: Guide, withDraft = false): Guide
   pl.do = g.rules.filter((r) => r.kind === 'do').map((r) => ({ id: r.id, text: r.text }));
   pl.dont = g.rules.filter((r) => r.kind === 'dont').map((r) => ({ id: r.id, text: r.text }));
   return { ...guide, policy: pl };
-}
-
-/** Figma에서 읽어 게시한(저장소에 레이어 데이터가 없는) 컴포넌트 페이지 */
-export function PortalOnlyPage({ c }: { c: PortalComp | ComponentData }) {
-  const r = P.itemByKey(c.key);
-  const ru = compRules(c.key);
-  return (
-    <>
-      <Head eyebrow="Components" title={c.name} lead={r?.meaning || c.description} extra={<><TextEditToggle /><CompChecks c={c} hasGuide={false} /></>} />
-      <CompEditor c={c} />
-      <div className="sb-ph">
-        <span>미리보기는 Figma 노드의 레이어 데이터를 받으면 그려집니다</span>
-      </div>
-      <h2 id="props">Properties</h2>
-      <h3>속성 목록</h3>
-      <Table
-        cols={['속성', '타입', '기본값', '선택지']}
-        rows={c.props.map((p) => (
-          <tr key={p.name}>
-            <td>{p.name}</td>
-            <td>{p.type}</td>
-            <td>{String(p.default ?? '')}</td>
-            <td>{(p.options || []).join(', ')}</td>
-          </tr>
-        ))}
-      />
-      <p className="muted">
-        변형 {c.variants.length}개 ·{' '}
-        <a href={c.figma?.url} target="_blank" rel="noopener">
-          Figma 노드 {c.figma?.nodeId}
-        </a>
-      </p>
-      {ru.length ? (
-        <>
-          <h2>Guidelines</h2>
-          <CompRules k={c.key} />
-        </>
-      ) : null}
-      <CompUsage k={c.key} />
-    </>
-  );
 }
