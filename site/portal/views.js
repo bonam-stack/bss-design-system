@@ -36,7 +36,7 @@ export const isEditor = () => role !== 'viewer';
 export function resetUi() { ui.edit = null; ui.editRule = null; }
 
 // ---------- 코드 편집 (DS 담당자) ----------
-// 컴포넌트 · 블록 · 앱쉘 페이지에서 HTML · CSS를 고치고 바로 미리 본다. 저장하면 초안, 관리자이 게시하면 모두에게 그 코드가 보인다.
+// 컴포넌트 · 블록 페이지에서 HTML · CSS를 고치고 바로 미리 본다. 저장하면 초안, 관리자가 배포하면 모두에게 그 코드가 보인다.
 
 /** 미리보기: 그림자 DOM 안에 그려 페이지 CSS와 섞이지 않게 한다 (스크립트는 실행되지 않음) */
 export function renderInto(host, html, css) {
@@ -150,7 +150,7 @@ export function bindCode() {
   });
 }
 
-/** 블록 · 앱쉘에 코드가 아직 없을 때 편집을 시작하는 틀 (색은 토큰, 간격 · 모서리는 베이스 토큰이 아직 없어 값) */
+/** 블록에 코드가 아직 없을 때 편집을 시작하는 틀 (색은 토큰, 간격 · 모서리는 베이스 토큰이 아직 없어 값) */
 const blockTemplate = (it) => ({
   from: '블록 기본 틀',
   resetLabel: '기본 틀로 되돌리기',
@@ -223,7 +223,6 @@ export function sections() {
     ['foundations', 'Foundations', [['foundations', '개요'], ['color', '색상', '기본 요소'], ['typography', '타이포그래피'], ['dimension', '간격 · 모서리'], ['icons', '아이콘'], ['elevation', '그림자'], ['motion', '모션'], ['writing', '문구 (보이스 · 표기)'], ['tokens', '토큰 구조', '구조']]],
     ['components', 'Components', [['components', '개요'], ['progress', '진행 현황'], ...sub(comps.map((i) => [i.code, i.name]), '컴포넌트')]],
     ['blocks', 'Blocks', [['blocks', '개요'],
-      ...sub(I.filter((i) => i.kind === 'shell').map((i) => [i.code, i.name]), '앱쉘'),
       ...sub(I.filter((i) => i.kind === 'block' && !isSb(i)).map((i) => [i.code, i.name]), '공통 블록'),
       ...sub(I.filter(isSb).map((i) => [i.code, i.name]), 'SB 블록')]],
     ['patterns', 'Patterns', [['patterns', '개요'], ...(ctx.data.patterns || []).map((p) => [`pattern-${p.key}`, `${p.name} 패턴`]), ...I.filter((i) => i.kind === 'layout').map((i) => [i.code, `${i.name} 레이아웃`])]],
@@ -329,7 +328,7 @@ export function roleMenu() {
 /** 에디터 모드 띠: 역할 · 고칠 수 있는 것 · 초안 수 */
 export function editorBar() {
   if (!isEditor()) return '';
-  const what = { ux: '기준 편집(UX 패턴 · 레이아웃 규칙 · 앱쉘 · 사용 가이드) · SB library 소스 편집', ds: '토큰 · 컴포넌트 · 공통 블록 · 소스 변환 · 디자인 요청', approver: '운영 서버 배포 · 롤백 · 재검수 대상 SB · 권한 확인' }[role];
+  const what = { ux: '기준 편집(UX 패턴 · 레이아웃 규칙 · 사용 가이드) · SB library 소스 편집', ds: '토큰 · 컴포넌트 · 공통 블록 · 소스 변환 · 디자인 요청', approver: '운영 서버 배포 · 롤백 · 재검수 대상 SB · 권한 확인' }[role];
   const n = role === 'approver' ? P.drafts((d) => d.status === 'draft' && d.requested).length : P.drafts((d) => d.status === 'draft' && d.by === role).length;
   const pv = P.previewVersion();
   return `<div class="ed-bar"><b>${esc(P.ROLES[role])}</b><span>${esc(what)}</span><a href="#${role === 'approver' ? 'deploy' : 'my'}">${role === 'approver' ? '배포 요청' : '내 변경'} ${n}건</a><span class="ed-ver">운영 ${esc(P.version())}${pv ? ` · 다음 ${esc(pv)}` : ''}</span></div>`;
@@ -385,9 +384,9 @@ function pageOverview() {
     ['rules', 'UX 거버넌스', '규칙 · 빈칸 · 검증 규칙', 'UX표준가이드 규칙과 연결표 · 모든 화면의 기준'],
     ['foundations', 'Foundations', '색상 · 타이포그래피 · 간격 · 아이콘', '모든 부품이 쓰는 기본 요소'],
     ['components', 'Components', '최소 부품', '블록 안에 들어가는 버튼 · 입력 · 선택 등'],
-    ['blocks', 'Blocks', '앱쉘 · 공통 블록 · SB 블록', '빈칸 하나를 채우는 업무 단위 묶음'],
+    ['blocks', 'Blocks', '공통 블록 · SB 블록', '빈칸 하나를 채우는 업무 단위 묶음'],
     ['patterns', 'Patterns', 'UX 패턴 · 레이아웃 규칙', '화면을 어떤 순서로 쌓을지'],
-    ['stack', '조립 구조', 'Stack 5단계', '앱쉘 → 레이아웃 → 빈칸 → 블록 → 컴포넌트'],
+    ['stack', '조립 구조', 'Stack 4단계', '레이아웃 → 빈칸 → 블록 → 컴포넌트'],
   ];
   return `${head('BSS Design System', 'BSS 디자인 포털', 'BSS 백오피스 화면을 만드는 기준입니다. SB Studio는 이 포털에 게시된 버전만 읽어 화면을 조립합니다.', `<div class="checks">${check(true, `게시 ${P.version()}`)}${check(true, '카탈로그 0.5')}${check(true, 'UX표준가이드 1.2')}${check(true, '디자인 토큰 v0.5')}</div>`)}
     <div class="cards">${cards.map((c) => `<a class="card" href="#${c[0]}"><span class="card-eb">${esc(c[1])}</span><b>${esc(c[2])}</b><span>${esc(c[3])}</span></a>`).join('')}</div>
@@ -404,7 +403,6 @@ function pageStack() {
   const I = P.items();
   const n = (k) => I.filter((i) => i.kind === k).length;
   const rows = [
-    ['앱쉘', 's-', '화면이 바뀌어도 남는 바탕 틀', n('shell'), 'blocks'],
     ['레이아웃 규칙', 'l-', '본문 영역을 어떤 빈칸 순서로 나눌지 정하는 규칙', n('layout'), 'patterns'],
     ['빈칸(슬롯)', '경로', '부품이 들어갈 자리 · 고정 · 쌓기 · 자유', P.slots().length, 'slots'],
     ['블록', 'b-', '빈칸 하나를 채우는 업무 단위 묶음', n('block'), 'blocks'],
@@ -419,7 +417,6 @@ function pageStack() {
   <h2 id="owners">기준 원본 · 관리</h2>
   ${table(['대상', '원본', '편집', '게시'], [
     ['컴포넌트 · 블록 · 토큰', 'Figma 디자인 시스템', P.ROLES.ds, P.ROLES.approver],
-    ['앱쉘', 'UX표준가이드 · 이 포털', P.ROLES.ux, P.ROLES.approver],
     ['레이아웃 규칙 · 규칙 · 사용 가이드', 'UX표준가이드 · 이 포털', P.ROLES.ux, P.ROLES.approver],
     ['임시 부품 tb- · tc-', 'SB Studio 생성', '승격 심사', P.ROLES.approver],
   ].map((r) => `<tr>${r.map((c) => `<td>${esc(c)}</td>`).join('')}</tr>`))}`;
@@ -629,19 +626,18 @@ function pageProgress() {
 
 
 function pageList(kind) {
-  const I = P.items().filter((i) => (kind === 'block' ? i.kind === 'block' || i.kind === 'shell' : i.kind === kind));
+  const I = P.items().filter((i) => i.kind === kind);
   const isComp = kind === 'comp';
   const add = isComp && can('figma') ? '<p class="row"><a class="btn2 sm" href="#convert">새 컴포넌트는 DS 작업 › 소스 변환에서 Figma 주소로 추가</a></p>' : '';
-  return `${head(isComp ? 'Components' : 'Blocks', isComp ? '컴포넌트' : '블록', isComp ? '블록 안에 들어가는 최소 부품입니다. 그림은 Figma에서 읽은 기본 모양입니다.' : '앱쉘은 화면의 바탕 틀이고, 블록은 빈칸 하나를 채우는 업무 단위 묶음입니다. 블록은 포털이 관리하는 공통 블록과 SB Studio에서 만든 SB 블록으로 나뉩니다.')}
+  return `${head(isComp ? 'Components' : 'Blocks', isComp ? '컴포넌트' : '블록', isComp ? '블록 안에 들어가는 최소 부품입니다. 그림은 Figma에서 읽은 기본 모양입니다.' : '블록은 빈칸 하나를 채우는 업무 단위 묶음입니다. 블록은 포털이 관리하는 공통 블록과 SB Studio에서 만든 SB 블록으로 나뉩니다.')}
   ${add}
   ${kind === 'block' ? blockSections(I) : `<h2 id="all" class="sr">전체</h2>${grid(I)}`}`;
 }
-/** Blocks 개요: 앱쉘 · 공통 블록 · SB 블록(+ 승격 진행) */
+/** Blocks 개요: 공통 블록 · SB 블록(+ 승격 진행) */
 function blockSections(I) {
   const sb = I.filter(isSb);
   const promos = P.promotions().filter((p) => /^tb-/.test(p.code));
-  return `<h2 id="shell">앱쉘</h2><p class="note">화면이 바뀌어도 남는 바탕 틀입니다. 빈칸으로 나뉩니다.</p>${grid(I.filter((i) => i.kind === 'shell'))}
-  <h2 id="common">공통 블록</h2><p class="note">Figma 디자인 시스템 기준으로 포털이 관리하는 블록입니다. DS 담당자이 고치고 관리자이 게시합니다. SB Studio는 이 블록을 먼저 고릅니다.</p>${grid(I.filter((i) => i.kind === 'block' && !isSb(i)))}
+  return `<h2 id="common">공통 블록</h2><p class="note">Figma 디자인 시스템 기준으로 포털이 관리하는 블록입니다. DS 담당자이 고치고 관리자가 배포합니다. SB Studio는 이 블록을 먼저 고릅니다.</p>${grid(I.filter((i) => i.kind === 'block' && !isSb(i)))}
   <h2 id="sb">SB 블록</h2><p class="note">공통 블록으로 만들 수 없는 부분을 위해 SB Studio 미리보기에서 자동으로 만들어지는 업무 전용 블록입니다. SB 설계가 완료되면 이 목록에 게시되고, 여러 SB에서 쓰이면 승격 요청으로 공통 블록이 됩니다.</p>
   ${sb.length ? grid(sb) : '<p class="muted">지금 등록된 SB 블록이 없습니다.</p>'}
   ${promos.length ? `<h3>승격 진행</h3>${table(['SB 블록', '출처', '판단', '단계', '상태'], promos.map((p) => `<tr><td>${esc(p.name)}</td><td>${esc(p.from)}</td><td>${human(p.judge)}</td><td class="nw">${esc(p.stage)}</td><td>${st(p.status === '승인' ? 'ok' : p.status === '반려' ? 'ng' : 'hold', p.status)}</td></tr>`))}` : ''}`;
@@ -664,7 +660,7 @@ function pagePatterns() {
   <h2 id="layouts">레이아웃 규칙</h2>${grid(L)}`;
 }
 
-/** 카탈로그 항목 페이지 (상세 페이지가 따로 없는 앱쉘 · 블록 · 레이아웃 · 컴포넌트) */
+/** 카탈로그 항목 페이지 (상세 페이지가 따로 없는 블록 · 레이아웃 · 컴포넌트) */
 function pageItem(it) {
   const parts = P.parts().filter((p) => p.block === it.code);
   const usedIn = [...new Set(P.parts().filter((p) => p.comp === it.code).map((p) => p.block))];
@@ -706,7 +702,7 @@ function itemForm(r, d) {
     <label>뜻 (페이지 설명)<textarea name="meaning" rows="2">${esc(v.meaning)}</textarea></label>
     ${extra ? `<label>${extra[1]}<input name="${extra[0]}" value="${esc(v[extra[0]])}"></label>` : ''}
     <label>상태<select name="status">${Object.entries(P.STATUS).map(([k, t]) => `<option value="${k}"${v.status === k ? ' selected' : ''}>${t}</option>`).join('')}</select></label>
-    <div class="row"><button class="btn2 primary sm">초안 저장</button><span class="muted">관리자이 게시하면 반영됩니다</span></div></form>`;
+    <div class="row"><button class="btn2 primary sm">초안 저장</button><span class="muted">관리자가 배포하면 반영됩니다</span></div></form>`;
 }
 
 function pageRules() {
@@ -733,13 +729,13 @@ function pageRules() {
 }
 
 function pageSlots() {
-  return `${head('UX 거버넌스', '빈칸', '빈칸은 단위가 아니라 자리입니다. 상위 부품(앱쉘 · 레이아웃 규칙 · 블록 · 컨테이너형 컴포넌트)에 딸린 자리를 경로로 적습니다.')}
+  return `${head('UX 거버넌스', '빈칸', '빈칸은 단위가 아니라 자리입니다. 상위 부품(레이아웃 규칙 · 블록 · 컨테이너형 컴포넌트)에 딸린 자리를 경로로 적습니다.')}
   <h2 id="list" class="sr">빈칸 목록</h2>
   ${table(['이름', '소속', '방식', '들어갈 수 있는 것'], P.slots().map((s) => `<tr><td>${esc(s.name)}</td><td>${link(s.owner)}</td><td>${esc(s.mode)}</td><td>${human(s.accepts)}</td></tr>`))}`;
 }
 
 function pageLint() {
-  const L = [['R-01', '앱쉘 빈칸에는 블록만', '오류'], ['R-02', '고정 빈칸은 허용 목록에서 하나', '오류'], ['R-03', '쌓기 빈칸 순서(일반형)', '오류'], ['R-04', '임시 코드(tb- · tc-)는 관리자 승인 요청 동반', '경고'], ['R-05', '용어 대조(로제타)', '경고'], ['R-06', '출처 ID 반영률 100%', '오류'], ['R-07', '특수형 화면은 승인 기록 동반', '경고']];
+  const L = [['R-01', '레이아웃 빈칸에는 블록만', '오류'], ['R-02', '고정 빈칸은 허용 목록에서 하나', '오류'], ['R-03', '쌓기 빈칸 순서(일반형)', '오류'], ['R-04', '임시 코드(tb- · tc-)는 관리자 승인 요청 동반', '경고'], ['R-05', '용어 대조(로제타)', '경고'], ['R-06', '출처 ID 반영률 100%', '오류'], ['R-07', '특수형 화면은 승인 기록 동반', '경고']];
   return `${head('UX 거버넌스', '검증 규칙', '규칙 한 벌을 생성기 · 미리보기 · Figma 검사 · 카탈로그 게시가 같이 씁니다. 독립 검수 기준 점검도 같은 규칙입니다.')}
   <h2 id="list" class="sr">검증 규칙</h2>${table(['규칙', '내용', '심각도'], L.map((r) => `<tr><td><b>${r[0]}</b></td><td>${esc(r[1])}</td><td>${st(r[2] === '오류' ? 'ng' : 'hold', r[2])}</td></tr>`))}`;
 }
@@ -775,12 +771,10 @@ function pageUxEdit() {
   const I = P.items();
   const open = (type, t) => (P.openDraft(type, t) ? ` ${st('ai', '초안')}` : '');
   const guides = (ctx.data.components || []).filter((c) => P.guide(c.key));
-  return `${head('UX 편집', '기준 편집', 'UX 패턴 · 레이아웃 규칙 · 앱쉘 · 컴포넌트 사용 가이드 · UX 규칙을 고칩니다. 문서를 열면 그 자리에 편집 칸이 있고, 저장하면 초안이 됩니다. 규칙 번호는 저장할 때 자동으로 붙고 바뀌지 않습니다.')}
+  return `${head('UX 편집', '기준 편집', 'UX 패턴 · 레이아웃 규칙 · 컴포넌트 사용 가이드 · UX 규칙을 고칩니다. 문서를 열면 그 자리에 편집 칸이 있고, 저장하면 초안이 됩니다. 규칙 번호는 저장할 때 자동으로 붙고 바뀌지 않습니다.')}
   <h2 id="rules">UX 규칙</h2><p><a class="btn2 sm" href="#rules">규칙 목록에서 추가 · 수정 · 삭제</a></p>
   <h2 id="patterns">UX 패턴 · 레이아웃 규칙</h2>
   ${table(['문서', '종류', ''], [...(ctx.data.patterns || []).map((p) => `<tr><td><a href="#pattern-${esc(p.key)}">${esc(p.name)} 패턴</a></td><td>UX 패턴</td><td></td></tr>`), ...I.filter((i) => i.kind === 'layout').map((i) => `<tr><td><a href="#${esc(i.code)}">${esc(i.name)}</a>${open('item', i.code)}</td><td>레이아웃 규칙</td><td></td></tr>`)])}
-  <h2 id="shells">앱쉘</h2>
-  ${table(['앱쉘', '빈칸', ''], I.filter((i) => i.kind === 'shell').map((i) => `<tr><td><a href="#${esc(i.code)}">${esc(i.name)}</a>${open('item', i.code)}${open('code', i.code)}</td><td>${human(i.slots)}</td><td>${P.pubCode(i.code) ? st('ok', '코드 있음') : st('wait', '코드 없음')}</td></tr>`))}
   <h2 id="guides">컴포넌트 사용 가이드</h2>
   ${table(['컴포넌트', '규칙', ''], guides.map((c) => `<tr><td><a href="#${esc(P.itemByKey(c.key)?.code || `c-${c.key}`)}">${esc(c.name)}</a>${open('guide', c.key)}</td><td class="mono">UX-${esc(c.key.toUpperCase())}-NN</td><td></td></tr>`))}`;
 }
@@ -872,7 +866,7 @@ function pageRoles() {
   return `${head('관리자', '권한 확인', '역할은 BSS SB Studio 계정에서 정해지고, 포털은 받은 역할에 따라 메뉴와 편집 칸을 다르게 보여 줍니다. POC에서는 오른쪽 위에서 역할을 고릅니다.')}
   ${table(['역할', '작업 메뉴', '하는 일', '배포'], [
     ['보기', '내 요청', '기준 보기 · SB library 보기 · 아이콘 · 블록 요청', '-'],
-    ['UX 담당자', 'UX 편집: 기준 편집 · SB library 편집 · 내 변경 · 승격 심사', 'UX 패턴 · 레이아웃 규칙 · 앱쉘 · 사용 가이드 · SB 블록 소스 편집, SB팀 표준 심사', '배포 요청'],
+    ['UX 담당자', 'UX 편집: 기준 편집 · SB library 편집 · 내 변경 · 승격 심사', 'UX 패턴 · 레이아웃 규칙 · 사용 가이드 · SB 블록 소스 편집, SB팀 표준 심사', '배포 요청'],
     ['DS 담당자', 'DS 작업: 디자인 요청 · 소스 변환 · 내 변경 · 승격 심사', '토큰 · 컴포넌트 · 공통 블록 소스 변환 · 수정, UI팀 디자인 심사', '배포 요청'],
     ['관리자', '관리자: 운영 서버 배포 · 재검수 대상 SB · 권한 확인 · 승격 심사', '정기 · 수동 배포, 롤백, 재검수 대상 확인', '운영 서버 배포'],
   ].map((r) => `<tr><td><b>${r[0]}</b></td><td>${r[1]}</td><td>${r[2]}</td><td>${r[3]}</td></tr>`))}

@@ -8,7 +8,7 @@ Figma 기준 파일: `9AioWOXVOVm5C7kdSxSEEP` ((공유용) BSS_DS_Library_Compon
 
 - 공유 링크: https://claude.ai/artifact/PU6iNoAkpJhThz5v2qvbKg
 - 로컬: `python3 -m http.server 8791 --directory design-system` 후 http://localhost:8791 (JSON을 fetch하므로 더블클릭으로는 안 열림)
-- IA: UX 거버넌스(맨 앞) · 시작하기 · Foundations(색상 · 타이포그래피 · 간격 · 아이콘 · 토큰 구조) · Components(개요 · 진행 현황) · Blocks(앱쉘 · 공통 블록 `b-` · SB 블록 `tb-`) · Patterns · Updates. SEED의 Develop · AI & Tools는 메뉴로 두지 않는다. 컴포넌트 코드 페이지(`#dev-c-<key>`)와 토큰 레퍼런스(`#dev-tokens`)는 메뉴 없이 링크로만 연다 (Figma 읽기 · SB Studio 연계는 포털 뒤에서 도는 기능)
+- IA: UX 거버넌스(맨 앞) · 시작하기 · Foundations(색상 · 타이포그래피 · 간격 · 아이콘 · 토큰 구조) · Components(개요 · 진행 현황) · Blocks(공통 블록 `b-` · SB 블록 `tb-`) · Patterns · Updates. SEED의 Develop · AI & Tools는 메뉴로 두지 않는다. 컴포넌트 코드 페이지(`#dev-c-<key>`)와 토큰 레퍼런스(`#dev-tokens`)는 메뉴 없이 링크로만 연다 (Figma 읽기 · SB Studio 연계는 포털 뒤에서 도는 기능)
 - 컴포넌트는 디자인 문서 `#c-<key>`(대표 이미지 → Anatomy → Properties → Guidelines → Specification → Usage)와 개발 문서 `#dev-c-<key>`(미리보기 · 코드 → 사용하기 → Props → Examples → Figma · 변형 · 토큰)로 나뉜다. Specification(색 매트릭스 · 크기 표)은 `component.json`의 토큰 경로에서 만든다 (`site/spec.js`)
 - 공통: 검색(Ctrl/Cmd+K), 테마 전환, 스크롤을 따라가는 목차, 이전 · 다음 문서, 바닥글
 - 페이지: `#overview`, `#foundations`, `#components`, `#updates`, `#<카탈로그 코드>` (예: `#c-button`, `#b-search-general`; 예전 `#button`도 열림), 관리 `#pub` · `#promo` · `#chg`
@@ -25,14 +25,14 @@ SB Studio 안의 메뉴로 들어가는 디자인 포털이다. 흐름은 덱 �
 | 역할 | 작업 메뉴 | 하는 일 |
 |---|---|---|
 | 보기 | 내 요청 | 아이콘 · 컴포넌트 · 공통 블록 · 토큰 요청, 진행 상태 (아이콘은 AI 더미로 기획 계속, 완성 시 교체 · 알림) |
-| UX 담당자 | UX 편집: 기준 편집 · SB library 편집 · 내 변경 · 승격 심사 | UX 패턴 · 레이아웃 규칙 · 앱쉘 · 사용 가이드 · 규칙(번호 자동) · SB 블록 소스, SB팀 표준 심사 |
+| UX 담당자 | UX 편집: 기준 편집 · SB library 편집 · 내 변경 · 승격 심사 | UX 패턴 · 레이아웃 규칙 · 사용 가이드 · 규칙(번호 자동) · SB 블록 소스, SB팀 표준 심사 |
 | DS 담당자 | DS 작업: 디자인 요청 · 소스 변환 · 내 변경 · 승격 심사 | 토큰 · 컴포넌트 · 공통 블록 (Figma 주소 변환, 코드 · 토큰 편집), 요청 단계 처리, UI팀 디자인 심사 |
 | 관리자 | 관리자: 운영 서버 배포 · 재검수 대상 SB · 권한 확인 · 승격 심사 | 배포 요청 처리(정기 · 수동, 수동은 사유 필수) · 롤백 · 재검수 대상 확인 |
 
 변경 흐름: 담당자가 고치면 초안 → 미리보기 확인 → **배포 요청** → 관리자 배포 → 운영 버전 (다음 버전은 `1.4.0-preview.3`처럼 표시).
 코드 편집은 미리보기 · 자동 검사(script 금지 · 색은 토큰 · 없는 토큰 이름), 토큰 편집은 베이스=값 · 역할 · 컴포넌트=가리키는 토큰, 게시되면 토큰 소스(:root CSS) · 미리보기에 반영.
 
-기준 카탈로그는 `catalog/catalog.json`(앱쉘 s- · 레이아웃 l- · 빈칸 · 공통 블록 b- · SB 블록 tb- · 컴포넌트 c- · 규칙 R-),
+기준 카탈로그는 `catalog/catalog.json`(레이아웃 l- · 빈칸 · 공통 블록 b- · SB 블록 tb- · 컴포넌트 c- · 규칙 R-),
 컴포넌트 상세는 `components/`에서 온다. 화면 코드는 `site/portal/`. POC라 초안 · 배포 · 요청 상태는 브라우저에만 저장된다.
 
 ## 컴포넌트
