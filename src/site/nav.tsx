@@ -208,9 +208,9 @@ export function TextEditBar() {
     toast(fails.length ? fails.join(' · ') : `${L.length}곳을 초안 ${[...ids].join(', ')}에 담았습니다 · 포털 승인 담당이 게시하면 반영됩니다`);
   };
   return (
-    <div className="te-bar" role="region" aria-label="설명 편집">
-      <b>설명 편집 중</b>
-      <span>{L.length ? `고친 곳 ${L.length}` : '입력칸의 글을 고치세요'}</span>
+    <div className="te-bar" role="region" aria-label="편집">
+      <b>편집 중</b>
+      <span>{L.length ? `고친 글 ${L.length}곳` : '입력칸의 글을 고치세요'}</span>
       <button type="button" className="btn2 primary sm" disabled={!L.length} onClick={save}>
         초안 저장
       </button>

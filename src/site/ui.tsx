@@ -351,10 +351,10 @@ export const TextScope = createContext<{ key: string; name: string } | null>(nul
 /** 글 자리의 지금 글: 담당에게는 초안 → 게시본 → 원래 글, 보기 역할에게는 게시본 → 원래 글 */
 export function useText() {
   const scope = useContext(TextScope);
-  const { isEditor } = usePortal();
+  const { textEdit } = usePortal();
   return (path: string, original: string) => {
     if (!scope) return original;
-    const d = isEditor ? P.openDraft('text', scope.key) : null;
+    const d = textEdit ? P.openDraft('text', scope.key) : null;
     return d?.after.fields[path] ?? P.publishedTexts(scope.key)[path] ?? original;
   };
 }
@@ -365,7 +365,7 @@ export function TextEditToggle() {
   if (!can('text') && !can('guide')) return null;
   return (
     <button type="button" className={`ed-toggle${textEdit ? ' on' : ''}`} aria-pressed={textEdit} onClick={() => setTextEdit(!textEdit)}>
-      {textEdit ? '✎ 설명 편집 끄기' : '✎ 설명 편집'}
+      {textEdit ? '편집 끝내기' : '✎ 편집'}
     </button>
   );
 }

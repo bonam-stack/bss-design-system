@@ -100,8 +100,9 @@ export function ComponentPage({ sc }: { sc: SiteComponent }) {
   const base = sc.data;
   const key = base.key;
   const c = (P.comp(key) as ComponentData & { figmaSyncedAt?: string }) || base;
-  const { ui, can, role, act, closeEdit, isEditor } = usePortal();
-  const g = useMemo(() => applyGuide(key, sc.guide, isEditor), [key, sc.guide, isEditor, P.revision()]); // eslint-disable-line react-hooks/exhaustive-deps
+  // 편집을 켜기 전에는 보기 역할과 같은 화면 (게시본만). 켜면 초안 글 · 담당 칸 · 코드 채팅이 나온다
+  const { ui, can, role, act, closeEdit, textEdit } = usePortal();
+  const g = useMemo(() => applyGuide(key, sc.guide, textEdit), [key, sc.guide, textEdit, P.revision()]); // eslint-disable-line react-hooks/exhaustive-deps
   const ok = isRenderable(base);
   const a = analyze(base);
 
@@ -151,7 +152,7 @@ export function ComponentPage({ sc }: { sc: SiteComponent }) {
         <h1>{base.name}</h1>
         <TextEditToggle />
       </div>
-      <Editable as="p" className="lead" path="lead" label="페이지 설명" value={(isEditor && itemCode ? P.openDraft('item', itemCode)?.after.meaning : undefined) || itemMeaning || c.description || ''} onSave={itemCode ? (v) => P.draftItem(role, itemCode, { meaning: v }) : undefined} />
+      <Editable as="p" className="lead" path="lead" label="페이지 설명" value={(textEdit && itemCode ? P.openDraft('item', itemCode)?.after.meaning : undefined) || itemMeaning || c.description || ''} onSave={itemCode ? (v) => P.draftItem(role, itemCode, { meaning: v }) : undefined} />
       <CompChecks c={c} hasGuide={!!sc.guide} />
       <TocInline />
       <PatternLinks k={key} />
@@ -197,7 +198,7 @@ export function ComponentPage({ sc }: { sc: SiteComponent }) {
             )}
           </section>
           {a.stateProp || a.selectProp ? <p className="note">마우스를 올리거나 누르고, 키보드 Tab으로 포커스해 보세요. 실제 입력 요소라 그대로 동작합니다.</p> : null}
-          {can('code') ? (
+          {textEdit && can('code') ? (
             <section className="ed-panel">
               <div className="ed-h">
                 <b>컴포넌트 코드</b>
@@ -229,13 +230,13 @@ export function ComponentPage({ sc }: { sc: SiteComponent }) {
               ) : null}
             </section>
           ) : (
-            <DraftBox d={can('code') ? null : role !== 'viewer' ? openDraft : null} />
+            <DraftBox d={textEdit && !can('code') ? openDraft : null} />
           )}
         </>
       ) : (
         <p className="error">이 컴포넌트는 예전 형식 JSON이라 미리보기를 그릴 수 없어요. Figma 링크로 다시 읽으면 나타나요.</p>
       )}
-      {can('code') ? <DraftBox d={openDraft} /> : null}
+      {textEdit && can('code') ? <DraftBox d={openDraft} /> : null}
       <div id="guideBody">
         {g?.anatomy ? (
           <>

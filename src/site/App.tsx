@@ -158,7 +158,7 @@ export function App() {
     return () => mo.disconnect();
   }, [route]);
 
-  const ctx: PortalCtx = { role, setRole, ui, setUi, toast, toc, textEdit: textEdit && (P.canEdit(role, 'text') || P.canEdit(role, 'guide')), setTextEdit, pending, setPending };
+  const ctx: PortalCtx = { role, setRole, ui, setUi, toast, toc, textEdit: textEdit && (P.canEdit(role, 'text') || P.canEdit(role, 'guide')), setTextEdit: (on: boolean) => (setTextEdit(on), on || setUi((u) => ({ ...u, edit: null, editRule: null }))), pending, setPending };
   return (
     <Ctx.Provider value={ctx}>
       <header className="topbar">

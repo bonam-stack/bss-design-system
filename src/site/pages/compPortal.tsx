@@ -6,7 +6,7 @@ import { usePortal } from '../portal/ctx';
 import { patterns } from '../data';
 import type { Guide } from '../data';
 import type { ComponentData } from '../../ds/figma/types';
-import { Check, CodeLink, DraftBox, EditBtn, GuideChips, Head, RulesBlock, StOf, Table, fmt } from '../ui';
+import { Check, CodeLink, DraftBox, EditBtn, GuideChips, Head, RulesBlock, StOf, Table, TextEditToggle, fmt } from '../ui';
 
 /** 제목 아래: ✓ Figma ✓ 사용 가이드 · 상태 */
 export function CompChecks({ c, hasGuide }: { c: { key: string; figmaSyncedAt?: string }; hasGuide: boolean }) {
@@ -23,8 +23,8 @@ export function CompChecks({ c, hasGuide }: { c: { key: string; figmaSyncedAt?: 
 
 /** 페이지 위쪽 에디터 칸: 디자인 시스템 담당 = 설명 · Figma 다시 읽기 */
 export function CompEditor({ c }: { c: { key: string; figma?: { url?: string } } }) {
-  const { role, ui, isEditor, can, act, closeEdit } = usePortal();
-  if (!isEditor) return null;
+  const { role, ui, textEdit, can, act, closeEdit } = usePortal();
+  if (!textEdit) return null;
   const r = P.itemByKey(c.key);
   const open = ui.edit === `figma:${c.key}`;
   const onRe = (e: FormEvent<HTMLFormElement>) => {
@@ -40,7 +40,7 @@ export function CompEditor({ c }: { c: { key: string; figma?: { url?: string } }
         <section className="ed-panel">
           <div className="ed-h">
             <b>디자인 시스템 담당</b>
-            <span>모양은 Figma에서 고친 뒤 다시 읽습니다. 설명은 제목 옆 "✎ 설명 편집"을 켜고 그 자리에서 고치고, 컴포넌트 코드는 아래 AI 채팅으로 고칩니다</span>
+            <span>모양은 Figma에서 고친 뒤 다시 읽습니다. 설명은 입력칸에서 바로 고치고, 컴포넌트 코드는 아래 AI 채팅으로 고칩니다</span>
           </div>
           <div className="row">
             <EditBtn k={`figma:${c.key}`} label="Figma에서 다시 읽기" />
@@ -64,8 +64,8 @@ export function CompEditor({ c }: { c: { key: string; figma?: { url?: string } }
 
 /** 사용 가이드(Policy) 앞에 붙는 UX 가이드 담당 편집 칸 */
 export function GuideEditor({ k }: { k: string }) {
-  const { role, ui, isEditor, can, act, closeEdit } = usePortal();
-  if (!isEditor || !P.guide(k)) return null;
+  const { role, ui, textEdit, can, act, closeEdit } = usePortal();
+  if (!textEdit || !P.guide(k)) return null;
   const d = P.openDraft('guide', k);
   if (!can('guide')) return <DraftBox d={d} />;
   const g = d?.after || P.guide(k)!;
@@ -89,8 +89,8 @@ export function GuideEditor({ k }: { k: string }) {
       <DraftBox d={d} />
       <section className="ed-panel">
         <div className="ed-h">
-          <b>UX 가이드 담당</b>
-          <span>글은 제목 옆 "✎ 설명 편집"을 켜고 그 자리에서 고칩니다. 여기서는 규칙을 더하거나 빼고 종류를 바꿉니다</span>
+          <b>사용 가이드 규칙</b>
+          <span>글은 입력칸에서 바로 고칩니다. 여기서는 규칙을 더하거나 빼고 종류를 바꿉니다</span>
         </div>
         <div className="row">
           <EditBtn k={`guide:${k}`} label="규칙 추가 · 삭제 · 종류 바꾸기" />
@@ -222,7 +222,7 @@ export function PortalOnlyPage({ c }: { c: PortalComp | ComponentData }) {
   const ru = compRules(c.key);
   return (
     <>
-      <Head eyebrow="Components" title={c.name} lead={r?.meaning || c.description} extra={<CompChecks c={c} hasGuide={false} />} />
+      <Head eyebrow="Components" title={c.name} lead={r?.meaning || c.description} extra={<><TextEditToggle /><CompChecks c={c} hasGuide={false} /></>} />
       <CompEditor c={c} />
       <div className="sb-ph">
         <span>미리보기는 Figma 노드의 레이어 데이터를 받으면 그려집니다</span>
