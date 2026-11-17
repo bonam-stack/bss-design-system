@@ -20,8 +20,8 @@ export const PROMO_STAGES: { stage: string; who: Role; act: string }[] = [
   { stage: '최종 승인', who: 'approver', act: '최종 승인' },
 ];
 // 누가 무엇을 고치나: 모양(블록 · 컴포넌트 · Figma)은 디자인 시스템 담당, 쓰는 방법(레이아웃 규칙 · 규칙 · 사용 가이드)은 UX 가이드 담당
-export type EditType = Kind | 'figma' | 'code' | 'rule' | 'guide';
-export const EDITOR: Record<EditType, Role> = { block: 'ds', comp: 'ds', figma: 'ds', code: 'ds', layout: 'ux', rule: 'ux', guide: 'ux' };
+export type EditType = Kind | 'figma' | 'code' | 'text' | 'rule' | 'guide';
+export const EDITOR: Record<EditType, Role> = { block: 'ds', comp: 'ds', figma: 'ds', code: 'ds', text: 'ds', layout: 'ux', rule: 'ux', guide: 'ux' };
 
 export type Bump = 'PATCH' | 'MINOR' | 'MAJOR';
 
@@ -104,7 +104,7 @@ export interface GuideDoc {
   rules: GuideRule[];
   next: number;
 }
-export type DraftType = 'item' | 'rule' | 'guide' | 'figma' | 'code';
+export type DraftType = 'item' | 'rule' | 'guide' | 'figma' | 'code' | 'text';
 export type DraftStatus = 'draft' | 'published' | 'rejected' | 'discarded' | 'rolled_back';
 export interface Draft {
   id: string;
@@ -146,6 +146,8 @@ interface Pub {
   comps: Record<string, Partial<PortalComp> & { description?: string; syncedAt?: string }>;
   /** 게시된 React 컴포넌트 코드 (컴포넌트 key → TSX). 없으면 저장소 코드 */
   code: Record<string, string>;
+  /** 게시된 글 수정 (컴포넌트 key → 글 자리 → 글). 페이지에서 바로 고친 설명 */
+  texts: Record<string, Record<string, string>>;
 }
 export interface HistoryNote {
   id?: string;
@@ -198,7 +200,7 @@ function fresh(): State {
   return {
     v: 2,
     version: base.catalog.meta.version,
-    pub: { items: {}, added: [], rules: {}, addedRules: [], guides: {}, comps: {}, code: {} },
+    pub: { items: {}, added: [], rules: {}, addedRules: [], guides: {}, comps: {}, code: {}, texts: {} },
     drafts: [],
     promotions: clone(base.catalog.promotions),
     detections: clone(base.catalog.detections),
@@ -235,6 +237,7 @@ export function init(b: Base) {
     save();
   }
   S.pub.code ||= {}; // 코드 편집 전에 저장된 상태
+  S.pub.texts ||= {};
 }
 export function reset() {
   S = fresh();
@@ -448,6 +451,31 @@ export function draftCode(role: Role, key: string, file: string, source: string,
   return upsertDraft({ type: 'code', target: key, key, title: `${file.split('/').pop()} 코드 수정`, after: { source, repo }, lines, bump: propsChanged ? 'MAJOR' : 'PATCH' }, role);
 }
 
+/** 게시된 글 수정 (글 자리 → 글) */
+export const publishedTexts = (key: string): Record<string, string> => S.pub.texts?.[key] || {};
+
+/** 페이지에서 바로 고친 글 하나. 같은 컴포넌트의 글 수정은 초안 하나에 모은다 */
+export function draftText(role: Role, key: string, name: string, path: string, label: string, before: string, value: string) {
+  must(role, 'text');
+  const cur = openDraft('text', key);
+  const fields: Record<string, string> = { ...(cur?.after.fields || {}), [path]: value };
+  const labels: Record<string, string> = { ...(cur?.after.labels || {}), [path]: label };
+  const original: Record<string, string> = { ...(cur?.after.original || {}), [path]: cur?.after.original?.[path] ?? before };
+  // 처음 글로 되돌린 자리는 초안에서 뺀다
+  for (const p of Object.keys(fields)) if (fields[p] === original[p]) (delete fields[p], delete labels[p], delete original[p]);
+  if (!Object.keys(fields).length) {
+    if (cur) {
+      cur.status = 'discarded';
+      cur.log.push({ at: now(), by: role, text: '고친 글을 모두 되돌림' });
+      save();
+    }
+    throw new Error('처음 글과 같아 초안을 지웠습니다');
+  }
+  const cut = (t: string) => (t.length > 24 ? `${t.slice(0, 24)}…` : t);
+  const lines = Object.keys(fields).map((p) => `${labels[p]}: ${cut(original[p])} → ${cut(fields[p])}`);
+  return upsertDraft({ type: 'text', target: key, key, title: `${name} 설명 수정`, after: { fields, labels, original }, lines, bump: 'PATCH' }, role);
+}
+
 export function discard(role: Role, id: string) {
   const d = S.drafts.find((x) => x.id === id);
   if (!d || d.status !== 'draft') throw new Error('초안이 아닙니다');
@@ -474,6 +502,7 @@ function apply(d: Draft) {
       else P.addedRules.splice(added, 1);
     } else P.rules[d.target] = d.after ? { ...d.after } : null;
   } else if (d.type === 'guide') P.guides[d.target] = d.after;
+  else if (d.type === 'text') P.texts[d.target] = { ...(P.texts[d.target] || {}), ...d.after.fields };
   else if (d.type === 'code') {
     if (d.after.repo) delete P.code[d.target];
     else P.code[d.target] = d.after.source;

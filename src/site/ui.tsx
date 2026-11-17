@@ -1,5 +1,5 @@
 // 문서 사이트 공통 조각: 복사 버튼, 상태 표시, 표, 페이지 머리, 초안 상자, 규칙 목록.
-import { useEffect, useState } from 'react';
+import { createContext, useContext, useEffect, useRef, useState } from 'react';
 import type { ReactNode } from 'react';
 import * as P from './portal/store';
 import type { Draft, Rule } from './portal/store';
@@ -345,3 +345,81 @@ export const LastUpdated = () => (
     게시 {P.version()} · {fmt(P.history()[0].at)}
   </p>
 );
+
+// ---------- 페이지에서 바로 고치기 (에디터 모드) ----------
+
+/** 이 페이지의 글이 어느 컴포넌트의 것인지 */
+export const TextScope = createContext<{ key: string; name: string } | null>(null);
+
+/** 글 자리의 지금 글: 담당에게는 초안 → 게시본 → 원래 글, 보기 역할에게는 게시본 → 원래 글 */
+export function useText() {
+  const scope = useContext(TextScope);
+  const { isEditor } = usePortal();
+  return (path: string, original: string) => {
+    if (!scope) return original;
+    const d = isEditor ? P.openDraft('text', scope.key) : null;
+    return d?.after.fields[path] ?? P.publishedTexts(scope.key)[path] ?? original;
+  };
+}
+
+/** 에디터 모드에서 눌러서 그 자리에서 고치는 글. Enter로 저장(Shift+Enter 줄바꿈), Esc로 취소.
+ *  고친 글은 초안이 되고 포털 승인 담당이 게시하면 모두에게 보인다 */
+export function Editable({ path, value, label, as: Tag = 'span', className, onSave, placeholder }: { path: string; value: string; label: string; as?: 'span' | 'p' | 'div'; className?: string; onSave?: (v: string) => Promise<unknown>; placeholder?: string }) {
+  const scope = useContext(TextScope);
+  const { role, can, act } = usePortal();
+  const get = useText();
+  const shown = onSave ? value : get(path, value);
+  const [editing, setEditing] = useState(false);
+  const ref = useRef<HTMLElement>(null);
+  const editable = onSave ? can('comp') : !!scope && can('text');
+  useEffect(() => {
+    if (!editing || !ref.current) return;
+    const el = ref.current;
+    el.innerText = shown;
+    el.focus();
+    const r = document.createRange();
+    r.selectNodeContents(el);
+    r.collapse(false);
+    window.getSelection()?.removeAllRanges();
+    window.getSelection()?.addRange(r);
+  }, [editing]); // eslint-disable-line react-hooks/exhaustive-deps
+  if (!editable) return <Tag className={className}>{shown ? lineBreaks(shown) : placeholder}</Tag>;
+  const commit = () => {
+    const next = (ref.current?.innerText ?? shown).replace(/\n{3,}/g, '\n\n').trim();
+    setEditing(false);
+    if (next === shown || !next) return;
+    if (onSave) act(() => onSave(next), undefined);
+    else act(() => P.draftText(role, scope!.key, scope!.name, path, label, value, next), (d) => `초안 ${d.id}에 담았습니다 · 포털 승인 담당이 게시하면 반영됩니다`);
+  };
+  if (editing)
+    return (
+      <Tag
+        key="editing"
+        ref={ref as never}
+        className={`${className || ''} ed-text on`}
+        contentEditable="plaintext-only"
+        suppressContentEditableWarning
+        role="textbox"
+        aria-label={`${label} 고치기`}
+        onBlur={commit}
+        onKeyDown={(e) => {
+          if (e.key === 'Enter' && !e.shiftKey) {
+            e.preventDefault();
+            ref.current?.blur();
+          }
+          if (e.key === 'Escape') {
+            e.preventDefault();
+            if (ref.current) ref.current.innerText = shown;
+            setEditing(false);
+          }
+        }}
+      />
+    );
+  return (
+    <Tag key="view" className={`${className || ''} ed-text`} role="button" tabIndex={0} title={`${label} · 눌러서 고치기`} onClick={() => setEditing(true)} onKeyDown={(e) => e.key === 'Enter' && setEditing(true)}>
+      {shown ? lineBreaks(shown) : placeholder}
+    </Tag>
+  );
+}
+
+const lineBreaks = (t: string) => t.split('\n').map((p, i) => (i ? [<br key={i} />, p] : p));

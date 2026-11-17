@@ -7,7 +7,6 @@ import { patterns } from '../data';
 import type { Guide } from '../data';
 import type { ComponentData } from '../../ds/figma/types';
 import { Check, CodeLink, DraftBox, EditBtn, GuideChips, Head, RulesBlock, StOf, Table, fmt } from '../ui';
-import { ItemForm } from './portal';
 
 /** 제목 아래: ✓ Figma ✓ 사용 가이드 · 상태 */
 export function CompChecks({ c, hasGuide }: { c: { key: string; figmaSyncedAt?: string }; hasGuide: boolean }) {
@@ -28,7 +27,6 @@ export function CompEditor({ c }: { c: { key: string; figma?: { url?: string } }
   if (!isEditor) return null;
   const r = P.itemByKey(c.key);
   const open = ui.edit === `figma:${c.key}`;
-  const openI = ui.edit === `item:${r?.code}`;
   const onRe = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const url = String(new FormData(e.currentTarget).get('url') || '').trim();
@@ -42,11 +40,10 @@ export function CompEditor({ c }: { c: { key: string; figma?: { url?: string } }
         <section className="ed-panel">
           <div className="ed-h">
             <b>디자인 시스템 담당</b>
-            <span>모양은 Figma에서 고친 뒤 다시 읽고, 설명 · 변형은 여기서 고칩니다</span>
+            <span>모양은 Figma에서 고친 뒤 다시 읽습니다. 설명은 페이지의 글을 눌러 그 자리에서 고치고, 컴포넌트 코드는 아래 AI 채팅으로 고칩니다</span>
           </div>
           <div className="row">
             <EditBtn k={`figma:${c.key}`} label="Figma에서 다시 읽기" />
-            {r ? <EditBtn k={`item:${r.code}`} label="설명 · 변형 편집" /> : null}
           </div>
           {open ? (
             <form className="ef" onSubmit={onRe}>
@@ -59,7 +56,6 @@ export function CompEditor({ c }: { c: { key: string; figma?: { url?: string } }
               </div>
             </form>
           ) : null}
-          {openI && r ? <ItemForm r={r} d={P.openDraft('item', r.code)} /> : null}
         </section>
       ) : null}
     </>

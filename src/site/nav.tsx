@@ -71,7 +71,7 @@ export function SideNav({ route }: { route: string }) {
       out.push(<div key={`sub-${sub}`} className="nav-sub">{sub}</div>);
       lastKind = sub;
     }
-    const draft = isEditor && it && (P.openDraft('item', r) || P.openDraft('guide', it.key) || P.openDraft('figma', it.key) || P.openDraft('code', it.key));
+    const draft = isEditor && it && (P.openDraft('item', r) || P.openDraft('guide', it.key) || P.openDraft('figma', it.key) || P.openDraft('code', it.key) || P.openDraft('text', it.key));
     out.push(
       <a key={r} href={`#${r}`} className={r === route ? 'on' : ''} aria-current={r === route ? 'page' : undefined}>
         {l}

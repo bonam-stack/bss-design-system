@@ -12,8 +12,10 @@ import { analyze, defaultSelection, defaultValues, findVariant, fixSelection, op
 import { isRenderable } from '../../ds/figma/tree';
 import { FigmaView } from '../../ds/figma/FigmaView';
 import { compile, fileOf, repoSource } from '../live';
+import { editWithChat, getApiKey, setApiKey } from '../codechat';
+import type { ChatTurn } from '../codechat';
 import type { LiveComponent, Meta } from '../live';
-import { CopyBtn, DraftBox, EditBtn, Lines, TocInline, UxRef, copy, figmaUrl } from '../ui';
+import { CopyBtn, DraftBox, EditBtn, Editable, TextScope, TocInline, UxRef, copy, figmaUrl } from '../ui';
 import { CompChecks, CompEditor, CompRules, CompUsage, GuideEditor, applyGuide, compRules } from './compPortal';
 
 type Sel = Record<string, string>;
@@ -130,6 +132,9 @@ export function ComponentPage({ sc }: { sc: SiteComponent }) {
   };
   const ru = compRules(key);
   const itemMeaning = P.itemByKey(key)?.meaning;
+  const itemCode = P.itemByKey(key)?.code;
+  const { toast } = usePortal();
+  const toastDraft = (id: string) => toast(`초안 ${id}에 담았습니다 · 포털 승인 담당이 게시하면 반영됩니다`);
   const onSel = (v: string) => a.selectProp && update({ ...sel, [a.selectProp.name]: v });
 
   const saveDraft = () =>
@@ -141,10 +146,11 @@ export function ComponentPage({ sc }: { sc: SiteComponent }) {
     });
 
   return (
+    <TextScope.Provider value={{ key, name: base.name }}>
     <LiveCtx.Provider value={live}>
       <p className="eyebrow">Components</p>
       <h1>{base.name}</h1>
-      <p className="lead">{itemMeaning || c.description || ''}</p>
+      <Editable as="p" className="lead" path="lead" label="페이지 설명" value={itemMeaning || c.description || ''} onSave={itemCode ? (v) => Promise.resolve(P.draftItem(role, itemCode, { meaning: v })).then((d) => toastDraft(d.id)) : undefined} />
       <CompChecks c={c} hasGuide={!!sc.guide} />
       <TocInline />
       <PatternLinks k={key} />
@@ -199,13 +205,14 @@ export function ComponentPage({ sc }: { sc: SiteComponent }) {
                 </span>
               </div>
               <div className="row">
-                <EditBtn k={`code:${key}`} label="코드 편집" />
+                <EditBtn k={`code:${key}`} label="AI로 코드 고치기" />
                 <a className="lnk" href={`#compare-${key}`}>
                   모든 변형 Figma와 비교
                 </a>
               </div>
               {editing ? (
-                <CodeEditor
+                <CodeChat
+                  name={sc.name}
                   value={editorSrc}
                   onChange={setDraftSrc}
                   error={editCompiled?.error}
@@ -274,7 +281,9 @@ export function ComponentPage({ sc }: { sc: SiteComponent }) {
             {(g?.notes || []).length ? (
               <ul className="gd-notes">
                 {g!.notes!.map((n, i) => (
-                  <li key={i}>{n}</li>
+                  <li key={i}>
+                    <Editable path={`notes.${i}`} label={`메모 ${i + 1}`} value={n} />
+                  </li>
                 ))}
               </ul>
             ) : null}
@@ -285,6 +294,7 @@ export function ComponentPage({ sc }: { sc: SiteComponent }) {
       <CompUsage k={key} />
       <DevDetails c={base} name={sc.name} />
     </LiveCtx.Provider>
+    </TextScope.Provider>
   );
 }
 
@@ -299,6 +309,133 @@ function CodeBlock({ label, text }: { label: string; text: string }) {
       </div>
       <pre>{text}</pre>
     </>
+  );
+}
+
+/** AI 채팅으로 코드 고치기: 말로 요청하면 Claude가 파일을 고쳐 미리보기에 바로 반영한다. 코드를 직접 보고 고칠 수도 있다 */
+function CodeChat(p: { name: string; value: string; onChange: (v: string) => void; error?: string; onSave: () => void; onReset: () => void; onRepo?: () => void; onCompare: () => void }) {
+  const [turns, setTurns] = useState<(ChatTurn & { mode?: string; failed?: boolean })[]>([]);
+  const [input, setInput] = useState('');
+  const [busy, setBusy] = useState(false);
+  const [key, setKey] = useState(getApiKey());
+  const [keyInput, setKeyInput] = useState('');
+  const [showCode, setShowCode] = useState(false);
+  const log = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    log.current?.scrollTo({ top: log.current.scrollHeight });
+  }, [turns, busy]);
+  const send = async () => {
+    const text = input.trim();
+    if (!text || busy) return;
+    setInput('');
+    const history = turns.filter((t) => !t.failed).map(({ role, text: t }) => ({ role, text: t }));
+    setTurns((L) => [...L, { role: 'user', text }]);
+    setBusy(true);
+    try {
+      const r = await editWithChat(p.name, p.value, text, history);
+      if (r.source) p.onChange(r.source);
+      setTurns((L) => [...L, { role: 'assistant', text: r.reply + (r.source ? '\n· 미리보기와 아래 예시에 반영했습니다. 마음에 들면 "초안 저장"을 누르세요.' : ''), mode: r.mode }]);
+    } catch (e) {
+      setTurns((L) => [...L, { role: 'assistant', text: (e as Error).message, failed: true }]);
+    } finally {
+      setBusy(false);
+    }
+  };
+  return (
+    <div className="cc">
+      <div className="cc-key">
+        {key ? (
+          <>
+            <span className="cc-on">● AI 연결됨 (Claude Opus 5.5)</span>
+            <button className="lnk" onClick={() => (setApiKey(''), setKey(''))}>
+              키 지우기
+            </button>
+          </>
+        ) : (
+          <form
+            className="row"
+            onSubmit={(e) => {
+              e.preventDefault();
+              setApiKey(keyInput.trim());
+              setKey(keyInput.trim());
+              setKeyInput('');
+            }}
+          >
+            <span className="muted">AI로 고치려면 Anthropic API 키를 넣으세요 (이 브라우저에만 저장). 없으면 글자 바꾸기 흉내 모드입니다.</span>
+            <input type="password" className="in-sm" placeholder="sk-ant-…" aria-label="Anthropic API 키" value={keyInput} onChange={(e) => setKeyInput(e.target.value)} />
+            <button className="btn2 sm" disabled={!keyInput.trim()}>
+              연결
+            </button>
+          </form>
+        )}
+      </div>
+      <div className="cc-log" ref={log} aria-live="polite">
+        {!turns.length ? (
+          <p className="cc-hint">
+            예: "체크됐을 때 색을 #E5007E로 바꿔 줘", "라벨과 체크박스 사이를 8px로", "disabled일 때 라벨에 취소선". 고친 코드는 바로 미리보기에 그려지고, 초안 저장 전까지는 이 브라우저에만 있습니다.
+          </p>
+        ) : null}
+        {turns.map((t, i) => (
+          <div key={i} className={`cc-msg ${t.role}${t.failed ? ' failed' : ''}`}>
+            {t.mode === 'mock' ? <span className="cc-tag">흉내 모드</span> : null}
+            {t.text}
+          </div>
+        ))}
+        {busy ? <div className="cc-msg assistant busy">코드를 고치는 중…</div> : null}
+      </div>
+      <form
+        className="cc-input"
+        onSubmit={(e) => {
+          e.preventDefault();
+          send();
+        }}
+      >
+        <textarea
+          rows={2}
+          placeholder="무엇을 고칠지 말해 주세요 (Enter 보내기 · Shift+Enter 줄바꿈)"
+          aria-label="코드 고칠 요청"
+          value={input}
+          onChange={(e) => setInput(e.target.value)}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter' && !e.shiftKey && !e.nativeEvent.isComposing) {
+              e.preventDefault();
+              send();
+            }
+          }}
+        />
+        <button className="btn2 primary sm" disabled={busy || !input.trim()}>
+          보내기
+        </button>
+      </form>
+      <div className="row">
+        <button className="btn2 sm" onClick={() => setShowCode((x) => !x)}>
+          {showCode ? '코드 닫기' : '코드 보기 · 직접 고치기'}
+        </button>
+      </div>
+      {showCode ? <CodeEditor {...p} /> : (
+        <>
+          <p className={`ce-status${p.error ? ' bad' : ''}`} role="status">
+            {p.error ? `오류 · ${p.error} (미리보기는 마지막으로 돌던 코드)` : '✓ 컴파일됨 · 미리보기와 예시에 반영 중'}
+          </p>
+          <div className="row">
+            <button className="btn2 primary sm" disabled={!!p.error} onClick={p.onSave}>
+              초안 저장
+            </button>
+            <button className="btn2 sm" onClick={p.onCompare}>
+              Figma 원본과 비교
+            </button>
+            <button className="btn2 sm" onClick={p.onReset}>
+              고친 것 되돌리기
+            </button>
+            {p.onRepo ? (
+              <button className="btn2 sm" onClick={p.onRepo}>
+                저장소 코드 불러오기
+              </button>
+            ) : null}
+          </div>
+        </>
+      )}
+    </div>
   );
 }
 
@@ -466,7 +603,7 @@ function GuideIntro({ g, c }: { g: Guide; c: ComponentData }) {
   return (
     <>
       <p className="lead pt-text">
-        <Lines text={text} />
+        <Editable path="overview" label="개요" value={text} />
       </p>
       {g.source ? (
         <p className="gd-source">
@@ -602,7 +739,7 @@ function StatesSection({ sc, st, onCode }: { sc: SiteComponent; st: NonNullable<
   return (
     <>
       <h3>{st.title}</h3>
-      <p className="note">{st.lead}</p>
+      <Editable as="p" className="note" path="states.lead" label="States 설명" value={st.lead} />
       <div className="table-wrap">
         <table className="data gd-table">
           <thead>
@@ -627,7 +764,13 @@ function StatesSection({ sc, st, onCode }: { sc: SiteComponent; st: NonNullable<
                   <td className="gd-ex">
                     <Example sc={sc} props={props} />
                   </td>
-                  <td className="pt-text">{r.missing ? <span className="gd-missing">가이드 설명 없음 · 컴포넌트에만 있는 상태입니다.</span> : r.desc}</td>
+                  <td className="pt-text">
+                    {r.missing ? (
+                      <Editable className="gd-missing" path={`states.extra.${r.name}`} label={`States › ${r.name}`} value="" placeholder="가이드 설명 없음 · 컴포넌트에만 있는 상태입니다." />
+                    ) : (
+                      <Editable path={`states.rows.${i}.desc`} label={`States › ${r.name}`} value={r.desc} />
+                    )}
+                  </td>
                   <td className="gd-act">
                     <CodeBtn props={props} onCode={onCode} />
                   </td>
@@ -646,11 +789,11 @@ function VariantsSection({ sc, vr, onCode }: { sc: SiteComponent; vr: NonNullabl
   return (
     <>
       <h3>{vr.title}</h3>
-      <p className="note">{vr.lead}</p>
+      <Editable as="p" className="note" path="variants.lead" label="Variants 설명" value={vr.lead} />
       {vr.groups.map((grp, gi) => (
         <div key={gi}>
           <h4>{grp.title}</h4>
-          <p className="note">{grp.lead}</p>
+          <Editable as="p" className="note" path={`variants.groups.${gi}.lead`} label={`Variants › ${grp.title} 설명`} value={grp.lead} />
           <div className="table-wrap">
             <table className="data gd-table">
               <thead>
@@ -675,7 +818,9 @@ function VariantsSection({ sc, vr, onCode }: { sc: SiteComponent; vr: NonNullabl
                       <td className="gd-ex">
                         <Example sc={sc} props={props} />
                       </td>
-                      <td className="pt-text">{r.desc}</td>
+                      <td className="pt-text">
+                        <Editable path={`variants.groups.${gi}.rows.${i}.desc`} label={`Variants › ${grp.title} › ${r.name}`} value={r.desc} />
+                      </td>
                       <td className="gd-act">
                         <CodeBtn props={props} onCode={onCode} />
                       </td>
@@ -754,7 +899,7 @@ function AnatomySection({ sc, an }: { sc: SiteComponent; an: NonNullable<Guide['
   return (
     <>
       <h3>{an.title}</h3>
-      <p className="note">{an.lead}</p>
+      <Editable as="p" className="note" path="anatomy.lead" label="Anatomy 설명" value={an.lead} />
       <div className="gd-canvas gd-anatomy" ref={host}>
         <Example sc={sc} props={propsFor(c, an.example)} zoom slotRef={(el) => (slot.current = el)} />
         {marks.map((m, i) => (
@@ -768,7 +913,7 @@ function AnatomySection({ sc, an }: { sc: SiteComponent; an: NonNullable<Guide['
           <li key={x.n}>
             <span className="pt-num-badge">{x.n}</span>
             <strong>{x.name}</strong>
-            <span>{x.desc}</span>
+            <Editable path={`anatomy.parts.${x.n}.desc`} label={`Anatomy › ${x.name}`} value={x.desc} />
           </li>
         ))}
       </ol>
@@ -831,7 +976,7 @@ function SpecSection({ sc, sp }: { sc: SiteComponent; sp: NonNullable<Guide['spe
   return (
     <>
       <h3>{sp.title}</h3>
-      <p className="note">{sp.lead}</p>
+      <Editable as="p" className="note" path="spec.lead" label="Spec 설명" value={sp.lead} />
       <div className="gd-canvas gd-spec">
         {sp.items.map((it, i) => (
           <figure key={i} className="gd-spec-item" ref={(el) => (figs.current[i] = el)}>
