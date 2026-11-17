@@ -12,8 +12,8 @@ export const PROMO_STAGES = [
   { stage: '모양 확인', who: 'ds', act: '모양 확인 · Figma 등록' },
   { stage: '최종 승인', who: 'approver', act: '최종 승인' },
 ];
-// 누가 무엇을 고치나: 모양(앱쉘 · 블록 · 컴포넌트 · Figma)은 디자인 시스템 담당, 쓰는 방법(레이아웃 규칙 · 규칙 · 사용 가이드)은 UX 가이드 담당
-export const EDITOR = { shell: 'ds', block: 'ds', comp: 'ds', figma: 'ds', code: 'ds', layout: 'ux', rule: 'ux', guide: 'ux' };
+// 누가 무엇을 고치나: 컴포넌트 · 블록 · 토큰 · Figma는 디자인 시스템 담당, 앱쉘 · 레이아웃 규칙 · 규칙 · 사용 가이드는 UX 가이드 담당
+export const EDITOR = { shell: 'ux', block: 'ds', comp: 'ds', figma: 'ds', code: 'ds', layout: 'ux', rule: 'ux', guide: 'ux' };
 
 let base = null; // { catalog, comps: {key: 저장소 컴포넌트}, guides: {key: 정책} }
 let S = null;
@@ -224,9 +224,9 @@ export async function draftFigma(role, { key, code, url }) {
 
 /** 코드(HTML · CSS) 수정. 처음 넣는 코드는 MINOR, 게시된 코드를 바꾸면 이미 만든 SB 재검수 대상이라 MAJOR */
 export function draftCode(role, target, { html, css }, problems = []) {
-  must(role, 'code');
   const it = item(target);
   if (!it) throw new Error(`${target}가 없습니다`);
+  must(role, it.kind === 'shell' ? 'shell' : 'code'); // 앱쉘 코드는 UX 가이드 담당
   if (problems.some((p) => p.level === 'error')) throw new Error(`저장할 수 없습니다: ${problems.filter((p) => p.level === 'error').map((p) => p.text).join(' · ')}`);
   const cur = pubCode(target);
   if (cur && cur.html === html && cur.css === css) throw new Error('바뀐 내용이 없습니다');

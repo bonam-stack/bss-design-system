@@ -62,13 +62,13 @@ export function checkCode(html, css) {
 const codeDefaults = {};
 /** 편집 칸 (디자인 시스템 담당에게만). 시작 값: 열린 초안 → 게시된 코드 → 기본 코드(Figma에서 그린 코드 또는 블록 틀) */
 export function codeEditor(target, defaults) {
-  if (!can('code')) return '';
+  if (!can(P.item(target)?.kind === 'shell' ? 'shell' : 'code')) return '';
   codeDefaults[target] = defaults;
   const d = P.openDraft('code', target);
   const v = d?.after || P.pubCode(target) || defaults;
   const src = d ? `초안 ${d.id}` : P.pubCode(target) ? '게시된 코드' : defaults.from;
   return `${draftBox(d)}<section class="ed-panel code-ed" id="codeEd" data-target="${esc(target)}" aria-label="코드 편집">
-    <div class="ed-h"><b>코드 편집</b><span>디자인 시스템 담당 · 고치면 오른쪽 미리보기가 바로 바뀝니다 · 지금: ${esc(src)}</span></div>
+    <div class="ed-h"><b>코드 편집</b><span>${P.item(target)?.kind === 'shell' ? 'UX 가이드 담당' : '디자인 시스템 담당'} · 고치면 오른쪽 미리보기가 바로 바뀝니다 · 지금: ${esc(src)}</span></div>
     <form class="ef" data-form="code" data-target="${esc(target)}">
       <div class="ce-grid">
         <div class="ce-src">
@@ -272,7 +272,7 @@ export function roleMenu() {
 /** 에디터 모드 띠: 역할 · 고칠 수 있는 것 · 초안 수 */
 export function editorBar() {
   if (!isEditor()) return '';
-  const what = { ux: '레이아웃 규칙 · 규칙 · 사용 가이드', ds: '앱쉘 · 블록 · 컴포넌트 · 코드 · Figma 읽기', approver: '초안 게시 · 반려 · 롤백 · 승격 최종 승인' }[role];
+  const what = { ux: '앱쉘 · 레이아웃 규칙 · 규칙 · 사용 가이드', ds: '컴포넌트 · 블록 · 토큰 · 코드 · Figma 읽기', approver: '초안 게시 · 반려 · 롤백 · 승격 최종 승인' }[role];
   const mine = P.drafts((d) => d.status === 'draft' && (role === 'approver' || d.by === role)).length;
   return `<div class="ed-bar"><b>에디터 모드</b><span>${esc(P.ROLES[role])} · ${esc(what)}</span><a href="#pub">${role === 'approver' ? '게시 대기' : '내 초안'} ${mine}건</a><span class="ed-ver">게시 ${esc(P.version())}</span></div>`;
 }
@@ -353,7 +353,8 @@ function pageStack() {
   <ul><li><b>특수형</b> · 표준 틀로 만들 수 없는 예외 화면 · Stack 조립 제외 · 포털 승인 담당 승인</li><li><b>노드형</b> · 단계가 한 방향으로 이어지는 절차형 업무 · <a href="#s-node">노드 쉘</a></li><li><b>일반형</b> · 조회조건 → 상세정보 → 컨텐트 · <a href="#l-general">일반형 레이아웃</a></li><li><b>팝업</b> · 바탕 화면 위 레이어 · <a href="#l-popup">팝업 레이아웃</a></li></ul>
   <h2 id="owners">기준 원본 · 관리</h2>
   ${table(['대상', '원본', '편집', '게시'], [
-    ['앱쉘 · 블록 · 컴포넌트 (모양)', 'Figma 디자인 시스템', P.ROLES.ds, P.ROLES.approver],
+    ['컴포넌트 · 블록 · 토큰', 'Figma 디자인 시스템', P.ROLES.ds, P.ROLES.approver],
+    ['앱쉘', 'UX표준가이드 · 이 포털', P.ROLES.ux, P.ROLES.approver],
     ['레이아웃 규칙 · 규칙 · 사용 가이드', 'UX표준가이드 · 이 포털', P.ROLES.ux, P.ROLES.approver],
     ['임시 부품 tb- · tc-', 'SB Studio 생성', '승격 심사', P.ROLES.approver],
   ].map((r) => `<tr>${r.map((c) => `<td>${esc(c)}</td>`).join('')}</tr>`))}`;
