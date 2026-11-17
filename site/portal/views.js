@@ -41,6 +41,7 @@ const can = (type) => role === P.EDITOR[type];
 const KIND_SECTION = { shell: 'blocks', block: 'blocks', comp: 'components', layout: 'patterns' };
 const KIND_LABEL = { shell: 'App shell', block: 'Blocks', comp: 'Components', layout: 'Layout rules' };
 // SB 블록: SB Studio에서 만든 업무 전용 블록(tb-). 여러 SB에서 쓰이면 승격 요청으로 공통 블록(b-)이 된다
+// 흐름: SB Studio 미리보기에서 자동 생성 → SB 설계 완료 시 이 목록에 게시 → 여러 SB에서 쓰이면 승격
 const isSb = (i) => i.kind === 'block' && /^tb-/.test(i.code);
 const link = (code) => {
   const it = P.item(code);
@@ -486,7 +487,7 @@ function blockSections(I) {
   const promos = P.promotions().filter((p) => /^tb-/.test(p.code));
   return `<h2 id="shell">앱쉘</h2><p class="note">화면이 바뀌어도 남는 바탕 틀입니다. 빈칸으로 나뉩니다.</p>${grid(I.filter((i) => i.kind === 'shell'))}
   <h2 id="common">공통 블록</h2><p class="note">Figma 디자인 시스템 기준으로 포털이 관리하는 블록입니다. 디자인 시스템 담당이 고치고 포털 승인 담당이 게시합니다. SB Studio는 이 블록을 먼저 고릅니다.</p>${grid(I.filter((i) => i.kind === 'block' && !isSb(i)))}
-  <h2 id="sb">SB 블록</h2><p class="note">공통 블록으로 만들 수 없는 부분을 SB Studio에서 만든 업무 전용 블록입니다. 소스를 직접 고치고 자동 검사(토큰만 사용 · 스크립트 금지)를 거칩니다. 여러 SB에서 쓰이면 승격 요청으로 공통 블록이 됩니다.</p>
+  <h2 id="sb">SB 블록</h2><p class="note">공통 블록으로 만들 수 없는 부분을 위해 SB Studio 미리보기에서 자동으로 만들어지는 업무 전용 블록입니다. SB 설계가 완료되면 이 목록에 게시되고, 여러 SB에서 쓰이면 승격 요청으로 공통 블록이 됩니다.</p>
   ${sb.length ? grid(sb) : '<p class="muted">지금 등록된 SB 블록이 없습니다.</p>'}
   ${promos.length ? `<h3>승격 진행</h3>${table(['SB 블록', '출처', '판단', '단계', '상태'], promos.map((p) => `<tr><td>${esc(p.name)}</td><td>${esc(p.from)}</td><td>${human(p.judge)}</td><td class="nw">${esc(p.stage)}</td><td>${st(p.status === '승인' ? 'ok' : p.status === '반려' ? 'ng' : 'hold', p.status)}</td></tr>`))}` : ''}`;
 }
@@ -519,7 +520,7 @@ function pageItem(it) {
   const kv = [
     ['상태', stOf(it.status)],
     it.kind === 'comp' ? ['변형', esc(it.variants)] : null,
-    it.kind === 'block' ? ['구분', isSb(it) ? 'SB 블록 · SB Studio에서 만든 업무 전용 블록 (승격 대상)' : '공통 블록 · 포털 관리'] : null,
+    it.kind === 'block' ? ['구분', isSb(it) ? 'SB 블록 · SB Studio 미리보기에서 자동 생성, 설계 완료 시 게시 (승격 대상)' : '공통 블록 · 포털 관리'] : null,
     it.kind === 'block' ? ['놓이는 빈칸', human(it.slot)] : null,
     it.kind === 'layout' ? ['적용 빈칸', link(it.slot)] : null,
     it.kind === 'layout' ? ['근거 문서', esc(it.guide)] : null,
