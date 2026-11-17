@@ -142,7 +142,7 @@ export function RoleMenu() {
 
 /** 에디터 모드 띠: 역할 · 고칠 수 있는 것 · 초안 수 */
 export function EditorBar() {
-  const { role, isEditor, can, textEdit, setTextEdit } = usePortal();
+  const { role, isEditor } = usePortal();
   if (!isEditor) return null;
   const what = { ux: '레이아웃 규칙 · 규칙 · 사용 가이드', ds: '블록 · 컴포넌트 코드 · Figma 읽기', approver: '초안 게시 · 반려 · 롤백 · 승격 최종 승인', viewer: '' }[role];
   const mine = P.drafts((d) => d.status === 'draft' && (role === 'approver' || d.by === role)).length;
@@ -155,11 +155,6 @@ export function EditorBar() {
       <a href="#pub">
         {role === 'approver' ? '게시 대기' : '내 초안'} {mine}건
       </a>
-      {can('text') ? (
-        <button type="button" className={`ed-toggle${textEdit ? ' on' : ''}`} aria-pressed={textEdit} onClick={() => setTextEdit(!textEdit)}>
-          {textEdit ? '✎ 설명 편집 중 · 끄기' : '✎ 설명 편집'}
-        </button>
-      ) : null}
       <span className="ed-ver">게시 {P.version()}</span>
     </div>
   );

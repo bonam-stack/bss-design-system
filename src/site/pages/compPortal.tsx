@@ -40,7 +40,7 @@ export function CompEditor({ c }: { c: { key: string; figma?: { url?: string } }
         <section className="ed-panel">
           <div className="ed-h">
             <b>디자인 시스템 담당</b>
-            <span>모양은 Figma에서 고친 뒤 다시 읽습니다. 설명은 페이지의 글을 눌러 그 자리에서 고치고, 컴포넌트 코드는 아래 AI 채팅으로 고칩니다</span>
+            <span>모양은 Figma에서 고친 뒤 다시 읽습니다. 설명은 제목 옆 "✎ 설명 편집"을 켜고 그 자리에서 고치고, 컴포넌트 코드는 아래 AI 채팅으로 고칩니다</span>
           </div>
           <div className="row">
             <EditBtn k={`figma:${c.key}`} label="Figma에서 다시 읽기" />

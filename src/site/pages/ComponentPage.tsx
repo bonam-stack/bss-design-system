@@ -15,7 +15,7 @@ import { compile, fileOf, repoSource } from '../live';
 import { editWithChat, getApiKey, setApiKey } from '../codechat';
 import type { ChatTurn } from '../codechat';
 import type { LiveComponent, Meta } from '../live';
-import { CopyBtn, DraftBox, EditBtn, Editable, TextScope, TocInline, UxRef, copy, figmaUrl } from '../ui';
+import { CopyBtn, DraftBox, EditBtn, Editable, TextEditToggle, TextScope, TocInline, UxRef, copy, figmaUrl } from '../ui';
 import { CompChecks, CompEditor, CompRules, CompUsage, GuideEditor, applyGuide, compRules } from './compPortal';
 
 type Sel = Record<string, string>;
@@ -147,7 +147,10 @@ export function ComponentPage({ sc }: { sc: SiteComponent }) {
     <TextScope.Provider value={{ key, name: base.name }}>
     <LiveCtx.Provider value={live}>
       <p className="eyebrow">Components</p>
-      <h1>{base.name}</h1>
+      <div className="h1-row">
+        <h1>{base.name}</h1>
+        <TextEditToggle />
+      </div>
       <Editable as="p" className="lead" path="lead" label="페이지 설명" value={(isEditor && itemCode ? P.openDraft('item', itemCode)?.after.meaning : undefined) || itemMeaning || c.description || ''} onSave={itemCode ? (v) => P.draftItem(role, itemCode, { meaning: v }) : undefined} />
       <CompChecks c={c} hasGuide={!!sc.guide} />
       <TocInline />

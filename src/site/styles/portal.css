@@ -268,8 +268,12 @@ details.gx-rules .rl { margin-top: 8px; }
 .gx-chip { margin-top: auto; padding: 3px 10px; border-radius: 999px; background: #e6f0ff; color: #0b5fd8; font-size: 12px; font-weight: 600; }
 
 /* ---------- 에디터 모드: 설명 편집 ---------- */
-.ed-toggle { margin-left: 4px; padding: 3px 12px; border: 1px solid rgba(255,255,255,0.7); border-radius: 999px; background: transparent; color: inherit; font: inherit; font-size: 13px; font-weight: 600; cursor: pointer; }
-.ed-toggle.on { background: #fff; color: var(--accent); }
+.h1-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.h1-row h1 { margin-bottom: 0; }
+.h1-row + .lead, .h1-row + .ed-field { margin-top: 12px; }
+.ed-toggle { flex-shrink: 0; padding: 7px 14px; border: 1px solid var(--accent); border-radius: 999px; background: var(--bg); color: var(--accent); font: inherit; font-size: 14px; font-weight: 600; cursor: pointer; }
+.ed-toggle:hover { background: var(--accent-soft); }
+.ed-toggle.on { background: var(--accent); color: var(--on-accent); }
 .ed-field { display: inline-block; width: 100%; min-height: 32px; margin: 0; padding: 6px 8px; border: 1px dashed var(--accent); border-radius: 6px; background: #fff; color: var(--fg); font: inherit; line-height: 1.6; resize: none; overflow: hidden; vertical-align: top; }
 .ed-field.block { display: block; margin: 0 0 12px; }
 .ed-field:focus { outline: 2px solid var(--accent); border-style: solid; }
