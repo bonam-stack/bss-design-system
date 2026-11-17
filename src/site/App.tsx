@@ -73,6 +73,10 @@ export function App() {
 
   const toast = useCallback((text: string) => setToastMsg((t) => ({ text, n: (t?.n || 0) + 1 })), []);
   useEffect(() => setToast(toast), [toast]);
+  // 새 기준 데이터로 배포되어 이전 초안 · 게시 기록을 지웠으면 한 번 알린다
+  useEffect(() => {
+    if (P.wasWiped()) toast('새 기준 데이터로 바뀌어 이전 초안 · 게시 기록을 지웠습니다');
+  }, [toast]);
   useEffect(() => {
     if (!toastMsg) return;
     const t = setTimeout(() => setToastMsg(null), 1600);

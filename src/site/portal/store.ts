@@ -8,6 +8,11 @@ import type { Policy } from '../data';
 import { guideRules } from '../guide';
 
 const KEY = 'bss-design-portal.v2';
+const VER_KEY = 'bss-design-portal.data-version';
+let wiped = false;
+/** 이번에 열 때 새 기준 데이터라 이전 기록을 지웠는지 */
+export const wasWiped = () => wiped;
+export const dataVersion = () => __DATA_VERSION__;
 export type Role = 'viewer' | 'ux' | 'ds' | 'approver';
 export const ROLES: Record<Role, string> = { viewer: '보기 (기획자)', ux: 'UX 가이드 담당', ds: '디자인 시스템 담당', approver: '포털 승인 담당' };
 export type Kind = 'layout' | 'block' | 'comp';
@@ -207,7 +212,7 @@ function fresh(): State {
     drafts: [],
     promotions: clone(base.catalog.promotions),
     detections: clone(base.catalog.detections),
-    history: [{ version: base.catalog.meta.version, at: now(), mode: '구축', by: 'approver', notes: [{ title: 'SB Studio 포털 카탈로그 0.5 · 저장소 컴포넌트 · UX표준가이드 1.2 이관' }] }],
+    history: [{ version: base.catalog.meta.version, at: now(), mode: '구축', by: 'approver', notes: [{ title: 'SB Studio 포털 카탈로그 0.5 · 저장소 컴포넌트 · UX 패턴 가이드 20261106 이관' }] }],
     seq: { draft: 1 },
   };
 }
@@ -235,9 +240,25 @@ export function init(b: Base) {
   } catch {
     S = null as unknown as State;
   }
+  // 새 기준 데이터로 배포되면 이전 초안 · 게시 기록을 지운다 (POC: 이력 없이 새로 시작)
+  let ver = '';
+  try {
+    ver = localStorage.getItem(VER_KEY) || '';
+  } catch {
+    /* 읽지 못하면 그대로 */
+  }
+  if (S && ver !== __DATA_VERSION__) {
+    S = null as unknown as State;
+    wiped = true;
+  }
   if (!S || S.v !== 2) {
     S = fresh();
     save();
+  }
+  try {
+    localStorage.setItem(VER_KEY, __DATA_VERSION__);
+  } catch {
+    /* 저장 못 해도 이번 화면에서는 동작 */
   }
   S.pub.code ||= {}; // 코드 편집 전에 저장된 상태
   S.pub.texts ||= {};

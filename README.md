@@ -100,6 +100,8 @@ scripts/structure_ux_guide.py      원문 → 포털 구조. 문서별 대상 �
 
 컴포넌트 사용 가이드(`components/<key>/guide.json`의 Policy · 기준 · Do/Don't)는 새 UX 패턴 가이드 문서에서 다시 만든다: `python3 scripts/sync_component_policy.py`. 어느 문서의 어느 절 · 항목을 쓰는지는 스크립트의 `SPEC`에 컴포넌트별로 적혀 있고, 바뀐 기준을 출력한다. 컴포넌트 쪽 부족분(gap)은 기존 파일에서 이어받는다.
 
+POC라 이력은 남기지 않는다. 저장소의 기준 데이터(카탈로그 · 컴포넌트 · UX 패턴 가이드 · 패턴 · 토큰 · React 컴포넌트 코드)가 바뀌어 새로 배포되면, 브라우저에 남은 이전 초안 · 게시 기록을 열 때 자동으로 지우고 새 기준으로 다시 시작한다(`vite.config.ts`의 데이터 지문). 역할 · API 키 · Figma 토큰은 남는다.
+
 ## BSS 디자인 포털
 
 SB Studio 안의 메뉴로 들어가는 디자인 포털이다. 누구에게나 같은 문서 사이트(시작하기 · Foundations · Components · Blocks · Patterns · UX 거버넌스)가 보이고,
