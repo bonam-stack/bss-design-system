@@ -60,7 +60,12 @@ function human(text) {
   });
 }
 const table = (cols, rows) => `<div class="tw"><table class="t"><thead><tr>${cols.map((c) => `<th>${c}</th>`).join('')}</tr></thead><tbody>${rows.join('') || `<tr><td colspan="${cols.length}" class="muted">없음</td></tr>`}</tbody></table></div>`;
-const check = (on, label) => `<span class="ck ${on ? 'on' : 'off'}">${on ? '<svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="8"/><path d="M4.5 8.2l2.2 2.2 4.8-4.8" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>' : '<svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="7.2" fill="none" stroke-width="1.6"/></svg>'}${esc(label)}</span>`;
+// 준비 상태 칸: 마름모 표시(있음 = 채움 · 없음 = 빈 테두리) + 이름 + 값(버전 등 숫자가 있으면 고정폭으로)
+const check = (on, label) => {
+  const m = String(label).match(/^(.*\S)\s+(\S*\d\S*)$/);
+  const text = m ? `<span class="ck-k">${esc(m[1])}</span><b class="ck-v">${esc(m[2])}</b>` : `<span class="ck-k">${esc(label)}</span>`;
+  return `<span class="ck ${on ? 'on' : 'off'}" title="${on ? '있음' : '없음'}"><i aria-hidden="true"></i>${text}<span class="sr">${on ? ' 있음' : ' 없음'}</span></span>`;
+};
 const editBtn = (key, label = '편집') => `<button type="button" class="edit-btn${ui.edit === key ? ' on' : ''}" data-act="edit" data-k="${esc(key)}">${ui.edit === key ? '닫기' : `✎ ${label}`}</button>`;
 
 function draftBox(d) {
