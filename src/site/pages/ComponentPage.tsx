@@ -149,7 +149,7 @@ export function ComponentPage({ sc }: { sc: SiteComponent }) {
     <LiveCtx.Provider value={live}>
       <p className="eyebrow">Components</p>
       <div className="h1-row">
-        <h1>{base.name}</h1>
+        <Editable as="h1" path="title" label="컴포넌트 제목" value={(textEdit && itemCode ? P.openDraft('item', itemCode)?.after.name : undefined) || P.itemByKey(key)?.name || base.name} onSave={itemCode ? (v) => P.draftItem(role, itemCode, { name: v.trim() }) : undefined} />
         <TextEditToggle />
       </div>
       <Editable as="p" className="lead" path="lead" label="페이지 설명" value={(textEdit && itemCode ? P.openDraft('item', itemCode)?.after.meaning : undefined) || itemMeaning || c.description || ''} onSave={itemCode ? (v) => P.draftItem(role, itemCode, { meaning: v }) : undefined} />

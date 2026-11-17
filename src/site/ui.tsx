@@ -372,7 +372,7 @@ export function TextEditToggle() {
 
 /** 고칠 수 있는 글. 에디터 모드에서 "설명 편집"을 켜면 입력칸이 되고, 고친 글은 아래 띠의 "초안 저장"으로 한 번에 초안이 된다.
  *  포털 승인 담당이 게시하면 모두에게 보인다 */
-export function Editable({ path, value, label, as: Tag = 'span', className, onSave, placeholder, perm = 'comp' }: { path: string; value: string; label: string; as?: 'span' | 'p' | 'div'; className?: string; onSave?: (v: string) => unknown; placeholder?: string; /** onSave가 있을 때 고칠 수 있는 담당 (기본: 컴포넌트 = 디자인 시스템 담당) */ perm?: P.EditType }) {
+export function Editable({ path, value, label, as: Tag = 'span', className, onSave, placeholder, perm = 'comp' }: { path: string; value: string; label: string; as?: 'span' | 'p' | 'div' | 'h1'; className?: string; onSave?: (v: string) => unknown; placeholder?: string; /** onSave가 있을 때 고칠 수 있는 담당 (기본: 컴포넌트 = 디자인 시스템 담당) */ perm?: P.EditType }) {
   const scope = useContext(TextScope);
   const { can, textEdit, pending, setPending } = usePortal();
   const get = useText();
@@ -383,7 +383,7 @@ export function Editable({ path, value, label, as: Tag = 'span', className, onSa
   const cur = pending[pk]?.value ?? shown;
   return (
     <AutoText
-      className={`ed-field${Tag === 'p' ? ' block' : ''}${pending[pk] && cur !== shown ? ' changed' : ''}`}
+      className={`ed-field${Tag === 'p' ? ' block' : ''}${Tag === 'h1' ? ' ed-title' : ''}${pending[pk] && cur !== shown ? ' changed' : ''}`}
       value={cur}
       placeholder={placeholder || label}
       aria-label={label}

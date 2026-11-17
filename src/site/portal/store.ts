@@ -335,13 +335,15 @@ function must(role: Role, type: EditType) {
   if (!canEdit(role, type)) throw new Error(`${(SHARED[type] || [EDITOR[type]]).map((r) => ROLES[r]).join(' · ')}만 고칠 수 있습니다`);
 }
 
-const ITEM_LABEL: Record<string, string> = { name: '이름', meaning: '뜻', variants: '변형', slot: '놓이는 빈칸', status: '상태' };
+const ITEM_LABEL: Record<string, string> = { name: '이름(제목)', meaning: '뜻', variants: '변형', slot: '놓이는 빈칸', status: '상태' };
 
 /** 카탈로그 항목(이름 · 뜻 · 변형/빈칸 · 상태) 수정 */
 export function draftItem(role: Role, code: string, fields: Partial<Item>) {
   const cur = item(code);
   if (!cur) throw new Error(`${code}가 없습니다`);
   must(role, cur.kind);
+  // 같은 항목의 열린 초안(예: 이름 · 뜻을 따로 고침)은 하나로 합친다
+  fields = { ...(openDraft('item', code)?.after || {}), ...fields };
   const lines: string[] = [];
   let bump: Bump = 'PATCH';
   for (const [k, v] of Object.entries(fields) as [keyof Item, string][]) {
@@ -428,9 +430,13 @@ export async function draftFigma(role: Role, { key, code, url }: { key?: string;
   delete after.kind;
   const diff = diffComponent(prev, after);
   if (key && diff.lines.length === 1 && diff.lines[0] === '바뀐 점 없음') throw new Error(`Figma 노드와 게시본이 같습니다 · 바뀐 점 없음 (${conv.mode === 'mock' ? '흉내 모드' : 'Figma API'})`);
-  const target = key ? k : code || `c-${k}`;
-  return upsertDraft({ type: 'figma', target: key ? k : target, key: k, code: key ? itemByKey(k)?.code : target, title: key ? `${k} Figma 다시 읽기` : `${r.name} 추가 (Figma)`, after, isNew: !key, source: { url, mode: conv.mode }, lines: diff.lines, bump: diff.bump }, role);
+  // 카탈로그 코드는 자동: 같은 이름 · 같은 코드(c-<key>)의 빈 카탈로그 항목이 있으면 거기에 잇고, 없으면 새 코드
+  const norm = (x: string) => String(x || '').toLowerCase().replace(/[^a-z0-9가-힣]/g, '');
+  const match = code || items().find((i) => i.kind === 'comp' && !i.key && (i.code === `c-${k}` || norm(i.name) === norm(r.name) || norm(i.code.replace(/^c-/, '')) === norm(k)))?.code;
+  const target = key ? k : match || `c-${k}`;
+  return upsertDraft({ type: 'figma', target: key ? k : target, key: k, code: key ? itemByKey(k)?.code : target, title: key ? `${k} Figma 다시 읽기` : `${r.name} 추가 (Figma)`, after, isNew: !key, source: { url, mode: conv.mode }, lines: key ? diff.lines : [...diff.lines, match ? `카탈로그 ${match} ${itemsName(match)}에 연결` : `카탈로그에 ${target}로 새로 등록`], bump: diff.bump }, role);
 }
+const itemsName = (code: string) => items().find((i) => i.code === code)?.name || '';
 
 /** 게시된 컴포넌트 코드 (없으면 null = 저장소 코드) */
 export const publishedCode = (key: string): string | null => S.pub.code?.[key] ?? null;

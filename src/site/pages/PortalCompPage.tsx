@@ -11,7 +11,7 @@ import type { LiveComponent } from '../live';
 import { starterCode } from '../compgen';
 import { generateComponent, getApiKey } from '../codechat';
 import { fetchFigmaLayers, getFigmaToken, saveFigmaToken } from '../figma';
-import { DraftBox, Head, Table, TextEditToggle } from '../ui';
+import { DraftBox, Editable, Table, TextEditToggle, TextScope, TocInline } from '../ui';
 import { CompChecks, CompEditor, CompRules, CompUsage, compRules } from './compPortal';
 import { Boundary, CodeBlock, CodeChat } from './ComponentPage';
 
@@ -205,7 +205,7 @@ function CodeMaker({ c, name, src, setSrc, saved }: { c: C; name: string; src: s
 }
 
 export function PortalOnlyPage({ c, draft }: { c: C; draft?: boolean }) {
-  const { textEdit, can } = usePortal();
+  const { textEdit, can, role } = usePortal();
   const name = pascal(c.key);
   const r = P.itemByKey(c.key);
   const ru = compRules(c.key);
@@ -219,18 +219,23 @@ export function PortalOnlyPage({ c, draft }: { c: C; draft?: boolean }) {
   const Comp = compiled?.Component || (published ? compile(name, published).Component : undefined);
   const [tab, setTab] = useState<'preview' | 'code'>('preview');
   return (
-    <>
-      <Head
-        eyebrow={draft ? 'Components · 게시 전 초안' : 'Components'}
-        title={c.name}
-        lead={r?.meaning || c.description}
-        extra={
-          <>
-            <TextEditToggle />
-            <CompChecks c={c} hasGuide={false} />
-          </>
-        }
-      />
+    <TextScope.Provider value={{ key: c.key, name: c.name }}>
+      <p className="eyebrow">{draft ? 'Components · 게시 전 초안' : 'Components'}</p>
+      <div className="h1-row">
+        {r && !draft ? (
+          <Editable as="h1" path="title" label="컴포넌트 제목" value={(textEdit ? P.openDraft('item', r.code)?.after.name : undefined) || r.name || c.name} onSave={(v) => P.draftItem(role, r.code, { name: v.trim() })} />
+        ) : (
+          <h1>{c.name}</h1>
+        )}
+        <TextEditToggle />
+      </div>
+      {r && !draft ? (
+        <Editable as="p" className="lead" path="lead" label="페이지 설명" value={(textEdit ? P.openDraft('item', r.code)?.after.meaning : undefined) || r.meaning || c.description || ''} onSave={(v) => P.draftItem(role, r.code, { meaning: v })} />
+      ) : (
+        <p className="lead">{c.description}</p>
+      )}
+      <CompChecks c={c} hasGuide={false} />
+      <TocInline />
       {draft ? (
         <>
           <p className="note">
@@ -309,6 +314,6 @@ export function PortalOnlyPage({ c, draft }: { c: C; draft?: boolean }) {
         </>
       ) : null}
       {!draft ? <CompUsage k={c.key} /> : null}
-    </>
+    </TextScope.Provider>
   );
 }

@@ -263,12 +263,11 @@ function ItemList({ kind }: { kind: 'comp' | 'block' }) {
   const onAdd = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const v = formValues(e.currentTarget);
-    act(() => P.draftFigma(role, { code: v.code || null, url: v.url.trim() }), (d) => `${d.after.name} 읽기 · 초안 ${d.id} 저장 · 이어서 React 코드를 만드세요`, (d) => `#new-${d.key}`).then((d) => d && setTextEdit(true));
+    act(() => P.draftFigma(role, { url: v.url.trim() }), (d) => `${d.after.name} 읽기 · 초안 ${d.id} 저장 · 이어서 React 코드를 만드세요`, (d) => `#new-${d.key}`).then((d) => d && setTextEdit(true));
   };
   const sample = (e: React.MouseEvent<HTMLButtonElement>) => {
     const f = e.currentTarget.form!;
     (f.elements.namedItem('url') as HTMLInputElement).value = `https://www.figma.com/design/${FIGMA_FILE}/Lib?node-id=9000-1`;
-    (f.elements.namedItem('code') as HTMLSelectElement).value = 'c-chip';
   };
   return (
     <>
@@ -284,23 +283,10 @@ function ItemList({ kind }: { kind: 'comp' | 'block' }) {
             <span>① Figma 컴포넌트 노드 주소를 넣고 읽으면 새 컴포넌트 페이지(게시 전)가 열립니다 → ② 그 페이지에서 Figma를 보고 React 코드를 만듭니다(AI 또는 기본 틀) → ③ 포털 승인 담당이 Figma 초안과 코드 초안을 게시합니다.</span>
           </div>
           <form className="ef" onSubmit={onAdd}>
-            <div className="ef-r">
-              <label>
-                카탈로그 코드
-                <select name="code" defaultValue="">
-                  <option value="">새 코드 (c-이름)</option>
-                  {I.filter((i) => !i.key).map((i) => (
-                    <option key={i.code} value={i.code}>
-                      {i.code} {i.name}
-                    </option>
-                  ))}
-                </select>
-              </label>
-              <label className="w">
-                Figma 노드 주소
-                <input name="url" required placeholder="https://www.figma.com/design/…?node-id=…" />
-              </label>
-            </div>
+            <label className="w">
+              Figma 노드 주소
+              <input name="url" required placeholder="https://www.figma.com/design/…?node-id=…" />
+            </label>
             <div className="row">
               <button className="btn2 primary sm">읽기 · 초안 저장</button>
               <button type="button" className="lnk" onClick={sample}>

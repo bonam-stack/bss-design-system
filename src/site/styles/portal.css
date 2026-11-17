@@ -319,3 +319,5 @@ a.role-pop-row:hover b { color: var(--ed); }
 .nc-steps .cc-key { margin: 6px 0 0; }
 .nc-ask { width: 100%; margin-top: 8px; }
 .btn2:disabled { opacity: .45; cursor: not-allowed; }
+.ed-field.ed-title { flex: 1; font-size: 44px; font-weight: 700; line-height: 1.15; letter-spacing: -0.03em; padding: 2px 8px; }
+@media (max-width: 720px) { .ed-field.ed-title { font-size: 32px; } }
