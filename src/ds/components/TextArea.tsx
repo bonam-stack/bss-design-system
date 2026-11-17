@@ -1,35 +1,106 @@
-// 생성 파일: scripts/gen-react.mjs (npm run gen). 직접 고치지 않는다.
-// 원본: components/text-area/component.json · Figma https://www.figma.com/design/9AioWOXVOVm5C7kdSxSEEP?node-id=4971-33462
-import data from '../../../components/text-area/component.json';
-import icon0 from '../../../icons/svg/line/drag-handle.svg?raw';
-import icon1 from '../../../icons/svg/line/asterisk.svg?raw';
-import { createFigmaComponent } from '../core/react';
-import type { ComponentData, IconMap } from '../types';
+// TextArea: 여러 줄 입력. 실제 <textarea>. maxLength를 주면 도움말 오른쪽에 글자 수가 나온다.
+// Figma: BSS DS Library v2.0 ❖ TextArea (importance 3 × state 6 × invalid 2, showLabel · showHelperText · showResizeHandle · showFocus)
+import { useId, useState } from 'react';
+import type { TextareaHTMLAttributes } from 'react';
+import { Icon, bool, font, tok, useInteraction } from '../shared';
+import { FieldFrame, bareInput, fieldColors, fieldLook } from '../field';
+import type { FieldState, Importance } from '../field';
 
-/** TextArea 속성 */
-export interface TextAreaProps {
-  /** 기본값 true */
-  showHelperText?: boolean;
-  /** 기본값 false */
-  showFocus?: boolean;
-  /** 기본값 true */
-  showResizeHandle?: boolean;
-  /** 기본값 false */
+export interface TextAreaProps extends Omit<TextareaHTMLAttributes<HTMLTextAreaElement>, 'value' | 'defaultValue' | 'onChange'> {
+  value?: string;
+  defaultValue?: string;
+  onChange?: (value: string) => void;
+  importance?: Importance;
+  invalid?: boolean | 'true' | 'false';
+  /** 모양을 이 상태로 고정 (문서 예시용) */
+  state?: FieldState;
+  label?: string;
   showLabel?: boolean;
-  /** 변형 · 기본값 "none" */
-  importance?: "none" | "attention" | "required";
-  /** 변형 · 기본값 "default" */
-  state?: "default" | "hover" | "focus" | "entered" | "readOnly" | "disabled";
-  /** 변형 · 기본값 "false" */
-  invalid?: "false" | "true" | boolean;
+  helperText?: string;
+  showHelperText?: boolean;
+  /** 오른쪽 아래 크기 조절 손잡이 표시 (Figma 모양) */
+  showResizeHandle?: boolean;
+  showFocus?: boolean;
+  /** 칸 폭 · 입력 영역 높이 (기본 Figma 240 · 74) */
+  width?: number | string;
+  height?: number;
 }
 
-const icons: IconMap = {
-  "328d79c6b1ac36bb33a730426f246b3db9dc1e8f": { svg: icon0, colored: false },
-  "d1a6f375b6583b2b4eebef5e419a5783c763a0f5": { svg: icon1, colored: false },
-};
+export function TextArea({ value, defaultValue = '', onChange, importance = 'none', invalid, state, label = 'Label', showLabel = false, helperText = 'HelperText', showHelperText = true, showResizeHandle = true, showFocus = false, width = 240, height = 74, placeholder = 'Placeholder', maxLength, disabled, readOnly, id, className, style, ...input }: TextAreaProps) {
+  const auto = useId();
+  const fid = id ?? auto;
+  const [inner, setInner] = useState(defaultValue);
+  const v = value ?? inner;
+  const it = useInteraction();
+  const look = fieldLook({ state, disabled: disabled || state === 'disabled', readOnly: readOnly || state === 'readOnly', focused: it.focused, hover: it.hover, hasValue: !!v });
+  const bad = bool(invalid);
+  const c = fieldColors(look, importance, bad);
 
-/**
- * 여러 줄 입력 필드입니다. 라벨·입력 상자·도움말을 묶은 필드에 대응하며, 입력 글자는 _Item/TextArea/InputText를 씁니다(높이 고정, 넘치는 글자는 스크롤). state: default 기본, hover :hover, focus :focus-within, entered 값 입력 완료(포커스 없음, 값 있음), readOnly readonly, disabled disabled. importance: none 기본, attention 노랑 강조, required 주황 필수. invalid=true는 aria-invalid=true입니다. 오류일 때 default는 오류 바탕·테두리·바깥 링(invalidBox), hover·focus는 바탕은 그 상태 값이고 테두리·바깥 링만 오류, readOnly·disabled는 오류를 표시하지 않습니다(attention·required도 같음). 사이즈는 하나입니다. showLabel은 라벨, showHelperText는 도움말, showResizeHandle은 크기 조절 손잡이, showFocus는 키보드 포커스 링입니다. 색은 field/*(변형은 field/attention·required/*), 치수는 textArea/*, 오류 링은 field/ring/*, 포커스 링은 focusRing/*와 textArea/focusRing/radius에 연결합니다. 토큰 이름은 textArea-*·field-*입니다.
- */
-export const TextArea = createFigmaComponent<TextAreaProps>(data as ComponentData, icons, "TextArea");
+  return (
+    <FieldFrame
+      name="text-area"
+      id={fid}
+      width={width}
+      label={label}
+      showLabel={showLabel}
+      importance={importance}
+      helperText={helperText}
+      showHelperText={showHelperText}
+      invalid={bad}
+      look={look}
+      count={maxLength ? { count: v.length, max: maxLength } : undefined}
+      ringRadius={tok('text-area-focus-ring-radius', 8)}
+      showRing={showFocus || it.focusVisible}
+      className={className}
+      style={style}
+      pointer={it.pointer}
+    >
+      <div
+        style={{
+          position: 'relative',
+          flex: '1 1 0',
+          minWidth: 0,
+          display: 'flex',
+          padding: `${tok('text-area-space-padding-y', 8)} ${tok('text-area-space-padding-x', 14)}`,
+          borderRadius: tok('text-area-radius', 6),
+          background: c.background,
+          boxShadow: `inset 0 0 0 ${tok('text-area-border-width', 1)} ${c.border}`,
+          outline: c.ring,
+          ...font('body', 14, 400),
+          color: c.text,
+        }}
+      >
+        <span style={{ position: 'relative', flex: '1 1 0', minWidth: 0, display: 'flex' }}>
+          <textarea
+            {...input}
+            id={fid}
+            value={v}
+            maxLength={maxLength}
+            disabled={disabled || state === 'disabled'}
+            readOnly={readOnly || state === 'readOnly'}
+            aria-invalid={bad || undefined}
+            aria-describedby={showHelperText ? `${fid}-help` : undefined}
+            onChange={(e) => {
+              if (value === undefined) setInner(e.target.value);
+              onChange?.(e.target.value);
+            }}
+            {...it.focus}
+            style={{ ...bareInput, height, minHeight: 40, resize: 'none', overflowWrap: 'anywhere', cursor: look === 'disabled' ? 'not-allowed' : undefined }}
+          />
+          {!v ? (
+            <span aria-hidden="true" style={{ position: 'absolute', inset: 0, color: c.placeholder, pointerEvents: 'none', overflow: 'hidden' }}>
+              {placeholder}
+            </span>
+          ) : null}
+        </span>
+        {showResizeHandle ? (
+          <span style={{ position: 'absolute', right: 8, bottom: 8, pointerEvents: 'none', color: tok(`button-icon-only-plain-color-fg-${look === 'disabled' || look === 'readOnly' ? 'disabled' : 'default'}`, look === 'disabled' || look === 'readOnly' ? '#B3B9C0' : '#454F59'), background: tok('button-icon-only-plain-color-bg-default', '#00000000') }}>
+            <Icon name="line/drag-handle" size={tok('button-icon-only-medium-icon-size', 16)} />
+          </span>
+        ) : null}
+      </div>
+    </FieldFrame>
+  );
+}
+
+TextArea.meta = { texts: { label: 'Label', helperText: 'HelperText', placeholder: 'Placeholder', value: '' }, samples: { focus: { defaultValue: 'Text' }, entered: { defaultValue: 'Text' }, readOnly: { defaultValue: 'Text' }, disabled: { defaultValue: 'Text' } } };

@@ -4,15 +4,15 @@
   "type": "module",
   "description": "BSS 디자인 시스템: Figma에서 뽑은 component.json으로 만든 React 컴포넌트와 디자인 포털 문서 사이트",
   "scripts": {
-    "gen": "node scripts/gen-react.mjs",
-    "dev": "npm run gen && vite",
-    "build": "npm run gen && tsc --noEmit -p . && vite build",
+    "dev": "vite",
+    "build": "tsc --noEmit -p . && vite build",
     "preview": "vite preview",
-    "typecheck": "npm run gen && tsc --noEmit -p ."
+    "typecheck": "tsc --noEmit -p ."
   },
   "dependencies": {
     "react": "18.3.1",
-    "react-dom": "18.3.1"
+    "react-dom": "18.3.1",
+    "sucrase": "3.35.0"
   },
   "devDependencies": {
     "@types/react": "18.3.12",

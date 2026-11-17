@@ -5,7 +5,7 @@ import type { GuideRule, PortalComp } from '../portal/store';
 import { usePortal } from '../portal/ctx';
 import { patterns } from '../data';
 import type { Guide } from '../data';
-import type { ComponentData } from '../../ds/types';
+import type { ComponentData } from '../../ds/figma/types';
 import { Check, CodeLink, DraftBox, EditBtn, Head, RuleList, StOf, Table, fmt } from '../ui';
 import { ItemForm } from './portal';
 

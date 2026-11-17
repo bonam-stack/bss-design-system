@@ -3,7 +3,7 @@
 // 저장은 이 브라우저의 localStorage (POC). 게시본 = 저장소 JSON(기준) + 게시된 변경(pub).
 // 바뀔 때마다 subscribe한 화면(useSyncExternalStore)이 다시 그려진다.
 import { convertFromUrl, diffComponent } from './portal-core.js';
-import type { ComponentData } from '../../ds/types';
+import type { ComponentData } from '../../ds/figma/types';
 import type { Policy } from '../data';
 
 const KEY = 'bss-design-portal.v2';
@@ -19,8 +19,8 @@ export const PROMO_STAGES: { stage: string; who: Role; act: string }[] = [
   { stage: '최종 승인', who: 'approver', act: '최종 승인' },
 ];
 // 누가 무엇을 고치나: 모양(앱쉘 · 블록 · 컴포넌트 · Figma)은 디자인 시스템 담당, 쓰는 방법(레이아웃 규칙 · 규칙 · 사용 가이드)은 UX 가이드 담당
-export type EditType = Kind | 'figma' | 'rule' | 'guide';
-export const EDITOR: Record<EditType, Role> = { shell: 'ds', block: 'ds', comp: 'ds', figma: 'ds', layout: 'ux', rule: 'ux', guide: 'ux' };
+export type EditType = Kind | 'figma' | 'code' | 'rule' | 'guide';
+export const EDITOR: Record<EditType, Role> = { shell: 'ds', block: 'ds', comp: 'ds', figma: 'ds', code: 'ds', layout: 'ux', rule: 'ux', guide: 'ux' };
 
 export type Bump = 'PATCH' | 'MINOR' | 'MAJOR';
 
@@ -102,7 +102,7 @@ export interface GuideDoc {
   rules: GuideRule[];
   next: number;
 }
-export type DraftType = 'item' | 'rule' | 'guide' | 'figma';
+export type DraftType = 'item' | 'rule' | 'guide' | 'figma' | 'code';
 export type DraftStatus = 'draft' | 'published' | 'rejected' | 'discarded' | 'rolled_back';
 export interface Draft {
   id: string;
@@ -142,6 +142,8 @@ interface Pub {
   addedRules: Rule[];
   guides: Record<string, GuideDoc>;
   comps: Record<string, Partial<PortalComp> & { description?: string; syncedAt?: string }>;
+  /** 게시된 React 컴포넌트 코드 (컴포넌트 key → TSX). 없으면 저장소 코드 */
+  code: Record<string, string>;
 }
 export interface HistoryNote {
   id?: string;
@@ -194,7 +196,7 @@ function fresh(): State {
   return {
     v: 2,
     version: base.catalog.meta.version,
-    pub: { items: {}, added: [], rules: {}, addedRules: [], guides: {}, comps: {} },
+    pub: { items: {}, added: [], rules: {}, addedRules: [], guides: {}, comps: {}, code: {} },
     drafts: [],
     promotions: clone(base.catalog.promotions),
     detections: clone(base.catalog.detections),
@@ -230,6 +232,7 @@ export function init(b: Base) {
     S = fresh();
     save();
   }
+  S.pub.code ||= {}; // 코드 편집 전에 저장된 상태
 }
 export function reset() {
   S = fresh();
@@ -413,6 +416,35 @@ export async function draftFigma(role: Role, { key, code, url }: { key?: string;
   return upsertDraft({ type: 'figma', target: key ? k : target, key: k, code: key ? itemByKey(k)?.code : target, title: key ? `${k} Figma 다시 읽기` : `${r.name} 추가 (Figma)`, after, isNew: !key, source: { url, mode: conv.mode }, lines: diff.lines, bump: diff.bump }, role);
 }
 
+/** 게시된 컴포넌트 코드 (없으면 null = 저장소 코드) */
+export const publishedCode = (key: string): string | null => S.pub.code?.[key] ?? null;
+
+const propsBlock = (src: string) => (src.match(/export interface \w+Props[\s\S]*?\n}/) || [''])[0];
+/** 줄 단위로 더한 줄 · 뺀 줄 수 */
+function lineDiff(a: string, b: string) {
+  const count = (L: string[]) => L.reduce((m, l) => m.set(l, (m.get(l) || 0) + 1), new Map<string, number>());
+  const A = count(a.split('\n'));
+  const B = count(b.split('\n'));
+  let add = 0;
+  let del = 0;
+  for (const [l, n] of B) add += Math.max(0, n - (A.get(l) || 0));
+  for (const [l, n] of A) del += Math.max(0, n - (B.get(l) || 0));
+  return { add, del };
+}
+
+/** 컴포넌트 React 코드 편집 (디자인 시스템 담당). repo면 저장소 코드로 되돌리는 초안 */
+export function draftCode(role: Role, key: string, file: string, source: string, repoSource: string) {
+  must(role, 'code');
+  const before = publishedCode(key) ?? repoSource;
+  if (before === source) throw new Error('바뀐 내용이 없습니다');
+  const repo = source === repoSource;
+  const { add, del } = lineDiff(before, source);
+  const propsChanged = propsBlock(before) !== propsBlock(source);
+  const lines = [repo ? `저장소 코드로 되돌리기 (${file})` : `${file} 수정 · +${add}줄 −${del}줄`];
+  if (propsChanged) lines.push('속성(Props) 정의가 바뀜 · 이 컴포넌트를 쓰는 화면 확인 필요');
+  return upsertDraft({ type: 'code', target: key, key, title: `${file.split('/').pop()} 코드 수정`, after: { source, repo }, lines, bump: propsChanged ? 'MAJOR' : 'PATCH' }, role);
+}
+
 export function discard(role: Role, id: string) {
   const d = S.drafts.find((x) => x.id === id);
   if (!d || d.status !== 'draft') throw new Error('초안이 아닙니다');
@@ -439,6 +471,10 @@ function apply(d: Draft) {
       else P.addedRules.splice(added, 1);
     } else P.rules[d.target] = d.after ? { ...d.after } : null;
   } else if (d.type === 'guide') P.guides[d.target] = d.after;
+  else if (d.type === 'code') {
+    if (d.after.repo) delete P.code[d.target];
+    else P.code[d.target] = d.after.source;
+  }
   else if (d.type === 'figma') {
     const key = d.key!;
     if (d.isNew) {

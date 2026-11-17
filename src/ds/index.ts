@@ -1,9 +1,9 @@
-// 생성 파일: scripts/gen-react.mjs (npm run gen). 직접 고치지 않는다.
-// BSS 디자인 시스템 React 컴포넌트. components/index.json 순서.
+// BSS 디자인 시스템 React 컴포넌트. 컴포넌트마다 src/ds/components/<Name>.tsx 하나에 구조 · 동작 · 스타일이 모두 들어 있다.
+// 스타일 값은 var(--토큰, Figma 값)이라 토큰 CSS가 없어도 Figma 값으로 그려지고, 토큰을 올리면 그 값을 따른다.
 export { Button } from './components/Button';
 export type { ButtonProps } from './components/Button';
 export { Checkbox } from './components/Checkbox';
-export type { CheckboxProps } from './components/Checkbox';
+export type { CheckboxProps, CheckboxSelection } from './components/Checkbox';
 export { Divider } from './components/Divider';
 export type { DividerProps } from './components/Divider';
 export { HelperText } from './components/HelperText';
@@ -11,35 +11,11 @@ export type { HelperTextProps } from './components/HelperText';
 export { PasswordField } from './components/PasswordField';
 export type { PasswordFieldProps } from './components/PasswordField';
 export { Radio } from './components/Radio';
-export type { RadioProps } from './components/Radio';
+export type { RadioProps, RadioSelection } from './components/Radio';
 export { RadioGroup } from './components/RadioGroup';
 export type { RadioGroupProps } from './components/RadioGroup';
 export { TextArea } from './components/TextArea';
 export type { TextAreaProps } from './components/TextArea';
 export { TextField } from './components/TextField';
 export type { TextFieldProps } from './components/TextField';
-export type { DsBaseProps, DsComponent } from './core/react';
-export type { ComponentData, IconMap, PropValues } from './types';
-
-import { Button } from './components/Button';
-import { Checkbox } from './components/Checkbox';
-import { Divider } from './components/Divider';
-import { HelperText } from './components/HelperText';
-import { PasswordField } from './components/PasswordField';
-import { Radio } from './components/Radio';
-import { RadioGroup } from './components/RadioGroup';
-import { TextArea } from './components/TextArea';
-import { TextField } from './components/TextField';
-
-/** component.json 키 → React 컴포넌트 */
-export const components = {
-  "button": Button,
-  "checkbox": Checkbox,
-  "divider": Divider,
-  "helper-text": HelperText,
-  "password-field": PasswordField,
-  "radio": Radio,
-  "radio-group": RadioGroup,
-  "text-area": TextArea,
-  "text-field": TextField,
-} as const;
+export { Icon, tok, font } from './shared';

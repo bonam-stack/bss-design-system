@@ -1,6 +1,6 @@
 // 변형 고르기와 속성 분석. React 컴포넌트와 문서 사이트 미리보기가 함께 쓴다.
 
-import type { ComponentData, Layer, PropDef, PropValues, Variant } from '../types';
+import type { ComponentData, Layer, PropDef, PropValues, Variant } from './types';
 
 /** 포인터 · 키보드가 움직이는 상태 값 (state 속성의 선택지) */
 export const INTERACTIVE = ['hover', 'pressed', 'focus'];

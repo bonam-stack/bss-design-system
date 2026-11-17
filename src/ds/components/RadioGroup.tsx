@@ -1,21 +1,56 @@
-// 생성 파일: scripts/gen-react.mjs (npm run gen). 직접 고치지 않는다.
-// 원본: components/radio-group/component.json · Figma https://www.figma.com/design/9AioWOXVOVm5C7kdSxSEEP?node-id=4971-31723
-import data from '../../../components/radio-group/component.json';
+// RadioGroup: Radio를 가로로 놓고 하나만 고르게 묶는다. children으로 Radio를 넣거나 options로 넘긴다.
+// Figma: BSS DS Library v2.0 ❖ RadioGroup (size 2, content 슬롯, 간격 radio/group/space/gap 12)
+import { useId, useState } from 'react';
+import type { CSSProperties, ReactNode } from 'react';
+import { Radio, RadioGroupContext } from './Radio';
+import { tok } from '../shared';
 
-import { createFigmaComponent } from '../core/react';
-import type { ComponentData, IconMap } from '../types';
-
-/** RadioGroup 속성 · content 슬롯은 children */
 export interface RadioGroupProps {
-  /** 변형 · 기본값 "large" */
-  size?: "large" | "medium";
+  size?: 'large' | 'medium';
+  /** 고른 값. 주면 제어 컴포넌트 */
+  value?: string;
+  defaultValue?: string;
+  onValueChange?: (value: string) => void;
+  name?: string;
+  disabled?: boolean;
+  /** children 대신 넘기는 항목 */
+  options?: { value: string; label: string; disabled?: boolean }[];
+  /** Figma content 슬롯: Radio들 */
+  children?: ReactNode;
+  'aria-label'?: string;
+  className?: string;
+  style?: CSSProperties;
 }
 
-const icons: IconMap = {
+const SAMPLE = [
+  { value: '1', label: 'Label' },
+  { value: '2', label: 'Label' },
+  { value: '3', label: 'Label' },
+];
 
-};
+export function RadioGroup({ size = 'large', value, defaultValue, onValueChange, name, disabled, options, children, className, style, ...aria }: RadioGroupProps) {
+  const list: RadioGroupProps['options'] = children ? undefined : options ?? SAMPLE;
+  const [inner, setInner] = useState(defaultValue ?? list?.[0]?.value ?? '');
+  const auto = useId();
+  const current = value ?? inner;
+  return (
+    <RadioGroupContext.Provider
+      value={{
+        name: name ?? auto,
+        value: current,
+        size,
+        disabled,
+        select: (v) => {
+          if (value === undefined) setInner(v);
+          onValueChange?.(v);
+        },
+      }}
+    >
+      <div role="radiogroup" aria-label={aria['aria-label']} className={className} style={{ display: 'inline-flex', alignItems: 'center', gap: tok('radio-group-space-gap', 12), minHeight: size === 'large' ? 24 : 20, ...style }}>
+        {children ?? list!.map((o) => <Radio key={o.value} value={o.value} label={o.label} disabled={o.disabled} />)}
+      </div>
+    </RadioGroupContext.Provider>
+  );
+}
 
-/**
- * Radio를 가로로 배치하는 묶음입니다. size 2종(large·medium). content 슬롯에 Radio를 넣고, 항목 간격은 radio/group/space/gap(12)에 연결합니다.
- */
-export const RadioGroup = createFigmaComponent<RadioGroupProps>(data as ComponentData, icons, "RadioGroup");
+RadioGroup.meta = { texts: {} };

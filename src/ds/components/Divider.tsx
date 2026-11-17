@@ -1,23 +1,36 @@
-// 생성 파일: scripts/gen-react.mjs (npm run gen). 직접 고치지 않는다.
-// 원본: components/divider/component.json · Figma https://www.figma.com/design/9AioWOXVOVm5C7kdSxSEEP?node-id=2366-22931
-import data from '../../../components/divider/component.json';
+// Divider: 영역을 나누는 선. 가로는 부모 폭을, 세로는 부모 높이를 채운다.
+// Figma: BSS DS Library v2.0 ❖ Divider (type solid · dashed × direction horizontal · vertical)
+import type { CSSProperties } from 'react';
+import { tok } from '../shared';
 
-import { createFigmaComponent } from '../core/react';
-import type { ComponentData, IconMap } from '../types';
-
-/** Divider 속성 */
 export interface DividerProps {
-  /** 변형 · 기본값 "solid" */
-  type?: "solid" | "dashed";
-  /** 변형 · 기본값 "horizontal" */
-  direction?: "horizontal" | "vertical";
+  type?: 'solid' | 'dashed';
+  direction?: 'horizontal' | 'vertical';
+  /** 가로선 길이 · 세로선 높이 (기본: Figma 280 · 300, 부모 안에서는 100%로 줘도 된다) */
+  length?: number | string;
+  className?: string;
+  style?: CSSProperties;
 }
 
-const icons: IconMap = {
+export function Divider({ type = 'solid', direction = 'horizontal', length, className, style }: DividerProps) {
+  const h = direction === 'horizontal';
+  const line = `1px ${type} ${tok('color-border-neutral-muted', '#DCE0E5')}`;
+  return (
+    <span
+      role="separator"
+      aria-orientation={direction}
+      className={className}
+      style={{
+        display: 'inline-block',
+        flexShrink: 0,
+        width: h ? length ?? 280 : 0,
+        height: h ? 0 : length ?? 300,
+        borderTop: h ? line : undefined,
+        borderLeft: h ? undefined : line,
+        ...style,
+      }}
+    />
+  );
+}
 
-};
-
-/**
- * 영역이나 항목 사이를 나누는 구분선입니다. type: solid 실선, dashed 점선. direction: horizontal 가로, vertical 세로. 길이는 놓는 자리에 맞춰 늘립니다. 선 색은 Semantic color/border/neutral/muted에 바로 연결합니다(전용 컴포넌트 토큰 없음).
- */
-export const Divider = createFigmaComponent<DividerProps>(data as ComponentData, icons, "Divider");
+Divider.meta = { texts: {} };

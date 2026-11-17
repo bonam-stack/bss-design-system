@@ -3,7 +3,7 @@
 // 어떤 토큰이 그 값을 정하는지 코드에서 보이게 한다. 아이콘 인스턴스는 icons.json의 SVG로 바꿔 끼운다(컴포넌트 키로 찾음).
 // 같은 트리를 React 요소(react.tsx)와 HTML · CSS 코드(html.ts) 두 가지로 내보낸다.
 
-import type { ComponentData, IconMap, Layer, Paint, PropValues } from '../types';
+import type { ComponentData, IconMap, Layer, Paint, PropValues } from './types';
 
 export type Css = Record<string, string>;
 

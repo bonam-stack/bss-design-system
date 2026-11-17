@@ -1,27 +1,43 @@
-// 생성 파일: scripts/gen-react.mjs (npm run gen). 직접 고치지 않는다.
-// 원본: components/helper-text/component.json · Figma https://www.figma.com/design/9AioWOXVOVm5C7kdSxSEEP?node-id=2359-22437
-import data from '../../../components/helper-text/component.json';
-import icon0 from '../../../icons/svg/line/asterisk.svg?raw';
-import { createFigmaComponent } from '../core/react';
-import type { ComponentData, IconMap } from '../types';
+// HelperText: 입력 칸 아래의 도움말 · 오류 문구, 글자 수 표시.
+// Figma: BSS DS Library v2.0 ❖ HelperText (state default · error, showLeadingIcon · showCount · message)
+import type { CSSProperties } from 'react';
+import { Icon, font, tok } from '../shared';
 
-/** HelperText 속성 */
 export interface HelperTextProps {
-  /** 기본값 true */
-  showLeadingIcon?: boolean;
-  /** 기본값 false */
-  showCount?: boolean;
-  /** 기본값 "HelperText" */
+  state?: 'default' | 'error';
   message?: string;
-  /** 변형 · 기본값 "default" */
-  state?: "default" | "error";
+  showLeadingIcon?: boolean;
+  showCount?: boolean;
+  /** 지금 글자 수 · 최대 글자 수 (showCount) */
+  count?: number;
+  max?: number;
+  id?: string;
+  className?: string;
+  style?: CSSProperties;
 }
 
-const icons: IconMap = {
-  "d1a6f375b6583b2b4eebef5e419a5783c763a0f5": { svg: icon0, colored: false },
-};
+export function HelperText({ state = 'default', message = 'HelperText', showLeadingIcon = true, showCount = false, count = 0, max, id, className, style }: HelperTextProps) {
+  const color = tok(`helper-text-color-fg-${state}`, state === 'error' ? '#ED3B3E' : '#697582');
+  const text = font('caption', 12, 400);
+  return (
+    <div id={id} className={className} role={state === 'error' ? 'alert' : undefined} style={{ display: 'flex', alignItems: 'flex-start', gap: tok('helper-text-space-gap', 4), width: 135, minHeight: 16, ...style }}>
+      <div style={{ flex: '1 1 0', minWidth: 0, display: 'flex', alignItems: 'flex-start' }}>
+        {showLeadingIcon ? (
+          <span style={{ display: 'flex', paddingTop: tok('helper-text-icon-space-padding-top', 2), minHeight: 16 }}>
+            <Icon name="line/asterisk" size={tok('helper-text-icon-size', 12)} color={color} />
+          </span>
+        ) : null}
+        <span style={{ ...text, flex: '1 1 0', minWidth: 0, color, overflowWrap: 'anywhere' }}>{message}</span>
+      </div>
+      {showCount ? (
+        <span style={{ ...text, display: 'flex', gap: tok('helper-text-count-space-gap', 2), color: tok('helper-text-count-color-fg-default', '#697582'), whiteSpace: 'nowrap' }}>
+          <span>{count}</span>
+          <span>/</span>
+          <span>{max ?? '-'}</span>
+        </span>
+      ) : null}
+    </div>
+  );
+}
 
-/**
- * 입력 필드 아래에 안내·오류 문구를 보여주는 도움말입니다. state: default 기본 안내(회색), error 오류 안내(빨강). message에서 문구를 바꾸고, showLeadingIcon으로 앞 아이콘을, showCount로 글자 수(_Item/HelperText/Count)를 켭니다. 글자는 caption/12/400, 색·치수는 helperText/* 배리어블에 연결합니다. 토큰 이름은 helperText-*입니다.
- */
-export const HelperText = createFigmaComponent<HelperTextProps>(data as ComponentData, icons, "HelperText");
+HelperText.meta = { texts: { message: 'HelperText' } };

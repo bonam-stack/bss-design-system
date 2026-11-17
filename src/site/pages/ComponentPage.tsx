@@ -1,61 +1,126 @@
 // 컴포넌트 페이지 (SEED 문서형): 미리보기 → Anatomy → Properties → Guidelines → Usage → 개발 정보.
-// 미리보기 · 예시는 모두 src/ds의 생성된 React 컴포넌트로 그린다 (component.json이 원본이라 가이드와 코드가 어긋나지 않는다).
-import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
+// 미리보기 · 예시는 모두 src/ds/components의 React 컴포넌트로 그린다. 포털에 게시된 코드가 있으면 그 코드로 그린다.
+// 디자인 시스템 담당은 같은 페이지에서 코드를 고치고(미리보기 · 예시가 바로 바뀜) Figma 원본과 견준 뒤 초안으로 저장한다.
+import { Component as ReactComponent, createContext, useContext, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import type { CSSProperties, ReactNode } from 'react';
 import type { SiteComponent, Guide, GuideRow } from '../data';
 import { patterns } from '../data';
 import * as P from '../portal/store';
-import type { ComponentData, Layer, PropValues } from '../../ds/types';
-import { analyze, defaultSelection, defaultValues, findVariant, fixSelection, optionsFor, propsFor, usedProps, variantOf } from '../../ds/core/variants';
-import { buildTree, isRenderable } from '../../ds/core/tree';
-import { toHtmlCss } from '../../ds/core/html';
-import { CopyBtn, Lines, TocInline, copy, figmaUrl } from '../ui';
+import { usePortal } from '../portal/ctx';
+import type { ComponentData, Layer, PropValues } from '../../ds/figma/types';
+import { analyze, defaultSelection, defaultValues, findVariant, fixSelection, optionsFor, propsFor, usedProps, variantOf } from '../../ds/figma/variants';
+import { isRenderable } from '../../ds/figma/tree';
+import { FigmaView } from '../../ds/figma/FigmaView';
+import { compile, fileOf, repoSource } from '../live';
+import type { LiveComponent, Meta } from '../live';
+import { CopyBtn, DraftBox, EditBtn, Lines, TocInline, copy, figmaUrl } from '../ui';
 import { CompChecks, CompEditor, CompRules, CompUsage, GuideEditor, applyGuide, compRules } from './compPortal';
 
 type Sel = Record<string, string>;
 
-/** 변형 속성 · 값 → 생성된 React 컴포넌트의 속성 (안쪽 인스턴스 속성은 overrides) */
-function viewProps(c: ComponentData, sel: Sel, values: PropValues) {
-  const props: Record<string, unknown> = { ...sel };
-  const overrides: PropValues = {};
+// ---------- 지금 그릴 React 컴포넌트 ----------
+
+interface Live {
+  C: LiveComponent | null;
+  meta: Meta;
+  /** 변형 · 불리언 값 · 글 → 컴포넌트 속성 */
+  props: (sel: Sel, values?: PropValues, texts?: Record<string, string>) => Record<string, unknown>;
+}
+const LiveCtx = createContext<Live>(null as unknown as Live);
+
+function makeLive(c: ComponentData, C: LiveComponent | null): Live {
+  const meta: Meta = C?.meta || { texts: {} };
   const top = new Map(c.props.map((p) => [p.figmaName, p]));
-  for (const [fig, v] of Object.entries(values)) {
-    const p = top.get(fig);
-    if (p) props[p.name] = v;
-    else overrides[fig] = v;
+  const defV = defaultValues(c);
+  return {
+    C,
+    meta,
+    props: (sel, values = defV, texts = meta.texts) => {
+      const out: Record<string, unknown> = { ...sel };
+      for (const [fig, v] of Object.entries(values)) {
+        const p = top.get(fig);
+        if (p && p.type === 'boolean') out[p.name] = v;
+      }
+      for (const [k, v] of Object.entries(texts)) if (k !== 'value' || v) out[k === 'value' ? 'defaultValue' : k] = v;
+      // 상태를 고정한 예시에는 그 상태다운 값(entered → 'Text')을 넣는다
+      const sample = sel.state && meta.samples?.[sel.state];
+      if (sample && !texts.value) Object.assign(out, sample);
+      return out;
+    },
+  };
+}
+
+/** 고친 코드에서 렌더 오류가 나도 페이지가 멈추지 않게 */
+class Boundary extends ReactComponent<{ resetKey: string; children: ReactNode }, { error: string | null; key: string }> {
+  state = { error: null as string | null, key: this.props.resetKey };
+  static getDerivedStateFromError(e: Error) {
+    return { error: e.message };
   }
-  if (Object.keys(overrides).length) props.overrides = overrides;
-  return props;
+  static getDerivedStateFromProps(p: { resetKey: string }, s: { key: string }) {
+    return p.resetKey !== s.key ? { error: null, key: p.resetKey } : null;
+  }
+  render() {
+    return this.state.error ? <span className="error">그리는 중 오류: {this.state.error}</span> : this.props.children;
+  }
+}
+
+/** 컴포넌트 하나 그리기 (문서 예시는 interactive=false: 포인터 · 키보드를 받지 않는다) */
+function Render({ sel, values, texts, interactive = true, extra, k }: { sel: Sel; values?: PropValues; texts?: Record<string, string>; interactive?: boolean; extra?: Record<string, unknown>; k?: string }) {
+  const live = useContext(LiveCtx);
+  if (!live.C) return <span className="error">React 컴포넌트가 없습니다</span>;
+  const C = live.C;
+  const props = live.props(sel, values, texts);
+  const el = (
+    <Boundary resetKey={String(C)}>
+      <C key={k ?? JSON.stringify(props.defaultValue ?? '')} {...props} {...extra} />
+    </Boundary>
+  );
+  return interactive ? el : <span {...{ inert: '' }} style={{ display: 'contents', pointerEvents: 'none' }}>{el}</span>;
 }
 
 const jsxValue = (v: unknown) => (typeof v === 'boolean' ? `{${v}}` : typeof v === 'string' && !/["\n]/.test(v) ? `"${v}"` : `{${JSON.stringify(v)}}`);
 
 /** 이 미리보기를 그대로 쓰는 JSX (기본값과 다른 속성만) */
-function reactCode(name: string, c: ComponentData, sel: Sel, values: PropValues) {
-  const def = { ...defaultSelection(c) };
+function reactCode(name: string, c: ComponentData, meta: Meta, sel: Sel, values: PropValues, texts: Record<string, string>) {
+  const def = defaultSelection(c);
   const defV = defaultValues(c);
   const attrs: string[] = [];
   for (const p of c.props) {
     if (p.type === 'variant' && sel[p.name] !== def[p.name]) attrs.push(`${p.name}=${jsxValue(sel[p.name])}`);
-    if ((p.type === 'boolean' || p.type === 'text') && p.figmaName in values && values[p.figmaName] !== defV[p.figmaName]) attrs.push(`${p.name}=${jsxValue(values[p.figmaName])}`);
+    if (p.type === 'boolean' && values[p.figmaName] !== defV[p.figmaName]) attrs.push(`${p.name}=${jsxValue(values[p.figmaName])}`);
   }
-  const top = new Set(c.props.map((p) => p.figmaName));
-  const ov = Object.entries(values).filter(([k]) => !top.has(k));
-  if (ov.length) attrs.push(`overrides={${JSON.stringify(Object.fromEntries(ov))}}`);
+  for (const [k, v] of Object.entries(texts)) if (v !== (meta.texts[k] ?? '')) attrs.push(`${k === 'value' ? 'defaultValue' : k}=${jsxValue(v)}`);
   const open = attrs.length > 2 ? `<${name}\n${attrs.map((a) => `  ${a}`).join('\n')}\n/>` : `<${name}${attrs.length ? ` ${attrs.join(' ')}` : ''} />`;
   return `import { ${name} } from './ds'; // 이 저장소의 src/ds\n\n${open}`;
 }
 
 export function ComponentPage({ sc }: { sc: SiteComponent }) {
   const base = sc.data;
-  const c = (P.comp(base.key) as ComponentData & { figmaSyncedAt?: string }) || base;
-  const View = sc.View;
-  const g = useMemo(() => applyGuide(base.key, sc.guide), [base.key, sc.guide, P.revision()]); // eslint-disable-line react-hooks/exhaustive-deps
+  const key = base.key;
+  const c = (P.comp(key) as ComponentData & { figmaSyncedAt?: string }) || base;
+  const { ui, can, role, act, closeEdit } = usePortal();
+  const g = useMemo(() => applyGuide(key, sc.guide), [key, sc.guide, P.revision()]); // eslint-disable-line react-hooks/exhaustive-deps
   const ok = isRenderable(base);
   const a = analyze(base);
+
+  // 게시된 코드 → 저장소 코드 순. 디자인 시스템 담당이 편집 중이면 편집 중인 코드
+  const repo = repoSource(sc.name);
+  const published = P.publishedCode(key);
+  const current = published ?? repo;
+  const pubCompiled = published ? compile(sc.name, published) : null;
+  const editing = ui.edit === `code:${key}`;
+  const [draftSrc, setDraftSrc] = useState<string | null>(null);
+  const openDraft = P.openDraft('code', key);
+  const editorSrc = draftSrc ?? openDraft?.after.source ?? current;
+  const editCompiled = editing ? compile(sc.name, editorSrc) : null;
+  const C = (editing && editCompiled?.Component) || pubCompiled?.Component || sc.Component;
+  const live = useMemo(() => makeLive(base, C), [base, C]);
+
   const [sel, setSel] = useState<Sel>(() => fixSelection(base, defaultSelection(base)));
   const [values, setValues] = useState<PropValues>(() => defaultValues(base));
+  const [texts, setTexts] = useState<Record<string, string>>(() => ({ ...live.meta.texts }));
   const [tab, setTab] = useState<'preview' | 'code'>('preview');
+  const [compare, setCompare] = useState(false);
   const sbRef = useRef<HTMLElement>(null);
   const update = (next: Sel) => setSel(fixSelection(base, next));
   const showVariant = (props: Sel) => {
@@ -63,18 +128,26 @@ export function ComponentPage({ sc }: { sc: SiteComponent }) {
     setTab('code');
     sbRef.current?.scrollIntoView({ block: 'start', behavior: 'smooth' });
   };
-  const ru = compRules(base.key);
-  const itemMeaning = P.itemByKey(base.key)?.meaning;
-  const name = View.displayName || base.name;
+  const ru = compRules(key);
+  const itemMeaning = P.itemByKey(key)?.meaning;
+  const onSel = (v: string) => a.selectProp && update({ ...sel, [a.selectProp.name]: v });
+
+  const saveDraft = () =>
+    act(() => P.draftCode(role, key, fileOf(sc.name), editorSrc, repo), (d) => `초안 ${d.id} 저장 · 포털 승인 담당이 게시하면 모두에게 반영`).then((d) => {
+      if (d) {
+        setDraftSrc(null);
+        closeEdit();
+      }
+    });
 
   return (
-    <>
+    <LiveCtx.Provider value={live}>
       <p className="eyebrow">Components</p>
       <h1>{base.name}</h1>
       <p className="lead">{itemMeaning || c.description || ''}</p>
       <CompChecks c={c} hasGuide={!!sc.guide} />
       <TocInline />
-      <PatternLinks k={base.key} />
+      <PatternLinks k={key} />
       <CompEditor c={c} />
       {ok ? (
         <>
@@ -85,25 +158,76 @@ export function ComponentPage({ sc }: { sc: SiteComponent }) {
                   {t === 'preview' ? '미리보기' : '코드'}
                 </button>
               ))}
+              <label className="sb-compare">
+                <input type="checkbox" checked={compare} onChange={(e) => setCompare(e.target.checked)} /> Figma 원본과 나란히
+              </label>
             </div>
             {tab === 'preview' ? (
               <div className="sb-body">
-                <div className="sb-canvas">
-                  <div className="sb-stage">
-                    <View {...viewProps(base, sel, values)} onChange={(v: string) => a.selectProp && update({ ...sel, [a.selectProp.name]: v })} />
-                  </div>
+                <div className={`sb-canvas${compare ? ' sb-canvas--compare' : ''}`}>
+                  <figure className="sb-fig">
+                    {compare ? <figcaption>React{editing ? ' · 편집 중' : published ? ' · 게시된 코드' : ''}</figcaption> : null}
+                    <div className="sb-stage">
+                      <Render sel={sel} values={values} texts={texts} extra={{ onSelectionChange: onSel }} />
+                    </div>
+                  </figure>
+                  {compare ? (
+                    <figure className="sb-fig">
+                      <figcaption>Figma 원본</figcaption>
+                      <div className="sb-stage" {...{ inert: '' }}>
+                        <FigmaView data={base} icons={sc.icons} selection={sel} values={values} />
+                      </div>
+                    </figure>
+                  ) : null}
                 </div>
-                <Controls c={base} sel={sel} values={values} onSel={update} onValues={setValues} />
+                <Controls c={base} sel={sel} values={values} texts={texts} onSel={update} onValues={setValues} onTexts={setTexts} />
               </div>
             ) : (
-              <CodePanel name={name} c={base} icons={View.icons} sel={sel} values={values} />
+              <div className="sb-body sb-code">
+                <CodeBlock label="사용 예" text={reactCode(sc.name, base, live.meta, sel, values, texts)} />
+                <CodeBlock label={`${fileOf(sc.name)}${published ? ' (포털에 게시된 코드)' : ''}`} text={current} />
+              </div>
             )}
           </section>
-          {a.stateProp || a.selectProp ? <p className="note">마우스를 올리거나 눌러 보세요. 키보드 Tab으로 포커스할 수도 있어요.</p> : null}
+          {a.stateProp || a.selectProp ? <p className="note">마우스를 올리거나 누르고, 키보드 Tab으로 포커스해 보세요. 실제 입력 요소라 그대로 동작합니다.</p> : null}
+          {can('code') ? (
+            <section className="ed-panel">
+              <div className="ed-h">
+                <b>컴포넌트 코드</b>
+                <span>
+                  {fileOf(sc.name)} · 고치면 위 미리보기와 아래 예시가 바로 바뀝니다. 초안으로 저장하면 포털 승인 담당이 게시합니다{published ? ' · 지금 게시된 코드가 저장소 코드와 다릅니다' : ''}
+                </span>
+              </div>
+              <div className="row">
+                <EditBtn k={`code:${key}`} label="코드 편집" />
+                <a className="lnk" href={`#compare-${key}`}>
+                  모든 변형 Figma와 비교
+                </a>
+              </div>
+              {editing ? (
+                <CodeEditor
+                  value={editorSrc}
+                  onChange={setDraftSrc}
+                  error={editCompiled?.error}
+                  onSave={saveDraft}
+                  onReset={() => setDraftSrc(current)}
+                  onRepo={published ? () => setDraftSrc(repo) : undefined}
+                  onCompare={() => {
+                    setCompare(true);
+                    setTab('preview');
+                    sbRef.current?.scrollIntoView({ block: 'start', behavior: 'smooth' });
+                  }}
+                />
+              ) : null}
+            </section>
+          ) : (
+            <DraftBox d={can('code') ? null : role !== 'viewer' ? openDraft : null} />
+          )}
         </>
       ) : (
         <p className="error">이 컴포넌트는 예전 형식 JSON이라 미리보기를 그릴 수 없어요. Figma 링크로 다시 읽으면 나타나요.</p>
       )}
+      {can('code') ? <DraftBox d={openDraft} /> : null}
       <div id="guideBody">
         {g?.anatomy ? (
           <>
@@ -132,7 +256,7 @@ export function ComponentPage({ sc }: { sc: SiteComponent }) {
             <tbody>
               {base.props.map((p) => (
                 <tr key={p.name}>
-                  <td className="mono">{p.name}</td>
+                  <td className="mono">{p.type === 'slot' ? 'children' : p.name}</td>
                   <td>{p.type}</td>
                   <td className="mono">{JSON.stringify(p.default)}</td>
                   <td>{p.options ? p.options.map((o, i) => <span key={o}>{i ? ' ' : ''}<code>{o}</code></span>) : '-'}</td>
@@ -145,7 +269,7 @@ export function ComponentPage({ sc }: { sc: SiteComponent }) {
           <>
             <h2>Guidelines</h2>
             {g?.overview ? <GuideIntro g={g} c={c} /> : null}
-            <GuideEditor k={base.key} />
+            <GuideEditor k={key} />
             {g?.policy ? <PolicySection pl={g.policy} /> : null}
             {(g?.notes || []).length ? (
               <ul className="gd-notes">
@@ -154,13 +278,87 @@ export function ComponentPage({ sc }: { sc: SiteComponent }) {
                 ))}
               </ul>
             ) : null}
-            <CompRules k={base.key} />
+            <CompRules k={key} />
           </>
         ) : null}
       </div>
-      <CompUsage k={base.key} />
-      <DevDetails c={base} />
+      <CompUsage k={key} />
+      <DevDetails c={base} name={sc.name} />
+    </LiveCtx.Provider>
+  );
+}
+
+function CodeBlock({ label, text }: { label: string; text: string }) {
+  return (
+    <>
+      <div className="code-head">
+        <span>{label}</span>
+        <button className="btn" onClick={(e) => copy(text, e.currentTarget.parentElement!.nextElementSibling)}>
+          복사
+        </button>
+      </div>
+      <pre>{text}</pre>
     </>
+  );
+}
+
+/** 코드 편집기: 고정폭 글자, Tab은 공백 2칸, 줄 번호 */
+function CodeEditor({ value, onChange, error, onSave, onReset, onRepo, onCompare }: { value: string; onChange: (v: string) => void; error?: string; onSave: () => void; onReset: () => void; onRepo?: () => void; onCompare: () => void }) {
+  const ta = useRef<HTMLTextAreaElement>(null);
+  const gutter = useRef<HTMLPreElement>(null);
+  const lines = value.split('\n').length;
+  return (
+    <div className="ce">
+      <div className="ce-box">
+        <pre className="ce-gutter" ref={gutter} aria-hidden="true">
+          {Array.from({ length: lines }, (_, i) => i + 1).join('\n')}
+        </pre>
+        <textarea
+          ref={ta}
+          className="ce-text"
+          spellCheck={false}
+          aria-label="컴포넌트 코드"
+          value={value}
+          onChange={(e) => onChange(e.target.value)}
+          onScroll={(e) => {
+            if (gutter.current) gutter.current.scrollTop = e.currentTarget.scrollTop;
+          }}
+          onKeyDown={(e) => {
+            if (e.key === 'Tab' && !e.shiftKey) {
+              e.preventDefault();
+              const t = e.currentTarget;
+              const { selectionStart: s0, selectionEnd: s1 } = t;
+              const next = `${value.slice(0, s0)}  ${value.slice(s1)}`;
+              onChange(next);
+              requestAnimationFrame(() => t.setSelectionRange(s0 + 2, s0 + 2));
+            }
+            if ((e.metaKey || e.ctrlKey) && e.key === 's') {
+              e.preventDefault();
+              onSave();
+            }
+          }}
+        />
+      </div>
+      <p className={`ce-status${error ? ' bad' : ''}`} role="status">
+        {error ? `오류 · ${error} (미리보기는 마지막으로 돌던 코드)` : '✓ 컴파일됨 · 미리보기와 예시에 반영 중'}
+      </p>
+      <div className="row">
+        <button className="btn2 primary sm" disabled={!!error} onClick={onSave}>
+          초안 저장 (Ctrl/Cmd+S)
+        </button>
+        <button className="btn2 sm" onClick={onCompare}>
+          Figma 원본과 비교
+        </button>
+        <button className="btn2 sm" onClick={onReset}>
+          고친 것 되돌리기
+        </button>
+        {onRepo ? (
+          <button className="btn2 sm" onClick={onRepo}>
+            저장소 코드 불러오기
+          </button>
+        ) : null}
+      </div>
+    </div>
   );
 }
 
@@ -181,25 +379,10 @@ function PatternLinks({ k }: { k: string }) {
 
 // ---------- 미리보기 조절 ----------
 
-function Controls({ c, sel, values, onSel, onValues }: { c: ComponentData; sel: Sel; values: PropValues; onSel: (s: Sel) => void; onValues: (v: PropValues) => void }) {
+function Controls({ c, sel, values, texts, onSel, onValues, onTexts }: { c: ComponentData; sel: Sel; values: PropValues; texts: Record<string, string>; onSel: (s: Sel) => void; onValues: (v: PropValues) => void; onTexts: (t: Record<string, string>) => void }) {
   const a = analyze(c);
-  // 이 변형이 쓰는 속성만 (예: default에서는 placeholder, 입력 뒤에는 text)
+  // 이 변형이 쓰는 불리언 속성만 (Figma 레이어 기준)
   const used = usedProps(c, findVariant(c, sel).layer!, values);
-  const set = (fig: string, v: string | boolean) => onValues({ ...values, [fig]: v });
-  const flag = (name: string, fig: string, on: boolean) => (
-    <label key={fig} className="ctl">
-      <span className="ctl-name">{name}</span>
-      <input type="checkbox" checked={on} onChange={(e) => set(fig, e.target.checked)} />
-    </label>
-  );
-  const text = (name: string, fig: string, val: string) => (
-    <label key={fig} className="ctl">
-      <span className="ctl-name">
-        {name} <span className="ctl-hint">Enter로 줄바꿈</span>
-      </span>
-      <textarea className="search" rows={2} value={val} onChange={(e) => set(fig, e.target.value)} />
-    </label>
-  );
   const rows: ReactNode[] = a.vprops.map((p) => (
     <div key={p.name} className="ctl">
       <span className="ctl-name">{p.name}</span>
@@ -212,52 +395,30 @@ function Controls({ c, sel, values, onSel, onValues }: { c: ComponentData; sel: 
       </div>
     </div>
   ));
-  for (const p of [...a.flags, ...(a.focusFlag ? [a.focusFlag] : [])]) if (used.top.has(p.figmaName)) rows.push(flag(p.name, p.figmaName, !!values[p.figmaName]));
-  for (const p of a.texts) if (used.top.has(p.figmaName)) rows.push(text(p.name, p.figmaName, String(values[p.figmaName] ?? '')));
-  // 안쪽 인스턴스 속성은 여기서 바꾸기 전까지 그 변형의 Figma 값으로 시작한다
-  for (const g of used.groups) {
+  for (const p of [...a.flags, ...(a.focusFlag ? [a.focusFlag] : [])]) {
+    if (!used.top.has(p.figmaName)) continue;
     rows.push(
-      <div key={`g-${g.name}`} className="ctl-group">
-        {g.name}
-      </div>,
+      <label key={p.figmaName} className="ctl">
+        <span className="ctl-name">{p.name}</span>
+        <input type="checkbox" checked={!!values[p.figmaName]} onChange={(e) => onValues({ ...values, [p.figmaName]: e.target.checked })} />
+      </label>,
     );
-    for (const i of g.items) {
-      const val = i.figmaName in values ? values[i.figmaName] : i.value;
-      rows.push(i.type === 'boolean' ? flag(i.name, i.figmaName, !!val) : text(i.name, i.figmaName, String(val)));
-    }
+  }
+  for (const [k, v] of Object.entries(texts)) {
+    rows.push(
+      <label key={`t-${k}`} className="ctl">
+        <span className="ctl-name">{k === 'value' ? 'value (처음 값)' : k}</span>
+        <textarea className="search" rows={1} value={v} onChange={(e) => onTexts({ ...texts, [k]: e.target.value })} />
+      </label>,
+    );
   }
   return <div className="sb-controls">{rows}</div>;
-}
-
-function CodePanel({ name, c, icons, sel, values }: { name: string; c: ComponentData; icons: Record<string, { svg: string; colored: boolean }>; sel: Sel; values: PropValues }) {
-  const v = findVariant(c, sel);
-  const { html, css } = useMemo(() => toHtmlCss(buildTree(c, v.layer!, { values, icons, prefix: `ds-${c.key}` })), [c, v, values, icons]);
-  const react = reactCode(name, c, sel, values);
-  const block = (label: string, text: string) => (
-    <>
-      <div className="code-head">
-        <span>{label}</span>
-        <button className="btn" onClick={(e) => copy(text, e.currentTarget.parentElement!.nextElementSibling)}>
-          복사
-        </button>
-      </div>
-      <pre>{text}</pre>
-    </>
-  );
-  return (
-    <div className="sb-body sb-code">
-      {block('React', react)}
-      {block('HTML', html)}
-      {block('CSS', css)}
-    </div>
-  );
 }
 
 /** 가이드가 없는 페이지: 속성 선택지마다 한 장씩 (Figma 프레임처럼) */
 function Cases({ sc, sel }: { sc: SiteComponent; sel: Sel }) {
   const c = sc.data;
   const a = analyze(c);
-  const View = sc.View;
   const values = useMemo(() => defaultValues(c), [c]);
   // 카드는 가장 넓은 변형보다 넓게 해서 잘리지 않게
   const widest = Math.max(...c.variants.map((v) => v.size?.[0] || 0));
@@ -276,7 +437,7 @@ function Cases({ sc, sel }: { sc: SiteComponent; sel: Sel }) {
                 {opts.map((o) => (
                   <div key={o} className="case">
                     <span className="case-stage">
-                      <View interactive={false} {...viewProps(c, findVariant(c, { ...sel, [p.name]: o }, p.name).props, values)} />
+                      <Render interactive={false} sel={findVariant(c, { ...sel, [p.name]: o }, p.name).props} values={values} />
                     </span>
                     <span className="case-name">{o}</span>
                   </div>
@@ -284,7 +445,7 @@ function Cases({ sc, sel }: { sc: SiteComponent; sel: Sel }) {
                 {p === a.stateProp && a.focusFlag ? (
                   <div className="case">
                     <span className="case-stage">
-                      <View interactive={false} {...viewProps(c, findVariant(c, { ...sel, [p.name]: a.restOption! }).props, { ...values, [a.focusFlag.figmaName]: true })} />
+                      <Render interactive={false} sel={findVariant(c, { ...sel, [p.name]: a.restOption! }).props} values={{ ...values, [a.focusFlag.figmaName]: true }} />
                     </span>
                     <span className="case-name">{a.focusFlag.name}</span>
                   </div>
@@ -408,14 +569,12 @@ function PolicySection({ pl }: { pl: NonNullable<Guide['policy']> }) {
   );
 }
 
-/** 가이드 예시 하나: 생성된 컴포넌트를 그림으로만 그린다 */
+/** 가이드 예시 하나: React 컴포넌트를 그림으로만 그린다 (포인터 · 키보드 없음) */
 function Example({ sc, props, zoom, slotRef }: { sc: SiteComponent; props: Sel; zoom?: boolean; slotRef?: (el: HTMLSpanElement | null) => void }) {
-  const values = useMemo(() => defaultValues(sc.data), [sc.data]);
-  const View = sc.View;
   if (!variantOf(sc.data, props)) return <span className="error">변형 없음</span>;
   return (
     <span className={`gd-slot${zoom ? ' gd-zoom' : ''}`} ref={slotRef}>
-      <View interactive={false} {...viewProps(sc.data, props, values)} />
+      <Render interactive={false} sel={props} />
     </span>
   );
 }
@@ -742,7 +901,7 @@ function SpecSection({ sc, sp }: { sc: SiteComponent; sp: NonNullable<Guide['spe
 // ---------- 개발 정보 ----------
 
 /** 노드 ID · 키 · 토큰은 맨 아래 접힌 상자 하나에 */
-function DevDetails({ c }: { c: ComponentData }) {
+function DevDetails({ c, name }: { c: ComponentData; name: string }) {
   const styles = [...(c.textStyles || []), ...(c.otherStyles || [])];
   return (
     <details className="dev">
@@ -770,7 +929,7 @@ function DevDetails({ c }: { c: ComponentData }) {
         </dd>
         <dt>React 컴포넌트</dt>
         <dd>
-          <CopyBtn value={`src/ds/components/${c.key.split('-').map((s) => s[0].toUpperCase() + s.slice(1)).join('')}.tsx`} />
+          <CopyBtn value={fileOf(name)} />
         </dd>
         <dt>읽은 날짜</dt>
         <dd>{c.figma.extractedAt || '-'}</dd>

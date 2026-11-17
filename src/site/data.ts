@@ -1,16 +1,18 @@
 // 문서 사이트 데이터. 모두 저장소 JSON에서 온다 (빌드 때 묶임):
 //   components/index.json · components/<key>/component.json(src/ds의 생성 컴포넌트가 가져옴) · components/<key>/guide.json
 //   icons/icons.json + icons/svg/*.svg · patterns/index.json + patterns/<key>/pattern.json · catalog/catalog.json
-// 컴포넌트를 더하려면 Figma에서 뽑은 폴더를 넣고 components/index.json에 키를 더한 뒤 npm run gen.
+// 컴포넌트를 더하려면 Figma에서 뽑은 폴더를 넣고 components/index.json에 키를 더한 뒤 src/ds/components/<Name>.tsx를 만든다.
 
-import { components as dsComponents } from '../ds';
-import type { DsComponent } from '../ds/core/react';
-import type { ComponentData } from '../ds/types';
+import type { ComponentData, IconMap } from '../ds/figma/types';
+import { iconKeys } from '../ds/figma/variants';
+import { pascal, repoComponent } from './live';
+import type { LiveComponent } from './live';
 import type { Catalog } from './portal/store';
 import catalogJson from '../../catalog/catalog.json';
 import iconsJson from '../../icons/icons.json';
 import patternIndex from '../../patterns/index.json';
 import guideIndex from '../../components/guides.json';
+import componentIndex from '../../components/index.json';
 
 // ---------- 사용 가이드 (components/<key>/guide.json) ----------
 
@@ -107,6 +109,7 @@ export interface Pattern {
 
 // ---------- 묶기 ----------
 
+const componentFiles = import.meta.glob<unknown>('../../components/*/component.json', { eager: true, import: 'default' });
 const guideFiles = import.meta.glob<unknown>('../../components/*/guide.json', { eager: true, import: 'default' });
 const patternFiles = import.meta.glob<unknown>('../../patterns/*/pattern.json', { eager: true, import: 'default' });
 const patternSvgs = import.meta.glob<string>('../../patterns/*/*.svg', { eager: true, query: '?raw', import: 'default' });
@@ -117,18 +120,30 @@ export const catalog = catalogJson as Catalog;
 export const icons = iconsJson as IconsData;
 for (const i of icons.icons) if (i.file && !i.svg) i.svg = (iconSvgs[`../../icons/${i.file}`] || '').trim();
 
-const registry = dsComponents as unknown as Record<string, DsComponent<Record<string, unknown>>>;
 export interface SiteComponent {
+  /** Figma 원본 (component.json) */
   data: ComponentData;
   guide?: Guide;
-  View: DsComponent<Record<string, unknown>>;
+  /** React 컴포넌트 이름 = src/ds/components/<name>.tsx */
+  name: string;
+  /** 저장소의 React 컴포넌트 (포털에 게시된 코드가 있으면 페이지가 그것을 대신 쓴다) */
+  Component: LiveComponent | null;
+  /** Figma 원본 그리기용 아이콘 */
+  icons: IconMap;
 }
 const guideKeys = new Set((guideIndex as { guides: string[] }).guides);
-export const components: SiteComponent[] = Object.entries(registry).map(([key, View]) => ({
-  data: View.data,
-  View,
-  guide: guideKeys.has(key) ? (guideFiles[`../../components/${key}/guide.json`] as Guide | undefined) : undefined,
-}));
+const iconByKey = new Map(icons.icons.filter((i) => i.svg).map((i) => [i.key, i]));
+export const components: SiteComponent[] = (componentIndex as { components: string[] }).components.map((key) => {
+  const data = componentFiles[`../../components/${key}/component.json`] as ComponentData;
+  const name = pascal(key);
+  return {
+    data,
+    name,
+    Component: repoComponent(name),
+    guide: guideKeys.has(key) ? (guideFiles[`../../components/${key}/guide.json`] as Guide | undefined) : undefined,
+    icons: Object.fromEntries(iconKeys(data, new Set(iconByKey.keys())).map((k) => [k, { svg: iconByKey.get(k)!.svg!, colored: iconByKey.get(k)!.style === 'colored' }])),
+  };
+});
 export const componentByKey = (key: string) => components.find((c) => c.data.key === key) || null;
 
 export const patterns: Pattern[] = (patternIndex as { patterns: string[] }).patterns.map((key) => {

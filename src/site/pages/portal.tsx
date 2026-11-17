@@ -724,7 +724,7 @@ function Lint() {
 
 // ---------- 관리 (담당 역할에서만) ----------
 
-const TYPE_NAME: Record<P.DraftType, string> = { item: '카탈로그', rule: '규칙', guide: '사용 가이드', figma: 'Figma' };
+const TYPE_NAME: Record<P.DraftType, string> = { item: '카탈로그', rule: '규칙', guide: '사용 가이드', figma: 'Figma', code: '코드' };
 
 function nextVersion(L: Draft[]) {
   const B: P.Bump[] = ['PATCH', 'MINOR', 'MAJOR'];
@@ -737,7 +737,7 @@ function Pub() {
   const done = P.drafts((d) => d.status !== 'draft');
   const last = P.history()[0];
   const approver = role === 'approver';
-  const where = (d: Draft) => (d.type === 'rule' ? '#rules' : d.type === 'guide' || d.type === 'figma' ? `#${P.itemByKey(d.key || d.target)?.code || d.code || d.target}` : `#${d.target}`);
+  const where = (d: Draft) => (d.type === 'rule' ? '#rules' : d.type === 'guide' || d.type === 'figma' || d.type === 'code' ? `#${P.itemByKey(d.key || d.target)?.code || d.code || d.target}` : `#${d.target}`);
   const discard = (d: Draft) => act(() => P.discard(role, d.id), (x) => (x.status === 'rejected' ? `${x.id} 반려` : `${x.id} 초안을 버렸습니다`));
   const onPublish = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
