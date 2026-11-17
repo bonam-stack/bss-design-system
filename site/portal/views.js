@@ -76,7 +76,7 @@ const drafts = (type, target) => (isEditor() ? draftBox(P.openDraft(type, target
 
 // ---------- 머리 · 메뉴 ----------
 
-// IA (SEED 문서 사이트와 같은 기획): 시작하기 · Foundations · Components · Blocks · Patterns · Develop · UX 거버넌스 · AI & Tools · Updates
+// IA (SEED 문서 사이트와 같은 기획): 시작하기 · Foundations · Components · Blocks · Patterns · Develop · UX 거버넌스 · Updates
 // 항목은 [경로, 이름, 그 앞에 붙는 소제목?]. 디자인 문서(#c-…)와 개발 문서(#dev-c-…)를 나눠 두고 서로 링크한다.
 export function sections() {
   const I = P.items();
@@ -91,7 +91,6 @@ export function sections() {
     ['patterns', 'Patterns', [['patterns', '개요'], ...(ctx.data.patterns || []).map((p) => [`pattern-${p.key}`, `${p.name} 패턴`]), ...I.filter((i) => i.kind === 'layout').map((i) => [i.code, `${i.name} 레이아웃`])]],
     ['develop', 'Develop', [['develop', '시작하기'], ['dev-tokens', '토큰 레퍼런스'], ...sub(dev.map((i) => [`dev-${i.code}`, i.name]), 'HTML · CSS 컴포넌트')]],
     ['governance', 'UX 거버넌스', [['rules', '규칙'], ['slots', '빈칸'], ['lint', '검증 규칙']]],
-    ['ai', 'AI & Tools', [['ai', '개요'], ['ai-figma', 'Figma 연동'], ['ai-studio', 'SB Studio 연계'], ['ai-llms', 'LLMS.txt']]],
     ['updates', 'Updates', [['updates', '릴리스 노트']]],
   ];
   if (isEditor()) S.push(['admin', '관리', [['pub', '초안 · 게시'], ['promo', '승격 요청'], ['chg', '변경 감지']]]);
@@ -140,7 +139,7 @@ export function footer() {
   return `<div class="sf-in"><div class="sf-brand"><span class="brand-mark" aria-hidden="true"></span><b>BSS Design</b><p>BSS 백오피스 화면을 만드는 기준 · 게시 ${esc(P.version())}</p></div>
     <nav class="sf-nav" aria-label="바닥글 메뉴"><div><p>문서</p>${S.slice(0, 5).map(([, l, it]) => `<a href="#${esc(it[0][0])}">${esc(l)}</a>`).join('')}</div>
     <div><p>더 보기</p>${S.slice(5).map(([, l, it]) => `<a href="#${esc(it[0][0])}">${esc(l)}</a>`).join('')}</div>
-    <div><p>원본</p><a href="https://www.figma.com/design/${FIGMA_FILE}/" target="_blank" rel="noopener">Figma 라이브러리 ↗</a><a href="#ai-studio">SB Studio</a></div></nav></div>
+    <div><p>원본</p><a href="https://www.figma.com/design/${FIGMA_FILE}/" target="_blank" rel="noopener">Figma 라이브러리 ↗</a><a href="#stack">조립 구조</a></div></nav></div>
     <p class="sf-copy">© 2026 BSS Design System · POC</p>`;
 }
 function count() {
@@ -206,10 +205,6 @@ export function page(route) {
     case 'dev-tokens': return pageTokenRef();
     case 'progress': return pageProgress();
     case 'develop': return pageDevelop();
-    case 'ai': return pageAi();
-    case 'ai-figma': return pageAiFigma();
-    case 'ai-studio': return pageAiStudio();
-    case 'ai-llms': return pageLlms();
     case 'components': return pageList('comp');
     case 'blocks': return pageList('block');
     case 'patterns': return pagePatterns();
@@ -239,7 +234,6 @@ function pageOverview() {
     ['rules', 'UX 거버넌스', `규칙 ${P.rules().length}개`, 'UX표준가이드 규칙과 연결표'],
     ['foundations', 'Foundations', `토큰 ${Object.keys(ctx.data.tokens?.tokens || {}).length}개 · 아이콘 ${ctx.data.icons?.icons.length || 0}개`, '색상 · 타이포그래피 · 간격 · 아이콘'],
     ['develop', 'Develop', `HTML · CSS ${(ctx.data.devKeys || []).length}개`, '코드 · 속성 · 토큰'],
-    ['ai', 'AI & Tools', 'Figma · SB Studio · LLMS.txt', 'AI 도구가 같은 기준을 읽도록'],
     ['stack', '조립 구조', 'Stack 5단계', '앱쉘 → 레이아웃 → 빈칸 → 블록 → 컴포넌트'],
   ];
   return `${head('BSS Design System', 'BSS 디자인 포털', 'BSS 백오피스 화면을 만드는 기준입니다. SB Studio는 이 포털에 게시된 버전만 읽어 화면을 조립합니다.', `<div class="checks">${check(true, `게시 ${P.version()}`)}${check(true, '카탈로그 0.5')}${check(true, 'UX표준가이드 1.2')}${check(true, '디자인 토큰 v0.5')}</div>`)}
@@ -471,76 +465,11 @@ function pageDevelop() {
   <li><strong>토큰</strong><span>CSS 변수는 <a href="#tokens">디자인 토큰</a>의 이름을 그대로 씁니다. 예: <code>var(--button-primary-color-bg-default)</code></span></li>
   <li><strong>코드 복사</strong><span>컴포넌트 페이지의 <b>코드</b> 탭에서 고른 변형의 HTML · CSS를 복사합니다. 클래스 이름 앞자리는 <code>ds-&lt;컴포넌트&gt;</code>입니다.</span></li></ol>
   <h2 id="usage">SB Studio에서 쓰기</h2>
-  <p>SB Studio는 코드를 복사하지 않고 카탈로그 코드(예: <code>c-button</code>)로 부품을 참조합니다. 포털에 게시된 버전(${esc(P.version())})만 읽습니다. 자세한 내용은 <a href="#ai-studio">SB Studio 연계</a>를 봅니다.</p>
+  <p>SB Studio는 코드를 복사하지 않고 카탈로그 코드(예: <code>c-button</code>)로 부품을 참조합니다. 포털에 게시된 버전(${esc(P.version())})만 읽습니다.</p>
   <h2 id="list">컴포넌트 <span class="count">${I.length}</span></h2>
   <div class="cards">${I.map((i) => `<a class="card" href="#dev-${esc(i.code)}"><span class="card-eb">${esc(i.code)}</span><b>${esc(i.name)}</b><span>${human(i.meaning)}</span></a>`).join('')}</div>`;
 }
 
-// ---------- AI & Tools ----------
-
-function pageAi() {
-  return `${head('AI & Tools', 'AI & Tools', '포털의 기준을 사람만이 아니라 AI 도구도 그대로 읽도록 연결합니다. 게시된 버전 하나를 Figma · SB Studio · AI가 같이 씁니다.')}
-  <h2 id="tools">도구</h2>
-  <div class="cards">
-    <a class="card" href="#ai-figma"><span class="card-eb">Figma</span><b>Figma 연동</b><span>Figma 노드 주소로 컴포넌트 JSON을 만들고 다시 읽어 차이를 비교합니다</span></a>
-    <a class="card" href="#ai-studio"><span class="card-eb">SB Studio</span><b>SB Studio 연계</b><span>Studio의 AI 화면 생성이 게시된 카탈로그 · 규칙만 쓰도록 합니다</span></a>
-    <a class="card" href="#ai-llms"><span class="card-eb">LLMS.txt</span><b>AI용 텍스트</b><span>포털 전체를 AI가 읽기 좋은 한 장의 텍스트로 복사합니다</span></a>
-  </div>
-  <h2 id="page-copy">페이지마다 복사</h2>
-  <p>모든 문서 위쪽의 <b>AI용 복사</b> 버튼은 그 페이지 본문을 마크다운 텍스트로 복사합니다. 대화형 AI에 붙여 넣어 질문할 때 씁니다.</p>`;
-}
-
-function pageAiFigma() {
-  return `${head('AI & Tools', 'Figma 연동', '컴포넌트 모양의 원본은 Figma 라이브러리입니다. 포털은 노드를 읽어 JSON으로 바꾸고, 다시 읽을 때 게시본과 비교해 초안을 만듭니다.')}
-  <h2 id="flow">흐름</h2>
-  <ol class="flow"><li><strong>Figma 노드 주소</strong><span>디자인 시스템 담당이 컴포넌트 세트의 주소(<code>?node-id=…</code>)를 넣습니다.</span></li>
-  <li><strong>JSON 변환</strong><span>속성 · 변형 · 레이어 · 연결 토큰을 <code>components/&lt;key&gt;/component.json</code> 형식으로 바꿉니다 (figma-to-json 스킬과 같은 형식).</span></li>
-  <li><strong>비교 · 초안</strong><span>게시본과 다르면 변형 추가 · 삭제 · 토큰 변경을 줄 단위로 보여 주고 초안으로 저장합니다.</span></li>
-  <li><strong>게시</strong><span>포털 승인 담당이 게시하면 버전이 오르고 미리보기 · 개발 코드가 바로 바뀝니다.</span></li></ol>
-  <h2 id="source">기준 파일</h2>
-  ${table(['항목', '값'], [
-    `<tr><td>Figma 파일</td><td><a href="https://www.figma.com/design/${FIGMA_FILE}/" target="_blank" rel="noopener">BSS_DS_Library_Component v2.0 ↗</a></td></tr>`,
-    `<tr><td>읽은 컴포넌트</td><td>${(ctx.data.devKeys || []).length}개</td></tr>`,
-    `<tr><td>아이콘</td><td>${ctx.data.icons?.icons.length || 0}개 · ❖ Icon Resource</td></tr>`,
-  ])}`;
-}
-
-function pageAiStudio() {
-  return `${head('AI & Tools', 'SB Studio 연계', '포털은 기준만 내주고, AI 화면 생성은 SB Studio 안에서 합니다. Studio는 포털에 게시된 버전만 읽습니다.')}
-  <h2 id="read">Studio가 읽는 것</h2>
-  ${table(['대상', '쓰임'], [
-    ['카탈로그 (앱쉘 · 레이아웃 · 블록 · 컴포넌트)', '화면을 Stack 순서로 조립'],
-    ['빈칸', '어떤 블록이 어디 들어갈 수 있는지'],
-    ['UX표준가이드 규칙', '생성 · 미리보기 · 검수가 같은 규칙'],
-    ['디자인 토큰', '5단계에서 디자인 에셋을 입힐 때'],
-  ].map((r) => `<tr><td>${r[0]}</td><td>${r[1]}</td></tr>`))}
-  <h2 id="back">Studio에서 돌아오는 것</h2>
-  <p>Studio에서 만든 임시 부품(<code>tb-</code> · <code>tc-</code>)은 <b>승격 요청</b>으로 포털에 올라오고, 구조 확인 → 모양 확인 → 최종 승인을 거쳐 정식 부품이 됩니다.</p>`;
-}
-
-/** 포털 전체를 AI가 읽기 좋은 텍스트로 */
-export function llmsText() {
-  const I = P.items();
-  const lines = [`# BSS Design System (게시 ${P.version()})`, '', 'BSS 백오피스 화면을 만드는 기준. Stack: 앱쉘 → 레이아웃 규칙 → 빈칸 → 블록 → 컴포넌트.', ''];
-  for (const [k, label] of [['shell', '앱쉘'], ['layout', '레이아웃 규칙'], ['block', '블록'], ['comp', '컴포넌트']]) {
-    lines.push(`## ${label}`);
-    for (const i of I.filter((x) => x.kind === k)) lines.push(`- ${i.code} ${i.name}: ${i.meaning || ''}`);
-    lines.push('');
-  }
-  lines.push('## 빈칸');
-  for (const s of P.slots()) lines.push(`- ${s.path} ${s.name} (${s.mode}): ${s.accepts}`);
-  lines.push('', '## UX 규칙');
-  for (const r of P.rules()) lines.push(`- ${r.id} [${r.kind}] ${r.text} (대상: ${r.targets.join(', ')})`);
-  return lines.join('\n');
-}
-
-function pageLlms() {
-  const t = llmsText();
-  return `${head('AI & Tools', 'LLMS.txt', '카탈로그 · 빈칸 · UX 규칙을 한 장의 텍스트로 묶었습니다. AI 도구에 붙여 넣으면 포털 기준으로 답합니다.')}
-  <div class="btn-row"><button class="btn2 primary sm" data-copy="${esc(t)}">전체 복사 (${t.length.toLocaleString()}자)</button></div>
-  <h2 id="text">미리보기</h2>
-  <pre class="llms">${esc(t)}</pre>`;
-}
 
 function pageList(kind) {
   const I = P.items().filter((i) => (kind === 'block' ? i.kind === 'block' || i.kind === 'shell' : i.kind === kind));

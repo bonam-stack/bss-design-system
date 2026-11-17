@@ -48,11 +48,6 @@ body::before { background: var(--ink); }
 .nv-st { font-size: 10px; padding: 0 4px; border: 1px solid var(--border); border-radius: 3px; color: var(--fg-muted); }
 .nv-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--ed); margin-left: auto; }
 .content { max-width: 940px; padding-block: 36px 96px; padding-left: 56px; }
-.page-acts { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin: 0 0 14px; }
-.page-acts .eyebrow { margin: 0; }
-.llm-btn { height: 28px; padding: 0 10px; border: 1px solid var(--border); border-radius: 6px; background: var(--bg); color: var(--fg-muted); font: 12px var(--mono); cursor: pointer; }
-.llm-btn::before { content: '✦ '; color: var(--accent); }
-.llm-btn:hover { border-color: var(--accent); color: var(--accent); }
 .content .eyebrow { font-family: var(--mono); font-size: 11.5px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); }
 .content h1 { font-size: 38px; line-height: 1.2; letter-spacing: -0.025em; margin: 0 0 12px; }
 .content .lead { font-size: 16px; max-width: 68ch; color: var(--fg-muted); }
@@ -216,7 +211,6 @@ button.chip { height: 28px; padding: 0 12px; font: inherit; font-size: 12px; }
 .dm-b { width: 40px; height: 20px; border-style: solid; border-color: var(--accent); border-radius: 3px; }
 details.ref { margin: 0 0 8px; }
 details.ref summary { cursor: pointer; padding: 8px 0; font-size: 13px; color: var(--accent); }
-pre.llms { max-height: 480px; overflow: auto; padding: 16px; border: 1px solid var(--border); border-radius: 8px; background: var(--bg-subtle); font: 12px/1.6 var(--mono); white-space: pre-wrap; }
 .pgs { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; }
 .pg { display: grid; grid-template-columns: 1fr auto; gap: 8px; padding: 14px 16px; border: 1px solid var(--border); border-radius: 8px; font-size: 13px; }
 .pg b { font: 600 13px var(--mono); }
@@ -323,8 +317,7 @@ table.spec td:not(:first-child) { border-bottom-color: color-mix(in srgb, var(--
 .gd-source { margin: 4px 0 0; }
 
 /* 한글이 섞인 작은 이름표는 고정폭 대신 본문 글꼴 */
-.toc-t, .llm-btn, .sidebar .nav-sub, .plat span, .pager span, .sd-sec, .sf-nav p, .updated { font-family: var(--font); letter-spacing: 0.02em; }
-.llm-btn { font-size: 12px; }
+.toc-t, .sidebar .nav-sub, .plat span, .pager span, .sd-sec, .sf-nav p, .updated { font-family: var(--font); letter-spacing: 0.02em; }
 /* 가이드 캔버스도 모눈 스타일로 */
 .gd-canvas, .pt-canvas { border: 1px solid var(--border); border-radius: 8px; background-color: #fbfbff; background-image: linear-gradient(#ecebfb 1px, transparent 1px), linear-gradient(90deg, #ecebfb 1px, transparent 1px); background-size: 24px 24px; }
 .gd-when-col, .gd-do, .gd-dont { border-radius: 8px; }

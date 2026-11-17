@@ -674,7 +674,6 @@ async function boot() {
   content.addEventListener('click', (e) => {
     const b = e.target.closest('.toc-inline [data-toc]');
     if (b) document.getElementById(b.dataset.toc)?.scrollIntoView({ block: 'start' });
-    if (e.target.closest('[data-llm]')) copy(pageMarkdown(), null);
   });
   tocEl.addEventListener('click', (e) => {
     const smooth = matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth';
@@ -682,25 +681,6 @@ async function boot() {
     if (b) document.getElementById(b.dataset.toc)?.scrollIntoView({ behavior: smooth, block: 'start' });
     if (e.target.closest('[data-toc-top]')) window.scrollTo({ top: 0, behavior: smooth });
   });
-
-  // 페이지 본문을 AI가 읽기 좋은 마크다운으로 (편집 칸 · 미리보기 놀이터 빼고)
-  function pageMarkdown() {
-    const out = [];
-    const walk = (el) => {
-      for (const n of el.children) {
-        if (n.matches('.ed-panel, .dbox, .toc-inline, .page-acts, .sb, .pager, .updated, dialog, style, script, .hero-canvas, .cases')) continue;
-        const t = n.tagName;
-        const txt = () => n.innerText.replace(/\s+\n/g, '\n').trim();
-        if (/^H[1-4]$/.test(t)) out.push(`${'#'.repeat(Number(t[1]))} ${txt().replace(/^\d\d\s*/, '')}`);
-        else if (t === 'TABLE') out.push([...n.rows].map((r) => `| ${[...r.cells].map((c) => c.innerText.trim().replace(/\n/g, ' ')).join(' | ')} |`).join('\n'));
-        else if (t === 'UL' || t === 'OL') out.push([...n.children].map((li) => `- ${li.innerText.trim().replace(/\n+/g, ' · ')}`).join('\n'));
-        else if (t === 'P' || t === 'DL' || t === 'PRE') { const x = txt(); if (x) out.push(x); }
-        else walk(n);
-      }
-    };
-    walk(content);
-    return `${out.join('\n\n')}\n\n(출처: BSS 디자인 포털 ${location.href})`;
-  }
 
   // 검색 (Ctrl/Cmd+K · /)
   const sDlg = document.getElementById('searchDlg');
@@ -711,7 +691,7 @@ async function boot() {
   function renderSearch() {
     const q = sIn.value.trim().toLowerCase();
     const all = V.searchIndex();
-    sHits = (q ? all.filter((x) => `${x.label} ${x.route} ${x.section} ${x.meaning}`.toLowerCase().includes(q)) : all.filter((x) => ['overview', 'foundations', 'components', 'blocks', 'patterns', 'develop', 'rules', 'ai', 'updates'].includes(x.route))).slice(0, 40);
+    sHits = (q ? all.filter((x) => `${x.label} ${x.route} ${x.section} ${x.meaning}`.toLowerCase().includes(q)) : all.filter((x) => ['overview', 'foundations', 'components', 'blocks', 'patterns', 'develop', 'rules', 'updates'].includes(x.route))).slice(0, 40);
     sAt = Math.min(sAt, Math.max(0, sHits.length - 1));
     sList.innerHTML = sHits.length ? sHits.map((x, i) => `<li role="option" aria-selected="${i === sAt}"><a href="#${esc(x.route)}"><span class="sd-sec">${esc(x.section)}</span><b>${esc(x.label)}</b>${x.meaning ? `<small>${esc(x.meaning)}</small>` : ''}</a></li>`).join('') : '<li class="sd-none">찾는 문서가 없어요</li>';
   }
@@ -744,16 +724,6 @@ async function boot() {
       if (!sDlg.open) openSearch();
     }
   });
-
-  // 문서 머리 위 줄: 분류 경로 · AI용 복사
-  function pageActs() {
-    const eb = content.querySelector('.eyebrow');
-    if (!eb) return;
-    eb.insertAdjacentHTML('beforebegin', '<div class="page-acts"></div>');
-    const row = content.querySelector('.page-acts');
-    row.append(eb);
-    row.insertAdjacentHTML('beforeend', '<button type="button" class="llm-btn" data-llm title="이 페이지를 마크다운으로 복사">AI용 복사</button>');
-  }
 
   // scroll: 페이지를 옮길 때만 맨 위로 (편집 뒤 다시 그릴 때는 자리 유지)
   function render(scroll) {
@@ -803,7 +773,6 @@ async function boot() {
       content.innerHTML = `<p class="error">페이지를 그리지 못했어요: ${esc(err.message)}</p>`;
       console.error(err);
     }
-    pageActs();
     buildToc();
     sidebar.classList.remove('open');
     menuBtn.setAttribute('aria-expanded', 'false');
