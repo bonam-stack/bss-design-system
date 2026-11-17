@@ -13,6 +13,8 @@ import { PortalOnlyPage } from './pages/compPortal';
 import { IconsPage } from './pages/IconsPage';
 import { PatternPage } from './pages/PatternPage';
 import { ComparePage } from './pages/ComparePage';
+import { UxDocPage, UxIndexPage } from './pages/UxGuidePage';
+import { uxDoc } from './uxguide';
 
 // BSS 디자인 포털: 저장소 JSON + SB Studio 카탈로그가 기준, 게시된 변경은 브라우저 저장소에서
 P.init({
@@ -100,6 +102,8 @@ export function App() {
   if (ALIAS[route]) redirect = ALIAS[route];
   else if (componentByKey(route)) redirect = codeOf(route);
   else if (route === 'icons') page = <IconsPage />;
+  else if (route === 'ux') page = <UxIndexPage />;
+  else if (route.startsWith('ux-') && uxDoc(route.slice(3))) page = <UxDocPage key={route} id={route.slice(3)} />;
   else if (route.startsWith('compare-') && componentByKey(route.slice(8))) page = <ComparePage sc={componentByKey(route.slice(8))!} />;
   else if (pattern) {
     page = <PatternPage key={pattern.key} p={pattern} />;

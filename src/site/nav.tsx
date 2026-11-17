@@ -5,6 +5,7 @@ import * as P from './portal/store';
 import type { Role } from './portal/store';
 import { usePortal } from './portal/ctx';
 import { patterns, icons } from './data';
+import { shortSection, ux, uxRoute } from './uxguide';
 
 export type Section = [key: string, label: string, items: [route: string, label: string][]];
 
@@ -17,6 +18,7 @@ export function sections(isEditor: boolean): Section[] {
     ['blocks', 'Blocks', [['blocks', '전체'], ...I.filter((i) => i.kind === 'shell' || i.kind === 'block').map((i): [string, string] => [i.code, i.name])]],
     ['patterns', 'Patterns', [['patterns', '전체'], ...patterns.map((p): [string, string] => [`pattern-${p.key}`, `${p.name} 패턴`]), ...I.filter((i) => i.kind === 'layout').map((i): [string, string] => [i.code, `${i.name} 레이아웃`])]],
     ['governance', 'UX 거버넌스', [['rules', '규칙'], ['slots', '빈칸'], ['lint', '검증 규칙']]],
+    ['uxguide', 'UX 가이드', [['ux', '전체 · 검색'], ...ux.docs.map((d): [string, string] => [uxRoute(d.id), d.title])]],
   ];
   if (isEditor) S.push(['admin', '관리', [['pub', '초안 · 게시'], ['promo', '승격 요청'], ['chg', '변경 감지']]]);
   return S;
@@ -25,6 +27,7 @@ export function sections(isEditor: boolean): Section[] {
 export function sectionOf(route: string, isEditor: boolean) {
   for (const [k, , items] of sections(isEditor)) if (items.some(([r]) => r === route)) return k;
   if (route.startsWith('pattern-')) return 'patterns';
+  if (route.startsWith('ux-')) return 'uxguide';
   return 'start';
 }
 
@@ -64,6 +67,12 @@ export function SideNav({ route }: { route: string }) {
     if (cur === 'blocks' && k && k !== lastKind) {
       out.push(<div key={`sub-${k}`} className="nav-sub">{k === 'shell' ? '앱쉘' : '블록'}</div>);
       lastKind = k;
+    }
+    // UX 가이드: 섹션이 바뀔 때마다 소제목
+    const ud = cur === 'uxguide' && r.startsWith('ux-') ? ux.docs.find((d) => uxRoute(d.id) === r) : null;
+    if (ud && ud.section !== lastKind) {
+      out.push(<div key={`sub-${ud.section}`} className="nav-sub">{shortSection(ud.section)}</div>);
+      lastKind = ud.section;
     }
     if (cur === 'patterns' && k === 'layout' && lastKind !== 'layout') {
       out.push(<div key="sub-layout" className="nav-sub">레이아웃 규칙</div>);

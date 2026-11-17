@@ -228,3 +228,20 @@ button.chip { height: 28px; padding: 0 12px; font: inherit; font-size: 12px; }
 .cmp-name { font: 12px/1.4 var(--mono); color: #5f6673; overflow-wrap: anywhere; }
 .cmp-cell { display: flex; align-items: center; justify-content: flex-start; min-height: 40px; padding: 8px; }
 @media (max-width: 700px) { .cmp-row { grid-template-columns: 1fr; } }
+
+/* ---------- UX 가이드 (guides/ux-pattern) ---------- */
+.ux-src { margin: -8px 0 18px; font-size: 13px; color: var(--fg-muted); }
+.ux-src a { color: var(--accent); }
+.ux-doc { line-height: 1.7; overflow-wrap: anywhere; }
+.ux-doc h2 { margin-top: 40px; }
+.ux-doc h3 { margin-top: 28px; }
+.ux-doc h4 { margin: 20px 0 8px; font-size: 15px; }
+.ux-doc ul, .ux-doc ol { padding-left: 22px; }
+.ux-doc li { margin: 4px 0; }
+.ux-doc a { color: var(--accent); }
+.ux-doc code { padding: 1px 5px; border-radius: 4px; background: var(--bg-subtle); font: 0.9em var(--mono); }
+.ux-doc table { display: block; max-width: 100%; overflow-x: auto; border-collapse: collapse; margin: 12px 0 20px; font-size: 14px; }
+.ux-doc th, .ux-doc td { padding: 8px 10px; border: 1px solid var(--border); text-align: left; vertical-align: top; }
+.ux-doc th { background: var(--bg-subtle); font-weight: 600; white-space: nowrap; }
+.ux-doc blockquote { margin: 12px 0; padding: 8px 14px; border-left: 3px solid var(--border); color: var(--fg-muted); }
+.ux-links { margin-top: 48px; padding-top: 8px; border-top: 1px solid var(--border); }

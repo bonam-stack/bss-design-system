@@ -13,7 +13,8 @@ import { isRenderable } from '../../ds/figma/tree';
 import { FigmaView } from '../../ds/figma/FigmaView';
 import { compile, fileOf, repoSource } from '../live';
 import type { LiveComponent, Meta } from '../live';
-import { CopyBtn, DraftBox, EditBtn, Lines, TocInline, copy, figmaUrl } from '../ui';
+import { CopyBtn, DraftBox, EditBtn, Lines, TocInline, UxRef, copy, figmaUrl } from '../ui';
+import { UX_FOR_COMPONENT, uxDoc, uxRoute } from '../uxguide';
 import { CompChecks, CompEditor, CompRules, CompUsage, GuideEditor, applyGuide, compRules } from './compPortal';
 
 type Sel = Record<string, string>;
@@ -279,6 +280,18 @@ export function ComponentPage({ sc }: { sc: SiteComponent }) {
               </ul>
             ) : null}
             <CompRules k={key} />
+          </>
+        ) : null}
+        {(UX_FOR_COMPONENT[key] || []).length ? (
+          <>
+            <h3>UX 가이드</h3>
+            <p className="chips">
+              {UX_FOR_COMPONENT[key].map((id) => uxDoc(id)).filter(Boolean).map((d) => (
+                <a key={d!.id} className="chip" href={`#${uxRoute(d!.id)}`}>
+                  {d!.title}
+                </a>
+              ))}
+            </p>
           </>
         ) : null}
       </div>
@@ -554,14 +567,14 @@ function PolicySection({ pl }: { pl: NonNullable<Guide['policy']> }) {
           함께 보기{' '}
           {pl.related!.map((r) => (
             <span key={r.name} className="chip" title={r.file}>
-              {r.name} · {r.desc}
+              <UxRef r={r.file} label={r.name} /> · {r.desc}
             </span>
           ))}
         </p>
       ) : null}
       {src ? (
         <p className="gd-source">
-          정책 출처 {src.title} 문서 ({src.id}
+          정책 출처 <UxRef r={src.id} label={src.title} /> 문서 ({src.id}
           {src.status ? ` · ${src.status}` : ''})
         </p>
       ) : null}

@@ -1,0 +1,301 @@
+이 가이드가 쓰는 화면 용어를 한자리에 모았습니다.
+같은 것을 팀마다 다르게 부르면 설계서와 구현이 어긋나므로, 부르는 이름을 먼저 맞춥니다.
+
+#### 이 사전은 무엇인가요?
+
+가이드 문서가 화면 요소를 부르는 **표준 이름**과 그 뜻을 담았습니다.
+정의의 근거는 각 항목의 관련 문서에 있습니다.
+여기서는 한 줄로 줄여 두고, 규정은 그 문서가 갖습니다.
+
+이름에 뜻이 다 들어 있고 더 보탤 규정이 없는 말은 담지 않았습니다.
+사전은 부르는 이름을 맞추는 자리이지 화면 부품을 모두 나열하는 목록이 아닙니다.
+
+이 사전을 읽는 법- **절**: 화면 골격 · 레이아웃 명칭 · 모듈 명칭 · 컴포넌트 명칭 · 패턴 명칭 · 일반 용어 · 기능·요소 명칭으로 나눴습니다. 모듈과 패턴은 가이드 메뉴에 있는 이름 그대로이며, 메뉴 순서로 실었습니다. 콘텍스트 바처럼 두 절에 걸치는 말은 양쪽에 함께 실었습니다.
+- **분류**: 절 안에서 그 말이 어느 화면 요소에 속하는지입니다.
+- **대표어 · 영문**: 한글용어가 대표어와 다르면 대표어 아래에, 영문약어는 영문 아래에 적었습니다.
+- **상위 모듈**: 여러 하위 모듈을 거느리는 대형 모듈 안에 드는 모듈이면, 대표어 아래에 그 상위 모듈을 적었습니다.
+- **동의어**: 대표어와 같은 것을 가리키는 다른 이름입니다. 문서를 검색할 때 함께 확인합니다. 띄어쓰기만 다른 표기와, 맥락상 가리키는 것이 분명한 줄임말(예. 사이드 패널 헤더 → 헤더)은 같은 말로 보고 따로 적지 않습니다.
+
+#### 화면 골격
+
+모든 화면이 같은 자리에 두는 최외곽 틀(앱 셸)과, 화면마다 달라지는 가운데 본문 영역입니다.
+
+| 대표어 | 영문 | 뜻 | 관련 문서 |
+| --- | --- | --- | --- |
+| 앱 셸 | App Shell GLB_LYT | GNB · 사이드 내비게이션 바 · 커뮤니케이터를 묶은 화면의 최외곽 틀입니다. 모든 화면에서 같은 자리에 고정되며, 가운데 본문 영역만 화면마다 달라집니다. 겹침 순서 경쟁에 참여하지 않으며, 화면 안의 요소는 이 영역을 침범하지 않습니다. | [레이어 구조](layout-layer.html) · [PC 앱 레이아웃](layout-common.html) |
+| GNB 한글. 공통 내비게이션 바 | Global Navigation Bar GNB | 화면 최상단에 고정되는 전역 메뉴 띠입니다. 참고 높이는 60px입니다. | [PC 앱 레이아웃](layout-common.html) · [레이어 구조](layout-layer.html) |
+| 사이드 내비게이션 바 | Side Navigation Bar SIDE_NAV_BAR | 화면 왼쪽에 고정 폭으로 놓이는 전역 메뉴 영역입니다. 참고 폭은 80px입니다. 동의어. Left Navigation Bar · Navigation Rail | [PC 앱 레이아웃](layout-common.html) · [레이어 구조](layout-layer.html) |
+| 커뮤니케이터 | Communicator CMNCTR | 화면 오른쪽에 고정 폭으로 놓이는 상담·커뮤니케이션 지원 영역입니다. 참고 폭은 350px입니다. | [PC 앱 레이아웃](layout-common.html) · [모바일 앱 레이아웃](layout-mobile.html) |
+| 본문 영역 | Body BODY | 앱 셸 가운데에서 실제 업무를 수행하는 가변 폭 작업 영역입니다. 화면 목적과 UX 패턴에 따라 이 영역만 달라집니다. 이 영역 맨 위에 콘텍스트 바가 놓이고, 그 아래로 페이지 타이틀 모듈과 각 모듈이 쌓입니다. | [PC 앱 레이아웃](layout-common.html) · [일반형 화면 구조](layout-work.html) |
+| 콘텍스트 바 | Context Bar CTXT_BAR | 본문 영역 맨 위, 페이지 타이틀 모듈 위에서 작업 맥락을 보여 주는 모듈입니다. 일반형 화면에서는 브레드크럼과 편의 기능(단축키 안내 · 스플릿 뷰 등)을 담고, 노드형 화면에서는 상담 대상 고객을 한 줄로 요약합니다. | [일반형 화면 모듈 개요](mod-general-overview.html) · [노드형 화면](layout-node.html) · [일반형 화면 구조](layout-work.html) · [전역 예외 화면](resp-error-page.html) |
+
+#### 레이아웃 명칭
+
+본문 영역을 어떤 틀로 짜는지에 따라 부르는 화면의 이름입니다.
+화면 유형(일반형 · 노드형 · 특수형)과 배치 방식(다단), 특정 용도의 화면(홈 · 워크스페이스)을 함께 담습니다.
+
+| 대표어 | 영문 | 뜻 | 관련 문서 |
+| --- | --- | --- | --- |
+| 일반형 화면 | Standard UI STD_UI | 정해진 경로 없이 사용자가 순서를 정하는 비선형 업무에 적용하는 화면 편성입니다. 조회·등록·수정을 오가며 반복하고, 앞 단계가 끝나야 다음이 열리는 의존이 없습니다. | [업무 화면 편성](work-composition.html) · [일반형 화면 구조](layout-work.html) |
+| 노드형 화면 | Node UI NODE_UI | 정해진 경로를 따라 단계를 밟아야 끝나는 선형 업무에 적용하는 화면 편성입니다. 되돌아가거나 갈래가 나뉘어도 경로 자체가 정해져 있으면 선형입니다. | [업무 화면 편성](work-composition.html) · [노드형 화면](layout-node.html) |
+| 특수형 화면 | Special UI SPCL_UI | 과업의 진행이 그 화면 안에서 완결되는 전문 도구를 표준 화면 틀 밖에서 편성하는 방식입니다. 값을 주고받는 연결은 표준을 따릅니다. | [업무 화면 편성](work-composition.html) · [특수형 화면](layout-special.html) |
+| 다단 구성 | Multi-column Layout MULTI_COL_LYT | 본문 영역을 여러 단으로 나눠 컨텐트 모듈을 나란히 두는 구성입니다. 좌우 2단 · 상하 2단 · 자유 조합 같은 단순 다단과, 좌우와 상하가 섞인 복합 다단이 있습니다. | [다단 구성](layout-columns.html) |
+| 복합 다단 | Compound Column Layout CMPD_COL_LYT | 좌우 분할과 상하 분할이 한 화면에 섞인 다단 구성입니다. 좌우 2단 · 상하 2단 같은 단순 다단과 구분합니다. | [다단 구성](layout-columns.html) |
+| 홈 | Home HOME | 로그인한 뒤 처음 진입하는 시작 화면입니다. GNB의 홈 메뉴로 언제든 돌아올 수 있습니다. | [PC 앱 레이아웃](layout-common.html) |
+| 워크스페이스 | Workspace WORKSPACE | 업무 대상 하나에 걸린 연관 업무의 현황을 요약해 보여 주고 각 세부 업무로 진입시키는 허브 화면입니다. | [업무 화면 편성](work-composition.html) |
+
+#### 모듈 명칭
+
+모듈은 컴포넌트를 조합해 하나의 역할을 하는 화면 구성 단위입니다.
+모듈끼리 위아래로 쌓이거나 나란히 놓여 한 화면을 이루며, 배치와 순서는 레이아웃이 정합니다.
+여러 하위 모듈을 거느리는 대형 모듈(컨텐트 모듈)과, 컴포넌트 하나가 그대로 모듈이 되는 유형(피드백 모듈)도 있습니다.
+
+| 분류 | 대표어 | 영문 | 뜻 | 관련 문서 |
+| --- | --- | --- | --- | --- |
+| 공통 | 모듈 | Module MODULE | 컴포넌트를 조합해 하나의 역할을 하는 화면 구성 단위입니다. 컨텐트 타입을 하나만 담고 자기 액션 자리를 가지며, 그 안에서 끝나는 확정은 모듈 CTA가 받습니다. 일반형 화면에서는 페이지 타이틀 모듈 · 조회조건 모듈 · 상세정보 모듈 · 컨텐트 모듈처럼 본문 영역에 위에서 아래로 쌓입니다. | [일반형 화면 모듈 개요](mod-general-overview.html) · [일반형 화면 구조](layout-work.html) · [버튼 구조 및 동작](layout-action.html) |
+| 공통 | 피드백 모듈 | Feedback Module FDBK_MDL | 컴포넌트 하나가 그대로 모듈이 되어, 다른 모듈에 담기지 않고 화면이나 레이어에 직접 놓이는 모듈의 유형입니다. 자기 자리(레이어 밴드나 고정 위치)와 생명주기(열림 · 닫힘 · 자동 소멸)를 스스로 갖습니다. Alert · 다이얼로그 · 토스트 · 스낵바 · 전역 안내 메시지가 여기에 속하며, 생김새와 규격은 각 컴포넌트로 정의합니다. 폼이나 노드 모듈 안에 담기는 인라인 메시지 · 결과 배너는 속하지 않습니다. | [레이어 구조](layout-layer.html) · [Feedback & Notification](ui-comp-feedback.html) · [확인·경고 다이얼로그](resp-dialog.html) · [토스트·스낵바](resp-toast.html) |
+| 일반형 | 프리뷰 모듈 | Preview Module PRVW_MDL | 폼 컨트롤 없이 표시 요소만 두고, 입력에 실시간으로 연동해 금액 · 요약 · 미충족 항목을 보여 주는 모듈입니다. 빅 폼에서는 입력 모듈 오른쪽에 고정 레일로 두어 입력이 길게 스크롤돼도 계속 보이게 하고, 제출 전 미충족 필수 항목을 목록으로 알립니다. 표현 방식(상태 카드 · 읽기 전용 텍스트 등)은 화면 성격에 맞게 정합니다. | [빅 폼](form-big.html) · [입력 폼 모듈 공통 정의](form-basic.html) |
+| 일반형 | 콘텍스트 바 | Context Bar CTXT_BAR | 본문 영역 맨 위, 페이지 타이틀 모듈 위에서 작업 맥락을 보여 주는 모듈입니다. 일반형 화면에서는 브레드크럼과 편의 기능(단축키 안내 · 스플릿 뷰 등)을 담고, 노드형 화면에서는 상담 대상 고객을 한 줄로 요약합니다. | [일반형 화면 모듈 개요](mod-general-overview.html) · [노드형 화면](layout-node.html) · [일반형 화면 구조](layout-work.html) · [전역 예외 화면](resp-error-page.html) |
+| 일반형 | 페이지 타이틀 모듈 | Page Title Module PAGE_TTL_MDL | 그 페이지가 수행하는 업무의 명칭을 표기하는 모듈입니다. 줄여서 페이지 타이틀이라고 부를 수 있습니다. 실제 업무의 행위와 제목을 일치시키며, 화면의 제목은 페이지 타이틀 하나로 세웁니다. | [일반형 화면 모듈 개요](mod-general-overview.html) · [일반형 화면 구조](layout-work.html) |
+| 일반형 | 사용 안내 모듈 | Usage Notice USAGE_NTC | 페이지 타이틀 바로 아래에서 화면 기능을 쓸 때 알아야 할 점을 안내하는 선택 모듈입니다. 줄여서 사용 안내라고 부를 수 있습니다. 성격에 따라 색과 라벨을 구분하며, 개별 입력의 오류 메시지 자리로 쓰지 않습니다. | [일반형 화면 모듈 개요](mod-general-overview.html) |
+| 일반형 | 조회조건 모듈 | Search Condition Module SRCH_COND_MDL | 화면 최상단에 놓여 화면 전체에 영향을 주는 검색 요소를 결정하는 모듈입니다. 줄여서 조회조건이라고 부를 수 있습니다. 필수 조건을 받는 자리라는 뜻이 아닙니다. | [일반형 화면 모듈 개요](mod-general-overview.html) · [조회조건 모듈](search-conditions.html) |
+| 일반형 | 상세정보 모듈 | Detail Band DTL_BAND | 조회조건 아래에 놓여 조회 결과 중 마스터 성격의 데이터를 요약해 보여 주는 모듈입니다. 줄여서 상세정보라고 부를 수 있습니다. 기본은 접어 두고 대표 정보만 먼저 보여 줍니다. | [일반형 화면 모듈 개요](mod-general-overview.html) · [전체 화면 전환](view-transitions.html) |
+| 일반형 | 탭 모듈 | Tab Module TAB_MDL | 조회조건 모듈 · 컨텐트 모듈과 같은 단계의 모듈로, 컨텐트 모듈 위에서 성격이 다른 컨텐트 묶음을 전환합니다. 하나의 조회 조건으로 여러 결과 묶음을 함께 조회할 때 쓰며, 컨텐트 묶음이 하나뿐이면 두지 않습니다. | [일반형 화면 모듈 개요](mod-general-overview.html) |
+| 일반형 | 컨텐트 모듈 | Content Module CNTNT_MDL | 본문 영역에 놓이는 작업 단위이자, 여러 하위 모듈을 거느리는 대형 모듈입니다. 컨텐트 유틸리티 · 액션 영역 · 컨텐트 영역 · 상태바가 하위 모듈로 위에서 아래로 한 벌을 이루며, 다단 구성에서는 이 모듈 하나가 한 단이 됩니다. | [컨텐트 모듈 개요](layout-content.html) · [다단 구성](layout-columns.html) |
+| 일반형 | 컨텐트 유틸리티 상위 모듈. 컨텐트 모듈 | Content Utility CNTNT_UTIL | 컨텐트 모듈의 하위 모듈로, 액션 영역 위쪽에 놓이는 도구 줄입니다. 그 모듈 하나의 조회 · 표기 조건을 조정하는 요소와 안내를 함께 담습니다. 검색만 맡지 않으므로 검색 유틸리티가 아니라 컨텐트 유틸리티입니다. 화면 전체에 걸리는 조건은 조회조건 모듈이 받습니다. | [컨텐트 모듈 개요](layout-content.html) · [컨텐트 유틸리티](search-detail.html) · [테이블 모듈 공통 정의](grid-basic-behavior.html) |
+| 일반형 | 액션 영역 상위 모듈. 컨텐트 모듈 | Action Area ACT_AREA | 컨텐트 모듈의 하위 모듈로, 컨텐트 유틸리티 아래에서 실행 버튼이 놓이는 띠입니다. 좌측은 선택 처리와 즉시 적용 조건, 우측은 데이터 실행 CTA가 씁니다. | [컨텐트 모듈 개요](layout-content.html) · [버튼 구조 및 동작](layout-action.html) |
+| 일반형 | 컨텐트 영역 상위 모듈. 컨텐트 모듈 | Content Area CNTNT_AREA | 컨텐트 모듈의 하위 모듈로, 테이블 · 그리드 같은 주요 컨텐트가 놓이는 영역입니다. 액션 영역 아래, 상태바 위에 자리합니다. 컨텐트 종류는 제한하지 않으며, 결과가 많을 때의 스크롤은 이 안에서 일어납니다. | [컨텐트 모듈 개요](layout-content.html) · [PC 앱 레이아웃](layout-common.html) |
+| 일반형 | 상태바 상위 모듈. 컨텐트 모듈 | Status Bar STS_BAR | 컨텐트 모듈의 하위 모듈로, 맨 아래에 놓이는 공통 기능 띠입니다. 테이블에서는 결과 수 · 페이지네이션 · 목록 개수 선택 · 전체보기를 제공합니다. 담기는 것은 컨텐트 종류에 따라 달라집니다. 합계통계형 목록은 집계값을, 폼은 부가 정보나 연관 작업 링크를 둡니다. | [컨텐트 모듈 개요](layout-content.html) · [테이블 모듈 공통 정의](grid-basic-behavior.html) · [일반목록](grid-board.html) |
+| 일반형 | 테이블 모듈 | Table Module TBL_MDL | 컨텐트 영역이 테이블로 구성된 모듈을 특정해 부르는 컨텐트 모듈의 일종입니다. 조회 전부터 결과 있음 · Empty까지 조회 흐름에 따른 반응을 모든 테이블에 같은 기준으로 적용합니다. | [테이블 모듈 공통 정의](grid-basic-behavior.html) |
+| 일반형 | 입력 폼 모듈 | Input Module INPUT_MDL | 컨텐트 영역이 폼 입력으로 구성된 모듈을 특정해 부르는 컨텐트 모듈의 일종입니다. 값을 입력하는 항목과 조회 · 결과로 확인하는 항목을 나눠, 사용자가 값을 채우는 자리에만 폼 요소를 둡니다. 빅 폼에서는 왼쪽에 두어 여러 폼 그룹으로 묶고, 오른쪽 프리뷰 모듈과 짝을 이룹니다. | [입력 폼 모듈 공통 정의](form-basic.html) · [빅 폼](form-big.html) |
+| 일반형 | 분할 모듈 | Split Module SPLIT_MDL | 컨텐트 영역만 나눠 내비게이션(탭 · 다단 탭 · 스테퍼)과 컨텐트를 함께 두는 모듈입니다. 하나의 컨텐트이므로 컨텐트 유틸리티 · 액션 영역 · 상태바는 하나만 두며, 서로 다른 컨텐트는 다단 레이아웃으로 나눕니다. | [분할 모듈](mod-split-content.html) |
+| 노드형 | 캔버스 영역 | Canvas CNVS | 노드 화면의 본문 면입니다. 일반 화면이 컨텐트 모듈을 두는 자리를 노드 화면에서는 이 면이 씁니다. HUD·액션바·범례가 이 안에 고정됩니다. | [노드형 화면](layout-node.html) · [전역 예외 화면](resp-error-page.html) |
+| 노드형 | HUD 한글. 노드 상단 제어 모듈 | Head-Up Display HUD | 노드 화면 캔버스 상단 중앙에 고정되는 컨트롤 모듈입니다. 모드 토글 · 스테퍼 · 진행 카운트 · 줌 컨트롤(확대 · 축소 · 맞춤 · 손 도구)을 한 줄에 담습니다. | [노드형 화면](layout-node.html) · [레이어 구조](layout-layer.html) |
+| 노드형 | 액션바 | Action Bar ACT_BAR | 노드 화면 아래쪽에 고정되어 단계를 넘기는 주 컨트롤 띠입니다. 사이드 패널이 열려 있어도 가려지지 않습니다. | [노드형 화면](layout-node.html) · [버튼 구조 및 동작](layout-action.html) · [레이어 구조](layout-layer.html) |
+| 노드형 | 노드 | Node NODE | 업무를 여러 단계로 나눴을 때 그 한 단계입니다. 그래프에서의 단계를 가리킵니다. | [노드형 화면](layout-node.html) · [순차진행(일반)](node-flow-seq.html) |
+| 노드형 | 노드 모듈 | Node Module NODE_MDL | 노드 한 단계를 담는 모듈입니다. 조회형·선택형·입력형·상호작용형·처리형·완결형·기능형(고정규격) 일곱 유형이 있고, 맨 아래에 CTA를 공통으로 둡니다. | [조회형 모듈](node-comp-view.html) · [노드형 화면](layout-node.html) · [버튼 구조 및 동작](layout-action.html) |
+| 노드형 | 조회형 모듈 | View Node Module NODE_VIEW | 특정 정보를 조회해 사용자에게 인지시키는 노드 모듈입니다. 상세 조회 정보와 CTA를 중심으로 둡니다. | [조회형 모듈](node-comp-view.html) |
+| 노드형 | 선택형 모듈 | Select Node Module NODE_SEL | 값을 고르게 하고 그 결과를 바로 보여 주는 노드 모듈입니다. 선택과 선택 피드백을 중심으로 둡니다. | [선택형 모듈](node-comp-select.html) |
+| 노드형 | 입력형 모듈 | Input Node Module NODE_INPUT | 사용자에게서 값을 받아 저장하는 노드 모듈입니다. 입력과 CTA를 중심으로 둡니다. | [입력형 모듈](node-comp-input.html) |
+| 노드형 | 상호작용형 모듈 | Interaction Node Module NODE_INTRCT | 상담사와 고객이 주고받아야 진행되는 노드 모듈입니다. 핵심 동작 · 상태와 CTA를 중심으로 둡니다. | [상호작용형 모듈](node-comp-interaction.html) |
+| 노드형 | 처리형 모듈 | Process Node Module NODE_PRCS | 시스템이 작업을 처리하는 과정을 사용자에게 인지시키는 노드 모듈입니다. 처리 상태와 CTA를 중심으로 둡니다. | [처리형 모듈](node-comp-process.html) |
+| 노드형 | 완결형 모듈 | End Node Module NODE_END | 업무를 종료하거나 중단하고, 이어질 조치를 안내하는 노드 모듈입니다. 결과 배너와 다음 조치를 중심으로 둡니다. | [완결형 모듈](node-comp-end.html) |
+| 노드형 | 기능형 모듈 | Fixed Node Module NODE_FIXED | 규격이 하나로 굳어 조합을 바꿔도 형태가 달라지지 않는 노드 모듈입니다. 어디에 놓아도 같은 고정 Atom과 상황마다 그대로 쓰는 고정 노드 모듈로 이뤄집니다. | [기능형 모듈](node-comp-fixed.html) |
+| 상세·처리형 | 상세 페이지 | Detail Page DTL_PAGE | 전체 화면 전환으로 본문을 대체해 여는 상세 화면입니다. | [레이어 구조](layout-layer.html) · [화면 분할](ws-split-view.html) |
+| 상세·처리형 | 사이드 패널 | Side Panel SIDE_PNL | 화면 오른쪽에서 밀려 나와 상세·편집·검색을 담는 도킹 서피스입니다. 본문을 덮지 않고 옆에 붙습니다. | [사이드 패널](option-panel.html) · [레이어 구조](layout-layer.html) |
+| 상세·처리형 | 상세 팝업 | Popup POPUP | 본문 위에 띄워 보조 정보를 보여 주거나 가벼운 작업을 처리하는 창의 통칭입니다. 딤으로 뒤 화면을 막는 고정 팝업과, 옆에 띄워 두고 쓰는 유틸리티 팝업이 있습니다. | [상세 팝업](popup.html) · [레이어 구조](layout-layer.html) |
+| 상세·처리형 | 고정 팝업 | Fixed Popup FIXED_POPUP | 딤으로 뒤 화면을 막고 띄우는 모달 상세 팝업입니다. 상세 조회나 간단한 수정 같은 보조 작업을 담고, 헤더에는 닫기만 둡니다. | [상세 팝업](popup.html) · [레이어 구조](layout-layer.html) |
+| 상세·처리형 | 유틸리티 팝업 | Utility Popup UTIL_POPUP | 딤 없이 옆에 띄워 두고 쓰는 논모달 상세 팝업입니다. 헤더를 드래그해 옮기고, 최소화 · 최대화 · 닫기를 둡니다. | [상세 팝업](popup.html) · [레이어 구조](layout-layer.html) |
+| 상세·처리형 | 전체 화면 팝업 | Full-screen Popup FULL_SCRN_POPUP | 딤으로 뒤 화면을 막고, 화면 거의 전체를 덮는 크기로 여는 고정 팝업입니다. 대용량 목록 · 데이터를 넓게 펼쳐 검토하고 처리할 때 씁니다. | [전체 화면 팝업](view-full-popup.html) |
+| 상세·처리형 | 전체 화면 전환 | Full-screen Transition FULL_SCRN_TRNS | 목록에서 항목을 고르면 본문이 상세 화면으로 바뀌는 방식입니다. 상단 바와 좌측 메뉴는 그대로 두고, 앞 화면으로 돌아오는 길을 항상 둡니다. | [전체 화면 전환](view-transitions.html) |
+| 상세·처리형 | 레코드 타이틀 | Record Title RCRD_TTL | 상세 페이지 맨 위에서 한 건의 레코드를 표기하는 컨테이너형 타이틀입니다. 레코드명과 상태 배지 · 핵심 요약 필드 3~5개 · 우측 페이지 CTA로 구성하며, 스크롤과 무관하게 항상 고정합니다. 목업 스펙에서는 title 모듈로 부릅니다. | [전체 화면 전환](view-transitions.html) |
+
+#### 컴포넌트 명칭
+
+화면에 놓이는 개별 UI 단위의 이름입니다.
+배치와 조합은 각 모듈 · 패턴 문서가 규정합니다.
+
+| 대표어 | 영문 | 뜻 | 관련 문서 |
+| --- | --- | --- | --- |
+| 컴포넌트 | Component COMPONENT | 더 작은 UI 조각을 조합해 만든 재사용 단위입니다. 혼자서 하나의 조작이나 표시를 완결하며, 어느 모듈에 놓여도 같은 규격으로 동작합니다. 종류와 규격은 UI 컴포넌트 문서가 갖고, 화면에서의 배치와 조합은 각 패턴 문서가 정합니다. | [일반 입력](ui-comp-input.html) · [Feedback & Notification](ui-comp-feedback.html) |
+| Alert 한글. 얼럿 | Alert ALERT | 뒤 화면을 딤으로 막고 중앙에 띄워 정보를 인지시키는 팝업입니다. 버튼은 확인 하나이며, 확인이 곧 닫기입니다. 고르게 해야 하면 다이얼로그, 한 줄로 충분한 결과 알림은 토스트를 씁니다. | [확인·경고 다이얼로그](resp-dialog.html) · [전역 예외 화면](resp-error-page.html) · [Feedback & Notification](ui-comp-feedback.html) |
+| Area Graph 한글. 영역 그래프 | Area Graph AREA_GRAPH | 시간의 흐름에 따른 누적 변화를 영역으로 표현하는 그래프입니다. | [그래프](ui-comp-graph.html) |
+| Badge 한글. 배지 | Badge BADGE | 항목에 붙여 상태 · 수량 · 변경을 최소한의 요소로 표시합니다. | [Feedback & Notification](ui-comp-feedback.html) |
+| Bar Graph 한글. 막대 그래프 | Bar Graph BAR_GRAPH | 항목을 나란히 놓고 막대의 길이로 값을 비교하는 그래프입니다. | [그래프](ui-comp-graph.html) |
+| CTA 한글. 확정 버튼 | Call To Action CTA | 그 범위를 확정하는 대표 버튼입니다. 확정이 한 모듈에서 끝나면 모듈 CTA, 여러 모듈에 걸치면 페이지 CTA입니다. 어느 자리에 두고 언제 잠그는지는 화면 성격에 따라 갈리며, 각 패턴 문서가 규정합니다. | [버튼 구조 및 동작](layout-action.html) · [UX 설계 원칙](intro-principles.html) |
+| Checkbox 한글. 체크박스 | Checkbox CHKBOX | 모든 옵션을 노출한 상태에서 여럿을 고르는 컴포넌트입니다. 전체 선택 · 부분 선택 · 미선택 세 가지를 구분해 표시합니다. | [일반 입력](ui-comp-input.html) |
+| Chip 한글. 칩 | Chip CHIP | 값을 담아 조건이나 대상을 표시하며 누르거나 지울 수 있는 요소입니다. | [Feedback & Notification](ui-comp-feedback.html) |
+| Date Field 한글. 날짜 입력 필드 | Date Field DATE_FLD | 날짜와 일시를 직접 입력받는 필드입니다. 달력 선택과 함께 제공합니다. | [일반 입력](ui-comp-input.html) |
+| Date Picker 한글. 날짜 선택기 | Date Picker DATE_PICKER | 달력에서 날짜와 기간을 고르는 컴포넌트입니다. 고른 값은 적용 버튼으로 반영합니다. | [일반 입력](ui-comp-input.html) |
+| Line Graph 한글. 선 그래프 | Line Graph LINE_GRAPH | 전체 항목 대비 데이터의 증가를 선으로 표현하는 그래프입니다. | [그래프](ui-comp-graph.html) |
+| Multi Select 한글. 다중 선택 목록 | Multi Select MULTI_SEL | Single Select 의 다중 선택 형태입니다. 고른 값을 필드 안에 요약하고 선택 개수를 함께 표시합니다. | [일반 입력](ui-comp-input.html) |
+| Pie Graph 한글. 원 그래프 | Pie Graph PIE_GRAPH | 전체 대비 각 항목의 비율을 파이 모양으로 표현하는 그래프입니다. | [그래프](ui-comp-graph.html) |
+| Popover 한글. 팝오버 | Popover POPOVER | 대상을 클릭하면 열리는 보조 표시 층입니다. 링크나 닫기가 필요할 때 사용합니다. | [Feedback & Notification](ui-comp-feedback.html) |
+| Progress Bar 한글. 진행 막대 | Progress Bar PROG_BAR | 작업이 어디까지 진행되었는지 막대의 길이로 표시합니다. | [Feedback & Notification](ui-comp-feedback.html) |
+| Radio 한글. 라디오 버튼 | Radio Button RADIO_BTN | 모든 옵션을 노출한 상태에서 하나를 고르는 컴포넌트입니다. | [일반 입력](ui-comp-input.html) |
+| Search Field 한글. 검색 입력 필드 | Search Field SRCH_FLD | 키워드로 대상을 검색하는 입력 필드입니다. Enter 로 결과를 확정합니다. | [일반 입력](ui-comp-input.html) |
+| Single Select 한글. 단일 선택 목록 | Single Select SNGL_SEL | 옵션을 접어 두고 펼쳐서 하나를 고르는 컴포넌트입니다. 옵션이 많거나 노출 공간이 부족할 때 사용합니다. | [일반 입력](ui-comp-input.html) |
+| Skeleton 한글. 스켈레톤 | Skeleton SKELETON | 불러올 컨텐트의 자리를 미리 블록으로 표시하는 로딩 표시입니다. | [Feedback & Notification](ui-comp-feedback.html) |
+| Spinner 한글. 스피너 | Spinner SPINNER | 처리가 진행 중이라는 사실만 알리는 로딩 표시입니다. | [Feedback & Notification](ui-comp-feedback.html) |
+| Switch 한글. 토글 | Switch SWITCH | 기능의 활성과 비활성을 전환하는 컴포넌트입니다. 값을 고르는 것이 아니라 상태를 바꿉니다. | [일반 입력](ui-comp-input.html) |
+| Tag 한글. 태그 | Tag TAG | 항목의 분류 · 속성 · 상태를 짧은 라벨로 표시합니다. | [Feedback & Notification](ui-comp-feedback.html) |
+| Text Area 한글. 여러 줄 입력 영역 | Text Area TXT_AREA | 길이를 예측하기 어려운 서술형 값을 입력받는 필드입니다. | [일반 입력](ui-comp-input.html) |
+| Text Field 한글. 텍스트 입력 필드 | Text Field TXT_FLD | 형식과 길이가 명확한 단일 값을 키보드로 입력받는 필드입니다. | [일반 입력](ui-comp-input.html) |
+| Tooltip 한글. 툴팁 | Tooltip TOOLTIP | 대상에 마우스를 올리면 나타나는 보조 설명입니다. 문구만 담습니다. | [Feedback & Notification](ui-comp-feedback.html) |
+| 결과 배너 | Result Banner RSLT_BNR | 화면에 남아 있어야 하는 처리 결과를 컨텐트 안에 띠로 보여 주는 표시입니다. 사라져도 되는 결과는 토스트가 받습니다. | [토스트·스낵바](resp-toast.html) · [엑셀 업로드하기](grid-excel-upload.html) |
+| 관련 업무 | Related Work REL_WORK | 이 페이지를 벗어나 다른 업무 화면으로 이동하는 링크성 보조 버튼입니다. 실행 흐름에서 떨어뜨려 실수로 이탈하지 않게 상태바에 모읍니다. | [테이블 모듈 공통 정의](grid-basic-behavior.html) |
+| 다이얼로그 | Dialog DLG | 뒤 화면을 딤으로 막고 중앙에 띄워 취소 · 실행 중 하나를 고르게 하는 팝업입니다. 되돌리기 어려운 동작 전에 의사를 확인받습니다. 인지만 받는 것은 Alert, 스스로 사라지는 결과 알림은 토스트입니다. | [확인·경고 다이얼로그](resp-dialog.html) · [레이어 구조](layout-layer.html) |
+| 드래그 핸들 | Drag Handle DRAG_HNDL | 행 좌측에 두어 순서를 끌어 옮길 때 잡는 손잡이입니다. | [순서 편집 테이블](grid-dnd-sort.html) |
+| 드롭존 | Drop Zone DROP_ZONE | 파일을 끌어다 놓아 첨부하는 자리입니다. 사이드 패널이나 인라인 편집 셀처럼 좁은 자리에는 두지 않고 진입점만 둡니다. | [파일 업로드하기](form-file-upload.html) |
+| 라벨형 한글. 텍스트 버튼 | Text Button TXT_BTN | 텍스트 레이블로 표시하는 행 액션 버튼입니다. | [테이블 모듈 공통 정의](grid-basic-behavior.html) |
+| 브레드크럼 | Breadcrumb BRDCRM | 지금 보는 화면이 메뉴 구조의 어디인지 알려 주는 경로 표시입니다. 노드 화면에는 두지 않습니다. | [PC 앱 레이아웃](layout-common.html) · [레이어 구조](layout-layer.html) |
+| 스낵바 | Snackbar SNCKBR | 아이콘·문구·동작·닫기를 모두 갖춘 알림의 가장 큰 형태입니다. | [토스트·스낵바](resp-toast.html) |
+| 스택 | Stack STACK | 여러 Container를 가로 · 세로 · 바둑판으로 쌓아 배치한 것입니다. 아코디언을 쌓은 아코디언 스택도 포함합니다. | [컨테이너](ui-comp-container.html) |
+| 스테퍼 | Stepper STEPPER | 단계로 나뉜 업무에서 단계별 진행 상태와 지금 위치를 보여 주는 컴포넌트입니다. 라벨 노출 · 상태 표시 · 방향 · 이동 속성을 조합하며, 단계 수가 바뀌는 흐름에는 쓰지 않습니다. | [분할 모듈](mod-split-content.html) |
+| 스트라이프 | Stripe STRP | 시스템 전역 · 업무환경에 관한 메시지를 화면 상단 콘텍스트 바 가운데에 폭을 줄여 겹쳐 띄우는 알림입니다. 계속 보여야 하면 고정형(× 를 눌러 닫음), 잠시 알리면 되면 삭제형(4초 후 사라짐)으로 띄웁니다. | [토스트·스낵바](resp-toast.html) · [전역 예외 화면](resp-error-page.html) · [피드백 체계](msg-system.html) |
+| 아이콘 칩 | Icon Chip ICON_CHIP | 칩으로 규정된 요소에 아이콘을 배치한 행 액션 표기입니다. 조회 · 편집 · 삭제처럼 표준 어휘로 부르는 단순 동작에 쓰고, 그 업무에만 있는 동작은 라벨형으로 씁니다. | [테이블 모듈 공통 정의](grid-basic-behavior.html) |
+| 아코디언 | Accordion ACRDN | 묶음을 접어 두었다가 필요한 것만 펼쳐 보는 Container 유형입니다. | [컨테이너](ui-comp-container.html) · [분할 모듈](mod-split-content.html) |
+| 오류 요약 배너 | Error Summary Banner ERR_SMRY_BNR | 폼의 오류 내용을 모아 보여 주는 배너입니다. | [폼 유효성 체크](resp-form-validation.html) |
+| 인라인 메시지 | Inline Message INLN_MSG | 필드 바로 아래에서 해당 필드의 검증 결과를 알리는 문구입니다. | [폼 유효성 체크](resp-form-validation.html) |
+| 자동완성 | Autocomplete AUTOCMPL | Search Field 에 입력하는 동안 후보를 아래에 표시해 고르게 하는 보조 수단입니다. | [일반 입력](ui-comp-input.html) |
+| 전역 안내 메시지 | Global Message GLB_MSG | 시스템이 스스로 알려오는 상태를 받는 전역 알림 자리입니다. 자동 저장 실패·세션 만료 임박·연결 끊김처럼 사용자가 누르지 않은 일에 씁니다. | [전역 예외 화면](resp-error-page.html) · [폼 유효성 체크](resp-form-validation.html) |
+| 카드 | Card CARD | 컨텐트를 양식화해 담은 박스입니다. 카드 한 장이 대상 하나를 나타냅니다. | [컨테이너](ui-comp-container.html) |
+| 콜아웃 | Callout CALLOUT | 성격(info · warning · success · danger · neutral)별 색으로 주의 · 안내를 전하는 띠 형태의 컴포넌트입니다. 페이지 단위는 사용 안내 모듈에, 컨텐트 단위는 컨텐트 유틸리티 맨 위에 두며, 고정 콜아웃은 한 화면에 하나만 둡니다. | [컨텐트 유틸리티](search-detail.html) · [일반형 화면 구조](layout-work.html) · [일반형 화면 모듈 개요](mod-general-overview.html) |
+| 퀵 액션 | Quick Action QUICK_ACT | 행에 마우스를 올릴 때만 우측에 동작 칩을 띄우는 행 액션 표기입니다. 열이 많아 전용 액션 열을 두기 어려울 때 폭을 아낍니다. 아이콘을 항상 보여 주는 것은 액션 칼럼형입니다. | [테이블 모듈 공통 정의](grid-basic-behavior.html) · [빅 테이블](grid-biggrid.html) |
+| 탭 | Tabs TAB | 같은 대상을 성격별로 나눠 한 자리에서 하나씩 바꿔 보는 Container 유형입니다. 탭은 한 줄에 모두 보이게 둡니다. 서로 다른 컨텐트 구조를 전환하는 탭 모듈과 구분합니다. | [컨테이너](ui-comp-container.html) |
+| 테이블 | Table TBL | 목록 데이터를 행과 열로 보여 주는 컨텐트 모듈입니다. 페이지 id와 목업 스펙에서는 grid로 부릅니다. | [테이블 모듈 공통 정의](grid-basic-behavior.html) · [일반목록](grid-board.html) |
+| 텍스트 링크 | Text Link TXT_LINK | 제목이나 항목명처럼 타이틀성을 가진 텍스트를 링크로 삼아 패널·팝업을 여는 방식입니다. | [사이드 패널](option-panel.html) · [상세 팝업](popup.html) · [버튼 라벨 · 아이콘](layout-button-label.html) |
+| 토스트 | Toast TOAST | 결과를 한 줄로 알리고 스스로 사라지는 알림입니다. 스낵바에서 한 줄만 남은 축소형입니다. | [토스트·스낵바](resp-toast.html) |
+| 툴바 | Toolbar TLBR | 모듈 상단에서 그 모듈의 조작 컨트롤을 모아 두는 띠입니다. 피벗 목록의 그룹 기준 선택, 인라인 편집의 저장 CTA가 여기에 놓입니다. | [피벗 목록](grid-group.html) · [인라인 편집 테이블](grid-inline.html) · [컨텐트 유틸리티](search-detail.html) |
+| 파라미터 칩 입력 | Parameter Chip Input PARAM_CHIP_IN | 키와 값을 한 쌍으로 받아 칩으로 쌓는 입력 방식입니다. 표준이 아니라 참고용 컴포넌트입니다. | [특이 데이터 입력](ui-comp-input-extended.html) |
+| 패싯 칩 | Facet Chip FACET_CHIP | 값을 확정하지 않고 보고 있는 목록의 범위를 즉시 바꾸는 칩입니다. 별도의 조회 버튼을 두지 않습니다. | [일반 입력](ui-comp-input.html) · [테이블 모듈 공통 정의](grid-basic-behavior.html) · [컨텐트 유틸리티](search-detail.html) |
+| 페이지네이션 | Pagination PGNT | 결과를 페이지 단위로 나누어 이동하는 컨트롤입니다. 상태바 중앙에 둡니다. | [테이블 모듈 공통 정의](grid-basic-behavior.html) · [일반목록](grid-board.html) |
+| 하단 CTA 한글. 하단 확정 버튼 | Bottom CTA BTM_CTA | 폼 맨 아래에 두는 확정 버튼입니다. | [폼 유효성 체크](resp-form-validation.html) · [버튼 구조 및 동작](layout-action.html) |
+
+#### 패턴 명칭
+
+가이드의 패턴 메뉴에 있는 패턴의 이름입니다.
+아직 작성하지 않은 패턴도 이름을 먼저 맞추기 위해 실었습니다.
+
+| 대표어 | 영문 | 뜻 | 관련 문서 |
+| --- | --- | --- | --- |
+| 업무 슬롯 페이지 | Work Slot Page WORK_SLOT_PAGE | 단위 업무를 각자의 페이지로 두고 그 페이지들을 한 틀에 끼워 한 화면처럼 쓰게 하는 페이지입니다. 레거시 화면을 옮겨 오는 동안 쓰는 과도기 패턴이며, 끼워진 업무도 독립 페이지라 메뉴 검색과 Task Flow 편입이 됩니다. | [업무 화면 편성](work-composition.html) |
+| Task Flow 한글. 과업 흐름 | Task Flow TASK_FLOW | 하나의 처리를 위해 필요한 업무를 모아 둔 그룹입니다. GNB에 순서대로 제공하며, 사전에 정의한 Static Task Flow와 상담 맥락으로 조합하는 AI-driven Task Flow가 있습니다. | [업무 연결](work-connect.html) · [업무 화면 편성](work-composition.html) |
+| Cross-linking 한글. 교차 연결 | Cross-linking CROSS_LNK | Task Flow 밖의 업무를 데이터만 이어 여는 연결 방식입니다. 순서가 없고, 완료하면 스스로 닫히며 직전 업무로 돌아갑니다. | [업무 연결](work-connect.html) |
+| 일반목록 | Basic List BASIC_LIST | 목록 데이터를 표로 보여 주고, 검색 · 정렬 · 필터 · 페이지네이션으로 원하는 항목을 찾는 가장 기본적인 목록 패턴입니다. | [일반목록](grid-board.html) |
+| 빅 테이블 | Big Table BIG_TBL | 컬럼이 많아 기준 해상도에 다 담기지 않는 표를, 좌측 고정열과 가로 스크롤 영역으로 나눠 보여 주는 목록 패턴입니다. | [빅 테이블](grid-biggrid.html) |
+| 트리형 목록 | Tree Table TREE_TBL | 상위 그룹과 하위 항목으로 계층을 이루는 데이터를, 접고 펼치는 트리 테이블로 조회하는 목록 패턴입니다. 계층 트리 테이블이라고도 부릅니다. 그룹 행을 접고 펼쳐 깊이를 조절합니다. | [트리형 목록](grid-tree.html) |
+| 피벗 목록 | Pivot List PIVOT_LIST | 데이터를 기준으로 묶고, 그룹마다 소계와 최상단 총계를 함께 보여 주는 집계형 목록 패턴입니다. 그룹 기준을 바꿔 가며 다면으로 분석합니다. | [피벗 목록](grid-group.html) |
+| 합계통계형 목록 | Summary List SUM_LIST | 그룹 없는 평면 목록에 합계 · 평균 · 카운트 집계 행을 고정해, 개별 항목과 전체 집계를 함께 읽는 목록 패턴입니다. | [합계통계형 목록](grid-sum.html) |
+| 멀티선택형 목록 | Multi-select List MULTI_SEL_LIST | 여러 행을 체크박스로 골라 모은 뒤, 이동 · 삭제 · 적용 같은 다음 액션으로 넘기는 목록 패턴입니다. | [멀티선택형 목록](grid-select.html) |
+| 복합형 테이블 | Composite Table COMP_TBL | 가이드의 테이블 유형 두 가지 이상을 한 테이블에 섞어 쓰는 목록 패턴입니다. 섞을 때 유형끼리 어긋나는 규정을 어느 쪽으로 맞출지 정합니다. | [복합형 테이블](grid-composite.html) |
+| 인라인 편집 테이블 | Inline Edit Table INLN_EDIT_TBL | 표 안에서 셀을 바로 편집하는 패턴입니다. 여러 행 · 여러 필드를 빠르게 고치되, 편집은 저장 CTA로 확정합니다. | [인라인 편집 테이블](grid-inline.html) |
+| 행확장 편집 | Row Expand Edit ROW_EXPND_EDIT | 행을 누르면 그 아래로 상세 영역이 펼쳐져, 화면 이동 없이 같은 자리에서 상세를 확인 · 편집하는 Master-Detail 패턴입니다. | [행확장 편집](grid-expand.html) |
+| 순서 편집 테이블 | Reorder Table REORDER_TBL | 행을 끌어 순서를 바꾸고, 그 순서를 화면 표시 · 우선순위에 반영하는 패턴입니다. 바꾼 순서는 순서 저장으로 확정합니다. | [순서 편집 테이블](grid-dnd-sort.html) |
+| 빅 폼 | Big Form BIG_FORM | 폼 그룹이 여럿이고 조건부 연동이 많은 대형 입력을 한 화면에서 다루는 패턴입니다. 입력은 왼쪽 폼에, 결과는 오른쪽 실시간 프리뷰에 둡니다. | [빅 폼](form-big.html) |
+| 폼 유효성 체크 | Form Validation FORM_VLDT | 입력값이 규칙에 맞는지 확인하고, 틀린 곳을 바로 고치게 안내하는 패턴입니다. 오류는 고칠 자리인 필드에 남기고, 2건 이상이면 폼 상단에 요약을 더합니다. | [폼 유효성 체크](resp-form-validation.html) |
+| 권한 제한 처리 | Permission Restriction PERM_RSTR | 권한이 없는 기능과 페이지를 구분해 보이고, 권한 요청으로 잇는 패턴입니다. | [권한 제한 처리](resp-permission.html) |
+| 마스킹 처리 | Data Masking DATA_MASK | 개인정보처럼 가려야 하는 값을 화면에서 가려 보이는 처리 방식입니다. | [마스킹 처리](resp-masking.html) |
+| 민감정보 | Sensitive Information SNSTV_INFO | 주민등록번호 · 계좌번호 · 카드번호처럼 더 엄격히 다루는 개인정보입니다. 필요한 업무에서 점유 · 금융 인증을 거쳐야 마스킹을 해제하며, 일부는 해제하지 않습니다. | [마스킹 처리](resp-masking.html) · [단축키 체계](ws-shortcuts.html) |
+| 인증 단계 | Authentication Level AUTH_LVL | 마스킹 해제 범위를 정하는 네 단계입니다. 최소 정보 노출 → 본인인증 → 점유 · 금융 인증 → 관리자 일괄 해제 순으로 해제 범위가 넓어집니다. | [마스킹 처리](resp-masking.html) |
+| 전역 예외 화면 | Global Error Screen GLB_ERR_SCRN | 화면을 쓸 수 없을 때 무엇이 일어났고 다음에 무엇을 할지 안내하는 화면입니다. 화면은 쓸 수 있고 알릴 것만 있으면 전역 안내 메시지가 받습니다. | [전역 예외 화면](resp-error-page.html) |
+| 순차진행(일반) | Sequential Flow SEQ_FLOW | 노드 업무 흐름의 기본입니다. 왼쪽에서 오른쪽으로 한 방향으로 진행하며, 각 노드가 자기 단계를 완결해야 다음으로 넘어갑니다. | [순차진행(일반)](node-flow-seq.html) |
+| 분기 진행 | Branch Flow BRNCH_FLOW | 조건에 따라 갈라지는 지점을 분기 케이스를 전담하는 노드로 받아, 캔버스의 전체 흐름은 하나로 유지하는 노드 흐름입니다. | [분기 진행](node-flow-branch.html) |
+| 스킵 | Skip SKIP | 사용자가 결정할 것이 없는 노드를 조작 없이 지나가는 흐름입니다. 지나간 노드는 완료로 남고 다음 노드로 이어집니다. | [스킵](node-flow-skip.html) |
+| 오류처리 | Error Handling ERR_HNDL | 노드를 진행하다 막혔을 때의 표시와 그다음 조치입니다. 노드 진행 중 발생한 오류는 모두 완결형 노드 모듈로 처리합니다. | [오류처리](node-flow-fail.html) |
+| 역방향 진행 | Reverse Flow RVRS_FLOW | 이미 완료한 노드를 다시 활성화해 입력한 내용을 고치는 흐름입니다. 노드의 데이터는 임시 저장 상태이므로 완료한 노드도 수정할 수 있습니다. | [역방향 진행](node-flow-reverse.html) |
+| 외부 화면 연동 처리 | External Screen Integration EXT_SCRN_INTG | 통합 레벨이 정해진 뒤 외부 화면을 우리 화면에 들이는 처리입니다. 내장형은 하나의 화면으로 보이게 하고, 이탈형은 컨텍스트가 끊긴다는 것을 분명히 알립니다. | [외부 화면 연동 처리](integration-ux.html) |
+| 단계별 조회조건 지정하기 | Staged Search Condition STG_SRCH_COND | 고객 · 계약처럼 여러 단계를 거쳐 정해지는 조회조건을 지정하는 표준 기능입니다. 업무세션에 값이 정해져 있으면 그 값으로 화면을 바로 열고, 정해지지 않은 단계만 사이드 패널에서 고르게 합니다. | [단계별 조회조건 지정하기](std-target-customer.html) |
+| 주소찾기 | Address Search ADDR_SRCH | 주소를 검색해 입력하는 표준 기능입니다. | [주소찾기](std-address.html) |
+| 파일 업로드하기 | File Upload FILE_UPLD | 문서와 이미지를 개별 파일로 첨부하는 표준 기능입니다. 첨부 유형마다 진입점을 하나만 두고, 고른 파일은 저장할 때 함께 전송합니다. | [파일 업로드하기](form-file-upload.html) |
+| 엑셀 업로드하기 | Excel Upload EXCEL_UPLD | 다량의 데이터를 엑셀 파일로 등록 · 수정하는 표준 기능입니다. 시스템에 반영하기 전에 유효성을 검증하고, 그 결과에 따라 후속 처리를 정합니다. | [엑셀 업로드하기](grid-excel-upload.html) |
+| 테이블 전체보기 | Table Full View TBL_FULL_VIEW | 표를 화면 가득 펼쳐 화면 이동 없이 제자리에서 크게 보는 딤 팝업입니다. 목록 상태바 맨 오른쪽의 확장 아이콘(전체보기 버튼)으로 엽니다. | [테이블 전체보기](grid-fullview.html) · [테이블 모듈 공통 정의](grid-basic-behavior.html) |
+| 파일 다운로드하기 | File Download FILE_DWNLD | 화면의 데이터나 문서를 파일로 내려받는 표준 기능입니다. | [파일 다운로드하기](std-file-download.html) |
+| 컨텐트 텍스트 검색하기 | Content Text Search CNTNT_TXT_SRCH | 컨텐트 모듈 하나 안에서 글자를 찾아 그 위치를 표시하는 표준 기능입니다. 행이나 내용을 걸러 내지 않고, 찾은 글자를 칠해 하나씩 옮겨 가며 봅니다. 필요한 화면에서만 두는 선택 기능입니다. | [컨텐트 텍스트 검색하기](std-text-search.html) |
+
+#### 일반 용어
+
+특정 화면 요소를 가리키지 않고, 가이드 전반에서 개념 · 상태 · 디바이스 · 산출물을 부르는 말입니다.
+
+| 대표어 | 영문 | 뜻 | 관련 문서 |
+| --- | --- | --- | --- |
+| Break Point 한글. 중단점 | Breakpoint BRKPNT | 폭 대응 방식이 바뀌는 화면 폭입니다. PC 앱은 1024px · 1920px 두 곳입니다. 동의어. Breakpoint | [PC 앱 레이아웃](layout-common.html) · [디바이스 정책](device-spec.html) |
+| Fit to Width 한글. 너비 맞춤 | Fit to Width FIT_WDTH | 모듈 규격은 그대로 두고 모듈의 개수 · 배치로 화면 폭을 채우는 방식입니다. PC 앱의 1024~1920px 구간에 적용합니다. 동의어. Fit-to-Width | [PC 앱 레이아웃](layout-common.html) · [디바이스 정책](device-spec.html) |
+| Mobile 한글. 모바일 | Mobile MBL | 스마트폰을 세로로 쓰는 환경입니다. 별도로 빌드한 모바일 앱으로 제공하며, 지원 폭은 320~430px입니다. | [디바이스 정책](device-spec.html) · [모바일 앱 레이아웃](layout-mobile.html) |
+| PC 한글. 데스크톱 | PC PC | PC 앱으로 제공하는 디바이스입니다. 데스크톱 · 노트북 · 태블릿이 여기에 들며, 최소 폭은 1024px, 기준 폭은 1920px입니다. | [디바이스 정책](device-spec.html) · [PC 앱 레이아웃](layout-common.html) |
+| PC 앱 한글. 피시 앱 | PC App PC_APP | 데스크톱 · 노트북 · 태블릿에 제공하는 NEXT BSS 앱입니다. 기능 전체를 제공합니다. | [디바이스 정책](device-spec.html) · [PC 앱 레이아웃](layout-common.html) |
+| Tablet 한글. 태블릿 | Tablet TBLT | PC 앱으로 제공하는 디바이스입니다. 가로는 화면 폭에 맞춰 표시하고, 세로는 1024px 레이아웃을 유지한 채 가로 스크롤로 봅니다. | [디바이스 정책](device-spec.html) · [PC 앱 레이아웃](layout-common.html) |
+| 모바일 앱 | Mobile App MBL_APP | 스마트폰에 별도 URL로 제공하는 NEXT BSS 앱입니다. PC 앱 기능의 일부를 제공하며, 컴포넌트 규정과 디자인 코드는 PC 앱과 같습니다. | [디바이스 정책](device-spec.html) · [모바일 앱 레이아웃](layout-mobile.html) |
+| 적응형 | Adaptive ADPTV | 기기에 맞는 앱을 따로 빌드해 별도 URL로 제공하는 방식입니다. 한 앱이 화면 폭에 따라 구조를 바꾸는 반응형과 구분합니다. | [디바이스 정책](device-spec.html) |
+| 사용성 5원칙 | Usability Principles USBLTY_PRNCPL | 학습 용이성 · 효율성 · 기억 용이성 · 오류 최소화 · 만족도의 다섯 가지 사용성 요소입니다. UX 설계 원칙과 UX 점검 기준이 공통으로 따르는 틀입니다. | [UX 설계 원칙](intro-principles.html) · [UX 점검 기준](intro-heuristics.html) |
+| 모달 | Modal MODAL | 원래 화면의 기능을 막고, 새로 띄운 UI를 처리해야만 다음 단계로 넘어가게 하는 UX 방식입니다. 의도적으로 맥락을 바꿀 때 씁니다. 상세 팝업 · 전체 화면 팝업 · 다이얼로그 · 전체 화면 전환이 여기에 속합니다. 기준 화면을 그대로 쓸 수 있게 두는 것은 논모달입니다. (예. 사이드 패널 · 유틸리티 팝업) | [상세 팝업](popup.html) · [전체 화면 팝업](view-full-popup.html) · [전체 화면 전환](view-transitions.html) · [확인·경고 다이얼로그](resp-dialog.html) |
+| 밴드 | Layer Band LYR_BAND | 화면 위에 뜨는 요소의 겹침 순위를 묶은 단위입니다. 구현 수치가 아니라 어느 밴드에 속하는지로 겹침 순서를 정합니다. | [레이어 구조](layout-layer.html) |
+| Empty 한글. 결과 없음 | Empty EMPTY | 결과가 하나도 없을 때의 상태입니다. 결과 있음의 틀을 그대로 두고 행 영역에만 안내를 넣으며, 상태바는 총 0건으로 둡니다. 한글로 옮겨 쓰지 않습니다. | [일반목록](grid-board.html) · [테이블 모듈 공통 정의](grid-basic-behavior.html) |
+| Error 한글. 오류 | Error ERR | 요청이 실패했을 때의 상태입니다. 한글로 옮겨 쓰지 않습니다. | [일반목록](grid-board.html) · [전역 예외 화면](resp-error-page.html) |
+| Loading 한글. 로딩 중 | Loading LDNG | 데이터를 불러오는 동안의 상태입니다. 테이블에서는 표 자리에 스켈레톤을 표시합니다. 한글로 옮겨 쓰지 않습니다. | [일반목록](grid-board.html) · [테이블 모듈 공통 정의](grid-basic-behavior.html) |
+| 크롬리스 한글. 컨텐트 전용 화면 | Chromeless CHRMLS | 주소 표시줄·메뉴·도구 모음 같은 브라우저 요소 없이 컨텐트만 담아 제공하는 화면입니다. | [통합 레벨 프레임워크](integration-levels.html) |
+| 통합 레벨 프레임워크 | External Integration Level EXT_INTG_LVL | 다른 도메인의 기능 · 서비스를 BSS 서비스에 통합할 때 통합 강도를 다섯 단계로 판정하는 기준입니다. 줄여서 통합 레벨이라고 부르며, 외부 연동 레벨이라고도 합니다. 레벨이 정해지면 화면에 통합하는 방식과 솔루션 제공자에게 요구할 연동 요건이 함께 정해집니다. | [통합 레벨 프레임워크](integration-levels.html) · [외부 화면 연동 처리](integration-ux.html) |
+| BPD 한글. 업무 프로세스 도식 | Business Process Diagram BPD | 업무 프로세스를 도식으로 정리한 분석 자료입니다. 설계의 근거로 삼으며, 필요한 것만 골라 둡니다. | [SB 작성 가이드](intro-sb-guide.html) |
+| IA 한글. 정보 구조도 | Information Architecture IA | 화면의 정보 구조와 화면 간 흐름을 정의한 설계 산출물입니다. 진입 경로와 이탈 경로를 함께 표기합니다. | [SB 작성 가이드](intro-sb-guide.html) |
+| SB 한글. 화면설계서 | Storyboard SB | 화면 구조와 정보 우선순위, 화면별 동작을 정의하는 설계 산출물입니다. 작성 방법은 SB 작성 가이드를 따릅니다. 동의어. 와이어프레임 · 스토리보드 | [SB 작성 가이드](intro-sb-guide.html) |
+| 유저플로우 | Userflow USR_FLOW | 사용자가 목표를 달성하는 과정을 진입 → 처리 → 완료 단계로 정의한 흐름입니다. |  |
+
+#### 기능·요소 명칭
+
+모듈과 컴포넌트 안에서 쓰이는 세부 기능과 구성 요소를 부르는 말입니다. (예. GNB의 업무 탭, 테이블의 무한 스크롤)
+
+| 분류 | 대표어 | 영문 | 뜻 | 관련 문서 |
+| --- | --- | --- | --- | --- |
+| 화면 요소 | To-Do 한글. 할 일 | To-Do TODO | 사이드 내비게이션 바에서 나에게 할당되어 처리해야 끝나는 일을 모아 보여 주는 항목입니다. 확인하면 끝나는 알림과 구분합니다. | [사이드 내비게이션 바](layout-lnb.html) |
+| 화면 요소 | 메뉴 바로가기 | Menu Shortcut MENU_SHRTCT | 사용자가 자주 쓰는 메뉴에 Alt+1~0 단축키를 붙이는 사용자 지정 바로가기입니다. 최대 10개까지 등록합니다. | [단축키 체계](ws-shortcuts.html) |
+| 화면 요소 | 창 분리 | Tear-Off TEAR_OFF | GNB 의 세션이나 업무 탭을 원본 창 밖으로 끌어내 별도의 브라우저 창(분리 창)으로 쓰는 기능입니다. 떼어 낸 탭은 원본 창에서 빠지며, Task Flow 로 묶인 탭은 묶음째 떼어 냅니다. | [창 분리](ws-window-detach.html) |
+| 화면 요소 | 화면 분할 | Split View SPLIT_VIEW | 앱 셸은 그대로 두고 본문 영역만 좌우 둘로 나눠 두 업무를 나란히 두고 쓰는 기능입니다. 나뉜 두 영역은 각각 하나의 업무 화면이며, 선택한 영역을 기준으로 GNB 의 업무세션과 업무 탭이 바뀝니다. | [화면 분할](ws-split-view.html) |
+| 버튼 · 액션 | 보조 동작 | Secondary Action SEC_ACT | 단계를 넘기지 않고 곁가지만 처리하는 동작입니다. 결과는 토스트로 알립니다. | [토스트·스낵바](resp-toast.html) · [버튼 구조 및 동작](layout-action.html) |
+| 버튼 · 액션 | 보조 버튼 | Secondary Button SUB_BTN | 주 버튼(CTA)보다 덜 강조해 두는 버튼입니다. 예외 처리나 부가 동작을 맡습니다. 단계를 넘기지 않고 곁가지만 처리하는 동작은 보조 동작이라고 부릅니다. | [노드형 화면](layout-node.html) · [토스트·스낵바](resp-toast.html) |
+| 버튼 · 액션 | 복구 CTA 한글. 복구 확정 버튼 | Recovery CTA RCVR_CTA | 예외 화면에서 사용자가 다음 행동을 확정하는 버튼입니다. | [전역 예외 화면](resp-error-page.html) |
+| 버튼 · 액션 | 액션 칼럼형 한글. 액션 열형 | Action Column ACT_COL | 맨 오른쪽에 전용 액션 열을 두고 행별 동작 아이콘을 상시 노출하는 행 액션 표기입니다. 열 폭에 여유가 있을 때 씁니다. | [테이블 모듈 공통 정의](grid-basic-behavior.html) · [인라인 편집 테이블](grid-inline.html) |
+| 버튼 · 액션 | 행 액션 | Row Action ROW_ACT | 목록의 각 행에 걸어 두는 실행 버튼입니다. 한 행에 세 개까지 두고, 넷 이상 필요하면 사이드 패널을 열어 그 안에서 처리합니다. | [테이블 모듈 공통 정의](grid-basic-behavior.html) · [인라인 편집 테이블](grid-inline.html) |
+| 검색 · 필터 | 상세조회 | Detail Inquiry DTL_INQ | 컨텐트 상세검색에 입력한 조건으로 조회를 실행하는 버튼입니다. | [컨텐트 유틸리티](search-detail.html) |
+| 검색 · 필터 | 즉시 적용 조건 | Instant Condition INST_COND | 패싯 칩이나 그룹 변경 셀렉트처럼 클릭 한 번으로 곧바로 적용되는 조건입니다. 별도 submit 버튼 없이 액션 영역 좌측에 둡니다. | [테이블 모듈 공통 정의](grid-basic-behavior.html) · [컨텐트 유틸리티](search-detail.html) |
+| 검색 · 필터 | 추가 조건 | Extra Conditions EXTRA_COND | 자주 쓰지 않는 조건을 펼치기로 접어 두는 자리입니다. | [조회조건 모듈](search-conditions.html) |
+| 검색 · 필터 | 컨텐트 상세검색 | Content Detail Search CNTNT_DTL_SRCH | 컨텐트 모듈 안에 들어가 그 컨텐트 하나를 좁히는 검색 기능입니다. 컨텐트 유틸리티에 놓이고 상세조회 버튼으로 적용하며, 화면 전체에 걸리는 조회조건 모듈보다 낮은 위계로 노출합니다. | [컨텐트 유틸리티](search-detail.html) · [테이블 모듈 공통 정의](grid-basic-behavior.html) |
+| 검색 · 필터 | 필터 적용 상태 칩 | Applied Filter Chip APLD_FLTR_CHIP | 컨텐트 유틸리티에서 설정한 검색 조건을 액션 영역 좌측에 칩으로 보여 주는 표시입니다. 칩의 ×로 조건을 하나씩 해제합니다. | [테이블 모듈 공통 정의](grid-basic-behavior.html) · [컨텐트 유틸리티](search-detail.html) |
+| 테이블 | 그룹 소계 행 | Group Subtotal Row GRP_SUBTOT_ROW | 피벗 목록에서 그룹의 머리 자리에 놓여 그 그룹의 소계를 보여 주는 행입니다. 스크롤하면 총계 바로 아래에 지금 보는 그룹 하나만 롤링 고정됩니다. | [피벗 목록](grid-group.html) |
+| 테이블 | 드래그 중인 행 | Dragging Row DRAGGING_ROW | 드래그로 잡은 순간 살짝 커지고 그림자로 떠오르는 행입니다. 끄는 동안 커서를 따라 움직이고 주변 행이 자리를 비켜 놓일 위치를 미리 보여 줍니다. | [순서 편집 테이블](grid-dnd-sort.html) |
+| 테이블 | 말단 행 | Leaf Row LEAF_ROW | 그룹에 속한 실제 항목입니다. 들여쓰기로 소속을 나타내고, 그룹 기준이 아닌 나머지 차원은 메타 텍스트로 병기합니다. | [피벗 목록](grid-group.html) · [트리형 목록](grid-tree.html) |
+| 테이블 | 목록 개수 선택 | Page Size PAGE_SIZE | 한 번에 표시할 행 수를 고르는 컨트롤입니다. 상태바 우측에 두며, 무한 스크롤 방식에서는 두지 않습니다. | [테이블 모듈 공통 정의](grid-basic-behavior.html) |
+| 테이블 | 무한 스크롤 | Infinite Scroll INF_SCRL | 스크롤을 내리면 다음 데이터를 이어 불러오는 방식입니다. 계층·그룹 목록과 좁은 폭에서 페이지네이션 대신 씁니다. | [트리형 목록](grid-tree.html) · [테이블 모듈 공통 정의](grid-basic-behavior.html) |
+| 테이블 | 번호 열 | No. Column NO_COL | 각 행의 고유 번호 열입니다. 재정렬해도 번호를 다시 매기지 않고 번호가 행을 따라 함께 이동합니다. | [순서 편집 테이블](grid-dnd-sort.html) |
+| 테이블 | 보조 입력 셀 | Assisted Cell ASSIST_CELL | 직접 타이핑이 어려운 값을 사이드 패널로 검색해 채우는 편집 셀입니다. | [인라인 편집 테이블](grid-inline.html) |
+| 테이블 | 보조 텍스트 | Secondary Text SEC_TXT | 주 값 뒤에 작고 흐리게 덧붙이는 부가 정보입니다. 열을 새로 만들 만큼은 아닌 값에 씁니다. | [테이블](ui-comp-table.html) |
+| 테이블 | 상태값 | Status Value STS_VAL | 칩으로 감싸 다른 값과 구분하는 셀 값입니다. 같은 상태는 화면이 달라도 같은 색을 씁니다. | [테이블](ui-comp-table.html) |
+| 테이블 | 선택 열 | Selection Column SEL_COL | 행을 골라 한꺼번에 처리하려고 맨 왼쪽에 두는 체크박스 열입니다. | [테이블](ui-comp-table.html) · [멀티선택형 목록](grid-select.html) |
+| 테이블 | 셀 툴팁 | Cell Tooltip CELL_TOOLTIP | 열 폭이 모자라 줄인 값을 마우스를 올렸을 때 전체로 띄우는 표시입니다. 아이콘을 붙이지 않습니다. | [테이블](ui-comp-table.html) |
+| 테이블 | 순서 저장 | Save Order SAVE_ORD | 드래그로 바꾼 순서를 확정하는 버튼입니다. 저장 전까지는 화면에서만 재정렬된 상태입니다. | [순서 편집 테이블](grid-dnd-sort.html) |
+| 테이블 | 여러 줄 편성 | Multi-line Cell MULTILINE_CELL | 한 대상에 딸린 값들을 열로 나누지 않고 한 칸에 위아래로 쌓는 편성입니다. | [테이블](ui-comp-table.html) |
+| 테이블 | 이중 헤더 | Dual Header DUAL_HDR | 여러 열이 한 묶음일 때 헤더를 두 줄로 쓰는 방식입니다. 윗줄에 묶는 이름을, 아랫줄에 열 이름을 적습니다. | [테이블](ui-comp-table.html) |
+| 테이블 | 총계 행 | Total Row TOT_ROW | 피벗 목록 최상단에 고정되어 전체 합계를 보여 주는 행입니다. | [피벗 목록](grid-group.html) |
+| 테이블 | 편집 셀 | Editable Cell EDTBL_CELL | 인라인 편집 테이블에서 값을 직접 고칠 수 있는 셀입니다. 고칠 수 없는 셀은 읽기전용 셀입니다. | [인라인 편집 테이블](grid-inline.html) |
+| 테이블 | 행 추가 바 | Add Row Bar ADD_ROW_BAR | 표 하단의 전용 바로 빈 편집 행을 추가해 신규 입력을 시작하는 자리입니다. | [인라인 편집 테이블](grid-inline.html) |
+| 테이블 | 헤더 툴팁 | Header Tooltip HDR_TOOLTIP | 열 제목만으로 뜻이나 기준이 전달되지 않을 때 제목 옆 아이콘에 붙이는 설명입니다. | [테이블](ui-comp-table.html) |
+| 입력 · 폼 | 자동 입력 표시 | Autofill Indicator AUTOFILL_IND | 사용자가 넣지 않고 시스템이 채운 값임을 알리는 필드 표시입니다. | [폼 유효성 체크](resp-form-validation.html) |
+| 입력 · 폼 | 첨부 팝업 | Attach Popup ATTACH_POPUP | 파일을 고르는 팝업입니다. 일반 UI 탭의 첨부 UI를 그대로 쓰고 하단에 취소·확인을 둡니다. | [파일 업로드하기](form-file-upload.html) |
+| 입력 · 폼 | 추가 타일 | Add Tile ADD_TILE | 카드 그리드 끝에 두는 카드형 진입점입니다. 버튼과 드롭 대상을 겸합니다. | [파일 업로드하기](form-file-upload.html) |
+| 입력 · 폼 | 필수 표기 | Required Mark REQ_MARK | 값을 반드시 넣어야 하는 필드임을 알리는 표시입니다. | [폼 유효성 체크](resp-form-validation.html) |
+| 겹침 · 알림 | 사이드 패널 푸터 | Side Panel Footer SIDE_PNL_FTR | 사이드 패널 안의 맨 아래에서 버튼을 담는 푸터 영역입니다. | [상세 팝업](popup.html) · [전체 화면 팝업](view-full-popup.html) · [사이드 패널](option-panel.html) |
+| 겹침 · 알림 | 사이드 패널 헤더 | Side Panel Header SIDE_PNL_HDR | 사이드 패널 안의 맨 위에서 제목과 닫기를 담는 헤더 영역입니다. | [사이드 패널](option-panel.html) · [상세 팝업](popup.html) |
+| 겹침 · 알림 | 액션바 안내 문구 | Action Bar Notice ACT_BAR_NTC | 지금 무엇을 하라는 지시를 액션바에 적는 문구입니다. 결과를 알리는 자리가 아니며 노드가 바뀔 때까지 남습니다. | [토스트·스낵바](resp-toast.html) · [노드형 화면](layout-node.html) |
+| 겹침 · 알림 | 트리거 | Trigger TRGR | 다른 요소를 열거나 동작을 시작하게 하는 조작 지점입니다. 버튼 · 링크 · 아이콘 · 행 등이 트리거가 됩니다. | [확인·경고 다이얼로그](resp-dialog.html) · [사이드 패널](option-panel.html) |
+| 겹침 · 알림 | 팝업 푸터 | Popup Footer POPUP_FTR | 팝업 안의 맨 아래에서 버튼을 담는 푸터 영역입니다. | [상세 팝업](popup.html) · [전체 화면 팝업](view-full-popup.html) · [사이드 패널](option-panel.html) |
+| 겹침 · 알림 | 팝업 헤더 | Popup Header POPUP_HDR | 팝업 안의 맨 위에서 제목과 닫기 등 창 조작 버튼을 담는 헤더 영역입니다. | [테이블 전체보기](grid-fullview.html) |
+| 노드형 화면 | 고객정보 위젯 | Customer Info Widget CUST_INFO_WDGT | 노드형 화면의 캔버스 우측 하단에 놓이는 고객 요약 위젯 패널입니다. 평소에는 접어 두고, 펼치면 고객정보 · 서비스 · 납부 등 위젯 카드를 가로로 보여 줍니다. | [노드형 화면](layout-node.html) · [레이어 구조](layout-layer.html) · [단축키 체계](ws-shortcuts.html) |
+| 노드형 화면 | 데이터 저장 시점 표기 | Save Point Mark SAVE_PNT_MARK | 이 노드를 완료하면 저장된다는 것, 곧 되돌릴 수 있는 구간이 여기서 끝난다는 것을 노드 안에 적는 표기입니다. | [역방향 진행](node-flow-reverse.html) |
+| 노드형 화면 | 진행 불가 표시 | Blocked Mark BLOCKED_MARK | 다시 처리해야 하는 노드를 오류 색 테두리와 버튼 비활성으로 막는 표시입니다. | [확인·경고 다이얼로그](resp-dialog.html) · [스킵](node-flow-skip.html) · [오류처리](node-flow-fail.html) |
+| 노드 모듈 구성 | AI 가이드 한글. 인공지능 가이드 | AI Guide AI_GUIDE | 판단을 돕는 추천·근거나 주의·부연을 짚어 주는 자리입니다. 특이사항 바로 아래이며 옵션 요소입니다. | [선택형 모듈](node-comp-select.html) · [처리형 모듈](node-comp-process.html) |
+| 노드 모듈 구성 | 가이드 정보 | Guide Info GUIDE_INFO | 저장 후 영향이나 자동채움 근거처럼 판단을 돕는 안내를 짚어 주는 자리입니다. 옵션 요소입니다. | [입력형 모듈](node-comp-input.html) · [상호작용형 모듈](node-comp-interaction.html) |
+| 노드 모듈 구성 | 기본 정보 | Base Info BASE_INFO | 무엇을 입력하거나 처리하는지 맥락을 잡는 대상 정보를 담는 자리입니다. 정보 요약을 기본으로 쓰는 옵션 요소입니다. | [입력형 모듈](node-comp-input.html) · [처리형 모듈](node-comp-process.html) |
+| 노드 모듈 구성 | 노드 안 보조 버튼 | In-node Sub Button IN_NODE_SUB_BTN | 본문 안에서 값을 채우거나 다른 화면을 여는 보조 버튼입니다. 값 검색이나 중복 확인·인증에 씁니다. | [버튼 구조 및 동작](layout-action.html) |
+| 노드 모듈 구성 | 노드 하단 CTA 한글. 노드 확정 버튼 | Node CTA NODE_CTA | 노드 모듈 맨 아래에 두는 확정 버튼입니다. | [버튼 구조 및 동작](layout-action.html) · [노드형 화면](layout-node.html) |
+| 노드 모듈 구성 | 다음 조치 | Next Action NEXT_ACT | 종료 뒤 이어질 후속 조치를 실행하는 버튼입니다. CTA 바로 위에 붙어 하나의 그룹을 이룹니다. | [완결형 모듈](node-comp-end.html) · [버튼 구조 및 동작](layout-action.html) |
+| 노드 모듈 구성 | 상세 조회 정보 | Detail Info DTL_INFO | 조회형 모듈이 보여 줄 핵심 데이터입니다. 표·사용량 바·비교·미디어 등 내용 성격에 따라 표현이 달라집니다. | [조회형 모듈](node-comp-view.html) |
+| 노드 모듈 구성 | 선택 피드백 | Selection Feedback SEL_FDBK | 고른 값에 따라 바뀌는 금액·합계·영향을 선택 바로 아래에 보여 주는 자리입니다. 고르면 즉시 갱신됩니다. | [선택형 모듈](node-comp-select.html) |
+| 노드 모듈 구성 | 요청 맥락 | Request Context RQST_CTXT | 무엇을 누구에게 어떤 수단으로 요청하는지 담는 자리입니다. 정보 요약을 기본으로 쓰는 옵션 요소입니다. | [상호작용형 모듈](node-comp-interaction.html) |
+| 노드 모듈 구성 | 처리 상태 | Processing State PRCS_STATE | 처리 체크리스트나 상태 카드로 처리 과정을 진행 상태와 함께 보여 주는 자리입니다. | [처리형 모듈](node-comp-process.html) |
+| 노드 모듈 구성 | 처리 요약 | Result Summary RSLT_SMRY | 무엇이 어떻게 처리·중단됐는지 항목과 값으로 되짚는 자리입니다. 조회형의 정보 요약 표현을 그대로 가져와 씁니다. | [완결형 모듈](node-comp-end.html) |
+| 노드 모듈 구성 | 특이사항 | Notice NOTICE | 입력이나 응대 전에 먼저 봐야 할 유의점을 모듈 최상단에 콜아웃으로 알리는 자리입니다. 기본은 두지 않고 꼭 필요할 때만 표시합니다. | [입력형 모듈](node-comp-input.html) · [상호작용형 모듈](node-comp-interaction.html) |
+| 업무 편성 | Auto-Routing 한글. 자동 라우팅 | Auto-Routing AUTO_RTNG | Task Flow에서 진행 중인 업무를 완료하면 그 탭을 완료로 닫고 다음 업무를 활성화해 화면을 넘기는 동작입니다. 이미 편성된 업무 사이의 진행이며 새 업무를 만들어 붙이지 않습니다. | [업무 연결](work-connect.html) |
+| 업무 편성 | Visual Alert 한글. 변경 표시 | Visual Alert CHG_IND | 처리 결과가 이미 완료된 여러 업무에 영향을 미칠 때 해당 탭을 갱신 표시로 바꾸고 점멸시키는 동작입니다. 사용자가 탭을 골라 다시 확인하도록 안내합니다. | [업무 연결](work-connect.html) |
+| 업무 편성 | 업무 탭 | Task Tab TASK_TAB | Task Flow와 Cross-linking으로 연 업무를 GNB의 업무세션 안에 하나씩 보여 주는 탭입니다. 색이 상태를, 채움과 테두리가 현재 위치를 나타냅니다. | [업무 연결](work-connect.html) · [GNB](layout-gnb.html) |
+| 업무 편성 | 업무세션 | Work Session WORK_SESN | GNB에서 열린 업무 탭을 묶어 보여 주는 영역입니다. 업무 대상을 기준으로 묶는 주 업무세션과, 업무 대상에 매이지 않는 지원업무세션이 있습니다. | [GNB](layout-gnb.html) |
+
+#### 동의어
+
+대표어와 같은 것을 가리키는 다른 이름입니다.
+문서를 검색할 때 함께 확인합니다.
+
+| 대표어 | 동의어 |
+| --- | --- |
+| Break Point | Breakpoint |
+| Fit to Width | Fit-to-Width |
+| SB | 와이어프레임 · 스토리보드 |
+| 사이드 내비게이션 바 | Left Navigation Bar · Navigation Rail |

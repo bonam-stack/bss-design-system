@@ -4,6 +4,7 @@ import type { ReactNode } from 'react';
 import * as P from './portal/store';
 import type { Draft, Rule } from './portal/store';
 import { usePortal } from './portal/ctx';
+import { uxRef, uxRoute } from './uxguide';
 
 export const fmt = (iso?: string) => (iso ? new Date(iso).toLocaleString('ko-KR', { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' }) : '');
 export const figmaUrl = (fileKey: string, nodeId: string) => `https://www.figma.com/design/${fileKey}/?node-id=${nodeId.replace(':', '-')}`;
@@ -70,6 +71,17 @@ export function CodeLink({ code }: { code: string }) {
   if (it) return <a href={`#${code}`}>{it.name}</a>;
   const sl = P.slot(code);
   return <>{sl ? sl.name : code}</>;
+}
+
+/** 근거 문서 표기(work-composition, form-big.html)가 UX 가이드 문서면 그 페이지로 잇는다 */
+export function UxRef({ r, label }: { r?: string; label?: string }) {
+  const d = uxRef(r);
+  if (!d) return <>{label ?? r ?? ''}</>;
+  return (
+    <a href={`#${uxRoute(d.id)}`} title={`UX 가이드 · ${d.title}`}>
+      {label ?? d.title}
+    </a>
+  );
 }
 
 export const joinNodes = (L: ReactNode[], sep: ReactNode) => L.flatMap((x, i) => (i ? [sep, x] : [x]));
@@ -238,7 +250,7 @@ export function RuleList({ list }: { list: Rule[] }) {
           <p>
             {human(x.text)}
             <small>
-              {x.doc} · {x.section}
+              <UxRef r={x.doc} /> · {x.section}
             </small>
           </p>
         </li>

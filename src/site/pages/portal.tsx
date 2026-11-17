@@ -5,7 +5,8 @@ import * as P from '../portal/store';
 import type { Draft, HistoryEntry, Item, Kind } from '../portal/store';
 import { usePortal } from '../portal/ctx';
 import { patterns, icons } from '../data';
-import { BumpTag, Check, CodeLink, ConfirmButton, DraftBox, Drafts, EditBtn, Head, RuleList, St, StOf, Table, fmt, human, joinNodes } from '../ui';
+import { groupOf, ux, uxRoute } from '../uxguide';
+import { BumpTag, Check, CodeLink, UxRef, ConfirmButton, DraftBox, Drafts, EditBtn, Head, RuleList, St, StOf, Table, fmt, human, joinNodes } from '../ui';
 
 const FIGMA_FILE = '9AioWOXVOVm5C7kdSxSEEP';
 const KIND_LABEL: Record<Kind, string> = { shell: 'App shell', block: 'Blocks', comp: 'Components', layout: 'Layout rules' };
@@ -45,6 +46,7 @@ function Overview() {
     ['patterns', 'Patterns', `레이아웃 규칙 ${n('layout')} · 패턴 ${patterns.length}`, '화면을 어떤 순서로 쌓을지'],
     ['rules', 'UX 거버넌스', `규칙 ${P.rules().length}개`, 'UX표준가이드 규칙과 연결표'],
     ['icons', 'Foundations', `아이콘 ${icons.icons.length}개`, '아이콘 · 디자인 토큰'],
+    ['ux', 'UX 가이드', `문서 ${ux.docs.length}개`, 'NEXT BSS UX Pattern Guide · 원칙 · 패턴 · 모듈 · 컴포넌트'],
     ['stack', '조립 구조', 'Stack 5단계', '앱쉘 → 레이아웃 → 빈칸 → 블록 → 컴포넌트'],
   ];
   return (
@@ -183,6 +185,9 @@ function Updates() {
   return (
     <>
       <Head eyebrow="시작하기" title="업데이트" lead="게시된 버전과 변경 노트입니다. MAJOR는 기존 것을 고치거나 지울 때(이미 만든 SB 재검수), MINOR는 추가 · 승격, PATCH는 설명 수정입니다." />
+      <p className="note">
+        UX 패턴 가이드 쪽 변경은 <a href="#ux-version-history">UX 가이드 버전 이력</a>에 있습니다 (지금 반영본: {ux.source.replace(/^.*release\/(\d+)\/?$/, '$1')} 릴리스).
+      </p>
       {P.history().map((h, i) => (
         <div key={i}>
           <h2 id={`v-${i}`} className="sr">
@@ -344,6 +349,20 @@ function PatternList() {
       </div>
       <h2 id="layouts">레이아웃 규칙</h2>
       <Grid list={L} />
+      <h2 id="ux-patterns">UX 패턴 가이드의 패턴</h2>
+      <p className="note">
+        NEXT BSS UX Pattern Guide의 패턴 문서입니다. <a href="#ux">UX 가이드 전체</a>
+      </p>
+      <div className="cards">
+        {ux.docs
+          .filter((d) => d.section.startsWith('패턴'))
+          .map((d) => (
+            <a key={d.id} className="card" href={`#${uxRoute(d.id)}`}>
+              {groupOf(d) ? <span className="card-eb">{groupOf(d)}</span> : null}
+              <b>{d.title}</b>
+            </a>
+          ))}
+      </div>
     </>
   );
 }
@@ -365,7 +384,7 @@ function ItemPage({ it }: { it: Item }) {
       it.kind === 'comp' ? ['변형', it.variants] : null,
       it.kind === 'block' ? ['놓이는 빈칸', human(it.slot)] : null,
       it.kind === 'layout' ? ['적용 빈칸', <CodeLink code={it.slot || ''} />] : null,
-      it.kind === 'layout' ? ['근거 문서', it.guide] : null,
+      it.kind === 'layout' ? ['근거 문서', <UxRef r={it.guide} />] : null,
       it.kind === 'shell' ? ['빈칸', human(it.slots)] : null,
       ['기준 원본', it.design ? '모양 Figma 디자인 시스템 · 뜻 카탈로그' : it.kind === 'layout' ? 'UX표준가이드' : 'UX 패턴 가이드 · 디자인 에셋 없음'],
       it.promotedFrom ? ['승격', `${it.promotedFrom}에서`] : null,
@@ -605,7 +624,7 @@ function Rules() {
               <span className="rk">{r.kind}</span>
             </td>
             <td>
-              {r.doc}
+              <UxRef r={r.doc} />
               <br />
               <span className="muted">{r.section}</span>
             </td>
