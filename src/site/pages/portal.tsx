@@ -42,7 +42,7 @@ function Overview() {
   const n = (k: Kind) => I.filter((i) => i.kind === k).length;
   const cards = [
     ['components', 'Components', `컴포넌트 ${n('comp')}개`, '블록 안에 들어가는 최소 부품'],
-    ['blocks', 'Blocks', `앱쉘 ${n('shell')} · 블록 ${n('block')}`, '빈칸 하나를 채우는 업무 단위 묶음'],
+    ['blocks', 'Blocks', `블록 ${n('block')}`, '빈칸 하나를 채우는 업무 단위 묶음'],
     ['patterns', 'Patterns', `레이아웃 규칙 ${n('layout')} · 패턴 ${patterns.length}`, '화면을 어떤 순서로 쌓을지'],
     ['rules', 'UX 거버넌스', `규칙 ${P.rules().length}개`, 'UX표준가이드 규칙과 연결표'],
     ['icons', 'Foundations', `아이콘 ${icons.icons.length}개`, '아이콘 · 디자인 토큰'],
@@ -121,7 +121,7 @@ function Stack() {
   const I = P.items();
   const n = (k: Kind) => I.filter((i) => i.kind === k).length;
   const rows: [string, string, string, number, string][] = [
-    ['앱쉘', 's-', '화면이 바뀌어도 남는 바탕 틀', n('shell'), 'blocks'],
+    ['앱쉘', 's-', '화면이 바뀌어도 남는 바탕 틀', n('shell'), 'g-layout-common'],
     ['레이아웃 규칙', 'l-', '본문 영역을 어떤 빈칸 순서로 나눌지 정하는 규칙', n('layout'), 'patterns'],
     ['빈칸(슬롯)', '경로', '부품이 들어갈 자리 · 고정 · 쌓기 · 자유', P.slots().length, 'slots'],
     ['블록', 'b-', '빈칸 하나를 채우는 업무 단위 묶음', n('block'), 'blocks'],
@@ -257,7 +257,7 @@ function Grid({ list: L }: { list: Item[] }) {
 
 function ItemList({ kind }: { kind: 'comp' | 'block' }) {
   const { role, can, act } = usePortal();
-  const I = P.items().filter((i) => (kind === 'block' ? i.kind === 'block' || i.kind === 'shell' : i.kind === kind));
+  const I = P.items().filter((i) => i.kind === kind);
   const isComp = kind === 'comp';
   const pend = P.drafts((d) => d.status === 'draft' && d.type === 'figma' && !!d.isNew);
   const onAdd = (e: FormEvent<HTMLFormElement>) => {
@@ -275,7 +275,7 @@ function ItemList({ kind }: { kind: 'comp' | 'block' }) {
       <Head
         eyebrow={isComp ? 'Components' : 'Blocks'}
         title={isComp ? '컴포넌트' : '블록'}
-        lead={isComp ? '블록 안에 들어가는 최소 부품입니다. ✓ 표시는 Figma 디자인 에셋과 사용 가이드가 있는 것입니다.' : '앱쉘은 화면의 바탕 틀, 블록은 빈칸 하나를 채우는 업무 단위 묶음입니다.'}
+        lead={isComp ? '블록 안에 들어가는 최소 부품입니다. ✓ 표시는 Figma 디자인 에셋과 사용 가이드가 있는 것입니다.' : '블록은 빈칸 하나를 채우는 업무 단위 묶음입니다. 아래쪽 모듈은 UX 패턴 가이드의 모듈 정의입니다.'}
       />
       {isComp && can('figma') ? (
         <section className="ed-panel" aria-label="컴포넌트 추가">
@@ -313,21 +313,10 @@ function ItemList({ kind }: { kind: 'comp' | 'block' }) {
           ))}
         </section>
       ) : null}
-      {kind === 'block' ? (
-        <>
-          <h2 id="shell">앱쉘</h2>
-          <Grid list={I.filter((i) => i.kind === 'shell')} />
-          <h2 id="block">블록</h2>
-          <Grid list={I.filter((i) => i.kind === 'block')} />
-        </>
-      ) : (
-        <>
-          <h2 id="all" className="sr">
-            전체
-          </h2>
-          <Grid list={I} />
-        </>
-      )}
+      <h2 id="all" className="sr">
+        전체
+      </h2>
+      <Grid list={I} />
     </>
   );
 }

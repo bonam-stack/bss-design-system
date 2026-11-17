@@ -21,7 +21,7 @@ export function sections(isEditor: boolean): Section[] {
     ['start', '시작하기', [['overview', '개요'], ['stack', '조립 구조'], ['updates', '업데이트'], ...guideItems('start', () => 'UX 원칙')]],
     ['foundations', 'Foundations', [['icons', '아이콘', '디자인 에셋'], ['tokens', '디자인 토큰', '디자인 에셋'], ...guideItems('foundations', (g) => g || '파운데이션')]],
     ['components', 'Components', [['components', '전체'], ...I.filter((i) => i.kind === 'comp').sort((a, b) => a.name.localeCompare(b.name, 'en')).map((i): NavItem => [i.code, i.name, '컴포넌트']), ...guideItems('components', (g) => `컴포넌트 가이드${g ? ` · ${g}` : ''}`)]],
-    ['blocks', 'Blocks', [['blocks', '전체'], ...I.filter((i) => i.kind === 'shell' || i.kind === 'block').map((i): NavItem => [i.code, i.name, i.kind === 'shell' ? '앱쉘' : '블록']), ...guideItems('blocks', (g) => `모듈${g ? ` · ${g}` : ''}`)]],
+    ['blocks', 'Blocks', [['blocks', '전체'], ...I.filter((i) => i.kind === 'block').map((i): NavItem => [i.code, i.name, '블록']), ...guideItems('blocks', (g) => `모듈${g ? ` · ${g}` : ''}`)]],
     ['patterns', 'Patterns', [['patterns', '전체'], ...patterns.map((p): NavItem => [`pattern-${p.key}`, `${p.name} 패턴`, 'Figma 패턴']), ...guideItems('patterns', (g) => g || '패턴'), ...I.filter((i) => i.kind === 'layout').map((i): NavItem => [i.code, `${i.name} 레이아웃`, '레이아웃 규칙'])]],
     ['governance', 'UX 거버넌스', [['rules', '규칙'], ['slots', '빈칸'], ['lint', '검증 규칙'], ['glossary', '용어사전'], ...guideItems('governance', () => '작성 기준').filter(([r]) => r !== guideRoute('glossary'))]],
   ];
