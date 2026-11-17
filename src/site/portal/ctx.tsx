@@ -54,7 +54,7 @@ export const Ctx = createContext<PortalCtx>(null as unknown as PortalCtx);
 export function usePortal() {
   const c = useContext(Ctx);
   const isEditor = c.role !== 'viewer';
-  const can = (type: EditType) => c.role === P.EDITOR[type];
+  const can = (type: EditType) => P.canEdit(c.role, type);
   /** 포털 동작 실행: 성공하면 알림 · 이동, 실패하면 이유를 알림 */
   async function act<T>(fn: () => T | Promise<T>, ok?: string | ((x: T) => string), go?: string | ((x: T) => string)): Promise<T | null> {
     document.body.classList.add('busy');

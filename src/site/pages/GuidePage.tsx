@@ -163,7 +163,7 @@ export function GuidePage({ id }: { id: string }) {
                     <ul>
                       {d.do.map((t, i) => (
                         <li key={i}>
-                          <span className="rule-id">{d.ruleIds.do[i]}</span> <Html text={t} />
+                          <Html text={t} />
                         </li>
                       ))}
                     </ul>
@@ -175,7 +175,7 @@ export function GuidePage({ id }: { id: string }) {
                     <ul>
                       {d.dont.map((t, i) => (
                         <li key={i}>
-                          <span className="rule-id">{d.ruleIds.dont[i]}</span> <Html text={t} />
+                          <Html text={t} />
                         </li>
                       ))}
                     </ul>
@@ -183,7 +183,7 @@ export function GuidePage({ id }: { id: string }) {
                 ) : null}
               </div>
               <p className="note">
-                Do · Don't는 번호를 붙여 <a href="#rules">UX 거버넌스 규칙</a>에도 올라가 있습니다 (권장 · 금지).
+                Do · Don't는 <a href="#rules">UX 거버넌스 규칙</a>에도 권장 · 금지로 올라가 있습니다.
               </p>
             </>
           ) : null}

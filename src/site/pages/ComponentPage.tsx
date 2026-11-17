@@ -101,7 +101,7 @@ export function ComponentPage({ sc }: { sc: SiteComponent }) {
   const key = base.key;
   const c = (P.comp(key) as ComponentData & { figmaSyncedAt?: string }) || base;
   const { ui, can, role, act, closeEdit, isEditor } = usePortal();
-  const g = useMemo(() => applyGuide(key, sc.guide), [key, sc.guide, P.revision()]); // eslint-disable-line react-hooks/exhaustive-deps
+  const g = useMemo(() => applyGuide(key, sc.guide, isEditor), [key, sc.guide, isEditor, P.revision()]); // eslint-disable-line react-hooks/exhaustive-deps
   const ok = isRenderable(base);
   const a = analyze(base);
 
@@ -618,16 +618,32 @@ function GuideIntro({ g, c }: { g: Guide; c: ComponentData }) {
   );
 }
 
-const RuleId = ({ id }: { id?: string }) => (id ? <><span className="rule-id">{id}</span> </> : null);
-const itemText = (t: string | { id?: string; text: string }) => (typeof t === 'string' ? t : <><RuleId id={t.id} />{t.text}</>);
+const itemText = (t: string | { id?: string; text: string }) => (typeof t === 'string' ? t : t.text);
 
 /** 서비스 UI 가이드의 사용 정책 (언제 쓰나, 기준, Do · Don't). 기준 · Do · Don't에는 포털 규칙 번호가 붙을 수 있다 */
 function PolicySection({ pl }: { pl: NonNullable<Guide['policy']> }) {
   const src = pl.source;
+  const scope = useContext(TextScope);
+  const { role } = usePortal();
+  const key = scope?.key || '';
+  // UX 가이드 담당이 고친 글: 열린 초안(없으면 게시본)의 규칙을 고쳐 사용 가이드 초안으로. 번호는 그대로
+  const saveGuide = (fn: (g: P.GuideDoc) => P.GuideDoc) => {
+    const cur = (P.openDraft('guide', key)?.after as P.GuideDoc | undefined) || P.guide(key);
+    if (!cur) throw new Error('사용 가이드가 없는 컴포넌트입니다');
+    const next = fn(JSON.parse(JSON.stringify(cur)));
+    return P.draftGuide(role, key, { lead: next.lead, rules: next.rules });
+  };
+  const setRule = (id: string, text: (old: string) => string) => (v: string) =>
+    saveGuide((g) => ({ ...g, rules: g.rules.map((r) => (r.id === id ? { ...r, text: text(r.text).replace('\u0000', v) } : r)) }));
+  const split = (t: string) => {
+    const i = t.indexOf(': ');
+    return i > 0 ? [t.slice(0, i), t.slice(i + 2)] : ['기준', t];
+  };
+  const G = { perm: 'guide' as const };
   return (
     <>
       <h3>{pl.title}</h3>
-      {pl.lead ? <p className="note">{pl.lead}</p> : null}
+      {pl.lead ? <Editable {...G} as="p" className="note" path="policy.lead" label="정책 요약" value={pl.lead} onSave={(v) => saveGuide((g) => ({ ...g, lead: v }))} /> : null}
       <div className="gd-when">
         <section className="gd-when-col gd-use">
           <h4>이럴 때 사용합니다</h4>
@@ -658,11 +674,10 @@ function PolicySection({ pl }: { pl: NonNullable<Guide['policy']> }) {
             {pl.rules.map((r, i) => (
               <tr key={i}>
                 <td className="pt-type">
-                  <RuleId id={r.id} />
-                  {r.name}
+                  {r.id ? <Editable {...G} path={`policy.${r.id}.name`} label={`${r.id} 항목`} value={r.name} onSave={setRule(r.id, (t) => `\u0000: ${split(t)[1]}`)} /> : r.name}
                 </td>
                 <td className="pt-text">
-                  {r.desc}
+                  {r.id ? <Editable {...G} path={`policy.${r.id}.desc`} label={`${r.id} 기준`} value={r.desc} onSave={setRule(r.id, (t) => `${split(t)[0]}: \u0000`)} /> : r.desc}
                   {r.gap ? <span className="gd-gap-note">{r.gap}</span> : null}
                 </td>
                 <td className="gd-from">{r.from}</td>
@@ -676,13 +691,13 @@ function PolicySection({ pl }: { pl: NonNullable<Guide['policy']> }) {
           {(pl.do || []).length ? (
             <section className="gd-do">
               <h4>Do · 이렇게 합니다</h4>
-              <ul>{pl.do!.map((t, i) => <li key={i}>{itemText(t)}</li>)}</ul>
+              <ul>{pl.do!.map((t, i) => <li key={i}>{typeof t !== 'string' && t.id ? <><Editable {...G} path={`policy.${t.id}`} label={`${t.id} Do`} value={t.text} onSave={setRule(t.id, () => '\u0000')} /></> : itemText(t)}</li>)}</ul>
             </section>
           ) : null}
           {(pl.dont || []).length ? (
             <section className="gd-dont">
               <h4>Don't · 이건 피합니다</h4>
-              <ul>{pl.dont!.map((t, i) => <li key={i}>{itemText(t)}</li>)}</ul>
+              <ul>{pl.dont!.map((t, i) => <li key={i}>{typeof t !== 'string' && t.id ? <><Editable {...G} path={`policy.${t.id}`} label={`${t.id} Don't`} value={t.text} onSave={setRule(t.id, () => '\u0000')} /></> : itemText(t)}</li>)}</ul>
             </section>
           ) : null}
         </div>
@@ -759,7 +774,6 @@ function StatesSection({ sc, st, onCode }: { sc: SiteComponent; st: NonNullable<
               return (
                 <tr key={i}>
                   <td className="pt-type">
-                    <RuleId id={r.id} />
                     {r.name}
                   </td>
                   <td className="gd-ex">

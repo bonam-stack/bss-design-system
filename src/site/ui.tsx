@@ -244,9 +244,6 @@ export function RuleList({ list }: { list: Rule[] }) {
     <ul className="rl">
       {list.map((x) => (
         <li key={x.id}>
-          <a className="rid" href="#rules">
-            {x.id}
-          </a>
           <span className="rk">{x.kind}</span>
           <p>
             {human(x.text)}
@@ -365,7 +362,7 @@ export function useText() {
 /** 제목 줄 오른쪽 끝의 설명 편집 켜기/끄기 (디자인 시스템 담당) */
 export function TextEditToggle() {
   const { can, textEdit, setTextEdit } = usePortal();
-  if (!can('text')) return null;
+  if (!can('text') && !can('guide')) return null;
   return (
     <button type="button" className={`ed-toggle${textEdit ? ' on' : ''}`} aria-pressed={textEdit} onClick={() => setTextEdit(!textEdit)}>
       {textEdit ? '✎ 설명 편집 끄기' : '✎ 설명 편집'}
@@ -375,12 +372,12 @@ export function TextEditToggle() {
 
 /** 고칠 수 있는 글. 에디터 모드에서 "설명 편집"을 켜면 입력칸이 되고, 고친 글은 아래 띠의 "초안 저장"으로 한 번에 초안이 된다.
  *  포털 승인 담당이 게시하면 모두에게 보인다 */
-export function Editable({ path, value, label, as: Tag = 'span', className, onSave, placeholder }: { path: string; value: string; label: string; as?: 'span' | 'p' | 'div'; className?: string; onSave?: (v: string) => unknown; placeholder?: string }) {
+export function Editable({ path, value, label, as: Tag = 'span', className, onSave, placeholder, perm = 'comp' }: { path: string; value: string; label: string; as?: 'span' | 'p' | 'div'; className?: string; onSave?: (v: string) => unknown; placeholder?: string; /** onSave가 있을 때 고칠 수 있는 담당 (기본: 컴포넌트 = 디자인 시스템 담당) */ perm?: P.EditType }) {
   const scope = useContext(TextScope);
   const { can, textEdit, pending, setPending } = usePortal();
   const get = useText();
   const shown = onSave ? value : get(path, value);
-  const editable = textEdit && (onSave ? can('comp') : !!scope && can('text'));
+  const editable = textEdit && (onSave ? can(perm) : !!scope && can('text'));
   if (!editable) return <Tag className={className}>{shown ? lineBreaks(shown) : placeholder}</Tag>;
   const pk = `${scope?.key || ''}|${path}`;
   const cur = pending[pk]?.value ?? shown;

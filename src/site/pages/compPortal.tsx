@@ -90,10 +90,10 @@ export function GuideEditor({ k }: { k: string }) {
       <section className="ed-panel">
         <div className="ed-h">
           <b>UX 가이드 담당</b>
-          <span>규칙 번호(UX-{k.toUpperCase()}-NN)는 저장할 때 붙고 고쳐도 바뀌지 않습니다</span>
+          <span>글은 제목 옆 "✎ 설명 편집"을 켜고 그 자리에서 고칩니다. 여기서는 규칙을 더하거나 빼고 종류를 바꿉니다</span>
         </div>
         <div className="row">
-          <EditBtn k={`guide:${k}`} label="사용 가이드 편집" />
+          <EditBtn k={`guide:${k}`} label="규칙 추가 · 삭제 · 종류 바꾸기" />
         </div>
         {open ? (
           <form className="ef" onSubmit={onSubmit}>
@@ -102,9 +102,9 @@ export function GuideEditor({ k }: { k: string }) {
               <textarea name="lead" rows={2} defaultValue={g.lead} />
             </label>
             <div className="ge">
-              {g.rules.map((r: GuideRule) => (
+              {g.rules.map((r: GuideRule, i: number) => (
                 <div key={r.id} className="ge-r" data-rule={r.id}>
-                  <code>{r.id}</code>
+                  <span className="muted">{i + 1}</span>
                   <select name="kind" aria-label={`${r.id} 종류`} defaultValue={r.kind}>
                     {['rule', 'do', 'dont'].map((x) => (
                       <option key={x}>{x}</option>
@@ -197,8 +197,9 @@ export function CompUsage({ k }: { k: string }) {
 }
 
 /** 저장소 정책(guide.policy)을 게시된 규칙(번호 포함)으로 바꿔 사용 가이드에 표시 */
-export function applyGuide(key: string, guide?: Guide): Guide | undefined {
-  const g = P.guide(key);
+export function applyGuide(key: string, guide?: Guide, withDraft = false): Guide | undefined {
+  // 담당에게는 아직 게시하지 않은 사용 가이드 초안을 보여 준다
+  const g = (withDraft && (P.openDraft('guide', key)?.after as P.GuideDoc | undefined)) || P.guide(key);
   if (!guide || !g || !guide.policy) return guide;
   const pl = { ...guide.policy };
   const fromByName = Object.fromEntries((pl.rules || []).map((r) => [r.name, r.from]));

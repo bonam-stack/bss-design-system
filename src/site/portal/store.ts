@@ -22,6 +22,9 @@ export const PROMO_STAGES: { stage: string; who: Role; act: string }[] = [
 // 누가 무엇을 고치나: 모양(블록 · 컴포넌트 · Figma)은 디자인 시스템 담당, 쓰는 방법(레이아웃 규칙 · 규칙 · 사용 가이드)은 UX 가이드 담당
 export type EditType = Kind | 'figma' | 'code' | 'text' | 'rule' | 'guide';
 export const EDITOR: Record<EditType, Role> = { block: 'ds', comp: 'ds', figma: 'ds', code: 'ds', text: 'ds', layout: 'ux', rule: 'ux', guide: 'ux' };
+/** 여러 담당이 함께 고치는 것: 컴포넌트의 설명 · 사용 가이드(Do/Don't 포함) · 카탈로그 설명은 디자인 시스템 담당과 UX 가이드 담당 모두 */
+const SHARED: Partial<Record<EditType, Role[]>> = { comp: ['ds', 'ux'], text: ['ds', 'ux'], guide: ['ux', 'ds'] };
+export const canEdit = (role: Role, type: EditType) => (SHARED[type] || [EDITOR[type]]).includes(role);
 
 export type Bump = 'PATCH' | 'MINOR' | 'MAJOR';
 
@@ -323,7 +326,7 @@ function upsertDraft(d: Omit<Draft, 'id' | 'status' | 'at' | 'by' | 'log'>, role
 }
 
 function must(role: Role, type: EditType) {
-  if (role !== EDITOR[type]) throw new Error(`${ROLES[EDITOR[type]]}만 고칠 수 있습니다`);
+  if (!canEdit(role, type)) throw new Error(`${(SHARED[type] || [EDITOR[type]]).map((r) => ROLES[r]).join(' · ')}만 고칠 수 있습니다`);
 }
 
 const ITEM_LABEL: Record<string, string> = { name: '이름', meaning: '뜻', variants: '변형', slot: '놓이는 빈칸', status: '상태' };
@@ -354,17 +357,17 @@ export function draftRule(role: Role, id: string | null, fields: Partial<Rule> &
     const pend = S.drafts.filter((d) => d.status === 'draft' && d.type === 'rule' && d.target.startsWith(prefix + '-')).map((d) => Number(d.target.split('-').pop()) || 0);
     const nid = `${prefix}-${String(Math.max(0, ...used, ...pend) + 1).padStart(2, '0')}`;
     const after = { id: nid, doc: fields.doc, section: fields.section, kind: fields.kind, text: fields.text, targets: fields.targets };
-    return upsertDraft({ type: 'rule', target: nid, title: `${nid} 규칙 추가`, after, isNew: true, lines: [`규칙 추가: ${fields.text}`], bump: 'MINOR' }, role);
+    return upsertDraft({ type: 'rule', target: nid, title: `규칙 추가 · ${fields.text}`, after, isNew: true, lines: [`규칙 추가: ${fields.text}`], bump: 'MINOR' }, role);
   }
   const cur = rules().find((r) => r.id === id);
   if (!cur) throw new Error(`${id}가 없습니다`);
-  if (remove) return upsertDraft({ type: 'rule', target: id, title: `${id} 규칙 삭제`, after: null, lines: [`규칙 삭제: ${cur.text}`], bump: 'MAJOR' }, role);
+  if (remove) return upsertDraft({ type: 'rule', target: id, title: `규칙 삭제 · ${cur.text}`, after: null, lines: [`규칙 삭제: ${cur.text}`], bump: 'MAJOR' }, role);
   const lines: string[] = [];
   const label: Record<string, string> = { kind: '종류', section: '절', text: '내용' };
   for (const k of ['kind', 'section', 'text'] as const) if (fields[k] !== undefined && fields[k] !== cur[k]) lines.push(`${label[k]}: ${cur[k]} → ${fields[k]}`);
   if (fields.targets && fields.targets.join(',') !== cur.targets.join(',')) lines.push(`대상: ${cur.targets.join(', ')} → ${fields.targets.join(', ')}`);
   if (!lines.length) throw new Error('바뀐 내용이 없습니다');
-  return upsertDraft({ type: 'rule', target: id, title: `${id} 규칙 수정`, after: { ...cur, ...fields }, lines, bump: 'MAJOR' }, role);
+  return upsertDraft({ type: 'rule', target: id, title: `규칙 수정 · ${cur.text}`, after: { ...cur, ...fields }, lines, bump: 'MAJOR' }, role);
 }
 
 /** 컴포넌트 사용 가이드(정책 요약 · 규칙) 편집. 새 규칙은 다음 번호를 받고, 번호는 고쳐도 그대로 */
@@ -385,9 +388,10 @@ export function draftGuide(role: Role, key: string, { lead, rules: rows, add }: 
   const up = (b: Bump) => {
     if (BUMPS.indexOf(b) > BUMPS.indexOf(bump)) bump = b;
   };
-  for (const id of Object.keys(bi)) if (!ni[id]) (lines.push(`규칙 삭제: ${id}`), up('MAJOR'));
-  for (const id of Object.keys(ni)) if (!bi[id]) (lines.push(`규칙 추가: ${id} (${ni[id].kind})`), up('MINOR'));
-  for (const id of Object.keys(ni)) if (bi[id] && (bi[id].text !== ni[id].text || bi[id].kind !== ni[id].kind)) (lines.push(`규칙 수정: ${id}`), up('MAJOR'));
+  const cut24 = (t: string) => (t.length > 24 ? `${t.slice(0, 24)}…` : t);
+  for (const id of Object.keys(bi)) if (!ni[id]) (lines.push(`규칙 삭제: ${cut24(bi[id].text)}`), up('MAJOR'));
+  for (const id of Object.keys(ni)) if (!bi[id]) (lines.push(`규칙 추가 (${ni[id].kind}): ${cut24(ni[id].text)}`), up('MINOR'));
+  for (const id of Object.keys(ni)) if (bi[id] && (bi[id].text !== ni[id].text || bi[id].kind !== ni[id].kind)) (lines.push(`규칙 수정: ${cut24(bi[id].text)} → ${cut24(ni[id].text)}`), up('MAJOR'));
   if (before.lead !== next.lead) lines.push('정책 요약 수정');
   if (!lines.length) throw new Error('바뀐 내용이 없습니다');
   return upsertDraft({ type: 'guide', target: key, title: `${key} 사용 가이드 수정`, after: next, lines, bump }, role);

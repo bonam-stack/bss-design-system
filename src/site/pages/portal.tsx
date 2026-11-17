@@ -145,7 +145,7 @@ function Stack() {
       </ol>
       <h2 id="types">화면 유형 판정 순서</h2>
       <p>
-        규칙 <a href="#rules">R-WC-01</a> 순서로 판정합니다.
+        <a href="#rules">화면 유형 판정 규칙</a> 순서로 판정합니다.
       </p>
       <ul>
         <li>
@@ -527,7 +527,7 @@ function Rules() {
     e.preventDefault();
     const f = e.currentTarget;
     const v = formValues(f);
-    act(() => P.draftRule(role, null, { prefix: v.prefix, doc: v.doc, section: v.section, kind: v.kind, text: v.text, targets: list(v.targets) }), (d) => `${d.target} 추가 초안 저장`).then((x) => x && f.reset());
+    act(() => P.draftRule(role, null, { prefix: v.prefix, doc: v.doc, section: v.section, kind: v.kind, text: v.text, targets: list(v.targets) }), () => '규칙 추가 초안 저장').then((x) => x && f.reset());
   };
   return (
     <>
@@ -597,19 +597,17 @@ function Rules() {
         <span className="muted">{L.length}건 · UX표준가이드 1.2 · UX 패턴 가이드 {guideSource.release} (권장 · 금지)</span>
       </div>
       <Table
-        cols={['규칙', '문서', '내용', '대상', ...(editor ? [''] : [])]}
+        cols={['종류', '문서', '내용', '대상', ...(editor ? [''] : [])]}
         rows={L.flatMap((r) => [
           <tr key={r.id}>
             <td>
-              <b className="nw">{r.id}</b>
+              <span className="rk">{r.kind}</span>
               {P.openDraft('rule', r.id) && isEditor ? (
                 <>
                   {' '}
                   <span className="st ai">초안</span>
                 </>
               ) : null}
-              <br />
-              <span className="rk">{r.kind}</span>
             </td>
             <td>
               <UxRef r={r.doc} />
@@ -657,7 +655,7 @@ function Rules() {
                     <button type="button" className="btn2 sm" onClick={() => setUi((u) => ({ ...u, editRule: null }))}>
                       취소
                     </button>
-                    <button type="button" className="btn2 sm danger" onClick={() => act(() => P.draftRule(role, r.id, {}, true), (x) => `${x.target} 삭제 초안 저장`).then(() => setUi((u) => ({ ...u, editRule: null })))}>
+                    <button type="button" className="btn2 sm danger" onClick={() => act(() => P.draftRule(role, r.id, {}, true), () => '규칙 삭제 초안 저장').then(() => setUi((u) => ({ ...u, editRule: null })))}>
                       삭제 초안
                     </button>
                   </div>
@@ -712,12 +710,9 @@ function Lint() {
         검증 규칙
       </h2>
       <Table
-        cols={['규칙', '내용', '심각도']}
+        cols={['내용', '심각도']}
         rows={L.map((r) => (
           <tr key={r[0]}>
-            <td>
-              <b>{r[0]}</b>
-            </td>
             <td>{r[1]}</td>
             <td>
               <St c={r[2] === '오류' ? 'ng' : 'hold'} t={r[2]} />
