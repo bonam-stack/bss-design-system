@@ -325,7 +325,7 @@ async function bindDesign(c, ctx) {
     target.innerHTML = `<style>${css}</style>${html}`;
   };
   draw(hero, findVariant(c, base));
-  // 디자인 시스템 담당: 기본 변형의 코드(Figma에서 그린 것)로 편집 칸을 연다. 게시된 코드가 있으면 그 코드로
+  // DS 담당자: 기본 변형의 코드(Figma에서 그린 것)로 편집 칸을 연다. 게시된 코드가 있으면 그 코드로
   const mount = document.getElementById('codeEdMount');
   if (mount) {
     const gen = renderVariant(c, findVariant(c, base).layer, { values, icons, prefix: `ds-${c.key}` });
@@ -385,12 +385,12 @@ async function bindComponent(c, ctx) {
   }
   function paintCode() {
     const v = findVariant(c, want(false));
-    // 게시된 코드가 있으면 그 코드를 보여 준다 (디자인 시스템 담당이 고쳐 게시한 것)
+    // 게시된 코드가 있으면 그 코드를 보여 준다 (DS 담당자이 고쳐 게시한 것)
     const pub = P.pubCode(P.itemByKey(c.key)?.code || `c-${c.key}`);
     const { html, css } = pub || renderVariant(c, v.layer, { values, icons, prefix: `ds-${c.key}` });
     document.getElementById('codeHtml').textContent = html;
     document.getElementById('codeCss').textContent = css;
-    document.querySelectorAll('.code-src-note').forEach((n) => { n.textContent = pub ? '게시된 코드 (디자인 시스템 담당이 고친 코드)' : 'Figma에서 그린 코드 · 고른 변형'; });
+    document.querySelectorAll('.code-src-note').forEach((n) => { n.textContent = pub ? '게시된 코드 (DS 담당자이 고친 코드)' : 'Figma에서 그린 코드 · 고른 변형'; });
   }
 
   // options still possible given the other props chosen before this one
@@ -762,7 +762,7 @@ async function boot() {
   function render(scroll) {
     let route = location.hash.replace(/^#/, '') || 'overview';
     // 예전 주소(#button, #stack 탭 등)도 열리게
-    const alias = { cmp: 'components', blk: 'blocks', gov: 'rules', 'gov-layouts': 'patterns', 'gov-slots': 'slots', 'gov-lint': 'lint', 'gov-patterns': 'patterns' };
+    const alias = { pub: 'deploy', chg: 'recheck', cmp: 'components', blk: 'blocks', gov: 'rules', 'gov-layouts': 'patterns', 'gov-slots': 'slots', 'gov-lint': 'lint', 'gov-patterns': 'patterns' };
     if (alias[route]) { location.replace(`#${alias[route]}`); return; }
     if (components.some((c) => c.key === route)) { location.replace(`#${codeOf(route)}`); return; }
     const dev = route.startsWith('dev-');

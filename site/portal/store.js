@@ -1,19 +1,26 @@
-// BSS 디자인 포털 상태: 게시본(카탈로그 · 규칙 · 가이드 · 컴포넌트) + 초안 + 승격 + 버전.
-// 편집 권한이 있는 담당이 고치면 초안이 되고, 포털 승인 담당이 게시하면 버전이 오르고 SB Studio가 읽는 게시본이 바뀐다.
+// BSS 디자인 포털 상태: 게시본(카탈로그 · 규칙 · 가이드 · 컴포넌트 · 코드 · 토큰) + 초안 + 요청 + 승격 + 버전.
+// 담당자가 고치면 초안 → 미리보기로 확인 → 배포 요청 → 관리자가 운영 서버에 배포(정기 · 수동)하면 버전이 오르고 SB Studio가 읽는 게시본이 바뀐다.
 // 저장은 이 브라우저의 localStorage (POC). 게시본 = 저장소 JSON(기준) + 게시된 변경(pub).
 import { convertFromUrl, diffComponent } from '../portal-core.js';
 
 const KEY = 'bss-design-portal.v2';
-export const ROLES = { viewer: '보기 (기획자)', ux: 'UX 가이드 담당', ds: '디자인 시스템 담당', approver: '포털 승인 담당' };
+// 역할은 BSS SB Studio 계정에서 받는다 (POC는 오른쪽 위에서 고름)
+export const ROLES = { viewer: '보기', ux: 'UX 담당자', ds: 'DS 담당자', approver: '관리자' };
 export const KIND = { shell: '앱쉘', layout: '레이아웃 규칙', block: '블록', comp: '컴포넌트' };
 export const STATUS = { pub: '게시', draft: '초안', tmp: '임시' };
+// 승격: 여러 Storyboard에서 쓰인 SB 블록 → 2단 심사(SB팀 표준 → UI팀 디자인) → 관리자 배포로 공통 블록
 export const PROMO_STAGES = [
-  { stage: '구조 확인', who: 'ux', act: '구조 확인 통과' },
-  { stage: '모양 확인', who: 'ds', act: '모양 확인 · Figma 등록' },
-  { stage: '최종 승인', who: 'approver', act: '최종 승인' },
+  { stage: 'SB팀 표준', who: 'ux', act: '표준 확인 통과' },
+  { stage: 'UI팀 디자인', who: 'ds', act: '디자인 · Figma 등록' },
+  { stage: '배포', who: 'approver', act: '공통 블록으로 배포' },
 ];
-// 누가 무엇을 고치나: 컴포넌트 · 블록 · 토큰 · Figma는 디자인 시스템 담당, 앱쉘 · 레이아웃 규칙 · 규칙 · 사용 가이드는 UX 가이드 담당
-export const EDITOR = { shell: 'ux', block: 'ds', comp: 'ds', figma: 'ds', code: 'ds', token: 'ds', layout: 'ux', rule: 'ux', guide: 'ux' };
+// 디자인 요청(케이스 1 · 4): 요청 → DS 담당자 작업 → 미리보기 확인 → 완료
+export const REQ_KINDS = { icon: '아이콘 제작', comp: '컴포넌트 수정', block: '공통 블록 수정', token: '토큰 추가 · 수정' };
+export const REQ_STAGES = ['요청됨', '디자인 작업', '미리보기 확인', '완료'];
+// 누가 무엇을 고치나: 토큰 · 컴포넌트 · 공통 블록 · Figma 변환은 DS 담당자, 앱쉘 · 레이아웃 규칙 · 규칙 · 사용 가이드 · SB 블록 소스는 UX 담당자
+export const EDITOR = { shell: 'ux', block: 'ds', sb: 'ux', comp: 'ds', figma: 'ds', code: 'ds', token: 'ds', layout: 'ux', rule: 'ux', guide: 'ux' };
+/** 이 항목을 고치는 권한 종류 (SB 블록 tb-는 UX 담당자) */
+export const editKind = (it) => (it.kind === 'block' && /^tb-/.test(it.code) ? 'sb' : it.kind);
 
 let base = null; // { catalog, comps: {key: 저장소 컴포넌트}, guides: {key: 정책} }
 let S = null;
@@ -35,8 +42,18 @@ function fresh() {
     promotions: clone(base.catalog.promotions),
     detections: clone(base.catalog.detections),
     history: [{ version: base.catalog.meta.version, at: now(), mode: '구축', by: 'approver', notes: [{ title: 'SB Studio 포털 카탈로그 0.5 · 저장소 컴포넌트 · UX표준가이드 1.2 이관' }] }],
-    seq: { draft: 1 },
+    requests: seedRequests(),
+    seq: { draft: 1, req: 3, preview: 0 },
   };
+}
+
+// 시연용 요청 2건 (Storyboard 작성 중 발견)
+function seedRequests() {
+  const t = now();
+  return [
+    { id: 'RQ-0001', kind: 'icon', title: 'export 아이콘', detail: '엑셀 내려받기 버튼 · 16px · SVC-02-001 조회 화면', by: 'viewer', stage: '디자인 작업', dummy: true, log: [{ at: t, by: 'viewer', text: '요청 (AI 더미로 기획 계속)' }, { at: t, by: 'ds', text: '디자인 작업 시작' }] },
+    { id: 'RQ-0002', kind: 'comp', title: 'DateField 빠른 기간 버튼', detail: '오늘 · 1주 · 1개월 버튼을 변형으로 추가 · 부가서비스 가입 관리 SB', by: 'viewer', stage: '요청됨', log: [{ at: t, by: 'viewer', text: '요청' }] },
+  ];
 }
 
 function save() {
@@ -49,6 +66,12 @@ export function init(b) {
   if (!S || S.v !== 2) { S = fresh(); save(); }
   S.pub.code = S.pub.code || {}; // 코드 편집이 생기기 전에 저장된 상태
   S.pub.tokens = S.pub.tokens || {};
+  S.requests = S.requests || seedRequests();
+  S.seq.req = S.seq.req || 3;
+  S.seq.preview = S.seq.preview || 0;
+  // 예전 심사 단계 이름 → 2단 심사 이름
+  const OLD = { '구조 확인': 'SB팀 표준', '모양 확인': 'UI팀 디자인', '최종 승인': '배포' };
+  S.promotions.forEach((p) => { if (OLD[p.stage]) p.stage = OLD[p.stage]; });
 }
 export function reset() { S = fresh(); save(); }
 export const version = () => S.version;
@@ -197,7 +220,7 @@ function must(role, type) {
 export function draftItem(role, code, fields) {
   const cur = item(code);
   if (!cur) throw new Error(`${code}가 없습니다`);
-  must(role, cur.kind);
+  must(role, editKind(cur));
   const lines = [];
   let bump = 'PATCH';
   for (const [k, v] of Object.entries(fields)) {
@@ -288,7 +311,7 @@ export async function draftFigma(role, { key, code, url }) {
 export function draftCode(role, target, { html, css }, problems = []) {
   const it = item(target);
   if (!it) throw new Error(`${target}가 없습니다`);
-  must(role, it.kind === 'shell' ? 'shell' : 'code'); // 앱쉘 코드는 UX 가이드 담당
+  must(role, it.kind === 'shell' || editKind(it) === 'sb' ? editKind(it) : 'code'); // 앱쉘 · SB 블록 코드는 UX 담당자
   if (problems.some((p) => p.level === 'error')) throw new Error(`저장할 수 없습니다: ${problems.filter((p) => p.level === 'error').map((p) => p.text).join(' · ')}`);
   const cur = pubCode(target);
   if (cur && cur.html === html && cur.css === css) throw new Error('바뀐 내용이 없습니다');
@@ -296,17 +319,73 @@ export function draftCode(role, target, { html, css }, problems = []) {
   return upsertDraft({ type: 'code', target, title: `${it.name} 코드 ${cur ? '수정' : '등록'}`, after: { html, css }, lines, bump: cur ? 'MAJOR' : 'MINOR' }, role);
 }
 
+// ---------- 요청 (내 요청 · 디자인 요청) ----------
+
+export const requests = () => S.requests;
+
+export function addRequest(role, f) {
+  if (!REQ_KINDS[f.kind]) throw new Error('요청 종류를 고르세요');
+  if (!String(f.title || '').trim()) throw new Error('무엇이 필요한지 적어 주세요');
+  const id = `RQ-${String(++S.seq.req).padStart(4, '0')}`;
+  S.requests.unshift({ id, kind: f.kind, title: f.title.trim(), detail: (f.detail || '').trim(), by: role, stage: '요청됨', dummy: f.kind === 'icon', log: [{ at: now(), by: role, text: f.kind === 'icon' ? '요청 (AI 더미로 기획 계속)' : '요청' }] });
+  save();
+  return S.requests[0];
+}
+
+/** DS 담당자가 요청을 다음 단계로. 아이콘이 완료되면 더미를 교체하고 요청자에게 알린다 */
+export function advanceRequest(role, id) {
+  if (role !== 'ds') throw new Error('DS 담당자가 처리합니다');
+  const r = S.requests.find((x) => x.id === id);
+  if (!r) throw new Error('없는 요청입니다');
+  const i = REQ_STAGES.indexOf(r.stage);
+  if (i >= REQ_STAGES.length - 1) throw new Error('이미 완료된 요청입니다');
+  r.stage = REQ_STAGES[i + 1];
+  r.log.push({ at: now(), by: role, text: r.stage });
+  if (r.stage === '완료' && r.dummy) { r.dummy = false; r.notified = true; r.log.push({ at: now(), by: role, text: '더미 아이콘 교체 · 요청자에게 알림' }); }
+  save();
+  return r;
+}
+
+// ---------- 내 변경 → 배포 요청 ----------
+
+/** 미리보기로 확인한 초안을 관리자에게 배포 요청 (초안을 만든 담당자) */
+export function requestDeploy(role, id) {
+  const d = S.drafts.find((x) => x.id === id);
+  if (!d || d.status !== 'draft') throw new Error('초안이 아닙니다');
+  if (d.by !== role) throw new Error('초안을 만든 담당자가 배포 요청합니다');
+  if (d.requested) throw new Error('이미 배포 요청한 초안입니다');
+  d.requested = true;
+  S.seq.preview++;
+  d.log.push({ at: now(), by: role, text: '미리보기 확인 · 배포 요청' });
+  save();
+  return d;
+}
+
+/** 다음 배포 버전의 미리보기 표기 (예: 1.4.0-preview.3) */
+export function previewVersion() {
+  const L = S.drafts.filter((d) => d.status === 'draft' && d.requested);
+  if (!L.length) return null;
+  return `${bumpVersion(S.version, maxBump(L.map((d) => d.bump)))}-preview.${S.seq.preview}`;
+}
+
+/** 재검수 대상: MAJOR로 배포된 변경과 변경 감지에서 SB에 영향이 있는 것 */
+export function recheck() {
+  const fromHistory = S.history.filter((h) => h.bump === 'MAJOR').flatMap((h) => (h.notes || []).filter((n) => n.bump === 'MAJOR').map((n) => ({ version: h.version, at: h.at, target: n.title, change: (n.lines || []).join(' · '), impact: '이 버전 이전에 만든 SB', source: '배포' })));
+  const fromDetect = S.detections.filter((d) => d.impact && !/영향 없음/.test(d.impact)).map((d) => ({ version: '-', at: d.at, target: d.target, change: d.change, impact: d.impact, source: d.file, action: d.action }));
+  return [...fromHistory, ...fromDetect];
+}
+
 export function discard(role, id) {
   const d = S.drafts.find((x) => x.id === id);
   if (!d || d.status !== 'draft') throw new Error('초안이 아닙니다');
-  if (role !== d.by && role !== 'approver') throw new Error('초안을 만든 담당이나 포털 승인 담당만 버릴 수 있습니다');
+  if (role !== d.by && role !== 'approver') throw new Error('초안을 만든 담당자나 관리자만 버릴 수 있습니다');
   d.status = role === 'approver' ? 'rejected' : 'discarded';
   d.log.push({ at: now(), by: role, text: role === 'approver' ? '반려' : '초안 버림' });
   save();
   return d;
 }
 
-// ---------- 게시 · 롤백 (포털 승인 담당) ----------
+// ---------- 운영 서버 배포 · 롤백 (관리자) ----------
 
 function apply(d) {
   const P = S.pub;
@@ -334,10 +413,11 @@ function apply(d) {
   }
 }
 
-export function publish(role, ids, reason) {
-  if (role !== 'approver') throw new Error('게시는 포털 승인 담당이 합니다');
-  const L = S.drafts.filter((d) => d.status === 'draft' && ids.includes(d.id));
-  if (!L.length) throw new Error('게시할 초안을 고르세요');
+export function publish(role, ids, reason, mode = '정기') {
+  if (role !== 'approver') throw new Error('배포는 관리자가 합니다');
+  const L = S.drafts.filter((d) => d.status === 'draft' && d.requested && ids.includes(d.id));
+  if (!L.length) throw new Error('배포할 요청을 고르세요 (담당자가 배포 요청한 초안만 배포됩니다)');
+  if (mode === '수동' && !String(reason || '').trim()) throw new Error('수동 배포는 사유를 적어 주세요');
   const prevPub = clone(S.pub);
   const bump = maxBump(L.map((d) => d.bump));
   const from = S.version;
@@ -346,15 +426,15 @@ export function publish(role, ids, reason) {
     apply(d);
     d.status = 'published';
     d.version = S.version;
-    d.log.push({ at: now(), by: role, text: `게시 → ${S.version}` });
+    d.log.push({ at: now(), by: role, text: `${mode} 배포 → ${S.version}` });
   }
-  S.history.unshift({ version: S.version, from, at: now(), mode: '게시', by: role, bump, reason: reason || '', prevPub, notes: L.map((d) => ({ id: d.id, title: d.title, bump: d.bump, lines: d.lines, impact: d.bump === 'MAJOR' ? '이미 만든 SB 재검수' : '영향 없음' })) });
+  S.history.unshift({ version: S.version, from, at: now(), mode: `${mode} 배포`, by: role, bump, reason: reason || '', prevPub, notes: L.map((d) => ({ id: d.id, title: d.title, bump: d.bump, lines: d.lines, impact: d.bump === 'MAJOR' ? '이미 만든 SB 재검수' : '영향 없음' })) });
   save();
   return S.history[0];
 }
 
 export function rollback(role, reason) {
-  if (role !== 'approver') throw new Error('롤백은 포털 승인 담당이 합니다');
+  if (role !== 'approver') throw new Error('롤백은 관리자가 합니다');
   const last = S.history[0];
   if (!last.prevPub) throw new Error('되돌릴 게시가 없습니다');
   S.pub = clone(last.prevPub);
@@ -404,9 +484,9 @@ export function promote(role, idx, ok, extra = {}) {
 }
 
 export function addPromotion(role, f) {
-  if (role !== 'ux' && role !== 'approver') throw new Error('승격 요청 등록은 UX 가이드 담당이 합니다');
+  if (role !== 'ux' && role !== 'approver') throw new Error('승격 후보 등록은 UX 담당자가 합니다');
   const n = S.promotions.length + 12;
-  S.promotions.unshift({ id: `PR-${String(n + 1).padStart(4, '0')}`, code: f.code, name: f.name, from: f.from || '-', judge: f.judge || '-', stage: '구조 확인', status: '대기', log: [{ at: now(), by: role, text: '등록' }] });
+  S.promotions.unshift({ id: `PR-${String(n + 1).padStart(4, '0')}`, code: f.code, name: f.name, from: f.from || '-', judge: f.judge || '-', stage: PROMO_STAGES[0].stage, status: '대기', log: [{ at: now(), by: role, text: '등록' }] });
   save();
   return S.promotions[0];
 }

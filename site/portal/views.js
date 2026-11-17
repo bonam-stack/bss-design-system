@@ -1,6 +1,6 @@
 // BSS 디자인 포털 화면 (문서 사이트형).
 // 누구에게나 같은 문서 사이트가 보이고, 오른쪽 위에서 담당 역할을 고르면 같은 페이지에 에디터 모드가 켜진다.
-// 관리 메뉴(초안 · 게시, 승격 요청, 변경 감지)는 담당 역할에서만 보인다. 고친 내용은 초안 → 포털 승인 담당 게시.
+// 관리 메뉴(초안 · 게시, 승격 요청, 변경 감지)는 담당 역할에서만 보인다. 고친 내용은 초안 → 관리자 게시.
 import * as P from './store.js';
 
 const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]);
@@ -35,8 +35,8 @@ export const currentRole = () => role;
 export const isEditor = () => role !== 'viewer';
 export function resetUi() { ui.edit = null; ui.editRule = null; }
 
-// ---------- 코드 편집 (디자인 시스템 담당) ----------
-// 컴포넌트 · 블록 · 앱쉘 페이지에서 HTML · CSS를 고치고 바로 미리 본다. 저장하면 초안, 포털 승인 담당이 게시하면 모두에게 그 코드가 보인다.
+// ---------- 코드 편집 (DS 담당자) ----------
+// 컴포넌트 · 블록 · 앱쉘 페이지에서 HTML · CSS를 고치고 바로 미리 본다. 저장하면 초안, 관리자이 게시하면 모두에게 그 코드가 보인다.
 
 /** 미리보기: 그림자 DOM 안에 그려 페이지 CSS와 섞이지 않게 한다 (스크립트는 실행되지 않음) */
 export function renderInto(host, html, css) {
@@ -58,13 +58,13 @@ export function tokenSource() {
   return `/* BSS 디자인 토큰 · 게시 ${P.version()} · Primitive → Semantic → Component */\n:root {\n  /* Primitive */\n${block('Primitive')}\n\n  /* Semantic */\n${block('Semantic')}\n\n  /* Component */\n${block('Component')}\n}\n`;
 }
 
-/** 토큰 편집 칸 (디자인 시스템 담당) */
+/** 토큰 편집 칸 (DS 담당자) */
 function tokenEditor() {
   if (!can('token')) return '';
   const T = P.tokens();
   const pend = P.drafts((d) => d.status === 'draft' && d.type === 'token');
   return `<section class="ed-panel" id="tokenEd" aria-label="토큰 편집">
-    <div class="ed-h"><b>토큰 편집</b><span>디자인 시스템 담당 · 이미 있는 이름을 넣으면 수정, 새 이름이면 추가 · 베이스는 값, 역할 · 컴포넌트는 가리키는 토큰을 고릅니다</span></div>
+    <div class="ed-h"><b>토큰 편집</b><span>DS 담당자 · 이미 있는 이름을 넣으면 수정, 새 이름이면 추가 · 베이스는 값, 역할 · 컴포넌트는 가리키는 토큰을 고릅니다</span></div>
     <datalist id="tkNames">${Object.values(T).map((t) => `<option value="${esc(t.figma)}"></option>`).join('')}</datalist>
     <datalist id="tkRefs">${Object.entries(T).filter(([, t]) => t.collection !== 'Component').map(([k, t]) => `<option value="${esc(k)}">${esc(t.figma)}</option>`).join('')}</datalist>
     <form class="ef" data-form="token"><div class="ef-r">
@@ -109,15 +109,16 @@ export function checkCode(html, css) {
 }
 
 const codeDefaults = {};
-/** 편집 칸 (디자인 시스템 담당에게만). 시작 값: 열린 초안 → 게시된 코드 → 기본 코드(Figma에서 그린 코드 또는 블록 틀) */
+/** 편집 칸 (DS 담당자에게만). 시작 값: 열린 초안 → 게시된 코드 → 기본 코드(Figma에서 그린 코드 또는 블록 틀) */
 export function codeEditor(target, defaults) {
-  if (!can(P.item(target)?.kind === 'shell' ? 'shell' : 'code')) return '';
+  const ek = P.item(target) ? P.editKind(P.item(target)) : 'comp';
+  if (!can(ek === 'shell' || ek === 'sb' ? ek : 'code')) return '';
   codeDefaults[target] = defaults;
   const d = P.openDraft('code', target);
   const v = d?.after || P.pubCode(target) || defaults;
   const src = d ? `초안 ${d.id}` : P.pubCode(target) ? '게시된 코드' : defaults.from;
   return `${draftBox(d)}<section class="ed-panel code-ed" id="codeEd" data-target="${esc(target)}" aria-label="코드 편집">
-    <div class="ed-h"><b>코드 편집</b><span>${P.item(target)?.kind === 'shell' ? 'UX 가이드 담당' : '디자인 시스템 담당'} · 고치면 오른쪽 미리보기가 바로 바뀝니다 · 지금: ${esc(src)}</span></div>
+    <div class="ed-h"><b>코드 편집</b><span>${ek === 'shell' || ek === 'sb' ? 'UX 담당자' : 'DS 담당자'} · 고치면 오른쪽 미리보기가 바로 바뀝니다 · 지금: ${esc(src)}</span></div>
     <form class="ef" data-form="code" data-target="${esc(target)}">
       <div class="ce-grid">
         <div class="ce-src">
@@ -126,7 +127,7 @@ export function codeEditor(target, defaults) {
         </div>
         <div class="ce-out"><span class="ce-cap">미리보기</span><div class="ce-stage"><div id="cePreview"></div></div><ul class="ce-checks" id="ceChecks"></ul></div>
       </div>
-      <div class="row"><button class="btn2 primary sm">초안 저장</button><button type="button" class="btn2 sm" data-act="code-reset">${esc(defaults.resetLabel || '기본 코드로 되돌리기')}</button><span class="muted">포털 승인 담당이 게시하면 모두에게 보입니다</span></div>
+      <div class="row"><button class="btn2 primary sm">초안 저장</button><button type="button" class="btn2 sm" data-act="code-reset">${esc(defaults.resetLabel || '기본 코드로 되돌리기')}</button><span class="muted">확인 후 배포 요청하면 관리자가 배포합니다</span></div>
     </form></section>`;
 }
 
@@ -199,10 +200,11 @@ const editBtn = (key, label = '편집') => `<button type="button" class="edit-bt
 function draftBox(d) {
   if (!d) return '';
   const mine = role === d.by;
+  const state = d.requested ? '배포 요청됨 · 관리자 배포 대기' : '작성 중 · 미리보기 확인 후 배포 요청';
   return `<div class="dbox" role="note">
-    <div class="dbox-h"><b>초안 ${esc(d.id)}</b>${bump(d.bump)}<span>${esc(P.ROLES[d.by])} · ${fmt(d.at)} · 게시 대기</span></div>
+    <div class="dbox-h"><b>초안 ${esc(d.id)}</b>${bump(d.bump)}<span>${esc(P.ROLES[d.by])} · ${fmt(d.at)} · ${state}</span></div>
     <ul>${d.lines.map((l) => `<li>${esc(l)}</li>`).join('')}</ul>
-    <div class="row">${role === 'approver' ? `<button class="btn2 primary sm" data-act="publish-one" data-id="${d.id}">게시</button><button class="btn2 sm" data-act="discard" data-id="${d.id}">반려</button>` : ''}${mine ? `<button class="btn2 sm" data-act="discard" data-id="${d.id}">초안 버리기</button>` : ''}${isEditor() ? '<a class="lnk" href="#pub">초안 · 게시</a>' : ''}</div>
+    <div class="row">${mine && !d.requested ? `<button class="btn2 primary sm" data-act="req-deploy" data-id="${d.id}">미리보기 확인 · 배포 요청</button>` : ''}${role === 'approver' && d.requested ? `<button class="btn2 primary sm" data-act="publish-one" data-id="${d.id}">수동 배포</button><button class="btn2 sm" data-act="discard" data-id="${d.id}">반려</button>` : ''}${mine ? `<button class="btn2 sm" data-act="discard" data-id="${d.id}">초안 버리기</button>` : ''}${isEditor() ? `<a class="lnk" href="#${role === 'approver' ? 'deploy' : 'my'}">${role === 'approver' ? '운영 서버 배포' : '내 변경'}</a>` : ''}</div>
   </div>`;
 }
 const drafts = (type, target) => (isEditor() ? draftBox(P.openDraft(type, target)) : '');
@@ -227,7 +229,11 @@ export function sections() {
     ['patterns', 'Patterns', [['patterns', '개요'], ...(ctx.data.patterns || []).map((p) => [`pattern-${p.key}`, `${p.name} 패턴`]), ...I.filter((i) => i.kind === 'layout').map((i) => [i.code, `${i.name} 레이아웃`])]],
     ['updates', 'Updates', [['updates', '릴리스 노트']]],
   ];
-  if (isEditor()) S.push(['admin', '관리', [['pub', '초안 · 게시'], ['promo', '승격 요청'], ['chg', '변경 감지']]]);
+  S.push(['mine', '내 요청', [['my-requests', '내 요청']]]);
+  // 역할별 작업 메뉴 (역할은 SB Studio 계정에서 받음)
+  if (role === 'ux') S.push(['work', 'UX 편집', [['ux-edit', '기준 편집'], ['sb-edit', 'SB library 편집'], ['my', '내 변경'], ['promo', '승격 심사']]]);
+  if (role === 'ds') S.push(['work', 'DS 작업', [['requests', '디자인 요청'], ['convert', '소스 변환'], ['my', '내 변경'], ['promo', '승격 심사']]]);
+  if (role === 'approver') S.push(['work', '관리자', [['deploy', '운영 서버 배포'], ['recheck', '재검수 대상 SB'], ['roles', '권한 확인'], ['promo', '승격 심사']]]);
   return S;
 }
 
@@ -242,7 +248,7 @@ export function sectionOf(route) {
 
 export function topNav(route) {
   const cur = sectionOf(route);
-  return sections().map(([k, label, items]) => `<a href="#${items[0][0]}" class="${k === cur ? 'on' : ''}${k === 'admin' ? ' admin' : ''}"${k === cur ? ' aria-current="true"' : ''}>${label}${k === 'admin' ? count() : ''}</a>`).join('');
+  return sections().map(([k, label, items]) => `<a href="#${items[0][0]}" class="${k === cur ? 'on' : ''}${k === 'work' ? ' admin' : ''}"${k === cur ? ' aria-current="true"' : ''}>${label}${k === 'work' ? count() : ''}</a>`).join('');
 }
 
 /** 머리 오른쪽: 검색 · 테마 · 역할 */
@@ -279,7 +285,9 @@ export function footer() {
     <p class="sf-copy">© 2026 BSS Design System · POC</p>`;
 }
 function count() {
-  const n = P.drafts((d) => d.status === 'draft').length + P.promotions().filter((p) => p.status === '대기').length;
+  const n = role === 'approver' ? P.drafts((d) => d.status === 'draft' && d.requested).length
+    : role === 'ds' ? P.requests().filter((r) => r.stage !== '완료').length + P.drafts((d) => d.status === 'draft' && d.by === role && !d.requested).length
+    : P.drafts((d) => d.status === 'draft' && d.by === role && !d.requested).length;
   return n ? ` <em>${n}</em>` : '';
 }
 
@@ -321,9 +329,10 @@ export function roleMenu() {
 /** 에디터 모드 띠: 역할 · 고칠 수 있는 것 · 초안 수 */
 export function editorBar() {
   if (!isEditor()) return '';
-  const what = { ux: '앱쉘 · 레이아웃 규칙 · 규칙 · 사용 가이드', ds: '컴포넌트 · 블록 · 토큰 · 코드 · Figma 읽기', approver: '초안 게시 · 반려 · 롤백 · 승격 최종 승인' }[role];
-  const mine = P.drafts((d) => d.status === 'draft' && (role === 'approver' || d.by === role)).length;
-  return `<div class="ed-bar"><b>에디터 모드</b><span>${esc(P.ROLES[role])} · ${esc(what)}</span><a href="#pub">${role === 'approver' ? '게시 대기' : '내 초안'} ${mine}건</a><span class="ed-ver">게시 ${esc(P.version())}</span></div>`;
+  const what = { ux: '기준 편집(UX 패턴 · 레이아웃 규칙 · 앱쉘 · 사용 가이드) · SB library 소스 편집', ds: '토큰 · 컴포넌트 · 공통 블록 · 소스 변환 · 디자인 요청', approver: '운영 서버 배포 · 롤백 · 재검수 대상 SB · 권한 확인' }[role];
+  const n = role === 'approver' ? P.drafts((d) => d.status === 'draft' && d.requested).length : P.drafts((d) => d.status === 'draft' && d.by === role).length;
+  const pv = P.previewVersion();
+  return `<div class="ed-bar"><b>${esc(P.ROLES[role])}</b><span>${esc(what)}</span><a href="#${role === 'approver' ? 'deploy' : 'my'}">${role === 'approver' ? '배포 요청' : '내 변경'} ${n}건</a><span class="ed-ver">운영 ${esc(P.version())}${pv ? ` · 다음 ${esc(pv)}` : ''}</span></div>`;
 }
 
 // ---------- 페이지 ----------
@@ -349,9 +358,16 @@ export function page(route) {
     case 'rules': return pageRules();
     case 'slots': return pageSlots();
     case 'lint': return pageLint();
-    case 'pub': return isEditor() ? pagePub() : null;
+    case 'my-requests': return pageMyRequests();
+    case 'ux-edit': return role === 'ux' ? pageUxEdit() : null;
+    case 'sb-edit': return role === 'ux' ? pageSbEdit() : null;
+    case 'my': return isEditor() && role !== 'approver' ? pageMy() : null;
+    case 'requests': return role === 'ds' ? pageRequests() : null;
+    case 'convert': return role === 'ds' ? pageConvert() : null;
+    case 'deploy': return role === 'approver' ? pageDeploy() : null;
+    case 'recheck': return role === 'approver' ? pageRecheck() : null;
+    case 'roles': return role === 'approver' ? pageRoles() : null;
     case 'promo': return isEditor() ? pagePromo() : null;
-    case 'chg': return isEditor() ? pageChg() : null;
   }
   const it = P.item(route);
   if (it && !it.key) return pageItem(it);
@@ -399,7 +415,7 @@ function pageStack() {
   <ol class="stk">${rows.map((x, i) => `<li><span class="sn">${i + 1}</span><a href="#${x[4]}"><b>${x[0]}</b></a><span>${x[2]}</span><em>${x[3]}개</em></li>`).join('')}</ol>
   <h2 id="types">화면 유형 판정 순서</h2>
   <p>규칙 <a href="#rules">R-WC-01</a> 순서로 판정합니다.</p>
-  <ul><li><b>특수형</b> · 표준 틀로 만들 수 없는 예외 화면 · Stack 조립 제외 · 포털 승인 담당 승인</li><li><b>노드형</b> · 단계가 한 방향으로 이어지는 절차형 업무 · <a href="#s-node">노드 쉘</a></li><li><b>일반형</b> · 조회조건 → 상세정보 → 컨텐트 · <a href="#l-general">일반형 레이아웃</a></li><li><b>팝업</b> · 바탕 화면 위 레이어 · <a href="#l-popup">팝업 레이아웃</a></li></ul>
+  <ul><li><b>특수형</b> · 표준 틀로 만들 수 없는 예외 화면 · Stack 조립 제외 · 관리자 승인</li><li><b>노드형</b> · 단계가 한 방향으로 이어지는 절차형 업무 · <a href="#s-node">노드 쉘</a></li><li><b>일반형</b> · 조회조건 → 상세정보 → 컨텐트 · <a href="#l-general">일반형 레이아웃</a></li><li><b>팝업</b> · 바탕 화면 위 레이어 · <a href="#l-popup">팝업 레이아웃</a></li></ul>
   <h2 id="owners">기준 원본 · 관리</h2>
   ${table(['대상', '원본', '편집', '게시'], [
     ['컴포넌트 · 블록 · 토큰', 'Figma 디자인 시스템', P.ROLES.ds, P.ROLES.approver],
@@ -436,7 +452,7 @@ function pageFoundations() {
   <h2 id="principle">원칙</h2>
   <ol class="flow"><li><strong>값이 아니라 역할로 고릅니다</strong><span>#3617CE 대신 <code>color/bg/brand/strongest</code>처럼 쓰임새가 이름에 드러난 Semantic 토큰을 씁니다.</span></li>
   <li><strong>세 단계로 이어집니다</strong><span>Primitive(팔레트) → Semantic(역할) → Component(부품 전용). 부품은 Component 토큰만 보고, 바꿀 때는 Semantic에서 한 번에 바뀝니다.</span></li>
-  <li><strong>Figma가 원본입니다</strong><span>디자인 시스템 담당이 Figma 변수를 고치면 포털이 다시 읽어 게시합니다.</span></li></ol>
+  <li><strong>Figma가 원본입니다</strong><span>DS 담당자이 Figma 변수를 고치면 포털이 다시 읽어 게시합니다.</span></li></ol>
   <h2 id="all">구성</h2>
   <div class="cards">${cards.map((c) => `<a class="card" href="#${c[0]}"><span class="card-eb">${esc(c[1])}</span><b>${esc(c[2])}</b><span>${esc(c[3])}</span></a>`).join('')}</div>`;
 }
@@ -537,7 +553,7 @@ function pagePending(title, lead, todo) {
   return `${head('Foundations', title, lead, '<div class="checks"><span class="st">준비 중</span></div>')}
   <h2 id="todo">채울 내용</h2>
   <ul>${todo.map((t) => `<li>${esc(t)}</li>`).join('')}</ul>
-  <p class="note">기준이 정해지면 디자인 시스템 담당 · UX 가이드 담당이 이 문서를 채웁니다.</p>`;
+  <p class="note">기준이 정해지면 DS 담당자 · UX 담당자이 이 문서를 채웁니다.</p>`;
 }
 
 function pageTokens() {
@@ -615,14 +631,7 @@ function pageProgress() {
 function pageList(kind) {
   const I = P.items().filter((i) => (kind === 'block' ? i.kind === 'block' || i.kind === 'shell' : i.kind === kind));
   const isComp = kind === 'comp';
-  const pend = P.drafts((d) => d.status === 'draft' && d.type === 'figma' && d.isNew);
-  const add = isComp && can('figma') ? `<section class="ed-panel" aria-label="컴포넌트 추가">
-      <div class="ed-h"><b>컴포넌트 추가</b><span>UI팀이 Figma 디자인 시스템에 만든 컴포넌트 노드를 읽어 옵니다. 카탈로그 코드에 연결하면 그 항목의 디자인 에셋이 됩니다.</span></div>
-      <form class="ef" data-form="figma-add"><div class="ef-r">
-        <label>카탈로그 코드<select name="code"><option value="">새 코드 (c-이름)</option>${I.filter((i) => !i.key).map((i) => `<option value="${esc(i.code)}">${esc(i.code)} ${esc(i.name)}</option>`).join('')}</select></label>
-        <label class="w">Figma 노드 주소<input name="url" required placeholder="https://www.figma.com/design/…?node-id=…"></label></div>
-        <div class="row"><button class="btn2 primary sm">읽기 · 초안 저장</button><button type="button" class="lnk" data-act="sample">예시: Chip 노드 (흉내)</button></div></form>
-      ${pend.map(draftBox).join('')}</section>` : '';
+  const add = isComp && can('figma') ? '<p class="row"><a class="btn2 sm" href="#convert">새 컴포넌트는 DS 작업 › 소스 변환에서 Figma 주소로 추가</a></p>' : '';
   return `${head(isComp ? 'Components' : 'Blocks', isComp ? '컴포넌트' : '블록', isComp ? '블록 안에 들어가는 최소 부품입니다. 그림은 Figma에서 읽은 기본 모양입니다.' : '앱쉘은 화면의 바탕 틀이고, 블록은 빈칸 하나를 채우는 업무 단위 묶음입니다. 블록은 포털이 관리하는 공통 블록과 SB Studio에서 만든 SB 블록으로 나뉩니다.')}
   ${add}
   ${kind === 'block' ? blockSections(I) : `<h2 id="all" class="sr">전체</h2>${grid(I)}`}`;
@@ -632,7 +641,7 @@ function blockSections(I) {
   const sb = I.filter(isSb);
   const promos = P.promotions().filter((p) => /^tb-/.test(p.code));
   return `<h2 id="shell">앱쉘</h2><p class="note">화면이 바뀌어도 남는 바탕 틀입니다. 빈칸으로 나뉩니다.</p>${grid(I.filter((i) => i.kind === 'shell'))}
-  <h2 id="common">공통 블록</h2><p class="note">Figma 디자인 시스템 기준으로 포털이 관리하는 블록입니다. 디자인 시스템 담당이 고치고 포털 승인 담당이 게시합니다. SB Studio는 이 블록을 먼저 고릅니다.</p>${grid(I.filter((i) => i.kind === 'block' && !isSb(i)))}
+  <h2 id="common">공통 블록</h2><p class="note">Figma 디자인 시스템 기준으로 포털이 관리하는 블록입니다. DS 담당자이 고치고 관리자이 게시합니다. SB Studio는 이 블록을 먼저 고릅니다.</p>${grid(I.filter((i) => i.kind === 'block' && !isSb(i)))}
   <h2 id="sb">SB 블록</h2><p class="note">공통 블록으로 만들 수 없는 부분을 위해 SB Studio 미리보기에서 자동으로 만들어지는 업무 전용 블록입니다. SB 설계가 완료되면 이 목록에 게시되고, 여러 SB에서 쓰이면 승격 요청으로 공통 블록이 됩니다.</p>
   ${sb.length ? grid(sb) : '<p class="muted">지금 등록된 SB 블록이 없습니다.</p>'}
   ${promos.length ? `<h3>승격 진행</h3>${table(['SB 블록', '출처', '판단', '단계', '상태'], promos.map((p) => `<tr><td>${esc(p.name)}</td><td>${esc(p.from)}</td><td>${human(p.judge)}</td><td class="nw">${esc(p.stage)}</td><td>${st(p.status === '승인' ? 'ok' : p.status === '반려' ? 'ng' : 'hold', p.status)}</td></tr>`))}` : ''}`;
@@ -676,12 +685,12 @@ function pageItem(it) {
   ].filter(Boolean);
   return `${head(isSb(it) ? 'Blocks · SB 블록' : it.kind === 'block' ? 'Blocks · 공통 블록' : KIND_LABEL[it.kind], it.name, it.meaning, `<div class="checks">${check(it.design, 'Figma')}${check(it.ux, 'UX 가이드')}${check(it.status === 'pub', P.STATUS[it.status])}</div>`)}
   ${drafts('item', it.code)}
-  ${P.pubCode(it.code) ? `<div class="hero-canvas code-hero"><div class="code-view" data-code-view="${esc(it.code)}"></div></div>` : `<div class="sb-ph"><span>${it.kind === 'layout' ? '레이아웃 규칙은 UX표준가이드 기준입니다' : '코드가 아직 없습니다 · 디자인 시스템 담당이 코드를 등록하고 게시하면 여기에 미리보기가 나타납니다'}</span></div>`}
+  ${P.pubCode(it.code) ? `<div class="hero-canvas code-hero"><div class="code-view" data-code-view="${esc(it.code)}"></div></div>` : `<div class="sb-ph"><span>${it.kind === 'layout' ? '레이아웃 규칙은 UX표준가이드 기준입니다' : '코드가 아직 없습니다 · DS 담당자이 코드를 등록하고 게시하면 여기에 미리보기가 나타납니다'}</span></div>`}
   ${it.kind !== 'layout' ? codeEditor(it.code, blockTemplate(it)) : ''}
   ${slotsOf.length || parts.length ? `<h2>Anatomy</h2>
     ${slotsOf.length ? `<h3>빈칸</h3>${table(['이름', '방식', '들어갈 수 있는 것'], slotsOf.map((s) => `<tr><td>${esc(s.name)}</td><td>${esc(s.mode)}</td><td>${human(s.accepts)}</td></tr>`))}` : ''}
     ${parts.length ? `<h3>구성</h3>${table(['자리', '컴포넌트', '필수'], parts.map((p) => `<tr><td>${esc(p.slot)}</td><td>${link(p.comp)}</td><td>${p.required ? '필수' : '선택'}</td></tr>`))}` : ''}` : ''}
-  <h2>Properties ${can(it.kind) ? editBtn(`item:${it.code}`) : ''}</h2>
+  <h2>Properties ${can(P.editKind(it)) ? editBtn(`item:${it.code}`) : ''}</h2>
   ${editing ? itemForm(it, d) : `<dl class="kv">${kv.map(([k, v]) => `<dt>${k}</dt><dd>${v}</dd>`).join('')}</dl>`}
   ${ru.length ? `<h2>Guidelines</h2><h3>UX표준가이드 규칙</h3>${ruleList(ru)}` : ''}
   ${usedIn.length ? `<h2>Usage</h2><h3>쓰이는 블록</h3><p class="chips">${usedIn.map((b) => link(b)).join(' · ')}</p>` : ''}`;
@@ -697,7 +706,7 @@ function itemForm(r, d) {
     <label>뜻 (페이지 설명)<textarea name="meaning" rows="2">${esc(v.meaning)}</textarea></label>
     ${extra ? `<label>${extra[1]}<input name="${extra[0]}" value="${esc(v[extra[0]])}"></label>` : ''}
     <label>상태<select name="status">${Object.entries(P.STATUS).map(([k, t]) => `<option value="${k}"${v.status === k ? ' selected' : ''}>${t}</option>`).join('')}</select></label>
-    <div class="row"><button class="btn2 primary sm">초안 저장</button><span class="muted">포털 승인 담당이 게시하면 반영됩니다</span></div></form>`;
+    <div class="row"><button class="btn2 primary sm">초안 저장</button><span class="muted">관리자이 게시하면 반영됩니다</span></div></form>`;
 }
 
 function pageRules() {
@@ -730,33 +739,144 @@ function pageSlots() {
 }
 
 function pageLint() {
-  const L = [['R-01', '앱쉘 빈칸에는 블록만', '오류'], ['R-02', '고정 빈칸은 허용 목록에서 하나', '오류'], ['R-03', '쌓기 빈칸 순서(일반형)', '오류'], ['R-04', '임시 코드(tb- · tc-)는 포털 승인 담당 승인 요청 동반', '경고'], ['R-05', '용어 대조(로제타)', '경고'], ['R-06', '출처 ID 반영률 100%', '오류'], ['R-07', '특수형 화면은 승인 기록 동반', '경고']];
+  const L = [['R-01', '앱쉘 빈칸에는 블록만', '오류'], ['R-02', '고정 빈칸은 허용 목록에서 하나', '오류'], ['R-03', '쌓기 빈칸 순서(일반형)', '오류'], ['R-04', '임시 코드(tb- · tc-)는 관리자 승인 요청 동반', '경고'], ['R-05', '용어 대조(로제타)', '경고'], ['R-06', '출처 ID 반영률 100%', '오류'], ['R-07', '특수형 화면은 승인 기록 동반', '경고']];
   return `${head('UX 거버넌스', '검증 규칙', '규칙 한 벌을 생성기 · 미리보기 · Figma 검사 · 카탈로그 게시가 같이 씁니다. 독립 검수 기준 점검도 같은 규칙입니다.')}
   <h2 id="list" class="sr">검증 규칙</h2>${table(['규칙', '내용', '심각도'], L.map((r) => `<tr><td><b>${r[0]}</b></td><td>${esc(r[1])}</td><td>${st(r[2] === '오류' ? 'ng' : 'hold', r[2])}</td></tr>`))}`;
 }
 
-// ---------- 관리 (담당 역할에서만) ----------
+// ---------- 역할별 작업 페이지 ----------
+// 케이스 1 토큰 · 컴포넌트 · 공통 블록: 디자인 요청 → UI팀 디자인 → 소스 변환 · 미리보기 → DS 담당자 확인 → 배포 요청 → 관리자 배포
+// 케이스 2 UX 패턴: 기준 편집 → 규칙 번호 자동 → 저장 · 미리보기 → UX 담당자 확인 → 배포 요청 → 관리자 배포
+// 케이스 3 SB 블록: SB library 편집(소스) → 자동 검사 → 미리보기 → 담당자 확인 → 배포 요청 → 관리자 배포 → 사용 집계 → 승격
+// 케이스 4 아이콘: 내 요청(AI 더미로 기획 계속) → 디자인 요청 → 소스 변환 → 배포 → 더미 교체 · 알림
+const TYPE_NAME = { item: '카탈로그', rule: '규칙', guide: '사용 가이드', figma: 'Figma 변환', code: '코드', token: '토큰' };
+const whereOf = (d) => (d.type === 'token' ? '#tokens' : d.type === 'code' ? `#${d.target}` : d.type === 'rule' ? '#rules' : d.type === 'guide' || d.type === 'figma' ? `#${P.itemByKey(d.key || d.target)?.code || d.code || d.target}` : `#${d.target}`);
 
-function pagePub() {
-  const pend = P.drafts((d) => d.status === 'draft');
+const draftState = (d) => (d.status === 'draft' ? (d.requested ? st('hold', '배포 요청됨') : st('ai', '작성 중')) : st(d.status === 'published' ? 'ok' : 'ng', { published: `배포 ${d.version}`, rejected: '반려', discarded: '버림', rolled_back: '롤백' }[d.status]));
+const draftRow = (d, acts = '') => `<tr><td><b class="nw">${esc(d.id)}</b></td><td class="nw">${TYPE_NAME[d.type] || d.type}</td><td><a href="${esc(whereOf(d))}">${esc(d.title)}</a><ul class="mini">${d.lines.map((l) => `<li>${esc(l)}</li>`).join('')}</ul></td><td>${bump(d.bump)}</td><td class="nw">${draftState(d)}</td><td class="acts">${acts}</td></tr>`;
+
+/** 내 요청 (모두): 아이콘 제작 · 컴포넌트 · 공통 블록 수정 · 토큰 요청과 진행 상태 */
+function pageMyRequests() {
+  const L = P.requests().filter((r) => r.by === role);
+  const stage = (r) => `<span class="steps">${P.REQ_STAGES.map((x) => `<i class="${P.REQ_STAGES.indexOf(x) <= P.REQ_STAGES.indexOf(r.stage) ? 'on' : ''}" title="${esc(x)}"></i>`).join('')}</span> ${esc(r.stage)}`;
+  return `${head('내 요청', '내 요청', 'Storyboard를 만들다가 필요한 아이콘 · 컴포넌트 · 공통 블록 · 토큰을 DS 담당자에게 요청하고 진행 상태를 봅니다. 아이콘은 AI 더미로 기획을 먼저 끝내고, 완성되면 더미가 자동으로 바뀝니다.')}
+  <section class="ed-panel" aria-label="요청하기"><div class="ed-h"><b>요청하기</b><span>이름 · 쓰는 화면 · 크기를 적어 주세요</span></div>
+    <form class="ef" data-form="request"><div class="ef-r">
+      <label>종류<select name="kind">${Object.entries(P.REQ_KINDS).map(([k, v]) => `<option value="${k}">${esc(v)}</option>`).join('')}</select></label>
+      <label class="w">무엇이 필요한가요<input name="title" required placeholder="예: export 아이콘"></label></div>
+      <label>자세히 (쓰는 화면 · 크기 · 이유)<input name="detail" placeholder="예: SVC-02-001 조회 화면 · 16px"></label>
+      <div class="row"><button class="btn2 primary sm">요청</button></div></form></section>
+  <h2 id="list">내가 한 요청</h2>
+  ${table(['요청', '종류', '내용', '진행', '알림'], L.map((r) => `<tr><td class="nw"><b>${esc(r.id)}</b></td><td class="nw">${esc(P.REQ_KINDS[r.kind])}</td><td>${esc(r.title)}<br><span class="muted">${esc(r.detail)}</span></td><td class="nw">${stage(r)}</td><td>${r.dummy ? st('hold', 'AI 더미 사용 중 · 개발 전달 불가') : r.notified ? st('ok', '교체 완료') : ''}</td></tr>`))}`;
+}
+
+/** UX 편집 › 기준 편집: UX 담당자가 고치는 문서 바로가기 (편집은 각 문서 안에서) */
+function pageUxEdit() {
+  const I = P.items();
+  const open = (type, t) => (P.openDraft(type, t) ? ` ${st('ai', '초안')}` : '');
+  const guides = (ctx.data.components || []).filter((c) => P.guide(c.key));
+  return `${head('UX 편집', '기준 편집', 'UX 패턴 · 레이아웃 규칙 · 앱쉘 · 컴포넌트 사용 가이드 · UX 규칙을 고칩니다. 문서를 열면 그 자리에 편집 칸이 있고, 저장하면 초안이 됩니다. 규칙 번호는 저장할 때 자동으로 붙고 바뀌지 않습니다.')}
+  <h2 id="rules">UX 규칙</h2><p><a class="btn2 sm" href="#rules">규칙 목록에서 추가 · 수정 · 삭제</a></p>
+  <h2 id="patterns">UX 패턴 · 레이아웃 규칙</h2>
+  ${table(['문서', '종류', ''], [...(ctx.data.patterns || []).map((p) => `<tr><td><a href="#pattern-${esc(p.key)}">${esc(p.name)} 패턴</a></td><td>UX 패턴</td><td></td></tr>`), ...I.filter((i) => i.kind === 'layout').map((i) => `<tr><td><a href="#${esc(i.code)}">${esc(i.name)}</a>${open('item', i.code)}</td><td>레이아웃 규칙</td><td></td></tr>`)])}
+  <h2 id="shells">앱쉘</h2>
+  ${table(['앱쉘', '빈칸', ''], I.filter((i) => i.kind === 'shell').map((i) => `<tr><td><a href="#${esc(i.code)}">${esc(i.name)}</a>${open('item', i.code)}${open('code', i.code)}</td><td>${human(i.slots)}</td><td>${P.pubCode(i.code) ? st('ok', '코드 있음') : st('wait', '코드 없음')}</td></tr>`))}
+  <h2 id="guides">컴포넌트 사용 가이드</h2>
+  ${table(['컴포넌트', '규칙', ''], guides.map((c) => `<tr><td><a href="#${esc(P.itemByKey(c.key)?.code || `c-${c.key}`)}">${esc(c.name)}</a>${open('guide', c.key)}</td><td class="mono">UX-${esc(c.key.toUpperCase())}-NN</td><td></td></tr>`))}`;
+}
+
+/** UX 편집 › SB library 편집: SB 블록 소스 · 사용 현황 · 승격 후보 */
+function pageSbEdit() {
+  const sb = P.items().filter(isSb);
+  const promos = P.promotions().filter((p) => /^tb-/.test(p.code));
+  return `${head('UX 편집', 'SB library 편집', 'SB Studio 미리보기에서 자동 생성되어 설계 완료 시 게시된 SB 블록의 소스를 고칩니다. 블록을 열면 소스 편집 칸이 있고, 자동 검사(속성값 · ID · 규칙 · 토큰)를 통과하면 미리보기가 만들어집니다.')}
+  <h2 id="blocks">SB 블록</h2>
+  ${table(['SB 블록', '놓이는 빈칸', '소스', ''], sb.map((i) => `<tr><td><a href="#${esc(i.code)}">${esc(i.name)}</a>${P.openDraft('code', i.code) ? ` ${st('ai', '초안')}` : ''}</td><td>${human(i.slot)}</td><td>${P.pubCode(i.code) ? st('ok', '소스 있음') : st('wait', '소스 없음')}</td><td><a class="lnk" href="#${esc(i.code)}">소스 편집</a></td></tr>`))}
+  <h2 id="usage">사용 집계 · 승격 후보</h2>
+  <p class="note">여러 Storyboard에서 반복해 쓰인 SB 블록은 승격 후보가 되고, 2단 심사(SB팀 표준 → UI팀 디자인)를 거쳐 공통 블록이 됩니다.</p>
+  ${table(['SB 블록', '사용', '판단', '심사 단계', '상태'], promos.map((p) => `<tr><td>${esc(p.name)}</td><td>${esc(p.from)}</td><td>${human(p.judge)}</td><td class="nw">${esc(p.stage)}</td><td>${st(p.status === '승인' ? 'ok' : p.status === '반려' ? 'ng' : 'hold', p.status)}</td></tr>`))}
+  <p><a class="btn2 sm" href="#promo">승격 심사로</a></p>`;
+}
+
+/** 내 변경 (UX · DS 담당자): 내 초안 → 미리보기 확인 → 배포 요청 */
+function pageMy() {
+  const L = P.drafts((d) => d.by === role);
+  const open = L.filter((d) => d.status === 'draft');
+  const done = L.filter((d) => d.status !== 'draft');
+  const acts = (d) => `<a class="btn2 sm" href="${esc(whereOf(d))}">미리보기</a>${!d.requested ? `<button type="button" class="btn2 primary sm" data-act="req-deploy" data-id="${d.id}">배포 요청</button>` : ''}<button type="button" class="btn2 sm" data-act="discard" data-id="${d.id}">버리기</button>`;
+  return `${head(P.ROLES[role] === 'UX 담당자' ? 'UX 편집' : 'DS 작업', '내 변경', '내가 고친 초안입니다. 미리보기로 작동을 확인한 뒤 배포 요청하면 관리자가 운영 서버에 배포합니다.')}
+  <h2 id="open">진행 중 <span class="count">${open.length}</span></h2>
+  ${table(['초안', '종류', '내용', '버전', '상태', ''], open.map((d) => draftRow(d, acts(d))))}
+  ${done.length ? `<h2 id="done">처리됨</h2>${table(['초안', '종류', '내용', '버전', '결과', ''], done.map((d) => draftRow(d)))}` : ''}`;
+}
+
+/** DS 작업 › 디자인 요청: 받은 요청과 단계 (요청됨 → 디자인 작업 → 미리보기 확인 → 완료) */
+function pageRequests() {
+  const L = P.requests();
+  const steps = (r) => `<span class="steps">${P.REQ_STAGES.map((x) => `<i class="${P.REQ_STAGES.indexOf(x) <= P.REQ_STAGES.indexOf(r.stage) ? 'on' : ''}" title="${esc(x)}"></i>`).join('')}</span> ${esc(r.stage)}`;
+  const next = (r) => (r.stage === '완료' ? '' : `<button type="button" class="btn2 primary sm" data-act="req-next" data-id="${r.id}">${esc(P.REQ_STAGES[P.REQ_STAGES.indexOf(r.stage) + 1])}</button>`);
+  const promos = P.promotions().filter((p) => p.status === '대기' && p.stage === 'UI팀 디자인');
+  return `${head('DS 작업', '디자인 요청', 'SB 작성 중 들어온 아이콘 제작 · 컴포넌트 · 공통 블록 수정 · 토큰 요청입니다. UI팀이 Figma에서 만들면 소스 변환으로 읽어 미리보기를 확인합니다.')}
+  <div class="flowline">${P.REQ_STAGES.map((x) => `<span>${esc(x)}</span>`).join('')}</div>
+  <h2 id="list">요청 <span class="count">${L.filter((r) => r.stage !== '완료').length}</span></h2>
+  ${table(['요청', '종류', '내용', '요청자', '단계', ''], L.map((r) => `<tr><td class="nw"><b>${esc(r.id)}</b></td><td class="nw">${esc(P.REQ_KINDS[r.kind])}</td><td>${esc(r.title)}<br><span class="muted">${esc(r.detail)}</span></td><td class="nw">${esc(P.ROLES[r.by])}</td><td class="nw">${steps(r)}</td><td class="acts">${next(r)}${r.stage === '디자인 작업' ? '<a class="lnk" href="#convert">소스 변환</a>' : ''}</td></tr>`))}
+  ${promos.length ? `<h2 id="promo">블록 승격 (UI팀 디자인 차례)</h2>${table(['SB 블록', '판단', ''], promos.map((p) => `<tr><td>${esc(p.name)}</td><td>${human(p.judge)}</td><td><a class="lnk" href="#promo">승격 심사에서 처리</a></td></tr>`))}` : ''}`;
+}
+
+/** DS 작업 › 소스 변환: Figma 주소 → 형식 · 키 자동 확인 → 미리보기(초안) */
+function pageConvert() {
+  const I = P.items().filter((i) => i.kind === 'comp');
+  const pend = P.drafts((d) => d.status === 'draft' && d.type === 'figma');
+  return `${head('DS 작업', '소스 변환', 'UI팀이 Figma에서 만든 토큰 · 컴포넌트 · 공통 블록을 Figma 주소로 읽어 포털 형식의 소스로 바꿉니다. 형식 · 키는 자동으로 확인하고, 결과는 미리보기 초안이 됩니다. 이상이 있으면 그 문서의 코드 편집 칸에서 바로 고칩니다.')}
+  <section class="ed-panel" aria-label="Figma 주소로 변환"><div class="ed-h"><b>컴포넌트 · 공통 블록</b><span>Figma 노드 주소를 넣으면 변환합니다. 기존 컴포넌트를 다시 읽을 때는 그 문서의 "Figma에서 다시 읽기"를 씁니다.</span></div>
+    <form class="ef" data-form="figma-add"><div class="ef-r">
+      <label>카탈로그 코드<select name="code"><option value="">새 코드 (c-이름)</option>${I.filter((i) => !i.key).map((i) => `<option value="${esc(i.code)}">${esc(i.code)} ${esc(i.name)}</option>`).join('')}</select></label>
+      <label class="w">Figma 노드 주소<input name="url" required placeholder="https://www.figma.com/design/…?node-id=…"></label></div>
+      <div class="row"><button class="btn2 primary sm">변환 · 미리보기 초안</button><button type="button" class="lnk" data-act="sample">예시: Chip 노드 (흉내)</button></div></form></section>
+  <section class="ed-panel" aria-label="토큰"><div class="ed-h"><b>토큰</b><span>토큰은 토큰 구조 문서에서 추가 · 수정합니다. 게시되면 토큰 소스(:root CSS)와 코드 미리보기에 함께 반영됩니다.</span></div>
+    <div class="row"><a class="btn2 sm" href="#tokens">토큰 편집</a><a class="btn2 sm" href="#dev-tokens">토큰 소스 보기</a></div></section>
+  <h2 id="drafts">변환 결과 <span class="count">${pend.length}</span></h2>
+  ${pend.length ? pend.map(draftBox).join('') : '<p class="muted">아직 변환한 결과가 없습니다.</p>'}`;
+}
+
+/** 관리자 › 운영 서버 배포: 배포 요청 처리 · 정기 · 수동 배포 · 롤백 */
+function pageDeploy() {
+  const req = P.drafts((d) => d.status === 'draft' && d.requested);
+  const wip = P.drafts((d) => d.status === 'draft' && !d.requested);
   const done = P.drafts((d) => d.status !== 'draft');
   const last = P.history()[0];
-  const approver = role === 'approver';
-  const typeName = { item: '카탈로그', rule: '규칙', guide: '사용 가이드', figma: 'Figma', code: '코드', token: '토큰' };
-  const where = (d) => (d.type === 'token' ? '#dev-tokens' : d.type === 'code' ? `#${d.target}` : d.type === 'rule' ? '#rules' : d.type === 'guide' || d.type === 'figma' ? `#${P.itemByKey(d.key || d.target)?.code || d.code || d.target}` : `#${d.target}`);
-  return `${head('관리', '초안 · 게시', '담당이 고친 내용은 초안으로 쌓이고, 포털 승인 담당이 게시하면 버전이 오르고 SB Studio가 읽는 게시본이 바뀝니다.')}
-  <h2 id="pending">게시 대기 ${pend.length}건</h2>
-  <form data-form="publish">${table(['', '초안', '종류', '내용', '담당', '자리', ''], pend.map((d) => `<tr><td>${approver ? `<input type="checkbox" name="ids" value="${d.id}" checked aria-label="${d.id} 고르기">` : ''}</td><td><b class="nw">${esc(d.id)}</b></td><td class="nw">${typeName[d.type]}</td><td><a href="${esc(where(d))}">${esc(d.title)}</a><ul class="mini">${d.lines.map((l) => `<li>${esc(l)}</li>`).join('')}</ul></td><td class="nw">${esc(P.ROLES[d.by])}</td><td>${bump(d.bump)}</td><td class="nw">${approver ? `<button type="button" class="btn2 sm" data-act="discard" data-id="${d.id}">반려</button>` : role === d.by ? `<button type="button" class="btn2 sm" data-act="discard" data-id="${d.id}">버리기</button>` : ''}</td></tr>`))}
-  ${approver && pend.length ? `<div class="row pad"><input name="reason" id="pubReason" class="grow" placeholder="게시 메모 (선택)"><button class="btn2 primary">고른 초안 게시 → ${esc(nextVersion(pend))}</button></div>` : pend.length ? '<p class="muted">게시는 포털 승인 담당이 합니다.</p>' : ''}</form>
-  ${approver && last.prevPub ? `<h2 id="rollback">롤백</h2><form data-form="rollback" class="row"><span>지금 게시 <b class="mono">${esc(P.version())}</b></span><input name="reason" id="rbReason" class="grow" placeholder="롤백 사유"><button class="btn2 sm danger">${esc(last.from)}(으)로 되돌리기</button></form>` : ''}
-  ${done.length ? `<h2 id="done">처리된 초안</h2>${table(['초안', '내용', '담당', '결과'], done.map((d) => `<tr><td class="nw">${esc(d.id)}</td><td>${esc(d.title)}</td><td class="nw">${esc(P.ROLES[d.by])}</td><td>${st(d.status === 'published' ? 'ok' : 'ng', { published: `게시 ${d.version}`, rejected: '반려', discarded: '버림', rolled_back: '롤백' }[d.status])}</td></tr>`))}` : ''}
-  ${approver ? '<h2 id="reset">시연 데이터</h2><p class="row"><button class="btn2 sm danger" data-act="reset">처음 상태로 되돌리기</button><span class="muted">이 브라우저에 저장된 초안 · 게시 · 승격 진행을 지웁니다</span></p>' : ''}`;
+  const pv = P.previewVersion();
+  return `${head('관리자', '운영 서버 배포', '담당자가 미리보기로 확인하고 배포 요청한 변경을 운영 서버(BSS 디자인 포털)에 배포합니다. SB Studio는 운영 서버 버전만 읽습니다.')}
+  <div class="checks"><span class="ck on"><i></i><span class="ck-k">운영</span><b class="ck-v">${esc(P.version())}</b></span>${pv ? `<span class="ck on"><i></i><span class="ck-k">다음 (미리보기)</span><b class="ck-v">${esc(pv)}</b></span>` : ''}</div>
+  <h2 id="pending">배포 요청 <span class="count">${req.length}</span></h2>
+  <form data-form="publish">${table(['', '초안', '종류', '내용', '버전', '담당', ''], req.map((d) => `<tr><td><input type="checkbox" name="ids" value="${d.id}" checked aria-label="${d.id} 고르기"></td><td><b class="nw">${esc(d.id)}</b></td><td class="nw">${TYPE_NAME[d.type]}</td><td><a href="${esc(whereOf(d))}">${esc(d.title)}</a><ul class="mini">${d.lines.map((l) => `<li>${esc(l)}</li>`).join('')}</ul></td><td>${bump(d.bump)}</td><td class="nw">${esc(P.ROLES[d.by])}</td><td><button type="button" class="btn2 sm" data-act="discard" data-id="${d.id}">반려</button></td></tr>`))}
+  ${req.length ? `<div class="deploy-mode"><label><input type="radio" name="mode" value="정기" checked> 정기 배포 <span class="muted">주기마다 묶어서</span></label><label><input type="radio" name="mode" value="수동"> 수동 배포 <span class="muted">긴급 수정 · 아이콘 추가 등, 사유 필수</span></label></div>
+  <div class="row pad"><input name="reason" id="pubReason" class="grow" placeholder="변경 노트 · 수동 배포 사유 (무엇 · 왜 · 영향 범위)"><button class="btn2 primary">고른 변경 배포 → ${esc(pv ? pv.replace(/-preview\.\d+$/, '') : '')}</button></div>` : ''}</form>
+  ${wip.length ? `<h3>작성 중 (담당자 확인 전)</h3>${table(['초안', '종류', '내용', '버전', '상태', ''], wip.map((d) => draftRow(d)))}` : ''}
+  ${last.prevPub ? `<h2 id="rollback">롤백</h2><form data-form="rollback" class="row"><span>운영 <b class="mono">${esc(P.version())}</b></span><input name="reason" id="rbReason" class="grow" placeholder="롤백 사유"><button class="btn2 sm danger">${esc(last.from)}(으)로 되돌리기</button></form>` : ''}
+  ${done.length ? `<h2 id="done">처리 기록</h2>${table(['초안', '종류', '내용', '버전', '결과', ''], done.map((d) => draftRow(d)))}` : ''}
+  <h2 id="reset">시연 데이터</h2><p class="row"><button class="btn2 sm danger" data-act="reset">처음 상태로 되돌리기</button><span class="muted">이 브라우저에 저장된 초안 · 배포 · 요청 · 승격 진행을 지웁니다</span></p>`;
 }
-function nextVersion(L) {
-  const B = ['PATCH', 'MINOR', 'MAJOR'];
-  const b = B[Math.max(...L.map((d) => B.indexOf(d.bump)))];
-  const [a, m, p] = P.version().split('.').map(Number);
-  return b === 'MAJOR' ? `${a + 1}.0.0` : b === 'MINOR' ? `${a}.${m + 1}.0` : `${a}.${m}.${p + 1}`;
+
+/** 관리자 › 재검수 대상 SB: 규칙 · 버전 변경의 영향 */
+function pageRecheck() {
+  const L = P.recheck();
+  const opts = ['재검수 표시', '새 버전 후보', '무시(토큰만)'];
+  return `${head('관리자', '재검수 대상 SB', '기존 것을 고치거나 지운 변경(MAJOR)과 Figma · UX 패턴 가이드 변경 감지 중 이미 만든 Storyboard에 영향이 있는 것입니다. SB에는 기반 버전이 기록되어 있어 그보다 새 MAJOR 변경이 있으면 재검수 대상이 됩니다.')}
+  <h2 id="list">대상 <span class="count">${L.length}</span></h2>
+  ${table(['출처', '버전 · 시점', '대상', '변경', '영향', '처리'], L.map((r, k) => `<tr><td class="nw">${esc(r.source)}</td><td class="nw mono">${esc(r.version)} · ${esc(String(r.at).slice(0, 16).replace('T', ' '))}</td><td>${human(r.target)}</td><td>${esc(r.change)}</td><td>${esc(r.impact)}</td><td>${r.source === '배포' ? st('hold', '재검수 표시') : `<select data-act="det" data-k="${P.detections().findIndex((d) => d.change === r.change)}" aria-label="처리">${opts.map((o) => `<option${o === r.action ? ' selected' : ''}>${o}</option>`).join('')}</select>`}</td></tr>`))}`;
+}
+
+/** 관리자 › 권한 확인: SB Studio에서 받은 역할과 화면 */
+function pageRoles() {
+  return `${head('관리자', '권한 확인', '역할은 BSS SB Studio 계정에서 정해지고, 포털은 받은 역할에 따라 메뉴와 편집 칸을 다르게 보여 줍니다. POC에서는 오른쪽 위에서 역할을 고릅니다.')}
+  ${table(['역할', '작업 메뉴', '하는 일', '배포'], [
+    ['보기', '내 요청', '기준 보기 · SB library 보기 · 아이콘 · 블록 요청', '-'],
+    ['UX 담당자', 'UX 편집: 기준 편집 · SB library 편집 · 내 변경 · 승격 심사', 'UX 패턴 · 레이아웃 규칙 · 앱쉘 · 사용 가이드 · SB 블록 소스 편집, SB팀 표준 심사', '배포 요청'],
+    ['DS 담당자', 'DS 작업: 디자인 요청 · 소스 변환 · 내 변경 · 승격 심사', '토큰 · 컴포넌트 · 공통 블록 소스 변환 · 수정, UI팀 디자인 심사', '배포 요청'],
+    ['관리자', '관리자: 운영 서버 배포 · 재검수 대상 SB · 권한 확인 · 승격 심사', '정기 · 수동 배포, 롤백, 재검수 대상 확인', '운영 서버 배포'],
+  ].map((r) => `<tr><td><b>${r[0]}</b></td><td>${r[1]}</td><td>${r[2]}</td><td>${r[3]}</td></tr>`))}
+  <p class="note">미리보기 확인은 작업한 담당자가 하고, 운영 서버 배포와 롤백은 관리자가 합니다.</p>`;
 }
 
 function pagePromo() {
@@ -769,21 +889,14 @@ function pagePromo() {
     const url = s.who === 'ds' ? `<input class="in-sm" id="promoUrl-${k}" placeholder="Figma 노드 주소" aria-label="Figma 노드 주소">` : '';
     return `${url}<button class="btn2 primary sm" data-act="promo" data-k="${k}" data-v="ok">${esc(s.act)}</button><button class="btn2 sm" data-act="promo" data-k="${k}" data-v="ng">반려</button>`;
   };
-  return `${head('관리', '승격 요청', 'SB Studio에서 만든 임시 블록 · 컴포넌트(tb- · tc-)를 정식 부품으로 올립니다. 사용 승인 SB가 3건이 되면 자동 등록됩니다.')}
+  return `${head(role === 'approver' ? '관리자' : role === 'ds' ? 'DS 작업' : 'UX 편집', '승격 심사', '여러 Storyboard에서 반복해 쓰인 SB 블록(tb-)을 2단 심사(SB팀 표준 → UI팀 디자인)를 거쳐 공통 블록으로 올립니다. 마지막은 관리자가 배포합니다.')}
   <div class="checks">${P.PROMO_STAGES.map((s, i) => `<span class="ck on">${i + 1}. ${esc(s.stage)} · ${esc(P.ROLES[s.who])}</span>`).join('')}</div>
-  ${role === 'ux' ? `<section class="ed-panel"><div class="ed-h"><b>승격 요청 등록</b></div><form class="ef" data-form="promo-add"><div class="ef-r"><label>임시 코드<input name="code" required pattern="t[bc]-[a-z0-9-]+" placeholder="tb-…"></label><label>이름<input name="name" required></label><label class="w">출처<input name="from" placeholder="SB · 화면 ID · 사용 승인 SB 건수"></label></div><label>변형 판단<input name="judge" placeholder="예: c-date-field 변형 후보"></label><div class="row"><button class="btn2 primary sm">등록</button></div></form></section>` : ''}
-  <h2 id="list">요청 목록</h2>
-  ${table(['요청', '이름', '출처', '변형 판단', '심사', '상태', '처리'], L.map((p, k) => `<tr><td class="nw">${esc(p.id)}</td><td>${P.item(p.code.split(' → ').pop()) ? link(p.code.split(' → ').pop()) : esc(p.name)}</td><td>${esc(p.from)}</td><td>${human(p.judge)}</td><td class="nw">${esc(p.stage)}</td><td>${st(p.status === '승인' ? 'ok' : p.status === '반려' ? 'ng' : 'hold', p.status)}</td><td class="acts">${actions(p, k)}</td></tr>`))}
-  <p class="muted">최종 승인되면 코드 앞자리만 바뀌어(tb- → b-, tc- → c-) 바로 게시됩니다.</p>`;
+  ${role === 'ux' ? `<section class="ed-panel"><div class="ed-h"><b>승격 후보 등록</b></div><form class="ef" data-form="promo-add"><div class="ef-r"><label>임시 코드<input name="code" required pattern="t[bc]-[a-z0-9-]+" placeholder="tb-…"></label><label>이름<input name="name" required></label><label class="w">출처<input name="from" placeholder="SB · 화면 ID · 사용 승인 SB 건수"></label></div><label>변형 판단<input name="judge" placeholder="예: c-date-field 변형 후보"></label><div class="row"><button class="btn2 primary sm">등록</button></div></form></section>` : ''}
+  <h2 id="list">승격 후보</h2>
+  ${table(['후보', '이름', '사용', '변형 판단', '심사 단계', '상태', '처리'], L.map((p, k) => `<tr><td class="nw">${esc(p.id)}</td><td>${P.item(p.code.split(' → ').pop()) ? link(p.code.split(' → ').pop()) : esc(p.name)}</td><td>${esc(p.from)}</td><td>${human(p.judge)}</td><td class="nw">${esc(p.stage)}</td><td>${st(p.status === '승인' ? 'ok' : p.status === '반려' ? 'ng' : 'hold', p.status)}</td><td class="acts">${actions(p, k)}</td></tr>`))}
+  <p class="muted">관리자가 배포하면 코드 앞자리만 바뀌어(tb- → b-, tc- → c-) 공통 블록이 됩니다.</p>`;
 }
 
-function pageChg() {
-  const L = P.detections();
-  const opts = ['새 버전 후보', '무시(토큰만)', '포털 승인 담당 승인 요청'];
-  return `${head('관리', '변경 감지', 'Figma 디자인 시스템 · UX 패턴 가이드 게시와 SB Studio가 만든 SB의 Figma 수정을 감지합니다. 새 버전 후보는 담당이 해당 페이지에서 Figma를 다시 읽어 초안으로 만듭니다.')}
-  <h2 id="list" class="sr">감지 목록</h2>
-  ${table(['감지', '파일', '대상', '변경', '영향', '처리'], L.map((r, k) => `<tr><td class="nw">${esc(r.at)}</td><td>${esc(r.file)}</td><td>${esc(r.target)}</td><td>${esc(r.change)}</td><td>${esc(r.impact)}</td><td><select data-act="det" data-k="${k}" aria-label="처리">${opts.map((o) => `<option${o === r.action ? ' selected' : ''}>${o}</option>`).join('')}</select></td></tr>`))}`;
-}
 
 // ---------- 컴포넌트 상세 페이지 (미리보기 · 사용 가이드가 있는 것) ----------
 
@@ -793,7 +906,7 @@ export function compChecks(c) {
   return `<div class="checks">${check(true, 'Figma')}${check(!!c.guide, '사용 가이드')}${r ? stOf(r.status) : ''}${c.figmaSyncedAt ? `<span class="muted">Figma 읽음 ${fmt(c.figmaSyncedAt)}</span>` : ''}</div>`;
 }
 
-/** 페이지 위쪽 에디터 칸: 디자인 시스템 담당 = 설명 · Figma 다시 읽기 */
+/** 페이지 위쪽 에디터 칸: DS 담당자 = 설명 · Figma 다시 읽기 */
 export function compEditor(c) {
   if (!isEditor()) return '';
   const r = P.itemByKey(c.key);
@@ -803,7 +916,7 @@ export function compEditor(c) {
   if (can('figma')) {
     const open = ui.edit === `figma:${c.key}`;
     const openI = ui.edit === `item:${r?.code}`;
-    out.push(`<section class="ed-panel"><div class="ed-h"><b>디자인 시스템 담당</b><span>모양은 Figma에서 고친 뒤 다시 읽고, 설명 · 변형은 여기서 고칩니다</span></div>
+    out.push(`<section class="ed-panel"><div class="ed-h"><b>DS 담당자</b><span>모양은 Figma에서 고친 뒤 다시 읽고, 설명 · 변형은 여기서 고칩니다</span></div>
       <div class="row">${editBtn(`figma:${c.key}`, 'Figma에서 다시 읽기')}${r ? editBtn(`item:${r.code}`, '설명 · 변형 편집') : ''}</div>
       ${open ? `<form class="ef" data-form="figma-re" data-key="${esc(c.key)}"><label>Figma 노드 주소<input name="url" value="${esc(c.figma?.url || '')}"></label><div class="row"><button class="btn2 primary sm">읽기 · 게시본과 비교</button></div></form>` : ''}
       ${openI && r ? itemForm(r, P.openDraft('item', r.code)) : ''}</section>`);
@@ -811,14 +924,14 @@ export function compEditor(c) {
   return out.join('');
 }
 
-/** 사용 가이드(Policy) 앞에 붙는 UX 가이드 담당 편집 칸 */
+/** 사용 가이드(Policy) 앞에 붙는 UX 담당자 편집 칸 */
 export function guideEditor(c) {
   if (!isEditor() || !P.guide(c.key)) return '';
   const d = P.openDraft('guide', c.key);
   if (!can('guide')) return draftBox(d);
   const g = d?.after || P.guide(c.key);
   const open = ui.edit === `guide:${c.key}`;
-  return `${draftBox(d)}<section class="ed-panel"><div class="ed-h"><b>UX 가이드 담당</b><span>규칙 번호(UX-${esc(c.key.toUpperCase())}-NN)는 저장할 때 붙고 고쳐도 바뀌지 않습니다</span></div>
+  return `${draftBox(d)}<section class="ed-panel"><div class="ed-h"><b>UX 담당자</b><span>규칙 번호(UX-${esc(c.key.toUpperCase())}-NN)는 저장할 때 붙고 고쳐도 바뀌지 않습니다</span></div>
     <div class="row">${editBtn(`guide:${c.key}`, '사용 가이드 편집')}</div>
     ${open ? `<form class="ef" data-form="guide" data-key="${esc(c.key)}">
       <label>정책 요약<textarea name="lead" rows="2">${esc(g.lead)}</textarea></label>
@@ -942,7 +1055,9 @@ function onClick(e) {
       return refreshCodeEd();
     }
     case 'discard': return act(() => P.discard(role, d.id), (x) => (x.status === 'rejected' ? `${x.id} 반려` : `${x.id} 초안을 버렸습니다`));
-    case 'publish-one': return act(() => P.publish(role, [d.id]), (h) => `게시 ${h.version}`);
+    case 'publish-one': return act(() => P.publish(role, [d.id], `${d.id} 개별 배포`, '수동'), (h) => `수동 배포 ${h.version}`);
+    case 'req-deploy': return act(() => P.requestDeploy(role, d.id), (x) => `${x.id} 배포 요청 · 관리자 배포 대기`);
+    case 'req-next': return act(() => P.advanceRequest(role, d.id), (r) => (r.notified ? `${r.id} 완료 · 더미 교체 · 요청자에게 알림` : `${r.id} → ${r.stage}`));
     case 'promo': {
       const inp = document.getElementById(`promoUrl-${d.k}`);
       if (d.v === 'ok' && inp && !inp.value.trim()) return ctx.toast('Figma 노드 주소를 넣어 주세요');
@@ -960,7 +1075,7 @@ function onChange(e) {
     lsSet('bss-design-portal.role', role);
     resetUi();
     // 관리 페이지에 있다가 보기로 바꾸면 개요로
-    if (!isEditor() && ['pub', 'promo', 'chg'].includes(location.hash.slice(1))) { location.hash = '#overview'; return; }
+    if (['ux-edit', 'sb-edit', 'my', 'requests', 'convert', 'deploy', 'recheck', 'roles', 'promo'].includes(location.hash.slice(1)) && page(location.hash.slice(1)) === null) { location.hash = '#overview'; return; }
     return ctx.rerender();
   }
   if (e.target.dataset.act === 'det') return act(() => P.handleDetection(role, Number(e.target.dataset.k), e.target.value), '처리 방식을 바꿨습니다');
@@ -978,7 +1093,7 @@ function onSubmit(e) {
       const fields = { name: v.name, meaning: v.meaning, status: v.status };
       if ('variants' in v) fields.variants = v.variants;
       if ('slot' in v) fields.slot = v.slot;
-      return act(() => P.draftItem(role, f.dataset.code, fields), (d) => `초안 ${d.id} 저장 · 포털 승인 담당 게시 대기`).then(closeEdit);
+      return act(() => P.draftItem(role, f.dataset.code, fields), (d) => `초안 ${d.id} 저장 · 내 변경에서 미리보기 확인 후 배포 요청`).then(closeEdit);
     }
     case 'rule':
       return act(() => P.draftRule(role, f.dataset.id, { kind: v.kind, section: v.section, text: v.text, targets: list(v.targets) }), (d) => `초안 ${d.id} 저장`).then(closeEdit);
@@ -988,24 +1103,26 @@ function onSubmit(e) {
       const rows = [...f.querySelectorAll('[data-rule]')].map((r) => ({ id: r.dataset.rule, kind: r.querySelector('[name=kind]').value, text: r.querySelector('[name=text]').value, remove: r.querySelector('[name=remove]').checked }));
       const nr = f.querySelector('[data-new]');
       const add = [{ kind: nr.querySelector('[name=kind]').value, text: nr.querySelector('[name=text]').value }];
-      return act(() => P.draftGuide(role, f.dataset.key, { lead: v.lead, rules: rows, add }), (d) => `초안 ${d.id} 저장 · 포털 승인 담당 게시 대기`).then(closeEdit);
+      return act(() => P.draftGuide(role, f.dataset.key, { lead: v.lead, rules: rows, add }), (d) => `초안 ${d.id} 저장 · 내 변경에서 미리보기 확인 후 배포 요청`).then(closeEdit);
     }
     case 'token':
-      return act(() => P.draftToken(role, { collection: v.collection, figma: v.figma, value: v.value, ref: v.ref.trim() }), (d) => `초안 ${d.id} 저장 · 포털 승인 담당 게시 대기`);
+      return act(() => P.draftToken(role, { collection: v.collection, figma: v.figma, value: v.value, ref: v.ref.trim() }), (d) => `초안 ${d.id} 저장 · 내 변경에서 미리보기 확인 후 배포 요청`);
     case 'code': {
       const html = f.querySelector('[name=html]').value;
       const css = f.querySelector('[name=css]').value;
-      return act(() => P.draftCode(role, f.dataset.target, { html, css }, checkCode(html, css)), (d) => `초안 ${d.id} 저장 · 포털 승인 담당 게시 대기`);
+      return act(() => P.draftCode(role, f.dataset.target, { html, css }, checkCode(html, css)), (d) => `초안 ${d.id} 저장 · 내 변경에서 미리보기 확인 후 배포 요청`);
     }
     case 'figma-re':
       return act(() => P.draftFigma(role, { key: f.dataset.key, url: v.url.trim() }), (d) => `Figma 읽기 · ${d.lines.join(' · ')} · 초안 ${d.id}`).then(closeEdit);
     case 'figma-add':
       return act(() => P.draftFigma(role, { code: v.code || null, url: v.url.trim() }), (d) => `${d.after.name} 읽기 · 초안 ${d.id} 저장`);
     case 'promo-add':
-      return act(() => P.addPromotion(role, v), (p) => `${p.id} 등록 · 구조 확인 단계`);
+      return act(() => P.addPromotion(role, v), (p) => `${p.id} 등록 · ${p.stage} 단계`);
+    case 'request':
+      return act(() => P.addRequest(role, v), (r) => `${r.id} 요청 · DS 담당자에게 전달`);
     case 'publish': {
       const ids = [...f.querySelectorAll('input[name=ids]:checked')].map((x) => x.value);
-      return act(() => P.publish(role, ids, v.reason), (h) => `게시 ${h.version} · SB Studio가 이 버전을 읽습니다`);
+      return act(() => P.publish(role, ids, v.reason, v.mode || '정기'), (h) => `${h.mode} ${h.version} · SB Studio가 이 버전을 읽습니다`);
     }
     case 'rollback': {
       const b = e.submitter;
