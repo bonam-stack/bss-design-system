@@ -40,6 +40,8 @@ const bump = (b) => (b ? `<span class="bp ${b}">${b}</span>` : '');
 const can = (type) => role === P.EDITOR[type];
 const KIND_SECTION = { shell: 'blocks', block: 'blocks', comp: 'components', layout: 'patterns' };
 const KIND_LABEL = { shell: 'App shell', block: 'Blocks', comp: 'Components', layout: 'Layout rules' };
+// SB 블록: SB Studio에서 만든 업무 전용 블록(tb-). 여러 SB에서 쓰이면 승격 요청으로 공통 블록(b-)이 된다
+const isSb = (i) => i.kind === 'block' && /^tb-/.test(i.code);
 const link = (code) => {
   const it = P.item(code);
   if (it) return `<a href="#${esc(code)}">${esc(it.name)}</a>`;
@@ -88,12 +90,15 @@ export function sections() {
   const comps = I.filter((i) => i.kind === 'comp').sort((a, b) => a.name.localeCompare(b.name, 'en'));
   const sub = (L, title) => L.map((x, n) => (n ? x : [...x, title]));
   const S = [
+    ['governance', 'UX 거버넌스', [['rules', '규칙'], ['slots', '빈칸'], ['lint', '검증 규칙']]],
     ['start', '시작하기', [['overview', '개요'], ['stack', '조립 구조']]],
     ['foundations', 'Foundations', [['foundations', '개요'], ['color', '색상', '기본 요소'], ['typography', '타이포그래피'], ['dimension', '간격 · 모서리'], ['icons', '아이콘'], ['tokens', '토큰 구조', '구조']]],
     ['components', 'Components', [['components', '개요'], ['progress', '진행 현황'], ...sub(comps.map((i) => [i.code, i.name]), '컴포넌트')]],
-    ['blocks', 'Blocks', [['blocks', '개요'], ...I.filter((i) => i.kind === 'shell' || i.kind === 'block').map((i) => [i.code, i.name])]],
+    ['blocks', 'Blocks', [['blocks', '개요'],
+      ...sub(I.filter((i) => i.kind === 'shell').map((i) => [i.code, i.name]), '앱쉘'),
+      ...sub(I.filter((i) => i.kind === 'block' && !isSb(i)).map((i) => [i.code, i.name]), '공통 블록'),
+      ...sub(I.filter(isSb).map((i) => [i.code, i.name]), 'SB 블록')]],
     ['patterns', 'Patterns', [['patterns', '개요'], ...(ctx.data.patterns || []).map((p) => [`pattern-${p.key}`, `${p.name} 패턴`]), ...I.filter((i) => i.kind === 'layout').map((i) => [i.code, `${i.name} 레이아웃`])]],
-    ['governance', 'UX 거버넌스', [['rules', '규칙'], ['slots', '빈칸'], ['lint', '검증 규칙']]],
     ['updates', 'Updates', [['updates', '릴리스 노트']]],
   ];
   if (isEditor()) S.push(['admin', '관리', [['pub', '초안 · 게시'], ['promo', '승격 요청'], ['chg', '변경 감지']]]);
@@ -162,7 +167,6 @@ export function sideNav(route) {
   for (const [r, l, subTitle] of items) {
     if (subTitle) html += `<div class="nav-sub">${esc(subTitle)}</div>`;
     const k = kindOf(r);
-    if (cur === 'blocks' && k && k !== lastKind) { html += `<div class="nav-sub">${k === 'shell' ? '앱쉘' : '블록'}</div>`; lastKind = k; }
     if (cur === 'patterns' && k === 'layout' && lastKind !== 'layout') { html += '<div class="nav-sub">레이아웃 규칙</div>'; lastKind = 'layout'; }
     const it = P.item(r);
     const tag = it && it.status !== 'pub' ? `<span class="nv-st">${P.STATUS[it.status]}</span>` : '';
@@ -233,11 +237,11 @@ function pageOverview() {
   const n = (k) => I.filter((i) => i.kind === k).length;
   const H = P.history();
   const cards = [
-    ['components', 'Components', `컴포넌트 ${n('comp')}개`, '블록 안에 들어가는 최소 부품'],
-    ['blocks', 'Blocks', `앱쉘 ${n('shell')} · 블록 ${n('block')}`, '빈칸 하나를 채우는 업무 단위 묶음'],
-    ['patterns', 'Patterns', `레이아웃 규칙 ${n('layout')} · 패턴 ${(ctx.data.patterns || []).length}`, '화면을 어떤 순서로 쌓을지'],
-    ['rules', 'UX 거버넌스', `규칙 ${P.rules().length}개`, 'UX표준가이드 규칙과 연결표'],
-    ['foundations', 'Foundations', `토큰 ${Object.keys(ctx.data.tokens?.tokens || {}).length}개 · 아이콘 ${ctx.data.icons?.icons.length || 0}개`, '색상 · 타이포그래피 · 간격 · 아이콘'],
+    ['rules', 'UX 거버넌스', '규칙 · 빈칸 · 검증 규칙', 'UX표준가이드 규칙과 연결표 · 모든 화면의 기준'],
+    ['foundations', 'Foundations', '색상 · 타이포그래피 · 간격 · 아이콘', '모든 부품이 쓰는 기본 요소'],
+    ['components', 'Components', '최소 부품', '블록 안에 들어가는 버튼 · 입력 · 선택 등'],
+    ['blocks', 'Blocks', '앱쉘 · 공통 블록 · SB 블록', '빈칸 하나를 채우는 업무 단위 묶음'],
+    ['patterns', 'Patterns', 'UX 패턴 · 레이아웃 규칙', '화면을 어떤 순서로 쌓을지'],
     ['stack', '조립 구조', 'Stack 5단계', '앱쉘 → 레이아웃 → 빈칸 → 블록 → 컴포넌트'],
   ];
   return `${head('BSS Design System', 'BSS 디자인 포털', 'BSS 백오피스 화면을 만드는 기준입니다. SB Studio는 이 포털에 게시된 버전만 읽어 화면을 조립합니다.', `<div class="checks">${check(true, `게시 ${P.version()}`)}${check(true, '카탈로그 0.5')}${check(true, 'UX표준가이드 1.2')}${check(true, '디자인 토큰 v0.5')}</div>`)}
@@ -472,10 +476,21 @@ function pageList(kind) {
         <label class="w">Figma 노드 주소<input name="url" required placeholder="https://www.figma.com/design/…?node-id=…"></label></div>
         <div class="row"><button class="btn2 primary sm">읽기 · 초안 저장</button><button type="button" class="lnk" data-act="sample">예시: Chip 노드 (흉내)</button></div></form>
       ${pend.map(draftBox).join('')}</section>` : '';
-  return `${head(isComp ? 'Components' : 'Blocks', isComp ? '컴포넌트' : '블록', isComp ? '블록 안에 들어가는 최소 부품입니다. 그림은 Figma에서 읽은 기본 모양입니다.' : '앱쉘은 화면의 바탕 틀, 블록은 빈칸 하나를 채우는 업무 단위 묶음입니다.')}
+  return `${head(isComp ? 'Components' : 'Blocks', isComp ? '컴포넌트' : '블록', isComp ? '블록 안에 들어가는 최소 부품입니다. 그림은 Figma에서 읽은 기본 모양입니다.' : '앱쉘은 화면의 바탕 틀이고, 블록은 빈칸 하나를 채우는 업무 단위 묶음입니다. 블록은 포털이 관리하는 공통 블록과 SB Studio에서 만든 SB 블록으로 나뉩니다.')}
   ${add}
-  ${kind === 'block' ? '<h2 id="shell">앱쉘</h2>' + grid(I.filter((i) => i.kind === 'shell')) + '<h2 id="block">블록</h2>' + grid(I.filter((i) => i.kind === 'block')) : `<h2 id="all" class="sr">전체</h2>${grid(I)}`}`;
+  ${kind === 'block' ? blockSections(I) : `<h2 id="all" class="sr">전체</h2>${grid(I)}`}`;
 }
+/** Blocks 개요: 앱쉘 · 공통 블록 · SB 블록(+ 승격 진행) */
+function blockSections(I) {
+  const sb = I.filter(isSb);
+  const promos = P.promotions().filter((p) => /^tb-/.test(p.code));
+  return `<h2 id="shell">앱쉘</h2><p class="note">화면이 바뀌어도 남는 바탕 틀입니다. 빈칸으로 나뉩니다.</p>${grid(I.filter((i) => i.kind === 'shell'))}
+  <h2 id="common">공통 블록</h2><p class="note">Figma 디자인 시스템 기준으로 포털이 관리하는 블록입니다. 디자인 시스템 담당이 고치고 포털 승인 담당이 게시합니다. SB Studio는 이 블록을 먼저 고릅니다.</p>${grid(I.filter((i) => i.kind === 'block' && !isSb(i)))}
+  <h2 id="sb">SB 블록</h2><p class="note">공통 블록으로 만들 수 없는 부분을 SB Studio에서 만든 업무 전용 블록입니다. 소스를 직접 고치고 자동 검사(토큰만 사용 · 스크립트 금지)를 거칩니다. 여러 SB에서 쓰이면 승격 요청으로 공통 블록이 됩니다.</p>
+  ${sb.length ? grid(sb) : '<p class="muted">지금 등록된 SB 블록이 없습니다.</p>'}
+  ${promos.length ? `<h3>승격 진행</h3>${table(['SB 블록', '출처', '판단', '단계', '상태'], promos.map((p) => `<tr><td>${esc(p.name)}</td><td>${esc(p.from)}</td><td>${human(p.judge)}</td><td class="nw">${esc(p.stage)}</td><td>${st(p.status === '승인' ? 'ok' : p.status === '반려' ? 'ng' : 'hold', p.status)}</td></tr>`))}` : ''}`;
+}
+
 // 카드: 컴포넌트는 위쪽에 실제 컴포넌트 그림(기본 변형, app.js가 그림)을 두고, Figma · UX 표시는 두지 않는다
 function grid(L) {
   const thumbs = ctx.data.devKeys || [];
@@ -504,6 +519,7 @@ function pageItem(it) {
   const kv = [
     ['상태', stOf(it.status)],
     it.kind === 'comp' ? ['변형', esc(it.variants)] : null,
+    it.kind === 'block' ? ['구분', isSb(it) ? 'SB 블록 · SB Studio에서 만든 업무 전용 블록 (승격 대상)' : '공통 블록 · 포털 관리'] : null,
     it.kind === 'block' ? ['놓이는 빈칸', human(it.slot)] : null,
     it.kind === 'layout' ? ['적용 빈칸', link(it.slot)] : null,
     it.kind === 'layout' ? ['근거 문서', esc(it.guide)] : null,
@@ -511,7 +527,7 @@ function pageItem(it) {
     ['기준 원본', it.design ? '모양 Figma 디자인 시스템 · 뜻 카탈로그' : it.kind === 'layout' ? 'UX표준가이드' : 'UX 패턴 가이드 · 디자인 에셋 없음'],
     it.promotedFrom ? ['승격', `${esc(it.promotedFrom)}에서`] : null,
   ].filter(Boolean);
-  return `${head(KIND_LABEL[it.kind], it.name, it.meaning, `<div class="checks">${check(it.design, 'Figma')}${check(it.ux, 'UX 가이드')}${check(it.status === 'pub', P.STATUS[it.status])}</div>`)}
+  return `${head(isSb(it) ? 'Blocks · SB 블록' : it.kind === 'block' ? 'Blocks · 공통 블록' : KIND_LABEL[it.kind], it.name, it.meaning, `<div class="checks">${check(it.design, 'Figma')}${check(it.ux, 'UX 가이드')}${check(it.status === 'pub', P.STATUS[it.status])}</div>`)}
   ${drafts('item', it.code)}
   <div class="sb-ph"><span>${it.design ? '디자인 에셋은 Figma 디자인 시스템에 있습니다 · 미리보기는 노드의 레이어 데이터를 받으면 그려집니다' : '디자인 에셋 없음 · UX 패턴 가이드 기준'}</span></div>
   ${slotsOf.length || parts.length ? `<h2>Anatomy</h2>

@@ -8,7 +8,7 @@ Figma 기준 파일: `9AioWOXVOVm5C7kdSxSEEP` ((공유용) BSS_DS_Library_Compon
 
 - 공유 링크: https://claude.ai/artifact/PU6iNoAkpJhThz5v2qvbKg
 - 로컬: `python3 -m http.server 8791 --directory design-system` 후 http://localhost:8791 (JSON을 fetch하므로 더블클릭으로는 안 열림)
-- IA (SEED 문서 사이트와 같은 기획, 다른 스타일): 시작하기 · Foundations(색상 · 타이포그래피 · 간격 · 아이콘 · 토큰 구조) · Components(개요 · 진행 현황) · Blocks · Patterns · UX 거버넌스 · Updates. SEED의 Develop · AI & Tools는 메뉴로 두지 않는다. 컴포넌트 코드 페이지(`#dev-c-<key>`)와 토큰 레퍼런스(`#dev-tokens`)는 메뉴 없이 링크로만 연다 (Figma 읽기 · SB Studio 연계는 포털 뒤에서 도는 기능)
+- IA: UX 거버넌스(맨 앞) · 시작하기 · Foundations(색상 · 타이포그래피 · 간격 · 아이콘 · 토큰 구조) · Components(개요 · 진행 현황) · Blocks(앱쉘 · 공통 블록 `b-` · SB 블록 `tb-`) · Patterns · Updates. SEED의 Develop · AI & Tools는 메뉴로 두지 않는다. 컴포넌트 코드 페이지(`#dev-c-<key>`)와 토큰 레퍼런스(`#dev-tokens`)는 메뉴 없이 링크로만 연다 (Figma 읽기 · SB Studio 연계는 포털 뒤에서 도는 기능)
 - 컴포넌트는 디자인 문서 `#c-<key>`(대표 이미지 → Anatomy → Properties → Guidelines → Specification → Usage)와 개발 문서 `#dev-c-<key>`(미리보기 · 코드 → 사용하기 → Props → Examples → Figma · 변형 · 토큰)로 나뉜다. Specification(색 매트릭스 · 크기 표)은 `component.json`의 토큰 경로에서 만든다 (`site/spec.js`)
 - 공통: 검색(Ctrl/Cmd+K), 테마 전환, 스크롤을 따라가는 목차, 이전 · 다음 문서, 바닥글
 - 페이지: `#overview`, `#foundations`, `#components`, `#updates`, `#<카탈로그 코드>` (예: `#c-button`, `#b-search-general`; 예전 `#button`도 열림), 관리 `#pub` · `#promo` · `#chg`
