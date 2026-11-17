@@ -665,12 +665,13 @@ async function boot() {
   }));
 
   // BSS 디자인 포털: 저장소 JSON + SB Studio 카탈로그가 기준, 게시된 변경은 브라우저 저장소에서
+  const tokens = await getJson('tokens/variables.json').catch(() => ({ tokens: {} }));
   P.init({
     catalog,
     comps: Object.fromEntries(components.map((c) => [c.key, c])),
     guides: Object.fromEntries(components.filter((c) => c.guide?.policy).map((c) => [c.key, c.guide.policy])),
+    tokens: tokens.tokens, // 기준 토큰(Figma 변수). 게시된 추가 · 수정 · 삭제를 더한 목록은 P.tokens()
   });
-  const tokens = await getJson('tokens/variables.json').catch(() => ({ tokens: {} }));
   const ctx = { components, icons };
   const codeOf = (key) => P.itemByKey(key)?.code || `c-${key}`;
 

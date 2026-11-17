@@ -22,6 +22,8 @@ export function init(c) {
   document.addEventListener('submit', onSubmit);
   document.addEventListener('change', onChange);
   document.addEventListener('input', (e) => {
+    if (e.target.id === 'tkName') return fillToken(e.target.value.trim());
+    if (e.target.id === 'tkPick') { document.getElementById('tkValue').value = e.target.value.toUpperCase(); return; }
     if (e.target.closest('#codeEd')) { clearTimeout(init.c); init.c = setTimeout(refreshCodeEd, 150); return; }
     if (e.target.id !== 'rq') return;
     ui.q = e.target.value;
@@ -40,7 +42,54 @@ export function resetUi() { ui.edit = null; ui.editRule = null; }
 export function renderInto(host, html, css) {
   if (!host) return;
   const root = host.shadowRoot || host.attachShadow({ mode: 'open' });
-  root.innerHTML = `<style>:host{all:initial;display:block;color:#1c1f23;font-family:Pretendard,'Pretendard Variable',system-ui,sans-serif;font-size:14px;line-height:1.5}${css}</style>${html}`;
+  root.innerHTML = `<style>:host{${tokenVars()}}:host{all:initial;display:block;color:#1c1f23;font-family:Pretendard,'Pretendard Variable',system-ui,sans-serif;font-size:14px;line-height:1.5}${css}</style>${html}`;
+}
+
+/** 게시된 토큰을 CSS 변수로 (미리보기 안에서 var(--…)가 실제 값으로 그려지게) */
+function tokenVars() {
+  return Object.entries(P.tokens()).map(([k, t]) => `${k}:${t.value}`).join(';');
+}
+
+/** 토큰 소스: :root CSS 변수. 역할 · 컴포넌트 토큰은 가리키는 토큰을 var()로 이어 쓴다 */
+export function tokenSource() {
+  const T = P.tokens();
+  const px = (t) => (t.type === 'FLOAT' && /^-?\d+(\.\d+)?$/.test(String(t.value)) && !/weight|opacity|lineheight$/i.test(t.figma.replace(/\//g, '')) ? `${t.value}px` : t.value);
+  const block = (col) => Object.entries(T).filter(([, t]) => t.collection === col).map(([k, t]) => `  ${k}: ${t.ref && T[t.ref] ? `var(${t.ref})` : px(t)};`).join('\n');
+  return `/* BSS 디자인 토큰 · 게시 ${P.version()} · Primitive → Semantic → Component */\n:root {\n  /* Primitive */\n${block('Primitive')}\n\n  /* Semantic */\n${block('Semantic')}\n\n  /* Component */\n${block('Component')}\n}\n`;
+}
+
+/** 토큰 편집 칸 (디자인 시스템 담당) */
+function tokenEditor() {
+  if (!can('token')) return '';
+  const T = P.tokens();
+  const pend = P.drafts((d) => d.status === 'draft' && d.type === 'token');
+  return `<section class="ed-panel" id="tokenEd" aria-label="토큰 편집">
+    <div class="ed-h"><b>토큰 편집</b><span>디자인 시스템 담당 · 이미 있는 이름을 넣으면 수정, 새 이름이면 추가 · 베이스는 값, 역할 · 컴포넌트는 가리키는 토큰을 고릅니다</span></div>
+    <datalist id="tkNames">${Object.values(T).map((t) => `<option value="${esc(t.figma)}"></option>`).join('')}</datalist>
+    <datalist id="tkRefs">${Object.entries(T).filter(([, t]) => t.collection !== 'Component').map(([k, t]) => `<option value="${esc(k)}">${esc(t.figma)}</option>`).join('')}</datalist>
+    <form class="ef" data-form="token"><div class="ef-r">
+      <label>단계<select name="collection" id="tkCol"><option value="Primitive">베이스 · Primitive</option><option value="Semantic">역할 · Semantic</option><option value="Component">컴포넌트 · Component</option></select></label>
+      <label class="w">이름 (Figma 변수)<input name="figma" id="tkName" list="tkNames" required placeholder="예: color/bg/brand/strongest/default"></label></div>
+      <div class="ef-r">
+        <label>값 (베이스)<span class="tk-val"><input type="color" id="tkPick" aria-label="색 고르기" value="#3617ce"><input name="value" id="tkValue" placeholder="#3617CE 또는 숫자"></span></label>
+        <label class="w">가리키는 토큰 (역할 · 컴포넌트)<input name="ref" id="tkRef" list="tkRefs" placeholder="예: --color-indigo-600"></label>
+      </div>
+      <p class="muted" id="tkNow"></p>
+      <div class="row"><button class="btn2 primary sm">초안 저장</button><button type="button" class="btn2 sm danger" data-act="token-remove">삭제 초안</button><span class="muted">게시되면 색상 · 토큰 소스 · 코드 미리보기에 바로 반영됩니다</span></div>
+    </form>
+    ${pend.map(draftBox).join('')}</section>`;
+}
+
+/** 이름을 고르면 지금 값으로 채운다 */
+function fillToken(figma) {
+  const t = P.tokens()[P.cssName(figma)];
+  const now = document.getElementById('tkNow');
+  if (!t) { if (now) now.textContent = figma ? '새 토큰으로 추가됩니다' : ''; return; }
+  document.getElementById('tkCol').value = t.collection;
+  document.getElementById('tkValue').value = t.ref ? '' : t.value;
+  document.getElementById('tkRef').value = t.ref || '';
+  if (/^#[0-9a-f]{6}/i.test(t.value)) document.getElementById('tkPick').value = t.value.slice(0, 7).toLowerCase();
+  now.textContent = `지금: ${t.collection} · ${t.ref ? `→ ${P.tokens()[t.ref]?.figma || t.ref}` : ''} ${t.value}`;
 }
 
 /** 저장 전 자동 검사: 스크립트 금지(오류) · 색은 토큰으로(경고) · 없는 토큰 이름(경고) */
@@ -53,7 +102,7 @@ export function checkCode(html, css) {
   const bare = all.replace(/var\(\s*--[\w-]+\s*,[^)]*\)/g, 'var()'); // var(--토큰, #대체값)의 대체값은 괜찮다
   const hex = [...new Set(bare.match(/#[0-9a-f]{3,8}\b|rgba?\([^)]*\)/gi) || [])];
   if (hex.length) out.push({ level: 'warn', text: `색을 값으로 썼습니다: ${hex.slice(0, 4).join(', ')}${hex.length > 4 ? ' …' : ''} → var(--토큰)으로 바꿔 주세요` });
-  const known = new Set(Object.keys(ctx.data.tokens?.tokens || {}));
+  const known = new Set(Object.keys(P.tokens()));
   const unknown = [...new Set([...all.matchAll(/var\(\s*(--[\w-]+)/g)].map((m) => m[1]))].filter((t) => !known.has(t));
   if (unknown.length) out.push({ level: 'warn', text: `토큰 목록에 없는 이름: ${unknown.slice(0, 4).join(', ')}${unknown.length > 4 ? ' …' : ''}` });
   return out;
@@ -367,7 +416,7 @@ function pageUpdates() {
 
 // ---------- Foundations ----------
 
-const TK = () => Object.entries(ctx.data.tokens?.tokens || {}).map(([css, t]) => ({ css, ...t }));
+const TK = () => Object.entries(P.tokens()).map(([css, t]) => ({ css, ...t }));
 const swatch = (hex) => `<i class="sw" style="background:${esc(hex)}"></i>`;
 const COLOR_ROLE = { bg: '배경 (bg)', fg: '글자 · 아이콘 (fg)', border: '테두리 (border)' };
 
@@ -503,6 +552,7 @@ function pageTokens() {
   ].filter((x) => x[1]);
   const LAYER = { Primitive: '베이스', Semantic: '역할', Component: '컴포넌트' };
   return `${head('Foundations', '토큰 구조', '토큰은 베이스 색에서 시작해 역할 → 컴포넌트 변형 순서로 이어집니다. 값은 베이스에만 있고, 그 아래 단계는 위 단계의 이름을 가리킵니다.')}
+  ${tokenEditor()}
   <h2 id="layers">세 단계</h2>
   ${table(['단계', '개수', '뜻', '값이 있는 곳'], [
     ['베이스 · Primitive', all.filter((t) => t.collection === 'Primitive').length, '팔레트 원본 색 (예: gray/50)', '<a href="#color">색상 › Palette</a>'],
@@ -526,12 +576,17 @@ function pageTokens() {
 function pageTokenRef() {
   const cols = ['Primitive', 'Semantic', 'Component'];
   const all = TK();
-  return `${head('Foundations', '토큰 레퍼런스', `Figma 변수에서 읽은 토큰 ${all.length}개의 CSS 변수 목록입니다. 이름을 누르면 var(--…) 형태로 복사됩니다. 구조 설명은 Foundations › 토큰 구조에 있습니다.`)}
+  return `${head('Foundations', '토큰 레퍼런스', `Figma 변수에서 읽은 토큰과 포털에서 게시한 토큰 ${all.length}개의 CSS 변수 목록입니다. 이름을 누르면 var(--…) 형태로 복사됩니다. 구조 설명은 Foundations › 토큰 구조에 있습니다.`)}
+  ${tokenEditor()}
+  <h2 id="source">토큰 소스 (CSS)</h2>
+  <p class="note">게시된 토큰 전체를 CSS 변수로 묶은 소스입니다. 토큰이 추가 · 수정되어 게시되면 이 소스와 컴포넌트 · 블록 코드 미리보기가 함께 바뀝니다.</p>
+  <div class="btn-row"><button class="btn2 sm" data-copy="${esc(tokenSource())}">소스 복사</button></div>
+  <pre class="tk-src">${esc(tokenSource())}</pre>
   ${cols.map((col) => {
     const L = all.filter((t) => t.collection === col);
     return `<h2 id="ref-${col.toLowerCase()}">${col} <span class="count">${L.length}</span></h2>
     <details class="ref"${col === 'Component' ? '' : ''}><summary>${col} 토큰 ${L.length}개 펼치기</summary>
-    ${table(['Figma 변수', 'CSS 변수', '값', '가리키는 토큰'], L.map((t) => `<tr><td><code>${esc(t.figma)}</code></td><td><button class="copy" data-copy="var(${esc(t.css)})" title="클릭해서 복사">${esc(t.css)}</button></td><td class="mono nw">${t.type === 'COLOR' ? swatch(t.value) : ''}${esc(t.value)}</td><td class="mono muted">${esc(t.ref || '-')}</td></tr>`))}</details>`;
+    ${table(['Figma 변수', 'CSS 변수', '값', '가리키는 토큰', ...(can('token') ? [''] : [])], L.map((t) => `<tr><td><code>${esc(t.figma)}</code>${P.openDraft('token', t.css) ? ' <span class="st ai">초안</span>' : ''}</td><td><button class="copy" data-copy="var(${esc(t.css)})" title="클릭해서 복사">${esc(t.css)}</button></td><td class="mono nw">${t.type === 'COLOR' ? swatch(t.value) : ''}${esc(t.value)}</td><td class="mono muted">${esc(t.ref || '-')}</td>${can('token') ? `<td><button type="button" class="edit-btn" data-act="token-pick" data-k="${esc(t.figma)}" aria-label="${esc(t.figma)} 편집">✎</button></td>` : ''}</tr>`))}</details>`;
   }).join('')}`;
 }
 
@@ -687,8 +742,8 @@ function pagePub() {
   const done = P.drafts((d) => d.status !== 'draft');
   const last = P.history()[0];
   const approver = role === 'approver';
-  const typeName = { item: '카탈로그', rule: '규칙', guide: '사용 가이드', figma: 'Figma', code: '코드' };
-  const where = (d) => (d.type === 'code' ? `#${d.target}` : d.type === 'rule' ? '#rules' : d.type === 'guide' || d.type === 'figma' ? `#${P.itemByKey(d.key || d.target)?.code || d.code || d.target}` : `#${d.target}`);
+  const typeName = { item: '카탈로그', rule: '규칙', guide: '사용 가이드', figma: 'Figma', code: '코드', token: '토큰' };
+  const where = (d) => (d.type === 'token' ? '#dev-tokens' : d.type === 'code' ? `#${d.target}` : d.type === 'rule' ? '#rules' : d.type === 'guide' || d.type === 'figma' ? `#${P.itemByKey(d.key || d.target)?.code || d.code || d.target}` : `#${d.target}`);
   return `${head('관리', '초안 · 게시', '담당이 고친 내용은 초안으로 쌓이고, 포털 승인 담당이 게시하면 버전이 오르고 SB Studio가 읽는 게시본이 바뀝니다.')}
   <h2 id="pending">게시 대기 ${pend.length}건</h2>
   <form data-form="publish">${table(['', '초안', '종류', '내용', '담당', '자리', ''], pend.map((d) => `<tr><td>${approver ? `<input type="checkbox" name="ids" value="${d.id}" checked aria-label="${d.id} 고르기">` : ''}</td><td><b class="nw">${esc(d.id)}</b></td><td class="nw">${typeName[d.type]}</td><td><a href="${esc(where(d))}">${esc(d.title)}</a><ul class="mini">${d.lines.map((l) => `<li>${esc(l)}</li>`).join('')}</ul></td><td class="nw">${esc(P.ROLES[d.by])}</td><td>${bump(d.bump)}</td><td class="nw">${approver ? `<button type="button" class="btn2 sm" data-act="discard" data-id="${d.id}">반려</button>` : role === d.by ? `<button type="button" class="btn2 sm" data-act="discard" data-id="${d.id}">버리기</button>` : ''}</td></tr>`))}
@@ -867,6 +922,17 @@ function onClick(e) {
       f.code.value = 'c-chip';
       return;
     }
+    case 'token-pick': {
+      const el = document.getElementById('tkName');
+      el.value = d.k;
+      fillToken(d.k);
+      return document.getElementById('tokenEd').scrollIntoView({ block: 'start', behavior: 'smooth' });
+    }
+    case 'token-remove': {
+      const name = document.getElementById('tkName').value.trim();
+      if (!name) return ctx.toast('지울 토큰 이름을 넣어 주세요');
+      return act(() => P.draftToken(role, { figma: name }, true), (x) => `${x.id} 삭제 초안 저장`);
+    }
     case 'code-reset': {
       const ed = document.getElementById('codeEd');
       const def = ed && codeDefaults[ed.dataset.target];
@@ -924,6 +990,8 @@ function onSubmit(e) {
       const add = [{ kind: nr.querySelector('[name=kind]').value, text: nr.querySelector('[name=text]').value }];
       return act(() => P.draftGuide(role, f.dataset.key, { lead: v.lead, rules: rows, add }), (d) => `초안 ${d.id} 저장 · 포털 승인 담당 게시 대기`).then(closeEdit);
     }
+    case 'token':
+      return act(() => P.draftToken(role, { collection: v.collection, figma: v.figma, value: v.value, ref: v.ref.trim() }), (d) => `초안 ${d.id} 저장 · 포털 승인 담당 게시 대기`);
     case 'code': {
       const html = f.querySelector('[name=html]').value;
       const css = f.querySelector('[name=css]').value;

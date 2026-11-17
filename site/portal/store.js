@@ -13,7 +13,7 @@ export const PROMO_STAGES = [
   { stage: '최종 승인', who: 'approver', act: '최종 승인' },
 ];
 // 누가 무엇을 고치나: 컴포넌트 · 블록 · 토큰 · Figma는 디자인 시스템 담당, 앱쉘 · 레이아웃 규칙 · 규칙 · 사용 가이드는 UX 가이드 담당
-export const EDITOR = { shell: 'ux', block: 'ds', comp: 'ds', figma: 'ds', code: 'ds', layout: 'ux', rule: 'ux', guide: 'ux' };
+export const EDITOR = { shell: 'ux', block: 'ds', comp: 'ds', figma: 'ds', code: 'ds', token: 'ds', layout: 'ux', rule: 'ux', guide: 'ux' };
 
 let base = null; // { catalog, comps: {key: 저장소 컴포넌트}, guides: {key: 정책} }
 let S = null;
@@ -30,7 +30,7 @@ function fresh() {
   return {
     v: 2,
     version: base.catalog.meta.version,
-    pub: { items: {}, added: [], rules: {}, addedRules: [], guides: {}, comps: {}, code: {} },
+    pub: { items: {}, added: [], rules: {}, addedRules: [], guides: {}, comps: {}, code: {}, tokens: {} },
     drafts: [],
     promotions: clone(base.catalog.promotions),
     detections: clone(base.catalog.detections),
@@ -48,6 +48,7 @@ export function init(b) {
   try { S = JSON.parse(localStorage.getItem(KEY) || 'null'); } catch { S = null; }
   if (!S || S.v !== 2) { S = fresh(); save(); }
   S.pub.code = S.pub.code || {}; // 코드 편집이 생기기 전에 저장된 상태
+  S.pub.tokens = S.pub.tokens || {};
 }
 export function reset() { S = fresh(); save(); }
 export const version = () => S.version;
@@ -104,6 +105,67 @@ export function comp(key) {
   if (base.comps[key]) return p ? { ...base.comps[key], description: p.description ?? base.comps[key].description, figmaSyncedAt: p.syncedAt } : base.comps[key];
   return p ? { ...p, portalOnly: true } : null;
 }
+// ---------- 토큰 (디자인 시스템 담당) ----------
+// 기준: tokens/variables.json(Figma 변수) + 게시된 추가 · 수정 · 삭제. 가리키는 토큰(ref)이 있으면 값은 그 토큰을 따라간다.
+
+/** Figma 이름 → CSS 변수 이름 (color/bg/brand → --color-bg-brand, iconOnly → icon-only) */
+export const cssName = (figma) => `--${String(figma).trim().replace(/([a-z0-9])([A-Z])/g, '$1-$2').toLowerCase().replace(/[^a-z0-9/._-]/g, '').replace(/[/.]+/g, '-')}`;
+
+export function tokens() {
+  const T = clone(base.tokens || {});
+  for (const [css, t] of Object.entries(S.pub.tokens)) {
+    if (t === null) delete T[css];
+    else T[css] = { ...(T[css] || {}), ...t };
+  }
+  // 값 풀기: 가리키는 토큰의 값을 따라간다 (게시로 베이스 색이 바뀌면 역할 · 컴포넌트도 같이 바뀜)
+  const resolve = (css, seen = new Set()) => {
+    const t = T[css];
+    if (!t || !t.ref || seen.has(css)) return t?.value;
+    seen.add(css);
+    return T[t.ref] ? resolve(t.ref, seen) : t.value;
+  };
+  for (const css of Object.keys(T)) T[css].value = resolve(css) ?? T[css].value;
+  return T;
+}
+
+/** 토큰 추가 · 수정 · 삭제 초안. 추가는 MINOR, 기존 토큰 수정 · 삭제는 쓰는 부품이 바뀌어 MAJOR */
+export function draftToken(role, f, remove = false) {
+  must(role, 'token');
+  const T = tokens();
+  const figma = String(f.figma || '').trim().replace(/^\/+|\/+$/g, '');
+  if (!/^[a-zA-Z][\w./-]*$/.test(figma)) throw new Error('토큰 이름은 color/bg/brand/default처럼 영문 · 숫자 · / 로 씁니다');
+  const css = cssName(figma);
+  const cur = T[css] || null;
+  if (remove) {
+    if (!cur) throw new Error(`${figma} 토큰이 없습니다`);
+    const users = Object.entries(T).filter(([, t]) => t.ref === css).map(([k]) => k);
+    if (users.length) throw new Error(`이 토큰을 가리키는 토큰이 있어 지울 수 없습니다: ${users.slice(0, 3).join(', ')}${users.length > 3 ? ' …' : ''}`);
+    return upsertDraft({ type: 'token', target: css, title: `${figma} 토큰 삭제`, after: null, lines: [`토큰 삭제: ${figma} (${cur.value})`], bump: 'MAJOR' }, role);
+  }
+  const collection = f.collection;
+  if (!['Primitive', 'Semantic', 'Component'].includes(collection)) throw new Error('단계를 고르세요');
+  const refCss = f.ref ? (f.ref.startsWith('--') ? f.ref : cssName(f.ref)) : null;
+  if (collection !== 'Primitive' && !refCss) throw new Error('역할 · 컴포넌트 토큰은 가리키는 토큰을 고릅니다 (값을 직접 넣지 않음)');
+  if (refCss && !T[refCss]) throw new Error(`가리키는 토큰이 없습니다: ${f.ref}`);
+  if (refCss === css) throw new Error('자기 자신을 가리킬 수 없습니다');
+  const type = refCss ? T[refCss].type : f.type || 'COLOR';
+  const value = refCss ? T[refCss].value : String(f.value || '').trim();
+  if (!refCss && type === 'COLOR' && !/^#([0-9a-f]{6}|[0-9a-f]{8})$/i.test(value)) throw new Error('색 값은 #RRGGBB 형식으로 넣습니다');
+  if (!refCss && type === 'FLOAT' && !Number.isFinite(Number(value))) throw new Error('숫자 값을 넣습니다');
+  const after = { figma, collection, type, value, ref: refCss || null };
+  const lines = [];
+  if (!cur) lines.push(`토큰 추가: ${figma} = ${refCss ? `→ ${T[refCss].figma}` : value}`);
+  else {
+    if (cur.collection !== collection) lines.push(`단계: ${cur.collection} → ${collection}`);
+    if ((cur.ref || null) !== after.ref) lines.push(`가리키는 토큰: ${cur.ref ? T[cur.ref]?.figma || cur.ref : '-'} → ${refCss ? T[refCss].figma : '-'}`);
+    if (!refCss && cur.value !== value) lines.push(`값: ${cur.value} → ${value}`);
+    if (!lines.length) throw new Error('바뀐 내용이 없습니다');
+    const users = Object.values(T).filter((t) => t.ref === css).length;
+    if (users) lines.push(`이 토큰을 가리키는 토큰 ${users}개도 함께 바뀜`);
+  }
+  return upsertDraft({ type: 'token', target: css, title: `${figma} 토큰 ${cur ? '수정' : '추가'}`, after, isNew: !cur, lines, bump: cur ? 'MAJOR' : 'MINOR' }, role);
+}
+
 /** 게시된 코드(HTML · CSS). 컴포넌트는 카탈로그 코드(c-…), 블록 · 앱쉘도 카탈로그 코드로 찾는다 */
 export const pubCode = (target) => (S.pub.code[target] ? clone(S.pub.code[target]) : null);
 
@@ -259,6 +321,7 @@ function apply(d) {
     else P.rules[d.target] = d.after ? { ...d.after } : null;
   } else if (d.type === 'guide') P.guides[d.target] = d.after;
   else if (d.type === 'code') P.code[d.target] = { ...d.after, at: now() };
+  else if (d.type === 'token') P.tokens[d.target] = d.after ? { ...d.after } : null;
   else if (d.type === 'figma') {
     if (d.isNew) {
       P.comps[d.key] = { ...d.after, syncedAt: now() };
