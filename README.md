@@ -53,6 +53,36 @@ import { Checkbox, Button, TextField, PasswordField, TextArea, RadioGroup, Radio
 - 색 · 치수는 `var(--토큰, Figma 값)`이라 토큰 CSS 없이도 Figma 값으로 그려지고, 토큰 CSS를 올리면 그 값을 따른다.
 - Figma와 일치: 모든 변형을 그려 비교한 결과 Button 172 · Checkbox 24 · Radio 16 · RadioGroup 2 · Divider 4 · HelperText 2 · TextField 108 · TextArea 36개가 픽셀 단위로 같다. PasswordField는 Figma가 `********`를 글자로 그린 자리를 브라우저가 `●`로 가리는 차이만 있다.
 
+## UX 패턴 가이드 반영 (NEXT BSS UX Pattern Guide)
+
+caumuse에 게시된 UX 패턴 가이드(https://mocks.caumuse.kr/release/20261106/)의 문서를 그대로 붙이지 않고, 포털 구조로 나눠 넣었다.
+
+| 가이드 | 포털 | 형식 |
+|---|---|---|
+| UX 원칙 (3) | 시작하기 | 문서 페이지 |
+| 파운데이션 (14) | Foundations (앱 구조 · 화면 유형 · 사용 환경) | 문서 페이지 |
+| 패턴 (31) | Patterns (화면 편성 · 조회·목록 · 편집 · 응답·예외 · 노드 진행 · 외부 연동 · 표준 기능) | 문서 페이지 |
+| 모듈 (18) | Blocks (일반형 화면 · 노드 · 상세·처리 모듈) | 문서 페이지 + 관련 블록 페이지에 연결 |
+| 컴포넌트 (13) | Components (컴포넌트 가이드) | 문서 페이지 + 관련 컴포넌트 페이지에 연결 |
+| Do / Don't (878) | UX 거버넌스 › 규칙 (권장 451 · 금지 427, 번호 `GRID-BOARD-01` …) | 대상 블록 · 컴포넌트 · 레이아웃에 걸림 |
+| 용어사전 (222) | UX 거버넌스 › 용어사전 | 검색되는 표 |
+| SB 작성 가이드 | UX 거버넌스 | 문서 페이지 |
+
+문서 페이지(`#g-<문서 id>`)는 Overview(언제 쓰나 · 다른 것을 쓰나) → 구성요소(번호) · 동작 · 규격 표 → Do / Don't → Usage(이 기준을 따르는 블록 · 컴포넌트, 함께 볼 문서) 순이다.
+화면 예시 목업과 "실제 예시" 절은 빼고 글 · 표 · 규칙만 옮겼다. 버전 이력은 추출본에 내용이 없어 넣지 않았다.
+
+```
+guides/ux-pattern/<id>.md          원문 (split_ux_guide.py가 전체 마크다운에서 나눔)
+guides/ux-pattern/index.json       원문 문서 목록
+guides/ux-pattern/docs/<id>.json   포털 구조로 나눈 문서 (structure_ux_guide.py)
+guides/ux-pattern/structure.json   배치(place) · 대상 코드(targets) · 권장 · 금지 규칙
+guides/ux-pattern/glossary.json    용어사전
+scripts/split_ux_guide.py          가이드 전체 마크다운 → 원문 파일
+scripts/structure_ux_guide.py      원문 → 포털 구조. 문서별 대상 코드(TARGETS)와 구성요소 이름 보정(FORCE_NAMES)이 여기 있다
+```
+
+새 릴리스 반영: `python3 scripts/split_ux_guide.py <전체 마크다운>` → `python3 scripts/structure_ux_guide.py` → 커밋.
+
 ## BSS 디자인 포털
 
 SB Studio 안의 메뉴로 들어가는 디자인 포털이다. 누구에게나 같은 문서 사이트(시작하기 · Foundations · Components · Blocks · Patterns · UX 거버넌스)가 보이고,
