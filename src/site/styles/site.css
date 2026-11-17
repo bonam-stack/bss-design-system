@@ -1,4 +1,4 @@
-/* Docs site chrome. Reads JSON at runtime (components/*/component.json, icons/icons.json).
+/* Docs site chrome (React app in src/site). Data comes from the repo JSON: components/<key>/component.json, icons/icons.json.
    Layout: sticky top bar, left nav, single reading column; data tables scroll inside their own box. */
 @font-face {
   font-family: 'Pretendard';
@@ -277,9 +277,8 @@ dialog::backdrop { background: var(--scrim); }
 }
 .sb-stage { display: inline-grid; place-items: center; padding: 6px; border-radius: 8px; color: #1c1f23; }
 .sb-stage:focus { outline: none; }
-/* The stage redraws on press; its contents must not be the event target or the click is lost. */
-.sb-stage { cursor: pointer; user-select: none; }
-.sb-stage > * { pointer-events: none; }
+/* The component itself (.ds-root) takes the pointer and keyboard; the stage only centres it. */
+.sb-stage { user-select: none; }
 .sb-controls { display: grid; align-content: start; gap: 14px; padding: 16px; border-left: 1px solid var(--border); }
 .ctl { display: grid; gap: 6px; font-size: 13px; }
 label.ctl { grid-template-columns: minmax(0, 1fr) auto; align-items: center; }
@@ -363,6 +362,7 @@ details.dev h2:first-of-type { margin-top: 12px; }
 .pt-date { padding: 0 12px 0 14px; }
 .pt-num { letter-spacing: -0.6px; font-feature-settings: 'lnum' 1, 'tnum' 1; text-overflow: clip; } /* fits in Figma; the browser measures it 1px wider */
 .pt-box svg { display: block; flex-shrink: 0; }
+.pt-ico { display: contents; }
 .pt-cal { display: flex; padding: 1.5px 2px; }
 .pt-cal svg { width: 12px; height: 13px; }
 .pt-button {

@@ -1,11 +1,11 @@
-// 포털 코어 번들: BSS 디자인 포털(문서 사이트)이 쓰는 Figma 변환 코드를 ES 모듈 하나(../site/portal-core.js)로 묶는다.
+// 포털 코어 번들: BSS 디자인 포털(문서 사이트)이 쓰는 Figma 변환 코드를 ES 모듈 하나(../src/site/portal/portal-core.js)로 묶는다.
 //   npm run build:site
 import fs from "node:fs";
 import path from "node:path";
 import { build } from "esbuild";
 import { POC_DIR, REPO_DIR } from "../lib/persist.mjs";
 
-const OUT = path.join(REPO_DIR, "site", "portal-core.js");
+const OUT = path.join(REPO_DIR, "src", "site", "portal", "portal-core.js");
 
 const swaps = { "./fixtures.mjs": "lib/fixtures.browser.mjs" };
 

@@ -19,7 +19,7 @@ npm start          # http://localhost:8792
 | `POC_DATA_DIR` | `poc/data` | 상태 파일(`state.json`) 위치 |
 
 처음 실행하면 저장소의 `components/` · `patterns/` · `icons/` · `tokens/`를 **1.0.0(구축)** 으로 일괄 이관한다.
-`npm run reset` 또는 관리자 › 권한 · 초기화로 처음부터 다시 시작한다. 기존 문서 사이트는 `/ds/`에서 그대로 열린다.
+`npm run reset` 또는 관리자 › 권한 · 초기화로 처음부터 다시 시작한다. 문서 사이트는 저장소 루트에서 `npm run build`를 한 뒤 `/ds/`에서 열린다.
 
 ```bash
 npm test           # 케이스 1~4 · 승격 · 배포 · 롤백 · Studio 연계를 흉내 모드로 끝까지 돌림
@@ -27,8 +27,8 @@ npm test           # 케이스 1~4 · 승격 · 배포 · 롤백 · Studio 연�
 
 ## BSS 디자인 포털 (문서 사이트, GitHub Pages)
 
-지금 쓰는 포털 화면은 저장소 루트 사이트(`index.html`)다. 이 폴더의 서버 · `public/` 화면은 서버 API와 Figma · Claude 실연결을 확인하는 개발용이다.
-사이트 구성과 역할별 에디터 모드는 저장소 README의 "BSS 디자인 포털"을 본다. Figma 변환은 이 폴더 `lib/figma.mjs`를 묶은 `../site/portal-core.js`(`npm run build:site`)를 쓴다.
+지금 쓰는 포털 화면은 저장소 루트의 React 사이트(`src/site/`)다. 이 폴더의 서버 · `public/` 화면은 서버 API와 Figma · Claude 실연결을 확인하는 개발용이다.
+사이트 구성과 역할별 에디터 모드는 저장소 README의 "BSS 디자인 포털"을 본다. Figma 변환은 이 폴더 `lib/figma.mjs`를 묶은 `../src/site/portal/portal-core.js`(`npm run build:site`)를 쓴다.
 
 ## 덱 → POC 대응
 
@@ -58,7 +58,7 @@ lib/checks.mjs      변환 자동 확인, SB 소스 검사, 자동 검사 4종
 lib/ai.mjs          Claude 연동(미리보기 챗 · 화면 생성, 구조화 출력) / ai.mock.mjs: 흉내 모드
 lib/version.mjs     MAJOR.MINOR.PATCH · 미리보기 표기
 public/             개발용 화면 (서버 API 확인)
-scripts/build-site-core.mjs  문서 사이트 포털이 쓰는 Figma 변환 → ../site/portal-core.js
+scripts/build-site-core.mjs  문서 사이트 포털이 쓰는 Figma 변환 → ../src/site/portal/portal-core.js
 site-core.entry.mjs  그 번들의 입구
 fixtures/figma/     흉내 모드용 Figma API 응답 예시
 test/flow.test.mjs  전체 흐름 테스트
