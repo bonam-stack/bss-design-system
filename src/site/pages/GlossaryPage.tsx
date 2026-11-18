@@ -31,7 +31,7 @@ export function GlossaryPage() {
               {s} <span className="count">{L.length}</span>
             </h2>
             <div className="table-wrap">
-              <table className="data gx-table">
+              <table className="data gx-table gx-glossary">
                 <thead>
                   <tr>
                     {grouped ? <th>분류</th> : null}

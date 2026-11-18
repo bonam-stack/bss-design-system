@@ -393,3 +393,23 @@ a.role-pop-row:hover b { color: var(--ed); }
 .slot-area.opt { opacity: .75; }
 .slot-acc { font-size: 11px; }
 .slot-frame.dim .slot-grid { max-width: 560px; margin: 0 auto; padding: 12px; border-radius: 12px; background: #fff; }
+
+/* ---------- 넓은 화면: 영역 · 표가 화면 폭에 맞춰 퍼센트로 늘어난다 ---------- */
+:root { --sidebar-w: clamp(200px, 14vw, 280px); --toc-w: clamp(180px, 12vw, 260px); }
+.content { max-width: none; width: 100%; padding-left: clamp(24px, 3.5vw, 64px); padding-right: clamp(16px, 2.5vw, 48px); }
+.content .lead, .lead { max-width: min(100%, 90ch); }
+.note, .pt-text { max-width: min(100%, 110ch); }
+.tw, .table-wrap { width: 100%; }
+table.t, table.data { width: 100%; table-layout: auto; }
+/* 용어사전: 칸 너비를 퍼센트로 */
+.gx-glossary th:nth-last-child(1) { width: 22%; }
+.gx-glossary th:nth-last-child(2) { width: auto; }
+.gx-glossary th:nth-last-child(3) { width: 15%; }
+.gx-glossary th:nth-last-child(4) { width: 12%; }
+.gx-glossary th:nth-last-child(5) { width: 7%; }
+.slot-frame.dim .slot-grid { max-width: 60%; }
+.fd-desc { max-width: none; }
+@media (max-width: 860px) {
+  .content { padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+  .slot-frame.dim .slot-grid { max-width: none; }
+}
