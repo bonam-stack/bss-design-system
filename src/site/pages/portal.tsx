@@ -252,7 +252,7 @@ function ItemList({ kind }: { kind: 'comp' | 'block' }) {
       <Head
         eyebrow={isComp ? 'Components' : 'Blocks'}
         title={isComp ? '컴포넌트' : '블록'}
-        lead={isComp ? '블록 안에 들어가는 최소 부품입니다. ✓ 표시는 Figma 디자인 에셋과 사용 가이드가 있는 것입니다.' : '블록은 슬롯 하나를 채우는 업무 단위 묶음입니다. 포털이 관리하는 공통 블록과 SB Studio에서 만든 SB 블록으로 나뉩니다. 모듈은 UX 패턴 가이드의 모듈 정의입니다.'}
+        lead={isComp ? '블록 안에 들어가는 최소 부품입니다. ✓ 표시는 Figma 디자인 에셋과 사용 가이드가 있는 것입니다.' : '블록은 슬롯 하나를 채우는 업무 단위 묶음입니다. 모든 업무가 함께 쓰는 공통 블록과, 업무 시스템(BSS · BO)별로 쓰는 SB 블록으로 나뉩니다. 모듈은 UX 패턴 가이드의 모듈 정의입니다.'}
       />
       {isComp && can('figma') ? (
         <p className="row">
@@ -303,8 +303,18 @@ function BlockSections({ list: I }: { list: Item[] }) {
       <p className="note">Figma 디자인 시스템 기준으로 포털이 관리하는 블록입니다. DS 담당자가 고치고 관리자가 배포합니다. SB Studio는 이 블록을 먼저 고릅니다.</p>
       <Grid list={I.filter((i) => !P.isSb(i))} />
       <h2 id="sb">SB 블록</h2>
-      <p className="note">공통 블록으로 만들 수 없는 부분을 위해 SB Studio 미리보기에서 자동으로 만들어지는 업무 전용 블록입니다. SB 설계가 완료되면 이 목록에 게시되고, 여러 SB에서 쓰이면 승격 심사를 거쳐 공통 블록이 됩니다.</p>
-      {sb.length ? <Grid list={sb} /> : <p className="muted">지금 게시된 SB 블록이 없습니다.</p>}
+      <p className="note">한 업무 시스템에서만 쓰는 블록입니다. 업무 구분(BSS · BO)으로 나눠 관리하고, UX 담당자가 고칩니다. SB Studio 미리보기에서 자동으로 만들어진 블록도 SB 설계가 완료되면 여기에 게시되고, 여러 업무에서 쓰이면 승격 심사를 거쳐 공통 블록이 됩니다.</p>
+      {P.SB_DOMAINS.map((dm) => {
+        const L = sb.filter((i) => P.sbDomain(i) === dm);
+        return (
+          <div key={dm}>
+            <h3 id={`sb-${dm.toLowerCase()}`}>
+              {dm} <span className="count">{L.length}</span>
+            </h3>
+            {L.length ? <Grid list={L} /> : <p className="muted">아직 {dm} 블록이 없습니다.</p>}
+          </div>
+        );
+      })}
       {promos.length ? (
         <>
           <h3>승격 진행</h3>

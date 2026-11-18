@@ -76,7 +76,11 @@ export function sections(role: Role): Section[] {
       [
         ['blocks', '전체'],
         ...I.filter((i) => i.kind === 'block' && !P.isSb(i)).map((i): NavItem => [i.code, i.name, '공통 블록']),
-        ...I.filter((i) => P.isSb(i)).map((i): NavItem => [i.code, i.name, 'SB 블록']),
+        // 업무 구분은 블록이 아직 없어도 자리를 둔다 (경로가 빈 항목 = 안내 글)
+        ...P.SB_DOMAINS.flatMap((dm) => {
+          const L = I.filter((i) => P.sbDomain(i) === dm).map((i): NavItem => [i.code, i.name, `SB 블록 · ${dm}`]);
+          return L.length ? L : [['', '아직 없음', `SB 블록 · ${dm}`] as NavItem];
+        }),
         ...guideItems('blocks', (g) => `모듈${g ? ` · ${g}` : ''}`),
       ],
     ],
@@ -150,7 +154,7 @@ function groupItems(items: NavItem[]) {
 }
 
 const hasRoute = (g: NavGroup, route: string): boolean => g.items.some(([r]) => r === route) || g.groups.some((x) => hasRoute(x, route));
-const countOf = (g: NavGroup): number => g.items.length + g.groups.reduce((n, x) => n + countOf(x), 0);
+const countOf = (g: NavGroup): number => g.items.filter(([r]) => r).length + g.groups.reduce((n, x) => n + countOf(x), 0);
 
 export function SideNav({ route: here }: { route: string }) {
   const { role, isEditor } = usePortal();
@@ -180,6 +184,7 @@ export function SideNav({ route: here }: { route: string }) {
     return n;
   });
   const link = ([r, l, , tag]: NavItem) => {
+    if (!r) return <span key={`empty-${l}`} className="nav-empty">{l}</span>;
     const it = P.item(r);
     const draft = isEditor && it && (P.openDraft('item', r) || P.openDraft('guide', it.key) || P.openDraft('figma', it.key) || P.openDraft('code', it.key) || P.openDraft('text', it.key));
     return (
@@ -231,7 +236,7 @@ export function SideNav({ route: here }: { route: string }) {
 /** 이전 · 다음 (같은 섹션 안에서) */
 export function Pager({ route }: { route: string }) {
   const { role } = usePortal();
-  const items = sections(role).find(([k]) => k === sectionOf(route, role))![2];
+  const items = sections(role).find(([k]) => k === sectionOf(route, role))![2].filter(([r]) => r);
   const i = items.findIndex(([r]) => r === route);
   if (i < 0) return null;
   const prev = items[i - 1];

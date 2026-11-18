@@ -36,8 +36,14 @@ export const EDITOR: Record<EditType, Role> = { block: 'ds', comp: 'ds', figma: 
 /** 여러 담당이 함께 고치는 것: 컴포넌트의 설명 · 사용 가이드(Do/Don't 포함) · 카탈로그 설명은 DS 담당자와 UX 담당자 모두 */
 const SHARED: Partial<Record<EditType, Role[]>> = { comp: ['ds', 'ux'], text: ['ds', 'ux'], guide: ['ux', 'ds'] };
 export const canEdit = (role: Role, type: EditType) => (SHARED[type] || [EDITOR[type]]).includes(role);
-/** SB 블록(tb-): SB Studio 미리보기에서 자동 생성 → SB 설계 완료 시 게시 → 여러 SB에서 쓰이면 승격 */
-export const isSb = (i: { kind: string; code: string }) => i.kind === 'block' && /^tb-/.test(i.code);
+/** Blocks = 공통 블록 + SB 블록. SB 블록은 업무 구분(BSS · BO)으로 나눈다.
+ *  SB 블록: SB Studio 미리보기에서 자동 생성(tb-)되거나 한 업무 시스템에만 쓰는 블록 → SB 설계 완료 시 게시 → 여러 업무에서 쓰이면 승격 */
+export type SbDomain = 'BSS' | 'BO';
+export const SB_DOMAINS: SbDomain[] = ['BSS', 'BO'];
+/** 업무 전용 블록 (코드 → 업무 구분). tb- 블록은 따로 정하지 않으면 BSS */
+const SB_DOMAIN: Record<string, SbDomain> = { 'b-gnb': 'BSS', 'b-lnb': 'BSS' };
+export const sbDomain = (i: { kind: string; code: string; domain?: SbDomain }): SbDomain | null => (i.kind !== 'block' ? null : SB_DOMAIN[i.code] || (/^tb-/.test(i.code) ? i.domain || 'BSS' : null));
+export const isSb = (i: { kind: string; code: string }) => !!sbDomain(i);
 /** 이 항목을 고치는 권한 종류 (SB 블록은 UX 담당자) */
 export const editKind = (i: { kind: Kind; code: string }): EditType => (isSb(i) ? 'sb' : i.kind);
 
@@ -59,6 +65,8 @@ export interface Item {
   promotedFrom?: string;
   /** 컴포넌트 묶음 (내비게이션 · 버튼 · 입력 …) */
   group?: string;
+  /** SB 블록의 업무 구분 */
+  domain?: SbDomain;
 }
 export interface Rule {
   id: string;

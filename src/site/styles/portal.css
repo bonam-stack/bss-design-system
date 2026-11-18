@@ -38,6 +38,7 @@
 .sidebar a.on { background: var(--surface-card); font-weight: 600; }
 .m-sec { display: none; }
 .nv-st { font-size: 11px; color: var(--fg-muted); }
+.nav-empty { display: block; padding: 8px 12px 8px 32px; font-size: 12px; color: var(--fg-muted); }
 .nv-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--ed); margin-left: auto; }
 .content { max-width: 960px; padding-block: 48px 96px; padding-left: 56px; }
 .content h1 { font-size: 44px; line-height: 1.15; letter-spacing: -0.03em; margin: 4px 0 14px; }
@@ -380,6 +381,7 @@ a.role-pop-row:hover b { color: var(--ed); }
 .sidebar .nav-grp.d1 > .nav-acc { font-weight: 500; padding-left: 28px; }
 .sidebar .nav-grp-body > a { padding-left: 32px; }
 .sidebar .nav-grp.d1 .nav-grp-body > a { padding-left: 48px; }
+.sidebar .nav-grp.d1 .nav-grp-body > .nav-empty { padding-left: 48px; }
 .sidebar .nav-acc.has:not([aria-expanded="true"]) .nav-acc-l { color: var(--accent); }
 @media (prefers-reduced-motion: reduce) { .sidebar .nav-chev { transition: none; } }
 
