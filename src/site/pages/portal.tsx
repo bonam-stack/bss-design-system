@@ -1,4 +1,4 @@
-// BSS 디자인 포털 페이지: 시작하기 · 목록 · 카탈로그 항목 · UX 거버넌스 · 승격 심사, 그리고 Foundations · 역할별 작업 페이지로 나눈다.
+// BSS 디자인 포털 페이지: 홈 · 목록 · 카탈로그 항목 · UX 거버넌스 · 승격 심사, 그리고 Foundations · 역할별 작업 페이지로 나눈다.
 // 고친 내용은 초안 → 미리보기 확인 → 배포 요청 → 관리자 배포.
 import type { FormEvent, ReactNode } from 'react';
 import * as P from '../portal/store';
@@ -53,7 +53,7 @@ export function portalPage(route: string, role: Role): ReactNode | null {
   return null;
 }
 
-// ---------- 시작하기 ----------
+// ---------- 홈 ----------
 
 function Overview() {
   const cards = [
@@ -145,7 +145,7 @@ function Stack() {
   ];
   return (
     <>
-      <Head eyebrow="시작하기" title="조립 구조" lead="화면은 큰 단위에서 작은 단위로 쌓아 조립합니다. SB Studio는 4단계에서 이 순서대로 놓고 5단계에서 디자인 에셋을 입힙니다." />
+      <Head eyebrow="홈" title="조립 구조" lead="화면은 큰 단위에서 작은 단위로 쌓아 조립합니다. SB Studio는 4단계에서 이 순서대로 놓고 5단계에서 디자인 에셋을 입힙니다." />
       <h2 id="stack">Stack</h2>
       <ol className="stk">
         {rows.map((x, i) => (
@@ -199,7 +199,7 @@ function Stack() {
 function Updates() {
   return (
     <>
-      <Head eyebrow="시작하기" title="업데이트" lead="게시된 버전과 변경 노트입니다. MAJOR는 기존 것을 고치거나 지울 때(이미 만든 SB 재검수), MINOR는 추가 · 승격, PATCH는 설명 수정입니다." />
+      <Head eyebrow="홈" title="업데이트" lead="게시된 버전과 변경 노트입니다. MAJOR는 기존 것을 고치거나 지울 때(이미 만든 SB 재검수), MINOR는 추가 · 승격, PATCH는 설명 수정입니다." />
       <p className="note">
         UX 패턴 가이드는 {guideSource.release} 릴리스를 반영했습니다 ({guideSource.generated} 추출). 파운데이션 · 패턴 · 모듈 · 컴포넌트 가이드는 각 섹션에, 권장 · 금지는 <a href="#rules">규칙</a>에, 용어는 <a href="#glossary">용어사전</a>에 있습니다.
       </p>

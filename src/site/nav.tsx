@@ -48,7 +48,7 @@ export function sections(role: Role): Section[] {
   const asset = (r: string, l: string): NavItem => [r, l, '디자인 에셋'];
   const S: Section[] = [
     ['governance', 'UX 거버넌스', [['rules', '규칙'], ['slots', '슬롯'], ['lint', '검증 규칙'], ['glossary', '용어사전'], ...guideItems('governance', () => '작성 기준').filter(([r]) => r !== guideRoute('glossary'))]],
-    ['start', '시작하기', [['overview', '개요'], ['stack', '조립 구조'], ['updates', '업데이트'], ...guideItems('start', () => 'UX 원칙')]],
+    ['start', '홈', [['overview', '개요'], ['stack', '조립 구조'], ['updates', '업데이트'], ...guideItems('start', () => 'UX 원칙')]],
     [
       'foundations',
       'Foundations',

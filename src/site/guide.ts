@@ -1,5 +1,5 @@
 // NEXT BSS UX Pattern Guide를 포털 구조로 나눈 것 (scripts/structure_ux_guide.py → guides/ux-pattern/structure.json · docs/<id>.json).
-//   UX 원칙 → 시작하기 · 파운데이션 → Foundations · 패턴 → Patterns · 모듈 → Blocks · 컴포넌트 → Components
+//   UX 원칙 → 홈 · 파운데이션 → Foundations · 패턴 → Patterns · 모듈 → Blocks · 컴포넌트 → Components
 //   SB 작성 가이드 · 용어사전 → UX 거버넌스 · Do/Don't → UX 거버넌스 규칙
 // 문서 목록 · 규칙은 바로 읽고, 문서 구조는 페이지를 열 때 불러온다.
 import { Marked } from 'marked';
