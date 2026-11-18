@@ -67,7 +67,7 @@ export function human(text?: string) {
 }
 
 export function CodeLink({ code }: { code: string }) {
-  if (code === 'app') return <a href="#g-layout-common">앱 구조</a>;
+  if (code === 'app') return <a href="#g-layout-common">구조</a>;
   const it = P.item(code);
   if (it) return <a href={`#${code}`}>{it.name}</a>;
   const sl = P.slot(code);

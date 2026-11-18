@@ -46,7 +46,7 @@ function Overview() {
     ['patterns', 'Patterns', `레이아웃 규칙 ${n('layout')} · 패턴 ${patterns.length}`, '화면을 어떤 순서로 쌓을지'],
     ['rules', 'UX 거버넌스', `규칙 ${P.rules().length}개`, '규칙과 연결표'],
     ['icons', 'Foundations', `아이콘 ${icons.icons.length}개`, '아이콘 · 디자인 토큰'],
-    ['stack', '조립 구조', 'Stack 5단계', '앱 구조 → 레이아웃 → 빈칸 → 블록 → 컴포넌트'],
+    ['stack', '조립 구조', 'Stack 5단계', '구조 → 레이아웃 → 빈칸 → 블록 → 컴포넌트'],
   ];
   return (
     <>
@@ -121,7 +121,7 @@ function Stack() {
   const I = P.items();
   const n = (k: Kind) => I.filter((i) => i.kind === k).length;
   const rows: [string, string, string, number, string][] = [
-    ['앱 구조', 'app', '화면이 바뀌어도 남는 바탕 틀 · GNB · LNB · 콘텍스트 바 · 본문 영역', P.slots().filter((x) => x.owner === 'app').length, 'g-layout-common'],
+    ['구조', 'app', '화면이 바뀌어도 남는 바탕 틀 · GNB · LNB · 콘텍스트 바 · 본문 영역', P.slots().filter((x) => x.owner === 'app').length, 'g-layout-common'],
     ['레이아웃 규칙', 'l-', '본문 영역을 어떤 빈칸 순서로 나눌지 정하는 규칙', n('layout'), 'patterns'],
     ['빈칸(슬롯)', '경로', '부품이 들어갈 자리 · 고정 · 쌓기 · 자유', P.slots().length, 'slots'],
     ['블록', 'b-', '빈칸 하나를 채우는 업무 단위 묶음', n('block'), 'blocks'],
@@ -664,7 +664,7 @@ function Rules() {
 function Slots() {
   return (
     <>
-      <Head eyebrow="UX 거버넌스" title="빈칸" lead="빈칸은 단위가 아니라 자리입니다. 앱 구조(app) · 레이아웃 규칙 · 블록 · 컨테이너형 컴포넌트에 딸린 자리를 경로로 적습니다." />
+      <Head eyebrow="UX 거버넌스" title="빈칸" lead="빈칸은 단위가 아니라 자리입니다. 구조(app) · 레이아웃 규칙 · 블록 · 컨테이너형 컴포넌트에 딸린 자리를 경로로 적습니다." />
       <h2 id="list" className="sr">
         빈칸 목록
       </h2>
@@ -687,7 +687,7 @@ function Slots() {
 
 function Lint() {
   const L = [
-    ['R-01', '앱 구조 빈칸(GNB · LNB · 콘텍스트 바)에는 블록만', '오류'],
+    ['R-01', '구조 빈칸(GNB · LNB · 콘텍스트 바)에는 블록만', '오류'],
     ['R-02', '고정 빈칸은 허용 목록에서 하나', '오류'],
     ['R-03', '쌓기 빈칸 순서(일반형)', '오류'],
     ['R-04', '임시 코드(tb- · tc-)는 포털 승인 담당 승인 요청 동반', '경고'],

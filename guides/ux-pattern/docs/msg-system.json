@@ -2,7 +2,7 @@
  "id": "msg-system",
  "title": "피드백 체계",
  "section": "파운데이션",
- "group": "앱 구조",
+ "group": "구조",
  "place": "foundations",
  "lead": "화면에 뜨는 피드백을 화면상단 · 화면하단 · 알림 세 곳으로 나누고, 곳마다의 위계와 상태별 컬러를 규정합니다.",
  "overview": [

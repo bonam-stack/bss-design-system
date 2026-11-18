@@ -14,6 +14,9 @@ import json
 import re
 from pathlib import Path
 
+# 포털에서 부르는 묶음 이름 (원본 가이드와 다르게 부르는 것). 우리는 앱이 따로 없어 "앱 구조"를 "구조"로 부른다
+GROUP_RENAME = {"앱 구조": "구조"}
+
 ROOT = Path(__file__).resolve().parent.parent
 SRC = ROOT / "guides" / "ux-pattern"
 OUT = SRC / "docs"
@@ -319,7 +322,7 @@ def parse(doc, body):
     for a, b in RAW_FIXES.items():
         body = body.replace(a, b)
     lead, *secs = re.split(r"^#### ", body, flags=re.M)
-    out = {"id": doc["id"], "title": doc["title"], "section": short(doc["section"]), "group": " › ".join(doc["path"][1:-1]),
+    out = {"id": doc["id"], "title": doc["title"], "section": short(doc["section"]), "group": " › ".join(GROUP_RENAME.get(g, g) for g in doc["path"][1:-1]),
            "place": PLACE[short(doc["section"])], "lead": "\n".join(l for l in lead.strip().splitlines() if not noise(l)),
            "overview": [], "when": {"use": [], "avoid": []}, "sections": [], "do": [], "dont": [], "targets": TARGETS.get(doc["id"], [])}
     for sec in secs:

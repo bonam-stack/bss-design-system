@@ -80,7 +80,7 @@
    "id": "device-spec",
    "title": "디바이스 정책",
    "section": "파운데이션",
-   "group": "앱 구조",
+   "group": "구조",
    "place": "foundations",
    "targets": [],
    "links": [
@@ -93,7 +93,7 @@
    "id": "adaptive",
    "title": "적응형 레이아웃",
    "section": "파운데이션",
-   "group": "앱 구조",
+   "group": "구조",
    "place": "foundations",
    "targets": [],
    "links": [
@@ -107,7 +107,7 @@
    "id": "layout-common",
    "title": "PC 앱 레이아웃",
    "section": "파운데이션",
-   "group": "앱 구조",
+   "group": "구조",
    "place": "foundations",
    "targets": [
     "b-gnb",
@@ -125,7 +125,7 @@
    "id": "layout-mobile",
    "title": "모바일 앱 레이아웃",
    "section": "파운데이션",
-   "group": "앱 구조",
+   "group": "구조",
    "place": "foundations",
    "targets": [],
    "links": [
@@ -143,7 +143,7 @@
    "id": "layout-layer",
    "title": "레이어 구조",
    "section": "파운데이션",
-   "group": "앱 구조",
+   "group": "구조",
    "place": "foundations",
    "targets": [
     "c-popup",
@@ -170,7 +170,7 @@
    "id": "msg-system",
    "title": "피드백 체계",
    "section": "파운데이션",
-   "group": "앱 구조",
+   "group": "구조",
    "place": "foundations",
    "targets": [
     "c-callout",

@@ -2,7 +2,7 @@
  "id": "device-spec",
  "title": "디바이스 정책",
  "section": "파운데이션",
- "group": "앱 구조",
+ "group": "구조",
  "place": "foundations",
  "lead": "모든 화면 설계의 기준이 되는 지원 디바이스와 대응 방식을 정의합니다.\nNEXT BSS는 적응형으로 대응하며, PC · 태블릿은 PC 앱으로, 스마트폰은 별도의 모바일 앱으로 제공합니다.\n앱별 화면 틀은 PC 앱 레이아웃 · 모바일 앱 레이아웃에서 정의합니다.",
  "overview": [
