@@ -356,9 +356,9 @@ function must(role: Role, type: EditType) {
   if (!canEdit(role, type)) throw new Error(`${(SHARED[type] || [EDITOR[type]]).map((r) => ROLES[r]).join(' · ')}만 고칠 수 있습니다`);
 }
 
-const ITEM_LABEL: Record<string, string> = { name: '이름(제목)', meaning: '뜻', variants: '변형', slot: '놓이는 빈칸', status: '상태' };
+const ITEM_LABEL: Record<string, string> = { name: '이름(제목)', meaning: '뜻', variants: '변형', slot: '놓이는 슬롯', status: '상태' };
 
-/** 카탈로그 항목(이름 · 뜻 · 변형/빈칸 · 상태) 수정 */
+/** 카탈로그 항목(이름 · 뜻 · 변형/슬롯 · 상태) 수정 */
 export function draftItem(role: Role, code: string, fields: Partial<Item>) {
   const cur = item(code);
   if (!cur) throw new Error(`${code}가 없습니다`);

@@ -46,11 +46,11 @@ function Overview() {
   const n = (k: Kind) => I.filter((i) => i.kind === k).length;
   const cards = [
     ['components', 'Components', `컴포넌트 ${n('comp')}개`, '블록 안에 들어가는 최소 부품'],
-    ['blocks', 'Blocks', `블록 ${n('block')}`, '빈칸 하나를 채우는 업무 단위 묶음'],
+    ['blocks', 'Blocks', `블록 ${n('block')}`, '슬롯 하나를 채우는 업무 단위 묶음'],
     ['patterns', 'Patterns', `레이아웃 규칙 ${n('layout')} · 패턴 ${patterns.length}`, '화면을 어떤 순서로 쌓을지'],
     ['rules', 'UX 거버넌스', `규칙 ${P.rules().length}개`, '규칙과 연결표'],
     ['color', 'Foundations', `아이콘 ${icons.icons.length}개 · 토큰`, '컬러 · 타이포그래피 · 디자인 토큰 · 아이콘'],
-    ['stack', '조립 구조', 'Stack 5단계', '구조 → 레이아웃 → 빈칸 → 블록 → 컴포넌트'],
+    ['stack', '조립 구조', 'Stack 5단계', '구조 → 레이아웃 → 슬롯 → 블록 → 컴포넌트'],
   ];
   return (
     <>
@@ -126,9 +126,9 @@ function Stack() {
   const n = (k: Kind) => I.filter((i) => i.kind === k).length;
   const rows: [string, string, string, number, string][] = [
     ['구조', 'app', '화면이 바뀌어도 남는 바탕 틀 · GNB · LNB · 콘텍스트 바 · 본문 영역', P.slots().filter((x) => x.owner === 'app').length, 'g-layout-common'],
-    ['레이아웃 규칙', 'l-', '본문 영역을 어떤 빈칸 순서로 나눌지 정하는 규칙', n('layout'), 'patterns'],
-    ['빈칸(슬롯)', '경로', '부품이 들어갈 자리 · 고정 · 쌓기 · 자유', P.slots().length, 'slots'],
-    ['블록', 'b-', '빈칸 하나를 채우는 업무 단위 묶음', n('block'), 'blocks'],
+    ['레이아웃 규칙', 'l-', '본문 영역을 어떤 슬롯 순서로 나눌지 정하는 규칙', n('layout'), 'patterns'],
+    ['슬롯', '경로', '부품이 들어갈 자리 · 고정 · 쌓기 · 자유', P.slots().length, 'slots'],
+    ['블록', 'b-', '슬롯 하나를 채우는 업무 단위 묶음', n('block'), 'blocks'],
     ['컴포넌트', 'c-', '블록 안에 들어가는 최소 부품', n('comp'), 'components'],
   ];
   return (
@@ -250,7 +250,7 @@ function ItemList({ kind }: { kind: 'comp' | 'block' }) {
       <Head
         eyebrow={isComp ? 'Components' : 'Blocks'}
         title={isComp ? '컴포넌트' : '블록'}
-        lead={isComp ? '블록 안에 들어가는 최소 부품입니다. ✓ 표시는 Figma 디자인 에셋과 사용 가이드가 있는 것입니다.' : '블록은 빈칸 하나를 채우는 업무 단위 묶음입니다. 아래쪽 모듈은 UX 패턴 가이드의 모듈 정의입니다.'}
+        lead={isComp ? '블록 안에 들어가는 최소 부품입니다. ✓ 표시는 Figma 디자인 에셋과 사용 가이드가 있는 것입니다.' : '블록은 슬롯 하나를 채우는 업무 단위 묶음입니다. 아래쪽 모듈은 UX 패턴 가이드의 모듈 정의입니다.'}
       />
       {isComp && can('figma') ? (
         <section className="ed-panel" aria-label="컴포넌트 추가">
@@ -339,8 +339,8 @@ function ItemPage({ it }: { it: Item }) {
     [
       ['상태', <StOf s={it.status} />],
       it.kind === 'comp' ? ['변형', it.variants] : null,
-      it.kind === 'block' ? ['놓이는 빈칸', human(it.slot)] : null,
-      it.kind === 'layout' ? ['적용 빈칸', <CodeLink code={it.slot || ''} />] : null,
+      it.kind === 'block' ? ['놓이는 슬롯', human(it.slot)] : null,
+      it.kind === 'layout' ? ['적용 슬롯', <CodeLink code={it.slot || ''} />] : null,
       it.kind === 'layout' ? ['근거 문서', <UxRef r={it.guide} />] : null,
       ['기준 원본', it.design ? '모양 Figma 디자인 시스템 · 뜻 카탈로그' : it.kind === 'layout' ? 'UX 패턴 가이드' : 'UX 패턴 가이드 · 디자인 에셋 없음'],
       it.promotedFrom ? ['승격', `${it.promotedFrom}에서`] : null,
@@ -369,7 +369,7 @@ function ItemPage({ it }: { it: Item }) {
           <h2>Anatomy</h2>
           {slotsOf.length ? (
             <>
-              <h3>빈칸</h3>
+              <h3>슬롯</h3>
               <Table
                 cols={['이름', '방식', '들어갈 수 있는 것']}
                 rows={slotsOf.map((s) => (
@@ -432,7 +432,7 @@ function ItemPage({ it }: { it: Item }) {
 export function ItemForm({ r, d }: { r: Item; d: Draft | null }) {
   const { role, act, closeEdit } = usePortal();
   const v: Item = d ? { ...r, ...d.after } : r;
-  const extra = r.kind === 'comp' ? (['variants', '변형'] as const) : (['slot', r.kind === 'layout' ? '적용 빈칸' : '놓이는 빈칸'] as const);
+  const extra = r.kind === 'comp' ? (['variants', '변형'] as const) : (['slot', r.kind === 'layout' ? '적용 슬롯' : '놓이는 슬롯'] as const);
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const f = formValues(e.currentTarget);
@@ -499,7 +499,7 @@ function Rules() {
   };
   return (
     <>
-      <Head eyebrow="UX 거버넌스" title="규칙" lead="규칙 한 줄이 빈칸 → 블록 → 컴포넌트로 이어지는 연결표입니다. UX 패턴 가이드의 Do · Don't는 권장 · 금지 규칙으로 함께 올라 있습니다. SB Studio의 생성 · 미리보기 · Figma 검사 · 독립 검수가 같은 규칙을 씁니다." />
+      <Head eyebrow="UX 거버넌스" title="규칙" lead="규칙 한 줄이 슬롯 → 블록 → 컴포넌트로 이어지는 연결표입니다. UX 패턴 가이드의 Do · Don't는 권장 · 금지 규칙으로 함께 올라 있습니다. SB Studio의 생성 · 미리보기 · Figma 검사 · 독립 검수가 같은 규칙을 씁니다." />
       {editor ? (
         <section className="ed-panel">
           <div className="ed-h">
@@ -556,7 +556,7 @@ function Rules() {
         규칙 목록
       </h2>
       <div className="filter">
-        <input type="search" id="rq" value={ui.q} placeholder="규칙 · 빈칸 · 블록 · 컴포넌트 검색" aria-label="규칙 검색" onChange={(e) => setUi((u) => ({ ...u, q: e.target.value }))} />
+        <input type="search" id="rq" value={ui.q} placeholder="규칙 · 슬롯 · 블록 · 컴포넌트 검색" aria-label="규칙 검색" onChange={(e) => setUi((u) => ({ ...u, q: e.target.value }))} />
         {['', ...KINDS, '권장', '금지'].map((x) => (
           <button key={x} type="button" className={`chip${ui.kd === x ? ' on' : ''}`} onClick={() => setUi((u) => ({ ...u, kd: x }))}>
             {x || '전체'}
@@ -637,35 +637,87 @@ function Rules() {
   );
 }
 
+const SLOT_MODE: Record<string, { label: string; desc: string }> = {
+  고정: { label: '고정', desc: '정해진 블록 하나만 들어갑니다. 다른 것으로 바꿀 수 없습니다.' },
+  쌓기: { label: '쌓기', desc: '허용된 블록 여러 개를 위에서 아래로 순서대로 쌓습니다.' },
+  자유: { label: '자유', desc: '들어갈 것을 정해 두지 않은 자리입니다. 포털 승인 담당의 승인을 받아야 씁니다.' },
+};
+/** 슬롯이 딸린 곳 (조립 순서: 구조 → 레이아웃 → 블록 · 컴포넌트 안) */
+const SLOT_OWNERS: [owner: string, title: string, what: string][] = [
+  ['app', '모든 화면의 바탕 틀', '어느 화면에나 늘 있는 자리입니다. 본문 영역에는 아래 화면 유형 중 하나가 들어갑니다.'],
+  ['l-general', '일반형 화면의 본문', '일반 업무 화면의 본문을 위에서 아래로 나눈 자리입니다. (선택) 자리는 비워 둘 수 있습니다.'],
+  ['b-content', '컨텐트 블록 안', '일반형 화면의 컨텐트 자리에 들어간 블록을 다시 나눈 자리입니다.'],
+  ['l-node', '노드형 화면의 본문', '단계가 이어지는 절차형 업무 화면의 자리입니다.'],
+  ['c-popup', '팝업 틀', '팝업 컴포넌트가 가진 자리입니다.'],
+  ['l-popup', '팝업 본문', '팝업 본문을 나눈 자리입니다. 일반형에서 페이지 타이틀을 뺀 구조입니다.'],
+  ['l-special', '특수형 화면', '표준 틀로 만들 수 없는 예외 화면입니다.'],
+];
+
 function Slots() {
+  const all = P.slots();
+  const owners = [...SLOT_OWNERS.map(([o]) => o), ...[...new Set(all.map((s) => s.owner))].filter((o) => !SLOT_OWNERS.some(([x]) => x === o))];
   return (
     <>
-      <Head eyebrow="UX 거버넌스" title="빈칸" lead="빈칸은 단위가 아니라 자리입니다. 구조(app) · 레이아웃 규칙 · 블록 · 컨테이너형 컴포넌트에 딸린 자리를 경로로 적습니다." />
-      <h2 id="list" className="sr">
-        빈칸 목록
-      </h2>
-      <Table
-        cols={['이름', '소속', '방식', '들어갈 수 있는 것']}
-        rows={P.slots().map((s) => (
-          <tr key={s.path}>
-            <td>{s.name}</td>
-            <td>
-              <CodeLink code={s.owner} />
-            </td>
-            <td>{s.mode}</td>
-            <td>{human(s.accepts)}</td>
-          </tr>
-        ))}
+      <Head
+        eyebrow="UX 거버넌스"
+        title="슬롯"
+        lead="슬롯(slot)은 화면에서 무엇이 들어갈지 정해 둔 자리입니다. 화면을 설계할 때 아무 블록이나 놓지 않고, 자리마다 정해진 블록만 넣습니다. SB Studio의 생성기와 검증 규칙이 이 표로 화면을 만들고 검사합니다."
       />
+      <h2 id="modes">넣는 방식 3가지</h2>
+      <div className="slot-modes">
+        {Object.values(SLOT_MODE).map((m) => (
+          <section key={m.label} className="slot-mode">
+            <span className={`slot-tag m-${m.label}`}>{m.label}</span>
+            <p>{m.desc}</p>
+          </section>
+        ))}
+      </div>
+      <h2 id="read">읽는 법</h2>
+      <p className="pt-text">
+        예를 들어 <b>일반형 화면</b>의 <b>조회조건</b> 자리는 <span className="slot-tag m-고정">고정</span>이고 <b>조회조건 블록</b>만 들어갑니다. 그래서 일반형 화면에 조회조건을 넣을 때는 늘 같은 블록을 쓰고, 다른 블록을 그 자리에 놓으면 검증에서 오류가 납니다.
+      </p>
+      {owners.map((o) => {
+        const L = all.filter((s) => s.owner === o);
+        if (!L.length) return null;
+        const meta = SLOT_OWNERS.find(([x]) => x === o);
+        return (
+          <div key={o}>
+            <h2 id={`slot-${o}`}>
+              {meta?.[1] || o} <span className="count">{L.length}</span>
+            </h2>
+            <p className="note">
+              {meta?.[2]} <span className="muted">· 정한 곳</span> <CodeLink code={o} />
+            </p>
+            <div className="slot-map">
+              {L.map((s) => (
+                <div key={s.path} className={`slot-box m-${s.mode}`}>
+                  <div className="slot-l">
+                    <b>{s.name}</b>
+                    <span className="mono">{s.path}</span>
+                  </div>
+                  <span className={`slot-tag m-${s.mode}`}>{s.mode}</span>
+                  <div className="slot-r">{accepts(s.accepts)}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        );
+      })}
     </>
   );
 }
 
+/** '들어가는 것'의 카탈로그 코드는 그 페이지로 */
+function accepts(text: string) {
+  const parts = String(text).split(/(\b(?:c|b|l)-[a-z][a-z0-9-]*)/g);
+  return parts.map((p, i) => (i % 2 ? <CodeLink key={i} code={p} /> : <span key={i}>{human(p)}</span>));
+}
+
 function Lint() {
   const L = [
-    ['R-01', '구조 빈칸(GNB · LNB · 콘텍스트 바)에는 블록만', '오류'],
-    ['R-02', '고정 빈칸은 허용 목록에서 하나', '오류'],
-    ['R-03', '쌓기 빈칸 순서(일반형)', '오류'],
+    ['R-01', '구조 슬롯(GNB · LNB · 콘텍스트 바)에는 블록만', '오류'],
+    ['R-02', '고정 슬롯은 허용 목록에서 하나', '오류'],
+    ['R-03', '쌓기 슬롯 순서(일반형)', '오류'],
     ['R-04', '임시 코드(tb- · tc-)는 포털 승인 담당 승인 요청 동반', '경고'],
     ['R-05', '용어 대조(로제타)', '경고'],
     ['R-06', '출처 ID 반영률 100%', '오류'],

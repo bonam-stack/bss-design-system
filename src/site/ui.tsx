@@ -52,14 +52,14 @@ export function CopyBtn({ value, label }: { value: string; label?: string }) {
 
 // ---------- 카탈로그 코드 → 이름 ----------
 
-/** 글 속에 섞인 카탈로그 코드 · 빈칸 경로를 이름으로 바꿔 보여 준다 */
+/** 글 속에 섞인 카탈로그 코드 · 슬롯 경로를 이름으로 바꿔 보여 준다 */
 export function human(text?: string) {
   return String(text ?? '').replace(/\b(?:(?:tb|tc|c|b|l)-[a-z][a-z0-9-]*(?:\.[a-z][a-z0-9.-]*)?|app\.[a-z][a-z0-9.-]*)/g, (code) => {
     const it = P.item(code);
     if (it) return it.name;
     const sl = P.slot(code);
     if (sl) return sl.name;
-    // 빈칸 경로의 앞부분만 아는 경우 (b-content.column.body → 컨텐트 · column.body)
+    // 슬롯 경로의 앞부분만 아는 경우 (b-content.column.body → 컨텐트 · column.body)
     const [head, ...rest] = code.split('.');
     const h = P.item(head);
     return h ? `${h.name} ${rest.join('.')}` : code;

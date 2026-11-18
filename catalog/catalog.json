@@ -1,5 +1,5 @@
 {
-  "$description": "BSS 디자인 포털 기준 카탈로그. SB Studio POC 디자인 포털의 시연용 카탈로그(앱쉘 s- · 레이아웃 규칙 l- · 빈칸 · 블록 b- · 컴포넌트 c- · 규칙 R-)를 옮긴 것. key가 있는 컴포넌트는 components/<key>/의 Figma 데이터 · 사용 가이드 페이지와 이어진다. 저장소에만 있는 컴포넌트는 사이트가 c-<key>로 더한다.",
+  "$description": "BSS 디자인 포털 기준 카탈로그. SB Studio POC 디자인 포털의 시연용 카탈로그(앱쉘 s- · 레이아웃 규칙 l- · 슬롯 · 블록 b- · 컴포넌트 c- · 규칙 R-)를 옮긴 것. key가 있는 컴포넌트는 components/<key>/의 Figma 데이터 · 사용 가이드 페이지와 이어진다. 저장소에만 있는 컴포넌트는 사이트가 c-<key>로 더한다.",
   "meta": {
     "catalog": "0.5",
     "uxGuide": "20261106",
@@ -59,7 +59,7 @@
       "status": "draft",
       "design": false,
       "ux": false,
-      "meaning": "표준 틀로 만들 수 없는 예외 화면 · Stack 조립 대신 자유 빈칸 하나에 배치 · 포털 승인 담당 승인 뒤 사용",
+      "meaning": "표준 틀로 만들 수 없는 예외 화면 · Stack 조립 대신 자유 슬롯 하나에 배치 · 포털 승인 담당 승인 뒤 사용",
       "slot": "app.body",
       "guide": "BSS SB Studio 운영 기준(안)"
     },
@@ -287,7 +287,7 @@
       "status": "pub",
       "design": true,
       "ux": true,
-      "meaning": "컨텐트 묶음 전환 · 안에 빈칸이 있는 컨테이너형",
+      "meaning": "컨텐트 묶음 전환 · 안에 슬롯이 있는 컨테이너형",
       "variants": "line · contained",
       "nameKo": "탭"
     },
@@ -647,7 +647,7 @@
       "owner": "l-special",
       "mode": "자유",
       "accepts": "제한 없음 · 포털 승인 담당 승인",
-      "name": "자유 빈칸"
+      "name": "자유 슬롯"
     }
   ],
   "parts": [
@@ -1059,7 +1059,7 @@
       "doc": "BSS SB Studio 운영 기준(안)",
       "section": "특수형",
       "kind": "판정",
-      "text": "표준 틀로 만들 수 없는 화면만 특수형 · 자유 빈칸 하나에 배치 · 포털 승인 담당 승인 뒤 사용",
+      "text": "표준 틀로 만들 수 없는 화면만 특수형 · 자유 슬롯 하나에 배치 · 포털 승인 담당 승인 뒤 사용",
       "targets": [
         "l-special",
         "l-special.canvas"
