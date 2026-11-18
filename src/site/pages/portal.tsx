@@ -6,7 +6,7 @@ import type { Draft, HistoryEntry, Item, Kind } from '../portal/store';
 import { usePortal } from '../portal/ctx';
 import { patterns, icons } from '../data';
 import { docsFor, docsIn, guideRoute, guideSource } from '../guide';
-import { ColorPage, TokensPage, TypographyPage } from './FoundationPages';
+import { ColorPage, ScalePage, TokensPage, TypographyPage } from './FoundationPages';
 import { BumpTag, Check, CodeLink, UxRef, ConfirmButton, DraftBox, Drafts, EditBtn, GuideChips, Head, RulesBlock, St, StOf, Table, fmt, human, joinNodes } from '../ui';
 
 const FIGMA_FILE = '9AioWOXVOVm5C7kdSxSEEP';
@@ -23,6 +23,7 @@ export function portalPage(route: string, isEditor: boolean): ReactNode | null {
     case 'tokens': return <TokensPage />;
     case 'color': return <ColorPage />;
     case 'typography': return <TypographyPage />;
+    case 'spacing': case 'sizing': case 'radius': case 'border-width': case 'shadow': return <ScalePage key={route} id={route} />;
     case 'components': return <ItemList kind="comp" />;
     case 'blocks': return <ItemList kind="block" />;
     case 'patterns': return <PatternList />;

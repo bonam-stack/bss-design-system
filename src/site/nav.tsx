@@ -20,7 +20,7 @@ export function sections(isEditor: boolean): Section[] {
   const I = P.items();
   const S: Section[] = [
     ['start', '시작하기', [['overview', '개요'], ['stack', '조립 구조'], ['updates', '업데이트'], ...guideItems('start', () => 'UX 원칙')]],
-    ['foundations', 'Foundations', [['color', '컬러', '디자인 에셋'], ['typography', '타이포그래피', '디자인 에셋'], ['tokens', '디자인 토큰', '디자인 에셋'], ['icons', '아이콘', '디자인 에셋'], ...guideItems('foundations', (g) => g || '파운데이션')]],
+    ['foundations', 'Foundations', [['color', '컬러', '디자인 에셋'], ['typography', '타이포그래피', '디자인 에셋'], ['spacing', '여백', '디자인 에셋'], ['sizing', '크기', '디자인 에셋'], ['radius', '모서리', '디자인 에셋'], ['border-width', '선 두께', '디자인 에셋'], ['shadow', '그림자', '디자인 에셋'], ['tokens', '디자인 토큰', '디자인 에셋'], ['icons', '아이콘', '디자인 에셋'], ...guideItems('foundations', (g) => g || '파운데이션')]],
     ['components', 'Components', [['components', '전체'], ...I.filter((i) => i.kind === 'comp').sort((a, b) => a.name.localeCompare(b.name, 'en')).map((i): NavItem => [i.code, i.name, '컴포넌트']), ...guideItems('components', (g) => `컴포넌트 가이드${g ? ` · ${g}` : ''}`)]],
     ['blocks', 'Blocks', [['blocks', '전체'], ...I.filter((i) => i.kind === 'block').map((i): NavItem => [i.code, i.name, '블록']), ...guideItems('blocks', (g) => `모듈${g ? ` · ${g}` : ''}`)]],
     ['patterns', 'Patterns', [['patterns', '전체'], ...patterns.map((p): NavItem => [`pattern-${p.key}`, `${p.name} 패턴`, 'Figma 패턴']), ...guideItems('patterns', (g) => g || '패턴'), ...I.filter((i) => i.kind === 'layout').map((i): NavItem => [i.code, `${i.name} 레이아웃`, '레이아웃 규칙'])]],
