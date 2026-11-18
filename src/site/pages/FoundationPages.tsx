@@ -11,6 +11,9 @@ interface Token {
   type: 'COLOR' | 'FLOAT' | 'STRING';
   value?: string;
   ref?: string | null;
+  description?: string;
+  /** Semantic 파일 없이 Component 토큰에서 거꾸로 찾은 값 */
+  derived?: boolean;
 }
 const V = variables as { source: { name: string; note?: string }; tokens: Record<string, Omit<Token, 'name'>> };
 const TOKENS: Token[] = Object.entries(V.tokens).map(([name, t]) => ({ name, ...t }));
@@ -33,13 +36,14 @@ export function ColorPage() {
   const sem = TOKENS.filter((t) => t.collection === 'Semantic' && t.type === 'COLOR');
   const props = [...new Set(sem.map((t) => t.figma.split('/')[1]))];
   const missing = prim.filter((t) => !t.value).length + sem.filter((t) => !t.value).length;
+  const derived = sem.filter((t) => t.derived).length;
   return (
     <>
       <Head
         eyebrow="Foundations · 디자인 에셋"
         title="컬러"
         lead="색은 두 층으로 씁니다. Primitive는 색 이름(gray-500)이고, 화면과 컴포넌트는 그 위의 Semantic 색(용도 이름: 배경 · 글자 · 테두리)만 씁니다. Primitive를 직접 쓰지 않습니다."
-        extra={<p className="gd-source">출처 {SRC} · Primitive {prim.length} · Semantic {sem.length}{missing ? ` · 값이 비어 있는 ${missing}개는 Figma에서 다시 읽어야 합니다` : ''}</p>}
+        extra={<p className="gd-source">출처 {SRC} · Primitive {prim.length} · Semantic {sem.length}{missing ? ` · 값이 비어 있는 ${missing}개는 Figma에서 다시 읽어야 합니다` : ''}{derived ? ` · Semantic ${derived}개는 Component 토큰에서 거꾸로 찾은 값입니다` : ''}</p>}
       />
       <h2 id="semantic">Semantic 색</h2>
       <p className="note">컴포넌트 코드에서는 <code>tok('color-bg-brand-strongest-default', '#3617CE')</code>처럼 Semantic 토큰 이름으로 씁니다. 이름을 누르면 복사됩니다.</p>
@@ -61,6 +65,7 @@ export function ColorPage() {
                     <td>
                       {ROLE_LABEL[r] || r}
                       <span className="fd-sub">{t.figma.split('/').slice(3).join(' / ') || ''}</span>
+                      {t.derived ? <span className="fd-flag">Component에서 찾은 값</span> : null}
                     </td>
                     <td>
                       <CopyBtn value={t.name.slice(2)} />
@@ -176,8 +181,11 @@ const COLL = ['Semantic', 'Component', 'Primitive'] as const;
 export function TokensPage() {
   const [coll, setColl] = useState<string>('Semantic');
   const [q, setQ] = useState('');
+  const [comp, setComp] = useState('');
   const query = q.trim().toLowerCase();
-  const L = TOKENS.filter((t) => (coll === '' || t.collection === coll) && (!query || `${t.name} ${t.figma} ${t.value || ''} ${t.ref || ''}`.toLowerCase().includes(query)));
+  const comps = [...new Set(TOKENS.filter((t) => t.collection === 'Component').map((t) => t.figma.split('/')[0]))].sort();
+  const L = TOKENS.filter((t) => (coll === '' || t.collection === coll) && (coll !== 'Component' || !comp || t.figma.split('/')[0] === comp) && (!query || `${t.name} ${t.figma} ${t.value || ''} ${t.ref || ''} ${t.description || ''}`.toLowerCase().includes(query)));
+  const LIMIT = 500;
   const count = (c: string) => TOKENS.filter((t) => t.collection === c).length;
   return (
     <>
@@ -202,23 +210,39 @@ export function TokensPage() {
             전체
           </button>
         </div>
-        <input type="search" className="search" placeholder="토큰 · Figma 이름 · 값 검색 (예: button, radius, #3617CE)" aria-label="토큰 검색" value={q} onChange={(e) => setQ(e.target.value)} />
+        {coll === 'Component' ? (
+          <select className="in-sm" aria-label="컴포넌트" value={comp} onChange={(e) => setComp(e.target.value)}>
+            <option value="">컴포넌트 전체 ({comps.length})</option>
+            {comps.map((c) => (
+              <option key={c} value={c}>
+                {c}
+              </option>
+            ))}
+          </select>
+        ) : null}
+        <input type="search" className="search" placeholder="토큰 · Figma 이름 · 값 · 설명 검색 (예: button, radius, #3617CE, 비활성)" aria-label="토큰 검색" value={q} onChange={(e) => setQ(e.target.value)} />
       </div>
-      <p className="note">{L.length}개</p>
+      <p className="note">
+        {L.length}개{L.length > LIMIT ? ` · 앞 ${LIMIT}개만 보입니다. 컴포넌트나 검색어로 좁혀 주세요` : ''}
+      </p>
       <Table
-        cols={['토큰', 'Figma 변수', '값', '참조']}
-        rows={L.slice(0, 400).map((t) => {
+        cols={['토큰', '값', '참조', '설명']}
+        rows={L.slice(0, LIMIT).map((t) => {
           const ref = t.ref ? byName.get(t.ref) : null;
           return (
             <tr key={t.name}>
               <td>
                 <CopyBtn value={t.name.slice(2)} />
+                <span className="fd-sub mono">{t.figma}</span>
               </td>
-              <td className="mono fd-sub2">{t.figma}</td>
-              <td className="mono">
+              <td className="mono nowrap">
                 {t.type === 'COLOR' ? <Swatch value={t.value} /> : null} {t.value ?? '—'}
               </td>
               <td className="mono fd-sub2">{t.ref ? `${t.ref.slice(2)}${ref?.ref ? ` → ${ref.ref.slice(2)}` : ''}` : '—'}</td>
+              <td className="fd-desc">
+                {t.description || ''}
+                {t.derived ? <span className="fd-flag">Component에서 찾은 값</span> : null}
+              </td>
             </tr>
           );
         })}
