@@ -45,46 +45,63 @@ function componentItems(I: P.Item[]): NavItem[] {
 
 export function sections(role: Role): Section[] {
   const I = P.items();
-  const asset = (r: string, l: string): NavItem => [r, l, '디자인 에셋'];
   const S: Section[] = [
     // 홈(개요 · 업데이트)은 위쪽 메뉴에 두지 않는다: 로고를 누르면 개요, 버전을 누르면 업데이트
     ['home', '홈', [['overview', '개요'], ['updates', '업데이트']]],
-    ['governance', 'UX 거버넌스', [['rules', '규칙'], ['slots', '슬롯'], ['lint', '검증 규칙'], ['stack', '조립 구조'], ['glossary', '용어사전'], ...guideItems('start', () => 'UX 원칙'), ...guideItems('governance', () => '작성 기준').filter(([r]) => r !== guideRoute('glossary'))]],
+    // 맨 위는 두 거버넌스만. UX 거버넌스 = 화면을 어떻게 짜는가, UI 거버넌스 = 무엇으로 그리는가 (원칙 → Foundations → Components → Blocks 위계)
     [
-      'foundations',
-      'Foundations',
+      'ux',
+      'UX 거버넌스',
       [
-        ['foundations', '개요'],
-        asset('color', '컬러'),
-        asset('typography', '타이포그래피'),
-        asset('spacing', '여백'),
-        asset('sizing', '크기'),
-        asset('radius', '모서리'),
-        asset('border-width', '선 두께'),
-        asset('shadow', '그림자'),
-        asset('motion', '모션'),
-        asset('writing', '문구 (보이스 · 표기)'),
-        asset('tokens', '디자인 토큰'),
-        asset('icons', '아이콘'),
-        ...guideItems('foundations', (g) => g || '파운데이션'),
+        ['rules', '규칙', '원칙 · 규칙'],
+        ['lint', '검증 규칙', '원칙 · 규칙'],
+        ...guideItems('start', () => '원칙 · 규칙'),
+        ['slots', '슬롯', '화면 구조'],
+        ['stack', '조립 구조', '화면 구조'],
+        ...guideItems('foundations', (g) => `화면 구조 › ${g || '구조'}`),
+        ...I.filter((i) => i.kind === 'layout').map((i): NavItem => [i.code, `${i.name} 레이아웃`, '화면 구조 › 레이아웃 규칙']),
+        ...guideItems('blocks', (g) => `블록 정책${g ? ` › ${g}` : ''}`),
+        ['patterns', '전체', 'UX 가이드라인'],
+        ...guideItems('patterns', (g) => `UX 가이드라인 › ${g || '기타'}`),
+        ['glossary', '용어사전', '기준 문서'],
+        ...guideItems('governance', () => '기준 문서').filter(([r]) => r !== guideRoute('glossary')),
       ],
     ],
-    ['components', 'Components', [['components', '전체'], ...componentItems(I)]],
     [
-      'blocks',
-      'Blocks',
+      'ui',
+      'UI 거버넌스',
       [
-        ['blocks', '전체'],
-        ...I.filter((i) => i.kind === 'block' && !P.isSb(i)).map((i): NavItem => [i.code, i.name, '공통 블록']),
+        ['ui-rules', 'UI 규칙', '원칙 · 규칙'],
+        ['design-review', '디자인 검수 기준', '원칙 · 규칙'],
+        ['figma-guide', 'Figma 작성 기준', '원칙 · 규칙'],
+        ['foundations', '개요', 'Foundations'],
+        ...(
+          [
+            ['color', '컬러'],
+            ['typography', '타이포그래피'],
+            ['spacing', '여백'],
+            ['sizing', '크기'],
+            ['radius', '모서리'],
+            ['border-width', '선 두께'],
+            ['shadow', '그림자'],
+            ['motion', '모션'],
+            ['writing', '문구 (보이스 · 표기)'],
+            ['tokens', '디자인 토큰'],
+            ['icons', '아이콘'],
+          ] as [string, string][]
+        ).map(([r, l]): NavItem => [r, l, 'Foundations']),
+        ['components', '전체', 'Components'],
+        ...componentItems(I).map(([r, l, g, tag]): NavItem => [r, l, `Components › ${g}`, tag]),
+        ...patterns.map((p): NavItem => [`pattern-${p.key}`, `${p.name} 사용 예시`, 'Components › 입력']),
+        ['blocks', '전체', 'Blocks'],
+        ...I.filter((i) => i.kind === 'block' && !P.isSb(i)).map((i): NavItem => [i.code, i.name, 'Blocks › 공통 블록']),
         // 업무 구분은 블록이 아직 없어도 자리를 둔다 (경로가 빈 항목 = 안내 글)
         ...P.SB_DOMAINS.flatMap((dm) => {
-          const L = I.filter((i) => P.sbDomain(i) === dm).map((i): NavItem => [i.code, i.name, `SB 블록 · ${dm}`]);
-          return L.length ? L : [['', '아직 없음', `SB 블록 · ${dm}`] as NavItem];
+          const L = I.filter((i) => P.sbDomain(i) === dm).map((i): NavItem => [i.code, i.name, `Blocks › SB 블록 ${dm}`]);
+          return L.length ? L : [['', '아직 없음', `Blocks › SB 블록 ${dm}`] as NavItem];
         }),
-        ...guideItems('blocks', (g) => `모듈${g ? ` · ${g}` : ''}`),
       ],
     ],
-    ['patterns', 'Patterns', [['patterns', '전체'], ...patterns.map((p): NavItem => [`pattern-${p.key}`, `${p.name} 패턴`, 'Figma 패턴']), ...guideItems('patterns', (g) => g || '패턴'), ...I.filter((i) => i.kind === 'layout').map((i): NavItem => [i.code, `${i.name} 레이아웃`, '레이아웃 규칙'])]],
     ['mine', '내 요청', [['my-requests', '내 요청']]],
   ];
   if (role === 'ux') S.push(['work', 'UX 편집', [['ux-edit', '기준 편집'], ['sb-edit', 'SB library 편집'], ['my', '내 변경'], ['promo', '승격 심사']]]);
@@ -95,9 +112,8 @@ export function sections(role: Role): Section[] {
 
 export function sectionOf(route: string, role: Role) {
   for (const [k, , items] of sections(role)) if (items.some(([r]) => r === route)) return k;
-  if (route.startsWith('pattern-')) return 'patterns';
-  if (route.startsWith('g-') && hostOf(route.slice(2))) return hostOf(route.slice(2))!.kind === 'block' ? 'blocks' : 'components';
-  if (route.startsWith('new-')) return 'components';
+  if (route.startsWith('pattern-') || route.startsWith('new-')) return 'ui';
+  if (route.startsWith('g-') && hostOf(route.slice(2))) return 'ui';
   return 'home';
 }
 
@@ -134,7 +150,7 @@ interface NavGroup {
   groups: NavGroup[];
 }
 
-/** 소제목('컴포넌트 가이드 · 입력')으로 두 단계 묶음을 만든다. 소제목 없는 항목(전체 · 개요)은 맨 위에 그대로 */
+/** 소제목('Components › 입력')으로 두 단계 묶음을 만든다. 소제목 없는 항목(전체 · 개요)은 맨 위에 그대로 */
 function groupItems(items: NavItem[]) {
   const top: NavItem[] = [];
   const groups: NavGroup[] = [];
@@ -145,9 +161,9 @@ function groupItems(items: NavItem[]) {
       top.push(it);
       continue;
     }
-    const [a, ...rest] = sub.split(' · ');
+    const [a, ...rest] = sub.split(' › ');
     const g = find(groups, a);
-    if (rest.length) find(g.groups, rest.join(' · ')).items.push(it);
+    if (rest.length) find(g.groups, rest.join(' › ')).items.push(it);
     else g.items.push(it);
   }
   return { top, groups };

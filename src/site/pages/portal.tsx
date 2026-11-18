@@ -13,7 +13,7 @@ import { BumpTag, Check, CodeLink, UxRef, DraftBox, Drafts, EditBtn, Head, Rules
 import { FoundationsOverview, PendingPage } from './foundations';
 import { Convert, Deploy, My, MyRequests, Recheck, Requests, Roles, SbEdit, SbStatus, UxEdit } from './work';
 
-const KIND_LABEL: Record<Kind, string> = { block: 'Blocks', comp: 'Components', layout: 'Layout rules' };
+const KIND_LABEL: Record<Kind, string> = { block: 'UI 거버넌스 · Blocks', comp: 'UI 거버넌스 · Components', layout: 'UX 거버넌스 · 레이아웃 규칙' };
 const formValues = (f: HTMLFormElement) => Object.fromEntries(new FormData(f)) as Record<string, string>;
 const list = (s?: string) => String(s || '').split(',').map((x) => x.trim()).filter(Boolean);
 
@@ -31,6 +31,9 @@ export function portalPage(route: string, role: Role): ReactNode | null {
     case 'spacing': case 'sizing': case 'radius': case 'border-width': case 'shadow': return <ScalePage key={route} id={route} />;
     case 'motion': return <PendingPage title="모션" lead="열기 · 닫기 · 전환 · 상태 변화에 쓰는 시간과 움직임 곡선을 정합니다." todo={['시간(짧게 · 보통 · 길게)과 곡선', '팝업 · 토스트 · 펼침 등 컴포넌트별 적용']} />;
     case 'writing': return <PendingPage title="문구 (보이스 · 표기)" lead="화면 문구의 말투와 표기 규칙을 정합니다." todo={['말투 · 존댓말 기준', '버튼 · 안내 · 오류 문구 패턴', '숫자 · 날짜 · 단위 표기 (UX 규칙의 표기 규칙과 연결)']} />;
+    case 'ui-rules': return <PendingPage eyebrow="UI 거버넌스" title="UI 규칙" lead="화면을 그릴 때 지키는 시각 규칙입니다. UX 거버넌스의 규칙(화면을 어떻게 짜는가)과 짝을 이루고, Foundations · Components · Blocks는 모두 이 규칙을 따릅니다." todo={['값 대신 디자인 토큰만 쓰기 (색 · 글자 · 여백 · 모서리 · 그림자)', '컴포넌트 변형 · 상태(hover · pressed · disabled · focus)를 정해진 것만 쓰기', '간격 · 정렬 · 밀도 기준', 'Do · Don\'t와 규칙 번호 (UX 규칙과 같은 형식)']} />;
+    case 'design-review': return <PendingPage eyebrow="UI 거버넌스" title="디자인 검수 기준" lead="UI팀이 컴포넌트 · 블록을 배포하거나 SB 블록을 승격할 때 확인하는 항목입니다. 승격 심사 2단계(UI팀 디자인)의 기준이 됩니다." todo={['토큰 연결 · 하드코딩 값 없음', 'Figma 디자인 라이브러리와 일치 (속성 · 변형 · 이름)', '상태 · 접근성(대비 · 포커스) 확인', '승격 심사 2단계 체크리스트']} />;
+    case 'figma-guide': return <PendingPage eyebrow="UI 거버넌스" title="Figma 작성 기준" lead="SB 라이브러리는 디자인 DS 라이브러리와 동기화됩니다. 소스 변환이 읽을 수 있도록 Figma에서 지켜야 할 구조입니다." todo={['컴포넌트 · 레이어 · 속성 이름 규칙', 'Figma 변수(토큰) 연결 · 스타일 사용', 'SB 블록을 Figma에서 고칠 때의 순서 (DS 담당자)', '라이브러리 배포 · 버전 기록']} />;
     case 'my-requests': return <MyRequests />;
     case 'ux-edit': return role === 'ux' ? <UxEdit /> : null;
     case 'sb-edit': return role === 'ux' ? <SbEdit /> : null;
@@ -57,11 +60,11 @@ export function portalPage(route: string, role: Role): ReactNode | null {
 
 function Overview() {
   const cards = [
-    ['rules', 'UX 거버넌스', '규칙 · 슬롯 · 검증 · 조립 구조 · UX 원칙', 'UX 패턴 가이드 Do · Don\'t와 연결표 · 모든 화면의 기준'],
-    ['foundations', 'Foundations', '컬러 · 타이포 · 여백 · 아이콘 · 토큰', '디자인 에셋 · 구조 · 화면 유형 · 사용 환경'],
-    ['components', 'Components', '컴포넌트 · 컴포넌트 가이드', '블록 안에 들어가는 최소 부품'],
-    ['blocks', 'Blocks', '공통 블록 · SB 블록 · 모듈', '슬롯 하나를 채우는 업무 단위 묶음'],
-    ['patterns', 'Patterns', 'UX 패턴 · 레이아웃 규칙', '화면을 어떤 순서로 쌓을지'],
+    ['rules', 'UX 거버넌스', '화면을 어떻게 짜는가', '원칙 · 규칙 · 화면 구조 · 블록 정책 · UX 가이드라인 · 용어'],
+    ['ui-rules', 'UI 거버넌스', '무엇으로 그리는가', 'UI 규칙 · 검수 기준 → Foundations → Components → Blocks'],
+    ['foundations', 'UI 거버넌스 › Foundations', '컬러 · 타이포 · 여백 · 아이콘 · 토큰', '모든 부품이 쓰는 디자인 에셋'],
+    ['components', 'UI 거버넌스 › Components', '묶음별 컴포넌트', '블록 안에 들어가는 최소 부품'],
+    ['blocks', 'UI 거버넌스 › Blocks', '공통 블록 · SB 블록(BSS · BO)', '슬롯 하나를 채우는 업무 단위 묶음'],
     ['my-requests', '내 요청', '아이콘 · 컴포넌트 · 블록 · 토큰 요청', 'DS 담당자에게 요청하고 진행 상태 보기'],
   ];
   return (
@@ -342,7 +345,7 @@ function PatternList() {
   const L = P.items().filter((i) => i.kind === 'layout');
   return (
     <>
-      <Head eyebrow="Patterns" title="패턴" lead="화면을 어떤 순서로 쌓고, 부품을 어떻게 쓰는지 정한 UX 패턴과 레이아웃 규칙입니다." />
+      <Head eyebrow="UX 거버넌스" title="UX 가이드라인" lead="화면을 어떤 순서로 쌓고 어떻게 동작하게 할지 정한 가이드라인과 레이아웃 규칙입니다. 블록과 SB는 이 가이드라인을 따릅니다." />
       <h2 id="ux">Figma 패턴</h2>
       <div className="cards">
         {patterns.map((p) => (

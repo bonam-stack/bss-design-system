@@ -130,17 +130,17 @@ export function TokenEditor() {
 }
 
 /** 아직 내용이 없는 디자인 에셋 문서: 자리만 두고 채울 항목을 보여 준다 */
-export function PendingPage({ title, lead, todo }: { title: string; lead: string; todo: string[] }) {
+export function PendingPage({ title, lead, todo, eyebrow = 'UI 거버넌스 · Foundations' }: { title: string; lead: string; todo: string[]; eyebrow?: string }) {
   return (
     <>
-      <Head eyebrow="Foundations" title={title} lead={lead} extra={<div className="checks"><span className="st">준비 중</span></div>} />
+      <Head eyebrow={eyebrow} title={title} lead={lead} extra={<div className="checks"><span className="st">준비 중</span></div>} />
       <h2 id="todo">채울 내용</h2>
       <ul>
         {todo.map((t) => (
           <li key={t}>{t}</li>
         ))}
       </ul>
-      <p className="note">기준이 정해지면 DS 담당자 · UX 담당자가 이 문서를 채웁니다.</p>
+      <p className="note">기준이 정해지면 DS 담당자가 이 문서를 채웁니다.</p>
     </>
   );
 }

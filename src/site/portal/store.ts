@@ -34,7 +34,8 @@ export const REQ_STAGES = ['요청됨', '디자인 작업', '미리보기 확인
 export type EditType = Kind | 'sb' | 'figma' | 'code' | 'text' | 'rule' | 'guide' | 'token';
 export const EDITOR: Record<EditType, Role> = { block: 'ds', comp: 'ds', figma: 'ds', code: 'ds', text: 'ds', token: 'ds', sb: 'ux', layout: 'ux', rule: 'ux', guide: 'ux' };
 /** 여러 담당이 함께 고치는 것: 컴포넌트의 설명 · 사용 가이드(Do/Don't 포함) · 카탈로그 설명은 DS 담당자와 UX 담당자 모두 */
-const SHARED: Partial<Record<EditType, Role[]>> = { comp: ['ds', 'ux'], text: ['ds', 'ux'], guide: ['ux', 'ds'] };
+// SB 블록: 모양은 DS 담당자가 Figma에서 고쳐 소스 변환, 설명 · 놓이는 슬롯 · 승격은 UX 담당자
+const SHARED: Partial<Record<EditType, Role[]>> = { comp: ['ds', 'ux'], text: ['ds', 'ux'], guide: ['ux', 'ds'], sb: ['ux', 'ds'] };
 export const canEdit = (role: Role, type: EditType) => (SHARED[type] || [EDITOR[type]]).includes(role);
 /** Blocks = 공통 블록 + SB 블록. SB 블록은 업무 구분(BSS · BO)으로 나눈다.
  *  SB 블록: SB Studio 미리보기에서 자동 생성(tb-)되거나 한 업무 시스템에만 쓰는 블록 → SB 설계 완료 시 게시 → 여러 업무에서 쓰이면 승격 */
