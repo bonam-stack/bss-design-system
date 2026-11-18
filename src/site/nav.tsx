@@ -47,8 +47,9 @@ export function sections(role: Role): Section[] {
   const I = P.items();
   const asset = (r: string, l: string): NavItem => [r, l, '디자인 에셋'];
   const S: Section[] = [
-    ['governance', 'UX 거버넌스', [['rules', '규칙'], ['slots', '슬롯'], ['lint', '검증 규칙'], ['glossary', '용어사전'], ...guideItems('governance', () => '작성 기준').filter(([r]) => r !== guideRoute('glossary'))]],
-    ['start', '홈', [['overview', '개요'], ['stack', '조립 구조'], ['updates', '업데이트'], ...guideItems('start', () => 'UX 원칙')]],
+    // 홈(개요 · 업데이트)은 위쪽 메뉴에 두지 않는다: 로고를 누르면 개요, 버전을 누르면 업데이트
+    ['home', '홈', [['overview', '개요'], ['updates', '업데이트']]],
+    ['governance', 'UX 거버넌스', [['rules', '규칙'], ['slots', '슬롯'], ['lint', '검증 규칙'], ['stack', '조립 구조'], ['glossary', '용어사전'], ...guideItems('start', () => 'UX 원칙'), ...guideItems('governance', () => '작성 기준').filter(([r]) => r !== guideRoute('glossary'))]],
     [
       'foundations',
       'Foundations',
@@ -93,7 +94,7 @@ export function sectionOf(route: string, role: Role) {
   if (route.startsWith('pattern-')) return 'patterns';
   if (route.startsWith('g-') && hostOf(route.slice(2))) return hostOf(route.slice(2))!.kind === 'block' ? 'blocks' : 'components';
   if (route.startsWith('new-')) return 'components';
-  return 'start';
+  return 'home';
 }
 
 /** 작업 메뉴 숫자: 관리자 = 배포 요청, DS = 진행 중 요청 + 내 작성 중 초안, UX = 내 작성 중 초안 */
@@ -108,7 +109,7 @@ export function TopNav({ route }: { route: string }) {
   const n = workCount(role);
   return (
     <>
-      {sections(role).map(([k, label, items]) => (
+      {sections(role).filter(([k]) => k !== 'home').map(([k, label, items]) => (
         <a key={k} href={`#${items[0][0]}`} className={`${k === cur ? 'on' : ''}${k === 'work' ? ' admin' : ''}`} aria-current={k === cur ? 'true' : undefined}>
           {label}
           {k === 'work' && n ? (
@@ -214,7 +215,7 @@ export function SideNav({ route: here }: { route: string }) {
     <>
       {/* 좁은 화면에서는 위쪽 섹션 메뉴가 숨으므로 목록 위에 섹션을 둔다 */}
       <div className="m-sec">
-        {all.map(([k, l, it]) => (
+        {all.filter(([k]) => k !== 'home').map(([k, l, it]) => (
           <a key={k} href={`#${it[0][0]}`} className={k === cur ? 'on' : ''}>
             {l}
           </a>

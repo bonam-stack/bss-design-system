@@ -57,7 +57,7 @@ export function portalPage(route: string, role: Role): ReactNode | null {
 
 function Overview() {
   const cards = [
-    ['rules', 'UX 거버넌스', '규칙 · 슬롯 · 검증 · 용어', 'UX 패턴 가이드 Do · Don\'t와 연결표 · 모든 화면의 기준'],
+    ['rules', 'UX 거버넌스', '규칙 · 슬롯 · 검증 · 조립 구조 · UX 원칙', 'UX 패턴 가이드 Do · Don\'t와 연결표 · 모든 화면의 기준'],
     ['foundations', 'Foundations', '컬러 · 타이포 · 여백 · 아이콘 · 토큰', '디자인 에셋 · 구조 · 화면 유형 · 사용 환경'],
     ['components', 'Components', '컴포넌트 · 컴포넌트 가이드', '블록 안에 들어가는 최소 부품'],
     ['blocks', 'Blocks', '공통 블록 · SB 블록 · 모듈', '슬롯 하나를 채우는 업무 단위 묶음'],
@@ -145,7 +145,7 @@ function Stack() {
   ];
   return (
     <>
-      <Head eyebrow="홈" title="조립 구조" lead="화면은 큰 단위에서 작은 단위로 쌓아 조립합니다. SB Studio는 4단계에서 이 순서대로 놓고 5단계에서 디자인 에셋을 입힙니다." />
+      <Head eyebrow="UX 거버넌스" title="조립 구조" lead="화면은 큰 단위에서 작은 단위로 쌓아 조립합니다. SB Studio는 4단계에서 이 순서대로 놓고 5단계에서 디자인 에셋을 입힙니다." />
       <h2 id="stack">Stack</h2>
       <ol className="stk">
         {rows.map((x, i) => (
@@ -199,7 +199,7 @@ function Stack() {
 function Updates() {
   return (
     <>
-      <Head eyebrow="홈" title="업데이트" lead="게시된 버전과 변경 노트입니다. MAJOR는 기존 것을 고치거나 지울 때(이미 만든 SB 재검수), MINOR는 추가 · 승격, PATCH는 설명 수정입니다." />
+      <Head eyebrow="BSS Design" title="업데이트" lead="게시된 버전과 변경 노트입니다. MAJOR는 기존 것을 고치거나 지울 때(이미 만든 SB 재검수), MINOR는 추가 · 승격, PATCH는 설명 수정입니다." />
       <p className="note">
         UX 패턴 가이드는 {guideSource.release} 릴리스를 반영했습니다 ({guideSource.generated} 추출). 파운데이션 · 패턴 · 모듈 · 컴포넌트 가이드는 각 섹션에, 권장 · 금지는 <a href="#rules">규칙</a>에, 용어는 <a href="#glossary">용어사전</a>에 있습니다.
       </p>
