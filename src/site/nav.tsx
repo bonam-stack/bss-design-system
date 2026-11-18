@@ -97,8 +97,8 @@ export function sections(role: Role): Section[] {
         ...I.filter((i) => i.kind === 'block' && !P.isSb(i)).map((i): NavItem => [i.code, i.name, 'Blocks › 공통 블록']),
         // 업무 구분은 블록이 아직 없어도 자리를 둔다 (경로가 빈 항목 = 안내 글)
         ...P.SB_DOMAINS.flatMap((dm) => {
-          const L = I.filter((i) => P.sbDomain(i) === dm).map((i): NavItem => [i.code, i.name, `Blocks › SB 블록 ${dm}`]);
-          return L.length ? L : [['', '아직 없음', `Blocks › SB 블록 ${dm}`] as NavItem];
+          const L = I.filter((i) => P.sbDomain(i) === dm).map((i): NavItem => [i.code, i.name, `Blocks › ${dm} 블록`]);
+          return L.length ? L : [['', '아직 없음', `Blocks › ${dm} 블록`] as NavItem];
         }),
       ],
     ],
@@ -279,7 +279,7 @@ export function Pager({ route }: { route: string }) {
 
 const CAN_DO: Record<Role, string> = {
   viewer: '문서를 읽습니다. 담당 역할로 바꾸면 그 자리에서 고칠 수 있습니다.',
-  ux: '기준 편집(레이아웃 규칙 · 규칙 · 사용 가이드) · SB 블록 · 컴포넌트 설명',
+  ux: '기준 편집(레이아웃 규칙 · 규칙 · 사용 가이드) · 업무 블록 · 컴포넌트 설명',
   ds: '토큰 · 컴포넌트 · 공통 블록 · 소스 변환 · 디자인 요청',
   approver: '운영 서버 배포 · 반려 · 롤백 · 재검수 대상 SB · 권한 확인',
 };

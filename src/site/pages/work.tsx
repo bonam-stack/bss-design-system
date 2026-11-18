@@ -1,7 +1,7 @@
 // 역할별 작업 페이지 (BSS SB Studio 디자인 포맷 정의 및 연계 방식의 흐름).
 // 케이스 1 토큰 · 컴포넌트 · 공통 블록: 디자인 요청 → UI팀 디자인 → 소스 변환 · 미리보기 → DS 담당자 확인 → 배포 요청 → 관리자 배포
 // 케이스 2 UX 패턴: 기준 편집 → 규칙 번호 자동 → 저장 · 미리보기 → UX 담당자 확인 → 배포 요청 → 관리자 배포
-// 케이스 3 SB 블록: SB library 편집 → 자동 검사 → 미리보기 → 담당자 확인 → 배포 요청 → 관리자 배포 → 사용 집계 → 승격
+// 케이스 3 업무 블록: SB library 편집 → 자동 검사 → 미리보기 → 담당자 확인 → 배포 요청 → 관리자 배포 → 사용 집계 → 승격
 // 케이스 4 아이콘: 내 요청(AI 더미로 기획 계속) → 디자인 요청 → 소스 변환 → 배포 → 더미 교체 · 알림
 import { useState } from 'react';
 import type { FormEvent, ReactNode } from 'react';
@@ -185,16 +185,16 @@ export function SbStatus({ p }: { p: P.Promotion }) {
   return <St c={p.status === '승인' ? 'ok' : p.status === '반려' ? 'ng' : 'hold'} t={p.status} />;
 }
 
-/** UX 편집 › SB library 편집: SB 블록 · 사용 집계 · 승격 후보 */
+/** UX 편집 › SB library 편집: 업무 블록 · 사용 집계 · 승격 후보 */
 export function SbEdit() {
   const sb = P.items().filter((i) => P.isSb(i));
   const promos = P.promotions().filter((p) => /^tb-/.test(p.code));
   return (
     <>
-      <Head eyebrow="UX 편집" title="SB library 편집" lead="업무 시스템(BSS · BO)별로 쓰는 SB 블록입니다. SB Studio 미리보기에서 자동 생성된 블록은 SB 설계 완료 시 여기에 게시됩니다. 블록 문서를 열어 설명 · 놓이는 슬롯을 고치고, 자동 검사(속성값 · ID · 규칙 · 토큰)를 통과하면 미리보기가 만들어집니다." />
-      <h2 id="blocks">SB 블록</h2>
+      <Head eyebrow="UX 편집" title="SB library 편집" lead="업무 시스템(BSS · BO)별로 쓰는 업무 블록입니다. SB Studio 미리보기에서 자동 생성된 블록은 SB 설계 완료 시 여기에 게시됩니다. 블록 문서를 열어 설명 · 놓이는 슬롯을 고치고, 자동 검사(속성값 · ID · 규칙 · 토큰)를 통과하면 미리보기가 만들어집니다." />
+      <h2 id="blocks">업무 블록</h2>
       <Table
-        cols={['SB 블록', '업무', '놓이는 슬롯', '']}
+        cols={['업무 블록', '업무', '놓이는 슬롯', '']}
         rows={sb.map((i) => (
           <tr key={i.code}>
             <td>
@@ -211,9 +211,9 @@ export function SbEdit() {
         ))}
       />
       <h2 id="usage">사용 집계 · 승격 후보</h2>
-      <p className="note">여러 Storyboard에서 반복해 쓰인 SB 블록은 승격 후보가 되고, 2단 심사(SB팀 표준 → UI팀 디자인)를 거쳐 공통 블록이 됩니다.</p>
+      <p className="note">여러 Storyboard에서 반복해 쓰인 업무 블록은 승격 후보가 되고, 2단 심사(SB팀 표준 → UI팀 디자인)를 거쳐 공통 블록이 됩니다.</p>
       <Table
-        cols={['SB 블록', '사용', '판단', '심사 단계', '상태']}
+        cols={['업무 블록', '사용', '판단', '심사 단계', '상태']}
         rows={promos.map((p) => (
           <tr key={p.id}>
             <td>{p.name}</td>
@@ -329,7 +329,7 @@ export function Requests() {
         <>
           <h2 id="promo">블록 승격 (UI팀 디자인 차례)</h2>
           <Table
-            cols={['SB 블록', '판단', '']}
+            cols={['업무 블록', '판단', '']}
             rows={promos.map((p) => (
               <tr key={p.id}>
                 <td>{p.name}</td>
@@ -585,7 +585,7 @@ export function Roles() {
         cols={['역할', '작업 메뉴', '하는 일', '배포']}
         rows={[
           ['보기', '내 요청', '기준 보기 · 아이콘 · 컴포넌트 · 블록 · 토큰 요청', '-'],
-          ['UX 담당자', 'UX 편집: 기준 편집 · SB library 편집 · 내 변경 · 승격 심사', 'UX 패턴 · 레이아웃 규칙 · 사용 가이드 · 규칙 · SB 블록 편집, SB팀 표준 심사', '배포 요청'],
+          ['UX 담당자', 'UX 편집: 기준 편집 · SB library 편집 · 내 변경 · 승격 심사', 'UX 패턴 · 레이아웃 규칙 · 사용 가이드 · 규칙 · 업무 블록 편집, SB팀 표준 심사', '배포 요청'],
           ['DS 담당자', 'DS 작업: 디자인 요청 · 소스 변환 · 내 변경 · 승격 심사', '토큰 · 컴포넌트 · 공통 블록 소스 변환 · 수정(설명 · 코드), UI팀 디자인 심사', '배포 요청'],
           ['관리자', '관리자: 운영 서버 배포 · 재검수 대상 SB · 권한 확인 · 승격 심사', '정기 · 수동 배포, 롤백, 재검수 대상 확인', '운영 서버 배포'],
         ].map((r) => (

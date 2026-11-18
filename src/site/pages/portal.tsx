@@ -32,8 +32,8 @@ export function portalPage(route: string, role: Role): ReactNode | null {
     case 'motion': return <PendingPage title="모션" lead="열기 · 닫기 · 전환 · 상태 변화에 쓰는 시간과 움직임 곡선을 정합니다." todo={['시간(짧게 · 보통 · 길게)과 곡선', '팝업 · 토스트 · 펼침 등 컴포넌트별 적용']} />;
     case 'writing': return <PendingPage title="문구 (보이스 · 표기)" lead="화면 문구의 말투와 표기 규칙을 정합니다." todo={['말투 · 존댓말 기준', '버튼 · 안내 · 오류 문구 패턴', '숫자 · 날짜 · 단위 표기 (UX 규칙의 표기 규칙과 연결)']} />;
     case 'ui-rules': return <PendingPage eyebrow="UI 거버넌스" title="UI 규칙" lead="화면을 그릴 때 지키는 시각 규칙입니다. UX 거버넌스의 규칙(화면을 어떻게 짜는가)과 짝을 이루고, Foundations · Components · Blocks는 모두 이 규칙을 따릅니다." todo={['값 대신 디자인 토큰만 쓰기 (색 · 글자 · 여백 · 모서리 · 그림자)', '컴포넌트 변형 · 상태(hover · pressed · disabled · focus)를 정해진 것만 쓰기', '간격 · 정렬 · 밀도 기준', 'Do · Don\'t와 규칙 번호 (UX 규칙과 같은 형식)']} />;
-    case 'design-review': return <PendingPage eyebrow="UI 거버넌스" title="디자인 검수 기준" lead="UI팀이 컴포넌트 · 블록을 배포하거나 SB 블록을 승격할 때 확인하는 항목입니다. 승격 심사 2단계(UI팀 디자인)의 기준이 됩니다." todo={['토큰 연결 · 하드코딩 값 없음', 'Figma 디자인 라이브러리와 일치 (속성 · 변형 · 이름)', '상태 · 접근성(대비 · 포커스) 확인', '승격 심사 2단계 체크리스트']} />;
-    case 'figma-guide': return <PendingPage eyebrow="UI 거버넌스" title="Figma 작성 기준" lead="SB 라이브러리는 디자인 DS 라이브러리와 동기화됩니다. 소스 변환이 읽을 수 있도록 Figma에서 지켜야 할 구조입니다." todo={['컴포넌트 · 레이어 · 속성 이름 규칙', 'Figma 변수(토큰) 연결 · 스타일 사용', 'SB 블록을 Figma에서 고칠 때의 순서 (DS 담당자)', '라이브러리 배포 · 버전 기록']} />;
+    case 'design-review': return <PendingPage eyebrow="UI 거버넌스" title="디자인 검수 기준" lead="UI팀이 컴포넌트 · 블록을 배포하거나 업무 블록을 승격할 때 확인하는 항목입니다. 승격 심사 2단계(UI팀 디자인)의 기준이 됩니다." todo={['토큰 연결 · 하드코딩 값 없음', 'Figma 디자인 라이브러리와 일치 (속성 · 변형 · 이름)', '상태 · 접근성(대비 · 포커스) 확인', '승격 심사 2단계 체크리스트']} />;
+    case 'figma-guide': return <PendingPage eyebrow="UI 거버넌스" title="Figma 작성 기준" lead="SB 라이브러리는 디자인 DS 라이브러리와 동기화됩니다. 소스 변환이 읽을 수 있도록 Figma에서 지켜야 할 구조입니다." todo={['컴포넌트 · 레이어 · 속성 이름 규칙', 'Figma 변수(토큰) 연결 · 스타일 사용', '업무 블록을 Figma에서 고칠 때의 순서 (DS 담당자)', '라이브러리 배포 · 버전 기록']} />;
     case 'my-requests': return <MyRequests />;
     case 'ux-edit': return role === 'ux' ? <UxEdit /> : null;
     case 'sb-edit': return role === 'ux' ? <SbEdit /> : null;
@@ -64,7 +64,7 @@ function Overview() {
     ['ui-rules', 'UI 거버넌스', '무엇으로 그리는가', 'UI 규칙 · 검수 기준 → Foundations → Components → Blocks'],
     ['foundations', 'UI 거버넌스 › Foundations', '컬러 · 타이포 · 여백 · 아이콘 · 토큰', '모든 부품이 쓰는 디자인 에셋'],
     ['components', 'UI 거버넌스 › Components', '묶음별 컴포넌트', '블록 안에 들어가는 최소 부품'],
-    ['blocks', 'UI 거버넌스 › Blocks', '공통 블록 · SB 블록(BSS · BO)', '슬롯 하나를 채우는 업무 단위 묶음'],
+    ['blocks', 'UI 거버넌스 › Blocks', '공통 블록 · BSS 블록 · BO 블록', '슬롯 하나를 채우는 업무 단위 묶음'],
     ['my-requests', '내 요청', '아이콘 · 컴포넌트 · 블록 · 토큰 요청', 'DS 담당자에게 요청하고 진행 상태 보기'],
   ];
   return (
@@ -255,7 +255,7 @@ function ItemList({ kind }: { kind: 'comp' | 'block' }) {
       <Head
         eyebrow={isComp ? 'Components' : 'Blocks'}
         title={isComp ? '컴포넌트' : '블록'}
-        lead={isComp ? '블록 안에 들어가는 최소 부품입니다. ✓ 표시는 Figma 디자인 에셋과 사용 가이드가 있는 것입니다.' : '블록은 슬롯 하나를 채우는 업무 단위 묶음입니다. 모든 업무가 함께 쓰는 공통 블록과, 업무 시스템(BSS · BO)별로 쓰는 SB 블록으로 나뉩니다. 모듈은 UX 패턴 가이드의 모듈 정의입니다.'}
+        lead={isComp ? '블록 안에 들어가는 최소 부품입니다. ✓ 표시는 Figma 디자인 에셋과 사용 가이드가 있는 것입니다.' : '블록은 슬롯 하나를 채우는 업무 단위 묶음입니다. 모든 업무가 함께 쓰는 공통 블록과, 업무 시스템별로 쓰는 BSS 블록 · BO 블록으로 나뉩니다. 모듈은 UX 패턴 가이드의 모듈 정의입니다.'}
       />
       {isComp && can('figma') ? (
         <p className="row">
@@ -296,7 +296,7 @@ function ItemList({ kind }: { kind: 'comp' | 'block' }) {
   );
 }
 
-/** Blocks: 공통 블록 · SB 블록(+ 승격 진행) */
+/** Blocks: 공통 블록 · 업무 블록(+ 승격 진행) */
 function BlockSections({ list: I }: { list: Item[] }) {
   const sb = I.filter((i) => P.isSb(i));
   const promos = P.promotions().filter((p) => /^tb-/.test(p.code));
@@ -305,15 +305,14 @@ function BlockSections({ list: I }: { list: Item[] }) {
       <h2 id="common">공통 블록</h2>
       <p className="note">Figma 디자인 시스템 기준으로 포털이 관리하는 블록입니다. DS 담당자가 고치고 관리자가 배포합니다. SB Studio는 이 블록을 먼저 고릅니다.</p>
       <Grid list={I.filter((i) => !P.isSb(i))} />
-      <h2 id="sb">SB 블록</h2>
-      <p className="note">한 업무 시스템에서만 쓰는 블록입니다. 업무 구분(BSS · BO)으로 나눠 관리하고, UX 담당자가 고칩니다. SB Studio 미리보기에서 자동으로 만들어진 블록도 SB 설계가 완료되면 여기에 게시되고, 여러 업무에서 쓰이면 승격 심사를 거쳐 공통 블록이 됩니다.</p>
       {P.SB_DOMAINS.map((dm) => {
         const L = sb.filter((i) => P.sbDomain(i) === dm);
         return (
           <div key={dm}>
-            <h3 id={`sb-${dm.toLowerCase()}`}>
-              {dm} <span className="count">{L.length}</span>
-            </h3>
+            <h2 id={`blk-${dm.toLowerCase()}`}>
+              {dm} 블록 <span className="count">{L.length}</span>
+            </h2>
+            <p className="note">{dm}에서만 쓰는 블록입니다. 모양은 DS 담당자가 Figma에서 고치고, 설명 · 놓이는 슬롯 · 승격은 UX 담당자가 맡습니다. SB Studio 미리보기에서 자동으로 만들어진 블록도 설계가 완료되면 여기에 게시되고, 여러 업무에서 쓰이면 승격 심사를 거쳐 공통 블록이 됩니다.</p>
             {L.length ? <Grid list={L} /> : <p className="muted">아직 {dm} 블록이 없습니다.</p>}
           </div>
         );
@@ -322,7 +321,7 @@ function BlockSections({ list: I }: { list: Item[] }) {
         <>
           <h3>승격 진행</h3>
           <Table
-            cols={['SB 블록', '사용', '판단', '단계', '상태']}
+            cols={['업무 블록', '사용', '판단', '단계', '상태']}
             rows={promos.map((p) => (
               <tr key={p.id}>
                 <td>{p.name}</td>
@@ -337,6 +336,21 @@ function BlockSections({ list: I }: { list: Item[] }) {
           />
         </>
       ) : null}
+      <h2 id="policy">블록 정책 (모듈)</h2>
+      <p className="note">블록이 따르는 규칙은 UX 거버넌스 › 블록 정책에 있습니다. UX 패턴 가이드의 모듈 정의입니다.</p>
+      {[...new Set(docsIn('blocks').map((d) => d.group.split(' › ')[0] || '모듈'))].map((g) => (
+        <p key={g}>
+          <b>{g}</b>{' '}
+          {docsIn('blocks')
+            .filter((d) => (d.group.split(' › ')[0] || '모듈') === g)
+            .map((d, j) => (
+              <span key={d.id}>
+                {j ? ' · ' : ''}
+                <a href={`#${guideRoute(d.id)}`}>{d.title}</a>
+              </span>
+            ))}
+        </p>
+      ))}
     </>
   );
 }
@@ -862,7 +876,7 @@ function Promo() {
       <Head
         eyebrow={role === 'approver' ? '관리자' : role === 'ds' ? 'DS 작업' : 'UX 편집'}
         title="승격 심사"
-        lead="여러 Storyboard에서 반복해 쓰인 SB 블록(tb-)을 2단 심사(SB팀 표준 → UI팀 디자인)를 거쳐 공통 블록으로 올립니다. 마지막은 관리자가 배포합니다."
+        lead="여러 Storyboard에서 반복해 쓰인 업무 블록(tb-)을 2단 심사(SB팀 표준 → UI팀 디자인)를 거쳐 공통 블록으로 올립니다. 마지막은 관리자가 배포합니다."
         extra={
           <div className="checks">
             {P.PROMO_STAGES.map((s, i) => (

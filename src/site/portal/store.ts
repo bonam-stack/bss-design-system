@@ -20,7 +20,7 @@ export type Kind = 'layout' | 'block' | 'comp';
 export const KIND: Record<Kind, string> = { layout: '레이아웃 규칙', block: '블록', comp: '컴포넌트' };
 export type Status = 'pub' | 'draft' | 'tmp';
 export const STATUS: Record<Status, string> = { pub: '게시', draft: '초안', tmp: '임시' };
-// 승격: 여러 Storyboard에서 쓰인 SB 블록 → 2단 심사(SB팀 표준 → UI팀 디자인) → 관리자 배포로 공통 블록
+// 승격: 여러 Storyboard에서 쓰인 업무 블록 → 2단 심사(SB팀 표준 → UI팀 디자인) → 관리자 배포로 공통 블록
 export const PROMO_STAGES: { stage: string; who: Role; act: string }[] = [
   { stage: 'SB팀 표준', who: 'ux', act: '표준 확인 통과' },
   { stage: 'UI팀 디자인', who: 'ds', act: '디자인 · Figma 등록' },
@@ -30,22 +30,22 @@ export const PROMO_STAGES: { stage: string; who: Role; act: string }[] = [
 export type ReqKind = 'icon' | 'comp' | 'block' | 'token';
 export const REQ_KINDS: Record<ReqKind, string> = { icon: '아이콘 제작', comp: '컴포넌트 수정', block: '공통 블록 수정', token: '토큰 추가 · 수정' };
 export const REQ_STAGES = ['요청됨', '디자인 작업', '미리보기 확인', '완료'] as const;
-// 누가 무엇을 고치나: 토큰 · 컴포넌트 · 공통 블록 · Figma 변환은 DS 담당자, 레이아웃 규칙 · 규칙 · 사용 가이드 · SB 블록은 UX 담당자
+// 누가 무엇을 고치나: 토큰 · 컴포넌트 · 공통 블록 · Figma 변환은 DS 담당자, 레이아웃 규칙 · 규칙 · 사용 가이드 · 업무 블록은 UX 담당자
 export type EditType = Kind | 'sb' | 'figma' | 'code' | 'text' | 'rule' | 'guide' | 'token';
 export const EDITOR: Record<EditType, Role> = { block: 'ds', comp: 'ds', figma: 'ds', code: 'ds', text: 'ds', token: 'ds', sb: 'ux', layout: 'ux', rule: 'ux', guide: 'ux' };
 /** 여러 담당이 함께 고치는 것: 컴포넌트의 설명 · 사용 가이드(Do/Don't 포함) · 카탈로그 설명은 DS 담당자와 UX 담당자 모두 */
-// SB 블록: 모양은 DS 담당자가 Figma에서 고쳐 소스 변환, 설명 · 놓이는 슬롯 · 승격은 UX 담당자
+// 업무 블록: 모양은 DS 담당자가 Figma에서 고쳐 소스 변환, 설명 · 놓이는 슬롯 · 승격은 UX 담당자
 const SHARED: Partial<Record<EditType, Role[]>> = { comp: ['ds', 'ux'], text: ['ds', 'ux'], guide: ['ux', 'ds'], sb: ['ux', 'ds'] };
 export const canEdit = (role: Role, type: EditType) => (SHARED[type] || [EDITOR[type]]).includes(role);
-/** Blocks = 공통 블록 + SB 블록. SB 블록은 업무 구분(BSS · BO)으로 나눈다.
- *  SB 블록: SB Studio 미리보기에서 자동 생성(tb-)되거나 한 업무 시스템에만 쓰는 블록 → SB 설계 완료 시 게시 → 여러 업무에서 쓰이면 승격 */
+/** Blocks = 공통 블록 + 업무 블록. 업무 블록은 업무 구분(BSS · BO)으로 나눈다.
+ *  업무 블록: SB Studio 미리보기에서 자동 생성(tb-)되거나 한 업무 시스템에만 쓰는 블록 → SB 설계 완료 시 게시 → 여러 업무에서 쓰이면 승격 */
 export type SbDomain = 'BSS' | 'BO';
 export const SB_DOMAINS: SbDomain[] = ['BSS', 'BO'];
 /** 업무 전용 블록 (코드 → 업무 구분). tb- 블록은 따로 정하지 않으면 BSS */
 const SB_DOMAIN: Record<string, SbDomain> = { 'b-gnb': 'BSS', 'b-lnb': 'BSS' };
 export const sbDomain = (i: { kind: string; code: string; domain?: SbDomain }): SbDomain | null => (i.kind !== 'block' ? null : SB_DOMAIN[i.code] || (/^tb-/.test(i.code) ? i.domain || 'BSS' : null));
 export const isSb = (i: { kind: string; code: string }) => !!sbDomain(i);
-/** 이 항목을 고치는 권한 종류 (SB 블록은 UX 담당자) */
+/** 이 항목을 고치는 권한 종류 (업무 블록은 UX 담당자) */
 export const editKind = (i: { kind: Kind; code: string }): EditType => (isSb(i) ? 'sb' : i.kind);
 
 export type Bump = 'PATCH' | 'MINOR' | 'MAJOR';
@@ -66,7 +66,7 @@ export interface Item {
   promotedFrom?: string;
   /** 컴포넌트 묶음 (내비게이션 · 버튼 · 입력 …) */
   group?: string;
-  /** SB 블록의 업무 구분 */
+  /** 업무 블록의 업무 구분 */
   domain?: SbDomain;
 }
 export interface Rule {
