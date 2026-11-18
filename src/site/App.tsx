@@ -177,6 +177,9 @@ export function App() {
             <span className="brand-mark" aria-hidden="true" />
             BSS Design
           </a>
+          <a href="#updates" className="brand-ver" title={`게시 버전 v${P.version()} · UX 패턴 가이드 ${P.catalogMeta().uxGuide} · 업데이트 내역 보기`}>
+            v{P.version()}
+          </a>
           <nav className="top-nav" aria-label="섹션">
             <TopNav route={route} />
           </nav>

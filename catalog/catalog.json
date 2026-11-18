@@ -2,7 +2,7 @@
   "$description": "BSS 디자인 포털 기준 카탈로그. SB Studio POC 디자인 포털의 시연용 카탈로그(앱쉘 s- · 레이아웃 규칙 l- · 빈칸 · 블록 b- · 컴포넌트 c- · 규칙 R-)를 옮긴 것. key가 있는 컴포넌트는 components/<key>/의 Figma 데이터 · 사용 가이드 페이지와 이어진다. 저장소에만 있는 컴포넌트는 사이트가 c-<key>로 더한다.",
   "meta": {
     "catalog": "0.5",
-    "uxGuide": "1.2",
+    "uxGuide": "20261106",
     "tokens": "v0.5",
     "version": "0.5.0",
     "source": "BSS SB Studio POC · BSS 디자인 포털 (시연용 예시 데이터)"

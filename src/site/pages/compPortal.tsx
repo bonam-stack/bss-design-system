@@ -136,7 +136,7 @@ export function GuideEditor({ k }: { k: string }) {
   );
 }
 
-/** Guidelines 안: 이 컴포넌트에 걸린 UX표준가이드 규칙 */
+/** Guidelines 안: 이 컴포넌트에 걸린 사용 규칙 */
 export function compRules(key: string) {
   const r = P.itemByKey(key);
   return r ? P.rulesFor(r.code) : [];

@@ -284,7 +284,7 @@ export function RulesBlock({ list }: { list: Rule[] }) {
     <>
       {own.length ? (
         <>
-          <h3>UX표준가이드 규칙</h3>
+          <h3>사용 규칙</h3>
           <RuleList list={own} />
         </>
       ) : null}

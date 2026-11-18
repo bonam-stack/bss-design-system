@@ -44,7 +44,7 @@ function Overview() {
     ['components', 'Components', `컴포넌트 ${n('comp')}개`, '블록 안에 들어가는 최소 부품'],
     ['blocks', 'Blocks', `블록 ${n('block')}`, '빈칸 하나를 채우는 업무 단위 묶음'],
     ['patterns', 'Patterns', `레이아웃 규칙 ${n('layout')} · 패턴 ${patterns.length}`, '화면을 어떤 순서로 쌓을지'],
-    ['rules', 'UX 거버넌스', `규칙 ${P.rules().length}개`, 'UX표준가이드 규칙과 연결표'],
+    ['rules', 'UX 거버넌스', `규칙 ${P.rules().length}개`, '규칙과 연결표'],
     ['icons', 'Foundations', `아이콘 ${icons.icons.length}개`, '아이콘 · 디자인 토큰'],
     ['stack', '조립 구조', 'Stack 5단계', '앱 구조 → 레이아웃 → 빈칸 → 블록 → 컴포넌트'],
   ];
@@ -58,7 +58,7 @@ function Overview() {
           <div className="checks">
             <Check on label={`게시 ${P.version()}`} />
             <Check on label="카탈로그 0.5" />
-            <Check on label="UX표준가이드 1.2" />
+            <Check on label={`UX 패턴 가이드 ${guideSource.release}`} />
             <Check on label="디자인 토큰 v0.5" />
           </div>
         }
@@ -166,7 +166,7 @@ function Stack() {
         cols={['대상', '원본', '편집', '게시']}
         rows={[
           ['블록 · 컴포넌트 (모양)', 'Figma 디자인 시스템', P.ROLES.ds, P.ROLES.approver],
-          ['레이아웃 규칙 · 규칙 · 사용 가이드', 'UX표준가이드 · 이 포털', P.ROLES.ux, P.ROLES.approver],
+          ['레이아웃 규칙 · 규칙 · 사용 가이드', 'UX 패턴 가이드 · 이 포털', P.ROLES.ux, P.ROLES.approver],
           ['임시 부품 tb- · tc-', 'SB Studio 생성', '승격 심사', P.ROLES.approver],
         ].map((r, i) => (
           <tr key={i}>
@@ -366,7 +366,7 @@ function ItemPage({ it }: { it: Item }) {
       it.kind === 'block' ? ['놓이는 빈칸', human(it.slot)] : null,
       it.kind === 'layout' ? ['적용 빈칸', <CodeLink code={it.slot || ''} />] : null,
       it.kind === 'layout' ? ['근거 문서', <UxRef r={it.guide} />] : null,
-      ['기준 원본', it.design ? '모양 Figma 디자인 시스템 · 뜻 카탈로그' : it.kind === 'layout' ? 'UX표준가이드' : 'UX 패턴 가이드 · 디자인 에셋 없음'],
+      ['기준 원본', it.design ? '모양 Figma 디자인 시스템 · 뜻 카탈로그' : it.kind === 'layout' ? 'UX 패턴 가이드' : 'UX 패턴 가이드 · 디자인 에셋 없음'],
       it.promotedFrom ? ['승격', `${it.promotedFrom}에서`] : null,
     ] as ([string, ReactNode] | null)[]
   ).filter((x): x is [string, ReactNode] => !!x);
@@ -523,7 +523,7 @@ function Rules() {
   };
   return (
     <>
-      <Head eyebrow="UX 거버넌스" title="규칙" lead="UX표준가이드 규칙 한 줄이 빈칸 → 블록 → 컴포넌트로 이어지는 연결표입니다. UX 패턴 가이드의 Do · Don't는 권장 · 금지 규칙으로 함께 올라 있습니다. SB Studio의 생성 · 미리보기 · Figma 검사 · 독립 검수가 같은 규칙을 씁니다." />
+      <Head eyebrow="UX 거버넌스" title="규칙" lead="규칙 한 줄이 빈칸 → 블록 → 컴포넌트로 이어지는 연결표입니다. UX 패턴 가이드의 Do · Don't는 권장 · 금지 규칙으로 함께 올라 있습니다. SB Studio의 생성 · 미리보기 · Figma 검사 · 독립 검수가 같은 규칙을 씁니다." />
       {editor ? (
         <section className="ed-panel">
           <div className="ed-h">
@@ -586,7 +586,7 @@ function Rules() {
             {x || '전체'}
           </button>
         ))}
-        <span className="muted">{L.length}건 · UX표준가이드 1.2 · UX 패턴 가이드 {guideSource.release} (권장 · 금지)</span>
+        <span className="muted">{L.length}건 · 포털 규칙 + UX 패턴 가이드 {guideSource.release} (권장 · 금지)</span>
       </div>
       <Table
         cols={['종류', '문서', '내용', '대상', ...(editor ? [''] : [])]}
