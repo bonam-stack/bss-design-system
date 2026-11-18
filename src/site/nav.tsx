@@ -60,28 +60,90 @@ export function TopNav({ route }: { route: string }) {
   );
 }
 
+interface NavGroup {
+  label: string;
+  items: NavItem[];
+  /** 둘째 단계 묶음 (소제목 '모듈 · 노드 모듈'의 '노드 모듈') */
+  groups: NavGroup[];
+}
+
+/** 소제목('컴포넌트 가이드 · 입력')으로 두 단계 묶음을 만든다. 소제목 없는 항목(전체 · 개요)은 맨 위에 그대로 */
+function groupItems(items: NavItem[]) {
+  const top: NavItem[] = [];
+  const groups: NavGroup[] = [];
+  const find = (L: NavGroup[], label: string) => L.find((g) => g.label === label) || (L.push({ label, items: [], groups: [] }), L[L.length - 1]);
+  for (const it of items) {
+    const sub = it[2];
+    if (!sub) {
+      top.push(it);
+      continue;
+    }
+    const [a, ...rest] = sub.split(' · ');
+    const g = find(groups, a);
+    if (rest.length) find(g.groups, rest.join(' · ')).items.push(it);
+    else g.items.push(it);
+  }
+  return { top, groups };
+}
+
+const hasRoute = (g: NavGroup, route: string): boolean => g.items.some(([r]) => r === route) || g.groups.some((x) => hasRoute(x, route));
+const countOf = (g: NavGroup): number => g.items.length + g.groups.reduce((n, x) => n + countOf(x), 0);
+
 export function SideNav({ route }: { route: string }) {
   const { isEditor } = usePortal();
   const all = sections(isEditor);
   const cur = sectionOf(route, isEditor);
   const [, label, items] = all.find(([k]) => k === cur)!;
-  const out: JSX.Element[] = [];
-  let lastKind: string | null = null;
-  for (const [r, l, sub] of items) {
-    const it = P.item(r);
-    if (sub && sub !== lastKind) {
-      out.push(<div key={`sub-${sub}`} className="nav-sub">{sub}</div>);
-      lastKind = sub;
+  const { top, groups } = groupItems(items);
+  // 펼친 묶음 (섹션|묶음|둘째 묶음). 지금 페이지가 든 묶음은 늘 펼친다
+  const [open, setOpen] = useState<Set<string>>(() => new Set());
+  const keyOf = (path: string[]) => [cur, ...path].join('|');
+  useEffect(() => {
+    const want: string[] = [];
+    for (const g of groups) {
+      if (!hasRoute(g, route)) continue;
+      want.push(keyOf([g.label]));
+      for (const x of g.groups) if (hasRoute(x, route)) want.push(keyOf([g.label, x.label]));
     }
+    if (want.some((k) => !open.has(k))) setOpen((o) => new Set([...o, ...want]));
+  }, [route, cur]); // eslint-disable-line react-hooks/exhaustive-deps
+  const toggle = (k: string) => setOpen((o) => {
+    const n = new Set(o);
+    if (n.has(k)) n.delete(k);
+    else n.add(k);
+    return n;
+  });
+  const link = ([r, l]: NavItem) => {
+    const it = P.item(r);
     const draft = isEditor && it && (P.openDraft('item', r) || P.openDraft('guide', it.key) || P.openDraft('figma', it.key) || P.openDraft('code', it.key) || P.openDraft('text', it.key));
-    out.push(
+    return (
       <a key={r} href={`#${r}`} className={r === route ? 'on' : ''} aria-current={r === route ? 'page' : undefined}>
         {l}
         {it && it.status !== 'pub' ? <span className="nv-st">{P.STATUS[it.status]}</span> : null}
         {draft ? <i className="nv-dot" title="초안 있음" /> : null}
-      </a>,
+      </a>
     );
-  }
+  };
+  const group = (g: NavGroup, path: string[], depth: number): JSX.Element => {
+    const k = keyOf(path);
+    const on = open.has(k);
+    const id = `nav-${k.replace(/[^a-zA-Z0-9가-힣]+/g, '-')}`;
+    return (
+      <div key={k} className={`nav-grp d${depth}${on ? ' open' : ''}`}>
+        <button type="button" className={`nav-acc${hasRoute(g, route) ? ' has' : ''}`} aria-expanded={on} aria-controls={id} onClick={() => toggle(k)}>
+          <span className="nav-chev" aria-hidden="true">›</span>
+          <span className="nav-acc-l">{g.label}</span>
+          <span className="nav-cnt">{countOf(g)}</span>
+        </button>
+        {on ? (
+          <div id={id} className="nav-grp-body">
+            {g.items.map(link)}
+            {g.groups.map((x) => group(x, [...path, x.label], depth + 1))}
+          </div>
+        ) : null}
+      </div>
+    );
+  };
   return (
     <>
       {/* 좁은 화면에서는 위쪽 섹션 메뉴가 숨으므로 목록 위에 섹션을 둔다 */}
@@ -93,7 +155,8 @@ export function SideNav({ route }: { route: string }) {
         ))}
       </div>
       <div className="nav-title">{label}</div>
-      {out}
+      {top.map(link)}
+      {groups.map((g) => group(g, [g.label], 0))}
     </>
   );
 }

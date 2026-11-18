@@ -321,3 +321,18 @@ a.role-pop-row:hover b { color: var(--ed); }
 .btn2:disabled { opacity: .45; cursor: not-allowed; }
 .ed-field.ed-title { flex: 1; font-size: 44px; font-weight: 700; line-height: 1.15; letter-spacing: -0.03em; padding: 2px 8px; }
 @media (max-width: 720px) { .ed-field.ed-title { font-size: 32px; } }
+
+/* 왼쪽 목록 아코디언: 소제목 묶음 → 둘째 묶음 → 페이지 */
+.sidebar .nav-grp { margin-top: 2px; }
+.sidebar .nav-acc { display: flex; align-items: center; gap: 8px; width: 100%; padding: 9px 12px; border: 0; border-radius: 8px; background: none; color: var(--fg); font: inherit; font-size: 14px; font-weight: 600; text-align: left; cursor: pointer; }
+.sidebar .nav-acc:hover { background: var(--surface-card); }
+.sidebar .nav-acc:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
+.sidebar .nav-chev { display: inline-block; width: 12px; color: var(--fg-muted); font-size: 16px; line-height: 1; transition: transform .15s; }
+.sidebar .nav-grp.open > .nav-acc .nav-chev { transform: rotate(90deg); }
+.sidebar .nav-acc-l { flex: 1; min-width: 0; }
+.sidebar .nav-cnt { font-size: 11px; font-weight: 500; color: var(--fg-muted); }
+.sidebar .nav-grp.d1 > .nav-acc { font-weight: 500; padding-left: 28px; }
+.sidebar .nav-grp-body > a { padding-left: 32px; }
+.sidebar .nav-grp.d1 .nav-grp-body > a { padding-left: 48px; }
+.sidebar .nav-acc.has:not([aria-expanded="true"]) .nav-acc-l { color: var(--accent); }
+@media (prefers-reduced-motion: reduce) { .sidebar .nav-chev { transition: none; } }
