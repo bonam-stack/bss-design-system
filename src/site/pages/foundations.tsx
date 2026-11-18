@@ -130,7 +130,7 @@ export function TokenEditor() {
 }
 
 /** 아직 내용이 없는 디자인 에셋 문서: 자리만 두고 채울 항목을 보여 준다 */
-export function PendingPage({ title, lead, todo, eyebrow = 'UI 거버넌스 · Foundations' }: { title: string; lead: string; todo: string[]; eyebrow?: string }) {
+export function PendingPage({ title, lead, todo, eyebrow = 'Foundations' }: { title: string; lead: string; todo: string[]; eyebrow?: string }) {
   return (
     <>
       <Head eyebrow={eyebrow} title={title} lead={lead} extra={<div className="checks"><span className="st">준비 중</span></div>} />

@@ -1,12 +1,12 @@
 // UX 패턴 가이드 문서 한 편을 포털 형식으로 (#g-<id>): Overview(언제 쓰나) → 구성요소 · 동작 · 규격 → Do / Don't → 포털에서 이어지는 것.
-// 놓이는 섹션(Foundations · Patterns · Blocks · Components · 홈 · UX 거버넌스)은 문서마다 정해져 있다.
+// 놓이는 섹션(거버넌스 · UX 가이드라인 · Components)은 문서마다 정해져 있다.
 import { useEffect, useState } from 'react';
 import type { ReactNode } from 'react';
 import { Head } from '../ui';
 import { guideDoc, guideRoute, guideSource, inline, loadGuideDoc } from '../guide';
 import type { Block, GuideDoc, Place } from '../guide';
 
-export const PLACE_LABEL: Record<Place, string> = { start: 'UX 거버넌스 · 원칙', foundations: 'UX 거버넌스 · 화면 구조', patterns: 'UX 거버넌스 · UX 가이드라인', blocks: 'UX 거버넌스 · 블록 정책', components: 'UI 거버넌스 · Components', governance: 'UX 거버넌스' };
+export const PLACE_LABEL: Record<Place, string> = { start: 'UX 가이드라인 · 원칙', foundations: 'UX 가이드라인 · 화면 구조', patterns: 'UX 가이드라인 · 화면 가이드라인', blocks: '거버넌스 · 블록 정책', components: 'Components', governance: '거버넌스' };
 
 const Html = ({ as: Tag = 'span', text, className }: { as?: 'span' | 'p' | 'li' | 'td' | 'th'; text: string; className?: string }) => <Tag className={className} dangerouslySetInnerHTML={{ __html: inline(text) }} />;
 
@@ -158,7 +158,7 @@ export function GuideBody({ d, level = 2 }: { d: GuideDoc; level?: 2 | 3 }) {
                 ) : null}
               </div>
               <p className="note">
-                Do · Don't는 <a href="#rules">UX 거버넌스 규칙</a>에도 권장 · 금지로 올라가 있습니다.
+                Do · Don't는 <a href="#rules">거버넌스 › UX 규칙</a>에도 권장 · 금지로 올라가 있습니다.
               </p>
             </>
           ) : null}

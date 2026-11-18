@@ -1,6 +1,6 @@
 // NEXT BSS UX Pattern Guide를 포털 구조로 나눈 것 (scripts/structure_ux_guide.py → guides/ux-pattern/structure.json · docs/<id>.json).
-//   UX 원칙 · 파운데이션(구조 · 화면 유형 · 사용 환경) · 패턴 · 모듈 → UX 거버넌스, 컴포넌트 가이드 → UI 거버넌스 › Components
-//   SB 작성 가이드 · 용어사전 → UX 거버넌스 · Do/Don't → UX 거버넌스 규칙
+//   UX 원칙 · 파운데이션(구조 · 화면 유형 · 사용 환경) · 패턴 → UX 가이드라인, 모듈 → 거버넌스 › 블록 정책, 컴포넌트 가이드 → Components
+//   SB 작성 가이드 · 용어사전 → 거버넌스 › 기준 문서 · Do/Don't → 거버넌스 › UX 규칙
 // 문서 목록 · 규칙은 바로 읽고, 문서 구조는 페이지를 열 때 불러온다.
 import { Marked } from 'marked';
 import structureJson from '../../guides/ux-pattern/structure.json';
@@ -58,7 +58,7 @@ export interface GlossaryTerm {
 const structure = structureJson as { source: string; generated: string; docs: GuideDocMeta[]; rules: (Rule & { source: string })[] };
 export const guideSource = { url: structure.source, generated: structure.generated, release: structure.source.replace(/^.*release\/(\d+)\/?$/, '$1') };
 export const guideDocs = structure.docs;
-/** Do/Don't에서 온 UX 거버넌스 규칙 (kind: 권장 · 금지, source: UX 패턴 가이드) */
+/** Do/Don't에서 온 거버넌스 UX 규칙 (kind: 권장 · 금지, source: UX 패턴 가이드) */
 export const guideRules = structure.rules;
 export const glossary = (glossaryJson as { terms: GlossaryTerm[] }).terms;
 

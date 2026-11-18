@@ -147,7 +147,7 @@ export function PatternPage({ p }: { p: Pattern }) {
   const s = p.spec;
   return (
     <>
-      <p className="eyebrow">UI 거버넌스 · Components · 사용 예시</p>
+      <p className="eyebrow">Components · 사용 예시</p>
       <h1>{p.name}</h1>
       <TocInline />
       <h2>Overview</h2>

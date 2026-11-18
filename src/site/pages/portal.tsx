@@ -1,4 +1,4 @@
-// BSS 디자인 포털 페이지: 홈 · 목록 · 카탈로그 항목 · UX 거버넌스 · 승격 심사, 그리고 Foundations · 역할별 작업 페이지로 나눈다.
+// BSS 디자인 포털 페이지: 홈 · 목록 · 카탈로그 항목 · 거버넌스 · UX 가이드라인 · 승격 심사, 그리고 Foundations · 역할별 작업 페이지로 나눈다.
 // 고친 내용은 초안 → 미리보기 확인 → 배포 요청 → 관리자 배포.
 import type { FormEvent, ReactNode } from 'react';
 import * as P from '../portal/store';
@@ -13,7 +13,7 @@ import { BumpTag, Check, CodeLink, UxRef, DraftBox, Drafts, EditBtn, Head, Rules
 import { FoundationsOverview, PendingPage } from './foundations';
 import { Convert, Deploy, My, MyRequests, Recheck, Requests, Roles, SbEdit, SbStatus, UxEdit } from './work';
 
-const KIND_LABEL: Record<Kind, string> = { block: 'UI 거버넌스 · Blocks', comp: 'UI 거버넌스 · Components', layout: 'UX 거버넌스 · 레이아웃 규칙' };
+const KIND_LABEL: Record<Kind, string> = { block: 'Blocks', comp: 'Components', layout: 'UX 가이드라인 · 레이아웃 규칙' };
 const formValues = (f: HTMLFormElement) => Object.fromEntries(new FormData(f)) as Record<string, string>;
 const list = (s?: string) => String(s || '').split(',').map((x) => x.trim()).filter(Boolean);
 
@@ -31,9 +31,10 @@ export function portalPage(route: string, role: Role): ReactNode | null {
     case 'spacing': case 'sizing': case 'radius': case 'border-width': case 'shadow': return <ScalePage key={route} id={route} />;
     case 'motion': return <PendingPage title="모션" lead="열기 · 닫기 · 전환 · 상태 변화에 쓰는 시간과 움직임 곡선을 정합니다." todo={['시간(짧게 · 보통 · 길게)과 곡선', '팝업 · 토스트 · 펼침 등 컴포넌트별 적용']} />;
     case 'writing': return <PendingPage title="문구 (보이스 · 표기)" lead="화면 문구의 말투와 표기 규칙을 정합니다." todo={['말투 · 존댓말 기준', '버튼 · 안내 · 오류 문구 패턴', '숫자 · 날짜 · 단위 표기 (UX 규칙의 표기 규칙과 연결)']} />;
-    case 'ui-rules': return <PendingPage eyebrow="UI 거버넌스" title="UI 규칙" lead="화면을 그릴 때 지키는 시각 규칙입니다. UX 거버넌스의 규칙(화면을 어떻게 짜는가)과 짝을 이루고, Foundations · Components · Blocks는 모두 이 규칙을 따릅니다." todo={['값 대신 디자인 토큰만 쓰기 (색 · 글자 · 여백 · 모서리 · 그림자)', '컴포넌트 변형 · 상태(hover · pressed · disabled · focus)를 정해진 것만 쓰기', '간격 · 정렬 · 밀도 기준', 'Do · Don\'t와 규칙 번호 (UX 규칙과 같은 형식)']} />;
-    case 'design-review': return <PendingPage eyebrow="UI 거버넌스" title="디자인 검수 기준" lead="UI팀이 컴포넌트 · 블록을 배포하거나 업무 블록을 승격할 때 확인하는 항목입니다. 승격 심사 2단계(UI팀 디자인)의 기준이 됩니다." todo={['토큰 연결 · 하드코딩 값 없음', 'Figma 디자인 라이브러리와 일치 (속성 · 변형 · 이름)', '상태 · 접근성(대비 · 포커스) 확인', '승격 심사 2단계 체크리스트']} />;
-    case 'figma-guide': return <PendingPage eyebrow="UI 거버넌스" title="Figma 작성 기준" lead="SB 라이브러리는 디자인 DS 라이브러리와 동기화됩니다. 소스 변환이 읽을 수 있도록 Figma에서 지켜야 할 구조입니다." todo={['컴포넌트 · 레이어 · 속성 이름 규칙', 'Figma 변수(토큰) 연결 · 스타일 사용', '업무 블록을 Figma에서 고칠 때의 순서 (DS 담당자)', '라이브러리 배포 · 버전 기록']} />;
+    case 'process': return <Process />;
+    case 'ui-rules': return <PendingPage eyebrow="거버넌스 · UI 규칙" title="UI 규칙" lead="화면을 그릴 때 지키는 시각 규칙입니다. UX 규칙(화면을 어떻게 짜는가)과 짝을 이루고, Foundations · Components · Blocks는 모두 이 규칙을 따릅니다." todo={['값 대신 디자인 토큰만 쓰기 (색 · 글자 · 여백 · 모서리 · 그림자)', '컴포넌트 변형 · 상태(hover · pressed · disabled · focus)를 정해진 것만 쓰기', '간격 · 정렬 · 밀도 기준', 'Do · Don\'t와 규칙 번호 (UX 규칙과 같은 형식)']} />;
+    case 'design-review': return <PendingPage eyebrow="거버넌스 · UI 규칙" title="디자인 검수 기준" lead="UI팀이 컴포넌트 · 블록을 배포하거나 업무 블록을 승격할 때 확인하는 항목입니다. 승격 심사 2단계(UI팀 디자인)의 기준이 됩니다." todo={['토큰 연결 · 하드코딩 값 없음', 'Figma 디자인 라이브러리와 일치 (속성 · 변형 · 이름)', '상태 · 접근성(대비 · 포커스) 확인', '승격 심사 2단계 체크리스트']} />;
+    case 'figma-guide': return <PendingPage eyebrow="거버넌스 · UI 규칙" title="Figma 작성 기준" lead="SB 라이브러리는 디자인 DS 라이브러리와 동기화됩니다. 소스 변환이 읽을 수 있도록 Figma에서 지켜야 할 구조입니다." todo={['컴포넌트 · 레이어 · 속성 이름 규칙', 'Figma 변수(토큰) 연결 · 스타일 사용', '업무 블록을 Figma에서 고칠 때의 순서 (DS 담당자)', '라이브러리 배포 · 버전 기록']} />;
     case 'my-requests': return <MyRequests />;
     case 'ux-edit': return role === 'ux' ? <UxEdit /> : null;
     case 'sb-edit': return role === 'ux' ? <SbEdit /> : null;
@@ -60,11 +61,11 @@ export function portalPage(route: string, role: Role): ReactNode | null {
 
 function Overview() {
   const cards = [
-    ['rules', 'UX 거버넌스', '화면을 어떻게 짜는가', '원칙 · 규칙 · 화면 구조 · 블록 정책 · UX 가이드라인 · 용어'],
-    ['ui-rules', 'UI 거버넌스', '무엇으로 그리는가', 'UI 규칙 · 검수 기준 → Foundations → Components → Blocks'],
-    ['foundations', 'UI 거버넌스 › Foundations', '컬러 · 타이포 · 여백 · 아이콘 · 토큰', '모든 부품이 쓰는 디자인 에셋'],
-    ['components', 'UI 거버넌스 › Components', '묶음별 컴포넌트', '블록 안에 들어가는 최소 부품'],
-    ['blocks', 'UI 거버넌스 › Blocks', '공통 블록 · BSS 블록 · BO 블록', '슬롯 하나를 채우는 업무 단위 묶음'],
+    ['process', '거버넌스', '지켜야 할 규칙 · 바꾸는 절차', '운영 절차 · UX 규칙 · 블록 정책 · UI 규칙 · 용어'],
+    ['patterns', 'UX 가이드라인', '화면을 어떻게 짜는가', 'UX 원칙 · 화면 구조 · 화면 가이드라인'],
+    ['foundations', 'Foundations', '컬러 · 타이포 · 여백 · 아이콘 · 토큰', '모든 부품이 쓰는 디자인 에셋'],
+    ['components', 'Components', '묶음별 컴포넌트', '블록 안에 들어가는 최소 부품'],
+    ['blocks', 'Blocks', '공통 블록 · BSS 블록 · BO 블록', '슬롯 하나를 채우는 업무 단위 묶음'],
     ['my-requests', '내 요청', '아이콘 · 컴포넌트 · 블록 · 토큰 요청', 'DS 담당자에게 요청하고 진행 상태 보기'],
   ];
   return (
@@ -148,7 +149,7 @@ function Stack() {
   ];
   return (
     <>
-      <Head eyebrow="UX 거버넌스" title="조립 구조" lead="화면은 큰 단위에서 작은 단위로 쌓아 조립합니다. SB Studio는 4단계에서 이 순서대로 놓고 5단계에서 디자인 에셋을 입힙니다." />
+      <Head eyebrow="UX 가이드라인 · 화면 구조" title="조립 구조" lead="화면은 큰 단위에서 작은 단위로 쌓아 조립합니다. SB Studio는 4단계에서 이 순서대로 놓고 5단계에서 디자인 에셋을 입힙니다." />
       <h2 id="stack">Stack</h2>
       <ol className="stk">
         {rows.map((x, i) => (
@@ -337,7 +338,7 @@ function BlockSections({ list: I }: { list: Item[] }) {
         </>
       ) : null}
       <h2 id="policy">블록 정책 (모듈)</h2>
-      <p className="note">블록이 따르는 규칙은 UX 거버넌스 › 블록 정책에 있습니다. UX 패턴 가이드의 모듈 정의입니다.</p>
+      <p className="note">블록이 따르는 규칙은 거버넌스 › 블록 정책에 있습니다. UX 패턴 가이드의 모듈 정의입니다.</p>
       {[...new Set(docsIn('blocks').map((d) => d.group.split(' › ')[0] || '모듈'))].map((g) => (
         <p key={g}>
           <b>{g}</b>{' '}
@@ -359,7 +360,7 @@ function PatternList() {
   const L = P.items().filter((i) => i.kind === 'layout');
   return (
     <>
-      <Head eyebrow="UX 거버넌스" title="UX 가이드라인" lead="화면을 어떤 순서로 쌓고 어떻게 동작하게 할지 정한 가이드라인과 레이아웃 규칙입니다. 블록과 SB는 이 가이드라인을 따릅니다." />
+      <Head eyebrow="UX 가이드라인" title="화면 가이드라인" lead="화면을 어떤 순서로 쌓고 어떻게 동작하게 할지 정한 가이드라인과 레이아웃 규칙입니다. 블록과 SB는 이 가이드라인을 따릅니다." />
       <h2 id="ux">Figma 패턴</h2>
       <div className="cards">
         {patterns.map((p) => (
@@ -541,7 +542,7 @@ export function ItemForm({ r, d }: { r: Item; d: Draft | null }) {
   );
 }
 
-// ---------- UX 거버넌스 ----------
+// ---------- 거버넌스 · UX 규칙 ----------
 
 const KINDS = ['판정', '배치', '구성', '동작', '표기'];
 
@@ -565,7 +566,7 @@ function Rules() {
   };
   return (
     <>
-      <Head eyebrow="UX 거버넌스" title="규칙" lead="규칙 한 줄이 슬롯 → 블록 → 컴포넌트로 이어지는 연결표입니다. UX 패턴 가이드의 Do · Don't는 권장 · 금지 규칙으로 함께 올라 있습니다. SB Studio의 생성 · 미리보기 · Figma 검사 · 독립 검수가 같은 규칙을 씁니다." />
+      <Head eyebrow="거버넌스 · UX 규칙" title="규칙" lead="규칙 한 줄이 슬롯 → 블록 → 컴포넌트로 이어지는 연결표입니다. UX 패턴 가이드의 Do · Don't는 권장 · 금지 규칙으로 함께 올라 있습니다. SB Studio의 생성 · 미리보기 · Figma 검사 · 독립 검수가 같은 규칙을 씁니다." />
       {editor ? (
         <section className="ed-panel">
           <div className="ed-h">
@@ -725,7 +726,7 @@ function Slots() {
   return (
     <>
       <Head
-        eyebrow="UX 거버넌스"
+        eyebrow="UX 가이드라인 · 화면 구조"
         title="슬롯"
         lead="슬롯(slot)은 화면에서 무엇이 들어갈지 정해 둔 자리입니다. 화면을 설계할 때 아무 블록이나 놓지 않고, 자리마다 정해진 블록만 넣습니다. SB Studio의 생성기와 검증 규칙이 이 표로 화면을 만들고 검사합니다."
       />
@@ -802,6 +803,70 @@ function accepts(text: string) {
   return parts.map((p, i) => (i % 2 ? <CodeLink key={i} code={p} /> : <span key={i}>{human(p)}</span>));
 }
 
+/** 거버넌스 › 운영 절차: 누가 무엇을 고치고, 어떻게 심사 · 배포하고, 버전을 어떻게 올리는지 */
+function Process() {
+  const steps: [string, string][] = [
+    ['요청', '누구나 내 요청에서 아이콘 · 컴포넌트 · 블록 · 토큰을 요청합니다. 기획은 AI 더미로 계속 진행합니다.'],
+    ['작업 · 초안', 'UX 담당자는 규칙 · 가이드라인 · 업무 블록 설명을, DS 담당자는 토큰 · 컴포넌트 · 블록 모양(Figma)을 고칩니다. 고친 것은 초안이 됩니다.'],
+    ['미리보기 확인', '초안은 미리보기 버전(x.y.z-preview.N)으로 확인합니다. 자동 검사(속성값 · ID · 규칙 · 토큰)를 통과해야 합니다.'],
+    ['배포 요청', '담당자가 내 변경에서 배포를 요청합니다.'],
+    ['배포', '관리자가 운영 서버에 배포합니다. 정기 배포가 기본이고, 수동 배포는 사유를 남깁니다. 문제가 있으면 롤백합니다.'],
+    ['재검수', '규칙이 바뀌거나 MAJOR 배포가 나가면 영향받는 SB를 재검수 대상으로 알립니다.'],
+  ];
+  return (
+    <>
+      <Head eyebrow="거버넌스 · 운영" title="운영 절차" lead="디자인 시스템을 누가 고치고, 어떻게 심사해 배포하고, 버전을 어떻게 올리는지 정한 절차입니다. 모든 문서와 재료(Foundations · Components · Blocks)는 이 절차로만 바뀝니다." />
+      <h2 id="flow">바뀌는 순서</h2>
+      <ol className="flow">
+        {steps.map(([t, d]) => (
+          <li key={t}>
+            <strong>{t}</strong>
+            <span>{d}</span>
+          </li>
+        ))}
+      </ol>
+      <h2 id="roles">역할</h2>
+      <Table
+        cols={['역할', '맡는 것', '배포']}
+        rows={[
+          ['보기', '문서 읽기 · 내 요청', '-'],
+          ['UX 담당자', 'UX 규칙 · 블록 정책 · UX 가이드라인 · 업무 블록 설명 · 놓이는 슬롯 · 승격 1단 심사', '배포 요청'],
+          ['DS 담당자', 'UI 규칙 · 토큰 · 컴포넌트 · 블록 모양(Figma) · 소스 변환 · 디자인 요청 · 승격 2단 심사', '배포 요청'],
+          ['관리자', '운영 서버 배포 · 롤백 · 재검수 대상 알림 · 권한 확인', '정기 · 수동 배포'],
+        ].map((r) => (
+          <tr key={r[0]}>
+            <th>{r[0]}</th>
+            <td>{r[1]}</td>
+            <td>{r[2]}</td>
+          </tr>
+        ))}
+      />
+      <h2 id="promo">승격</h2>
+      <p>
+        여러 업무에서 반복해 쓰인 업무 블록(BSS · BO)은 승격 후보가 됩니다. SB팀 표준 심사(UX 담당자) → UI팀 디자인 심사(DS 담당자, <a href="#design-review">디자인 검수 기준</a>) → 관리자 배포를 거쳐 공통 블록이 됩니다.
+      </p>
+      <h2 id="version">버전 규칙</h2>
+      <Table
+        cols={['올림', '언제', 'SB에 미치는 영향']}
+        rows={[
+          ['MAJOR', '기존 것을 고치거나 지울 때 (규칙 수정 · 삭제, 속성 정의 변경)', '이미 만든 SB 재검수'],
+          ['MINOR', '추가 · 승격 (새 규칙 · 컴포넌트 · 토큰)', '없음 · 새로 쓸 수 있음'],
+          ['PATCH', '설명 · 글 수정', '없음'],
+        ].map((r) => (
+          <tr key={r[0]}>
+            <th className="mono">{r[0]}</th>
+            <td>{r[1]}</td>
+            <td>{r[2]}</td>
+          </tr>
+        ))}
+      />
+      <p className="note">
+        지금 운영 버전 <b className="mono">{P.version()}</b> · 변경 기록은 <a href="#updates">업데이트</a>
+      </p>
+    </>
+  );
+}
+
 function Lint() {
   const L = [
     ['R-01', '구조 슬롯(GNB · LNB · 콘텍스트 바)에는 블록만', '오류'],
@@ -814,7 +879,7 @@ function Lint() {
   ];
   return (
     <>
-      <Head eyebrow="UX 거버넌스" title="검증 규칙" lead="규칙 한 벌을 생성기 · 미리보기 · Figma 검사 · 카탈로그 게시가 같이 씁니다. 독립 검수 기준 점검도 같은 규칙입니다." />
+      <Head eyebrow="거버넌스 · UX 규칙" title="검증 규칙" lead="규칙 한 벌을 생성기 · 미리보기 · Figma 검사 · 카탈로그 게시가 같이 씁니다. 독립 검수 기준 점검도 같은 규칙입니다." />
       <h2 id="list" className="sr">
         검증 규칙
       </h2>
