@@ -76,7 +76,7 @@
     {
       "code": "b-lnb",
       "kind": "block",
-      "name": "LNB",
+      "name": "사이드 내비게이션 바",
       "status": "pub",
       "design": true,
       "ux": true,
@@ -521,7 +521,7 @@
       "owner": "app",
       "mode": "고정",
       "accepts": "b-lnb",
-      "name": "LNB 영역"
+      "name": "사이드 내비게이션 바 영역"
     },
     {
       "path": "app.context-bar",
@@ -536,6 +536,13 @@
       "mode": "쌓기",
       "accepts": "레이아웃 규칙에 따름",
       "name": "본문 영역"
+    },
+    {
+      "path": "app.communicator",
+      "owner": "app",
+      "mode": "고정",
+      "accepts": "커뮤니케이터 (통화 · 상담 컨텍스트 · AI 상담 지원)",
+      "name": "커뮤니케이터 영역"
     },
     {
       "path": "l-general.title",

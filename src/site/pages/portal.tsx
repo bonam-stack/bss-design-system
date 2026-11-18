@@ -688,22 +688,45 @@ function Slots() {
             <p className="note">
               {meta?.[2]} <span className="muted">· 정한 곳</span> <CodeLink code={o} />
             </p>
-            <div className="slot-map">
-              {L.map((s) => (
-                <div key={s.path} className={`slot-box m-${s.mode}`}>
-                  <div className="slot-l">
-                    <b>{s.name}</b>
-                    <span className="mono">{s.path}</span>
-                  </div>
-                  <span className={`slot-tag m-${s.mode}`}>{s.mode}</span>
-                  <div className="slot-r">{accepts(s.accepts)}</div>
-                </div>
-              ))}
-            </div>
+            <SlotFrame owner={o} slots={L} />
           </div>
         );
       })}
     </>
+  );
+}
+
+/** 슬롯이 딸린 곳마다 실제 화면 배치 (CSS grid 영역 이름 = 슬롯 경로 끝) */
+const FRAMES: Record<string, { areas: string; cols: string; rows: string; h: number; label?: string }> = {
+  app: { areas: '"lnb gnb communicator" "lnb context-bar communicator" "lnb body communicator"', cols: '72px 1fr 200px', rows: '52px 40px 1fr', h: 420, label: '공통 틀' },
+  'l-general': { areas: '"title" "notice" "search" "detail" "content"', cols: '1fr', rows: '52px 44px 72px 72px 1fr', h: 460, label: '일반형 본문' },
+  'b-content': { areas: '"action" "body" "status"', cols: '1fr', rows: '48px 1fr 44px', h: 300, label: '컨텐트' },
+  'l-node': { areas: '"hud" "canvas" "actionbar"', cols: '1fr', rows: '56px 1fr 56px', h: 340, label: '노드형 본문' },
+  'c-popup': { areas: '"content" "actions"', cols: '1fr', rows: '1fr 56px', h: 300, label: '팝업' },
+  'l-popup': { areas: '"search" "content"', cols: '1fr', rows: '72px 1fr', h: 300, label: '팝업 본문' },
+  'l-special': { areas: '"canvas"', cols: '1fr', rows: '1fr', h: 240, label: '특수형' },
+};
+const areaOf = (path: string) => path.split('.').pop()!;
+
+function SlotFrame({ owner, slots }: { owner: string; slots: P.Slot[] }) {
+  const f = FRAMES[owner] || { areas: slots.map((s) => `"${areaOf(s.path)}"`).join(' '), cols: '1fr', rows: slots.map(() => '1fr').join(' '), h: 80 * slots.length };
+  const known = new Set(f.areas.replace(/"/g, ' ').split(/\s+/).filter(Boolean));
+  return (
+    <div className={`slot-frame${owner === 'c-popup' ? ' dim' : ''}`}>
+      {f.label ? <span className="slot-frame-label">{f.label}</span> : null}
+      <div className="slot-grid" style={{ gridTemplateAreas: f.areas, gridTemplateColumns: f.cols, gridTemplateRows: f.rows, height: f.h }}>
+        {slots.map((s) => {
+          const a = areaOf(s.path);
+          return (
+            <div key={s.path} className={`slot-area m-${s.mode}${/선택/.test(s.name) ? ' opt' : ''}`} style={known.has(a) ? { gridArea: a } : undefined} title={s.path}>
+              <b>{s.name.replace(/ 영역$/, '')} 슬롯</b>
+              <span className={`slot-tag m-${s.mode}`}>{s.mode}</span>
+              <span className="slot-acc">{accepts(s.accepts)}</span>
+            </div>
+          );
+        })}
+      </div>
+    </div>
   );
 }
 

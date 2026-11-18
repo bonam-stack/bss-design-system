@@ -382,3 +382,14 @@ a.role-pop-row:hover b { color: var(--ed); }
 .slot-box.m-고정 { background: #F6F4FE; border-color: #D0D2FF; }
 .slot-box.m-쌓기 { background: #F0FDF6; border-color: #A4E7C8; border-style: dashed; }
 .slot-box.m-자유 { background: #FFFBEB; border-color: #FFE07F; border-style: dashed; }
+.slot-frame { position: relative; margin: 6px 0 18px; padding: 14px; border: 2px solid #303942; border-radius: 12px; background: #fff; }
+.slot-frame.dim { background: #454F59; }
+.slot-frame-label { position: absolute; top: -11px; left: 12px; padding: 1px 8px; border-radius: 6px; background: #303942; color: #fff; font-size: 11px; font-weight: 700; }
+.slot-grid { display: grid; gap: 8px; }
+.slot-area { display: flex; flex-wrap: wrap; align-content: center; align-items: center; justify-content: center; gap: 4px 8px; min-width: 0; min-height: 0; padding: 6px; border: 1px dashed #A8B0C8; border-radius: 8px; text-align: center; font-size: 12px; color: #697582; overflow: hidden; background: repeating-linear-gradient(135deg, #EEF1F8 0 6px, #F8F9FC 6px 12px); }
+.slot-area b { color: #454F59; font-size: 12px; }
+.slot-area.m-쌓기 { border-color: #7DE1B3; background: repeating-linear-gradient(135deg, #E3F8EE 0 6px, #F6FDF9 6px 12px); }
+.slot-area.m-자유 { border-color: #F9D26D; background: repeating-linear-gradient(135deg, #FFF3CC 0 6px, #FFFBEB 6px 12px); }
+.slot-area.opt { opacity: .75; }
+.slot-acc { font-size: 11px; }
+.slot-frame.dim .slot-grid { max-width: 560px; margin: 0 auto; padding: 12px; border-radius: 12px; background: #fff; }
