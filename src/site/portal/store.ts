@@ -8,6 +8,11 @@ import type { Policy } from '../data';
 import { guideRules } from '../guide';
 
 const KEY = 'bss-design-portal.v2';
+const VER_KEY = 'bss-design-portal.data-version';
+let wiped = false;
+/** 이번에 열 때 새 기준 데이터라 이전 기록을 지웠는지 */
+export const wasWiped = () => wiped;
+export const dataVersion = () => __DATA_VERSION__;
 export type Role = 'viewer' | 'ux' | 'ds' | 'approver';
 // 역할은 BSS SB Studio 계정에서 받는다 (POC는 오른쪽 위에서 고름)
 export const ROLES: Record<Role, string> = { viewer: '보기', ux: 'UX 담당자', ds: 'DS 담당자', approver: '관리자' };
@@ -28,6 +33,9 @@ export const REQ_STAGES = ['요청됨', '디자인 작업', '미리보기 확인
 // 누가 무엇을 고치나: 토큰 · 컴포넌트 · 공통 블록 · Figma 변환은 DS 담당자, 레이아웃 규칙 · 규칙 · 사용 가이드 · SB 블록은 UX 담당자
 export type EditType = Kind | 'sb' | 'figma' | 'code' | 'text' | 'rule' | 'guide' | 'token';
 export const EDITOR: Record<EditType, Role> = { block: 'ds', comp: 'ds', figma: 'ds', code: 'ds', text: 'ds', token: 'ds', sb: 'ux', layout: 'ux', rule: 'ux', guide: 'ux' };
+/** 여러 담당이 함께 고치는 것: 컴포넌트의 설명 · 사용 가이드(Do/Don't 포함) · 카탈로그 설명은 DS 담당자와 UX 담당자 모두 */
+const SHARED: Partial<Record<EditType, Role[]>> = { comp: ['ds', 'ux'], text: ['ds', 'ux'], guide: ['ux', 'ds'] };
+export const canEdit = (role: Role, type: EditType) => (SHARED[type] || [EDITOR[type]]).includes(role);
 /** SB 블록(tb-): SB Studio 미리보기에서 자동 생성 → SB 설계 완료 시 게시 → 여러 SB에서 쓰이면 승격 */
 export const isSb = (i: { kind: string; code: string }) => i.kind === 'block' && /^tb-/.test(i.code);
 /** 이 항목을 고치는 권한 종류 (SB 블록은 UX 담당자) */
@@ -49,6 +57,8 @@ export interface Item {
   guide?: string;
   key?: string;
   promotedFrom?: string;
+  /** 컴포넌트 묶음 (내비게이션 · 버튼 · 입력 …) */
+  group?: string;
 }
 export interface Rule {
   id: string;
@@ -94,7 +104,7 @@ export interface Detection {
   by?: Role;
 }
 export interface Catalog {
-  meta: { catalog: string; uxGuide: string; tokens: string; version: string; source: string };
+  meta: { catalog: string; uxGuide: string; tokens: string; version: string; source: string; compGroups?: string[] };
   items: Item[];
   slots: Slot[];
   parts: Part[];
@@ -241,7 +251,7 @@ function fresh(): State {
     drafts: [],
     promotions: clone(base.catalog.promotions),
     detections: clone(base.catalog.detections),
-    history: [{ version: base.catalog.meta.version, at: now(), mode: '구축', by: 'approver', notes: [{ title: 'SB Studio 포털 카탈로그 0.5 · 저장소 컴포넌트 · UX표준가이드 1.2 이관' }] }],
+    history: [{ version: base.catalog.meta.version, at: now(), mode: '구축', by: 'approver', notes: [{ title: 'SB Studio 포털 카탈로그 0.5 · 저장소 컴포넌트 · UX 패턴 가이드 20261106 이관' }] }],
     requests: seedRequests(),
     seq: { draft: 1, req: 3, preview: 0 },
   };
@@ -279,9 +289,25 @@ export function init(b: Base) {
   } catch {
     S = null as unknown as State;
   }
+  // 새 기준 데이터로 배포되면 이전 초안 · 게시 기록을 지운다 (POC: 이력 없이 새로 시작)
+  let ver = '';
+  try {
+    ver = localStorage.getItem(VER_KEY) || '';
+  } catch {
+    /* 읽지 못하면 그대로 */
+  }
+  if (S && ver !== __DATA_VERSION__) {
+    S = null as unknown as State;
+    wiped = true;
+  }
   if (!S || S.v !== 2) {
     S = fresh();
     save();
+  }
+  try {
+    localStorage.setItem(VER_KEY, __DATA_VERSION__);
+  } catch {
+    /* 저장 못 해도 이번 화면에서는 동작 */
   }
   S.pub.code ||= {}; // 코드 편집 전에 저장된 상태
   S.pub.texts ||= {};
@@ -302,6 +328,7 @@ export function reset() {
 export const version = () => S.version;
 export const history = () => S.history;
 export const drafts = (pred: (d: Draft) => boolean = () => true) => S.drafts.filter(pred);
+export const draftById = (id: string) => S.drafts.find((d) => d.id === id) || null;
 export const openDraft = (type: DraftType, target: string | undefined) => S.drafts.find((d) => d.status === 'draft' && d.type === type && d.target === target) || null;
 
 // ---------- 게시본 ----------
@@ -357,6 +384,11 @@ export function comp(key: string): (ComponentData & { figmaSyncedAt?: string }) 
   if (base.comps[key]) return p ? { ...base.comps[key], description: p.description ?? base.comps[key].description, figmaSyncedAt: p.syncedAt } : base.comps[key];
   return p ? ({ ...p, portalOnly: true } as PortalComp & { portalOnly: true }) : null;
 }
+/** 아직 게시 전인 새 컴포넌트 (Figma 읽기 초안). 담당은 게시 전에 이 페이지에서 코드를 먼저 만든다 */
+export function draftNewComp(key: string): (PortalComp & { portalOnly: true; draftId: string; code?: string }) | null {
+  const d = S.drafts.find((x) => x.status === 'draft' && x.type === 'figma' && x.isNew && x.key === key);
+  return d ? ({ ...(d.after as PortalComp), portalOnly: true, draftId: d.id, code: d.code } as PortalComp & { portalOnly: true; draftId: string; code?: string }) : null;
+}
 export const isRepoComp = (key: string) => !!base.comps[key];
 export const newComps = () => Object.values(S.pub.comps).filter((c) => !base.comps[c.key!]) as PortalComp[];
 export const promotions = () => S.promotions;
@@ -379,16 +411,18 @@ function upsertDraft(d: Omit<Draft, 'id' | 'status' | 'at' | 'by' | 'log'>, role
 }
 
 function must(role: Role, type: EditType) {
-  if (role !== EDITOR[type]) throw new Error(`${ROLES[EDITOR[type]]}만 고칠 수 있습니다`);
+  if (!canEdit(role, type)) throw new Error(`${(SHARED[type] || [EDITOR[type]]).map((r) => ROLES[r]).join(' · ')}만 고칠 수 있습니다`);
 }
 
-const ITEM_LABEL: Record<string, string> = { name: '이름', meaning: '뜻', variants: '변형', slot: '놓이는 빈칸', status: '상태' };
+const ITEM_LABEL: Record<string, string> = { name: '이름(제목)', meaning: '뜻', variants: '변형', slot: '놓이는 슬롯', status: '상태' };
 
-/** 카탈로그 항목(이름 · 뜻 · 변형/빈칸 · 상태) 수정 */
+/** 카탈로그 항목(이름 · 뜻 · 변형/슬롯 · 상태) 수정 */
 export function draftItem(role: Role, code: string, fields: Partial<Item>) {
   const cur = item(code);
   if (!cur) throw new Error(`${code}가 없습니다`);
   must(role, editKind(cur));
+  // 같은 항목의 열린 초안(예: 이름 · 뜻을 따로 고침)은 하나로 합친다
+  fields = { ...(openDraft('item', code)?.after || {}), ...fields };
   const lines: string[] = [];
   let bump: Bump = 'PATCH';
   for (const [k, v] of Object.entries(fields) as [keyof Item, string][]) {
@@ -410,17 +444,17 @@ export function draftRule(role: Role, id: string | null, fields: Partial<Rule> &
     const pend = S.drafts.filter((d) => d.status === 'draft' && d.type === 'rule' && d.target.startsWith(prefix + '-')).map((d) => Number(d.target.split('-').pop()) || 0);
     const nid = `${prefix}-${String(Math.max(0, ...used, ...pend) + 1).padStart(2, '0')}`;
     const after = { id: nid, doc: fields.doc, section: fields.section, kind: fields.kind, text: fields.text, targets: fields.targets };
-    return upsertDraft({ type: 'rule', target: nid, title: `${nid} 규칙 추가`, after, isNew: true, lines: [`규칙 추가: ${fields.text}`], bump: 'MINOR' }, role);
+    return upsertDraft({ type: 'rule', target: nid, title: `규칙 추가 · ${fields.text}`, after, isNew: true, lines: [`규칙 추가: ${fields.text}`], bump: 'MINOR' }, role);
   }
   const cur = rules().find((r) => r.id === id);
   if (!cur) throw new Error(`${id}가 없습니다`);
-  if (remove) return upsertDraft({ type: 'rule', target: id, title: `${id} 규칙 삭제`, after: null, lines: [`규칙 삭제: ${cur.text}`], bump: 'MAJOR' }, role);
+  if (remove) return upsertDraft({ type: 'rule', target: id, title: `규칙 삭제 · ${cur.text}`, after: null, lines: [`규칙 삭제: ${cur.text}`], bump: 'MAJOR' }, role);
   const lines: string[] = [];
   const label: Record<string, string> = { kind: '종류', section: '절', text: '내용' };
   for (const k of ['kind', 'section', 'text'] as const) if (fields[k] !== undefined && fields[k] !== cur[k]) lines.push(`${label[k]}: ${cur[k]} → ${fields[k]}`);
   if (fields.targets && fields.targets.join(',') !== cur.targets.join(',')) lines.push(`대상: ${cur.targets.join(', ')} → ${fields.targets.join(', ')}`);
   if (!lines.length) throw new Error('바뀐 내용이 없습니다');
-  return upsertDraft({ type: 'rule', target: id, title: `${id} 규칙 수정`, after: { ...cur, ...fields }, lines, bump: 'MAJOR' }, role);
+  return upsertDraft({ type: 'rule', target: id, title: `규칙 수정 · ${cur.text}`, after: { ...cur, ...fields }, lines, bump: 'MAJOR' }, role);
 }
 
 /** 컴포넌트 사용 가이드(정책 요약 · 규칙) 편집. 새 규칙은 다음 번호를 받고, 번호는 고쳐도 그대로 */
@@ -441,9 +475,10 @@ export function draftGuide(role: Role, key: string, { lead, rules: rows, add }: 
   const up = (b: Bump) => {
     if (BUMPS.indexOf(b) > BUMPS.indexOf(bump)) bump = b;
   };
-  for (const id of Object.keys(bi)) if (!ni[id]) (lines.push(`규칙 삭제: ${id}`), up('MAJOR'));
-  for (const id of Object.keys(ni)) if (!bi[id]) (lines.push(`규칙 추가: ${id} (${ni[id].kind})`), up('MINOR'));
-  for (const id of Object.keys(ni)) if (bi[id] && (bi[id].text !== ni[id].text || bi[id].kind !== ni[id].kind)) (lines.push(`규칙 수정: ${id}`), up('MAJOR'));
+  const cut24 = (t: string) => (t.length > 24 ? `${t.slice(0, 24)}…` : t);
+  for (const id of Object.keys(bi)) if (!ni[id]) (lines.push(`규칙 삭제: ${cut24(bi[id].text)}`), up('MAJOR'));
+  for (const id of Object.keys(ni)) if (!bi[id]) (lines.push(`규칙 추가 (${ni[id].kind}): ${cut24(ni[id].text)}`), up('MINOR'));
+  for (const id of Object.keys(ni)) if (bi[id] && (bi[id].text !== ni[id].text || bi[id].kind !== ni[id].kind)) (lines.push(`규칙 수정: ${cut24(bi[id].text)} → ${cut24(ni[id].text)}`), up('MAJOR'));
   if (before.lead !== next.lead) lines.push('정책 요약 수정');
   if (!lines.length) throw new Error('바뀐 내용이 없습니다');
   return upsertDraft({ type: 'guide', target: key, title: `${key} 사용 가이드 수정`, after: next, lines, bump }, role);
@@ -474,9 +509,13 @@ export async function draftFigma(role: Role, { key, code, url }: { key?: string;
   delete after.kind;
   const diff = diffComponent(prev, after);
   if (key && diff.lines.length === 1 && diff.lines[0] === '바뀐 점 없음') throw new Error(`Figma 노드와 게시본이 같습니다 · 바뀐 점 없음 (${conv.mode === 'mock' ? '흉내 모드' : 'Figma API'})`);
-  const target = key ? k : code || `c-${k}`;
-  return upsertDraft({ type: 'figma', target: key ? k : target, key: k, code: key ? itemByKey(k)?.code : target, title: key ? `${k} Figma 다시 읽기` : `${r.name} 추가 (Figma)`, after, isNew: !key, source: { url, mode: conv.mode }, lines: diff.lines, bump: diff.bump }, role);
+  // 카탈로그 코드는 자동: 같은 이름 · 같은 코드(c-<key>)의 빈 카탈로그 항목이 있으면 거기에 잇고, 없으면 새 코드
+  const norm = (x: string) => String(x || '').toLowerCase().replace(/[^a-z0-9가-힣]/g, '');
+  const match = code || items().find((i) => i.kind === 'comp' && !i.key && (i.code === `c-${k}` || norm(i.name) === norm(r.name) || norm(i.code.replace(/^c-/, '')) === norm(k)))?.code;
+  const target = key ? k : match || `c-${k}`;
+  return upsertDraft({ type: 'figma', target: key ? k : target, key: k, code: key ? itemByKey(k)?.code : target, title: key ? `${k} Figma 다시 읽기` : `${r.name} 추가 (Figma)`, after, isNew: !key, source: { url, mode: conv.mode }, lines: key ? diff.lines : [...diff.lines, match ? `카탈로그 ${match} ${itemsName(match)}에 연결` : `카탈로그에 ${target}로 새로 등록`], bump: diff.bump }, role);
 }
+const itemsName = (code: string) => items().find((i) => i.code === code)?.name || '';
 
 /** 게시된 컴포넌트 코드 (없으면 null = 저장소 코드) */
 export const publishedCode = (key: string): string | null => S.pub.code?.[key] ?? null;
@@ -502,9 +541,9 @@ export function draftCode(role: Role, key: string, file: string, source: string,
   const repo = source === repoSource;
   const { add, del } = lineDiff(before, source);
   const propsChanged = propsBlock(before) !== propsBlock(source);
-  const lines = [repo ? `저장소 코드로 되돌리기 (${file})` : `${file} 수정 · +${add}줄 −${del}줄`];
-  if (propsChanged) lines.push('속성(Props) 정의가 바뀜 · 이 컴포넌트를 쓰는 화면 확인 필요');
-  return upsertDraft({ type: 'code', target: key, key, title: `${file.split('/').pop()} 코드 수정`, after: { source, repo }, lines, bump: propsChanged ? 'MAJOR' : 'PATCH' }, role);
+  const lines = [repo && repoSource ? `저장소 코드로 되돌리기 (${file})` : !before ? `${file} 새로 만듦 · ${source.split('\n').length}줄` : `${file} 수정 · +${add}줄 −${del}줄`];
+  if (propsChanged && before) lines.push('속성(Props) 정의가 바뀜 · 이 컴포넌트를 쓰는 화면 확인 필요');
+  return upsertDraft({ type: 'code', target: key, key, title: `${file.split('/').pop()} ${before ? '코드 수정' : '새 코드'}`, after: { source, repo }, lines, bump: !before ? 'MINOR' : propsChanged ? 'MAJOR' : 'PATCH' }, role);
 }
 
 /** 게시된 글 수정 (글 자리 → 글) */

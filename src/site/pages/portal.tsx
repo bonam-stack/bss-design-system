@@ -6,8 +6,11 @@ import type { Draft, HistoryEntry, Item, Kind, Role } from '../portal/store';
 import { usePortal } from '../portal/ctx';
 import { patterns } from '../data';
 import { docsFor, docsIn, guideRoute, guideSource } from '../guide';
-import { BumpTag, Check, CodeLink, UxRef, DraftBox, Drafts, EditBtn, GuideChips, Head, RulesBlock, St, StOf, Table, fmt, human, joinNodes } from '../ui';
-import { ColorPage, DimensionPage, FoundationsOverview, PendingPage, TokensPage, TypographyPage } from './foundations';
+import { compGroups, docGroup, hostOf } from '../nav';
+import { GuideEmbed } from './GuidePage';
+import { ColorPage, ScalePage, TokensPage, TypographyPage } from './FoundationPages';
+import { BumpTag, Check, CodeLink, UxRef, DraftBox, Drafts, EditBtn, Head, RulesBlock, St, StOf, Table, fmt, human, joinNodes } from '../ui';
+import { FoundationsOverview, PendingPage } from './foundations';
 import { Convert, Deploy, My, MyRequests, Recheck, Requests, Roles, SbEdit, SbStatus, UxEdit } from './work';
 
 const KIND_LABEL: Record<Kind, string> = { block: 'Blocks', comp: 'Components', layout: 'Layout rules' };
@@ -22,11 +25,10 @@ export function portalPage(route: string, role: Role): ReactNode | null {
     case 'stack': return <Stack />;
     case 'updates': return <Updates />;
     case 'foundations': return <FoundationsOverview />;
+    case 'tokens': return <TokensPage />;
     case 'color': return <ColorPage />;
     case 'typography': return <TypographyPage />;
-    case 'dimension': return <DimensionPage />;
-    case 'tokens': return <TokensPage />;
-    case 'elevation': return <PendingPage title="그림자" lead="화면 층(바닥 · 카드 · 팝업 · 토스트)마다 쓰는 그림자 단계를 정합니다." todo={['단계별 그림자 값과 쓰는 곳', '팝업 · 드롭다운처럼 위로 뜨는 요소의 기준']} />;
+    case 'spacing': case 'sizing': case 'radius': case 'border-width': case 'shadow': return <ScalePage key={route} id={route} />;
     case 'motion': return <PendingPage title="모션" lead="열기 · 닫기 · 전환 · 상태 변화에 쓰는 시간과 움직임 곡선을 정합니다." todo={['시간(짧게 · 보통 · 길게)과 곡선', '팝업 · 토스트 · 펼침 등 컴포넌트별 적용']} />;
     case 'writing': return <PendingPage title="문구 (보이스 · 표기)" lead="화면 문구의 말투와 표기 규칙을 정합니다." todo={['말투 · 존댓말 기준', '버튼 · 안내 · 오류 문구 패턴', '숫자 · 날짜 · 단위 표기 (UX 규칙의 표기 규칙과 연결)']} />;
     case 'my-requests': return <MyRequests />;
@@ -55,10 +57,10 @@ export function portalPage(route: string, role: Role): ReactNode | null {
 
 function Overview() {
   const cards = [
-    ['rules', 'UX 거버넌스', '규칙 · 빈칸 · 검증 · 용어', 'UX 패턴 가이드 Do · Don\'t와 연결표 · 모든 화면의 기준'],
-    ['foundations', 'Foundations', '색상 · 타이포 · 간격 · 아이콘 · 토큰', '디자인 에셋 · 앱 구조 · 화면 유형 · 사용 환경'],
+    ['rules', 'UX 거버넌스', '규칙 · 슬롯 · 검증 · 용어', 'UX 패턴 가이드 Do · Don\'t와 연결표 · 모든 화면의 기준'],
+    ['foundations', 'Foundations', '컬러 · 타이포 · 여백 · 아이콘 · 토큰', '디자인 에셋 · 구조 · 화면 유형 · 사용 환경'],
     ['components', 'Components', '컴포넌트 · 컴포넌트 가이드', '블록 안에 들어가는 최소 부품'],
-    ['blocks', 'Blocks', '공통 블록 · SB 블록 · 모듈', '빈칸 하나를 채우는 업무 단위 묶음'],
+    ['blocks', 'Blocks', '공통 블록 · SB 블록 · 모듈', '슬롯 하나를 채우는 업무 단위 묶음'],
     ['patterns', 'Patterns', 'UX 패턴 · 레이아웃 규칙', '화면을 어떤 순서로 쌓을지'],
     ['my-requests', '내 요청', '아이콘 · 컴포넌트 · 블록 · 토큰 요청', 'DS 담당자에게 요청하고 진행 상태 보기'],
   ];
@@ -72,7 +74,7 @@ function Overview() {
           <div className="checks">
             <Check on label={`게시 ${P.version()}`} />
             <Check on label="카탈로그 0.5" />
-            <Check on label="UX표준가이드 1.2" />
+            <Check on label={`UX 패턴 가이드 ${guideSource.release}`} />
             <Check on label="디자인 토큰 v0.5" />
           </div>
         }
@@ -135,10 +137,10 @@ function Stack() {
   const I = P.items();
   const n = (k: Kind) => I.filter((i) => i.kind === k).length;
   const rows: [string, string, string, number, string][] = [
-    ['앱 구조', 'app', '화면이 바뀌어도 남는 바탕 틀 · GNB · LNB · 콘텍스트 바 · 본문 영역', P.slots().filter((x) => x.owner === 'app').length, 'g-layout-common'],
-    ['레이아웃 규칙', 'l-', '본문 영역을 어떤 빈칸 순서로 나눌지 정하는 규칙', n('layout'), 'patterns'],
-    ['빈칸(슬롯)', '경로', '부품이 들어갈 자리 · 고정 · 쌓기 · 자유', P.slots().length, 'slots'],
-    ['블록', 'b-', '빈칸 하나를 채우는 업무 단위 묶음', n('block'), 'blocks'],
+    ['구조', 'app', '화면이 바뀌어도 남는 바탕 틀 · GNB · LNB · 콘텍스트 바 · 본문 영역', P.slots().filter((x) => x.owner === 'app').length, 'g-layout-common'],
+    ['레이아웃 규칙', 'l-', '본문 영역을 어떤 슬롯 순서로 나눌지 정하는 규칙', n('layout'), 'patterns'],
+    ['슬롯', '경로', '부품이 들어갈 자리 · 고정 · 쌓기 · 자유', P.slots().length, 'slots'],
+    ['블록', 'b-', '슬롯 하나를 채우는 업무 단위 묶음', n('block'), 'blocks'],
     ['컴포넌트', 'c-', '블록 안에 들어가는 최소 부품', n('comp'), 'components'],
   ];
   return (
@@ -159,7 +161,7 @@ function Stack() {
       </ol>
       <h2 id="types">화면 유형 판정 순서</h2>
       <p>
-        규칙 <a href="#rules">R-WC-01</a> 순서로 판정합니다.
+        <a href="#rules">화면 유형 판정 규칙</a> 순서로 판정합니다.
       </p>
       <ul>
         <li>
@@ -180,7 +182,7 @@ function Stack() {
         cols={['대상', '원본', '편집', '게시']}
         rows={[
           ['블록 · 컴포넌트 (모양)', 'Figma 디자인 시스템', P.ROLES.ds, P.ROLES.approver],
-          ['레이아웃 규칙 · 규칙 · 사용 가이드', 'UX표준가이드 · 이 포털', P.ROLES.ux, P.ROLES.approver],
+          ['레이아웃 규칙 · 규칙 · 사용 가이드', 'UX 패턴 가이드 · 이 포털', P.ROLES.ux, P.ROLES.approver],
           ['임시 부품 tb- · tc-', 'SB Studio 생성', '승격 심사', P.ROLES.approver],
         ].map((r, i) => (
           <tr key={i}>
@@ -250,7 +252,7 @@ function ItemList({ kind }: { kind: 'comp' | 'block' }) {
       <Head
         eyebrow={isComp ? 'Components' : 'Blocks'}
         title={isComp ? '컴포넌트' : '블록'}
-        lead={isComp ? '블록 안에 들어가는 최소 부품입니다. ✓ 표시는 Figma 디자인 에셋과 사용 가이드가 있는 것입니다.' : '블록은 빈칸 하나를 채우는 업무 단위 묶음입니다. 포털이 관리하는 공통 블록과 SB Studio에서 만든 SB 블록으로 나뉩니다. 모듈은 UX 패턴 가이드의 모듈 정의입니다.'}
+        lead={isComp ? '블록 안에 들어가는 최소 부품입니다. ✓ 표시는 Figma 디자인 에셋과 사용 가이드가 있는 것입니다.' : '블록은 슬롯 하나를 채우는 업무 단위 묶음입니다. 포털이 관리하는 공통 블록과 SB Studio에서 만든 SB 블록으로 나뉩니다. 모듈은 UX 패턴 가이드의 모듈 정의입니다.'}
       />
       {isComp && can('figma') ? (
         <p className="row">
@@ -260,12 +262,30 @@ function ItemList({ kind }: { kind: 'comp' | 'block' }) {
         </p>
       ) : null}
       {isComp ? (
-        <>
-          <h2 id="all" className="sr">
-            전체
-          </h2>
-          <Grid list={I} />
-        </>
+        compGroups().map((g) => {
+          const L = I.filter((i) => (i.group || '기타') === g);
+          const docs = docsIn('components').filter((d) => docGroup(d) === g && !hostOf(d.id));
+          if (!L.length && !docs.length) return null;
+          return (
+            <div key={g}>
+              <h2 id={`g-${g}`}>
+                {g} <span className="count">{L.length}</span>
+              </h2>
+              {docs.length ? (
+                <p className="note">
+                  사용 가이드{' '}
+                  {docs.map((d, j) => (
+                    <span key={d.id}>
+                      {j ? ' · ' : ''}
+                      <a href={`#${guideRoute(d.id)}`}>{d.title}</a>
+                    </span>
+                  ))}
+                </p>
+              ) : null}
+              {L.length ? <Grid list={L} /> : <p className="note">아직 이 묶음의 컴포넌트가 없습니다.</p>}
+            </div>
+          );
+        })
       ) : (
         <BlockSections list={I} />
       )}
@@ -358,10 +378,10 @@ function ItemPage({ it }: { it: Item }) {
     [
       ['상태', <StOf s={it.status} />],
       it.kind === 'comp' ? ['변형', it.variants] : null,
-      it.kind === 'block' ? ['놓이는 빈칸', human(it.slot)] : null,
-      it.kind === 'layout' ? ['적용 빈칸', <CodeLink code={it.slot || ''} />] : null,
+      it.kind === 'block' ? ['놓이는 슬롯', human(it.slot)] : null,
+      it.kind === 'layout' ? ['적용 슬롯', <CodeLink code={it.slot || ''} />] : null,
       it.kind === 'layout' ? ['근거 문서', <UxRef r={it.guide} />] : null,
-      ['기준 원본', it.design ? '모양 Figma 디자인 시스템 · 뜻 카탈로그' : it.kind === 'layout' ? 'UX표준가이드' : 'UX 패턴 가이드 · 디자인 에셋 없음'],
+      ['기준 원본', it.design ? '모양 Figma 디자인 시스템 · 뜻 카탈로그' : it.kind === 'layout' ? 'UX 패턴 가이드' : 'UX 패턴 가이드 · 디자인 에셋 없음'],
       it.promotedFrom ? ['승격', `${it.promotedFrom}에서`] : null,
     ] as ([string, ReactNode] | null)[]
   ).filter((x): x is [string, ReactNode] => !!x);
@@ -388,7 +408,7 @@ function ItemPage({ it }: { it: Item }) {
           <h2>Anatomy</h2>
           {slotsOf.length ? (
             <>
-              <h3>빈칸</h3>
+              <h3>슬롯</h3>
               <Table
                 cols={['이름', '방식', '들어갈 수 있는 것']}
                 rows={slotsOf.map((s) => (
@@ -433,7 +453,7 @@ function ItemPage({ it }: { it: Item }) {
       {ru.length || docsFor(it.code).length ? (
         <>
           <h2>Guidelines</h2>
-          <GuideChips code={it.code} />
+          <GuideEmbed docs={docsFor(it.code).map((d) => d.id)} />
           <RulesBlock list={ru} />
         </>
       ) : null}
@@ -451,7 +471,7 @@ function ItemPage({ it }: { it: Item }) {
 export function ItemForm({ r, d }: { r: Item; d: Draft | null }) {
   const { role, act, closeEdit } = usePortal();
   const v: Item = d ? { ...r, ...d.after } : r;
-  const extra = r.kind === 'comp' ? (['variants', '변형'] as const) : (['slot', r.kind === 'layout' ? '적용 빈칸' : '놓이는 빈칸'] as const);
+  const extra = r.kind === 'comp' ? (['variants', '변형'] as const) : (['slot', r.kind === 'layout' ? '적용 슬롯' : '놓이는 슬롯'] as const);
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const f = formValues(e.currentTarget);
@@ -514,11 +534,11 @@ function Rules() {
     e.preventDefault();
     const f = e.currentTarget;
     const v = formValues(f);
-    act(() => P.draftRule(role, null, { prefix: v.prefix, doc: v.doc, section: v.section, kind: v.kind, text: v.text, targets: list(v.targets) }), (d) => `${d.target} 추가 초안 저장`).then((x) => x && f.reset());
+    act(() => P.draftRule(role, null, { prefix: v.prefix, doc: v.doc, section: v.section, kind: v.kind, text: v.text, targets: list(v.targets) }), () => '규칙 추가 초안 저장').then((x) => x && f.reset());
   };
   return (
     <>
-      <Head eyebrow="UX 거버넌스" title="규칙" lead="UX표준가이드 규칙 한 줄이 빈칸 → 블록 → 컴포넌트로 이어지는 연결표입니다. UX 패턴 가이드의 Do · Don't는 권장 · 금지 규칙으로 함께 올라 있습니다. SB Studio의 생성 · 미리보기 · Figma 검사 · 독립 검수가 같은 규칙을 씁니다." />
+      <Head eyebrow="UX 거버넌스" title="규칙" lead="규칙 한 줄이 슬롯 → 블록 → 컴포넌트로 이어지는 연결표입니다. UX 패턴 가이드의 Do · Don't는 권장 · 금지 규칙으로 함께 올라 있습니다. SB Studio의 생성 · 미리보기 · Figma 검사 · 독립 검수가 같은 규칙을 씁니다." />
       {editor ? (
         <section className="ed-panel">
           <div className="ed-h">
@@ -575,28 +595,26 @@ function Rules() {
         규칙 목록
       </h2>
       <div className="filter">
-        <input type="search" id="rq" value={ui.q} placeholder="규칙 · 빈칸 · 블록 · 컴포넌트 검색" aria-label="규칙 검색" onChange={(e) => setUi((u) => ({ ...u, q: e.target.value }))} />
+        <input type="search" id="rq" value={ui.q} placeholder="규칙 · 슬롯 · 블록 · 컴포넌트 검색" aria-label="규칙 검색" onChange={(e) => setUi((u) => ({ ...u, q: e.target.value }))} />
         {['', ...KINDS, '권장', '금지'].map((x) => (
           <button key={x} type="button" className={`chip${ui.kd === x ? ' on' : ''}`} onClick={() => setUi((u) => ({ ...u, kd: x }))}>
             {x || '전체'}
           </button>
         ))}
-        <span className="muted">{L.length}건 · UX표준가이드 1.2 · UX 패턴 가이드 {guideSource.release} (권장 · 금지)</span>
+        <span className="muted">{L.length}건 · 포털 규칙 + UX 패턴 가이드 {guideSource.release} (권장 · 금지)</span>
       </div>
       <Table
-        cols={['규칙', '문서', '내용', '대상', ...(editor ? [''] : [])]}
+        cols={['종류', '문서', '내용', '대상', ...(editor ? [''] : [])]}
         rows={L.flatMap((r) => [
           <tr key={r.id}>
             <td>
-              <b className="nw">{r.id}</b>
+              <span className="rk">{r.kind}</span>
               {P.openDraft('rule', r.id) && isEditor ? (
                 <>
                   {' '}
                   <span className="st ai">초안</span>
                 </>
               ) : null}
-              <br />
-              <span className="rk">{r.kind}</span>
             </td>
             <td>
               <UxRef r={r.doc} />
@@ -644,7 +662,7 @@ function Rules() {
                     <button type="button" className="btn2 sm" onClick={() => setUi((u) => ({ ...u, editRule: null }))}>
                       취소
                     </button>
-                    <button type="button" className="btn2 sm danger" onClick={() => act(() => P.draftRule(role, r.id, {}, true), (x) => `${x.target} 삭제 초안 저장`).then(() => setUi((u) => ({ ...u, editRule: null })))}>
+                    <button type="button" className="btn2 sm danger" onClick={() => act(() => P.draftRule(role, r.id, {}, true), () => '규칙 삭제 초안 저장').then(() => setUi((u) => ({ ...u, editRule: null })))}>
                       삭제 초안
                     </button>
                   </div>
@@ -658,35 +676,110 @@ function Rules() {
   );
 }
 
+const SLOT_MODE: Record<string, { label: string; desc: string }> = {
+  고정: { label: '고정', desc: '정해진 블록 하나만 들어갑니다. 다른 것으로 바꿀 수 없습니다.' },
+  쌓기: { label: '쌓기', desc: '허용된 블록 여러 개를 위에서 아래로 순서대로 쌓습니다.' },
+  자유: { label: '자유', desc: '들어갈 것을 정해 두지 않은 자리입니다. 관리자의 승인을 받아야 씁니다.' },
+};
+/** 슬롯이 딸린 곳 (조립 순서: 구조 → 레이아웃 → 블록 · 컴포넌트 안) */
+const SLOT_OWNERS: [owner: string, title: string, what: string][] = [
+  ['app', '모든 화면의 바탕 틀', '어느 화면에나 늘 있는 자리입니다. 본문 영역에는 아래 화면 유형 중 하나가 들어갑니다.'],
+  ['l-general', '일반형 화면의 본문', '일반 업무 화면의 본문을 위에서 아래로 나눈 자리입니다. (선택) 자리는 비워 둘 수 있습니다.'],
+  ['b-content', '컨텐트 블록 안', '일반형 화면의 컨텐트 자리에 들어간 블록을 다시 나눈 자리입니다.'],
+  ['l-node', '노드형 화면의 본문', '단계가 이어지는 절차형 업무 화면의 자리입니다.'],
+  ['c-popup', '팝업 틀', '팝업 컴포넌트가 가진 자리입니다.'],
+  ['l-popup', '팝업 본문', '팝업 본문을 나눈 자리입니다. 일반형에서 페이지 타이틀을 뺀 구조입니다.'],
+  ['l-special', '특수형 화면', '표준 틀로 만들 수 없는 예외 화면입니다.'],
+];
+
 function Slots() {
+  const all = P.slots();
+  const owners = [...SLOT_OWNERS.map(([o]) => o), ...[...new Set(all.map((s) => s.owner))].filter((o) => !SLOT_OWNERS.some(([x]) => x === o))];
   return (
     <>
-      <Head eyebrow="UX 거버넌스" title="빈칸" lead="빈칸은 단위가 아니라 자리입니다. 앱 구조(app) · 레이아웃 규칙 · 블록 · 컨테이너형 컴포넌트에 딸린 자리를 경로로 적습니다." />
-      <h2 id="list" className="sr">
-        빈칸 목록
-      </h2>
-      <Table
-        cols={['이름', '소속', '방식', '들어갈 수 있는 것']}
-        rows={P.slots().map((s) => (
-          <tr key={s.path}>
-            <td>{s.name}</td>
-            <td>
-              <CodeLink code={s.owner} />
-            </td>
-            <td>{s.mode}</td>
-            <td>{human(s.accepts)}</td>
-          </tr>
-        ))}
+      <Head
+        eyebrow="UX 거버넌스"
+        title="슬롯"
+        lead="슬롯(slot)은 화면에서 무엇이 들어갈지 정해 둔 자리입니다. 화면을 설계할 때 아무 블록이나 놓지 않고, 자리마다 정해진 블록만 넣습니다. SB Studio의 생성기와 검증 규칙이 이 표로 화면을 만들고 검사합니다."
       />
+      <h2 id="modes">넣는 방식 3가지</h2>
+      <div className="slot-modes">
+        {Object.values(SLOT_MODE).map((m) => (
+          <section key={m.label} className="slot-mode">
+            <span className={`slot-tag m-${m.label}`}>{m.label}</span>
+            <p>{m.desc}</p>
+          </section>
+        ))}
+      </div>
+      <h2 id="read">읽는 법</h2>
+      <p className="pt-text">
+        예를 들어 <b>일반형 화면</b>의 <b>조회조건</b> 자리는 <span className="slot-tag m-고정">고정</span>이고 <b>조회조건 블록</b>만 들어갑니다. 그래서 일반형 화면에 조회조건을 넣을 때는 늘 같은 블록을 쓰고, 다른 블록을 그 자리에 놓으면 검증에서 오류가 납니다.
+      </p>
+      {owners.map((o) => {
+        const L = all.filter((s) => s.owner === o);
+        if (!L.length) return null;
+        const meta = SLOT_OWNERS.find(([x]) => x === o);
+        return (
+          <div key={o}>
+            <h2 id={`slot-${o}`}>
+              {meta?.[1] || o} <span className="count">{L.length}</span>
+            </h2>
+            <p className="note">
+              {meta?.[2]} <span className="muted">· 정한 곳</span> <CodeLink code={o} />
+            </p>
+            <SlotFrame owner={o} slots={L} />
+          </div>
+        );
+      })}
     </>
   );
 }
 
+/** 슬롯이 딸린 곳마다 실제 화면 배치 (CSS grid 영역 이름 = 슬롯 경로 끝) */
+const FRAMES: Record<string, { areas: string; cols: string; rows: string; h: number; label?: string }> = {
+  app: { areas: '"lnb gnb communicator" "lnb context-bar communicator" "lnb body communicator"', cols: '72px 1fr 200px', rows: '52px 40px 1fr', h: 420, label: '공통 틀' },
+  'l-general': { areas: '"title" "notice" "search" "detail" "content"', cols: '1fr', rows: '52px 44px 72px 72px 1fr', h: 460, label: '일반형 본문' },
+  'b-content': { areas: '"action" "body" "status"', cols: '1fr', rows: '48px 1fr 44px', h: 300, label: '컨텐트' },
+  'l-node': { areas: '"hud" "canvas" "actionbar"', cols: '1fr', rows: '56px 1fr 56px', h: 340, label: '노드형 본문' },
+  'c-popup': { areas: '"content" "actions"', cols: '1fr', rows: '1fr 56px', h: 300, label: '팝업' },
+  'l-popup': { areas: '"search" "content"', cols: '1fr', rows: '72px 1fr', h: 300, label: '팝업 본문' },
+  'l-special': { areas: '"canvas"', cols: '1fr', rows: '1fr', h: 240, label: '특수형' },
+};
+const areaOf = (path: string) => path.split('.').pop()!;
+
+function SlotFrame({ owner, slots }: { owner: string; slots: P.Slot[] }) {
+  const f = FRAMES[owner] || { areas: slots.map((s) => `"${areaOf(s.path)}"`).join(' '), cols: '1fr', rows: slots.map(() => '1fr').join(' '), h: 80 * slots.length };
+  const known = new Set(f.areas.replace(/"/g, ' ').split(/\s+/).filter(Boolean));
+  return (
+    <div className={`slot-frame${owner === 'c-popup' ? ' dim' : ''}`}>
+      {f.label ? <span className="slot-frame-label">{f.label}</span> : null}
+      <div className="slot-grid" style={{ gridTemplateAreas: f.areas, gridTemplateColumns: f.cols, gridTemplateRows: f.rows, height: f.h }}>
+        {slots.map((s) => {
+          const a = areaOf(s.path);
+          return (
+            <div key={s.path} className={`slot-area m-${s.mode}${/선택/.test(s.name) ? ' opt' : ''}`} style={known.has(a) ? { gridArea: a } : undefined} title={s.path}>
+              <b>{s.name.replace(/ 영역$/, '')} 슬롯</b>
+              <span className={`slot-tag m-${s.mode}`}>{s.mode}</span>
+              <span className="slot-acc">{accepts(s.accepts)}</span>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
+/** '들어가는 것'의 카탈로그 코드는 그 페이지로 */
+function accepts(text: string) {
+  const parts = String(text).split(/(\b(?:c|b|l)-[a-z][a-z0-9-]*)/g);
+  return parts.map((p, i) => (i % 2 ? <CodeLink key={i} code={p} /> : <span key={i}>{human(p)}</span>));
+}
+
 function Lint() {
   const L = [
-    ['R-01', '앱 구조 빈칸(GNB · LNB · 콘텍스트 바)에는 블록만', '오류'],
-    ['R-02', '고정 빈칸은 허용 목록에서 하나', '오류'],
-    ['R-03', '쌓기 빈칸 순서(일반형)', '오류'],
+    ['R-01', '구조 슬롯(GNB · LNB · 콘텍스트 바)에는 블록만', '오류'],
+    ['R-02', '고정 슬롯은 허용 목록에서 하나', '오류'],
+    ['R-03', '쌓기 슬롯 순서(일반형)', '오류'],
     ['R-04', '임시 코드(tb- · tc-)는 관리자 승인 요청 동반', '경고'],
     ['R-05', '용어 대조(로제타)', '경고'],
     ['R-06', '출처 ID 반영률 100%', '오류'],
@@ -699,12 +792,9 @@ function Lint() {
         검증 규칙
       </h2>
       <Table
-        cols={['규칙', '내용', '심각도']}
+        cols={['내용', '심각도']}
         rows={L.map((r) => (
           <tr key={r[0]}>
-            <td>
-              <b>{r[0]}</b>
-            </td>
             <td>{r[1]}</td>
             <td>
               <St c={r[2] === '오류' ? 'ng' : 'hold'} t={r[2]} />

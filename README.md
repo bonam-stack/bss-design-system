@@ -29,7 +29,7 @@ src/site/                     문서 사이트 · 디자인 포털 화면
 ### 역할별 페이지
 
 - 보기(기획자): 문서 페이지. 미리보기는 실제 React 컴포넌트라 누르고 입력해 볼 수 있고, 코드 탭에 사용 예와 컴포넌트 코드가 있다.
-- 디자인 시스템 담당(에디터 모드): 페이지의 설명 글(페이지 설명 · 개요 · Anatomy · States · Variants · Spec 설명, 가이드에 없는 상태의 설명)을 눌러 그 자리에서 고친다. Enter로 저장, Esc로 취소. 한 컴포넌트에서 고친 글은 "설명 수정" 초안 하나에 모이고, 포털 승인 담당이 게시하면 모두에게 보인다.
+- 디자인 시스템 담당 · UX 가이드 담당(에디터 모드, 컴포넌트는 두 담당 모두 모든 글을 고친다): 제목 옆 "✎ 편집"을 누르면 (누르기 전에는 보기 역할과 같은 화면) 페이지의 설명 글(페이지 설명 · 개요 · Anatomy · States · Variants · Spec 설명, 가이드에 없는 상태의 설명, 사용 정책 기준 표 · Do / Don't · 정책 요약)이 모두 입력칸이 된다. 규칙 번호는 데이터에만 두고 화면에는 보이지 않는다. 고친 뒤 아래 띠의 "초안 저장"으로 한 번에 초안이 되고(한 컴포넌트의 글은 "설명 수정" 초안 하나), 포털 승인 담당이 게시하면 모두에게 보인다.
 - 디자인 시스템 담당: "AI로 코드 고치기"에서 고칠 점을 말로 요청하면 Claude(Opus 5.5)가 컴포넌트 TSX를 고쳐 미리보기 · 예시에 바로 반영한다. 정적 사이트라 담당이 자기 Anthropic API 키를 넣어 브라우저에서 바로 부르고(키는 그 브라우저에만 저장), 키가 없으면 "A를 B로 바꿔 줘" 글자 바꾸기 흉내 모드로 돈다. "코드 보기 · 직접 고치기"로 코드를 직접 고칠 수도 있다.
   "Figma 원본과 나란히" · `#compare-<key>`로 Figma와 견주고 "초안 저장" → 포털 승인 담당 게시. 속성(Props) 정의가 바뀌면 MAJOR, 아니면 PATCH. 롤백 · 저장소 코드로 되돌리기 가능.
 - 게시된 코드는 POC라 브라우저(localStorage)에만 있다. 저장소에 반영하려면 그 코드를 `src/ds/components/<Name>.tsx`에 넣어 커밋한다.
@@ -54,6 +54,20 @@ import { Checkbox, Button, TextField, PasswordField, TextArea, RadioGroup, Radio
 - 색 · 치수는 `var(--토큰, Figma 값)`이라 토큰 CSS 없이도 Figma 값으로 그려지고, 토큰 CSS를 올리면 그 값을 따른다.
 - Figma와 일치: 모든 변형을 그려 비교한 결과 Button 172 · Checkbox 24 · Radio 16 · RadioGroup 2 · Divider 4 · HelperText 2 · TextField 108 · TextArea 36개가 픽셀 단위로 같다. PasswordField는 Figma가 `********`를 글자로 그린 자리를 브라우저가 `●`로 가리는 차이만 있다.
 
+### 새 컴포넌트 추가 (Figma 주소 → React 코드)
+
+1. 디자인 시스템 담당이 Components 페이지의 "컴포넌트 추가"에 Figma 컴포넌트 노드 주소만 넣고 읽으면(카탈로그 코드는 같은 이름의 빈 카탈로그 항목에 자동으로 잇고, 없으면 `c-<key>`로 새로 등록), 게시 전 새 컴포넌트 페이지(`#new-<key>`)가 편집 모드로 열린다.
+2. 그 페이지의 "React 코드 만들기"에서 첫 코드를 만든다.
+   - **Figma 보고 AI로 만들기**: Anthropic API 키가 있으면 Claude가 Figma 속성과 레이어(크기 · 색 · 글자, Figma 토큰이 있을 때)를 보고 `src/ds/components/<Name>.tsx`를 처음부터 쓴다.
+   - **속성으로 기본 틀 만들기**: 키 없이도 Figma 속성(변형 · 불리언 · 글)으로 기본 틀을 만든다.
+   - 만든 코드는 바로 미리보기에 그려지고, 채팅으로 다듬은 뒤 초안으로 저장한다.
+3. 포털 승인 담당이 Figma 초안과 코드 초안을 게시하면 모두에게 컴포넌트 목록 · 페이지 · 미리보기가 나온다.
+4. 게시된 페이지에서 `<Name>.tsx`와 `component.json`을 내려받아 저장소에 커밋하면 저장소 컴포넌트가 된다.
+
+컴포넌트 제목(카탈로그 이름)과 설명은 ✎ 편집에서 제목 칸을 바로 고쳐 초안으로 저장한다. 코드 이름(`<Name>.tsx` · `export function <Name>`)과 Figma 이름은 그대로다.
+
+Figma 개인 토큰(figd_…)과 Anthropic API 키는 담당의 브라우저(localStorage)에만 저장되고, 각각 api.figma.com · api.anthropic.com으로만 보낸다. 토큰이 없으면 Figma는 흉내 모드(운영 기준 · `poc/fixtures/figma` 예시 노드)로 읽는다.
+
 ## UX 패턴 가이드 반영 (NEXT BSS UX Pattern Guide)
 
 caumuse에 게시된 UX 패턴 가이드(https://mocks.caumuse.kr/release/20261106/)의 문서를 그대로 붙이지 않고, 포털 구조로 나눠 넣었다.
@@ -61,15 +75,15 @@ caumuse에 게시된 UX 패턴 가이드(https://mocks.caumuse.kr/release/202611
 | 가이드 | 포털 | 형식 |
 |---|---|---|
 | UX 원칙 (3) | 시작하기 | 문서 페이지 |
-| 파운데이션 (14) | Foundations (앱 구조 · 화면 유형 · 사용 환경) | 문서 페이지 |
+| 파운데이션 (14) | Foundations (구조 · 화면 유형 · 사용 환경). 디자인 에셋(컬러 · 타이포그래피 · 디자인 토큰 · 아이콘)은 `tokens/variables.json` · `icons/`에서 그린다 | 문서 페이지 |
 | 패턴 (31) | Patterns (화면 편성 · 조회·목록 · 편집 · 응답·예외 · 노드 진행 · 외부 연동 · 표준 기능) | 문서 페이지 |
 | 모듈 (18) | Blocks (일반형 화면 · 노드 · 상세·처리 모듈) | 문서 페이지 + 관련 블록 페이지에 연결 |
 | 컴포넌트 (13) | Components (컴포넌트 가이드) | 문서 페이지 + 관련 컴포넌트 페이지에 연결 |
-| Do / Don't (878) | UX 거버넌스 › 규칙 (권장 451 · 금지 427, 번호 `GRID-BOARD-01` …) | 대상 블록 · 컴포넌트 · 레이아웃에 걸림 |
+| Do / Don't (878) | UX 거버넌스 › 규칙 (권장 451 · 금지 427, 데이터 안 번호 `GRID-BOARD-01` …, 화면에는 안 보임) | 컴포넌트 · 블록에 한꺼번에 걸지 않음 (규칙은 컴포넌트마다 각자의 사용 정책으로) |
 | 용어사전 (222) | UX 거버넌스 › 용어사전 | 검색되는 표 |
 | SB 작성 가이드 | UX 거버넌스 | 문서 페이지 |
 
-문서 페이지(`#g-<문서 id>`)는 Overview(언제 쓰나 · 다른 것을 쓰나) → 구성요소(번호) · 동작 · 규격 표 → Do / Don't → Usage(이 기준을 따르는 블록 · 컴포넌트, 함께 볼 문서) 순이다.
+문서 페이지(`#g-<문서 id>`)는 Overview(언제 쓰나 · 다른 것을 쓰나) → 구성요소(번호) · 동작 · 규격 표 → Do / Don't → 함께 볼 문서 순이다. 컴포넌트 · 블록 페이지에는 참고할 가이드 문서 링크가 붙는다.
 화면 예시 목업과 "실제 예시" 절은 빼고 글 · 표 · 규칙만 옮겼다. 버전 이력은 추출본에 내용이 없어 넣지 않았다.
 
 ```
@@ -84,6 +98,12 @@ scripts/structure_ux_guide.py      원문 → 포털 구조. 문서별 대상 �
 
 새 릴리스 반영: `python3 scripts/split_ux_guide.py <전체 마크다운>` → `python3 scripts/structure_ux_guide.py` → 커밋.
 
+컴포넌트 사용 가이드(`components/<key>/guide.json`의 Policy · 기준 · Do/Don't)는 새 UX 패턴 가이드 문서에서 다시 만든다: `python3 scripts/sync_component_policy.py`. 어느 문서의 어느 절 · 항목을 쓰는지는 스크립트의 `SPEC`에 컴포넌트별로 적혀 있고, 바뀐 기준을 출력한다. 컴포넌트 쪽 부족분(gap)은 기존 파일에서 이어받는다.
+
+POC라 이력은 남기지 않는다. 저장소의 기준 데이터(카탈로그 · 컴포넌트 · UX 패턴 가이드 · 패턴 · 토큰 · React 컴포넌트 코드)가 바뀌어 새로 배포되면, 브라우저에 남은 이전 초안 · 게시 기록을 열 때 자동으로 지우고 새 기준으로 다시 시작한다(`vite.config.ts`의 데이터 지문). 역할 · API 키 · Figma 토큰은 남는다.
+
+디자인 토큰은 Figma › 변수에서 컬렉션별로 내보낸 W3C 토큰 JSON을 `tokens/figma/<primitive|semantic|component>.tokens.json`에 두고 `python3 scripts/import_tokens.py`로 `tokens/variables.json`을 만든다. 사이트는 이 토큰을 CSS 변수로 깔고(`src/ds/tokens.ts`), 컴포넌트는 `tok()`로 그 변수를 읽는다.
+
 ## BSS 디자인 포털
 
 SB Studio 안의 메뉴로 들어가는 디자인 포털이다. 누구에게나 같은 문서 사이트(시작하기 · Foundations · Components · Blocks · Patterns · UX 거버넌스)가 보이고,
@@ -94,7 +114,7 @@ SB Studio 안의 메뉴로 들어가는 디자인 포털이다. 누구에게나 
 - 포털 승인 담당: 초안 게시 · 반려 · 롤백
 - 담당 역할에서만 보이는 "관리" 메뉴: 초안 · 게시, 승격 요청(구조 확인 → 모양 확인 → 최종 승인), 변경 감지
 
-기준 카탈로그는 `catalog/catalog.json`(SB Studio 포털 카탈로그 0.5: 앱쉘 s- · 레이아웃 l- · 빈칸 · 블록 b- · 컴포넌트 c- · 규칙 R-),
+기준 카탈로그는 `catalog/catalog.json`(SB Studio 포털 카탈로그 0.5: 앱쉘 s- · 레이아웃 l- · 슬롯 · 블록 b- · 컴포넌트 c- · 규칙 R-),
 컴포넌트 상세(미리보기 · 사용 가이드)는 `components/`에서 온다. 화면 코드는 `src/site/`. POC라 초안 · 게시 상태는 브라우저에만 저장된다.
 
 ## 컴포넌트

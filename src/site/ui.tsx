@@ -52,14 +52,14 @@ export function CopyBtn({ value, label }: { value: string; label?: string }) {
 
 // ---------- 카탈로그 코드 → 이름 ----------
 
-/** 글 속에 섞인 카탈로그 코드 · 빈칸 경로를 이름으로 바꿔 보여 준다 */
+/** 글 속에 섞인 카탈로그 코드 · 슬롯 경로를 이름으로 바꿔 보여 준다 */
 export function human(text?: string) {
   return String(text ?? '').replace(/\b(?:(?:tb|tc|c|b|l)-[a-z][a-z0-9-]*(?:\.[a-z][a-z0-9.-]*)?|app\.[a-z][a-z0-9.-]*)/g, (code) => {
     const it = P.item(code);
     if (it) return it.name;
     const sl = P.slot(code);
     if (sl) return sl.name;
-    // 빈칸 경로의 앞부분만 아는 경우 (b-content.column.body → 컨텐트 · column.body)
+    // 슬롯 경로의 앞부분만 아는 경우 (b-content.column.body → 컨텐트 · column.body)
     const [head, ...rest] = code.split('.');
     const h = P.item(head);
     return h ? `${h.name} ${rest.join('.')}` : code;
@@ -67,7 +67,7 @@ export function human(text?: string) {
 }
 
 export function CodeLink({ code }: { code: string }) {
-  if (code === 'app') return <a href="#g-layout-common">앱 구조</a>;
+  if (code === 'app') return <a href="#g-layout-common">구조</a>;
   const it = P.item(code);
   if (it) return <a href={`#${code}`}>{it.name}</a>;
   const sl = P.slot(code);
@@ -250,9 +250,6 @@ export function RuleList({ list }: { list: Rule[] }) {
     <ul className="rl">
       {list.map((x) => (
         <li key={x.id}>
-          <a className="rid" href="#rules">
-            {x.id}
-          </a>
           <span className="rk">{x.kind}</span>
           <p>
             {human(x.text)}
@@ -293,7 +290,7 @@ export function RulesBlock({ list }: { list: Rule[] }) {
     <>
       {own.length ? (
         <>
-          <h3>UX표준가이드 규칙</h3>
+          <h3>사용 규칙</h3>
           <RuleList list={own} />
         </>
       ) : null}
@@ -360,72 +357,58 @@ export const TextScope = createContext<{ key: string; name: string } | null>(nul
 /** 글 자리의 지금 글: 담당에게는 초안 → 게시본 → 원래 글, 보기 역할에게는 게시본 → 원래 글 */
 export function useText() {
   const scope = useContext(TextScope);
-  const { isEditor } = usePortal();
+  const { textEdit } = usePortal();
   return (path: string, original: string) => {
     if (!scope) return original;
-    const d = isEditor ? P.openDraft('text', scope.key) : null;
+    const d = textEdit ? P.openDraft('text', scope.key) : null;
     return d?.after.fields[path] ?? P.publishedTexts(scope.key)[path] ?? original;
   };
 }
 
-/** 에디터 모드에서 눌러서 그 자리에서 고치는 글. Enter로 저장(Shift+Enter 줄바꿈), Esc로 취소.
- *  고친 글은 초안이 되고 관리자가 배포하면 모두에게 보인다 */
-export function Editable({ path, value, label, as: Tag = 'span', className, onSave, placeholder }: { path: string; value: string; label: string; as?: 'span' | 'p' | 'div'; className?: string; onSave?: (v: string) => Promise<unknown>; placeholder?: string }) {
+/** 제목 줄 오른쪽 끝의 설명 편집 켜기/끄기 (DS 담당자) */
+export function TextEditToggle() {
+  const { can, textEdit, setTextEdit } = usePortal();
+  if (!can('text') && !can('guide')) return null;
+  return (
+    <button type="button" className={`ed-toggle${textEdit ? ' on' : ''}`} aria-pressed={textEdit} onClick={() => setTextEdit(!textEdit)}>
+      {textEdit ? '편집 끝내기' : '✎ 편집'}
+    </button>
+  );
+}
+
+/** 고칠 수 있는 글. 에디터 모드에서 "설명 편집"을 켜면 입력칸이 되고, 고친 글은 아래 띠의 "초안 저장"으로 한 번에 초안이 된다.
+ *  관리자가 배포하면 모두에게 보인다 */
+export function Editable({ path, value, label, as: Tag = 'span', className, onSave, placeholder, perm = 'comp' }: { path: string; value: string; label: string; as?: 'span' | 'p' | 'div' | 'h1'; className?: string; onSave?: (v: string) => unknown; placeholder?: string; /** onSave가 있을 때 고칠 수 있는 담당 (기본: 컴포넌트 = DS 담당자) */ perm?: P.EditType }) {
   const scope = useContext(TextScope);
-  const { role, can, act } = usePortal();
+  const { can, textEdit, pending, setPending } = usePortal();
   const get = useText();
   const shown = onSave ? value : get(path, value);
-  const [editing, setEditing] = useState(false);
-  const ref = useRef<HTMLElement>(null);
-  const editable = onSave ? can('comp') : !!scope && can('text');
-  useEffect(() => {
-    if (!editing || !ref.current) return;
-    const el = ref.current;
-    el.innerText = shown;
-    el.focus();
-    const r = document.createRange();
-    r.selectNodeContents(el);
-    r.collapse(false);
-    window.getSelection()?.removeAllRanges();
-    window.getSelection()?.addRange(r);
-  }, [editing]); // eslint-disable-line react-hooks/exhaustive-deps
+  const editable = textEdit && (onSave ? can(perm) : !!scope && can('text'));
   if (!editable) return <Tag className={className}>{shown ? lineBreaks(shown) : placeholder}</Tag>;
-  const commit = () => {
-    const next = (ref.current?.innerText ?? shown).replace(/\n{3,}/g, '\n\n').trim();
-    setEditing(false);
-    if (next === shown || !next) return;
-    if (onSave) act(() => onSave(next), undefined);
-    else act(() => P.draftText(role, scope!.key, scope!.name, path, label, value, next), (d) => `초안 ${d.id}에 담았습니다 · 관리자가 배포하면 반영됩니다`);
-  };
-  if (editing)
-    return (
-      <Tag
-        key="editing"
-        ref={ref as never}
-        className={`${className || ''} ed-text on`}
-        contentEditable="plaintext-only"
-        suppressContentEditableWarning
-        role="textbox"
-        aria-label={`${label} 고치기`}
-        onBlur={commit}
-        onKeyDown={(e) => {
-          if (e.key === 'Enter' && !e.shiftKey) {
-            e.preventDefault();
-            ref.current?.blur();
-          }
-          if (e.key === 'Escape') {
-            e.preventDefault();
-            if (ref.current) ref.current.innerText = shown;
-            setEditing(false);
-          }
-        }}
-      />
-    );
+  const pk = `${scope?.key || ''}|${path}`;
+  const cur = pending[pk]?.value ?? shown;
   return (
-    <Tag key="view" className={`${className || ''} ed-text`} role="button" tabIndex={0} title={`${label} · 눌러서 고치기`} onClick={() => setEditing(true)} onKeyDown={(e) => e.key === 'Enter' && setEditing(true)}>
-      {shown ? lineBreaks(shown) : placeholder}
-    </Tag>
+    <AutoText
+      className={`ed-field${Tag === 'p' ? ' block' : ''}${Tag === 'h1' ? ' ed-title' : ''}${pending[pk] && cur !== shown ? ' changed' : ''}`}
+      value={cur}
+      placeholder={placeholder || label}
+      aria-label={label}
+      title={label}
+      onChange={(v) => setPending((P0) => ({ ...P0, [pk]: { scopeKey: scope?.key || '', scopeName: scope?.name || '', path, label, before: shown, value: v, onSave } }))}
+    />
   );
+}
+
+/** 글 길이에 맞춰 높이가 늘어나는 입력칸 */
+function AutoText({ value, onChange, className, ...rest }: { value: string; onChange: (v: string) => void; className: string; placeholder?: string; 'aria-label': string; title: string }) {
+  const ref = useRef<HTMLTextAreaElement>(null);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    el.style.height = 'auto';
+    el.style.height = `${el.scrollHeight + 2}px`;
+  }, [value]);
+  return <textarea ref={ref} rows={1} className={className} value={value} onChange={(e) => onChange(e.target.value)} {...rest} />;
 }
 
 const lineBreaks = (t: string) => t.split('\n').map((p, i) => (i ? [<br key={i} />, p] : p));

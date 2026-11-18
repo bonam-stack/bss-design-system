@@ -48,6 +48,14 @@ function split(text: string): { reply: string; source?: string } {
 
 /** Claude에게 요청 (브라우저에서 바로, 사용자의 API 키) */
 async function askClaude(apiKey: string, name: string, source: string, instruction: string, history: ChatTurn[]) {
+  return ask(apiKey, SYSTEM, [
+    // 앞선 대화는 요청과 답의 설명만 (코드는 지금 파일 하나만 보낸다)
+    ...history.map((t) => ({ role: t.role, content: t.text })),
+    { role: 'user' as const, content: `지금 파일: src/ds/components/${name}.tsx\n\`\`\`tsx\n${source}\`\`\`\n\n요청: ${instruction}` },
+  ]);
+}
+
+async function ask(apiKey: string, system: string, messages: { role: 'user' | 'assistant'; content: string }[]) {
   const { default: Anthropic } = await import('@anthropic-ai/sdk');
   const client = new Anthropic({ apiKey, dangerouslyAllowBrowser: true });
   try {
@@ -57,12 +65,8 @@ async function askClaude(apiKey: string, name: string, source: string, instructi
       betas: ['server-side-fallback-2026-07-01'],
       fallbacks: 'default',
       output_config: { effort: 'medium' },
-      system: SYSTEM,
-      messages: [
-        // 앞선 대화는 요청과 답의 설명만 (코드는 지금 파일 하나만 보낸다)
-        ...history.map((t) => ({ role: t.role, content: t.text })),
-        { role: 'user', content: `지금 파일: src/ds/components/${name}.tsx\n\`\`\`tsx\n${source}\`\`\`\n\n요청: ${instruction}` },
-      ],
+      system,
+      messages,
     });
     const msg = await stream.finalMessage();
     if (msg.stop_reason === 'refusal') return { reply: '이 요청은 처리할 수 없다는 답이 왔습니다. 요청을 바꿔 다시 시도해 주세요.' };
@@ -94,4 +98,25 @@ export async function editWithChat(name: string, source: string, instruction: st
   const key = getApiKey();
   if (!key) return { ...mock(source, instruction), mode: 'mock' };
   return { ...(await askClaude(key, name, source, instruction, history)), mode: 'ai' };
+}
+
+const GEN = SYSTEM.replace('React 컴포넌트 파일 하나를 고치는', 'React 컴포넌트 파일 하나를 Figma 디자인을 보고 새로 만드는') + `
+
+새로 만들 때:
+- export function <이름>과 export interface <이름>Props를 만들고, 파일 끝에 <이름>.meta = { texts: { 글속성: '기본 글' } }를 둡니다.
+- Figma 변형 속성(variant)은 같은 이름의 문자열 유니언 속성으로, 불리언 · 글 속성도 같은 이름으로 받습니다. state 변형은 hover · pressed처럼 실제 상호작용으로 생기는 값이면 useInteraction으로 그립니다.
+- 크기 · 여백 · 색 · 모서리 · 글꼴은 Figma 레이어 값을 따르고, 색은 tok('토큰-이름', '#Figma값')으로 씁니다. 글꼴은 font(종류, 크기, 굵기)를 씁니다.
+- 아래 예시 컴포넌트와 같은 방식(파일 머리 주석 · 속성 주석 · style 객체)으로 씁니다.`;
+
+/** Figma 속성(과 레이어)으로 새 컴포넌트 코드를 처음부터 만든다. 키가 없으면 null */
+export async function generateComponent(name: string, comp: { name: string; description: string; props: unknown; variants: unknown[]; figma?: { url?: string } }, layers: unknown, example: { name: string; source: string }, ask2?: string): Promise<{ reply: string; source?: string } | null> {
+  const key = getApiKey();
+  if (!key) return null;
+  const figma = { name: comp.name, description: comp.description, url: comp.figma?.url, props: comp.props, variants: comp.variants.length, layers: layers ?? '(레이어 없음: Figma 토큰이 없어 속성만 읽었습니다. 모양은 이름과 설명으로 짐작합니다)' };
+  return ask(key, GEN, [
+    {
+      role: 'user',
+      content: `만들 파일: src/ds/components/${name}.tsx (컴포넌트 이름 ${name})\n\nFigma 노드:\n\`\`\`json\n${JSON.stringify(figma, null, 1).slice(0, 60000)}\n\`\`\`\n\n예시 (이 저장소의 ${example.name}.tsx):\n\`\`\`tsx\n${example.source}\`\`\`\n\n${ask2 ? `덧붙임: ${ask2}\n\n` : ''}Figma 노드대로 ${name} 컴포넌트를 만들어 주세요.`,
+    },
+  ]);
 }

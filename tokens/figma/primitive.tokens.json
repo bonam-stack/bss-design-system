@@ -1,0 +1,3329 @@
+{
+  "color": {
+    "white": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          1,
+          1
+        ],
+        "alpha": 1,
+        "hex": "#FFFFFF"
+      },
+      "$description": "Primitive 색. 흰색, #FFFFFF.",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:7108:94",
+        "com.figma.hiddenFromPublishing": true,
+        "com.figma.codeSyntax": {
+          "WEB": "var(--color-white)"
+        }
+      }
+    },
+    "transparent": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0,
+          0,
+          0
+        ],
+        "alpha": 0,
+        "hex": "#000000"
+      },
+      "$description": "Primitive 색. 완전 투명, #00000000 (불투명도 0%).",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:7108:95",
+        "com.figma.hiddenFromPublishing": true,
+        "com.figma.codeSyntax": {
+          "WEB": "var(--color-transparent)"
+        }
+      }
+    },
+    "gray": {
+      "50": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.9725490212440491,
+            0.9764705896377563,
+            0.9843137264251709
+          ],
+          "alpha": 1,
+          "hex": "#F8F9FB"
+        },
+        "$description": "Primitive 색. 회색 계열 50단계, #F8F9FB.",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:7108:3",
+          "com.figma.hiddenFromPublishing": true,
+          "com.figma.codeSyntax": {
+            "WEB": "var(--color-gray-50)"
+          }
+        }
+      },
+      "80": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.9450980424880981,
+            0.9529411792755127,
+            0.9607843160629272
+          ],
+          "alpha": 1,
+          "hex": "#F1F3F5"
+        },
+        "$description": "Primitive 색. 회색 계열 80단계, #F1F3F5.",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:7108:4",
+          "com.figma.hiddenFromPublishing": true,
+          "com.figma.codeSyntax": {
+            "WEB": "var(--color-gray-80)"
+          }
+        }
+      },
+      "100": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.9098039269447327,
+            0.9254902005195618,
+            0.9372549057006836
+          ],
+          "alpha": 1,
+          "hex": "#E8ECEF"
+        },
+        "$description": "Primitive 색. 회색 계열 100단계, #E8ECEF.",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:7108:5",
+          "com.figma.hiddenFromPublishing": true,
+          "com.figma.codeSyntax": {
+            "WEB": "var(--color-gray-100)"
+          }
+        }
+      },
+      "200": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.8627451062202454,
+            0.8784313797950745,
+            0.8980392217636108
+          ],
+          "alpha": 1,
+          "hex": "#DCE0E5"
+        },
+        "$description": "Primitive 색. 회색 계열 200단계, #DCE0E5.",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:7108:6",
+          "com.figma.hiddenFromPublishing": true,
+          "com.figma.codeSyntax": {
+            "WEB": "var(--color-gray-200)"
+          }
+        }
+      },
+      "300": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.7686274647712708,
+            0.7882353067398071,
+            0.8117647171020508
+          ],
+          "alpha": 1,
+          "hex": "#C4C9CF"
+        },
+        "$description": "Primitive 색. 회색 계열 300단계, #C4C9CF.",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:7108:7",
+          "com.figma.hiddenFromPublishing": true,
+          "com.figma.codeSyntax": {
+            "WEB": "var(--color-gray-300)"
+          }
+        }
+      },
+      "400": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.7019608020782471,
+            0.7254902124404907,
+            0.7529411911964417
+          ],
+          "alpha": 1,
+          "hex": "#B3B9C0"
+        },
+        "$description": "Primitive 색. 회색 계열 400단계, #B3B9C0.",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:7108:8",
+          "com.figma.hiddenFromPublishing": true,
+          "com.figma.codeSyntax": {
+            "WEB": "var(--color-gray-400)"
+          }
+        }
+      },
+      "500": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.545098066329956,
+            0.5803921818733215,
+            0.6196078658103943
+          ],
+          "alpha": 1,
+          "hex": "#8B949E"
+        },
+        "$description": "Primitive 색. 회색 계열 500단계, #8B949E.",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:7108:9",
+          "com.figma.hiddenFromPublishing": true,
+          "com.figma.codeSyntax": {
+            "WEB": "var(--color-gray-500)"
+          }
+        }
+      },
+      "600": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.4117647111415863,
+            0.4588235318660736,
+            0.5098039507865906
+          ],
+          "alpha": 1,
+          "hex": "#697582"
+        },
+        "$description": "Primitive 색. 회색 계열 600단계, #697582.",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:7108:10",
+          "com.figma.hiddenFromPublishing": true,
+          "com.figma.codeSyntax": {
+            "WEB": "var(--color-gray-600)"
+          }
+        }
+      },
+      "700": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.2705882489681244,
+            0.30980393290519714,
+            0.3490196168422699
+          ],
+          "alpha": 1,
+          "hex": "#454F59"
+        },
+        "$description": "Primitive 색. 회색 계열 700단계, #454F59.",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:7108:11",
+          "com.figma.hiddenFromPublishing": true,
+          "com.figma.codeSyntax": {
+            "WEB": "var(--color-gray-700)"
+          }
+        }
+      },
+      "800": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.1882352977991104,
+            0.2235294133424759,
+            0.25882354378700256
+          ],
+          "alpha": 1,
+          "hex": "#303942"
+        },
+        "$description": "Primitive 색. 회색 계열 800단계, #303942.",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:7108:12",
+          "com.figma.hiddenFromPublishing": true,
+          "com.figma.codeSyntax": {
+            "WEB": "var(--color-gray-800)"
+          }
+        }
+      },
+      "900": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.10980392247438431,
+            0.12156862765550613,
+            0.13725490868091583
+          ],
+          "alpha": 1,
+          "hex": "#1C1F23"
+        },
+        "$description": "Primitive 색. 회색 계열 900단계, #1C1F23.",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:7108:13",
+          "com.figma.hiddenFromPublishing": true,
+          "com.figma.codeSyntax": {
+            "WEB": "var(--color-gray-900)"
+          }
+        }
+      }
+    },
+    "tBlue": {
+      "50": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.9450980424880981,
+            0.9490196108818054,
+            1
+          ],
+          "alpha": 1,
+          "hex": "#F1F2FF"
+        },
+        "$description": "Primitive 색. 브랜드 파랑 계열 50단계, #F1F2FF.",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:7108:14",
+          "com.figma.hiddenFromPublishing": true,
+          "com.figma.codeSyntax": {
+            "WEB": "var(--color-t-blue-50)"
+          }
+        }
+      },
+      "80": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.8823529481887817,
+            0.8901960849761963,
+            1
+          ],
+          "alpha": 1,
+          "hex": "#E1E3FF"
+        },
+        "$description": "Primitive 색. 브랜드 파랑 계열 80단계, #E1E3FF.",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:7108:15",
+          "com.figma.hiddenFromPublishing": true,
+          "com.figma.codeSyntax": {
+            "WEB": "var(--color-t-blue-80)"
+          }
+        }
+      },
+      "100": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.8156862854957581,
+            0.8235294222831726,
+            1
+          ],
+          "alpha": 1,
+          "hex": "#D0D2FF"
+        },
+        "$description": "Primitive 색. 브랜드 파랑 계열 100단계, #D0D2FF.",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:7108:16",
+          "com.figma.hiddenFromPublishing": true,
+          "com.figma.codeSyntax": {
+            "WEB": "var(--color-t-blue-100)"
+          }
+        }
+      },
+      "200": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.7058823704719543,
+            0.7176470756530762,
+            1
+          ],
+          "alpha": 1,
+          "hex": "#B4B7FF"
+        },
+        "$description": "Primitive 색. 브랜드 파랑 계열 200단계, #B4B7FF.",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:7108:17",
+          "com.figma.hiddenFromPublishing": true,
+          "com.figma.codeSyntax": {
+            "WEB": "var(--color-t-blue-200)"
+          }
+        }
+      },
+      "300": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.5333333611488342,
+            0.5490196347236633,
+            1
+          ],
+          "alpha": 1,
+          "hex": "#888CFF"
+        },
+        "$description": "Primitive 색. 브랜드 파랑 계열 300단계, #888CFF.",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:7108:18",
+          "com.figma.hiddenFromPublishing": true,
+          "com.figma.codeSyntax": {
+            "WEB": "var(--color-t-blue-300)"
+          }
+        }
+      },
+      "400": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.3843137323856354,
+            0.40784314274787903,
+            1
+          ],
+          "alpha": 1,
+          "hex": "#6268FF"
+        },
+        "$description": "Primitive 색. 브랜드 파랑 계열 400단계, #6268FF.",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:7108:19",
+          "com.figma.hiddenFromPublishing": true,
+          "com.figma.codeSyntax": {
+            "WEB": "var(--color-t-blue-400)"
+          }
+        }
+      },
+      "500": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.3137255012989044,
+            0.1764705926179886,
+            0.9843137264251709
+          ],
+          "alpha": 1,
+          "hex": "#502DFB"
+        },
+        "$description": "Primitive 색. 브랜드 파랑 계열 500단계, #502DFB.",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:7108:20",
+          "com.figma.hiddenFromPublishing": true,
+          "com.figma.codeSyntax": {
+            "WEB": "var(--color-t-blue-500)"
+          }
+        }
+      },
+      "600": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.21176470816135406,
+            0.09019608050584793,
+            0.8078431487083435
+          ],
+          "alpha": 1,
+          "hex": "#3617CE"
+        },
+        "$description": "Primitive 색. 브랜드 파랑 계열 600단계, #3617CE.",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:7108:21",
+          "com.figma.hiddenFromPublishing": true,
+          "com.figma.codeSyntax": {
+            "WEB": "var(--color-t-blue-600)"
+          }
+        }
+      },
+      "700": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.18431372940540314,
+            0.08235294371843338,
+            0.6980392336845398
+          ],
+          "alpha": 1,
+          "hex": "#2F15B2"
+        },
+        "$description": "Primitive 색. 브랜드 파랑 계열 700단계, #2F15B2.",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:7108:22",
+          "com.figma.hiddenFromPublishing": true,
+          "com.figma.codeSyntax": {
+            "WEB": "var(--color-t-blue-700)"
+          }
+        }
+      },
+      "800": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.14901961386203766,
+            0.062745101749897,
+            0.5686274766921997
+          ],
+          "alpha": 1,
+          "hex": "#261091"
+        },
+        "$description": "Primitive 색. 브랜드 파랑 계열 800단계, #261091.",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:7108:23",
+          "com.figma.hiddenFromPublishing": true,
+          "com.figma.codeSyntax": {
+            "WEB": "var(--color-t-blue-800)"
+          }
+        }
+      },
+      "900": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.13725490868091583,
+            0.062745101749897,
+            0.501960813999176
+          ],
+          "alpha": 1,
+          "hex": "#231080"
+        },
+        "$description": "Primitive 색. 브랜드 파랑 계열 900단계, #231080.",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:7108:24",
+          "com.figma.hiddenFromPublishing": true,
+          "com.figma.codeSyntax": {
+            "WEB": "var(--color-t-blue-900)"
+          }
+        }
+      }
+    },
+    "blue": {
+      "50": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.9176470637321472,
+            0.9529411792755127,
+            1
+          ],
+          "alpha": 1,
+          "hex": "#EAF3FF"
+        },
+        "$description": "Primitive 색. 파랑 계열 50단계, #EAF3FF.",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:7108:25",
+          "com.figma.hiddenFromPublishing": true,
+          "com.figma.codeSyntax": {
+            "WEB": "var(--color-blue-50)"
+          }
+        }
+      },
+      "80": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.8901960849761963,
+            0.929411768913269,
+            0.9843137264251709
+          ],
+          "alpha": 1,
+          "hex": "#E3EDFB"
+        },
+        "$description": "Primitive 색. 파랑 계열 80단계, #E3EDFB.",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:7108:26",
+          "com.figma.hiddenFromPublishing": true,
+          "com.figma.codeSyntax": {
+            "WEB": "var(--color-blue-80)"
+          }
+        }
+      },
+      "100": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.8509804010391235,
+            0.9137254953384399,
+            1
+          ],
+          "alpha": 1,
+          "hex": "#D9E9FF"
+        },
+        "$description": "Primitive 색. 파랑 계열 100단계, #D9E9FF.",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:7108:27",
+          "com.figma.hiddenFromPublishing": true,
+          "com.figma.codeSyntax": {
+            "WEB": "var(--color-blue-100)"
+          }
+        }
+      },
+      "200": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.7686274647712708,
+            0.8705882430076599,
+            1
+          ],
+          "alpha": 1,
+          "hex": "#C4DEFF"
+        },
+        "$description": "Primitive 색. 파랑 계열 200단계, #C4DEFF.",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:7108:28",
+          "com.figma.hiddenFromPublishing": true,
+          "com.figma.codeSyntax": {
+            "WEB": "var(--color-blue-200)"
+          }
+        }
+      },
+      "300": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.6117647290229797,
+            0.7843137383460999,
+            1
+          ],
+          "alpha": 1,
+          "hex": "#9CC8FF"
+        },
+        "$description": "Primitive 색. 파랑 계열 300단계, #9CC8FF.",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:7108:29",
+          "com.figma.hiddenFromPublishing": true,
+          "com.figma.codeSyntax": {
+            "WEB": "var(--color-blue-300)"
+          }
+        }
+      },
+      "400": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.49803921580314636,
+            0.6823529601097107,
+            1
+          ],
+          "alpha": 1,
+          "hex": "#7FAEFF"
+        },
+        "$description": "Primitive 색. 파랑 계열 400단계, #7FAEFF.",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:7108:30",
+          "com.figma.hiddenFromPublishing": true,
+          "com.figma.codeSyntax": {
+            "WEB": "var(--color-blue-400)"
+          }
+        }
+      },
+      "500": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.3450980484485626,
+            0.5843137502670288,
+            1
+          ],
+          "alpha": 1,
+          "hex": "#5895FF"
+        },
+        "$description": "Primitive 색. 파랑 계열 500단계, #5895FF.",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:7108:31",
+          "com.figma.hiddenFromPublishing": true,
+          "com.figma.codeSyntax": {
+            "WEB": "var(--color-blue-500)"
+          }
+        }
+      },
+      "600": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.18039216101169586,
+            0.47843137383461,
+            1
+          ],
+          "alpha": 1,
+          "hex": "#2E7AFF"
+        },
+        "$description": "Primitive 색. 파랑 계열 600단계, #2E7AFF.",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:7108:32",
+          "com.figma.hiddenFromPublishing": true,
+          "com.figma.codeSyntax": {
+            "WEB": "var(--color-blue-600)"
+          }
+        }
+      },
+      "700": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.07450980693101883,
+            0.35686275362968445,
+            0.8784313797950745
+          ],
+          "alpha": 1,
+          "hex": "#135BE0"
+        },
+        "$description": "Primitive 색. 파랑 계열 700단계, #135BE0.",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:7108:33",
+          "com.figma.hiddenFromPublishing": true,
+          "com.figma.codeSyntax": {
+            "WEB": "var(--color-blue-700)"
+          }
+        }
+      },
+      "800": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0,
+            0.27843138575553894,
+            0.7607843279838562
+          ],
+          "alpha": 1,
+          "hex": "#0047C2"
+        },
+        "$description": "Primitive 색. 파랑 계열 800단계, #0047C2.",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:7108:34",
+          "com.figma.hiddenFromPublishing": true,
+          "com.figma.codeSyntax": {
+            "WEB": "var(--color-blue-800)"
+          }
+        }
+      },
+      "900": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0,
+            0.20392157137393951,
+            0.6078431606292725
+          ],
+          "alpha": 1,
+          "hex": "#00349B"
+        },
+        "$description": "Primitive 색. 파랑 계열 900단계, #00349B.",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:7108:35",
+          "com.figma.hiddenFromPublishing": true,
+          "com.figma.codeSyntax": {
+            "WEB": "var(--color-blue-900)"
+          }
+        }
+      }
+    },
+    "green": {
+      "50": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.8745098114013672,
+            0.9960784316062927,
+            0.9411764740943909
+          ],
+          "alpha": 1,
+          "hex": "#DFFEF0"
+        },
+        "$description": "Primitive 색. 초록 계열 50단계, #DFFEF0.",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:7108:36",
+          "com.figma.hiddenFromPublishing": true,
+          "com.figma.codeSyntax": {
+            "WEB": "var(--color-green-50)"
+          }
+        }
+      },
+      "80": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.8509804010391235,
+            0.9764705896377563,
+            0.9176470637321472
+          ],
+          "alpha": 1,
+          "hex": "#D9F9EA"
+        },
+        "$description": "Primitive 색. 초록 계열 80단계, #D9F9EA.",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:7108:37",
+          "com.figma.hiddenFromPublishing": true,
+          "com.figma.codeSyntax": {
+            "WEB": "var(--color-green-80)"
+          }
+        }
+      },
+      "100": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.7843137383460999,
+            0.9647058844566345,
+            0.8823529481887817
+          ],
+          "alpha": 1,
+          "hex": "#C8F6E1"
+        },
+        "$description": "Primitive 색. 초록 계열 100단계, #C8F6E1.",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:7108:38",
+          "com.figma.hiddenFromPublishing": true,
+          "com.figma.codeSyntax": {
+            "WEB": "var(--color-green-100)"
+          }
+        }
+      },
+      "200": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.6431372761726379,
+            0.9058823585510254,
+            0.7843137383460999
+          ],
+          "alpha": 1,
+          "hex": "#A4E7C8"
+        },
+        "$description": "Primitive 색. 초록 계열 200단계, #A4E7C8.",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:7108:39",
+          "com.figma.hiddenFromPublishing": true,
+          "com.figma.codeSyntax": {
+            "WEB": "var(--color-green-200)"
+          }
+        }
+      },
+      "300": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.4901960790157318,
+            0.8823529481887817,
+            0.7019608020782471
+          ],
+          "alpha": 1,
+          "hex": "#7DE1B3"
+        },
+        "$description": "Primitive 색. 초록 계열 300단계, #7DE1B3.",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:7108:40",
+          "com.figma.hiddenFromPublishing": true,
+          "com.figma.codeSyntax": {
+            "WEB": "var(--color-green-300)"
+          }
+        }
+      },
+      "400": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.22745098173618317,
+            0.8117647171020508,
+            0.5686274766921997
+          ],
+          "alpha": 1,
+          "hex": "#3ACF91"
+        },
+        "$description": "Primitive 색. 초록 계열 400단계, #3ACF91.",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:7108:41",
+          "com.figma.hiddenFromPublishing": true,
+          "com.figma.codeSyntax": {
+            "WEB": "var(--color-green-400)"
+          }
+        }
+      },
+      "500": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.10196078568696976,
+            0.7058823704719543,
+            0.4313725531101227
+          ],
+          "alpha": 1,
+          "hex": "#1AB46E"
+        },
+        "$description": "Primitive 색. 초록 계열 500단계, #1AB46E.",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:7108:42",
+          "com.figma.hiddenFromPublishing": true,
+          "com.figma.codeSyntax": {
+            "WEB": "var(--color-green-500)"
+          }
+        }
+      },
+      "600": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0,
+            0.6274510025978088,
+            0.3450980484485626
+          ],
+          "alpha": 1,
+          "hex": "#00A058"
+        },
+        "$description": "Primitive 색. 초록 계열 600단계, #00A058.",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:7108:43",
+          "com.figma.hiddenFromPublishing": true,
+          "com.figma.codeSyntax": {
+            "WEB": "var(--color-green-600)"
+          }
+        }
+      },
+      "700": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.0117647061124444,
+            0.5568627715110779,
+            0.32156863808631897
+          ],
+          "alpha": 1,
+          "hex": "#038E52"
+        },
+        "$description": "Primitive 색. 초록 계열 700단계, #038E52.",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:7108:44",
+          "com.figma.hiddenFromPublishing": true,
+          "com.figma.codeSyntax": {
+            "WEB": "var(--color-green-700)"
+          }
+        }
+      },
+      "800": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.0470588244497776,
+            0.4901960790157318,
+            0.29019609093666077
+          ],
+          "alpha": 1,
+          "hex": "#0C7D4A"
+        },
+        "$description": "Primitive 색. 초록 계열 800단계, #0C7D4A.",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:7108:45",
+          "com.figma.hiddenFromPublishing": true,
+          "com.figma.codeSyntax": {
+            "WEB": "var(--color-green-800)"
+          }
+        }
+      },
+      "900": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.0235294122248888,
+            0.40392157435417175,
+            0.23137255012989044
+          ],
+          "alpha": 1,
+          "hex": "#06673B"
+        },
+        "$description": "Primitive 색. 초록 계열 900단계, #06673B.",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:7108:46",
+          "com.figma.hiddenFromPublishing": true,
+          "com.figma.codeSyntax": {
+            "WEB": "var(--color-green-900)"
+          }
+        }
+      }
+    },
+    "yellow": {
+      "50": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            1,
+            0.9686274528503418,
+            0.8627451062202454
+          ],
+          "alpha": 1,
+          "hex": "#FFF7DC"
+        },
+        "$description": "Primitive 색. 노랑 계열 50단계, #FFF7DC.",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:7108:47",
+          "com.figma.hiddenFromPublishing": true,
+          "com.figma.codeSyntax": {
+            "WEB": "var(--color-yellow-50)"
+          }
+        }
+      },
+      "80": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.9882352948188782,
+            0.95686274766922,
+            0.8509804010391235
+          ],
+          "alpha": 1,
+          "hex": "#FCF4D9"
+        },
+        "$description": "Primitive 색. 노랑 계열 80단계, #FCF4D9.",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:7108:48",
+          "com.figma.hiddenFromPublishing": true,
+          "com.figma.codeSyntax": {
+            "WEB": "var(--color-yellow-80)"
+          }
+        }
+      },
+      "100": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.9921568632125854,
+            0.9372549057006836,
+            0.7686274647712708
+          ],
+          "alpha": 1,
+          "hex": "#FDEFC4"
+        },
+        "$description": "Primitive 색. 노랑 계열 100단계, #FDEFC4.",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:7108:49",
+          "com.figma.hiddenFromPublishing": true,
+          "com.figma.codeSyntax": {
+            "WEB": "var(--color-yellow-100)"
+          }
+        }
+      },
+      "200": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            1,
+            0.9137254953384399,
+            0.658823549747467
+          ],
+          "alpha": 1,
+          "hex": "#FFE9A8"
+        },
+        "$description": "Primitive 색. 노랑 계열 200단계, #FFE9A8.",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:7108:50",
+          "com.figma.hiddenFromPublishing": true,
+          "com.figma.codeSyntax": {
+            "WEB": "var(--color-yellow-200)"
+          }
+        }
+      },
+      "300": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            1,
+            0.8784313797950745,
+            0.49803921580314636
+          ],
+          "alpha": 1,
+          "hex": "#FFE07F"
+        },
+        "$description": "Primitive 색. 노랑 계열 300단계, #FFE07F.",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:7108:51",
+          "com.figma.hiddenFromPublishing": true,
+          "com.figma.codeSyntax": {
+            "WEB": "var(--color-yellow-300)"
+          }
+        }
+      },
+      "400": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.9764705896377563,
+            0.8235294222831726,
+            0.4274509847164154
+          ],
+          "alpha": 1,
+          "hex": "#F9D26D"
+        },
+        "$description": "Primitive 색. 노랑 계열 400단계, #F9D26D.",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:7108:52",
+          "com.figma.hiddenFromPublishing": true,
+          "com.figma.codeSyntax": {
+            "WEB": "var(--color-yellow-400)"
+          }
+        }
+      },
+      "500": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.9686274528503418,
+            0.772549033164978,
+            0.3607843220233917
+          ],
+          "alpha": 1,
+          "hex": "#F7C55C"
+        },
+        "$description": "Primitive 색. 노랑 계열 500단계, #F7C55C.",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:7108:53",
+          "com.figma.hiddenFromPublishing": true,
+          "com.figma.codeSyntax": {
+            "WEB": "var(--color-yellow-500)"
+          }
+        }
+      },
+      "600": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.9607843160629272,
+            0.7098039388656616,
+            0.30980393290519714
+          ],
+          "alpha": 1,
+          "hex": "#F5B54F"
+        },
+        "$description": "Primitive 색. 노랑 계열 600단계, #F5B54F.",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:7108:54",
+          "com.figma.hiddenFromPublishing": true,
+          "com.figma.codeSyntax": {
+            "WEB": "var(--color-yellow-600)"
+          }
+        }
+      },
+      "700": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.9372549057006836,
+            0.6431372761726379,
+            0.29411765933036804
+          ],
+          "alpha": 1,
+          "hex": "#EFA44B"
+        },
+        "$description": "Primitive 색. 노랑 계열 700단계, #EFA44B.",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:7108:55",
+          "com.figma.hiddenFromPublishing": true,
+          "com.figma.codeSyntax": {
+            "WEB": "var(--color-yellow-700)"
+          }
+        }
+      },
+      "800": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.886274516582489,
+            0.5764706134796143,
+            0.21960784494876862
+          ],
+          "alpha": 1,
+          "hex": "#E29338"
+        },
+        "$description": "Primitive 색. 노랑 계열 800단계, #E29338.",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:7108:56",
+          "com.figma.hiddenFromPublishing": true,
+          "com.figma.codeSyntax": {
+            "WEB": "var(--color-yellow-800)"
+          }
+        }
+      },
+      "900": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.8196078538894653,
+            0.4941176474094391,
+            0.1568627506494522
+          ],
+          "alpha": 1,
+          "hex": "#D17E28"
+        },
+        "$description": "Primitive 색. 노랑 계열 900단계, #D17E28.",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:7108:57",
+          "com.figma.hiddenFromPublishing": true,
+          "com.figma.codeSyntax": {
+            "WEB": "var(--color-yellow-900)"
+          }
+        }
+      }
+    },
+    "orange": {
+      "50": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            1,
+            0.9333333373069763,
+            0.8549019694328308
+          ],
+          "alpha": 1,
+          "hex": "#FFEEDA"
+        },
+        "$description": "Primitive 색. 주황 계열 50단계, #FFEEDA.",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:7108:58",
+          "com.figma.hiddenFromPublishing": true,
+          "com.figma.codeSyntax": {
+            "WEB": "var(--color-orange-50)"
+          }
+        }
+      },
+      "80": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.9843137264251709,
+            0.9137254953384399,
+            0.8352941274642944
+          ],
+          "alpha": 1,
+          "hex": "#FBE9D5"
+        },
+        "$description": "Primitive 색. 주황 계열 80단계, #FBE9D5.",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:7108:59",
+          "com.figma.hiddenFromPublishing": true,
+          "com.figma.codeSyntax": {
+            "WEB": "var(--color-orange-80)"
+          }
+        }
+      },
+      "100": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            1,
+            0.8941176533699036,
+            0.7686274647712708
+          ],
+          "alpha": 1,
+          "hex": "#FFE4C4"
+        },
+        "$description": "Primitive 색. 주황 계열 100단계, #FFE4C4.",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:7108:60",
+          "com.figma.hiddenFromPublishing": true,
+          "com.figma.codeSyntax": {
+            "WEB": "var(--color-orange-100)"
+          }
+        }
+      },
+      "200": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            1,
+            0.8235294222831726,
+            0.6392157077789307
+          ],
+          "alpha": 1,
+          "hex": "#FFD2A3"
+        },
+        "$description": "Primitive 색. 주황 계열 200단계, #FFD2A3.",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:7108:61",
+          "com.figma.hiddenFromPublishing": true,
+          "com.figma.codeSyntax": {
+            "WEB": "var(--color-orange-200)"
+          }
+        }
+      },
+      "300": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            1,
+            0.7647058963775635,
+            0.529411792755127
+          ],
+          "alpha": 1,
+          "hex": "#FFC387"
+        },
+        "$description": "Primitive 색. 주황 계열 300단계, #FFC387.",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:7108:62",
+          "com.figma.hiddenFromPublishing": true,
+          "com.figma.codeSyntax": {
+            "WEB": "var(--color-orange-300)"
+          }
+        }
+      },
+      "400": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            1,
+            0.6980392336845398,
+            0.3960784375667572
+          ],
+          "alpha": 1,
+          "hex": "#FFB265"
+        },
+        "$description": "Primitive 색. 주황 계열 400단계, #FFB265.",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:7108:63",
+          "com.figma.hiddenFromPublishing": true,
+          "com.figma.codeSyntax": {
+            "WEB": "var(--color-orange-400)"
+          }
+        }
+      },
+      "500": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            1,
+            0.615686297416687,
+            0.23137255012989044
+          ],
+          "alpha": 1,
+          "hex": "#FF9D3B"
+        },
+        "$description": "Primitive 색. 주황 계열 500단계, #FF9D3B.",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:7108:64",
+          "com.figma.hiddenFromPublishing": true,
+          "com.figma.codeSyntax": {
+            "WEB": "var(--color-orange-500)"
+          }
+        }
+      },
+      "600": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.9411764740943909,
+            0.5176470875740051,
+            0
+          ],
+          "alpha": 1,
+          "hex": "#F08400"
+        },
+        "$description": "Primitive 색. 주황 계열 600단계, #F08400.",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:7108:65",
+          "com.figma.hiddenFromPublishing": true,
+          "com.figma.codeSyntax": {
+            "WEB": "var(--color-orange-600)"
+          }
+        }
+      },
+      "700": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.8784313797950745,
+            0.45490196347236633,
+            0
+          ],
+          "alpha": 1,
+          "hex": "#E07400"
+        },
+        "$description": "Primitive 색. 주황 계열 700단계, #E07400.",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:7108:66",
+          "com.figma.hiddenFromPublishing": true,
+          "com.figma.codeSyntax": {
+            "WEB": "var(--color-orange-700)"
+          }
+        }
+      },
+      "800": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.8392156958580017,
+            0.3921568691730499,
+            0
+          ],
+          "alpha": 1,
+          "hex": "#D66400"
+        },
+        "$description": "Primitive 색. 주황 계열 800단계, #D66400.",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:7108:67",
+          "com.figma.hiddenFromPublishing": true,
+          "com.figma.codeSyntax": {
+            "WEB": "var(--color-orange-800)"
+          }
+        }
+      },
+      "900": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.7450980544090271,
+            0.3490196168422699,
+            0
+          ],
+          "alpha": 1,
+          "hex": "#BE5900"
+        },
+        "$description": "Primitive 색. 주황 계열 900단계, #BE5900.",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:7108:68",
+          "com.figma.hiddenFromPublishing": true,
+          "com.figma.codeSyntax": {
+            "WEB": "var(--color-orange-900)"
+          }
+        }
+      }
+    },
+    "red": {
+      "50": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            1,
+            0.9137254953384399,
+            0.9137254953384399
+          ],
+          "alpha": 1,
+          "hex": "#FFE9E9"
+        },
+        "$description": "Primitive 색. 빨강 계열 50단계, #FFE9E9.",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:7108:69",
+          "com.figma.hiddenFromPublishing": true,
+          "com.figma.codeSyntax": {
+            "WEB": "var(--color-red-50)"
+          }
+        }
+      },
+      "80": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.9843137264251709,
+            0.8823529481887817,
+            0.8823529481887817
+          ],
+          "alpha": 1,
+          "hex": "#FBE1E1"
+        },
+        "$description": "Primitive 색. 빨강 계열 80단계, #FBE1E1.",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:7108:70",
+          "com.figma.hiddenFromPublishing": true,
+          "com.figma.codeSyntax": {
+            "WEB": "var(--color-red-80)"
+          }
+        }
+      },
+      "100": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            1,
+            0.8627451062202454,
+            0.8627451062202454
+          ],
+          "alpha": 1,
+          "hex": "#FFDCDC"
+        },
+        "$description": "Primitive 색. 빨강 계열 100단계, #FFDCDC.",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:7108:71",
+          "com.figma.hiddenFromPublishing": true,
+          "com.figma.codeSyntax": {
+            "WEB": "var(--color-red-100)"
+          }
+        }
+      },
+      "200": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.9882352948188782,
+            0.7254902124404907,
+            0.7254902124404907
+          ],
+          "alpha": 1,
+          "hex": "#FCB9B9"
+        },
+        "$description": "Primitive 색. 빨강 계열 200단계, #FCB9B9.",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:7108:72",
+          "com.figma.hiddenFromPublishing": true,
+          "com.figma.codeSyntax": {
+            "WEB": "var(--color-red-200)"
+          }
+        }
+      },
+      "300": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.9843137264251709,
+            0.5921568870544434,
+            0.5921568870544434
+          ],
+          "alpha": 1,
+          "hex": "#FB9797"
+        },
+        "$description": "Primitive 색. 빨강 계열 300단계, #FB9797.",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:7108:73",
+          "com.figma.hiddenFromPublishing": true,
+          "com.figma.codeSyntax": {
+            "WEB": "var(--color-red-300)"
+          }
+        }
+      },
+      "400": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.9725490212440491,
+            0.4470588266849518,
+            0.4588235318660736
+          ],
+          "alpha": 1,
+          "hex": "#F87275"
+        },
+        "$description": "Primitive 색. 빨강 계열 400단계, #F87275.",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:7108:74",
+          "com.figma.hiddenFromPublishing": true,
+          "com.figma.codeSyntax": {
+            "WEB": "var(--color-red-400)"
+          }
+        }
+      },
+      "500": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.9176470637321472,
+            0.3176470696926117,
+            0.3294117748737335
+          ],
+          "alpha": 1,
+          "hex": "#EA5154"
+        },
+        "$description": "Primitive 색. 빨강 계열 500단계, #EA5154.",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:7108:75",
+          "com.figma.hiddenFromPublishing": true,
+          "com.figma.codeSyntax": {
+            "WEB": "var(--color-red-500)"
+          }
+        }
+      },
+      "600": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.929411768913269,
+            0.23137255012989044,
+            0.24313725531101227
+          ],
+          "alpha": 1,
+          "hex": "#ED3B3E"
+        },
+        "$description": "Primitive 색. 빨강 계열 600단계, #ED3B3E.",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:7108:76",
+          "com.figma.hiddenFromPublishing": true,
+          "com.figma.codeSyntax": {
+            "WEB": "var(--color-red-600)"
+          }
+        }
+      },
+      "700": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.8196078538894653,
+            0.18039216101169586,
+            0.1921568661928177
+          ],
+          "alpha": 1,
+          "hex": "#D12E31"
+        },
+        "$description": "Primitive 색. 빨강 계열 700단계, #D12E31.",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:7108:77",
+          "com.figma.hiddenFromPublishing": true,
+          "com.figma.codeSyntax": {
+            "WEB": "var(--color-red-700)"
+          }
+        }
+      },
+      "800": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.7215686440467834,
+            0.1568627506494522,
+            0.16862745583057404
+          ],
+          "alpha": 1,
+          "hex": "#B8282B"
+        },
+        "$description": "Primitive 색. 빨강 계열 800단계, #B8282B.",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:7108:78",
+          "com.figma.hiddenFromPublishing": true,
+          "com.figma.codeSyntax": {
+            "WEB": "var(--color-red-800)"
+          }
+        }
+      },
+      "900": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.5882353186607361,
+            0.10980392247438431,
+            0.11764705926179886
+          ],
+          "alpha": 1,
+          "hex": "#961C1E"
+        },
+        "$description": "Primitive 색. 빨강 계열 900단계, #961C1E.",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:7108:79",
+          "com.figma.hiddenFromPublishing": true,
+          "com.figma.codeSyntax": {
+            "WEB": "var(--color-red-900)"
+          }
+        }
+      }
+    },
+    "tGray": {
+      "50": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.9882352948188782,
+            0.9882352948188782,
+            0.9921568632125854
+          ],
+          "alpha": 1,
+          "hex": "#FCFCFD"
+        },
+        "$description": "Primitive 색. 브랜드 회색 계열 50단계, #FCFCFD. 피그마에 50·80·100 세 단계만 있다.",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:7108:80",
+          "com.figma.hiddenFromPublishing": true,
+          "com.figma.codeSyntax": {
+            "WEB": "var(--color-t-gray-50)"
+          }
+        }
+      },
+      "80": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.9450980424880981,
+            0.95686274766922,
+            0.9843137264251709
+          ],
+          "alpha": 1,
+          "hex": "#F1F4FB"
+        },
+        "$description": "Primitive 색. 브랜드 회색 계열 80단계, #F1F4FB. 피그마에 50·80·100 세 단계만 있다.",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:7108:81",
+          "com.figma.hiddenFromPublishing": true,
+          "com.figma.codeSyntax": {
+            "WEB": "var(--color-t-gray-80)"
+          }
+        }
+      },
+      "100": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.9215686321258545,
+            0.9333333373069763,
+            0.9647058844566345
+          ],
+          "alpha": 1,
+          "hex": "#EBEEF6"
+        },
+        "$description": "Primitive 색. 브랜드 회색 계열 100단계, #EBEEF6. 피그마에 50·80·100 세 단계만 있다.",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:7108:82",
+          "com.figma.hiddenFromPublishing": true,
+          "com.figma.codeSyntax": {
+            "WEB": "var(--color-t-gray-100)"
+          }
+        }
+      }
+    },
+    "grayAlpha": {
+      "5": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.0117647061124444,
+            0.0941176488995552,
+            0.18039216101169586
+          ],
+          "alpha": 0.05000000074505806,
+          "hex": "#03182E"
+        },
+        "$description": "Primitive 반투명 색. 바탕색 #03182E, 불투명도 5% (#03182E0D). gray 계열과 색이 다르다.",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:7108:83",
+          "com.figma.hiddenFromPublishing": true,
+          "com.figma.codeSyntax": {
+            "WEB": "var(--color-gray-alpha-5)"
+          }
+        }
+      },
+      "8": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.0117647061124444,
+            0.0941176488995552,
+            0.18039216101169586
+          ],
+          "alpha": 0.07999999821186066,
+          "hex": "#03182E"
+        },
+        "$description": "Primitive 반투명 색. 바탕색 #03182E, 불투명도 8% (#03182E14). gray 계열과 색이 다르다.",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:7108:84",
+          "com.figma.hiddenFromPublishing": true,
+          "com.figma.codeSyntax": {
+            "WEB": "var(--color-gray-alpha-8)"
+          }
+        }
+      },
+      "30": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.0117647061124444,
+            0.0941176488995552,
+            0.18039216101169586
+          ],
+          "alpha": 0.30000001192092896,
+          "hex": "#03182E"
+        },
+        "$description": "Primitive 반투명 색. 바탕색 #03182E, 불투명도 30% (#03182E4D). gray 계열과 색이 다르다.",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:7108:85",
+          "com.figma.hiddenFromPublishing": true,
+          "com.figma.codeSyntax": {
+            "WEB": "var(--color-gray-alpha-30)"
+          }
+        }
+      },
+      "40": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.0117647061124444,
+            0.0941176488995552,
+            0.18039216101169586
+          ],
+          "alpha": 0.4000000059604645,
+          "hex": "#03182E"
+        },
+        "$description": "Primitive 반투명 색. 회색(#03182E) 불투명도 40% (#03182E66). 스크롤 막대(thumb) 재료.",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:7108:86",
+          "com.figma.hiddenFromPublishing": true,
+          "com.figma.codeSyntax": {
+            "WEB": "var(--color-gray-alpha-40)"
+          }
+        }
+      },
+      "50": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.0117647061124444,
+            0.0941176488995552,
+            0.18039216101169586
+          ],
+          "alpha": 0.5,
+          "hex": "#03182E"
+        },
+        "$description": "Primitive 반투명 색. 회색(#03182E) 불투명도 50% (#03182E80). 스크롤 막대(thumb) 재료.",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:7108:87",
+          "com.figma.hiddenFromPublishing": true,
+          "com.figma.codeSyntax": {
+            "WEB": "var(--color-gray-alpha-50)"
+          }
+        }
+      },
+      "90": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.0117647061124444,
+            0.0941176488995552,
+            0.18039216101169586
+          ],
+          "alpha": 0.9019607901573181,
+          "hex": "#03182E"
+        },
+        "$description": "Primitive 반투명 색. 바탕색 #03182E, 불투명도 90% (#03182EE6). 토스트·스낵바 바탕(color-bg-inverse) 재료.",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:7427:219",
+          "com.figma.hiddenFromPublishing": true,
+          "com.figma.codeSyntax": {
+            "WEB": "var(--color-gray-alpha-90)"
+          }
+        }
+      }
+    },
+    "blackAlpha": {
+      "10": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.10000000149011612,
+          "hex": "#000000"
+        },
+        "$description": "Primitive 반투명 색. 검정 불투명도 10% (#0000001A). 그림자 색 재료.",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:12546:2",
+          "com.figma.hiddenFromPublishing": true,
+          "com.figma.codeSyntax": {
+            "WEB": "var(--color-black-alpha-10)"
+          }
+        }
+      },
+      "12": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.11999999731779099,
+          "hex": "#000000"
+        },
+        "$description": "Primitive 반투명 색. 검정 불투명도 12% (#0000001F). 그림자 색 재료.",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:7108:88",
+          "com.figma.hiddenFromPublishing": true,
+          "com.figma.codeSyntax": {
+            "WEB": "var(--color-black-alpha-12)"
+          }
+        }
+      },
+      "14": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.14000000059604645,
+          "hex": "#000000"
+        },
+        "$description": "Primitive 반투명 색. 검정 불투명도 14% (#00000024). 그림자 색 재료.",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:7108:89",
+          "com.figma.hiddenFromPublishing": true,
+          "com.figma.codeSyntax": {
+            "WEB": "var(--color-black-alpha-14)"
+          }
+        }
+      },
+      "16": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.1599999964237213,
+          "hex": "#000000"
+        },
+        "$description": "Primitive 반투명 색. 검정 불투명도 16% (#00000029). 그림자 색 재료.",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:7108:90",
+          "com.figma.hiddenFromPublishing": true,
+          "com.figma.codeSyntax": {
+            "WEB": "var(--color-black-alpha-16)"
+          }
+        }
+      },
+      "18": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.18000000715255737,
+          "hex": "#000000"
+        },
+        "$description": "Primitive 반투명 색. 검정 불투명도 18% (#0000002E). 그림자 색 재료.",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:7108:91",
+          "com.figma.hiddenFromPublishing": true,
+          "com.figma.codeSyntax": {
+            "WEB": "var(--color-black-alpha-18)"
+          }
+        }
+      },
+      "60": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 0.6000000238418579,
+          "hex": "#000000"
+        },
+        "$description": "Primitive 반투명 색. 검정 불투명도 60% (#00000099). 모달 뒤 배경 재료.",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:7108:92",
+          "com.figma.hiddenFromPublishing": true,
+          "com.figma.codeSyntax": {
+            "WEB": "var(--color-black-alpha-60)"
+          }
+        }
+      }
+    },
+    "whiteAlpha": {
+      "80": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            1,
+            1,
+            1
+          ],
+          "alpha": 0.800000011920929,
+          "hex": "#FFFFFF"
+        },
+        "$description": "Primitive 반투명 색. 흰색 불투명도 80% (#FFFFFFCC).",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:7108:93",
+          "com.figma.hiddenFromPublishing": true,
+          "com.figma.codeSyntax": {
+            "WEB": "var(--color-white-alpha-80)"
+          }
+        }
+      }
+    }
+  },
+  "space": {
+    "2": {
+      "$type": "number",
+      "$value": 2,
+      "$description": "Primitive 간격. 2px.",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:7108:97",
+        "com.figma.scopes": [
+          "GAP"
+        ],
+        "com.figma.codeSyntax": {
+          "WEB": "var(--space-2)"
+        }
+      }
+    },
+    "4": {
+      "$type": "number",
+      "$value": 4,
+      "$description": "Primitive 간격. 4px.",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:7108:99",
+        "com.figma.scopes": [
+          "GAP"
+        ],
+        "com.figma.codeSyntax": {
+          "WEB": "var(--space-4)"
+        }
+      }
+    },
+    "6": {
+      "$type": "number",
+      "$value": 6,
+      "$description": "Primitive 간격. 6px.",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:7108:100",
+        "com.figma.scopes": [
+          "GAP"
+        ],
+        "com.figma.codeSyntax": {
+          "WEB": "var(--space-6)"
+        }
+      }
+    },
+    "8": {
+      "$type": "number",
+      "$value": 8,
+      "$description": "Primitive 간격. 8px.",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:7108:101",
+        "com.figma.scopes": [
+          "GAP"
+        ],
+        "com.figma.codeSyntax": {
+          "WEB": "var(--space-8)"
+        }
+      }
+    },
+    "10": {
+      "$type": "number",
+      "$value": 10,
+      "$description": "Primitive 간격. 10px.",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:7108:102",
+        "com.figma.scopes": [
+          "GAP"
+        ],
+        "com.figma.codeSyntax": {
+          "WEB": "var(--space-10)"
+        }
+      }
+    },
+    "12": {
+      "$type": "number",
+      "$value": 12,
+      "$description": "Primitive 간격. 12px.",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:7108:103",
+        "com.figma.scopes": [
+          "GAP"
+        ],
+        "com.figma.codeSyntax": {
+          "WEB": "var(--space-12)"
+        }
+      }
+    },
+    "14": {
+      "$type": "number",
+      "$value": 14,
+      "$description": "Primitive 간격. 14px.",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:7108:104",
+        "com.figma.scopes": [
+          "GAP"
+        ],
+        "com.figma.codeSyntax": {
+          "WEB": "var(--space-14)"
+        }
+      }
+    },
+    "16": {
+      "$type": "number",
+      "$value": 16,
+      "$description": "Primitive 간격. 16px.",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:7108:105",
+        "com.figma.scopes": [
+          "GAP"
+        ],
+        "com.figma.codeSyntax": {
+          "WEB": "var(--space-16)"
+        }
+      }
+    },
+    "20": {
+      "$type": "number",
+      "$value": 20,
+      "$description": "Primitive 간격. 20px.",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:7108:106",
+        "com.figma.scopes": [
+          "GAP"
+        ],
+        "com.figma.codeSyntax": {
+          "WEB": "var(--space-20)"
+        }
+      }
+    },
+    "24": {
+      "$type": "number",
+      "$value": 24,
+      "$description": "Primitive 간격. 24px.",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:7108:107",
+        "com.figma.scopes": [
+          "GAP"
+        ],
+        "com.figma.codeSyntax": {
+          "WEB": "var(--space-24)"
+        }
+      }
+    },
+    "32": {
+      "$type": "number",
+      "$value": 32,
+      "$description": "Primitive 간격. 32px.",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:10232:2",
+        "com.figma.scopes": [
+          "GAP"
+        ],
+        "com.figma.codeSyntax": {
+          "WEB": "var(--space-32)"
+        }
+      }
+    },
+    "40": {
+      "$type": "number",
+      "$value": 40,
+      "$description": "Primitive 간격. 40px.",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:7427:220",
+        "com.figma.scopes": [
+          "GAP"
+        ],
+        "com.figma.codeSyntax": {
+          "WEB": "var(--space-40)"
+        }
+      }
+    }
+  },
+  "size": {
+    "3": {
+      "$type": "number",
+      "$value": 3,
+      "$description": "Primitive 크기. 3px.",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:7440:383",
+        "com.figma.scopes": [
+          "WIDTH_HEIGHT"
+        ],
+        "com.figma.codeSyntax": {
+          "WEB": "var(--size-3)"
+        }
+      }
+    },
+    "4": {
+      "$type": "number",
+      "$value": 4,
+      "$description": "Primitive 크기. 4px.",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:7108:109",
+        "com.figma.scopes": [
+          "WIDTH_HEIGHT"
+        ],
+        "com.figma.codeSyntax": {
+          "WEB": "var(--size-4)"
+        }
+      }
+    },
+    "6": {
+      "$type": "number",
+      "$value": 6,
+      "$description": "Primitive 크기. 6px.",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:7108:110",
+        "com.figma.scopes": [
+          "WIDTH_HEIGHT"
+        ],
+        "com.figma.codeSyntax": {
+          "WEB": "var(--size-6)"
+        }
+      }
+    },
+    "8": {
+      "$type": "number",
+      "$value": 8,
+      "$description": "Primitive 크기. 8px.",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:7108:111",
+        "com.figma.scopes": [
+          "WIDTH_HEIGHT"
+        ],
+        "com.figma.codeSyntax": {
+          "WEB": "var(--size-8)"
+        }
+      }
+    },
+    "10": {
+      "$type": "number",
+      "$value": 10,
+      "$description": "Primitive 크기. 10px.",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:10041:2",
+        "com.figma.scopes": [
+          "WIDTH_HEIGHT"
+        ],
+        "com.figma.codeSyntax": {
+          "WEB": "var(--size-10)"
+        }
+      }
+    },
+    "12": {
+      "$type": "number",
+      "$value": 12,
+      "$description": "Primitive 크기. 12px.",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:7108:112",
+        "com.figma.scopes": [
+          "WIDTH_HEIGHT"
+        ],
+        "com.figma.codeSyntax": {
+          "WEB": "var(--size-12)"
+        }
+      }
+    },
+    "14": {
+      "$type": "number",
+      "$value": 14,
+      "$description": "Primitive 크기. 14px.",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:7108:113",
+        "com.figma.scopes": [
+          "WIDTH_HEIGHT"
+        ],
+        "com.figma.codeSyntax": {
+          "WEB": "var(--size-14)"
+        }
+      }
+    },
+    "16": {
+      "$type": "number",
+      "$value": 16,
+      "$description": "Primitive 크기. 16px.",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:7108:114",
+        "com.figma.scopes": [
+          "WIDTH_HEIGHT"
+        ],
+        "com.figma.codeSyntax": {
+          "WEB": "var(--size-16)"
+        }
+      }
+    },
+    "18": {
+      "$type": "number",
+      "$value": 18,
+      "$description": "Primitive 크기. 18px.",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:7108:115",
+        "com.figma.scopes": [
+          "WIDTH_HEIGHT"
+        ],
+        "com.figma.codeSyntax": {
+          "WEB": "var(--size-18)"
+        }
+      }
+    },
+    "20": {
+      "$type": "number",
+      "$value": 20,
+      "$description": "Primitive 크기. 20px.",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:7108:116",
+        "com.figma.scopes": [
+          "WIDTH_HEIGHT"
+        ],
+        "com.figma.codeSyntax": {
+          "WEB": "var(--size-20)"
+        }
+      }
+    },
+    "24": {
+      "$type": "number",
+      "$value": 24,
+      "$description": "Primitive 크기. 24px.",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:7108:117",
+        "com.figma.scopes": [
+          "WIDTH_HEIGHT"
+        ],
+        "com.figma.codeSyntax": {
+          "WEB": "var(--size-24)"
+        }
+      }
+    },
+    "28": {
+      "$type": "number",
+      "$value": 28,
+      "$description": "Primitive 크기. 28px.",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:7108:118",
+        "com.figma.scopes": [
+          "WIDTH_HEIGHT"
+        ],
+        "com.figma.codeSyntax": {
+          "WEB": "var(--size-28)"
+        }
+      }
+    },
+    "32": {
+      "$type": "number",
+      "$value": 32,
+      "$description": "Primitive 크기. 32px.",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:7108:119",
+        "com.figma.scopes": [
+          "WIDTH_HEIGHT"
+        ],
+        "com.figma.codeSyntax": {
+          "WEB": "var(--size-32)"
+        }
+      }
+    },
+    "34": {
+      "$type": "number",
+      "$value": 34,
+      "$description": "Primitive 크기. 34px.",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:9372:2",
+        "com.figma.scopes": [
+          "WIDTH_HEIGHT"
+        ],
+        "com.figma.codeSyntax": {
+          "WEB": "var(--size-34)"
+        }
+      }
+    },
+    "36": {
+      "$type": "number",
+      "$value": 36,
+      "$description": "Primitive 크기. 36px.",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:7108:120",
+        "com.figma.scopes": [
+          "WIDTH_HEIGHT"
+        ],
+        "com.figma.codeSyntax": {
+          "WEB": "var(--size-36)"
+        }
+      }
+    },
+    "40": {
+      "$type": "number",
+      "$value": 40,
+      "$description": "Primitive 크기. 40px.",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:7108:121",
+        "com.figma.scopes": [
+          "WIDTH_HEIGHT"
+        ],
+        "com.figma.codeSyntax": {
+          "WEB": "var(--size-40)"
+        }
+      }
+    },
+    "44": {
+      "$type": "number",
+      "$value": 44,
+      "$description": "Primitive 크기. 44px.",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:7108:122",
+        "com.figma.scopes": [
+          "WIDTH_HEIGHT"
+        ],
+        "com.figma.codeSyntax": {
+          "WEB": "var(--size-44)"
+        }
+      }
+    },
+    "48": {
+      "$type": "number",
+      "$value": 48,
+      "$description": "Primitive 크기. 48px.",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:7108:123",
+        "com.figma.scopes": [
+          "WIDTH_HEIGHT"
+        ],
+        "com.figma.codeSyntax": {
+          "WEB": "var(--size-48)"
+        }
+      }
+    },
+    "50": {
+      "$type": "number",
+      "$value": 50,
+      "$description": "Primitive 크기. 50px.",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:9372:3",
+        "com.figma.scopes": [
+          "WIDTH_HEIGHT"
+        ],
+        "com.figma.codeSyntax": {
+          "WEB": "var(--size-50)"
+        }
+      }
+    },
+    "52": {
+      "$type": "number",
+      "$value": 52,
+      "$description": "Primitive 크기. 52px.",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:10232:3",
+        "com.figma.scopes": [
+          "WIDTH_HEIGHT"
+        ],
+        "com.figma.codeSyntax": {
+          "WEB": "var(--size-52)"
+        }
+      }
+    },
+    "56": {
+      "$type": "number",
+      "$value": 56,
+      "$description": "Primitive 크기. 56px.",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:7108:124",
+        "com.figma.scopes": [
+          "WIDTH_HEIGHT"
+        ],
+        "com.figma.codeSyntax": {
+          "WEB": "var(--size-56)"
+        }
+      }
+    },
+    "58": {
+      "$type": "number",
+      "$value": 58,
+      "$description": "Primitive 크기. 58px.",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:9372:4",
+        "com.figma.scopes": [
+          "WIDTH_HEIGHT"
+        ],
+        "com.figma.codeSyntax": {
+          "WEB": "var(--size-58)"
+        }
+      }
+    },
+    "64": {
+      "$type": "number",
+      "$value": 64,
+      "$description": "Primitive 크기. 64px.",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:10232:4",
+        "com.figma.scopes": [
+          "WIDTH_HEIGHT"
+        ],
+        "com.figma.codeSyntax": {
+          "WEB": "var(--size-64)"
+        }
+      }
+    },
+    "72": {
+      "$type": "number",
+      "$value": 72,
+      "$description": "Primitive 크기. 72px.",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:10256:2",
+        "com.figma.scopes": [
+          "WIDTH_HEIGHT"
+        ],
+        "com.figma.codeSyntax": {
+          "WEB": "var(--size-72)"
+        }
+      }
+    },
+    "82": {
+      "$type": "number",
+      "$value": 82,
+      "$description": "Primitive 크기. 82px.",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:10256:3",
+        "com.figma.scopes": [
+          "WIDTH_HEIGHT"
+        ],
+        "com.figma.codeSyntax": {
+          "WEB": "var(--size-82)"
+        }
+      }
+    },
+    "274": {
+      "$type": "number",
+      "$value": 274,
+      "$description": "Primitive 크기. 274px.",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:9557:2",
+        "com.figma.scopes": [
+          "WIDTH_HEIGHT"
+        ],
+        "com.figma.codeSyntax": {
+          "WEB": "var(--size-274)"
+        }
+      }
+    },
+    "340": {
+      "$type": "number",
+      "$value": 340,
+      "$description": "Primitive 크기. 340px.",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:9826:2",
+        "com.figma.scopes": [
+          "WIDTH_HEIGHT"
+        ],
+        "com.figma.codeSyntax": {
+          "WEB": "var(--size-340)"
+        }
+      }
+    },
+    "360": {
+      "$type": "number",
+      "$value": 360,
+      "$description": "Primitive 크기. 360px.",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:7108:128",
+        "com.figma.scopes": [
+          "WIDTH_HEIGHT"
+        ],
+        "com.figma.codeSyntax": {
+          "WEB": "var(--size-360)"
+        }
+      }
+    },
+    "720": {
+      "$type": "number",
+      "$value": 720,
+      "$description": "Primitive 크기. 720px.",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:7108:129",
+        "com.figma.scopes": [
+          "WIDTH_HEIGHT"
+        ],
+        "com.figma.codeSyntax": {
+          "WEB": "var(--size-720)"
+        }
+      }
+    },
+    "960": {
+      "$type": "number",
+      "$value": 960,
+      "$description": "Primitive 크기. 960px.",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:7108:130",
+        "com.figma.scopes": [
+          "WIDTH_HEIGHT"
+        ],
+        "com.figma.codeSyntax": {
+          "WEB": "var(--size-960)"
+        }
+      }
+    },
+    "1280": {
+      "$type": "number",
+      "$value": 1280,
+      "$description": "Primitive 크기. 1280px.",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:7108:131",
+        "com.figma.scopes": [
+          "WIDTH_HEIGHT"
+        ],
+        "com.figma.codeSyntax": {
+          "WEB": "var(--size-1280)"
+        }
+      }
+    }
+  },
+  "radius": {
+    "4": {
+      "$type": "number",
+      "$value": 4,
+      "$description": "Primitive 모서리. 4px.",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:7108:133",
+        "com.figma.scopes": [
+          "CORNER_RADIUS"
+        ],
+        "com.figma.codeSyntax": {
+          "WEB": "var(--radius-4)"
+        }
+      }
+    },
+    "6": {
+      "$type": "number",
+      "$value": 6,
+      "$description": "Primitive 모서리. 6px.",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:7108:134",
+        "com.figma.scopes": [
+          "CORNER_RADIUS"
+        ],
+        "com.figma.codeSyntax": {
+          "WEB": "var(--radius-6)"
+        }
+      }
+    },
+    "8": {
+      "$type": "number",
+      "$value": 8,
+      "$description": "Primitive 모서리. 8px.",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:7108:135",
+        "com.figma.scopes": [
+          "CORNER_RADIUS"
+        ],
+        "com.figma.codeSyntax": {
+          "WEB": "var(--radius-8)"
+        }
+      }
+    },
+    "10": {
+      "$type": "number",
+      "$value": 10,
+      "$description": "Primitive 모서리. 10px. 포커스 링 모서리 규칙(요소 모서리 + 2)으로 생기는 값.",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:7108:140",
+        "com.figma.scopes": [
+          "CORNER_RADIUS"
+        ],
+        "com.figma.codeSyntax": {
+          "WEB": "var(--radius-10)"
+        }
+      }
+    },
+    "12": {
+      "$type": "number",
+      "$value": 12,
+      "$description": "Primitive 모서리. 12px.",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:7108:136",
+        "com.figma.scopes": [
+          "CORNER_RADIUS"
+        ],
+        "com.figma.codeSyntax": {
+          "WEB": "var(--radius-12)"
+        }
+      }
+    },
+    "16": {
+      "$type": "number",
+      "$value": 16,
+      "$description": "Primitive 모서리. 16px.",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:7108:137",
+        "com.figma.scopes": [
+          "CORNER_RADIUS"
+        ],
+        "com.figma.codeSyntax": {
+          "WEB": "var(--radius-16)"
+        }
+      }
+    },
+    "20": {
+      "$type": "number",
+      "$value": 20,
+      "$description": "Primitive 모서리. 20px.",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:7108:138",
+        "com.figma.scopes": [
+          "CORNER_RADIUS"
+        ],
+        "com.figma.codeSyntax": {
+          "WEB": "var(--radius-20)"
+        }
+      }
+    },
+    "9999": {
+      "$type": "number",
+      "$value": 9999,
+      "$description": "Primitive 모서리. 9999px, 원형·알약형을 만드는 값.",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:7108:139",
+        "com.figma.scopes": [
+          "CORNER_RADIUS"
+        ],
+        "com.figma.codeSyntax": {
+          "WEB": "var(--radius-9999)"
+        }
+      }
+    }
+  },
+  "borderWidth": {
+    "1": {
+      "$type": "number",
+      "$value": 1,
+      "$description": "Primitive 테두리 두께. 1px.",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:7108:141",
+        "com.figma.scopes": [
+          "STROKE_FLOAT"
+        ],
+        "com.figma.codeSyntax": {
+          "WEB": "var(--border-width-1)"
+        }
+      }
+    },
+    "2": {
+      "$type": "number",
+      "$value": 2,
+      "$description": "Primitive 테두리 두께. 2px.",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:7108:143",
+        "com.figma.scopes": [
+          "STROKE_FLOAT"
+        ],
+        "com.figma.codeSyntax": {
+          "WEB": "var(--border-width-2)"
+        }
+      }
+    },
+    "3": {
+      "$type": "number",
+      "$value": 3,
+      "$description": "Primitive 테두리 두께. 3px.",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:12302:29",
+        "com.figma.scopes": [
+          "STROKE_FLOAT"
+        ],
+        "com.figma.codeSyntax": {
+          "WEB": "var(--border-width-3)"
+        }
+      }
+    },
+    "1p5": {
+      "$type": "number",
+      "$value": 1.5,
+      "$description": "Primitive 테두리 두께. 1.5px.",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:7108:142",
+        "com.figma.scopes": [
+          "STROKE_FLOAT"
+        ],
+        "com.figma.codeSyntax": {
+          "WEB": "var(--border-width-1p5)"
+        }
+      }
+    }
+  },
+  "font": {
+    "size": {
+      "11": {
+        "$type": "number",
+        "$value": 11,
+        "$description": "Primitive 글자 크기. 11px.",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:7108:144",
+          "com.figma.scopes": [
+            "FONT_SIZE"
+          ],
+          "com.figma.codeSyntax": {
+            "WEB": "var(--font-size-11)"
+          }
+        }
+      },
+      "12": {
+        "$type": "number",
+        "$value": 12,
+        "$description": "Primitive 글자 크기. 12px.",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:7108:145",
+          "com.figma.scopes": [
+            "FONT_SIZE"
+          ],
+          "com.figma.codeSyntax": {
+            "WEB": "var(--font-size-12)"
+          }
+        }
+      },
+      "13": {
+        "$type": "number",
+        "$value": 13,
+        "$description": "Primitive 글자 크기. 13px.",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:7108:146",
+          "com.figma.scopes": [
+            "FONT_SIZE"
+          ],
+          "com.figma.codeSyntax": {
+            "WEB": "var(--font-size-13)"
+          }
+        }
+      },
+      "14": {
+        "$type": "number",
+        "$value": 14,
+        "$description": "Primitive 글자 크기. 14px.",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:7108:147",
+          "com.figma.scopes": [
+            "FONT_SIZE"
+          ],
+          "com.figma.codeSyntax": {
+            "WEB": "var(--font-size-14)"
+          }
+        }
+      },
+      "15": {
+        "$type": "number",
+        "$value": 15,
+        "$description": "Primitive 글자 크기. 15px.",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:7741:2",
+          "com.figma.scopes": [
+            "FONT_SIZE"
+          ],
+          "com.figma.codeSyntax": {
+            "WEB": "var(--font-size-15)"
+          }
+        }
+      },
+      "16": {
+        "$type": "number",
+        "$value": 16,
+        "$description": "Primitive 글자 크기. 16px.",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:7108:148",
+          "com.figma.scopes": [
+            "FONT_SIZE"
+          ],
+          "com.figma.codeSyntax": {
+            "WEB": "var(--font-size-16)"
+          }
+        }
+      },
+      "18": {
+        "$type": "number",
+        "$value": 18,
+        "$description": "Primitive 글자 크기. 18px.",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:7108:149",
+          "com.figma.scopes": [
+            "FONT_SIZE"
+          ],
+          "com.figma.codeSyntax": {
+            "WEB": "var(--font-size-18)"
+          }
+        }
+      },
+      "20": {
+        "$type": "number",
+        "$value": 20,
+        "$description": "Primitive 글자 크기. 20px.",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:7108:150",
+          "com.figma.scopes": [
+            "FONT_SIZE"
+          ],
+          "com.figma.codeSyntax": {
+            "WEB": "var(--font-size-20)"
+          }
+        }
+      },
+      "24": {
+        "$type": "number",
+        "$value": 24,
+        "$description": "Primitive 글자 크기. 24px.",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:7108:151",
+          "com.figma.scopes": [
+            "FONT_SIZE"
+          ],
+          "com.figma.codeSyntax": {
+            "WEB": "var(--font-size-24)"
+          }
+        }
+      },
+      "32": {
+        "$type": "number",
+        "$value": 32,
+        "$description": "Primitive 글자 크기. 32px.",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:7108:152",
+          "com.figma.scopes": [
+            "FONT_SIZE"
+          ],
+          "com.figma.codeSyntax": {
+            "WEB": "var(--font-size-32)"
+          }
+        }
+      }
+    },
+    "weight": {
+      "400": {
+        "$type": "number",
+        "$value": 400,
+        "$description": "Primitive 글자 굵기. 400 (Pretendard Regular).",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:7108:153",
+          "com.figma.scopes": [
+            "FONT_STYLE"
+          ],
+          "com.figma.codeSyntax": {
+            "WEB": "var(--font-weight-400)"
+          }
+        }
+      },
+      "500": {
+        "$type": "number",
+        "$value": 500,
+        "$description": "Primitive 글자 굵기. 500 (Pretendard Medium).",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:7108:154",
+          "com.figma.scopes": [
+            "FONT_STYLE"
+          ],
+          "com.figma.codeSyntax": {
+            "WEB": "var(--font-weight-500)"
+          }
+        }
+      },
+      "600": {
+        "$type": "number",
+        "$value": 600,
+        "$description": "Primitive 글자 굵기. 600 (Pretendard SemiBold).",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:7108:155",
+          "com.figma.scopes": [
+            "FONT_STYLE"
+          ],
+          "com.figma.codeSyntax": {
+            "WEB": "var(--font-weight-600)"
+          }
+        }
+      },
+      "700": {
+        "$type": "number",
+        "$value": 700,
+        "$description": "Primitive 글자 굵기. 700 (Pretendard Bold).",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:7108:156",
+          "com.figma.scopes": [
+            "FONT_STYLE"
+          ],
+          "com.figma.codeSyntax": {
+            "WEB": "var(--font-weight-700)"
+          }
+        }
+      }
+    },
+    "lineHeight": {
+      "16": {
+        "$type": "number",
+        "$value": 16,
+        "$description": "Primitive 줄 높이. 16px.",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:7108:157",
+          "com.figma.scopes": [
+            "LINE_HEIGHT"
+          ],
+          "com.figma.codeSyntax": {
+            "WEB": "var(--font-line-height-16)"
+          }
+        }
+      },
+      "20": {
+        "$type": "number",
+        "$value": 20,
+        "$description": "Primitive 줄 높이. 20px.",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:7108:158",
+          "com.figma.scopes": [
+            "LINE_HEIGHT"
+          ],
+          "com.figma.codeSyntax": {
+            "WEB": "var(--font-line-height-20)"
+          }
+        }
+      },
+      "24": {
+        "$type": "number",
+        "$value": 24,
+        "$description": "Primitive 줄 높이. 24px.",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:7108:159",
+          "com.figma.scopes": [
+            "LINE_HEIGHT"
+          ],
+          "com.figma.codeSyntax": {
+            "WEB": "var(--font-line-height-24)"
+          }
+        }
+      },
+      "26": {
+        "$type": "number",
+        "$value": 26,
+        "$description": "Primitive 줄 높이. 26px.",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:7108:160",
+          "com.figma.scopes": [
+            "LINE_HEIGHT"
+          ],
+          "com.figma.codeSyntax": {
+            "WEB": "var(--font-line-height-26)"
+          }
+        }
+      },
+      "28": {
+        "$type": "number",
+        "$value": 28,
+        "$description": "Primitive 줄 높이. 28px.",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:7108:161",
+          "com.figma.scopes": [
+            "LINE_HEIGHT"
+          ],
+          "com.figma.codeSyntax": {
+            "WEB": "var(--font-line-height-28)"
+          }
+        }
+      },
+      "32": {
+        "$type": "number",
+        "$value": 32,
+        "$description": "Primitive 줄 높이. 32px.",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:7108:162",
+          "com.figma.scopes": [
+            "LINE_HEIGHT"
+          ],
+          "com.figma.codeSyntax": {
+            "WEB": "var(--font-line-height-32)"
+          }
+        }
+      },
+      "44": {
+        "$type": "number",
+        "$value": 44,
+        "$description": "Primitive 줄 높이. 44px.",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:7108:163",
+          "com.figma.scopes": [
+            "LINE_HEIGHT"
+          ],
+          "com.figma.codeSyntax": {
+            "WEB": "var(--font-line-height-44)"
+          }
+        }
+      }
+    },
+    "letterSpacing": {
+      "minus0p2": {
+        "$type": "number",
+        "$value": -0.20000000298023224,
+        "$description": "Primitive 자간. -0.2px. 피그마 텍스트 스타일의 -0.2%는 등록 때 이 값으로 맞춘다.",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:7108:164",
+          "com.figma.scopes": [
+            "LETTER_SPACING"
+          ],
+          "com.figma.codeSyntax": {
+            "WEB": "var(--font-letter-spacing-minus0p2)"
+          }
+        }
+      }
+    },
+    "family": {
+      "pretendard": {
+        "$type": "string",
+        "$value": "Pretendard",
+        "$description": "Primitive 글꼴. Pretendard.",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:7108:165",
+          "com.figma.scopes": [
+            "FONT_FAMILY"
+          ],
+          "com.figma.codeSyntax": {
+            "WEB": "var(--font-family-pretendard)"
+          },
+          "com.figma.type": "string"
+        }
+      }
+    }
+  },
+  "effect": {
+    "offsetX": {
+      "0": {
+        "$type": "number",
+        "$value": 0,
+        "$description": "Primitive 그림자 재료. 가로 위치 0px.",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:7108:166",
+          "com.figma.scopes": [
+            "EFFECT_FLOAT"
+          ],
+          "com.figma.codeSyntax": {
+            "WEB": "var(--effect-offset-x-0)"
+          }
+        }
+      }
+    },
+    "offsetY": {
+      "1": {
+        "$type": "number",
+        "$value": 1,
+        "$description": "Primitive 그림자 재료. 세로 위치 1px.",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:12546:3",
+          "com.figma.scopes": [
+            "EFFECT_FLOAT"
+          ],
+          "com.figma.codeSyntax": {
+            "WEB": "var(--effect-offset-y-1)"
+          }
+        }
+      },
+      "2": {
+        "$type": "number",
+        "$value": 2,
+        "$description": "Primitive 그림자 재료. 세로 위치 2px.",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:7108:167",
+          "com.figma.scopes": [
+            "EFFECT_FLOAT"
+          ],
+          "com.figma.codeSyntax": {
+            "WEB": "var(--effect-offset-y-2)"
+          }
+        }
+      },
+      "4": {
+        "$type": "number",
+        "$value": 4,
+        "$description": "Primitive 그림자 재료. 세로 위치 4px.",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:7108:168",
+          "com.figma.scopes": [
+            "EFFECT_FLOAT"
+          ],
+          "com.figma.codeSyntax": {
+            "WEB": "var(--effect-offset-y-4)"
+          }
+        }
+      },
+      "6": {
+        "$type": "number",
+        "$value": 6,
+        "$description": "Primitive 그림자 재료. 세로 위치 6px.",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:7108:169",
+          "com.figma.scopes": [
+            "EFFECT_FLOAT"
+          ],
+          "com.figma.codeSyntax": {
+            "WEB": "var(--effect-offset-y-6)"
+          }
+        }
+      },
+      "16": {
+        "$type": "number",
+        "$value": 16,
+        "$description": "Primitive 그림자 재료. 세로 위치 16px.",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:7108:170",
+          "com.figma.scopes": [
+            "EFFECT_FLOAT"
+          ],
+          "com.figma.codeSyntax": {
+            "WEB": "var(--effect-offset-y-16)"
+          }
+        }
+      }
+    },
+    "blur": {
+      "2": {
+        "$type": "number",
+        "$value": 2,
+        "$description": "Primitive 그림자 재료. 흐림 2px.",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:12546:4",
+          "com.figma.scopes": [
+            "EFFECT_FLOAT"
+          ],
+          "com.figma.codeSyntax": {
+            "WEB": "var(--effect-blur-2)"
+          }
+        }
+      },
+      "4": {
+        "$type": "number",
+        "$value": 4,
+        "$description": "Primitive 그림자 재료. 흐림 4px.",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:7108:171",
+          "com.figma.scopes": [
+            "EFFECT_FLOAT"
+          ],
+          "com.figma.codeSyntax": {
+            "WEB": "var(--effect-blur-4)"
+          }
+        }
+      },
+      "8": {
+        "$type": "number",
+        "$value": 8,
+        "$description": "Primitive 그림자 재료. 흐림 8px.",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:7108:172",
+          "com.figma.scopes": [
+            "EFFECT_FLOAT"
+          ],
+          "com.figma.codeSyntax": {
+            "WEB": "var(--effect-blur-8)"
+          }
+        }
+      },
+      "12": {
+        "$type": "number",
+        "$value": 12,
+        "$description": "Primitive 그림자 재료. 흐림 12px.",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:7108:173",
+          "com.figma.scopes": [
+            "EFFECT_FLOAT"
+          ],
+          "com.figma.codeSyntax": {
+            "WEB": "var(--effect-blur-12)"
+          }
+        }
+      },
+      "20": {
+        "$type": "number",
+        "$value": 20,
+        "$description": "Primitive 흐림 재료. 흐림 20px. 토스트·스낵바 바탕 흐림(backdrop-filter) 재료.",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:10415:2",
+          "com.figma.scopes": [
+            "EFFECT_FLOAT"
+          ],
+          "com.figma.codeSyntax": {
+            "WEB": "var(--effect-blur-20)"
+          }
+        }
+      },
+      "32": {
+        "$type": "number",
+        "$value": 32,
+        "$description": "Primitive 그림자 재료. 흐림 32px.",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:7108:174",
+          "com.figma.scopes": [
+            "EFFECT_FLOAT"
+          ],
+          "com.figma.codeSyntax": {
+            "WEB": "var(--effect-blur-32)"
+          }
+        }
+      }
+    },
+    "spread": {
+      "0": {
+        "$type": "number",
+        "$value": 0,
+        "$description": "Primitive 그림자 재료. 퍼짐 0px.",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:7108:175",
+          "com.figma.scopes": [
+            "EFFECT_FLOAT"
+          ],
+          "com.figma.codeSyntax": {
+            "WEB": "var(--effect-spread-0)"
+          }
+        }
+      }
+    }
+  },
+  "$extensions": {
+    "com.figma.modeName": "default"
+  }
+}

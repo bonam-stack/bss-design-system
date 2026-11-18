@@ -1,12 +1,13 @@
 // 컴포넌트 상세 페이지의 포털 조각: 확인 표시, 담당 편집 칸, 게시된 규칙, 쓰이는 곳, Figma에서만 읽은 컴포넌트 페이지.
 import type { FormEvent } from 'react';
 import * as P from '../portal/store';
-import type { GuideRule, PortalComp } from '../portal/store';
+import type { GuideRule } from '../portal/store';
 import { usePortal } from '../portal/ctx';
 import { patterns } from '../data';
+import { docsFor } from '../guide';
+import { GuideEmbed } from './GuidePage';
 import type { Guide } from '../data';
-import type { ComponentData } from '../../ds/figma/types';
-import { Check, CodeLink, DraftBox, EditBtn, GuideChips, Head, RulesBlock, StOf, Table, fmt } from '../ui';
+import { Check, CodeLink, DraftBox, EditBtn, RulesBlock, StOf, Table, fmt } from '../ui';
 
 /** 제목 아래: ✓ Figma ✓ 사용 가이드 · 상태 */
 export function CompChecks({ c, hasGuide }: { c: { key: string; figmaSyncedAt?: string }; hasGuide: boolean }) {
@@ -23,8 +24,8 @@ export function CompChecks({ c, hasGuide }: { c: { key: string; figmaSyncedAt?: 
 
 /** 페이지 위쪽 에디터 칸: DS 담당자 = 설명 · Figma 다시 읽기 */
 export function CompEditor({ c }: { c: { key: string; figma?: { url?: string } } }) {
-  const { role, ui, isEditor, can, act, closeEdit } = usePortal();
-  if (!isEditor) return null;
+  const { role, ui, textEdit, can, act, closeEdit } = usePortal();
+  if (!textEdit) return null;
   const r = P.itemByKey(c.key);
   const open = ui.edit === `figma:${c.key}`;
   const onRe = (e: FormEvent<HTMLFormElement>) => {
@@ -40,7 +41,7 @@ export function CompEditor({ c }: { c: { key: string; figma?: { url?: string } }
         <section className="ed-panel">
           <div className="ed-h">
             <b>DS 담당자</b>
-            <span>모양은 Figma에서 고친 뒤 다시 읽습니다. 설명은 페이지의 글을 눌러 그 자리에서 고치고, 컴포넌트 코드는 아래 AI 채팅으로 고칩니다</span>
+            <span>모양은 Figma에서 고친 뒤 다시 읽습니다. 설명은 입력칸에서 바로 고치고, 컴포넌트 코드는 아래 AI 채팅으로 고칩니다</span>
           </div>
           <div className="row">
             <EditBtn k={`figma:${c.key}`} label="Figma에서 다시 읽기" />
@@ -64,8 +65,8 @@ export function CompEditor({ c }: { c: { key: string; figma?: { url?: string } }
 
 /** 사용 가이드(Policy) 앞에 붙는 UX 담당자 편집 칸 */
 export function GuideEditor({ k }: { k: string }) {
-  const { role, ui, isEditor, can, act, closeEdit } = usePortal();
-  if (!isEditor || !P.guide(k)) return null;
+  const { role, ui, textEdit, can, act, closeEdit } = usePortal();
+  if (!textEdit || !P.guide(k)) return null;
   const d = P.openDraft('guide', k);
   if (!can('guide')) return <DraftBox d={d} />;
   const g = d?.after || P.guide(k)!;
@@ -89,11 +90,11 @@ export function GuideEditor({ k }: { k: string }) {
       <DraftBox d={d} />
       <section className="ed-panel">
         <div className="ed-h">
-          <b>UX 담당자</b>
-          <span>규칙 번호(UX-{k.toUpperCase()}-NN)는 저장할 때 붙고 고쳐도 바뀌지 않습니다</span>
+          <b>사용 가이드 규칙</b>
+          <span>글은 입력칸에서 바로 고칩니다. 여기서는 규칙을 더하거나 빼고 종류를 바꿉니다</span>
         </div>
         <div className="row">
-          <EditBtn k={`guide:${k}`} label="사용 가이드 편집" />
+          <EditBtn k={`guide:${k}`} label="규칙 추가 · 삭제 · 종류 바꾸기" />
         </div>
         {open ? (
           <form className="ef" onSubmit={onSubmit}>
@@ -102,9 +103,9 @@ export function GuideEditor({ k }: { k: string }) {
               <textarea name="lead" rows={2} defaultValue={g.lead} />
             </label>
             <div className="ge">
-              {g.rules.map((r: GuideRule) => (
+              {g.rules.map((r: GuideRule, i: number) => (
                 <div key={r.id} className="ge-r" data-rule={r.id}>
-                  <code>{r.id}</code>
+                  <span className="muted">{i + 1}</span>
                   <select name="kind" aria-label={`${r.id} 종류`} defaultValue={r.kind}>
                     {['rule', 'do', 'dont'].map((x) => (
                       <option key={x}>{x}</option>
@@ -137,7 +138,7 @@ export function GuideEditor({ k }: { k: string }) {
   );
 }
 
-/** Guidelines 안: 이 컴포넌트에 걸린 UX표준가이드 규칙 */
+/** Guidelines 안: 이 컴포넌트에 걸린 사용 규칙 */
 export function compRules(key: string) {
   const r = P.itemByKey(key);
   return r ? P.rulesFor(r.code) : [];
@@ -147,7 +148,7 @@ export function CompRules({ k }: { k: string }) {
   const code = P.itemByKey(k)?.code;
   return (
     <>
-      {code ? <GuideChips code={code} /> : null}
+      {code ? <GuideEmbed docs={docsFor(code).map((d) => d.id)} /> : null}
       {ru.length ? <RulesBlock list={ru} /> : null}
     </>
   );
@@ -197,8 +198,9 @@ export function CompUsage({ k }: { k: string }) {
 }
 
 /** 저장소 정책(guide.policy)을 게시된 규칙(번호 포함)으로 바꿔 사용 가이드에 표시 */
-export function applyGuide(key: string, guide?: Guide): Guide | undefined {
-  const g = P.guide(key);
+export function applyGuide(key: string, guide?: Guide, withDraft = false): Guide | undefined {
+  // 담당에게는 아직 게시하지 않은 사용 가이드 초안을 보여 준다
+  const g = (withDraft && (P.openDraft('guide', key)?.after as P.GuideDoc | undefined)) || P.guide(key);
   if (!guide || !g || !guide.policy) return guide;
   const pl = { ...guide.policy };
   const fromByName = Object.fromEntries((pl.rules || []).map((r) => [r.name, r.from]));
@@ -213,45 +215,4 @@ export function applyGuide(key: string, guide?: Guide): Guide | undefined {
   pl.do = g.rules.filter((r) => r.kind === 'do').map((r) => ({ id: r.id, text: r.text }));
   pl.dont = g.rules.filter((r) => r.kind === 'dont').map((r) => ({ id: r.id, text: r.text }));
   return { ...guide, policy: pl };
-}
-
-/** Figma에서 읽어 게시한(저장소에 레이어 데이터가 없는) 컴포넌트 페이지 */
-export function PortalOnlyPage({ c }: { c: PortalComp | ComponentData }) {
-  const r = P.itemByKey(c.key);
-  const ru = compRules(c.key);
-  return (
-    <>
-      <Head eyebrow="Components" title={c.name} lead={r?.meaning || c.description} extra={<CompChecks c={c} hasGuide={false} />} />
-      <CompEditor c={c} />
-      <div className="sb-ph">
-        <span>미리보기는 Figma 노드의 레이어 데이터를 받으면 그려집니다</span>
-      </div>
-      <h2 id="props">Properties</h2>
-      <h3>속성 목록</h3>
-      <Table
-        cols={['속성', '타입', '기본값', '선택지']}
-        rows={c.props.map((p) => (
-          <tr key={p.name}>
-            <td>{p.name}</td>
-            <td>{p.type}</td>
-            <td>{String(p.default ?? '')}</td>
-            <td>{(p.options || []).join(', ')}</td>
-          </tr>
-        ))}
-      />
-      <p className="muted">
-        변형 {c.variants.length}개 ·{' '}
-        <a href={c.figma?.url} target="_blank" rel="noopener">
-          Figma 노드 {c.figma?.nodeId}
-        </a>
-      </p>
-      {ru.length ? (
-        <>
-          <h2>Guidelines</h2>
-          <CompRules k={c.key} />
-        </>
-      ) : null}
-      <CompUsage k={c.key} />
-    </>
-  );
 }

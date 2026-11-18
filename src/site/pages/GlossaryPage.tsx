@@ -14,7 +14,7 @@ export function GlossaryPage() {
       <Head
         eyebrow="UX 거버넌스"
         title="용어사전"
-        lead="화면 요소를 부르는 표준 이름입니다. 같은 것을 팀마다 다르게 부르면 설계서와 구현이 어긋나므로, 부르는 이름을 먼저 맞춥니다. SB Studio의 용어 대조(검증 규칙 R-05)가 이 사전을 씁니다."
+        lead="화면 요소를 부르는 표준 이름입니다. 같은 것을 팀마다 다르게 부르면 설계서와 구현이 어긋나므로, 부르는 이름을 먼저 맞춥니다. SB Studio 검증 규칙의 용어 대조가 이 사전을 씁니다."
         extra={<p className="gd-source">출처 UX 패턴 가이드 {guideSource.release} · 용어 {glossary.length}개</p>}
       />
       <div className="toolbar">
@@ -31,7 +31,7 @@ export function GlossaryPage() {
               {s} <span className="count">{L.length}</span>
             </h2>
             <div className="table-wrap">
-              <table className="data gx-table">
+              <table className="data gx-table gx-glossary">
                 <thead>
                   <tr>
                     {grouped ? <th>분류</th> : null}

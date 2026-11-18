@@ -7,3 +7,5 @@ export function convertFromUrl(url: string, opts: { expect: string; released: { 
 export function diffComponent(prev: unknown, next: unknown): { lines: string[]; bump: 'PATCH' | 'MINOR' | 'MAJOR' };
 export function parseFigmaUrl(url: string): { fileKey: string; nodeId: string } | null;
 export function checkComponentFormat(c: unknown): unknown[];
+export function setFigmaToken(token: string): void;
+export function figmaMode(): 'live' | 'mock';

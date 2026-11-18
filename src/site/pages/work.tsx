@@ -191,10 +191,10 @@ export function SbEdit() {
   const promos = P.promotions().filter((p) => /^tb-/.test(p.code));
   return (
     <>
-      <Head eyebrow="UX 편집" title="SB library 편집" lead="SB Studio 미리보기에서 자동 생성되어 SB 설계 완료 시 게시된 SB 블록입니다. 블록 문서를 열어 설명 · 놓이는 빈칸을 고치고, 자동 검사(속성값 · ID · 규칙 · 토큰)를 통과하면 미리보기가 만들어집니다." />
+      <Head eyebrow="UX 편집" title="SB library 편집" lead="SB Studio 미리보기에서 자동 생성되어 SB 설계 완료 시 게시된 SB 블록입니다. 블록 문서를 열어 설명 · 놓이는 슬롯을 고치고, 자동 검사(속성값 · ID · 규칙 · 토큰)를 통과하면 미리보기가 만들어집니다." />
       <h2 id="blocks">SB 블록</h2>
       <Table
-        cols={['SB 블록', '놓이는 빈칸', '']}
+        cols={['SB 블록', '놓이는 슬롯', '']}
         rows={sb.map((i) => (
           <tr key={i.code}>
             <td>
@@ -349,47 +349,32 @@ export function Requests() {
 
 /** DS 작업 › 소스 변환: Figma 주소 → 형식 · 키 자동 확인 → 미리보기 초안 */
 export function Convert() {
-  const { role, act } = usePortal();
-  const I = P.items().filter((i) => i.kind === 'comp');
+  const { role, act, setTextEdit } = usePortal();
   const pend = P.drafts((d) => d.status === 'draft' && d.type === 'figma');
   const onAdd = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const v = formValues(e.currentTarget);
-    act(() => P.draftFigma(role, { code: v.code || null, url: v.url.trim() }), (d) => `${d.after.name} 변환 · 초안 ${d.id} 저장`);
+    act(() => P.draftFigma(role, { url: v.url.trim() }), (d) => `${d.after.name} 읽기 · 초안 ${d.id} 저장 · 이어서 React 코드를 만드세요`, (d) => `#new-${d.key}`).then((d) => d && setTextEdit(true));
   };
   const sample = (e: React.MouseEvent<HTMLButtonElement>) => {
     const f = e.currentTarget.form!;
     (f.elements.namedItem('url') as HTMLInputElement).value = `https://www.figma.com/design/${FIGMA_FILE}/Lib?node-id=9000-1`;
-    (f.elements.namedItem('code') as HTMLSelectElement).value = 'c-chip';
   };
   return (
     <>
-      <Head eyebrow="DS 작업" title="소스 변환" lead="UI팀이 Figma에서 만든 토큰 · 컴포넌트 · 공통 블록을 Figma 주소로 읽어 포털 형식의 소스로 바꿉니다. 형식 · 키는 자동으로 확인하고, 결과는 미리보기 초안이 됩니다. 이상이 있으면 그 컴포넌트 문서의 코드 칸에서 바로 고칩니다." />
+      <Head eyebrow="DS 작업" title="소스 변환" lead="UI팀이 Figma에서 만든 컴포넌트 · 공통 블록을 Figma 주소로 읽어 포털 형식의 소스로 바꿉니다. 카탈로그 코드는 같은 이름이 있으면 거기에 잇고, 없으면 새로 등록합니다. 결과는 미리보기 초안이 됩니다." />
       <section className="ed-panel" aria-label="Figma 주소로 변환">
         <div className="ed-h">
-          <b>컴포넌트 · 공통 블록</b>
-          <span>기존 컴포넌트를 다시 읽을 때는 그 문서의 "Figma에서 다시 읽기"를 씁니다</span>
+          <b>컴포넌트 추가</b>
+          <span>① Figma 컴포넌트 노드 주소를 읽으면 새 컴포넌트 페이지(배포 전)가 열립니다 → ② 그 페이지에서 React 코드를 만듭니다(AI 또는 기본 틀) → ③ 내 변경에서 미리보기 확인 후 배포 요청. 기존 컴포넌트는 그 문서의 "Figma에서 다시 읽기"를 씁니다</span>
         </div>
         <form className="ef" onSubmit={onAdd}>
-          <div className="ef-r">
-            <label>
-              카탈로그 코드
-              <select name="code" defaultValue="">
-                <option value="">새 코드 (c-이름)</option>
-                {I.filter((i) => !i.key).map((i) => (
-                  <option key={i.code} value={i.code}>
-                    {i.code} {i.name}
-                  </option>
-                ))}
-              </select>
-            </label>
-            <label className="w">
-              Figma 노드 주소
-              <input name="url" required placeholder="https://www.figma.com/design/…?node-id=…" />
-            </label>
-          </div>
+          <label className="w">
+            Figma 노드 주소
+            <input name="url" required placeholder="https://www.figma.com/design/…?node-id=…" />
+          </label>
           <div className="row">
-            <button className="btn2 primary sm">변환 · 미리보기 초안</button>
+            <button className="btn2 primary sm">읽기 · 초안 저장</button>
             <button type="button" className="lnk" onClick={sample}>
               예시: Chip 노드 (흉내)
             </button>
@@ -408,7 +393,21 @@ export function Convert() {
         </div>
       </section>
       <h2 id="drafts">변환 결과</h2>
-      {pend.length ? pend.map((d) => <DraftBox key={d.id} d={d} />) : <p className="muted">아직 변환한 결과가 없습니다.</p>}
+      {pend.length ? (
+        pend.map((d) => (
+          <div key={d.id}>
+            <DraftBox d={d} />
+            {d.isNew ? (
+              <p className="note">
+                <a href={`#new-${d.key}`}>{d.after.name} 페이지에서 React 코드 만들기 →</a>
+                {P.openDraft('code', d.key) ? ' · 코드 초안 있음' : ' · 아직 코드 없음'}
+              </p>
+            ) : null}
+          </div>
+        ))
+      ) : (
+        <p className="muted">아직 변환한 결과가 없습니다.</p>
+      )}
     </>
   );
 }

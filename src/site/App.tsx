@@ -1,15 +1,15 @@
 // BSS 디자인 포털 문서 사이트. 주소는 해시 한 토큰(#overview, #icons, #c-checkbox, #pattern-input …)이라 링크를 나눌 수 있다.
 import { useCallback, useEffect, useLayoutEffect, useRef, useState, useSyncExternalStore } from 'react';
 import * as P from './portal/store';
-import type { Role } from './portal/store';
+import type { PortalComp, Role } from './portal/store';
 import { Ctx, emptyUi } from './portal/ctx';
-import type { PortalCtx, TocItem, UiState } from './portal/ctx';
+import type { PendingText, PortalCtx, TocItem, UiState } from './portal/ctx';
 import { catalog, components, componentByKey, patterns, baseTokens } from './data';
-import { EditorBar, Pager, RoleMenu, SideNav, TopNav } from './nav';
+import { Pager, RoleMenu, SideNav, TextEditBar, TopNav } from './nav';
 import { LastUpdated, TocList, setToast } from './ui';
 import { portalPage } from './pages/portal';
 import { ComponentPage } from './pages/ComponentPage';
-import { PortalOnlyPage } from './pages/compPortal';
+import { PortalOnlyPage } from './pages/PortalCompPage';
 import { IconsPage } from './pages/IconsPage';
 import { PatternPage } from './pages/PatternPage';
 import { ComparePage } from './pages/ComparePage';
@@ -64,6 +64,8 @@ export function App() {
     return r && r in P.ROLES ? r : 'viewer';
   });
   const [ui, setUi] = useState<UiState>(emptyUi);
+  const [textEdit, setTextEdit] = useState(false);
+  const [pending, setPending] = useState<Record<string, PendingText>>({});
   const [menuOpen, setMenuOpen] = useState(false);
   const [toastMsg, setToastMsg] = useState<{ text: string; n: number } | null>(null);
   const [toc, setToc] = useState<{ title: string; items: TocItem[] }>({ title: '', items: [] });
@@ -71,6 +73,10 @@ export function App() {
 
   const toast = useCallback((text: string) => setToastMsg((t) => ({ text, n: (t?.n || 0) + 1 })), []);
   useEffect(() => setToast(toast), [toast]);
+  // 새 기준 데이터로 배포되어 이전 초안 · 게시 기록을 지웠으면 한 번 알린다
+  useEffect(() => {
+    if (P.wasWiped()) toast('새 기준 데이터로 바뀌어 이전 초안 · 게시 기록을 지웠습니다');
+  }, [toast]);
   useEffect(() => {
     if (!toastMsg) return;
     const t = setTimeout(() => setToastMsg(null), 1600);
@@ -122,8 +128,11 @@ export function App() {
     page = <ComponentPage key={sc.data.key} sc={sc} />;
     withUpdated = true;
   } else if (key && P.comp(key)) {
-    page = <PortalOnlyPage c={P.comp(key)!} />;
+    page = <PortalOnlyPage key={key} c={P.comp(key) as PortalComp} />;
     withUpdated = true;
+  } else if (route.startsWith('new-') && role !== 'viewer' && P.draftNewComp(route.slice(4))) {
+    // 게시 전 새 컴포넌트: 담당이 코드를 먼저 만든다
+    page = <PortalOnlyPage key={route} c={P.draftNewComp(route.slice(4))!} draft />;
   } else {
     page = portalPage(route, role);
     withUpdated = !!it;
@@ -158,7 +167,7 @@ export function App() {
     return () => mo.disconnect();
   }, [route]);
 
-  const ctx: PortalCtx = { role, setRole, ui, setUi, toast, toc };
+  const ctx: PortalCtx = { role, setRole, ui, setUi, toast, toc, textEdit: textEdit && (P.canEdit(role, 'text') || P.canEdit(role, 'guide')), setTextEdit: (on: boolean) => (setTextEdit(on), on || setUi((u) => ({ ...u, edit: null, editRule: null }))), pending, setPending };
   return (
     <Ctx.Provider value={ctx}>
       <header className="topbar">
@@ -170,6 +179,9 @@ export function App() {
             <span className="brand-mark" aria-hidden="true" />
             BSS Design
           </a>
+          <a href="#updates" className="brand-ver" title={`게시 버전 v${P.version()} · UX 패턴 가이드 ${P.catalogMeta().uxGuide} · 업데이트 내역 보기`}>
+            v{P.version()}
+          </a>
           <nav className="top-nav" aria-label="섹션">
             <TopNav route={route} />
           </nav>
@@ -177,7 +189,6 @@ export function App() {
             <RoleMenu />
           </div>
         </div>
-        <EditorBar />
       </header>
       <div className="layout">
         <nav className={`sidebar${menuOpen ? ' open' : ''}`} id="sidebar" aria-label="문서 탐색">
@@ -202,6 +213,7 @@ export function App() {
           ) : null}
         </aside>
       </div>
+      <TextEditBar />
       <div className={`toast${toastMsg ? ' show' : ''}`} role="status">
         {toastMsg?.text}
       </div>

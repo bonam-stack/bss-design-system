@@ -15,7 +15,7 @@ import { compile, fileOf, repoSource } from '../live';
 import { editWithChat, getApiKey, setApiKey } from '../codechat';
 import type { ChatTurn } from '../codechat';
 import type { LiveComponent, Meta } from '../live';
-import { CopyBtn, DraftBox, EditBtn, Editable, TextScope, TocInline, UxRef, copy, figmaUrl } from '../ui';
+import { CopyBtn, DraftBox, EditBtn, Editable, TextEditToggle, TextScope, TocInline, UxRef, copy, figmaUrl } from '../ui';
 import { CompChecks, CompEditor, CompRules, CompUsage, GuideEditor, applyGuide, compRules } from './compPortal';
 
 type Sel = Record<string, string>;
@@ -53,7 +53,7 @@ function makeLive(c: ComponentData, C: LiveComponent | null): Live {
 }
 
 /** 고친 코드에서 렌더 오류가 나도 페이지가 멈추지 않게 */
-class Boundary extends ReactComponent<{ resetKey: string; children: ReactNode }, { error: string | null; key: string }> {
+export class Boundary extends ReactComponent<{ resetKey: string; children: ReactNode }, { error: string | null; key: string }> {
   state = { error: null as string | null, key: this.props.resetKey };
   static getDerivedStateFromError(e: Error) {
     return { error: e.message };
@@ -100,8 +100,9 @@ export function ComponentPage({ sc }: { sc: SiteComponent }) {
   const base = sc.data;
   const key = base.key;
   const c = (P.comp(key) as ComponentData & { figmaSyncedAt?: string }) || base;
-  const { ui, can, role, act, closeEdit } = usePortal();
-  const g = useMemo(() => applyGuide(key, sc.guide), [key, sc.guide, P.revision()]); // eslint-disable-line react-hooks/exhaustive-deps
+  // 편집을 켜기 전에는 보기 역할과 같은 화면 (게시본만). 켜면 초안 글 · 담당 칸 · 코드 채팅이 나온다
+  const { ui, can, role, act, closeEdit, textEdit } = usePortal();
+  const g = useMemo(() => applyGuide(key, sc.guide, textEdit), [key, sc.guide, textEdit, P.revision()]); // eslint-disable-line react-hooks/exhaustive-deps
   const ok = isRenderable(base);
   const a = analyze(base);
 
@@ -133,8 +134,6 @@ export function ComponentPage({ sc }: { sc: SiteComponent }) {
   const ru = compRules(key);
   const itemMeaning = P.itemByKey(key)?.meaning;
   const itemCode = P.itemByKey(key)?.code;
-  const { toast } = usePortal();
-  const toastDraft = (id: string) => toast(`초안 ${id}에 담았습니다 · 관리자가 배포하면 반영됩니다`);
   const onSel = (v: string) => a.selectProp && update({ ...sel, [a.selectProp.name]: v });
 
   const saveDraft = () =>
@@ -149,8 +148,11 @@ export function ComponentPage({ sc }: { sc: SiteComponent }) {
     <TextScope.Provider value={{ key, name: base.name }}>
     <LiveCtx.Provider value={live}>
       <p className="eyebrow">Components</p>
-      <h1>{base.name}</h1>
-      <Editable as="p" className="lead" path="lead" label="페이지 설명" value={itemMeaning || c.description || ''} onSave={itemCode ? (v) => Promise.resolve(P.draftItem(role, itemCode, { meaning: v })).then((d) => toastDraft(d.id)) : undefined} />
+      <div className="h1-row">
+        <Editable as="h1" path="title" label="컴포넌트 제목" value={(textEdit && itemCode ? P.openDraft('item', itemCode)?.after.name : undefined) || P.itemByKey(key)?.name || base.name} onSave={itemCode ? (v) => P.draftItem(role, itemCode, { name: v.trim() }) : undefined} />
+        <TextEditToggle />
+      </div>
+      <Editable as="p" className="lead" path="lead" label="페이지 설명" value={(textEdit && itemCode ? P.openDraft('item', itemCode)?.after.meaning : undefined) || itemMeaning || c.description || ''} onSave={itemCode ? (v) => P.draftItem(role, itemCode, { meaning: v }) : undefined} />
       <CompChecks c={c} hasGuide={!!sc.guide} />
       <TocInline />
       <PatternLinks k={key} />
@@ -196,12 +198,12 @@ export function ComponentPage({ sc }: { sc: SiteComponent }) {
             )}
           </section>
           {a.stateProp || a.selectProp ? <p className="note">마우스를 올리거나 누르고, 키보드 Tab으로 포커스해 보세요. 실제 입력 요소라 그대로 동작합니다.</p> : null}
-          {can('code') ? (
+          {textEdit && can('code') ? (
             <section className="ed-panel">
               <div className="ed-h">
                 <b>컴포넌트 코드</b>
                 <span>
-                  {fileOf(sc.name)} · 고치면 위 미리보기와 아래 예시가 바로 바뀝니다. 초안으로 저장하면 관리자이 게시합니다{published ? ' · 지금 게시된 코드가 저장소 코드와 다릅니다' : ''}
+                  {fileOf(sc.name)} · 고치면 위 미리보기와 아래 예시가 바로 바뀝니다. 초안으로 저장하면 관리자가 게시합니다{published ? ' · 지금 게시된 코드가 저장소 코드와 다릅니다' : ''}
                 </span>
               </div>
               <div className="row">
@@ -228,13 +230,13 @@ export function ComponentPage({ sc }: { sc: SiteComponent }) {
               ) : null}
             </section>
           ) : (
-            <DraftBox d={can('code') ? null : role !== 'viewer' ? openDraft : null} />
+            <DraftBox d={textEdit && !can('code') ? openDraft : null} />
           )}
         </>
       ) : (
         <p className="error">이 컴포넌트는 예전 형식 JSON이라 미리보기를 그릴 수 없어요. Figma 링크로 다시 읽으면 나타나요.</p>
       )}
-      {can('code') ? <DraftBox d={openDraft} /> : null}
+      {textEdit && can('code') ? <DraftBox d={openDraft} /> : null}
       <div id="guideBody">
         {g?.anatomy ? (
           <>
@@ -298,7 +300,7 @@ export function ComponentPage({ sc }: { sc: SiteComponent }) {
   );
 }
 
-function CodeBlock({ label, text }: { label: string; text: string }) {
+export function CodeBlock({ label, text }: { label: string; text: string }) {
   return (
     <>
       <div className="code-head">
@@ -313,7 +315,7 @@ function CodeBlock({ label, text }: { label: string; text: string }) {
 }
 
 /** AI 채팅으로 코드 고치기: 말로 요청하면 Claude가 파일을 고쳐 미리보기에 바로 반영한다. 코드를 직접 보고 고칠 수도 있다 */
-function CodeChat(p: { name: string; value: string; onChange: (v: string) => void; error?: string; onSave: () => void; onReset: () => void; onRepo?: () => void; onCompare: () => void }) {
+export function CodeChat(p: { name: string; value: string; onChange: (v: string) => void; error?: string; onSave: () => void; onReset: () => void; onRepo?: () => void; onCompare?: () => void; hint?: string }) {
   const [turns, setTurns] = useState<(ChatTurn & { mode?: string; failed?: boolean })[]>([]);
   const [input, setInput] = useState('');
   const [busy, setBusy] = useState(false);
@@ -372,6 +374,7 @@ function CodeChat(p: { name: string; value: string; onChange: (v: string) => voi
       <div className="cc-log" ref={log} aria-live="polite">
         {!turns.length ? (
           <p className="cc-hint">
+            {p.hint ? <>{p.hint}<br /></> : null}
             예: "체크됐을 때 색을 #E5007E로 바꿔 줘", "라벨과 체크박스 사이를 8px로", "disabled일 때 라벨에 취소선". 고친 코드는 바로 미리보기에 그려지고, 초안 저장 전까지는 이 브라우저에만 있습니다.
           </p>
         ) : null}
@@ -421,9 +424,11 @@ function CodeChat(p: { name: string; value: string; onChange: (v: string) => voi
             <button className="btn2 primary sm" disabled={!!p.error} onClick={p.onSave}>
               초안 저장
             </button>
-            <button className="btn2 sm" onClick={p.onCompare}>
-              Figma 원본과 비교
-            </button>
+            {p.onCompare ? (
+              <button className="btn2 sm" onClick={p.onCompare}>
+                Figma 원본과 비교
+              </button>
+            ) : null}
             <button className="btn2 sm" onClick={p.onReset}>
               고친 것 되돌리기
             </button>
@@ -440,7 +445,7 @@ function CodeChat(p: { name: string; value: string; onChange: (v: string) => voi
 }
 
 /** 코드 편집기: 고정폭 글자, Tab은 공백 2칸, 줄 번호 */
-function CodeEditor({ value, onChange, error, onSave, onReset, onRepo, onCompare }: { value: string; onChange: (v: string) => void; error?: string; onSave: () => void; onReset: () => void; onRepo?: () => void; onCompare: () => void }) {
+function CodeEditor({ value, onChange, error, onSave, onReset, onRepo, onCompare }: { value: string; onChange: (v: string) => void; error?: string; onSave: () => void; onReset: () => void; onRepo?: () => void; onCompare?: () => void }) {
   const ta = useRef<HTMLTextAreaElement>(null);
   const gutter = useRef<HTMLPreElement>(null);
   const lines = value.split('\n').length;
@@ -483,9 +488,11 @@ function CodeEditor({ value, onChange, error, onSave, onReset, onRepo, onCompare
         <button className="btn2 primary sm" disabled={!!error} onClick={onSave}>
           초안 저장 (Ctrl/Cmd+S)
         </button>
-        <button className="btn2 sm" onClick={onCompare}>
-          Figma 원본과 비교
-        </button>
+        {onCompare ? (
+          <button className="btn2 sm" onClick={onCompare}>
+            Figma 원본과 비교
+          </button>
+        ) : null}
         <button className="btn2 sm" onClick={onReset}>
           고친 것 되돌리기
         </button>
@@ -617,16 +624,32 @@ function GuideIntro({ g, c }: { g: Guide; c: ComponentData }) {
   );
 }
 
-const RuleId = ({ id }: { id?: string }) => (id ? <><span className="rule-id">{id}</span> </> : null);
-const itemText = (t: string | { id?: string; text: string }) => (typeof t === 'string' ? t : <><RuleId id={t.id} />{t.text}</>);
+const itemText = (t: string | { id?: string; text: string }) => (typeof t === 'string' ? t : t.text);
 
 /** 서비스 UI 가이드의 사용 정책 (언제 쓰나, 기준, Do · Don't). 기준 · Do · Don't에는 포털 규칙 번호가 붙을 수 있다 */
 function PolicySection({ pl }: { pl: NonNullable<Guide['policy']> }) {
   const src = pl.source;
+  const scope = useContext(TextScope);
+  const { role } = usePortal();
+  const key = scope?.key || '';
+  // UX 담당자이 고친 글: 열린 초안(없으면 게시본)의 규칙을 고쳐 사용 가이드 초안으로. 번호는 그대로
+  const saveGuide = (fn: (g: P.GuideDoc) => P.GuideDoc) => {
+    const cur = (P.openDraft('guide', key)?.after as P.GuideDoc | undefined) || P.guide(key);
+    if (!cur) throw new Error('사용 가이드가 없는 컴포넌트입니다');
+    const next = fn(JSON.parse(JSON.stringify(cur)));
+    return P.draftGuide(role, key, { lead: next.lead, rules: next.rules });
+  };
+  const setRule = (id: string, text: (old: string) => string) => (v: string) =>
+    saveGuide((g) => ({ ...g, rules: g.rules.map((r) => (r.id === id ? { ...r, text: text(r.text).replace('\u0000', v) } : r)) }));
+  const split = (t: string) => {
+    const i = t.indexOf(': ');
+    return i > 0 ? [t.slice(0, i), t.slice(i + 2)] : ['기준', t];
+  };
+  const G = { perm: 'guide' as const };
   return (
     <>
       <h3>{pl.title}</h3>
-      {pl.lead ? <p className="note">{pl.lead}</p> : null}
+      {pl.lead ? <Editable {...G} as="p" className="note" path="policy.lead" label="정책 요약" value={pl.lead} onSave={(v) => saveGuide((g) => ({ ...g, lead: v }))} /> : null}
       <div className="gd-when">
         <section className="gd-when-col gd-use">
           <h4>이럴 때 사용합니다</h4>
@@ -657,11 +680,10 @@ function PolicySection({ pl }: { pl: NonNullable<Guide['policy']> }) {
             {pl.rules.map((r, i) => (
               <tr key={i}>
                 <td className="pt-type">
-                  <RuleId id={r.id} />
-                  {r.name}
+                  {r.id ? <Editable {...G} path={`policy.${r.id}.name`} label={`${r.id} 항목`} value={r.name} onSave={setRule(r.id, (t) => `\u0000: ${split(t)[1]}`)} /> : r.name}
                 </td>
                 <td className="pt-text">
-                  {r.desc}
+                  {r.id ? <Editable {...G} path={`policy.${r.id}.desc`} label={`${r.id} 기준`} value={r.desc} onSave={setRule(r.id, (t) => `${split(t)[0]}: \u0000`)} /> : r.desc}
                   {r.gap ? <span className="gd-gap-note">{r.gap}</span> : null}
                 </td>
                 <td className="gd-from">{r.from}</td>
@@ -675,13 +697,13 @@ function PolicySection({ pl }: { pl: NonNullable<Guide['policy']> }) {
           {(pl.do || []).length ? (
             <section className="gd-do">
               <h4>Do · 이렇게 합니다</h4>
-              <ul>{pl.do!.map((t, i) => <li key={i}>{itemText(t)}</li>)}</ul>
+              <ul>{pl.do!.map((t, i) => <li key={i}>{typeof t !== 'string' && t.id ? <><Editable {...G} path={`policy.${t.id}`} label={`${t.id} Do`} value={t.text} onSave={setRule(t.id, () => '\u0000')} /></> : itemText(t)}</li>)}</ul>
             </section>
           ) : null}
           {(pl.dont || []).length ? (
             <section className="gd-dont">
               <h4>Don't · 이건 피합니다</h4>
-              <ul>{pl.dont!.map((t, i) => <li key={i}>{itemText(t)}</li>)}</ul>
+              <ul>{pl.dont!.map((t, i) => <li key={i}>{typeof t !== 'string' && t.id ? <><Editable {...G} path={`policy.${t.id}`} label={`${t.id} Don't`} value={t.text} onSave={setRule(t.id, () => '\u0000')} /></> : itemText(t)}</li>)}</ul>
             </section>
           ) : null}
         </div>
@@ -690,7 +712,7 @@ function PolicySection({ pl }: { pl: NonNullable<Guide['policy']> }) {
         <p className="gd-related">
           함께 보기{' '}
           {pl.related!.map((r) => (
-            <span key={r.name} className="chip" title={r.file}>
+            <span key={r.name} className="chip">
               <UxRef r={r.file} label={r.name} /> · {r.desc}
             </span>
           ))}
@@ -698,8 +720,13 @@ function PolicySection({ pl }: { pl: NonNullable<Guide['policy']> }) {
       ) : null}
       {src ? (
         <p className="gd-source">
-          정책 출처 <UxRef r={src.id} label={src.title} /> 문서 ({src.id}
-          {src.status ? ` · ${src.status}` : ''})
+          정책 출처 UX 패턴 가이드{src.release ? ` ${src.release}` : ''} ·{' '}
+          {(pl.sources || [src]).map((x, i) => (
+            <span key={x.id}>
+              {i ? ' · ' : ''}
+              <UxRef r={x.id} label={x.title} />
+            </span>
+          ))}
         </p>
       ) : null}
     </>
@@ -758,7 +785,6 @@ function StatesSection({ sc, st, onCode }: { sc: SiteComponent; st: NonNullable<
               return (
                 <tr key={i}>
                   <td className="pt-type">
-                    <RuleId id={r.id} />
                     {r.name}
                   </td>
                   <td className="gd-ex">

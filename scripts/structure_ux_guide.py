@@ -14,6 +14,9 @@ import json
 import re
 from pathlib import Path
 
+# 포털에서 부르는 묶음 이름 (원본 가이드와 다르게 부르는 것). 우리는 앱이 따로 없어 "앱 구조"를 "구조"로 부른다
+GROUP_RENAME = {"앱 구조": "구조"}
+
 ROOT = Path(__file__).resolve().parent.parent
 SRC = ROOT / "guides" / "ux-pattern"
 OUT = SRC / "docs"
@@ -319,7 +322,7 @@ def parse(doc, body):
     for a, b in RAW_FIXES.items():
         body = body.replace(a, b)
     lead, *secs = re.split(r"^#### ", body, flags=re.M)
-    out = {"id": doc["id"], "title": doc["title"], "section": short(doc["section"]), "group": " › ".join(doc["path"][1:-1]),
+    out = {"id": doc["id"], "title": doc["title"], "section": short(doc["section"]), "group": " › ".join(GROUP_RENAME.get(g, g) for g in doc["path"][1:-1]),
            "place": PLACE[short(doc["section"])], "lead": "\n".join(l for l in lead.strip().splitlines() if not noise(l)),
            "overview": [], "when": {"use": [], "avoid": []}, "sections": [], "do": [], "dont": [], "targets": TARGETS.get(doc["id"], [])}
     for sec in secs:
@@ -370,7 +373,8 @@ for d in index["docs"]:
         for t in s[kind]:
             rid = f"{pre}-{len(s['ruleIds']['do']) + len(s['ruleIds']['dont']) + 1:02d}"
             s["ruleIds"][kind].append(rid)
-            rules.append({"id": rid, "doc": d["id"], "section": d["title"], "kind": label, "text": plain(t), "targets": s["targets"], "source": "UX 패턴 가이드"})
+            # 대상은 비워 둔다: 가이드의 권장 · 금지를 여러 컴포넌트에 한꺼번에 걸지 않는다 (규칙은 컴포넌트마다 달라질 수 있다)
+            rules.append({"id": rid, "doc": d["id"], "section": d["title"], "kind": label, "text": plain(t), "targets": [], "source": "UX 패턴 가이드"})
     (OUT / f"{d['id']}.json").write_text(json.dumps(s, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
     docs.append({k: s[k] for k in ("id", "title", "section", "group", "place", "targets", "links")} | {"lead": plain(s["lead"].split("\n")[0])})
 

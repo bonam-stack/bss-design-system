@@ -16,6 +16,19 @@ export interface UiState {
 }
 export const emptyUi: UiState = { q: '', kd: '', editRule: null, edit: null };
 
+/** 설명 편집 모드에서 고친 글 (아직 초안이 아님) */
+export interface PendingText {
+  scopeKey: string;
+  scopeName: string;
+  path: string;
+  label: string;
+  /** 원래 글 */
+  before: string;
+  value: string;
+  /** 페이지 설명처럼 다른 초안으로 저장하는 글 */
+  onSave?: (v: string) => unknown;
+}
+
 export interface TocItem {
   id: string;
   label: string;
@@ -28,6 +41,11 @@ export interface PortalCtx {
   ui: UiState;
   setUi: Dispatch<SetStateAction<UiState>>;
   toast: (msg: string) => void;
+  /** 설명 편집 모드: 켜면 고칠 수 있는 글이 모두 입력칸이 된다 */
+  textEdit: boolean;
+  setTextEdit: (on: boolean) => void;
+  pending: Record<string, PendingText>;
+  setPending: Dispatch<SetStateAction<Record<string, PendingText>>>;
   toc: { title: string; items: TocItem[] };
 }
 
@@ -36,7 +54,7 @@ export const Ctx = createContext<PortalCtx>(null as unknown as PortalCtx);
 export function usePortal() {
   const c = useContext(Ctx);
   const isEditor = c.role !== 'viewer';
-  const can = (type: EditType) => c.role === P.EDITOR[type];
+  const can = (type: EditType) => P.canEdit(c.role, type);
   /** 포털 동작 실행: 성공하면 알림 · 이동, 실패하면 이유를 알림 */
   async function act<T>(fn: () => T | Promise<T>, ok?: string | ((x: T) => string), go?: string | ((x: T) => string)): Promise<T | null> {
     document.body.classList.add('busy');

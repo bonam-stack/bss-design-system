@@ -29,7 +29,9 @@ export type PolicyItem = string | { id?: string; text: string };
 export interface Policy {
   title: string;
   lead: string;
-  source?: { id: string; title: string; status?: string; file?: string; extractedAt?: string };
+  source?: { id: string; title: string; status?: string; file?: string; extractedAt?: string; release?: string };
+  /** 정책을 가져온 UX 패턴 가이드 문서들 (첫째가 source) */
+  sources?: { id: string; title: string }[];
   when?: { use: string[]; avoid: { text: string; alt: string }[] };
   rules: { id?: string; name: string; desc: string; from: string; gap?: string }[];
   do?: PolicyItem[];

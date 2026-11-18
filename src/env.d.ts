@@ -5,3 +5,6 @@ declare module '*.json' {
   const value: unknown;
   export default value;
 }
+
+/** 기준 데이터 지문 (vite.config.ts). 바뀌면 브라우저의 이전 포털 기록을 지운다 */
+declare const __DATA_VERSION__: string;

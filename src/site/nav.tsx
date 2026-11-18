@@ -1,6 +1,7 @@
 // 위쪽 섹션 메뉴 · 왼쪽 목록 · 이전/다음 · 역할 선택 · 에디터 모드 띠.
 // 누구에게나 같은 문서와 "내 요청"이 보이고, 역할(SB Studio 계정에서 받음)에 따라 작업 메뉴와 문서 안 편집 칸이 켜진다.
 // 작업 메뉴: UX 담당자 = UX 편집, DS 담당자 = DS 작업, 관리자 = 관리자.
+import { useEffect, useRef, useState } from 'react';
 import * as P from './portal/store';
 import type { Role } from './portal/store';
 import { usePortal } from './portal/ctx';
@@ -9,34 +10,65 @@ import { docsIn, guideRoute } from './guide';
 import type { Place } from './guide';
 
 /** [경로, 이름, 왼쪽 목록 소제목] */
-export type NavItem = [route: string, label: string, sub?: string];
+export type NavItem = [route: string, label: string, sub?: string, tag?: string];
 export type Section = [key: string, label: string, items: NavItem[]];
 
 /** UX 패턴 가이드 문서를 그 섹션 목록에 (소제목 = 가이드의 묶음) */
 const guideItems = (place: Place, sub: (group: string) => string): NavItem[] => docsIn(place).map((d) => [guideRoute(d.id), d.title, sub(d.group.split(' › ')[0])]);
 
+/** 가이드 문서의 컴포넌트 묶음: 문서 묶음이 없으면 문서 제목(테이블 · 리스트 …) */
+export const docGroup = (d: { group: string; title: string }) => d.group.split(' › ')[0] || d.title;
+/** 이 가이드 문서가 딸린 카탈로그 항목 (컴포넌트 · 블록 페이지 안에 보인다) */
+export const hostOf = (docId: string) => {
+  const d = docsIn('components').find((x) => x.id === docId);
+  if (!d) return null;
+  const L = d.targets.map((c) => P.item(c)).filter(Boolean) as P.Item[];
+  return L.find((i) => i.kind === 'comp') || L[0] || null;
+};
+/** 컴포넌트 묶음 순서 (UX 패턴 가이드의 컴포넌트 분류) */
+export const compGroups = () => {
+  const order = P.catalogMeta().compGroups || [];
+  const used = [...new Set([...P.items().filter((i) => i.kind === 'comp').map((i) => i.group || '기타'), ...docsIn('components').map(docGroup)])];
+  return [...order, ...used.filter((g) => !order.includes(g))];
+};
+
+/** Components 목록: 묶음마다 컴포넌트(이름순) → 그 묶음의 사용 가이드 문서 */
+function componentItems(I: P.Item[]): NavItem[] {
+  const comps = I.filter((i) => i.kind === 'comp');
+  const docs = docsIn('components');
+  return compGroups().flatMap((g) => [
+    ...comps.filter((i) => (i.group || '기타') === g).sort((a, b) => a.name.localeCompare(b.name, 'en')).map((i): NavItem => [i.code, i.name, g]),
+    // 컴포넌트 · 블록에 딸린 가이드는 그 페이지 안에 있으므로 목록에는 딸린 곳이 없는 문서만
+    ...docs.filter((d) => docGroup(d) === g && !hostOf(d.id)).map((d): NavItem => [guideRoute(d.id), d.title, g, '가이드']),
+  ]);
+}
+
 export function sections(role: Role): Section[] {
   const I = P.items();
+  const asset = (r: string, l: string): NavItem => [r, l, '디자인 에셋'];
   const S: Section[] = [
-    ['governance', 'UX 거버넌스', [['rules', '규칙'], ['slots', '빈칸'], ['lint', '검증 규칙'], ['glossary', '용어사전'], ...guideItems('governance', () => '작성 기준').filter(([r]) => r !== guideRoute('glossary'))]],
+    ['governance', 'UX 거버넌스', [['rules', '규칙'], ['slots', '슬롯'], ['lint', '검증 규칙'], ['glossary', '용어사전'], ...guideItems('governance', () => '작성 기준').filter(([r]) => r !== guideRoute('glossary'))]],
     ['start', '시작하기', [['overview', '개요'], ['stack', '조립 구조'], ['updates', '업데이트'], ...guideItems('start', () => 'UX 원칙')]],
     [
       'foundations',
       'Foundations',
       [
         ['foundations', '개요'],
-        ['color', '색상', '디자인 에셋'],
-        ['typography', '타이포그래피', '디자인 에셋'],
-        ['dimension', '간격 · 모서리', '디자인 에셋'],
-        ['icons', '아이콘', '디자인 에셋'],
-        ['elevation', '그림자', '디자인 에셋'],
-        ['motion', '모션', '디자인 에셋'],
-        ['writing', '문구 (보이스 · 표기)', '디자인 에셋'],
-        ['tokens', '디자인 토큰', '디자인 에셋'],
+        asset('color', '컬러'),
+        asset('typography', '타이포그래피'),
+        asset('spacing', '여백'),
+        asset('sizing', '크기'),
+        asset('radius', '모서리'),
+        asset('border-width', '선 두께'),
+        asset('shadow', '그림자'),
+        asset('motion', '모션'),
+        asset('writing', '문구 (보이스 · 표기)'),
+        asset('tokens', '디자인 토큰'),
+        asset('icons', '아이콘'),
         ...guideItems('foundations', (g) => g || '파운데이션'),
       ],
     ],
-    ['components', 'Components', [['components', '전체'], ...I.filter((i) => i.kind === 'comp').sort((a, b) => a.name.localeCompare(b.name, 'en')).map((i): NavItem => [i.code, i.name, '컴포넌트']), ...guideItems('components', (g) => `컴포넌트 가이드${g ? ` · ${g}` : ''}`)]],
+    ['components', 'Components', [['components', '전체'], ...componentItems(I)]],
     [
       'blocks',
       'Blocks',
@@ -59,6 +91,8 @@ export function sections(role: Role): Section[] {
 export function sectionOf(route: string, role: Role) {
   for (const [k, , items] of sections(role)) if (items.some(([r]) => r === route)) return k;
   if (route.startsWith('pattern-')) return 'patterns';
+  if (route.startsWith('g-') && hostOf(route.slice(2))) return hostOf(route.slice(2))!.kind === 'block' ? 'blocks' : 'components';
+  if (route.startsWith('new-')) return 'components';
   return 'start';
 }
 
@@ -88,29 +122,94 @@ export function TopNav({ route }: { route: string }) {
     </>
   );
 }
+interface NavGroup {
+  label: string;
+  items: NavItem[];
+  /** 둘째 단계 묶음 (소제목 '모듈 · 노드 모듈'의 '노드 모듈') */
+  groups: NavGroup[];
+}
 
-export function SideNav({ route }: { route: string }) {
+/** 소제목('컴포넌트 가이드 · 입력')으로 두 단계 묶음을 만든다. 소제목 없는 항목(전체 · 개요)은 맨 위에 그대로 */
+function groupItems(items: NavItem[]) {
+  const top: NavItem[] = [];
+  const groups: NavGroup[] = [];
+  const find = (L: NavGroup[], label: string) => L.find((g) => g.label === label) || (L.push({ label, items: [], groups: [] }), L[L.length - 1]);
+  for (const it of items) {
+    const sub = it[2];
+    if (!sub) {
+      top.push(it);
+      continue;
+    }
+    const [a, ...rest] = sub.split(' · ');
+    const g = find(groups, a);
+    if (rest.length) find(g.groups, rest.join(' · ')).items.push(it);
+    else g.items.push(it);
+  }
+  return { top, groups };
+}
+
+const hasRoute = (g: NavGroup, route: string): boolean => g.items.some(([r]) => r === route) || g.groups.some((x) => hasRoute(x, route));
+const countOf = (g: NavGroup): number => g.items.length + g.groups.reduce((n, x) => n + countOf(x), 0);
+
+export function SideNav({ route: here }: { route: string }) {
   const { role, isEditor } = usePortal();
+  // 컴포넌트 안에 딸린 가이드를 따로 열었으면 그 컴포넌트를 현재 위치로
+  const host = here.startsWith('g-') ? hostOf(here.slice(2)) : null;
+  const route = host ? host.code : here;
   const all = sections(role);
   const cur = sectionOf(route, role);
   const [, label, items] = all.find(([k]) => k === cur)!;
-  const out: JSX.Element[] = [];
-  let lastKind: string | null = null;
-  for (const [r, l, sub] of items) {
-    const it = P.item(r);
-    if (sub && sub !== lastKind) {
-      out.push(<div key={`sub-${sub}`} className="nav-sub">{sub}</div>);
-      lastKind = sub;
+  const { top, groups } = groupItems(items);
+  // 펼친 묶음 (섹션|묶음|둘째 묶음). 지금 페이지가 든 묶음은 늘 펼친다
+  const [open, setOpen] = useState<Set<string>>(() => new Set());
+  const keyOf = (path: string[]) => [cur, ...path].join('|');
+  useEffect(() => {
+    const want: string[] = [];
+    for (const g of groups) {
+      if (!hasRoute(g, route)) continue;
+      want.push(keyOf([g.label]));
+      for (const x of g.groups) if (hasRoute(x, route)) want.push(keyOf([g.label, x.label]));
     }
-    const draft = isEditor && it && (P.openDraft('item', r) || P.openDraft('guide', it.key) || P.openDraft('figma', it.key) || P.openDraft('code', it.key) || P.openDraft('text', it.key) || P.openDraft('code', r));
-    out.push(
+    if (want.some((k) => !open.has(k))) setOpen((o) => new Set([...o, ...want]));
+  }, [route, cur]); // eslint-disable-line react-hooks/exhaustive-deps
+  const toggle = (k: string) => setOpen((o) => {
+    const n = new Set(o);
+    if (n.has(k)) n.delete(k);
+    else n.add(k);
+    return n;
+  });
+  const link = ([r, l, , tag]: NavItem) => {
+    const it = P.item(r);
+    const draft = isEditor && it && (P.openDraft('item', r) || P.openDraft('guide', it.key) || P.openDraft('figma', it.key) || P.openDraft('code', it.key) || P.openDraft('text', it.key));
+    return (
       <a key={r} href={`#${r}`} className={r === route ? 'on' : ''} aria-current={r === route ? 'page' : undefined}>
         {l}
+        {tag ? <span className="nv-tag">{tag}</span> : null}
         {it && it.status !== 'pub' ? <span className="nv-st">{P.STATUS[it.status]}</span> : null}
         {draft ? <i className="nv-dot" title="초안 있음" /> : null}
-      </a>,
+      </a>
     );
-  }
+  };
+  const group = (g: NavGroup, path: string[], depth: number): JSX.Element => {
+    const k = keyOf(path);
+    const on = open.has(k);
+    const id = `nav-${k.replace(/[^a-zA-Z0-9가-힣]+/g, '-')}`;
+    return (
+      <div key={k} className={`nav-grp d${depth}${on ? ' open' : ''}`}>
+        <button type="button" className={`nav-acc${hasRoute(g, route) ? ' has' : ''}`} aria-expanded={on} aria-controls={id} onClick={() => toggle(k)}>
+          <span className="nav-chev" aria-hidden="true">›</span>
+          <span className="nav-acc-l">{g.label}</span>
+          <span className="nav-cnt">{countOf(g)}</span>
+        </button>
+        {on ? (
+          <div id={id} className="nav-grp-body">
+            {g.items.map(link)}
+            {g.groups.map((x) => group(x, [...path, x.label], depth + 1))}
+          </div>
+        ) : null}
+      </div>
+    );
+  };
   return (
     <>
       {/* 좁은 화면에서는 위쪽 섹션 메뉴가 숨으므로 목록 위에 섹션을 둔다 */}
@@ -122,7 +221,8 @@ export function SideNav({ route }: { route: string }) {
         ))}
       </div>
       <div className="nav-title">{label}</div>
-      {out}
+      {top.map(link)}
+      {groups.map((g) => group(g, [g.label], 0))}
     </>
   );
 }
@@ -155,40 +255,113 @@ export function Pager({ route }: { route: string }) {
   );
 }
 
+const CAN_DO: Record<Role, string> = {
+  viewer: '문서를 읽습니다. 담당 역할로 바꾸면 그 자리에서 고칠 수 있습니다.',
+  ux: '기준 편집(레이아웃 규칙 · 규칙 · 사용 가이드) · SB 블록 · 컴포넌트 설명',
+  ds: '토큰 · 컴포넌트 · 공통 블록 · 소스 변환 · 디자인 요청',
+  approver: '운영 서버 배포 · 반려 · 롤백 · 재검수 대상 SB · 권한 확인',
+};
+
+/** 오른쪽 위 역할 버튼: 에디터 모드면 색이 바뀌고 초안 수 배지가 붙는다. 누르면 고칠 수 있는 것 · 내 초안 · 게시 버전 · 역할 바꾸기 */
 export function RoleMenu() {
   const { role, setRole, isEditor } = usePortal();
+  const [open, setOpen] = useState(false);
+  const box = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    if (!open) return;
+    const close = (e: MouseEvent | KeyboardEvent) => {
+      if (e instanceof KeyboardEvent ? e.key === 'Escape' : !box.current?.contains(e.target as Node)) setOpen(false);
+    };
+    document.addEventListener('mousedown', close);
+    document.addEventListener('keydown', close);
+    return () => {
+      document.removeEventListener('mousedown', close);
+      document.removeEventListener('keydown', close);
+    };
+  }, [open]);
+  const mine = role === 'approver' ? P.drafts((d) => d.status === 'draft' && !!d.requested).length : P.drafts((d) => d.status === 'draft' && d.by === role).length;
+  const pv = P.previewVersion();
   return (
-    <label className={`role-pick${isEditor ? ' on' : ''}`}>
-      <span className="sr">역할</span>
-      <select id="ptRole" aria-label="역할 (POC: SB Studio 로그인 대신)" value={role} onChange={(e) => setRole(e.target.value as Role)}>
-        {(Object.entries(P.ROLES) as [Role, string][]).map(([k, v]) => (
-          <option key={k} value={k}>
-            {v}
-          </option>
-        ))}
-      </select>
-    </label>
+    <div className="role-menu" ref={box}>
+      <button type="button" className={`role-btn${isEditor ? ' on' : ''}`} aria-expanded={open} aria-haspopup="dialog" onClick={() => setOpen((o) => !o)}>
+        {isEditor ? '✎ ' : ''}
+        {P.ROLES[role]}
+        {isEditor && mine ? <em className="role-badge" aria-label={`초안 ${mine}건`}>{mine}</em> : null}
+        <span aria-hidden="true"> ▾</span>
+      </button>
+      {open ? (
+        <div className="role-pop" role="dialog" aria-label="역할 · 에디터 모드">
+          <p className="role-pop-t">{isEditor ? '에디터 모드' : '보기 모드'}</p>
+          <p className="role-pop-d">{isEditor ? <>고칠 수 있는 것<br /><b>{CAN_DO[role]}</b></> : CAN_DO.viewer}</p>
+          {isEditor ? (
+            <a className="role-pop-row" href={role === 'approver' ? '#deploy' : '#my'} onClick={() => setOpen(false)}>
+              <span>{role === 'approver' ? '배포 요청' : '내 변경'}</span>
+              <b>{mine}건 →</b>
+            </a>
+          ) : null}
+          <div className="role-pop-row">
+            <span>운영 버전</span>
+            <b className="mono">
+              {P.version()}
+              {pv ? ` · 다음 ${pv}` : ''}
+            </b>
+          </div>
+          <label className="role-pop-sel">
+            <span>역할 바꾸기 (POC: SB Studio 로그인 대신)</span>
+            <select id="ptRole" value={role} onChange={(e) => (setRole(e.target.value as Role), setOpen(false))}>
+              {(Object.entries(P.ROLES) as [Role, string][]).map(([k, v]) => (
+                <option key={k} value={k}>
+                  {v}
+                </option>
+              ))}
+            </select>
+          </label>
+        </div>
+      ) : null}
+    </div>
   );
 }
 
-/** 에디터 모드 띠: 역할 · 하는 일 · 내 변경(관리자는 배포 요청) · 운영 버전 · 다음 미리보기 버전 */
-export function EditorBar() {
-  const { role, isEditor } = usePortal();
-  if (!isEditor) return null;
-  const what = { ux: '기준 편집(UX 패턴 · 레이아웃 규칙 · 사용 가이드) · SB library 소스 편집', ds: '토큰 · 컴포넌트 · 공통 블록 · 소스 변환 · 디자인 요청', approver: '운영 서버 배포 · 롤백 · 재검수 대상 SB · 권한 확인', viewer: '' }[role];
-  const n = role === 'approver' ? P.drafts((d) => d.status === 'draft' && !!d.requested).length : P.drafts((d) => d.status === 'draft' && d.by === role).length;
-  const pv = P.previewVersion();
+/** 설명 편집 모드의 아래 띠: 고친 곳 수 · 한 번에 초안 저장 · 취소 */
+export function TextEditBar() {
+  const { role, textEdit, setTextEdit, pending, setPending, toast } = usePortal();
+  if (!textEdit) return null;
+  const L = Object.values(pending).filter((x) => x.value.trim() !== x.before.trim());
+  const save = () => {
+    const ids = new Set<string>();
+    const fails: string[] = [];
+    for (const x of L) {
+      try {
+        const d = x.onSave ? x.onSave(x.value.trim()) : P.draftText(role, x.scopeKey, x.scopeName, x.path, x.label, x.before, x.value.trim());
+        if (d && typeof d === 'object' && 'id' in d) ids.add(String((d as { id: string }).id));
+      } catch (e) {
+        fails.push(`${x.label}: ${(e as Error).message}`);
+      }
+    }
+    setPending({});
+    toast(fails.length ? fails.join(' · ') : `${L.length}곳을 초안 ${[...ids].join(', ')}에 담았습니다 · 내 변경에서 미리보기 확인 후 배포 요청`);
+  };
   return (
-    <div className="ed-bar">
-      <b>{P.ROLES[role]}</b>
-      <span>{what}</span>
-      <a href={role === 'approver' ? '#deploy' : '#my'}>
-        {role === 'approver' ? '배포 요청' : '내 변경'} {n}건
-      </a>
-      <span className="ed-ver">
-        운영 {P.version()}
-        {pv ? ` · 다음 ${pv}` : ''}
-      </span>
+    <div className="te-bar" role="region" aria-label="편집">
+      <b>편집 중</b>
+      <span>{L.length ? `고친 글 ${L.length}곳` : '입력칸의 글을 고치세요'}</span>
+      <button type="button" className="btn2 primary sm" disabled={!L.length} onClick={save}>
+        초안 저장
+      </button>
+      <button type="button" className="btn2 sm" disabled={!L.length} onClick={() => setPending({})}>
+        고친 것 되돌리기
+      </button>
+      <button
+        type="button"
+        className="btn2 sm"
+        onClick={() => {
+          if (L.length && !confirm(`저장하지 않은 ${L.length}곳이 있습니다. 버리고 끌까요?`)) return;
+          setPending({});
+          setTextEdit(false);
+        }}
+      >
+        끄기
+      </button>
     </div>
   );
 }
