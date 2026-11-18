@@ -336,3 +336,21 @@ a.role-pop-row:hover b { color: var(--ed); }
 .sidebar .nav-grp.d1 .nav-grp-body > a { padding-left: 48px; }
 .sidebar .nav-acc.has:not([aria-expanded="true"]) .nav-acc-l { color: var(--accent); }
 @media (prefers-reduced-motion: reduce) { .sidebar .nav-chev { transition: none; } }
+
+/* Foundations: 컬러 · 타이포그래피 · 토큰 */
+.fd-sw { display: inline-block; width: 28px; height: 28px; border-radius: 8px; border: 1px solid var(--border); vertical-align: middle; background: linear-gradient(var(--sw), var(--sw)), repeating-conic-gradient(#e8ecef 0 25%, #fff 0 50%) 0 0 / 8px 8px; }
+.fd-sw.big { width: 100%; height: 56px; border-radius: 10px; }
+.fd-sw.none { background: repeating-linear-gradient(45deg, #f1f3f5 0 6px, #fff 6px 12px); }
+.fd-swc { width: 44px; }
+.fd-shadow { display: inline-block; width: 28px; height: 28px; border-radius: 8px; background: #fff; vertical-align: middle; }
+.fd-sub { display: block; font-size: 12px; color: var(--fg-muted); }
+.fd-sub2 { font-size: 12px; color: var(--fg-muted); }
+.mono { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 12px; }
+.fd-ramp { display: grid; grid-template-columns: repeat(auto-fill, minmax(84px, 1fr)); gap: 10px; }
+.fd-step { display: grid; gap: 4px; font-size: 12px; }
+.fd-step b { font-size: 12px; }
+.fd-step span { color: var(--fg-muted); }
+.fd-types { display: grid; gap: 10px; }
+.fd-type { display: grid; gap: 10px; padding: 16px 18px; border: 1px solid var(--border); border-radius: 12px; }
+.fd-type-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 14px; font-size: 12px; color: var(--fg-muted); }
+.fd-type-meta b { color: var(--fg); font-size: 13px; }

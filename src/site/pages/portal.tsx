@@ -6,6 +6,7 @@ import type { Draft, HistoryEntry, Item, Kind } from '../portal/store';
 import { usePortal } from '../portal/ctx';
 import { patterns, icons } from '../data';
 import { docsFor, docsIn, guideRoute, guideSource } from '../guide';
+import { ColorPage, TokensPage, TypographyPage } from './FoundationPages';
 import { BumpTag, Check, CodeLink, UxRef, ConfirmButton, DraftBox, Drafts, EditBtn, GuideChips, Head, RulesBlock, St, StOf, Table, fmt, human, joinNodes } from '../ui';
 
 const FIGMA_FILE = '9AioWOXVOVm5C7kdSxSEEP';
@@ -19,7 +20,9 @@ export function portalPage(route: string, isEditor: boolean): ReactNode | null {
     case 'overview': return <Overview />;
     case 'stack': return <Stack />;
     case 'updates': return <Updates />;
-    case 'tokens': return <Tokens />;
+    case 'tokens': return <TokensPage />;
+    case 'color': return <ColorPage />;
+    case 'typography': return <TypographyPage />;
     case 'components': return <ItemList kind="comp" />;
     case 'blocks': return <ItemList kind="block" />;
     case 'patterns': return <PatternList />;
@@ -45,7 +48,7 @@ function Overview() {
     ['blocks', 'Blocks', `블록 ${n('block')}`, '빈칸 하나를 채우는 업무 단위 묶음'],
     ['patterns', 'Patterns', `레이아웃 규칙 ${n('layout')} · 패턴 ${patterns.length}`, '화면을 어떤 순서로 쌓을지'],
     ['rules', 'UX 거버넌스', `규칙 ${P.rules().length}개`, '규칙과 연결표'],
-    ['icons', 'Foundations', `아이콘 ${icons.icons.length}개`, '아이콘 · 디자인 토큰'],
+    ['color', 'Foundations', `아이콘 ${icons.icons.length}개 · 토큰`, '컬러 · 타이포그래피 · 디자인 토큰 · 아이콘'],
     ['stack', '조립 구조', 'Stack 5단계', '구조 → 레이아웃 → 빈칸 → 블록 → 컴포넌트'],
   ];
   return (
@@ -195,34 +198,6 @@ function Updates() {
           <RelCard h={h} />
         </div>
       ))}
-    </>
-  );
-}
-
-function Tokens() {
-  const tk = [
-    ['--color-bg-brand-strongest-default', '브랜드 · 주 버튼'],
-    ['--color-bg-brand-faint-default', '브랜드 옅은 배경'],
-    ['--color-fg-neutral-strongest', '본문 글자'],
-    ['--color-fg-neutral-muted-default', '보조 글자'],
-    ['--color-bg-neutral-muted', '회색 배경'],
-    ['--color-border-neutral-muted', '테두리'],
-    ['--color-bg-success-strongest', '성공'],
-    ['--color-fg-danger-strong', '위험 글자'],
-  ];
-  return (
-    <>
-      <Head eyebrow="Foundations" title="디자인 토큰" lead="색 · 글꼴 · 모서리는 모두 디자인 토큰 v0.5를 씁니다. Figma 변수에서 읽은 값입니다." />
-      <h2 id="semantic">Semantic 색</h2>
-      <div className="tk">
-        {tk.map(([k, l]) => (
-          <div key={k}>
-            <i style={{ background: `var(${k})` }} />
-            <b>{l}</b>
-            <code>{k}</code>
-          </div>
-        ))}
-      </div>
     </>
   );
 }
