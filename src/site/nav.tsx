@@ -18,6 +18,13 @@ const guideItems = (place: Place, sub: (group: string) => string): NavItem[] => 
 
 /** 가이드 문서의 컴포넌트 묶음: 문서 묶음이 없으면 문서 제목(테이블 · 리스트 …) */
 export const docGroup = (d: { group: string; title: string }) => d.group.split(' › ')[0] || d.title;
+/** 이 가이드 문서가 딸린 카탈로그 항목 (컴포넌트 · 블록 페이지 안에 보인다) */
+export const hostOf = (docId: string) => {
+  const d = docsIn('components').find((x) => x.id === docId);
+  if (!d) return null;
+  const L = d.targets.map((c) => P.item(c)).filter(Boolean) as P.Item[];
+  return L.find((i) => i.kind === 'comp') || L[0] || null;
+};
 /** 컴포넌트 묶음 순서 (UX 패턴 가이드의 컴포넌트 분류) */
 export const compGroups = () => {
   const order = P.catalogMeta().compGroups || [];
@@ -31,7 +38,8 @@ function componentItems(I: P.Item[]): NavItem[] {
   const docs = docsIn('components');
   return compGroups().flatMap((g) => [
     ...comps.filter((i) => (i.group || '기타') === g).sort((a, b) => a.name.localeCompare(b.name, 'en')).map((i): NavItem => [i.code, i.name, g]),
-    ...docs.filter((d) => docGroup(d) === g).map((d): NavItem => [guideRoute(d.id), d.title, g, '가이드']),
+    // 컴포넌트 · 블록에 딸린 가이드는 그 페이지 안에 있으므로 목록에는 딸린 곳이 없는 문서만
+    ...docs.filter((d) => docGroup(d) === g && !hostOf(d.id)).map((d): NavItem => [guideRoute(d.id), d.title, g, '가이드']),
   ]);
 }
 
@@ -52,6 +60,7 @@ export function sections(isEditor: boolean): Section[] {
 export function sectionOf(route: string, isEditor: boolean) {
   for (const [k, , items] of sections(isEditor)) if (items.some(([r]) => r === route)) return k;
   if (route.startsWith('pattern-')) return 'patterns';
+  if (route.startsWith('g-') && hostOf(route.slice(2))) return hostOf(route.slice(2))!.kind === 'block' ? 'blocks' : 'components';
   if (route.startsWith('new-')) return 'components';
   return 'start';
 }
@@ -108,8 +117,11 @@ function groupItems(items: NavItem[]) {
 const hasRoute = (g: NavGroup, route: string): boolean => g.items.some(([r]) => r === route) || g.groups.some((x) => hasRoute(x, route));
 const countOf = (g: NavGroup): number => g.items.length + g.groups.reduce((n, x) => n + countOf(x), 0);
 
-export function SideNav({ route }: { route: string }) {
+export function SideNav({ route: here }: { route: string }) {
   const { isEditor } = usePortal();
+  // 컴포넌트 안에 딸린 가이드를 따로 열었으면 그 컴포넌트를 현재 위치로
+  const host = here.startsWith('g-') ? hostOf(here.slice(2)) : null;
+  const route = host ? host.code : here;
   const all = sections(isEditor);
   const cur = sectionOf(route, isEditor);
   const [, label, items] = all.find(([k]) => k === cur)!;

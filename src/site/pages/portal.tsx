@@ -6,9 +6,10 @@ import type { Draft, HistoryEntry, Item, Kind } from '../portal/store';
 import { usePortal } from '../portal/ctx';
 import { patterns, icons } from '../data';
 import { docsFor, docsIn, guideRoute, guideSource } from '../guide';
-import { compGroups, docGroup } from '../nav';
+import { compGroups, docGroup, hostOf } from '../nav';
+import { GuideEmbed } from './GuidePage';
 import { ColorPage, ScalePage, TokensPage, TypographyPage } from './FoundationPages';
-import { BumpTag, Check, CodeLink, UxRef, ConfirmButton, DraftBox, Drafts, EditBtn, GuideChips, Head, RulesBlock, St, StOf, Table, fmt, human, joinNodes } from '../ui';
+import { BumpTag, Check, CodeLink, UxRef, ConfirmButton, DraftBox, Drafts, EditBtn, Head, RulesBlock, St, StOf, Table, fmt, human, joinNodes } from '../ui';
 
 const FIGMA_FILE = '9AioWOXVOVm5C7kdSxSEEP';
 const KIND_LABEL: Record<Kind, string> = { block: 'Blocks', comp: 'Components', layout: 'Layout rules' };
@@ -285,7 +286,7 @@ function ItemList({ kind }: { kind: 'comp' | 'block' }) {
       {isComp ? (
         compGroups().map((g) => {
           const L = I.filter((i) => (i.group || '기타') === g);
-          const docs = docsIn('components').filter((d) => docGroup(d) === g);
+          const docs = docsIn('components').filter((d) => docGroup(d) === g && !hostOf(d.id));
           if (!L.length && !docs.length) return null;
           return (
             <div key={g}>
@@ -444,7 +445,7 @@ function ItemPage({ it }: { it: Item }) {
       {ru.length || docsFor(it.code).length ? (
         <>
           <h2>Guidelines</h2>
-          <GuideChips code={it.code} />
+          <GuideEmbed docs={docsFor(it.code).map((d) => d.id)} />
           <RulesBlock list={ru} />
         </>
       ) : null}

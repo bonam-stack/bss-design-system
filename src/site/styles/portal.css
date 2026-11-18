@@ -414,3 +414,14 @@ table.t, table.data { width: 100%; table-layout: auto; }
   .slot-frame.dim .slot-grid { max-width: none; }
 }
 .sidebar .nv-tag { flex-shrink: 0; white-space: nowrap; margin-left: auto; padding: 0 6px; border-radius: 999px; background: var(--surface-card); border: 1px solid var(--border); font-size: 10px; color: var(--fg-muted); font-weight: 500; }
+
+/* 컴포넌트 · 블록 페이지 안의 UX 패턴 가이드 */
+.gx-embed { margin: 0 0 10px; border: 1px solid var(--border); border-radius: 12px; background: #fff; }
+.gx-embed > summary { cursor: pointer; padding: 14px 18px; list-style: none; display: flex; flex-wrap: wrap; gap: 4px 8px; align-items: baseline; }
+.gx-embed > summary::-webkit-details-marker { display: none; }
+.gx-embed > summary::before { content: '›'; display: inline-block; width: 12px; color: var(--fg-muted); transition: transform .15s; }
+.gx-embed[open] > summary::before { transform: rotate(90deg); }
+.gx-embed > summary .muted { font-size: 13px; }
+.gx-embed-body { padding: 4px 22px 16px; border-top: 1px solid var(--border); }
+.gx-embed-body h4 { margin: 22px 0 10px; font-size: 17px; }
+.gx-embed-body h5 { margin: 0 0 8px; font-size: 14px; }

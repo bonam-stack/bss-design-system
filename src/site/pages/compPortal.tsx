@@ -4,8 +4,10 @@ import * as P from '../portal/store';
 import type { GuideRule } from '../portal/store';
 import { usePortal } from '../portal/ctx';
 import { patterns } from '../data';
+import { docsFor } from '../guide';
+import { GuideEmbed } from './GuidePage';
 import type { Guide } from '../data';
-import { Check, CodeLink, DraftBox, EditBtn, GuideChips, RulesBlock, StOf, Table, fmt } from '../ui';
+import { Check, CodeLink, DraftBox, EditBtn, RulesBlock, StOf, Table, fmt } from '../ui';
 
 /** 제목 아래: ✓ Figma ✓ 사용 가이드 · 상태 */
 export function CompChecks({ c, hasGuide }: { c: { key: string; figmaSyncedAt?: string }; hasGuide: boolean }) {
@@ -146,7 +148,7 @@ export function CompRules({ k }: { k: string }) {
   const code = P.itemByKey(k)?.code;
   return (
     <>
-      {code ? <GuideChips code={code} /> : null}
+      {code ? <GuideEmbed docs={docsFor(code).map((d) => d.id)} /> : null}
       {ru.length ? <RulesBlock list={ru} /> : null}
     </>
   );

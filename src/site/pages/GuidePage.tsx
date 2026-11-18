@@ -108,6 +108,115 @@ function BlockView({ b }: { b: Block }): ReactNode {
   }
 }
 
+/** 문서 본문 (Overview · 절 · Do/Don't). 문서 페이지와 컴포넌트 페이지 안에서 같이 쓴다 */
+export function GuideBody({ d, level = 2 }: { d: GuideDoc; level?: 2 | 3 }) {
+  // 다른 페이지 안에 넣을 때는 목차에 잡히지 않게 한 단계 아래 제목으로
+  const H = level === 2 ? 'h2' : 'h4';
+  const S = level === 2 ? 'h3' : 'h5';
+  return (
+    <>
+          {d.overview.length || d.when.use.length || d.when.avoid.length ? (
+            <>
+              <H>Overview</H>
+              {d.overview.map((b, i) => <BlockView key={i} b={b} />)}
+              <When {...d.when} />
+            </>
+          ) : null}
+          {d.sections.map((s, i) => (
+            <div key={i}>
+              <H>{s.title}</H>
+              {s.blocks.map((b, j) => <BlockView key={j} b={b} />)}
+            </div>
+          ))}
+          {d.do.length || d.dont.length ? (
+            <>
+              <H>Do / Don't</H>
+              <div className="gd-dodont">
+                {d.do.length ? (
+                  <section className="gd-do">
+                    <S>Do · 이렇게 합니다</S>
+                    <ul>
+                      {d.do.map((t, i) => (
+                        <li key={i}>
+                          <Html text={t} />
+                        </li>
+                      ))}
+                    </ul>
+                  </section>
+                ) : null}
+                {d.dont.length ? (
+                  <section className="gd-dont">
+                    <S>Don't · 이건 피합니다</S>
+                    <ul>
+                      {d.dont.map((t, i) => (
+                        <li key={i}>
+                          <Html text={t} />
+                        </li>
+                      ))}
+                    </ul>
+                  </section>
+                ) : null}
+              </div>
+              <p className="note">
+                Do · Don't는 <a href="#rules">UX 거버넌스 규칙</a>에도 권장 · 금지로 올라가 있습니다.
+              </p>
+            </>
+          ) : null}
+    </>
+  );
+}
+
+/** 컴포넌트 · 블록 페이지 안의 UX 패턴 가이드: 문서마다 접어 두고 펼치면 본문을 그 자리에서 보여 준다 */
+export function GuideEmbed({ docs }: { docs: string[] }) {
+  // 컴포넌트 가이드는 본문을 펼쳐 보이고, 이 컴포넌트를 쓰는 패턴 · 모듈 문서는 링크로
+  const own = docs.filter((id) => guideDoc(id)?.place === 'components');
+  const rel = docs.filter((id) => guideDoc(id) && guideDoc(id)!.place !== 'components');
+  if (!own.length && !rel.length) return null;
+  return (
+    <>
+      <h3>UX 패턴 가이드</h3>
+      {own.map((id) => (
+        <EmbedDoc key={id} id={id} />
+      ))}
+      {rel.length ? (
+        <p className="note">
+          이 컴포넌트를 쓰는 가이드{' '}
+          {rel.map((id, i) => (
+            <span key={id}>
+              {i ? ' · ' : ''}
+              <a href={`#${guideRoute(id)}`}>{guideDoc(id)!.title}</a>
+            </span>
+          ))}
+        </p>
+      ) : null}
+    </>
+  );
+}
+
+function EmbedDoc({ id }: { id: string }) {
+  const meta = guideDoc(id);
+  const [open, setOpen] = useState(false);
+  const [d, setD] = useState<GuideDoc | null>(null);
+  useEffect(() => {
+    if (open && !d) loadGuideDoc(id).then(setD, () => {});
+  }, [open, d, id]);
+  if (!meta) return null;
+  return (
+    <details className="gx-embed" onToggle={(e) => setOpen((e.currentTarget as HTMLDetailsElement).open)}>
+      <summary>
+        <b>{meta.title}</b>
+        {meta.lead ? <span className="muted"> · {meta.lead}</span> : null}
+      </summary>
+      <div className="gx-embed-body">
+        {d ? <GuideBody d={d} level={3} /> : <p className="note">불러오는 중…</p>}
+        <p className="note">
+          <a href={`#${guideRoute(id)}`}>이 가이드만 따로 보기 →</a>
+        </p>
+      </div>
+    </details>
+  );
+}
+
 export function GuidePage({ id }: { id: string }) {
   const meta = guideDoc(id)!;
   const [d, setD] = useState<GuideDoc | null>(null);
@@ -140,53 +249,7 @@ export function GuidePage({ id }: { id: string }) {
       {error ? <p className="error">문서를 불러오지 못했어요: {error}</p> : null}
       {d ? (
         <>
-          {d.overview.length || d.when.use.length || d.when.avoid.length ? (
-            <>
-              <h2>Overview</h2>
-              {d.overview.map((b, i) => <BlockView key={i} b={b} />)}
-              <When {...d.when} />
-            </>
-          ) : null}
-          {d.sections.map((s, i) => (
-            <div key={i}>
-              <h2>{s.title}</h2>
-              {s.blocks.map((b, j) => <BlockView key={j} b={b} />)}
-            </div>
-          ))}
-          {d.do.length || d.dont.length ? (
-            <>
-              <h2>Do / Don't</h2>
-              <div className="gd-dodont">
-                {d.do.length ? (
-                  <section className="gd-do">
-                    <h3>Do · 이렇게 합니다</h3>
-                    <ul>
-                      {d.do.map((t, i) => (
-                        <li key={i}>
-                          <Html text={t} />
-                        </li>
-                      ))}
-                    </ul>
-                  </section>
-                ) : null}
-                {d.dont.length ? (
-                  <section className="gd-dont">
-                    <h3>Don't · 이건 피합니다</h3>
-                    <ul>
-                      {d.dont.map((t, i) => (
-                        <li key={i}>
-                          <Html text={t} />
-                        </li>
-                      ))}
-                    </ul>
-                  </section>
-                ) : null}
-              </div>
-              <p className="note">
-                Do · Don't는 <a href="#rules">UX 거버넌스 규칙</a>에도 권장 · 금지로 올라가 있습니다.
-              </p>
-            </>
-          ) : null}
+          <GuideBody d={d} />
           {related.length ? (
             <>
               <h2>함께 보기</h2>
