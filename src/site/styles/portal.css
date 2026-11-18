@@ -413,3 +413,4 @@ table.t, table.data { width: 100%; table-layout: auto; }
   .content { padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
   .slot-frame.dim .slot-grid { max-width: none; }
 }
+.sidebar .nv-tag { flex-shrink: 0; white-space: nowrap; margin-left: auto; padding: 0 6px; border-radius: 999px; background: var(--surface-card); border: 1px solid var(--border); font-size: 10px; color: var(--fg-muted); font-weight: 500; }

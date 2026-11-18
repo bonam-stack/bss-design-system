@@ -47,6 +47,8 @@ export interface Item {
   guide?: string;
   key?: string;
   promotedFrom?: string;
+  /** 컴포넌트 묶음 (내비게이션 · 버튼 · 입력 …) */
+  group?: string;
 }
 export interface Rule {
   id: string;
@@ -92,7 +94,7 @@ export interface Detection {
   by?: Role;
 }
 export interface Catalog {
-  meta: { catalog: string; uxGuide: string; tokens: string; version: string; source: string };
+  meta: { catalog: string; uxGuide: string; tokens: string; version: string; source: string; compGroups?: string[] };
   items: Item[];
   slots: Slot[];
   parts: Part[];

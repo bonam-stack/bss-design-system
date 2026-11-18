@@ -5,7 +5,17 @@
     "uxGuide": "20261106",
     "tokens": "v0.5",
     "version": "0.5.0",
-    "source": "BSS SB Studio POC · BSS 디자인 포털 (시연용 예시 데이터)"
+    "source": "BSS SB Studio POC · BSS 디자인 포털 (시연용 예시 데이터)",
+    "compGroups": [
+      "내비게이션",
+      "버튼",
+      "입력",
+      "테이블",
+      "리스트",
+      "컨테이너",
+      "그래프",
+      "피드백·알림"
+    ]
   },
   "items": [
     {
@@ -233,7 +243,8 @@
       "meaning": "실행·진입 동작 · 영역당 주 버튼 하나",
       "variants": "primary · secondary · base · text · accent",
       "key": "button",
-      "nameKo": "버튼"
+      "nameKo": "버튼",
+      "group": "버튼"
     },
     {
       "code": "c-text-field",
@@ -245,7 +256,8 @@
       "meaning": "자유 입력 한 칸",
       "variants": "default · clear",
       "key": "text-field",
-      "nameKo": "텍스트 입력"
+      "nameKo": "텍스트 입력",
+      "group": "입력"
     },
     {
       "code": "c-search-field",
@@ -256,7 +268,8 @@
       "ux": true,
       "meaning": "입력 후 바로 검색",
       "variants": "-",
-      "nameKo": "검색 입력"
+      "nameKo": "검색 입력",
+      "group": "입력"
     },
     {
       "code": "c-select",
@@ -267,7 +280,8 @@
       "ux": true,
       "meaning": "선택지 5개 이상에서 선택",
       "variants": "single · multi",
-      "nameKo": "드롭다운"
+      "nameKo": "드롭다운",
+      "group": "입력"
     },
     {
       "code": "c-date-field",
@@ -278,7 +292,8 @@
       "ux": true,
       "meaning": "시작·종료 날짜 · 기본값 채움",
       "variants": "range · single",
-      "nameKo": "기간 입력"
+      "nameKo": "기간 입력",
+      "group": "입력"
     },
     {
       "code": "c-tabs",
@@ -289,7 +304,8 @@
       "ux": true,
       "meaning": "컨텐트 묶음 전환 · 안에 슬롯이 있는 컨테이너형",
       "variants": "line · contained",
-      "nameKo": "탭"
+      "nameKo": "탭",
+      "group": "컨테이너"
     },
     {
       "code": "c-radio",
@@ -301,7 +317,8 @@
       "meaning": "선택지 2~4개 중 하나",
       "variants": "-",
       "key": "radio",
-      "nameKo": "라디오"
+      "nameKo": "라디오",
+      "group": "입력"
     },
     {
       "code": "c-checkbox",
@@ -313,7 +330,8 @@
       "meaning": "여러 항목 중 여러 개 선택 · 전체 · 부분 선택 표시",
       "variants": "unchecked · checked · indeterminate",
       "key": "checkbox",
-      "nameKo": "체크박스"
+      "nameKo": "체크박스",
+      "group": "입력"
     },
     {
       "code": "c-radio-group",
@@ -325,7 +343,8 @@
       "meaning": "라디오 여러 개를 하나의 질문으로 묶음 · 하나만 선택",
       "variants": "-",
       "key": "radio-group",
-      "nameKo": "라디오 그룹"
+      "nameKo": "라디오 그룹",
+      "group": "입력"
     },
     {
       "code": "c-text-area",
@@ -337,7 +356,8 @@
       "meaning": "여러 줄 자유 입력",
       "variants": "-",
       "key": "text-area",
-      "nameKo": "텍스트 영역"
+      "nameKo": "텍스트 영역",
+      "group": "입력"
     },
     {
       "code": "c-password-field",
@@ -349,7 +369,8 @@
       "meaning": "가려서 입력하는 비밀번호 한 칸 · 보기 전환",
       "variants": "large · medium · small",
       "key": "password-field",
-      "nameKo": "비밀번호 입력"
+      "nameKo": "비밀번호 입력",
+      "group": "입력"
     },
     {
       "code": "c-helper-text",
@@ -361,7 +382,8 @@
       "meaning": "입력 칸 아래 안내 · 오류 문구",
       "variants": "default · error",
       "key": "helper-text",
-      "nameKo": "도움말 텍스트"
+      "nameKo": "도움말 텍스트",
+      "group": "입력"
     },
     {
       "code": "c-divider",
@@ -373,7 +395,8 @@
       "meaning": "영역 · 항목 사이를 나누는 선",
       "variants": "solid · dashed / horizontal · vertical",
       "key": "divider",
-      "nameKo": "구분선"
+      "nameKo": "구분선",
+      "group": "컨테이너"
     },
     {
       "code": "c-chip",
@@ -384,7 +407,8 @@
       "ux": true,
       "meaning": "필터 전환·입력값 표시",
       "variants": "filter · input",
-      "nameKo": "칩"
+      "nameKo": "칩",
+      "group": "입력"
     },
     {
       "code": "c-badge",
@@ -395,7 +419,8 @@
       "ux": true,
       "meaning": "처리 상태 표시",
       "variants": "basic · dotted",
-      "nameKo": "배지"
+      "nameKo": "배지",
+      "group": "피드백·알림"
     },
     {
       "code": "c-tag",
@@ -406,7 +431,8 @@
       "ux": true,
       "meaning": "분류·속성 표시",
       "variants": "keyword",
-      "nameKo": "태그"
+      "nameKo": "태그",
+      "group": "피드백·알림"
     },
     {
       "code": "c-table-column-header",
@@ -417,7 +443,8 @@
       "ux": true,
       "meaning": "열 제목과 정렬",
       "variants": "sortable",
-      "nameKo": "표 머리 칸"
+      "nameKo": "표 머리 칸",
+      "group": "테이블"
     },
     {
       "code": "c-table-text-cell",
@@ -428,7 +455,8 @@
       "ux": true,
       "meaning": "행의 글자 칸",
       "variants": "-",
-      "nameKo": "표 글자 칸"
+      "nameKo": "표 글자 칸",
+      "group": "테이블"
     },
     {
       "code": "c-pagination",
@@ -439,7 +467,8 @@
       "ux": true,
       "meaning": "페이지 단위 이동",
       "variants": "-",
-      "nameKo": "페이지 번호"
+      "nameKo": "페이지 번호",
+      "group": "내비게이션"
     },
     {
       "code": "c-callout",
@@ -450,7 +479,8 @@
       "ux": true,
       "meaning": "성격별 색과 라벨이 붙은 안내 상자",
       "variants": "info · warning · success · danger · neutral · ai",
-      "nameKo": "콜아웃"
+      "nameKo": "콜아웃",
+      "group": "피드백·알림"
     },
     {
       "code": "c-breadcrumb",
@@ -461,7 +491,8 @@
       "ux": true,
       "meaning": "현재 위치 경로",
       "variants": "-",
-      "nameKo": "브레드크럼"
+      "nameKo": "브레드크럼",
+      "group": "내비게이션"
     },
     {
       "code": "c-page-header",
@@ -472,7 +503,8 @@
       "ux": true,
       "meaning": "페이지 타이틀 글자",
       "variants": "-",
-      "nameKo": "페이지 헤더"
+      "nameKo": "페이지 헤더",
+      "group": "내비게이션"
     },
     {
       "code": "c-popup",
@@ -483,7 +515,8 @@
       "ux": true,
       "meaning": "어두운 배경·머리·본문·하단 버튼으로 구성된 컨테이너형 · 안은 l-popup 규칙",
       "variants": "fixed · utility · full",
-      "nameKo": "팝업"
+      "nameKo": "팝업",
+      "group": "컨테이너"
     },
     {
       "code": "c-dialog",
@@ -494,7 +527,8 @@
       "ux": true,
       "meaning": "실행 전 확인",
       "variants": "confirm · alert",
-      "nameKo": "다이얼로그"
+      "nameKo": "다이얼로그",
+      "group": "피드백·알림"
     },
     {
       "code": "c-toast",
@@ -505,7 +539,8 @@
       "ux": true,
       "meaning": "실행 후 알림",
       "variants": "-",
-      "nameKo": "토스트"
+      "nameKo": "토스트",
+      "group": "피드백·알림"
     }
   ],
   "slots": [

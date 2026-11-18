@@ -6,6 +6,7 @@ import type { Draft, HistoryEntry, Item, Kind } from '../portal/store';
 import { usePortal } from '../portal/ctx';
 import { patterns, icons } from '../data';
 import { docsFor, docsIn, guideRoute, guideSource } from '../guide';
+import { compGroups, docGroup } from '../nav';
 import { ColorPage, ScalePage, TokensPage, TypographyPage } from './FoundationPages';
 import { BumpTag, Check, CodeLink, UxRef, ConfirmButton, DraftBox, Drafts, EditBtn, GuideChips, Head, RulesBlock, St, StOf, Table, fmt, human, joinNodes } from '../ui';
 
@@ -281,10 +282,39 @@ function ItemList({ kind }: { kind: 'comp' | 'block' }) {
           ))}
         </section>
       ) : null}
-      <h2 id="all" className="sr">
-        전체
-      </h2>
-      <Grid list={I} />
+      {isComp ? (
+        compGroups().map((g) => {
+          const L = I.filter((i) => (i.group || '기타') === g);
+          const docs = docsIn('components').filter((d) => docGroup(d) === g);
+          if (!L.length && !docs.length) return null;
+          return (
+            <div key={g}>
+              <h2 id={`g-${g}`}>
+                {g} <span className="count">{L.length}</span>
+              </h2>
+              {docs.length ? (
+                <p className="note">
+                  사용 가이드{' '}
+                  {docs.map((d, j) => (
+                    <span key={d.id}>
+                      {j ? ' · ' : ''}
+                      <a href={`#${guideRoute(d.id)}`}>{d.title}</a>
+                    </span>
+                  ))}
+                </p>
+              ) : null}
+              {L.length ? <Grid list={L} /> : <p className="note">아직 이 묶음의 컴포넌트가 없습니다.</p>}
+            </div>
+          );
+        })
+      ) : (
+        <>
+          <h2 id="all" className="sr">
+            전체
+          </h2>
+          <Grid list={I} />
+        </>
+      )}
     </>
   );
 }

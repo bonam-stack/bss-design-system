@@ -10,18 +10,37 @@ import { docsIn, guideRoute } from './guide';
 import type { Place } from './guide';
 
 /** [경로, 이름, 왼쪽 목록 소제목] */
-export type NavItem = [route: string, label: string, sub?: string];
+export type NavItem = [route: string, label: string, sub?: string, tag?: string];
 export type Section = [key: string, label: string, items: NavItem[]];
 
 /** UX 패턴 가이드 문서를 그 섹션 목록에 (소제목 = 가이드의 묶음) */
 const guideItems = (place: Place, sub: (group: string) => string): NavItem[] => docsIn(place).map((d) => [guideRoute(d.id), d.title, sub(d.group.split(' › ')[0])]);
+
+/** 가이드 문서의 컴포넌트 묶음: 문서 묶음이 없으면 문서 제목(테이블 · 리스트 …) */
+export const docGroup = (d: { group: string; title: string }) => d.group.split(' › ')[0] || d.title;
+/** 컴포넌트 묶음 순서 (UX 패턴 가이드의 컴포넌트 분류) */
+export const compGroups = () => {
+  const order = P.catalogMeta().compGroups || [];
+  const used = [...new Set([...P.items().filter((i) => i.kind === 'comp').map((i) => i.group || '기타'), ...docsIn('components').map(docGroup)])];
+  return [...order, ...used.filter((g) => !order.includes(g))];
+};
+
+/** Components 목록: 묶음마다 컴포넌트(이름순) → 그 묶음의 사용 가이드 문서 */
+function componentItems(I: P.Item[]): NavItem[] {
+  const comps = I.filter((i) => i.kind === 'comp');
+  const docs = docsIn('components');
+  return compGroups().flatMap((g) => [
+    ...comps.filter((i) => (i.group || '기타') === g).sort((a, b) => a.name.localeCompare(b.name, 'en')).map((i): NavItem => [i.code, i.name, g]),
+    ...docs.filter((d) => docGroup(d) === g).map((d): NavItem => [guideRoute(d.id), d.title, g, '가이드']),
+  ]);
+}
 
 export function sections(isEditor: boolean): Section[] {
   const I = P.items();
   const S: Section[] = [
     ['start', '시작하기', [['overview', '개요'], ['stack', '조립 구조'], ['updates', '업데이트'], ...guideItems('start', () => 'UX 원칙')]],
     ['foundations', 'Foundations', [['color', '컬러', '디자인 에셋'], ['typography', '타이포그래피', '디자인 에셋'], ['spacing', '여백', '디자인 에셋'], ['sizing', '크기', '디자인 에셋'], ['radius', '모서리', '디자인 에셋'], ['border-width', '선 두께', '디자인 에셋'], ['shadow', '그림자', '디자인 에셋'], ['tokens', '디자인 토큰', '디자인 에셋'], ['icons', '아이콘', '디자인 에셋'], ...guideItems('foundations', (g) => g || '파운데이션')]],
-    ['components', 'Components', [['components', '전체'], ...I.filter((i) => i.kind === 'comp').sort((a, b) => a.name.localeCompare(b.name, 'en')).map((i): NavItem => [i.code, i.name, '컴포넌트']), ...guideItems('components', (g) => `컴포넌트 가이드${g ? ` · ${g}` : ''}`)]],
+    ['components', 'Components', [['components', '전체'], ...componentItems(I)]],
     ['blocks', 'Blocks', [['blocks', '전체'], ...I.filter((i) => i.kind === 'block').map((i): NavItem => [i.code, i.name, '블록']), ...guideItems('blocks', (g) => `모듈${g ? ` · ${g}` : ''}`)]],
     ['patterns', 'Patterns', [['patterns', '전체'], ...patterns.map((p): NavItem => [`pattern-${p.key}`, `${p.name} 패턴`, 'Figma 패턴']), ...guideItems('patterns', (g) => g || '패턴'), ...I.filter((i) => i.kind === 'layout').map((i): NavItem => [i.code, `${i.name} 레이아웃`, '레이아웃 규칙'])]],
     ['governance', 'UX 거버넌스', [['rules', '규칙'], ['slots', '슬롯'], ['lint', '검증 규칙'], ['glossary', '용어사전'], ...guideItems('governance', () => '작성 기준').filter(([r]) => r !== guideRoute('glossary'))]],
@@ -113,12 +132,13 @@ export function SideNav({ route }: { route: string }) {
     else n.add(k);
     return n;
   });
-  const link = ([r, l]: NavItem) => {
+  const link = ([r, l, , tag]: NavItem) => {
     const it = P.item(r);
     const draft = isEditor && it && (P.openDraft('item', r) || P.openDraft('guide', it.key) || P.openDraft('figma', it.key) || P.openDraft('code', it.key) || P.openDraft('text', it.key));
     return (
       <a key={r} href={`#${r}`} className={r === route ? 'on' : ''} aria-current={r === route ? 'page' : undefined}>
         {l}
+        {tag ? <span className="nv-tag">{tag}</span> : null}
         {it && it.status !== 'pub' ? <span className="nv-st">{P.STATUS[it.status]}</span> : null}
         {draft ? <i className="nv-dot" title="초안 있음" /> : null}
       </a>
