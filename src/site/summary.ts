@@ -1,6 +1,5 @@
 // 핵심 요약: 게시된 기준(정책 · 규칙 · 속성)에서 자동으로 만든다. 사람이 편집하지 않는다.
-// SB Studio API가 컴포넌트 · 블록을 판단할 때 가장 먼저 읽는 데이터다.
-// 화면(AiSummary)과 빌드 때 만드는 API 파일(dist/api/summary/*.json, vite.config.ts)이 같은 함수를 쓴다.
+// AI가 컴포넌트 · 블록을 빠르게 판단하도록 페이지 맨 위에 두는 요약이다. (API는 SB Studio 쪽에서 만든다)
 
 export interface SummaryInput {
   kind: 'comp' | 'block';

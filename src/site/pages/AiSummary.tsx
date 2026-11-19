@@ -1,5 +1,5 @@
 // 핵심 요약: 게시된 정책 · 규칙 · 속성에서 자동으로 만든다(편집하지 않음). 기준이 바뀌어 게시되면 요약도 따라 바뀐다.
-// SB Studio API는 빌드 때 만든 같은 요약(api/summary/<코드>.json)을 먼저 읽고 판단한다.
+// AI가 이 페이지에서 가장 먼저 읽고 빠르게 판단하는 부분이다.
 import * as P from '../portal/store';
 import type { Policy } from '../data';
 import { guideSource, docsFor } from '../guide';

@@ -104,7 +104,7 @@ POC라 이력은 남기지 않는다. 저장소의 기준 데이터(카탈로그
 
 디자인 토큰은 Figma › 변수에서 컬렉션별로 내보낸 W3C 토큰 JSON을 `tokens/figma/<primitive|semantic|component>.tokens.json`에 두고 `python3 scripts/import_tokens.py`로 `tokens/variables.json`을 만든다. 사이트는 이 토큰을 CSS 변수로 깔고(`src/ds/tokens.ts`), 컴포넌트는 `tok()`로 그 변수를 읽는다.
 
-컴포넌트 · 블록 페이지 맨 위의 **핵심 요약**(무엇 · 쓸 때 · 꼭 지킬 기준 3개)은 게시된 정책 · 규칙 · 속성에서 자동으로 만든다(`src/site/summary.ts`). 사람이 편집하지 않으며, 기준이 바뀌면 요약도 따라 바뀐다. SB Studio API는 빌드 때 같은 함수로 만든 `api/summary.json`(목록)과 `api/summary/<카탈로그 코드>.json`(대신 쓸 것 · 하지 않음 · 속성 · 슬롯 · 들어가는 컴포넌트 포함)을 먼저 읽고 판단한다. 블록 정책 초안은 빌드할 때마다 `scripts/build_block_policy.py`가 UX 패턴 가이드 모듈 문서에서 다시 만든다.
+컴포넌트 · 블록 페이지 맨 위의 **핵심 요약**(무엇 · 쓸 때 · 꼭 지킬 기준 3개)은 게시된 정책 · 규칙 · 속성에서 자동으로 만든다(`src/site/summary.ts`). 사람이 편집하지 않으며, 기준이 바뀌면 요약도 따라 바뀐다. AI가 이 부분을 먼저 읽고 빠르게 판단한다(API는 SB Studio에서 만든다). 블록 정책 초안은 빌드할 때마다 `scripts/build_block_policy.py`가 UX 패턴 가이드 모듈 문서에서 다시 만든다.
 
 ## BSS 디자인 포털
 
