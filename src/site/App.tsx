@@ -111,7 +111,7 @@ export function App() {
   if (ALIAS[route]) redirect = ALIAS[route];
   // 예전 UX 가이드 주소(#ux, #ux-<id>)는 포털 섹션에 놓인 문서로
   else if (route === 'ux') redirect = 'patterns';
-  else if (route.startsWith('ux-')) redirect = route.slice(3) === 'glossary' ? 'glossary' : guideDoc(route.slice(3)) ? `g-${route.slice(3)}` : 'overview';
+  else if (route.startsWith('ux-') && (route.slice(3) === 'glossary' || guideDoc(route.slice(3)))) redirect = route.slice(3) === 'glossary' ? 'glossary' : `g-${route.slice(3)}`;
   else if (route === 'g-glossary') redirect = 'glossary';
   else if (componentByKey(route)) redirect = codeOf(route);
   else if (route === 'icons') page = <IconsPage />;

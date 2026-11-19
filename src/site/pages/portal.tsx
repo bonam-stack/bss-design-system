@@ -13,7 +13,7 @@ import { BumpTag, Check, CodeLink, UxRef, DraftBox, Drafts, EditBtn, Head, Rules
 import { FoundationsOverview, PendingPage } from './foundations';
 import { Convert, Deploy, My, MyRequests, Recheck, Requests, Roles, SbEdit, SbStatus, UxEdit } from './work';
 
-const KIND_LABEL: Record<Kind, string> = { block: 'Blocks', comp: 'Components', layout: 'UX 가이드라인 · 레이아웃 규칙' };
+const KIND_LABEL: Record<Kind, string> = { block: 'Blocks', comp: 'Components', layout: 'UX 가이드라인 · 레이아웃' };
 const formValues = (f: HTMLFormElement) => Object.fromEntries(new FormData(f)) as Record<string, string>;
 const list = (s?: string) => String(s || '').split(',').map((x) => x.trim()).filter(Boolean);
 
@@ -47,6 +47,7 @@ export function portalPage(route: string, role: Role): ReactNode | null {
     case 'components': return <ItemList kind="comp" />;
     case 'blocks': return <ItemList kind="block" />;
     case 'patterns': return <PatternList />;
+    case 'ux-guide': return <UxGuide />;
     case 'rules': return <Rules />;
     case 'slots': return <Slots />;
     case 'lint': return <Lint />;
@@ -61,11 +62,11 @@ export function portalPage(route: string, role: Role): ReactNode | null {
 
 function Overview() {
   const cards = [
-    ['process', '거버넌스', '지켜야 할 규칙 · 바꾸는 절차', '운영 절차 · UX 규칙 · 블록 정책 · UI 규칙 · 용어'],
-    ['patterns', 'UX 가이드라인', '화면을 어떻게 짜는가', 'UX 원칙 · 화면 구조 · 화면 가이드라인'],
-    ['foundations', 'Foundations', '컬러 · 타이포 · 여백 · 아이콘 · 토큰', '모든 부품이 쓰는 디자인 에셋'],
+    ['ux-guide', 'UX 가이드라인', '화면을 어떻게 짜는가', '원칙 · 화면 구조 · 레이아웃 · 화면 가이드'],
     ['components', 'Components', '묶음별 컴포넌트', '블록 안에 들어가는 최소 부품'],
-    ['blocks', 'Blocks', '공통 블록 · BSS 블록 · BO 블록', '슬롯 하나를 채우는 업무 단위 묶음'],
+    ['blocks', 'Blocks', '공통 블록 · BSS 블록 · BO 블록 · 모듈 정의', '슬롯 하나를 채우는 업무 단위 묶음'],
+    ['foundations', 'Foundations', '컬러 · 타이포 · 여백 · 아이콘 · 토큰', '모든 부품이 쓰는 디자인 에셋'],
+    ['process', '거버넌스', '지켜야 할 규칙 · 바꾸는 절차', '운영 절차 · UX 규칙 · UI 규칙 · 용어'],
     ['my-requests', '내 요청', '아이콘 · 컴포넌트 · 블록 · 토큰 요청', 'DS 담당자에게 요청하고 진행 상태 보기'],
   ];
   return (
@@ -149,7 +150,7 @@ function Stack() {
   ];
   return (
     <>
-      <Head eyebrow="UX 가이드라인 · 화면 구조" title="조립 구조" lead="화면은 큰 단위에서 작은 단위로 쌓아 조립합니다. SB Studio는 4단계에서 이 순서대로 놓고 5단계에서 디자인 에셋을 입힙니다." />
+      <Head eyebrow="UX 가이드라인 · 레이아웃" title="조립 구조" lead="화면은 큰 단위에서 작은 단위로 쌓아 조립합니다. SB Studio는 4단계에서 이 순서대로 놓고 5단계에서 디자인 에셋을 입힙니다." />
       <h2 id="stack">Stack</h2>
       <ol className="stk">
         {rows.map((x, i) => (
@@ -337,8 +338,8 @@ function BlockSections({ list: I }: { list: Item[] }) {
           />
         </>
       ) : null}
-      <h2 id="policy">블록 정책 (모듈)</h2>
-      <p className="note">블록이 따르는 규칙은 거버넌스 › 블록 정책에 있습니다. UX 패턴 가이드의 모듈 정의입니다.</p>
+      <h2 id="modules">모듈 정의</h2>
+      <p className="note">블록이 무엇이고 어떻게 구성되는지 정한 UX 패턴 가이드의 모듈 문서입니다. 그 안의 지켜야 할 규칙은 거버넌스 › 규칙에 번호로 모여 있습니다.</p>
       {[...new Set(docsIn('blocks').map((d) => d.group.split(' › ')[0] || '모듈'))].map((g) => (
         <p key={g}>
           <b>{g}</b>{' '}
@@ -356,11 +357,47 @@ function BlockSections({ list: I }: { list: Item[] }) {
   );
 }
 
+/** UX 가이드라인 개요: 화면을 큰 것부터 짜는 순서대로 문서 묶음 */
+function UxGuide() {
+  const doc = (place: Parameters<typeof docsIn>[0]) => docsIn(place);
+  const link = (id: string, title: string) => (
+    <a key={id} href={`#${guideRoute(id)}`}>
+      {title}
+    </a>
+  );
+  const join = (L: ReactNode[]) => L.flatMap((x, i) => (i ? [' · ', x] : [x]));
+  const groups = (place: Parameters<typeof docsIn>[0]) => [...new Set(doc(place).map((d) => d.group.split(' › ')[0]))];
+  return (
+    <>
+      <Head eyebrow="UX 가이드라인" title="UX 가이드라인" lead="화면을 어떻게 짜는지 정한 문서입니다. 큰 것에서 작은 것 순서(원칙 → 화면 구조 → 레이아웃 → 화면 가이드)로 읽고, 블록 · 컴포넌트는 Blocks · Components에서 이어 봅니다. 지켜야 할 규칙은 거버넌스 › 규칙에 번호로 모여 있습니다." />
+      <h2 id="principle">원칙</h2>
+      <p>{join(doc('start').map((d) => link(d.id, d.title)))}</p>
+      <h2 id="structure">화면 구조</h2>
+      {groups('foundations').map((g) => (
+        <p key={g}>
+          <b>{g || '구조'}</b> {join(doc('foundations').filter((d) => d.group.split(' › ')[0] === g).map((d) => link(d.id, d.title)))}
+        </p>
+      ))}
+      <h2 id="layout">레이아웃</h2>
+      <p>
+        <a href="#stack">조립 구조</a> · <a href="#slots">슬롯</a> ·{' '}
+        {join(P.items().filter((i) => i.kind === 'layout').map((i) => <a key={i.code} href={`#${i.code}`}>{i.name} 레이아웃</a>))}
+      </p>
+      <h2 id="guide">화면 가이드</h2>
+      {groups('patterns').map((g) => (
+        <p key={g}>
+          <b>{g || '기타'}</b> {join(doc('patterns').filter((d) => d.group.split(' › ')[0] === g).map((d) => link(d.id, d.title)))}
+        </p>
+      ))}
+    </>
+  );
+}
+
 function PatternList() {
   const L = P.items().filter((i) => i.kind === 'layout');
   return (
     <>
-      <Head eyebrow="UX 가이드라인" title="화면 가이드라인" lead="화면을 어떤 순서로 쌓고 어떻게 동작하게 할지 정한 가이드라인과 레이아웃 규칙입니다. 블록과 SB는 이 가이드라인을 따릅니다." />
+      <Head eyebrow="UX 가이드라인" title="화면 가이드" lead="화면을 어떤 순서로 쌓고 어떻게 동작하게 할지 정한 가이드라인과 레이아웃 규칙입니다. 블록과 SB는 이 가이드라인을 따릅니다." />
       <h2 id="ux">Figma 패턴</h2>
       <div className="cards">
         {patterns.map((p) => (
@@ -726,7 +763,7 @@ function Slots() {
   return (
     <>
       <Head
-        eyebrow="UX 가이드라인 · 화면 구조"
+        eyebrow="UX 가이드라인 · 레이아웃"
         title="슬롯"
         lead="슬롯(slot)은 화면에서 무엇이 들어갈지 정해 둔 자리입니다. 화면을 설계할 때 아무 블록이나 놓지 않고, 자리마다 정해진 블록만 넣습니다. SB Studio의 생성기와 검증 규칙이 이 표로 화면을 만들고 검사합니다."
       />
@@ -830,7 +867,7 @@ function Process() {
         cols={['역할', '맡는 것', '배포']}
         rows={[
           ['보기', '문서 읽기 · 내 요청', '-'],
-          ['UX 담당자', 'UX 규칙 · 블록 정책 · UX 가이드라인 · 업무 블록 설명 · 놓이는 슬롯 · 승격 1단 심사', '배포 요청'],
+          ['UX 담당자', 'UX 가이드라인 · 모듈 정의 · UX 규칙 · 업무 블록 설명 · 놓이는 슬롯 · 승격 1단 심사', '배포 요청'],
           ['DS 담당자', 'UI 규칙 · 토큰 · 컴포넌트 · 블록 모양(Figma) · 소스 변환 · 디자인 요청 · 승격 2단 심사', '배포 요청'],
           ['관리자', '운영 서버 배포 · 롤백 · 재검수 대상 알림 · 권한 확인', '정기 · 수동 배포'],
         ].map((r) => (

@@ -48,56 +48,22 @@ export function sections(role: Role): Section[] {
   const S: Section[] = [
     // 홈(개요 · 업데이트)은 위쪽 메뉴에 두지 않는다: 로고를 누르면 개요, 버전을 누르면 업데이트
     ['home', '홈', [['overview', '개요'], ['updates', '업데이트']]],
-    // 거버넌스 = 지켜야 할 규칙 · 바꾸는 절차(운영). 가이드라인 · 재료(Foundations · Components · Blocks)는 그 옆에 나란히 둔다
-    [
-      'gov',
-      '거버넌스',
-      [
-        ['process', '운영 절차', '운영'],
-        ['rules', '규칙', 'UX 규칙'],
-        ['lint', '검증 규칙', 'UX 규칙'],
-        ...guideItems('blocks', (g) => `블록 정책${g ? ` › ${g}` : ''}`),
-        ['ui-rules', 'UI 규칙', 'UI 규칙'],
-        ['design-review', '디자인 검수 기준', 'UI 규칙'],
-        ['figma-guide', 'Figma 작성 기준', 'UI 규칙'],
-        ['glossary', '용어사전', '기준 문서'],
-        ...guideItems('governance', () => '기준 문서').filter(([r]) => r !== guideRoute('glossary')),
-      ],
-    ],
+    // 큰 것 → 작은 것 (조립 구조 순서: 화면 구조 → 레이아웃 → 슬롯 → 블록 → 컴포넌트 → 에셋), 규칙 · 절차는 맨 뒤 거버넌스에 모은다.
+    // 가이드 문서는 다루는 대상 옆에 둔다: 모듈 정의는 Blocks, 컴포넌트 가이드는 컴포넌트 문서 안
     [
       'uxg',
       'UX 가이드라인',
       [
+        ['ux-guide', '개요'],
         ...guideItems('start', () => '원칙'),
-        ['slots', '슬롯', '화면 구조'],
-        ['stack', '조립 구조', '화면 구조'],
         ...guideItems('foundations', (g) => `화면 구조 › ${g || '구조'}`),
-        ...I.filter((i) => i.kind === 'layout').map((i): NavItem => [i.code, `${i.name} 레이아웃`, '화면 구조 › 레이아웃 규칙']),
-        ['patterns', '전체', '화면 가이드라인'],
-        ...guideItems('patterns', (g) => `화면 가이드라인 › ${g || '기타'}`),
+        ['stack', '조립 구조', '레이아웃'],
+        ...I.filter((i) => i.kind === 'layout').map((i): NavItem => [i.code, `${i.name} 레이아웃`, '레이아웃']),
+        ['slots', '슬롯', '레이아웃'],
+        ['patterns', '전체', '화면 가이드'],
+        ...guideItems('patterns', (g) => `화면 가이드 › ${g || '기타'}`),
       ],
     ],
-    [
-      'foundations',
-      'Foundations',
-      (
-        [
-          ['foundations', '개요'],
-          ['color', '컬러'],
-          ['typography', '타이포그래피'],
-          ['spacing', '여백'],
-          ['sizing', '크기'],
-          ['radius', '모서리'],
-          ['border-width', '선 두께'],
-          ['shadow', '그림자'],
-          ['motion', '모션'],
-          ['writing', '문구 (보이스 · 표기)'],
-          ['tokens', '디자인 토큰'],
-          ['icons', '아이콘'],
-        ] as NavItem[]
-      ),
-    ],
-    ['components', 'Components', [['components', '전체'], ...componentItems(I), ...patterns.map((p): NavItem => [`pattern-${p.key}`, `${p.name} 사용 예시`, '입력'])]],
     [
       'blocks',
       'Blocks',
@@ -109,6 +75,45 @@ export function sections(role: Role): Section[] {
           const L = I.filter((i) => P.sbDomain(i) === dm).map((i): NavItem => [i.code, i.name, `${dm} 블록`]);
           return L.length ? L : [['', '아직 없음', `${dm} 블록`] as NavItem];
         }),
+        ...guideItems('blocks', (g) => `모듈 정의${g ? ` › ${g}` : ''}`),
+      ],
+    ],
+    ['components', 'Components', [['components', '전체'], ...componentItems(I), ...patterns.map((p): NavItem => [`pattern-${p.key}`, `${p.name} 사용 예시`, '입력'])]],
+    [
+      'foundations',
+      'Foundations',
+      [
+        ['foundations', '개요'],
+        ...(
+          [
+            ['color', '컬러'],
+            ['typography', '타이포그래피'],
+            ['spacing', '여백'],
+            ['sizing', '크기'],
+            ['radius', '모서리'],
+            ['border-width', '선 두께'],
+            ['shadow', '그림자'],
+            ['motion', '모션'],
+            ['writing', '문구 (보이스 · 표기)'],
+            ['icons', '아이콘'],
+          ] as [string, string][]
+        ).map(([r, l]): NavItem => [r, l, '디자인 에셋']),
+        ['tokens', '디자인 토큰'],
+      ],
+    ],
+    // 거버넌스 = 지켜야 할 규칙 · 바꾸는 절차. 어기면 검사에 걸리거나 승인이 필요한 것만 둔다. UX 규칙 · UI 규칙은 주인만 다르고 절차는 하나
+    [
+      'gov',
+      '거버넌스',
+      [
+        ['process', '운영 절차'],
+        ['rules', '규칙', 'UX 규칙'],
+        ['lint', '검증 규칙', 'UX 규칙'],
+        ['ui-rules', 'UI 규칙', 'UI 규칙'],
+        ['design-review', '디자인 검수 기준', 'UI 규칙'],
+        ['figma-guide', 'Figma 작성 기준', 'UI 규칙'],
+        ['glossary', '용어사전', '기준 문서'],
+        ...guideItems('governance', () => '기준 문서').filter(([r]) => r !== guideRoute('glossary')),
       ],
     ],
     ['mine', '내 요청', [['my-requests', '내 요청']]],

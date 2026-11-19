@@ -6,7 +6,7 @@ import { Head } from '../ui';
 import { guideDoc, guideRoute, guideSource, inline, loadGuideDoc } from '../guide';
 import type { Block, GuideDoc, Place } from '../guide';
 
-export const PLACE_LABEL: Record<Place, string> = { start: 'UX 가이드라인 · 원칙', foundations: 'UX 가이드라인 · 화면 구조', patterns: 'UX 가이드라인 · 화면 가이드라인', blocks: '거버넌스 · 블록 정책', components: 'Components', governance: '거버넌스' };
+export const PLACE_LABEL: Record<Place, string> = { start: 'UX 가이드라인 · 원칙', foundations: 'UX 가이드라인 · 화면 구조', patterns: 'UX 가이드라인 · 화면 가이드', blocks: 'Blocks · 모듈 정의', components: 'Components', governance: '거버넌스' };
 
 const Html = ({ as: Tag = 'span', text, className }: { as?: 'span' | 'p' | 'li' | 'td' | 'th'; text: string; className?: string }) => <Tag className={className} dangerouslySetInnerHTML={{ __html: inline(text) }} />;
 
