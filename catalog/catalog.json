@@ -1449,5 +1449,99 @@
       "impact": "SB 1건",
       "action": "포털 승인 담당 승인 요청"
     }
+  ],
+  "checks": [
+    {
+      "id": "R-01",
+      "name": "구조 슬롯에는 블록만",
+      "severity": "오류",
+      "when": [
+        "생성",
+        "미리보기",
+        "Figma 검사",
+        "게시",
+        "독립 검수"
+      ],
+      "target": "app.gnb · app.lnb · app.context-bar · app.communicator",
+      "data": "slots · items",
+      "condition": "구조 슬롯(GNB · 사이드 내비게이션 바 · 콘텍스트 바 · 커뮤니케이터)에 놓인 것이 블록(b-)이 아니면 오류"
+    },
+    {
+      "id": "R-02",
+      "name": "고정 슬롯은 허용 목록에서 하나",
+      "severity": "오류",
+      "when": [
+        "생성",
+        "미리보기",
+        "Figma 검사",
+        "게시",
+        "독립 검수"
+      ],
+      "target": "mode=고정인 슬롯",
+      "data": "slots.accepts",
+      "condition": "고정 슬롯에 accepts 목록 밖의 것이 있거나 둘 이상 놓이면 오류"
+    },
+    {
+      "id": "R-03",
+      "name": "쌓기 슬롯 순서",
+      "severity": "오류",
+      "when": [
+        "생성",
+        "미리보기",
+        "Figma 검사",
+        "게시",
+        "독립 검수"
+      ],
+      "target": "l-general 본문 · b-content 안",
+      "data": "slots 순서",
+      "condition": "일반형 본문은 페이지 타이틀 → 사용 안내 → 조회조건 → 상세정보 → 컨텐트, 컨텐트 안은 액션 → 본문 → 상태바 순서가 아니면 오류"
+    },
+    {
+      "id": "R-04",
+      "name": "임시 코드는 승인 요청 동반",
+      "severity": "경고",
+      "when": [
+        "생성",
+        "게시"
+      ],
+      "target": "tb- · tc- 코드",
+      "data": "items · promotions",
+      "condition": "임시 블록(tb-) · 임시 컴포넌트(tc-)를 쓴 SB에 관리자 승인 요청(승격 요청)이 없으면 경고"
+    },
+    {
+      "id": "R-05",
+      "name": "용어 대조",
+      "severity": "경고",
+      "when": [
+        "생성",
+        "독립 검수"
+      ],
+      "target": "화면 문구 · 요소 이름",
+      "data": "glossary",
+      "condition": "용어사전의 대표어가 아닌 이름(동의어 · 다른 표기)을 쓰면 대표어를 제안하고 경고"
+    },
+    {
+      "id": "R-06",
+      "name": "출처 ID 반영률 100%",
+      "severity": "오류",
+      "when": [
+        "독립 검수"
+      ],
+      "target": "SB의 모든 화면 요소",
+      "data": "요소별 출처 ID",
+      "condition": "요구사항 · 정책 출처 ID가 연결되지 않은 요소가 하나라도 있으면 오류"
+    },
+    {
+      "id": "R-07",
+      "name": "특수형 화면은 승인 기록 동반",
+      "severity": "경고",
+      "when": [
+        "생성",
+        "게시"
+      ],
+      "target": "l-special",
+      "data": "items · 승인 이력",
+      "condition": "특수형 화면(자유 슬롯)을 쓴 SB에 관리자 승인 기록이 없으면 경고"
+    }
   ]
 }

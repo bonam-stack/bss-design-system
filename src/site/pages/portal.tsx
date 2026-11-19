@@ -7,6 +7,7 @@ import { usePortal } from '../portal/ctx';
 import { patterns } from '../data';
 import { docsFor, docsIn, guideRoute, guideSource } from '../guide';
 import { AiSummary } from './AiSummary';
+import { SbSpec } from './SbSpec';
 import { compGroups, docGroup, hostOf } from '../nav';
 import { GuideEmbed } from './GuidePage';
 import { ColorPage, ScalePage, TokensPage, TypographyPage } from './FoundationPages';
@@ -52,6 +53,7 @@ export function portalPage(route: string, role: Role): ReactNode | null {
     case 'rules': return <Rules />;
     case 'slots': return <Slots />;
     case 'lint': return <Lint />;
+    case 'sb-spec': return <SbSpec />;
     case 'promo': return isEditor ? <Promo /> : null;
   }
   const it = P.item(route);
@@ -943,32 +945,32 @@ function Process() {
 }
 
 function Lint() {
-  const L = [
-    ['R-01', '구조 슬롯(GNB · LNB · 콘텍스트 바)에는 블록만', '오류'],
-    ['R-02', '고정 슬롯은 허용 목록에서 하나', '오류'],
-    ['R-03', '쌓기 슬롯 순서(일반형)', '오류'],
-    ['R-04', '임시 코드(tb- · tc-)는 관리자 승인 요청 동반', '경고'],
-    ['R-05', '용어 대조(로제타)', '경고'],
-    ['R-06', '출처 ID 반영률 100%', '오류'],
-    ['R-07', '특수형 화면은 승인 기록 동반', '경고'],
-  ];
+  const L = P.checks();
   return (
     <>
-      <Head eyebrow="거버넌스 · UX 규칙" title="검증 규칙" lead="규칙 한 벌을 생성기 · 미리보기 · Figma 검사 · 카탈로그 게시가 같이 씁니다. 독립 검수 기준 점검도 같은 규칙입니다." />
+      <Head eyebrow="거버넌스 · UX 규칙" title="검증 규칙" lead="규칙 한 벌을 SB Studio의 생성 · 미리보기 · Figma 검사 · 게시 · 독립 검수가 같이 씁니다. 판정 조건과 심각도는 catalog.json의 checks가 원본입니다." />
       <h2 id="list" className="sr">
         검증 규칙
       </h2>
       <Table
-        cols={['내용', '심각도']}
+        cols={['내용', '판정 조건', '판정하는 때', '심각도']}
         rows={L.map((r) => (
-          <tr key={r[0]}>
-            <td>{r[1]}</td>
+          <tr key={r.id}>
             <td>
-              <St c={r[2] === '오류' ? 'ng' : 'hold'} t={r[2]} />
+              <b>{r.name}</b>
+              <span className="fd-sub">{human(r.target)}</span>
+            </td>
+            <td>{human(r.condition)}</td>
+            <td>{r.when.join(' · ')}</td>
+            <td>
+              <St c={r.severity === '오류' ? 'ng' : 'hold'} t={r.severity} />
             </td>
           </tr>
         ))}
       />
+      <p className="note">
+        SB Studio에 주는 형식은 <a href="#sb-spec">SB Studio 연동 규격</a>에 있습니다.
+      </p>
     </>
   );
 }

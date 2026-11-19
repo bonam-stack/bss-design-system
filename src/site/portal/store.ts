@@ -105,6 +105,17 @@ export interface Rule {
   text: string;
   targets: string[];
 }
+export interface Check {
+  id: string;
+  name: string;
+  severity: '오류' | '경고';
+  /** 판정하는 때 */
+  when: string[];
+  target: string;
+  /** 판정에 쓰는 데이터 */
+  data: string;
+  condition: string;
+}
 export interface Slot {
   path: string;
   owner: string;
@@ -140,6 +151,8 @@ export interface Detection {
 }
 export interface Catalog {
   meta: { catalog: string; uxGuide: string; tokens: string; version: string; source: string; compGroups?: string[] };
+  /** 검증 규칙 (SB Studio 생성 · 미리보기 · Figma 검사 · 게시 · 독립 검수가 같이 씀) */
+  checks?: Check[];
   items: Item[];
   slots: Slot[];
   parts: Part[];
@@ -385,6 +398,7 @@ export function items(): Item[] {
 export const item = (code: string) => items().find((i) => i.code === code) || null;
 export const itemByKey = (key: string) => items().find((i) => i.key === key) || null;
 export const slots = () => base.catalog.slots;
+export const checks = () => base.catalog.checks || [];
 export const slot = (path: string) => base.catalog.slots.find((s) => s.path === path) || null;
 export const parts = () => base.catalog.parts;
 export const catalogMeta = () => base.catalog.meta;

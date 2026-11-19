@@ -111,6 +111,7 @@ export function sections(role: Role): Section[] {
         ['process', '운영 절차'],
         ['rules', '규칙', 'UX 규칙'],
         ['lint', '검증 규칙', 'UX 규칙'],
+        ['sb-spec', 'SB Studio 연동 규격', '연동'],
         ['ui-rules', 'UI 규칙', 'UI 규칙'],
         ['design-review', '디자인 검수 기준', 'UI 규칙'],
         ['figma-guide', 'Figma 작성 기준', 'UI 규칙'],
