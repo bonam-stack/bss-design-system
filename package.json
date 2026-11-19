@@ -5,7 +5,7 @@
   "description": "BSS 디자인 시스템: Figma에서 뽑은 component.json으로 만든 React 컴포넌트와 디자인 포털 문서 사이트",
   "scripts": {
     "dev": "vite",
-    "build": "tsc --noEmit -p . && vite build",
+    "build": "python3 scripts/build_block_policy.py > /dev/null && tsc --noEmit -p . && vite build",
     "preview": "vite preview",
     "typecheck": "tsc --noEmit -p ."
   },
