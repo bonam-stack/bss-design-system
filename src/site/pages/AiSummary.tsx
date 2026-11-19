@@ -13,6 +13,8 @@ interface PropLite {
   options?: string[];
 }
 const txt = (t: string | { text: string }) => (typeof t === 'string' ? t : t.text);
+/** 첫 문장만 (요약용) */
+const first = (s: string) => (String(s).match(/^.+?[.다](?=\s|$)/) || [String(s)])[0];
 const plain = (s: string) => String(s || '').replace(/\*\*|`/g, '').replace(/\[([^\]]+)\]\([^)]+\)/g, '$1');
 
 /** 편집할 수 있는 목록: 원래 항목 + 포털에서 더한 항목(sum.<이름>.<번호>). 편집 중이면 빈 칸 하나를 더 보여 준다 */
@@ -40,11 +42,17 @@ export function AiSummary({ k, name, codeName, meaning, props, policy, editable 
   const doL = useList(editable, 'do', (policy?.do || []).map(txt).map(plain));
   const dontL = useList(editable, 'dont', (policy?.dont || []).map(txt).map(plain));
   meaning = editable ? get('sum.meaning', meaning) : meaning;
-  const use = useL.items;
-  const avoid = policy?.when?.avoid || [];
-  const rules = (policy?.rules || []).slice(0, 6);
-  const dos = editable ? doL.items : doL.items.slice(0, 3);
-  const donts = editable ? dontL.items : dontL.items.slice(0, 3);
+  // 요약은 짧게: AI가 "여기에 써도 되나 · 꼭 지킬 것"만 빨리 판단하도록. 자세한 기준은 아래 Guidelines
+  const short = !(editable && textEdit);
+  const use = short ? useL.items.slice(0, 2) : useL.items;
+  const avoid = (policy?.when?.avoid || []).slice(0, 2);
+  const rules = (policy?.rules || []).slice(0, 3);
+  // 기준과 겹치는 권장 · 금지(앞 6글자가 같은 것)는 요약에서 뺀다
+  const head = (t: string) => plain(t).replace(/\s/g, '').slice(0, 6);
+  const inRules = new Set(rules.map((r) => head(r.desc)));
+  const fresh = (L: string[]) => L.filter((t) => !inRules.has(head(t)));
+  const dos = short ? fresh(doL.items).slice(0, 2) : doL.items;
+  const donts = short ? fresh(dontL.items).slice(0, 2) : dontL.items;
   /** 편집 모드에서는 입력칸, 아니면 글 */
   const list = (L: ReturnType<typeof useList>, nm: string, label: string) =>
     editable && textEdit ? (
@@ -70,7 +78,7 @@ export function AiSummary({ k, name, codeName, meaning, props, policy, editable 
     meaning,
     use,
     avoid: avoid.map((a) => ({ case: plain(a.text), instead: plain(a.alt) })),
-    rules: rules.map((r) => ({ name: r.name, rule: plain(r.desc) })),
+    rules: rules.map((r) => ({ name: r.name, rule: first(plain(r.desc)) })),
     do: dos.map(plain),
     ...Object.fromEntries((extra || []).map((x) => [x.label, x.text])),
     dont: donts.map(plain),
@@ -83,7 +91,7 @@ export function AiSummary({ k, name, codeName, meaning, props, policy, editable 
     meaning,
     use.length ? `\n## 이럴 때 씁니다\n${use.map((u) => `- ${plain(u)}`).join('\n')}` : '',
     avoid.length ? `\n## 이럴 때는 다른 것을 씁니다\n${avoid.map((a) => `- ${plain(a.text)} → ${plain(a.alt)}`).join('\n')}` : '',
-    rules.length ? `\n## 꼭 지킬 기준\n${rules.map((r) => `- ${r.name}: ${plain(r.desc)}`).join('\n')}` : '',
+    rules.length ? `\n## 꼭 지킬 기준\n${rules.map((r) => `- ${r.name}: ${first(plain(r.desc))}`).join('\n')}` : '',
     dos.length ? `\n## 이렇게 합니다\n${dos.map((d) => `- ${plain(d)}`).join('\n')}` : '',
     (extra || []).map((x) => `\n## ${x.label}\n${x.text}`).join(''),
     donts.length ? `\n## 하지 않습니다\n${donts.map((d) => `- ${plain(d)}`).join('\n')}` : '',
@@ -141,7 +149,7 @@ export function AiSummary({ k, name, codeName, meaning, props, policy, editable 
               <ul>
                 {rules.map((r, i) => (
                   <li key={i}>
-                    <b>{r.name}</b> {plain(r.desc)}
+                    <b>{r.name}</b> {first(plain(r.desc))}
                   </li>
                 ))}
               </ul>
@@ -164,12 +172,19 @@ export function AiSummary({ k, name, codeName, meaning, props, policy, editable 
           <>
             <dt>속성</dt>
             <dd className="ai-sum-props">
-              {shown.map((p) => (
+              {/* 고르는 속성(변형)만 선택지와 함께, 켜고 끄는 속성은 이름만 한 줄로 */}
+              {shown.filter((p) => p.options).map((p) => (
                 <span key={p.name}>
                   <code>{p.name}</code>
-                  {p.options ? <span className="muted"> {p.options.join(' | ')}</span> : <span className="muted"> {p.type}</span>}
+                  <span className="muted"> {p.options!.join(' | ')}</span>
                 </span>
               ))}
+              {shown.some((p) => !p.options) ? (
+                <span>
+                  <span className="muted">그 밖에 </span>
+                  {shown.filter((p) => !p.options).map((p) => p.name).join(' · ')}
+                </span>
+              ) : null}
             </dd>
           </>
         ) : null}
