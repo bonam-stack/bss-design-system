@@ -48,7 +48,7 @@ export function sections(role: Role): Section[] {
   const S: Section[] = [
     // 홈(개요 · 업데이트)은 위쪽 메뉴에 두지 않는다: 로고를 누르면 개요, 버전을 누르면 업데이트
     ['home', '홈', [['overview', '개요'], ['updates', '업데이트']]],
-    // 큰 것 → 작은 것 (조립 구조 순서: 화면 구조 → 레이아웃 → 슬롯 → 블록 → 컴포넌트 → 에셋), 규칙 · 절차는 맨 뒤 거버넌스에 모은다.
+    // 규칙 · 절차(거버넌스) → 화면을 짜는 법(UX 가이드라인) → 재료(Foundations → Components → Blocks). 순서는 아래 ORDER
     // 가이드 문서는 다루는 대상 옆에 둔다: 모듈 정의는 Blocks, 컴포넌트 가이드는 컴포넌트 문서 안
     [
       'uxg',
@@ -120,6 +120,9 @@ export function sections(role: Role): Section[] {
     ],
     ['mine', '내 요청', [['my-requests', '내 요청']]],
   ];
+  // 메뉴 순서: 거버넌스 → UX 가이드라인 → Foundations → Components → Blocks → 내 요청 (홈은 로고)
+  const ORDER = ['home', 'gov', 'uxg', 'foundations', 'components', 'blocks', 'mine'];
+  S.sort((x, y) => ORDER.indexOf(x[0]) - ORDER.indexOf(y[0]));
   if (role === 'ux') S.push(['work', 'UX 편집', [['ux-edit', '기준 편집'], ['sb-edit', 'SB library 편집'], ['my', '내 변경'], ['promo', '승격 심사']]]);
   if (role === 'ds') S.push(['work', 'DS 작업', [['requests', '디자인 요청'], ['convert', '소스 변환'], ['my', '내 변경'], ['promo', '승격 심사']]]);
   if (role === 'approver') S.push(['work', '관리자', [['deploy', '운영 서버 배포'], ['recheck', '재검수 대상 SB'], ['roles', '권한 확인'], ['promo', '승격 심사']]]);
