@@ -11,6 +11,8 @@ export const setFigmaToken = (t) => {
 };
 
 export function parseFigmaUrl(url) {
+  // "Implement this design from Figma. @https://…"처럼 다른 글과 함께 붙여 넣어도 주소만 쓴다
+  url = (String(url).match(/https?:\/\/[^\s]*figma\.com\/[^\s]+/) || [String(url)])[0];
   const m = String(url).match(/figma\.com\/(?:design|file)\/([A-Za-z0-9]+)(?:\/branch\/([A-Za-z0-9]+))?[^?]*(?:\?(.*))?/);
   if (!m) throw new Error("피그마 주소 형식이 아닙니다 (figma.com/design/<파일>?node-id=<노드>)");
   const fileKey = m[2] || m[1];
@@ -82,7 +84,15 @@ export function convertNode(fileKey, nodeId, entry) {
 
 async function fetchLive(fileKey, nodeId) {
   const u = `https://api.figma.com/v1/files/${fileKey}/nodes?ids=${encodeURIComponent(nodeId)}`;
-  const r = await fetch(u, { headers: { "X-Figma-Token": TOKEN } });
+  let r;
+  try {
+    r = await fetch(u, { headers: { "X-Figma-Token": TOKEN } });
+  } catch {
+    throw new Error("Figma에 연결하지 못했습니다. 인터넷 연결이나 회사 방화벽(api.figma.com)을 확인해 주세요");
+  }
+  if (r.status === 403) throw new Error("Figma 토큰이 맞지 않거나, 이 토큰의 계정이 이 파일을 볼 권한이 없습니다. 토큰을 다시 넣거나 파일 공유 권한을 확인해 주세요");
+  if (r.status === 404) throw new Error(`Figma 파일 ${fileKey}을 찾지 못했습니다. 주소를 확인해 주세요`);
+  if (r.status === 429) throw new Error("Figma 요청이 많아 잠시 막혔습니다. 조금 뒤에 다시 읽어 주세요");
   if (!r.ok) throw new Error(`Figma API ${r.status}: ${(await r.text()).slice(0, 200)}`);
   const j = await r.json();
   const entry = j.nodes?.[nodeId];
@@ -159,7 +169,7 @@ export async function convertFromUrl(url, { expect, released, hint } = {}) {
     const hit = Object.values(released.components).find((c) => c.figma.nodeId === nodeId);
     if (hit) return { mode: "mock", fileKey, nodeId, result: { kind: "component", ...JSON.parse(JSON.stringify(hit)) } };
     throw new Error(
-      `흉내 모드: 노드 ${nodeId}를 찾지 못했습니다. 운영 기준의 컴포넌트 주소나 poc/fixtures/figma의 예시 주소를 쓰거나, FIGMA_TOKEN을 설정해 주세요`
+      `Figma 토큰이 없어 실제 Figma 파일(${fileKey})을 읽을 수 없습니다. 지금은 흉내 모드라 예시 노드만 읽습니다. 위 "Figma 개인 토큰"에 토큰(figd_…)을 넣고 다시 읽어 주세요`
     );
   }
   const name = hint || `Icon${nodeId.replace(/\D/g, "")}`;

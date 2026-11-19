@@ -6,10 +6,11 @@ import type { Draft, HistoryEntry, Item, Kind, Role } from '../portal/store';
 import { usePortal } from '../portal/ctx';
 import { patterns } from '../data';
 import { docsFor, docsIn, guideRoute, guideSource } from '../guide';
+import { AiSummary } from './AiSummary';
 import { compGroups, docGroup, hostOf } from '../nav';
 import { GuideEmbed } from './GuidePage';
 import { ColorPage, ScalePage, TokensPage, TypographyPage } from './FoundationPages';
-import { BumpTag, Check, CodeLink, UxRef, DraftBox, Drafts, EditBtn, Head, RulesBlock, St, StOf, Table, fmt, human, joinNodes } from '../ui';
+import { BumpTag, Check, CodeLink, UxRef, DraftBox, Drafts, EditBtn, Head, RulesBlock, St, StOf, Table, TextScope, fmt, human, joinNodes } from '../ui';
 import { FoundationsOverview, PendingPage } from './foundations';
 import { Convert, Deploy, My, MyRequests, Recheck, Requests, Roles, SbEdit, SbStatus, UxEdit } from './work';
 
@@ -469,17 +470,36 @@ function ItemPage({ it }: { it: Item }) {
     ] as ([string, ReactNode] | null)[]
   ).filter((x): x is [string, ReactNode] => !!x);
   return (
-    <>
+    <TextScope.Provider value={{ key: it.code, name: it.name }}>
       <Head
         eyebrow={it.kind === 'block' ? `Blocks · ${P.sbDomain(it) ? P.SB_GROUP[P.sbDomain(it)!] : '공통 블록'} · ${P.blockType(it)}` : KIND_LABEL[it.kind]}
         title={it.name}
         lead={it.meaning}
         extra={
+          <>
           <div className="checks">
             <Check on={it.design} label="Figma" />
             <Check on={it.ux} label="UX 가이드" />
             <Check on={it.status === 'pub'} label={P.STATUS[it.status]} />
           </div>
+          {it.kind !== 'layout' ? (
+            <AiSummary
+              k={it.code}
+              name={it.name}
+              codeName={it.code}
+              meaning={it.meaning}
+              props={[]}
+              policy={{
+                title: '',
+                lead: '',
+                when: { use: it.policy?.use || [], avoid: it.policy?.avoid || [] },
+                rules: ru.filter((r) => !r.source).slice(0, 6).map((r) => ({ name: r.kind, desc: r.text, from: r.doc })),
+                do: it.policy?.do || ru.filter((r) => r.source && r.kind === '권장').map((r) => r.text),
+                dont: it.policy?.dont || ru.filter((r) => r.source && r.kind === '금지').map((r) => r.text),
+              }}
+            />
+          ) : null}
+          </>
         }
       />
       <Drafts type="item" target={it.code} />
@@ -547,7 +567,7 @@ function ItemPage({ it }: { it: Item }) {
           <p className="chips">{joinNodes(usedIn.map((b) => <CodeLink key={b} code={b} />), ' · ')}</p>
         </>
       ) : null}
-    </>
+    </TextScope.Provider>
   );
 }
 

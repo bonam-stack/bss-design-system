@@ -474,3 +474,17 @@ table.t, table.data { width: 100%; table-layout: auto; }
 .gx-embed-body h4 { margin: 22px 0 10px; font-size: 17px; }
 .gx-embed-body h5 { margin: 0 0 8px; font-size: 14px; }
 .req-sum { margin-bottom: 8px; } .req-sum .card b { font-size: 22px; }
+ol.flow li > :not(:first-child), ol.flow li > strong + span { grid-column: 2; }
+
+/* 핵심 요약 (AI가 먼저 읽는 부분) */
+.ai-sum { margin: 18px 0 28px; padding: 18px 22px; border: 1px solid var(--border); border-left: 4px solid var(--accent); border-radius: 12px; background: var(--surface-weak, #F8F9FB); }
+.ai-sum-head { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; margin-bottom: 10px; }
+.content .ai-sum-head h2 { margin: 0; font-size: 20px; }
+.ai-sum-tag { padding: 1px 8px; border-radius: 999px; background: var(--accent-soft, #EEEBFC); color: var(--accent); font-size: 12px; font-weight: 600; }
+.ai-sum-head .btn2 { margin-left: auto; }
+.ai-sum-grid { display: grid; grid-template-columns: 110px minmax(0, 1fr); gap: 8px 16px; margin: 0; font-size: 14px; line-height: 1.6; }
+.ai-sum-grid dt { color: var(--fg-muted); font-weight: 600; }
+.ai-sum-grid dd { margin: 0; }
+.ai-sum-grid ul { margin: 0; padding-left: 18px; }
+.ai-sum-props { display: flex; flex-wrap: wrap; gap: 4px 14px; }
+@media (max-width: 720px) { .ai-sum-grid { grid-template-columns: 1fr; } .ai-sum-grid dt { margin-top: 6px; } }
