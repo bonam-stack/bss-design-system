@@ -85,7 +85,7 @@ const ident = (s: string) => {
   return /^[a-zA-Z_]/.test(id) ? id : `p${id}`;
 };
 
-function FigmaTokenRow() {
+export function FigmaTokenRow() {
   const [t, setT] = useState(getFigmaToken());
   const [v, setV] = useState('');
   return t ? (

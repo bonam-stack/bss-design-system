@@ -3,6 +3,7 @@
 // 케이스 2 UX 패턴: 기준 편집 → 규칙 번호 자동 → 저장 · 미리보기 → UX 담당자 확인 → 배포 요청 → 관리자 배포
 // 케이스 3 SB 블록: SB library 편집 → 자동 검사 → 미리보기 → 담당자 확인 → 배포 요청 → 관리자 배포 → 사용 집계 → 승격
 // 케이스 4 아이콘: 내 요청(AI 더미로 기획 계속) → 디자인 요청 → 소스 변환 → 배포 → 더미 교체 · 알림
+import { FigmaTokenRow } from './PortalCompPage';
 import { useState } from 'react';
 import type { FormEvent, ReactNode } from 'react';
 import * as P from '../portal/store';
@@ -369,9 +370,10 @@ export function Convert() {
           <b>컴포넌트 추가</b>
           <span>① Figma 컴포넌트 노드 주소를 읽으면 새 컴포넌트 페이지(배포 전)가 열립니다 → ② 그 페이지에서 React 코드를 만듭니다(AI 또는 기본 틀) → ③ 내 변경에서 미리보기 확인 후 배포 요청. 기존 컴포넌트는 그 문서의 "Figma에서 다시 읽기"를 씁니다</span>
         </div>
+        <FigmaTokenRow />
         <form className="ef" onSubmit={onAdd}>
           <label className="w">
-            Figma 노드 주소
+            Figma 노드 주소 (Figma에서 컴포넌트를 선택하고 "링크 복사")
             <input name="url" required placeholder="https://www.figma.com/design/…?node-id=…" />
           </label>
           <div className="row">
