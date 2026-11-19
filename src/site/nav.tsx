@@ -69,7 +69,7 @@ export function sections(role: Role): Section[] {
       'Blocks',
       [
         ['blocks', '전체'],
-        // 공통 블록 · 기능 블록 · 가이드 외 처리 안은 같은 블록 성격(앱 구조 · 화면 머리 · 조회조건 …)으로 나눈다
+        // 공통 · 기능 · BO 블록 안은 같은 블록 성격(앱 구조 · 화면 머리 · 조회조건 …)으로 나눈다
         ...P.byBlockType(I.filter((i) => i.kind === 'block' && !P.isSb(i))).map((i): NavItem => [i.code, i.name, `공통 블록 › ${P.blockType(i)}`]),
         // 업무 구분은 블록이 아직 없어도 자리를 둔다 (경로가 빈 항목 = 안내 글)
         ...P.SB_DOMAINS.flatMap((dm) => {

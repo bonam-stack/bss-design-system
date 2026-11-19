@@ -191,7 +191,7 @@ export function SbEdit() {
   const promos = P.promotions().filter((p) => /^tb-/.test(p.code));
   return (
     <>
-      <Head eyebrow="UX 편집" title="SB library 편집" lead="업무 블록(기능 블록 · 가이드 외 처리)입니다. SB Studio 미리보기에서 자동 생성된 블록은 SB 설계 완료 시 여기에 게시됩니다. 블록 문서를 열어 설명 · 놓이는 슬롯을 고치고, 자동 검사(속성값 · ID · 규칙 · 토큰)를 통과하면 미리보기가 만들어집니다." />
+      <Head eyebrow="UX 편집" title="SB library 편집" lead="업무 블록(기능 블록 · BO 블록)입니다. SB Studio 미리보기에서 자동 생성된 블록은 SB 설계 완료 시 여기에 게시됩니다. 블록 문서를 열어 설명 · 놓이는 슬롯을 고치고, 자동 검사(속성값 · ID · 규칙 · 토큰)를 통과하면 미리보기가 만들어집니다." />
       <h2 id="blocks">업무 블록</h2>
       <Table
         cols={['업무 블록', '구분', '놓이는 슬롯', '']}

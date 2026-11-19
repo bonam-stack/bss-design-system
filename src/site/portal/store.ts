@@ -37,20 +37,14 @@ export const EDITOR: Record<EditType, Role> = { block: 'ds', comp: 'ds', figma: 
 // 업무 블록: 모양은 DS 담당자가 Figma에서 고쳐 소스 변환, 설명 · 놓이는 슬롯 · 승격은 UX 담당자
 const SHARED: Partial<Record<EditType, Role[]>> = { comp: ['ds', 'ux'], text: ['ds', 'ux'], guide: ['ux', 'ds'], sb: ['ux', 'ds'] };
 export const canEdit = (role: Role, type: EditType) => (SHARED[type] || [EDITOR[type]]).includes(role);
-/** Blocks = 공통 블록 + 업무 블록(기능 블록 · 가이드 외 처리).
- *  기능 블록: 업무 기능별로 구분된 블록. 가이드 외 처리: 가이드(슬롯 허용 목록 · 모듈 정의)로 처리할 수 없어 따로 만든 블록 (SB Studio가 임시로 만든 tb- 블록 포함) */
-export type SbDomain = 'func' | 'except';
-export const SB_DOMAINS: SbDomain[] = ['func', 'except'];
-export const SB_GROUP: Record<SbDomain, string> = { func: '기능 블록', except: '가이드 외 처리' };
-export const SB_GROUP_NOTE: Record<SbDomain, string> = {
-  func: '업무 기능별로 구분된 블록입니다. 공통 블록과 같은 성격으로 나누고, 모양은 DS 담당자가 Figma에서, 설명 · 놓이는 슬롯 · 승격은 UX 담당자가 맡습니다. 여러 업무에서 쓰이면 승격 심사를 거쳐 공통 블록이 됩니다.',
-  except: '가이드(슬롯 허용 목록 · 모듈 정의)로 처리할 수 없어 따로 만든 블록입니다. SB Studio가 임시로 만든 블록도 여기에 놓이고, 쓰려면 관리자 승인이 필요합니다. 반복해서 쓰이면 가이드에 반영하거나 기능 블록 · 공통 블록으로 올립니다.',
-};
-/** 업무 블록 (코드 → 구분). tb- 블록은 따로 정하지 않으면 가이드 외 처리 */
+/** Blocks = 공통 블록 + 업무 블록(기능 블록 · BO 블록). tb- 블록(SB Studio 자동 생성)은 따로 정하지 않으면 기능 블록 */
+export type SbDomain = 'func' | 'bo';
+export const SB_DOMAINS: SbDomain[] = ['func', 'bo'];
+export const SB_GROUP: Record<SbDomain, string> = { func: '기능 블록', bo: 'BO 블록' };
 const SB_DOMAIN: Record<string, SbDomain> = { 'b-gnb': 'func', 'b-lnb': 'func' };
-export const sbDomain = (i: { kind: string; code: string; domain?: SbDomain }): SbDomain | null => (i.kind !== 'block' ? null : SB_DOMAIN[i.code] || (/^tb-/.test(i.code) ? i.domain || 'except' : null));
+export const sbDomain = (i: { kind: string; code: string; domain?: SbDomain }): SbDomain | null => (i.kind !== 'block' ? null : SB_DOMAIN[i.code] || (/^tb-/.test(i.code) ? i.domain || 'func' : null));
 export const isSb = (i: { kind: string; code: string }) => !!sbDomain(i);
-/** 블록 성격 (슬롯 · 모듈 정의 이름 기준). 공통 블록 · 기능 블록 · 가이드 외 처리가 같은 분류를 써서 서로 비교 · 승격 판단을 한다 */
+/** 블록 성격 (슬롯 · 모듈 정의 이름 기준). 공통 · 기능 · BO 블록이 같은 분류를 써서 서로 비교 · 승격 판단을 한다 */
 export const BLOCK_TYPES = ['앱 구조', '화면 머리', '조회조건', '컨텐트', '컨텐트 본문', '컨텐트 유틸리티', '노드'] as const;
 const BLOCK_TYPE: Record<string, (typeof BLOCK_TYPES)[number]> = {
   'b-gnb': '앱 구조', 'b-lnb': '앱 구조', 'b-context-bar': '앱 구조',
