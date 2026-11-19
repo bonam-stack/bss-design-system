@@ -473,3 +473,4 @@ table.t, table.data { width: 100%; table-layout: auto; }
 .gx-embed-body { padding: 4px 22px 16px; border-top: 1px solid var(--border); }
 .gx-embed-body h4 { margin: 22px 0 10px; font-size: 17px; }
 .gx-embed-body h5 { margin: 0 0 8px; font-size: 14px; }
+.req-sum { margin-bottom: 8px; } .req-sum .card b { font-size: 22px; }

@@ -42,7 +42,7 @@ function lsSet(k: string, v: string) {
 }
 
 // 예전 주소(#cmp, #gov 탭 등)도 열리게
-const ALIAS: Record<string, string> = { pub: 'deploy', chg: 'recheck', cmp: 'components', blk: 'blocks', gov: 'rules', 'gov-layouts': 'patterns', 'gov-slots': 'slots', 'gov-lint': 'lint', 'gov-patterns': 'patterns' };
+const ALIAS: Record<string, string> = { 'my-requests': 'request-status', pub: 'deploy', chg: 'recheck', cmp: 'components', blk: 'blocks', gov: 'rules', 'gov-layouts': 'patterns', 'gov-slots': 'slots', 'gov-lint': 'lint', 'gov-patterns': 'patterns' };
 const readRoute = () => location.hash.replace(/^#/, '') || 'overview';
 const codeOf = (key: string) => P.itemByKey(key)?.code || `c-${key}`;
 

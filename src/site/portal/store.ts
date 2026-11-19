@@ -665,7 +665,7 @@ export function draftToken(role: Role, f: { figma: string; collection?: string; 
   return upsertDraft({ type: 'token', target: css, title: `${figma} 토큰 ${cur ? '수정' : '추가'}`, after, isNew: !cur, lines, bump: cur ? 'MAJOR' : 'MINOR' }, role);
 }
 
-// ---------- 요청 (내 요청 · 디자인 요청) ----------
+// ---------- 요청 (요청 현황 · 디자인 요청) ----------
 
 export const requests = () => S.requests;
 
