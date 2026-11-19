@@ -2,7 +2,7 @@
 // AI가 이 페이지에서 가장 먼저 읽고 빠르게 판단하는 부분이다.
 import * as P from '../portal/store';
 import type { Policy } from '../data';
-import { guideSource, docsFor } from '../guide';
+import { guideSource } from '../guide';
 import { human } from '../ui';
 import { makeSummary } from '../summary';
 
@@ -25,7 +25,6 @@ export function AiSummary({ k, name, codeName, meaning, props, policy }: { k: st
     props,
     basis: `포털 v${P.version()} · UX 패턴 가이드 ${guideSource.release}`,
   });
-  const guides = docsFor(item?.code || '').filter((d) => d.place === 'components' || d.place === 'blocks').map((d) => d.title);
   return (
     <section className="ai-sum" id="summary" aria-labelledby="summary-h" data-ai-summary={item?.code || k}>
       <div className="ai-sum-head">
@@ -59,11 +58,6 @@ export function AiSummary({ k, name, codeName, meaning, props, policy }: { k: st
             </dd>
           </>
         ) : null}
-        <dt>기준</dt>
-        <dd className="muted">
-          {s.basis}
-          {guides.length ? ` · 사용 가이드: ${guides.join(' · ')}` : ''}
-        </dd>
       </dl>
     </section>
   );
