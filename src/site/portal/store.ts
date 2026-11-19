@@ -67,6 +67,8 @@ export interface Item {
   group?: string;
   /** SB 블록의 업무 구분 */
   domain?: SbDomain;
+  /** 블록 정책 (scripts/build_block_policy.py가 UX 패턴 가이드 모듈 문서에서 만든 초안) */
+  policy?: { use: string[]; avoid: { text: string; alt: string }[]; do: string[]; dont: string[]; sources: string[] };
 }
 export interface Rule {
   id: string;

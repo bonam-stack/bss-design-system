@@ -104,6 +104,8 @@ POC라 이력은 남기지 않는다. 저장소의 기준 데이터(카탈로그
 
 디자인 토큰은 Figma › 변수에서 컬렉션별로 내보낸 W3C 토큰 JSON을 `tokens/figma/<primitive|semantic|component>.tokens.json`에 두고 `python3 scripts/import_tokens.py`로 `tokens/variables.json`을 만든다. 사이트는 이 토큰을 CSS 변수로 깔고(`src/ds/tokens.ts`), 컴포넌트는 `tok()`로 그 변수를 읽는다.
 
+컴포넌트 · 블록 페이지 맨 위의 **핵심 요약**은 AI(SB Studio 생성 에이전트 · 코드 도우미)가 먼저 읽는 부분이다. 무엇 · 쓸 때 · 대신 쓸 것 · 꼭 지킬 기준 · 이렇게 함 · 하지 않음 · 속성 · 기준 버전을 담고, "요약 복사 (AI용)"으로 마크다운을, 페이지 안 `<script type="application/json" id="ai-summary-<key>">`로 JSON을 준다. 블록 정책은 `python3 scripts/build_block_policy.py`가 UX 패턴 가이드 모듈 문서에서 초안을 만들고(catalog.json 블록의 policy), 포털 ✎ 편집에서 UX · DS 담당자가 고치거나 더한다.
+
 ## BSS 디자인 포털
 
 SB Studio 안의 메뉴로 들어가는 디자인 포털이다. 누구에게나 같은 문서 사이트(시작하기 · Foundations · Components · Blocks · Patterns · UX 거버넌스)가 보이고,

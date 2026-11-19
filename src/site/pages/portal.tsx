@@ -5,11 +5,12 @@ import * as P from '../portal/store';
 import type { Draft, HistoryEntry, Item, Kind, Role } from '../portal/store';
 import { usePortal } from '../portal/ctx';
 import { patterns } from '../data';
-import { docsFor, docsIn, guideRoute, guideSource } from '../guide';
+import { docsFor, docsIn, guideDoc, guideRoute, guideSource } from '../guide';
+import { AiSummary } from './AiSummary';
 import { compGroups, docGroup, hostOf } from '../nav';
 import { GuideEmbed } from './GuidePage';
 import { ColorPage, ScalePage, TokensPage, TypographyPage } from './FoundationPages';
-import { BumpTag, Check, CodeLink, UxRef, DraftBox, Drafts, EditBtn, Head, RulesBlock, St, StOf, Table, fmt, human, joinNodes } from '../ui';
+import { BumpTag, Check, CodeLink, UxRef, DraftBox, Drafts, EditBtn, Head, RulesBlock, St, StOf, Table, TextEditToggle, TextScope, fmt, human, joinNodes } from '../ui';
 import { FoundationsOverview, PendingPage } from './foundations';
 import { Convert, Deploy, My, MyRequests, Recheck, Requests, Roles, SbEdit, SbStatus, UxEdit } from './work';
 
@@ -396,17 +397,43 @@ function ItemPage({ it }: { it: Item }) {
     ] as ([string, ReactNode] | null)[]
   ).filter((x): x is [string, ReactNode] => !!x);
   return (
-    <>
+    <TextScope.Provider value={{ key: it.code, name: it.name }}>
       <Head
         eyebrow={KIND_LABEL[it.kind]}
         title={it.name}
         lead={it.meaning}
         extra={
+          <>
           <div className="checks">
             <Check on={it.design} label="Figma" />
             <Check on={it.ux} label="UX 가이드" />
             <Check on={it.status === 'pub'} label={P.STATUS[it.status]} />
+            {it.kind === 'block' ? <TextEditToggle /> : null}
           </div>
+          {it.kind !== 'layout' ? (
+            <AiSummary
+              k={it.code}
+              name={it.name}
+              codeName={it.code}
+              meaning={it.meaning}
+              props={[]}
+              editable={it.kind === 'block'}
+              extra={[
+                ...(it.slot ? [{ label: '놓이는 슬롯', text: human(it.slot) }] : []),
+                ...(parts.length ? [{ label: '들어가는 컴포넌트', text: [...new Set(parts.map((x) => human(x.comp)))].join(' · ') }] : []),
+                ...(it.policy?.sources.length ? [{ label: '근거 문서', text: it.policy.sources.map((id) => guideDoc(id)?.title || id).join(' · ') }] : []),
+              ]}
+              policy={{
+                title: '',
+                lead: '',
+                when: { use: it.policy?.use || [], avoid: it.policy?.avoid || [] },
+                rules: ru.filter((r) => !r.source).slice(0, 6).map((r) => ({ name: r.kind, desc: r.text, from: r.doc })),
+                do: it.policy?.do || ru.filter((r) => r.source && r.kind === '권장').map((r) => r.text),
+                dont: it.policy?.dont || ru.filter((r) => r.source && r.kind === '금지').map((r) => r.text),
+              }}
+            />
+          ) : null}
+          </>
         }
       />
       <Drafts type="item" target={it.code} />
@@ -474,7 +501,7 @@ function ItemPage({ it }: { it: Item }) {
           <p className="chips">{joinNodes(usedIn.map((b) => <CodeLink key={b} code={b} />), ' · ')}</p>
         </>
       ) : null}
-    </>
+    </TextScope.Provider>
   );
 }
 

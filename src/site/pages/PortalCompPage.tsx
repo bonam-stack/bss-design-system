@@ -11,6 +11,7 @@ import type { LiveComponent } from '../live';
 import { starterCode } from '../compgen';
 import { generateComponent, getApiKey } from '../codechat';
 import { fetchFigmaLayers, getFigmaToken, saveFigmaToken } from '../figma';
+import { AiSummary } from './AiSummary';
 import { DraftBox, Editable, Table, TextEditToggle, TextScope, TocInline } from '../ui';
 import { CompChecks, CompEditor, CompRules, CompUsage, compRules } from './compPortal';
 import { Boundary, CodeBlock, CodeChat } from './ComponentPage';
@@ -236,6 +237,7 @@ export function PortalOnlyPage({ c, draft }: { c: C; draft?: boolean }) {
       )}
       <CompChecks c={c} hasGuide={false} />
       <TocInline />
+      <AiSummary k={c.key} name={r?.name || c.name} codeName={name} meaning={r?.meaning || c.description || ''} props={c.props} />
       {draft ? (
         <>
           <p className="note">
