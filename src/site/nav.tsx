@@ -1,5 +1,5 @@
 // 위쪽 섹션 메뉴 · 왼쪽 목록 · 이전/다음 · 역할 선택 · 에디터 모드 띠.
-// 누구에게나 같은 문서와 "요청 현황"이 보이고, 역할(SB Studio 계정에서 받음)에 따라 작업 메뉴와 문서 안 편집 칸이 켜진다.
+// 누구에게나 같은 문서와 "Workboard"가 보이고, 역할(SB Studio 계정에서 받음)에 따라 작업 메뉴와 문서 안 편집 칸이 켜진다.
 // 작업 메뉴: UX 담당자 = UX 편집, DS 담당자 = DS 작업, 관리자 = 관리자.
 import { useEffect, useRef, useState } from 'react';
 import * as P from './portal/store';
@@ -118,9 +118,9 @@ export function sections(role: Role): Section[] {
         ...guideItems('governance', () => '기준 문서').filter(([r]) => r !== guideRoute('glossary')),
       ],
     ],
-    ['mine', '요청 현황', [['request-status', '요청 현황']]],
+    ['mine', 'Workboard', [['workboard', 'Workboard']]],
   ];
-  // 메뉴 순서: 거버넌스 → UX 가이드라인 → Foundations → Components → Blocks → 요청 현황 (홈은 로고)
+  // 메뉴 순서: 거버넌스 → UX 가이드라인 → Foundations → Components → Blocks → Workboard (홈은 로고)
   const ORDER = ['home', 'gov', 'uxg', 'foundations', 'components', 'blocks', 'mine'];
   S.sort((x, y) => ORDER.indexOf(x[0]) - ORDER.indexOf(y[0]));
   if (role === 'ux') S.push(['work', 'UX 편집', [['ux-edit', '기준 편집'], ['sb-edit', 'SB library 편집'], ['my', '내 변경'], ['promo', '승격 심사']]]);

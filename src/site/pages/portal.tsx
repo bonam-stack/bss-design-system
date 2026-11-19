@@ -35,7 +35,7 @@ export function portalPage(route: string, role: Role): ReactNode | null {
     case 'ui-rules': return <PendingPage eyebrow="거버넌스 · UI 규칙" title="UI 규칙" lead="화면을 그릴 때 지키는 시각 규칙입니다. UX 규칙(화면을 어떻게 짜는가)과 짝을 이루고, Foundations · Components · Blocks는 모두 이 규칙을 따릅니다." todo={['값 대신 디자인 토큰만 쓰기 (색 · 글자 · 여백 · 모서리 · 그림자)', '컴포넌트 변형 · 상태(hover · pressed · disabled · focus)를 정해진 것만 쓰기', '간격 · 정렬 · 밀도 기준', 'Do · Don\'t와 규칙 번호 (UX 규칙과 같은 형식)']} />;
     case 'design-review': return <PendingPage eyebrow="거버넌스 · UI 규칙" title="디자인 검수 기준" lead="UI팀이 컴포넌트 · 블록을 배포하거나 업무 블록을 승격할 때 확인하는 항목입니다. 승격 심사 2단계(UI팀 디자인)의 기준이 됩니다." todo={['토큰 연결 · 하드코딩 값 없음', 'Figma 디자인 라이브러리와 일치 (속성 · 변형 · 이름)', '상태 · 접근성(대비 · 포커스) 확인', '승격 심사 2단계 체크리스트']} />;
     case 'figma-guide': return <PendingPage eyebrow="거버넌스 · UI 규칙" title="Figma 작성 기준" lead="SB 라이브러리는 디자인 DS 라이브러리와 동기화됩니다. 소스 변환이 읽을 수 있도록 Figma에서 지켜야 할 구조입니다." todo={['컴포넌트 · 레이어 · 속성 이름 규칙', 'Figma 변수(토큰) 연결 · 스타일 사용', '업무 블록을 Figma에서 고칠 때의 순서 (DS 담당자)', '라이브러리 배포 · 버전 기록']} />;
-    case 'request-status': return <MyRequests />;
+    case 'workboard': return <MyRequests />;
     case 'ux-edit': return role === 'ux' ? <UxEdit /> : null;
     case 'sb-edit': return role === 'ux' ? <SbEdit /> : null;
     case 'my': return role === 'ux' || role === 'ds' ? <My /> : null;
@@ -67,7 +67,7 @@ function Overview() {
     ['foundations', 'Foundations', '컬러 · 타이포 · 여백 · 아이콘 · 토큰', '모든 부품이 쓰는 디자인 에셋'],
     ['components', 'Components', '묶음별 컴포넌트', '블록 안에 들어가는 최소 부품'],
     ['blocks', 'Blocks', '공통 블록 · 기능 블록 · BO 블록 · 모듈 정의', '슬롯 하나를 채우는 업무 단위 묶음'],
-    ['request-status', '요청 현황', '요청이 어디까지 진행됐나', '단계별 건수 · 요청 목록 · 요청하기'],
+    ['workboard', 'Workboard', '요청이 어디까지 진행됐나', '단계별 건수 · 요청 목록 · 요청하기'],
   ];
   return (
     <>
@@ -861,7 +861,7 @@ function accepts(text: string) {
 /** 거버넌스 › 운영 절차: 누가 무엇을 고치고, 어떻게 심사 · 배포하고, 버전을 어떻게 올리는지 */
 function Process() {
   const steps: [string, string][] = [
-    ['요청', '누구나 요청 현황에서 아이콘 · 컴포넌트 · 블록 · 토큰을 요청합니다. 기획은 AI 더미로 계속 진행합니다.'],
+    ['요청', '누구나 Workboard에서 아이콘 · 컴포넌트 · 블록 · 토큰을 요청합니다. 기획은 AI 더미로 계속 진행합니다.'],
     ['작업 · 초안', 'UX 담당자는 규칙 · 가이드라인 · 업무 블록 설명을, DS 담당자는 토큰 · 컴포넌트 · 블록 모양(Figma)을 고칩니다. 고친 것은 초안이 됩니다.'],
     ['미리보기 확인', '초안은 미리보기 버전(x.y.z-preview.N)으로 확인합니다. 자동 검사(속성값 · ID · 규칙 · 토큰)를 통과해야 합니다.'],
     ['배포 요청', '담당자가 내 변경에서 배포를 요청합니다.'],
@@ -884,7 +884,7 @@ function Process() {
       <Table
         cols={['역할', '맡는 것', '배포']}
         rows={[
-          ['보기', '문서 읽기 · 요청 현황', '-'],
+          ['보기', '문서 읽기 · Workboard', '-'],
           ['UX 담당자', 'UX 가이드라인 · 모듈 정의 · UX 규칙 · 업무 블록 설명 · 놓이는 슬롯 · 승격 1단 심사', '배포 요청'],
           ['DS 담당자', 'UI 규칙 · 토큰 · 컴포넌트 · 블록 모양(Figma) · 소스 변환 · 디자인 요청 · 승격 2단 심사', '배포 요청'],
           ['관리자', '운영 서버 배포 · 롤백 · 재검수 대상 알림 · 권한 확인', '정기 · 수동 배포'],

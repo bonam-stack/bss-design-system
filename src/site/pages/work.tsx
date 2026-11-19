@@ -2,7 +2,7 @@
 // 케이스 1 토큰 · 컴포넌트 · 공통 블록: 디자인 요청 → UI팀 디자인 → 소스 변환 · 미리보기 → DS 담당자 확인 → 배포 요청 → 관리자 배포
 // 케이스 2 UX 패턴: 기준 편집 → 규칙 번호 자동 → 저장 · 미리보기 → UX 담당자 확인 → 배포 요청 → 관리자 배포
 // 케이스 3 업무 블록: SB library 편집 → 자동 검사 → 미리보기 → 담당자 확인 → 배포 요청 → 관리자 배포 → 사용 집계 → 승격
-// 케이스 4 아이콘: 요청 현황에서 요청(AI 더미로 기획 계속) → 디자인 요청 → 소스 변환 → 배포 → 더미 교체 · 알림
+// 케이스 4 아이콘: Workboard에서 요청(AI 더미로 기획 계속) → 디자인 요청 → 소스 변환 → 배포 → 더미 교체 · 알림
 import { useState } from 'react';
 import type { FormEvent, ReactNode } from 'react';
 import * as P from '../portal/store';
@@ -60,7 +60,7 @@ const Steps = ({ r }: { r: Request }) => (
   </>
 );
 
-/** 요청 현황 (모두): 아이콘 · 컴포넌트 · 블록 · 토큰 요청이 어디까지 진행됐는지 단계별로 본다. 요청도 여기서 보낸다 */
+/** Workboard (모두): 아이콘 · 컴포넌트 · 블록 · 토큰 요청이 어디까지 진행됐는지 단계별로 본다. 요청도 여기서 보낸다 */
 export function MyRequests() {
   const { role, act } = usePortal();
   const [mine, setMine] = useState(false);
@@ -74,7 +74,7 @@ export function MyRequests() {
   };
   return (
     <>
-      <Head eyebrow="요청 현황" title="요청 현황" lead="아이콘 · 컴포넌트 · 블록 · 토큰 요청이 어디까지 진행됐는지 봅니다. 완료되면 포털에 반영되고, AI 더미로 그린 화면은 자동으로 바뀝니다." />
+      <Head eyebrow="Workboard" title="Workboard" lead="아이콘 · 컴포넌트 · 블록 · 토큰 요청이 어디까지 진행됐는지 봅니다. 완료되면 포털에 반영되고, AI 더미로 그린 화면은 자동으로 바뀝니다." />
       <div className="cards req-sum">
         {P.REQ_STAGES.map((st) => (
           <div key={st} className="card">
@@ -600,7 +600,7 @@ export function Roles() {
       <Table
         cols={['역할', '작업 메뉴', '하는 일', '배포']}
         rows={[
-          ['보기', '요청 현황', '기준 보기 · 아이콘 · 컴포넌트 · 블록 · 토큰 요청', '-'],
+          ['보기', 'Workboard', '기준 보기 · 아이콘 · 컴포넌트 · 블록 · 토큰 요청', '-'],
           ['UX 담당자', 'UX 편집: 기준 편집 · SB library 편집 · 내 변경 · 승격 심사', 'UX 패턴 · 레이아웃 규칙 · 사용 가이드 · 규칙 · 업무 블록 편집, SB팀 표준 심사', '배포 요청'],
           ['DS 담당자', 'DS 작업: 디자인 요청 · 소스 변환 · 내 변경 · 승격 심사', '토큰 · 컴포넌트 · 공통 블록 소스 변환 · 수정(설명 · 코드), UI팀 디자인 심사', '배포 요청'],
           ['관리자', '관리자: 운영 서버 배포 · 재검수 대상 SB · 권한 확인 · 승격 심사', '정기 · 수동 배포, 롤백, 재검수 대상 확인', '운영 서버 배포'],
