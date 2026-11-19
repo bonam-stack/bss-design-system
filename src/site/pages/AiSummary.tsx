@@ -106,8 +106,8 @@ export function AiSummary({ k, name, codeName, meaning, props, policy, editable 
       <div className="ai-sum-head">
         <h2 id="summary-h">핵심 요약</h2>
         <span className="ai-sum-tag">AI가 먼저 읽는 부분</span>
-        <button type="button" className="btn2 sm" onClick={(e) => copy(md, e.currentTarget)}>
-          요약 복사 (AI용)
+        <button type="button" className="btn2 sm" title="화면 요약에 대신 쓸 것 · 하지 않음 · 속성까지 더한 마크다운" onClick={(e) => copy(md, e.currentTarget)}>
+          AI용 요약 복사
         </button>
       </div>
       <dl className="ai-sum-grid">
@@ -116,7 +116,7 @@ export function AiSummary({ k, name, codeName, meaning, props, policy, editable 
           <b>{name}</b> <code>{codeName}</code> ·{' '}
           {editable ? <Editable path="sum.meaning" label="무엇 (한 줄 정의)" value={meaning} /> : meaning}
         </dd>
-        {(extra || []).map((x) => (
+        {(short ? [] : extra || []).map((x) => (
           <span key={x.label} style={{ display: 'contents' }}>
             <dt>{x.label}</dt>
             <dd>{x.text}</dd>
@@ -128,7 +128,7 @@ export function AiSummary({ k, name, codeName, meaning, props, policy, editable 
             <dd>{list(useL, 'use', '쓸 때')}</dd>
           </>
         ) : null}
-        {avoid.length ? (
+        {!short && avoid.length ? (
           <>
             <dt>대신 쓸 것</dt>
             <dd>
@@ -156,19 +156,19 @@ export function AiSummary({ k, name, codeName, meaning, props, policy, editable 
             </dd>
           </>
         ) : null}
-        {dos.length || (editable && textEdit) ? (
+        {!short ? (
           <>
             <dt>이렇게 함</dt>
             <dd>{list(doL, 'do', '이렇게 함')}</dd>
           </>
         ) : null}
-        {donts.length || (editable && textEdit) ? (
+        {!short ? (
           <>
             <dt>하지 않음</dt>
             <dd>{list(dontL, 'dont', '하지 않음')}</dd>
           </>
         ) : null}
-        {shown.length ? (
+        {!short && shown.length ? (
           <>
             <dt>속성</dt>
             <dd className="ai-sum-props">
