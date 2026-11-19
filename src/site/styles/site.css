@@ -471,3 +471,7 @@ table.data.gd-table td { vertical-align: middle; }
 .gd-gap-note { display: block; margin-top: 4px; font-size: 12px; color: var(--warn-fg); }
 .gd-gap-note::before { content: '⚠ '; }
 .gd-related { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; margin: 14px 0 0; font-size: 13px; color: var(--fg-muted); }
+.usage-ex { margin-bottom: 16px; }
+.tbl-plain { width: 100%; border-collapse: collapse; font-size: 14px; }
+.tbl-plain th, .tbl-plain td { text-align: left; vertical-align: top; padding: 10px 12px; border-top: 1px solid var(--border); }
+.tbl-plain th { width: 180px; font-weight: 600; white-space: nowrap; }

@@ -292,6 +292,7 @@ export function ComponentPage({ sc }: { sc: SiteComponent }) {
             <CompRules k={key} />
           </>
         ) : null}
+        <UsageExamples k={key} />
       </div>
       <CompUsage k={key} />
       <DevDetails c={base} name={sc.name} />
@@ -511,13 +512,44 @@ function PatternLinks({ k }: { k: string }) {
   if (!used.length) return null;
   return (
     <p className="pattern-links">
-      사용 패턴{' '}
+      사용 예시{' '}
       {used.map((p) => (
         <a key={p.key} className="chip" href={`#pattern-${p.key}`}>
           {p.name}
         </a>
       ))}
     </p>
+  );
+}
+
+/** 사용 예시: 이 컴포넌트를 조합해 쓰는 방식 (Figma 패턴 문서의 유형). 여러 컴포넌트가 함께 쓰는 예시라 전체는 패턴 문서에서 본다 */
+function UsageExamples({ k }: { k: string }) {
+  const used = patterns.filter((p) => (p.components || []).includes(k));
+  if (!used.length) return null;
+  return (
+    <>
+      <h2>사용 예시</h2>
+      {used.map((p) => (
+        <div key={p.key} className="usage-ex">
+          <p className="note">
+            {p.name}: {p.overview.split('\n')[0]}{' '}
+            <a href={`#pattern-${p.key}`}>전체 보기 →</a>
+          </p>
+          <table className="tbl-plain">
+            <tbody>
+              {p.types.rows.map((r) => (
+                <tr key={r.name}>
+                  <th>
+                    <a href={`#pattern-${p.key}`}>{r.name}</a>
+                  </th>
+                  <td>{r.desc}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      ))}
+    </>
   );
 }
 

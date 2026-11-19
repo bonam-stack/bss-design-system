@@ -79,7 +79,8 @@ export function sections(role: Role): Section[] {
         ...guideItems('blocks', (g) => `모듈 정의${g ? ` › ${g}` : ''}`),
       ],
     ],
-    ['components', 'Components', [['components', '전체'], ...componentItems(I), ...patterns.map((p): NavItem => [`pattern-${p.key}`, `${p.name} 사용 예시`, '입력'])]],
+    // 사용 예시(Figma 패턴)는 컴포넌트 문서 안에서 보여 주므로 목록에 따로 두지 않는다
+    ['components', 'Components', [['components', '전체'], ...componentItems(I)]],
     [
       'foundations',
       'Foundations',
@@ -190,7 +191,9 @@ const countOf = (g: NavGroup): number => g.items.filter(([r]) => r).length + g.g
 export function SideNav({ route: here }: { route: string }) {
   const { role, isEditor } = usePortal();
   // 컴포넌트 안에 딸린 가이드를 따로 열었으면 그 컴포넌트를 현재 위치로
-  const host = here.startsWith('g-') ? hostOf(here.slice(2)) : null;
+  // 사용 예시(#pattern-…)는 첫 대상 컴포넌트를 현재 위치로
+  const pat = here.startsWith('pattern-') ? patterns.find((p) => `pattern-${p.key}` === here) : null;
+  const host = here.startsWith('g-') ? hostOf(here.slice(2)) : pat ? P.itemByKey((pat.components || [])[0] || '') : null;
   const route = host ? host.code : here;
   const all = sections(role);
   const cur = sectionOf(route, role);
