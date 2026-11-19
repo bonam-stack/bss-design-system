@@ -66,7 +66,7 @@ function Overview() {
     ['ux-guide', 'UX 가이드라인', '화면을 어떻게 짜는가', '원칙 · 화면 구조 · 레이아웃 · 화면 가이드'],
     ['foundations', 'Foundations', '컬러 · 타이포 · 여백 · 아이콘 · 토큰', '모든 부품이 쓰는 디자인 에셋'],
     ['components', 'Components', '묶음별 컴포넌트', '블록 안에 들어가는 최소 부품'],
-    ['blocks', 'Blocks', '공통 블록 · BSS 블록 · BO 블록 · 모듈 정의', '슬롯 하나를 채우는 업무 단위 묶음'],
+    ['blocks', 'Blocks', '공통 블록 · 기능 블록 · 가이드 외 처리 · 모듈 정의', '슬롯 하나를 채우는 업무 단위 묶음'],
     ['my-requests', '내 요청', '아이콘 · 컴포넌트 · 블록 · 토큰 요청', 'DS 담당자에게 요청하고 진행 상태 보기'],
   ];
   return (
@@ -257,7 +257,7 @@ function ItemList({ kind }: { kind: 'comp' | 'block' }) {
       <Head
         eyebrow={isComp ? 'Components' : 'Blocks'}
         title={isComp ? '컴포넌트' : '블록'}
-        lead={isComp ? '블록 안에 들어가는 최소 부품입니다. ✓ 표시는 Figma 디자인 에셋과 사용 가이드가 있는 것입니다.' : '블록은 슬롯 하나를 채우는 업무 단위 묶음입니다. 모든 업무가 함께 쓰는 공통 블록과, 업무 시스템별로 쓰는 BSS 블록 · BO 블록으로 나뉩니다. 모듈은 UX 패턴 가이드의 모듈 정의입니다.'}
+        lead={isComp ? '블록 안에 들어가는 최소 부품입니다. ✓ 표시는 Figma 디자인 에셋과 사용 가이드가 있는 것입니다.' : '블록은 슬롯 하나를 채우는 업무 단위 묶음입니다. 모든 업무가 함께 쓰는 공통 블록, 업무 기능별로 구분된 기능 블록, 가이드로 처리할 수 없어 따로 만든 가이드 외 처리로 나뉩니다. 블록이 무엇이고 어떻게 구성되는지는 모듈 정의에 있습니다.'}
       />
       {isComp && can('figma') ? (
         <p className="row">
@@ -298,7 +298,7 @@ function ItemList({ kind }: { kind: 'comp' | 'block' }) {
   );
 }
 
-/** 블록 성격별 묶음 (공통 · BSS · BO가 같은 분류) */
+/** 블록 성격별 묶음 (공통 블록 · 기능 블록 · 가이드 외 처리가 같은 분류) */
 function TypeGrid({ list }: { list: Item[] }) {
   return (
     <>
@@ -323,7 +323,7 @@ function BlockSections({ list: I }: { list: Item[] }) {
   const promos = P.promotions().filter((p) => /^tb-/.test(p.code));
   return (
     <>
-      <p className="note">공통 · BSS · BO 블록은 같은 성격으로 나눕니다: {P.BLOCK_TYPES.join(' · ')}. 성격은 블록이 놓이는 슬롯과 모듈 정의를 따르므로, 같은 성격끼리 비교해 겹치는 업무 블록을 공통 블록으로 승격합니다.</p>
+      <p className="note">공통 블록 · 기능 블록 · 가이드 외 처리는 같은 성격으로 나눕니다: {P.BLOCK_TYPES.join(' · ')}. 성격은 블록이 놓이는 슬롯과 모듈 정의를 따르므로, 같은 성격끼리 비교해 겹치는 업무 블록을 공통 블록으로 승격합니다.</p>
       <h2 id="common">공통 블록</h2>
       <p className="note">Figma 디자인 시스템 기준으로 포털이 관리하는 블록입니다. DS 담당자가 고치고 관리자가 배포합니다. SB Studio는 이 블록을 먼저 고릅니다.</p>
       <TypeGrid list={I.filter((i) => !P.isSb(i))} />
@@ -331,11 +331,11 @@ function BlockSections({ list: I }: { list: Item[] }) {
         const L = sb.filter((i) => P.sbDomain(i) === dm);
         return (
           <div key={dm}>
-            <h2 id={`blk-${dm.toLowerCase()}`}>
-              {dm} 블록 <span className="count">{L.length}</span>
+            <h2 id={`blk-${dm}`}>
+              {P.SB_GROUP[dm]} <span className="count">{L.length}</span>
             </h2>
-            <p className="note">{dm}에서만 쓰는 블록입니다. 모양은 DS 담당자가 Figma에서 고치고, 설명 · 놓이는 슬롯 · 승격은 UX 담당자가 맡습니다. SB Studio 미리보기에서 자동으로 만들어진 블록도 설계가 완료되면 여기에 게시되고, 여러 업무에서 쓰이면 승격 심사를 거쳐 공통 블록이 됩니다.</p>
-            {L.length ? <TypeGrid list={L} /> : <p className="muted">아직 {dm} 블록이 없습니다.</p>}
+            <p className="note">{P.SB_GROUP_NOTE[dm]}</p>
+            {L.length ? <TypeGrid list={L} /> : null}
           </div>
         );
       })}
@@ -473,7 +473,7 @@ function ItemPage({ it }: { it: Item }) {
   return (
     <>
       <Head
-        eyebrow={it.kind === 'block' ? `Blocks · ${P.sbDomain(it) ? `${P.sbDomain(it)} 블록` : '공통 블록'} · ${P.blockType(it)}` : KIND_LABEL[it.kind]}
+        eyebrow={it.kind === 'block' ? `Blocks · ${P.sbDomain(it) ? P.SB_GROUP[P.sbDomain(it)!] : '공통 블록'} · ${P.blockType(it)}` : KIND_LABEL[it.kind]}
         title={it.name}
         lead={it.meaning}
         extra={
@@ -900,7 +900,7 @@ function Process() {
       />
       <h2 id="promo">승격</h2>
       <p>
-        여러 업무에서 반복해 쓰인 업무 블록(BSS · BO)은 승격 후보가 됩니다. SB팀 표준 심사(UX 담당자) → UI팀 디자인 심사(DS 담당자, <a href="#design-review">디자인 검수 기준</a>) → 관리자 배포를 거쳐 공통 블록이 됩니다.
+        여러 업무에서 반복해 쓰인 업무 블록(기능 블록 · 가이드 외 처리)은 승격 후보가 됩니다. SB팀 표준 심사(UX 담당자) → UI팀 디자인 심사(DS 담당자, <a href="#design-review">디자인 검수 기준</a>) → 관리자 배포를 거쳐 공통 블록이 됩니다.
       </p>
       <h2 id="version">버전 규칙</h2>
       <Table

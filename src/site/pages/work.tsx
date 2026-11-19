@@ -191,16 +191,16 @@ export function SbEdit() {
   const promos = P.promotions().filter((p) => /^tb-/.test(p.code));
   return (
     <>
-      <Head eyebrow="UX 편집" title="SB library 편집" lead="업무 시스템(BSS · BO)별로 쓰는 업무 블록입니다. SB Studio 미리보기에서 자동 생성된 블록은 SB 설계 완료 시 여기에 게시됩니다. 블록 문서를 열어 설명 · 놓이는 슬롯을 고치고, 자동 검사(속성값 · ID · 규칙 · 토큰)를 통과하면 미리보기가 만들어집니다." />
+      <Head eyebrow="UX 편집" title="SB library 편집" lead="업무 블록(기능 블록 · 가이드 외 처리)입니다. SB Studio 미리보기에서 자동 생성된 블록은 SB 설계 완료 시 여기에 게시됩니다. 블록 문서를 열어 설명 · 놓이는 슬롯을 고치고, 자동 검사(속성값 · ID · 규칙 · 토큰)를 통과하면 미리보기가 만들어집니다." />
       <h2 id="blocks">업무 블록</h2>
       <Table
-        cols={['업무 블록', '업무', '놓이는 슬롯', '']}
+        cols={['업무 블록', '구분', '놓이는 슬롯', '']}
         rows={sb.map((i) => (
           <tr key={i.code}>
             <td>
               <a href={`#${i.code}`}>{i.name}</a> {P.openDraft('item', i.code) ? <St c="ai" t="초안" /> : null}
             </td>
-            <td>{P.sbDomain(i)}</td>
+            <td>{P.SB_GROUP[P.sbDomain(i)!]}</td>
             <td>{human(i.slot)}</td>
             <td>
               <a className="lnk" href={`#${i.code}`}>
