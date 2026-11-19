@@ -45,6 +45,31 @@ export const SB_DOMAINS: SbDomain[] = ['BSS', 'BO'];
 const SB_DOMAIN: Record<string, SbDomain> = { 'b-gnb': 'BSS', 'b-lnb': 'BSS' };
 export const sbDomain = (i: { kind: string; code: string; domain?: SbDomain }): SbDomain | null => (i.kind !== 'block' ? null : SB_DOMAIN[i.code] || (/^tb-/.test(i.code) ? i.domain || 'BSS' : null));
 export const isSb = (i: { kind: string; code: string }) => !!sbDomain(i);
+/** 블록 성격 (슬롯 · 모듈 정의 이름 기준). 공통 · BSS · BO 블록이 같은 분류를 써서 서로 비교 · 승격 판단을 한다 */
+export const BLOCK_TYPES = ['앱 구조', '화면 머리', '조회조건', '컨텐트', '컨텐트 본문', '컨텐트 유틸리티', '노드'] as const;
+const BLOCK_TYPE: Record<string, (typeof BLOCK_TYPES)[number]> = {
+  'b-gnb': '앱 구조', 'b-lnb': '앱 구조', 'b-context-bar': '앱 구조',
+  'b-top': '화면 머리', 'b-callout': '화면 머리',
+  'b-search-general': '조회조건',
+  'b-content': '컨텐트', 'b-detail-info': '컨텐트',
+  'b-table-basic': '컨텐트 본문', 'b-table-big': '컨텐트 본문',
+  'b-action': '컨텐트 유틸리티', 'b-statusbar': '컨텐트 유틸리티',
+  'b-node': '노드', 'b-hud': '노드', 'b-actionbar': '노드',
+};
+/** 블록 성격: 정해 둔 것이 없으면 놓이는 슬롯으로 판단 (자동 생성 tb- 블록) */
+export function blockType(i: { code: string; slot?: string }): string {
+  if (BLOCK_TYPE[i.code]) return BLOCK_TYPE[i.code];
+  const s = i.slot || '';
+  if (/^app\./.test(s)) return '앱 구조';
+  if (/column\.body/.test(s)) return '컨텐트 본문';
+  if (/column\.(action|status)/.test(s)) return '컨텐트 유틸리티';
+  if (/search/.test(s)) return '조회조건';
+  if (/l-node/.test(s)) return '노드';
+  if (/title|notice/.test(s)) return '화면 머리';
+  return '컨텐트';
+}
+const typeOrder = (t: string) => (BLOCK_TYPES as readonly string[]).indexOf(t);
+export const byBlockType = <T extends { code: string; slot?: string; name: string }>(L: T[]) => [...L].sort((a, b) => typeOrder(blockType(a)) - typeOrder(blockType(b)));
 /** 이 항목을 고치는 권한 종류 (업무 블록은 UX 담당자) */
 export const editKind = (i: { kind: Kind; code: string }): EditType => (isSb(i) ? 'sb' : i.kind);
 

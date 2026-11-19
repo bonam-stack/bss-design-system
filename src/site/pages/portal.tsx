@@ -298,15 +298,35 @@ function ItemList({ kind }: { kind: 'comp' | 'block' }) {
   );
 }
 
+/** 블록 성격별 묶음 (공통 · BSS · BO가 같은 분류) */
+function TypeGrid({ list }: { list: Item[] }) {
+  return (
+    <>
+      {P.BLOCK_TYPES.map((t) => {
+        const L = list.filter((i) => P.blockType(i) === t);
+        return L.length ? (
+          <div key={t}>
+            <h3>
+              {t} <span className="count">{L.length}</span>
+            </h3>
+            <Grid list={L} />
+          </div>
+        ) : null;
+      })}
+    </>
+  );
+}
+
 /** Blocks: 공통 블록 · 업무 블록(+ 승격 진행) */
 function BlockSections({ list: I }: { list: Item[] }) {
   const sb = I.filter((i) => P.isSb(i));
   const promos = P.promotions().filter((p) => /^tb-/.test(p.code));
   return (
     <>
+      <p className="note">공통 · BSS · BO 블록은 같은 성격으로 나눕니다: {P.BLOCK_TYPES.join(' · ')}. 성격은 블록이 놓이는 슬롯과 모듈 정의를 따르므로, 같은 성격끼리 비교해 겹치는 업무 블록을 공통 블록으로 승격합니다.</p>
       <h2 id="common">공통 블록</h2>
       <p className="note">Figma 디자인 시스템 기준으로 포털이 관리하는 블록입니다. DS 담당자가 고치고 관리자가 배포합니다. SB Studio는 이 블록을 먼저 고릅니다.</p>
-      <Grid list={I.filter((i) => !P.isSb(i))} />
+      <TypeGrid list={I.filter((i) => !P.isSb(i))} />
       {P.SB_DOMAINS.map((dm) => {
         const L = sb.filter((i) => P.sbDomain(i) === dm);
         return (
@@ -315,7 +335,7 @@ function BlockSections({ list: I }: { list: Item[] }) {
               {dm} 블록 <span className="count">{L.length}</span>
             </h2>
             <p className="note">{dm}에서만 쓰는 블록입니다. 모양은 DS 담당자가 Figma에서 고치고, 설명 · 놓이는 슬롯 · 승격은 UX 담당자가 맡습니다. SB Studio 미리보기에서 자동으로 만들어진 블록도 설계가 완료되면 여기에 게시되고, 여러 업무에서 쓰이면 승격 심사를 거쳐 공통 블록이 됩니다.</p>
-            {L.length ? <Grid list={L} /> : <p className="muted">아직 {dm} 블록이 없습니다.</p>}
+            {L.length ? <TypeGrid list={L} /> : <p className="muted">아직 {dm} 블록이 없습니다.</p>}
           </div>
         );
       })}
@@ -453,7 +473,7 @@ function ItemPage({ it }: { it: Item }) {
   return (
     <>
       <Head
-        eyebrow={KIND_LABEL[it.kind]}
+        eyebrow={it.kind === 'block' ? `Blocks · ${P.sbDomain(it) ? `${P.sbDomain(it)} 블록` : '공통 블록'} · ${P.blockType(it)}` : KIND_LABEL[it.kind]}
         title={it.name}
         lead={it.meaning}
         extra={
