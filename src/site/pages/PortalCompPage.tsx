@@ -32,7 +32,7 @@ function download(file: string, text: string) {
 /** 저장소 components/<key>/component.json 모양 (포털이 아는 만큼) */
 const componentJson = (c: C) => JSON.stringify({ key: c.key, name: c.name, description: c.description, figma: c.figma, props: c.props, variants: c.variants }, null, 2) + '\n';
 
-function Preview({ C: Comp, c }: { C: LiveComponent; c: C }) {
+export function Preview({ C: Comp, c }: { C: LiveComponent; c: Pick<PortalComp, "props"> }) {
   const vprops = c.props.filter((p) => p.type === 'variant');
   const bools = c.props.filter((p) => p.type === 'boolean');
   const [sel, setSel] = useState<Record<string, unknown>>(() => Object.fromEntries([...vprops, ...bools].map((p) => [ident(p.name), p.type === 'boolean' ? p.default === true || p.default === 'true' : p.default])));

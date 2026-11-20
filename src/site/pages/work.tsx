@@ -10,13 +10,13 @@ import * as P from '../portal/store';
 import type { Draft, Request } from '../portal/store';
 import { usePortal } from '../portal/ctx';
 import { components, patterns } from '../data';
+import { PreviewButton, draftHref } from './DraftPreview';
 import { BumpTag, ConfirmButton, DraftBox, Head, St, Table, human } from '../ui';
 
 const FIGMA_FILE = '9AioWOXVOVm5C7kdSxSEEP';
 export const TYPE_NAME: Record<P.DraftType, string> = { item: '카탈로그', rule: '규칙', guide: '사용 가이드', figma: 'Figma 변환', code: '코드', text: '설명', token: '토큰' };
 const formValues = (f: HTMLFormElement) => Object.fromEntries(new FormData(f)) as Record<string, string>;
-const whereOf = (d: Draft) =>
-  d.type === 'token' ? '#tokens' : d.type === 'rule' ? '#rules' : d.type === 'guide' || d.type === 'figma' || d.type === 'code' || d.type === 'text' ? `#${P.itemByKey(d.key || d.target)?.code || d.code || d.target}` : `#${d.target}`;
+const whereOf = draftHref;
 const RESULT: Record<string, (d: Draft) => string> = { published: (d) => `배포 ${d.version}`, rejected: () => '반려', discarded: () => '버림', rolled_back: () => '롤백' };
 
 export function DraftState({ d }: { d: Draft }) {
@@ -45,7 +45,9 @@ function DraftRow({ d, acts }: { d: Draft; acts?: ReactNode }) {
       <td className="nw">
         <DraftState d={d} />
       </td>
-      <td className="acts">{acts}</td>
+      <td className="acts">
+        {d.status === 'draft' ? <PreviewButton d={d} /> : null} {acts}
+      </td>
     </tr>
   );
 }
@@ -494,7 +496,8 @@ export function Deploy() {
                 <BumpTag b={d.bump} />
               </td>
               <td className="nw">{P.ROLES[d.by]}</td>
-              <td>
+              <td className="acts">
+                <PreviewButton d={d} />{' '}
                 <button type="button" className="btn2 sm" onClick={() => act(() => P.discard(role, d.id), (x) => `${x.id} 반려`)}>
                   반려
                 </button>
