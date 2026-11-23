@@ -4,7 +4,7 @@ import type { FormEvent, ReactNode } from 'react';
 import * as P from '../portal/store';
 import type { Draft, HistoryEntry, Item, Kind, Role } from '../portal/store';
 import { usePortal } from '../portal/ctx';
-import { patterns } from '../data';
+import { patterns, usage } from '../data';
 import { docsFor, docsIn, guideRoute, guideSource } from '../guide';
 import { AiSummary } from './AiSummary';
 import { SbSpec } from './SbSpec';
@@ -456,6 +456,7 @@ function ItemPage({ it }: { it: Item }) {
   const { ui, can } = usePortal();
   const parts = P.parts().filter((p) => p.block === it.code);
   const usedIn = [...new Set(P.parts().filter((p) => p.comp === it.code).map((p) => p.block))];
+  const uses = usage.items.filter((u) => u.block === it.code);
   const ru = P.rulesFor(it.code);
   const slotsOf = P.slots().filter((s) => s.owner === it.code);
   const editing = ui.edit === `item:${it.code}`;
@@ -491,6 +492,7 @@ function ItemPage({ it }: { it: Item }) {
               codeName={it.code}
               meaning={it.meaning}
               props={[]}
+              actions={(it.lines || []).filter((l) => l.kind === 'rule').map((l) => `${l.cond} → ${l.action}`)}
               policy={{
                 title: '',
                 lead: '',
@@ -528,21 +530,53 @@ function ItemPage({ it }: { it: Item }) {
           ) : null}
           {parts.length ? (
             <>
-              <h3>구성</h3>
+              <h3>구성표</h3>
+              <p className="note">블록 안 자리마다 어떤 컴포넌트를 어떤 속성값으로 쓰는지입니다. SB Studio는 이 값으로 블록을 그립니다.</p>
               <Table
-                cols={['자리', '컴포넌트', '필수']}
+                cols={['자리', '컴포넌트', '속성 · 값', '글 · 쓰는 법', '필수']}
                 rows={parts.map((p, i) => (
                   <tr key={i}>
-                    <td>{p.slot}</td>
+                    <td className="mono">{p.slot}</td>
                     <td>
                       <CodeLink code={p.comp} />
                     </td>
+                    <td>
+                      {p.props && Object.keys(p.props).length ? (
+                        Object.entries(p.props).map(([k, v]) => (
+                          <span key={k} className="kv-chip">
+                            <code>{k}</code> {v}
+                          </span>
+                        ))
+                      ) : (
+                        <span className="muted">기본값</span>
+                      )}
+                    </td>
+                    <td>{p.note || ''}</td>
                     <td>{p.required ? '필수' : '선택'}</td>
                   </tr>
                 ))}
               />
             </>
           ) : null}
+        </>
+      ) : null}
+      {(it.lines || []).length ? (
+        <>
+          <h2 id="lines">동작</h2>
+          <p className="note">블록이 어떻게 동작하는지를 조건 → 동작으로 적습니다. SB Studio는 이 줄로 디스크립션을 쓰고 검수합니다.</p>
+          <Table
+            cols={['종류', '조건 · 자리', '동작', '설명']}
+            rows={it.lines!.map((l, i) => (
+              <tr key={i}>
+                <td className="nowrap">
+                  <span className={`line-kind k-${l.kind}`}>{P.LINE_KIND[l.kind]}</span>
+                </td>
+                <td>{l.cond || (l.slot ? <code>{l.slot}</code> : '')}</td>
+                <td>{l.action ? <b>{l.action}</b> : ''}</td>
+                <td>{l.text}</td>
+              </tr>
+            ))}
+          />
         </>
       ) : null}
       <h2>
@@ -562,11 +596,35 @@ function ItemPage({ it }: { it: Item }) {
           <RulesBlock list={ru} />
         </>
       ) : null}
-      {usedIn.length ? (
+      {usedIn.length || uses.length ? (
         <>
           <h2>Usage</h2>
-          <h3>쓰이는 블록</h3>
-          <p className="chips">{joinNodes(usedIn.map((b) => <CodeLink key={b} code={b} />), ' · ')}</p>
+          {usedIn.length ? (
+            <>
+              <h3>쓰이는 블록</h3>
+              <p className="chips">{joinNodes(usedIn.map((b) => <CodeLink key={b} code={b} />), ' · ')}</p>
+            </>
+          ) : null}
+          {uses.length ? (
+            <>
+              <h3>
+                사용 현황 <span className="count">{new Set(uses.map((u) => u.sb)).size} SB · {uses.length} 화면</span>
+              </h3>
+              <p className="note">SB Studio가 배포된 SB에서 이 블록이 쓰인 화면을 찾아 주는 값입니다 (지금은 예시 · {usage.updatedAt}). 승격 판단의 근거가 됩니다.</p>
+              <Table
+                cols={['SB', '화면', 'UC', '업무', '기반 버전']}
+                rows={uses.map((u, i) => (
+                  <tr key={i}>
+                    <td>{u.sb}</td>
+                    <td className="mono">{u.screen}</td>
+                    <td className="mono">{u.uc}</td>
+                    <td>{P.SB_GROUP[u.domain as P.SbDomain] || u.domain}</td>
+                    <td className="mono">{u.deployed}</td>
+                  </tr>
+                ))}
+              />
+            </>
+          ) : null}
         </>
       ) : null}
     </TextScope.Provider>

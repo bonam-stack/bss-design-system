@@ -1,0 +1,110 @@
+{
+  "$description": "블록 사용 현황. SB Studio가 배포된 설계서(SB)에서 블록이 쓰인 화면을 역조인해 주는 데이터. 지금은 시연용 예시 값이다.",
+  "updatedAt": "2026-11-23",
+  "items": [
+    {
+      "block": "b-search-general",
+      "sb": "부가서비스 가입 관리",
+      "screen": "SVC-02-001",
+      "uc": "UC_1-1",
+      "domain": "func",
+      "deployed": "0.5.0"
+    },
+    {
+      "block": "b-search-general",
+      "sb": "요금 조회",
+      "screen": "BIL-01-003",
+      "uc": "UC_1-2",
+      "domain": "func",
+      "deployed": "0.5.0"
+    },
+    {
+      "block": "b-search-general",
+      "sb": "상품 관리(BO)",
+      "screen": "BO-PRD-010",
+      "uc": "UC_3-1",
+      "domain": "bo",
+      "deployed": "0.4.2"
+    },
+    {
+      "block": "b-table-basic",
+      "sb": "부가서비스 가입 관리",
+      "screen": "SVC-02-001",
+      "uc": "UC_1-1",
+      "domain": "func",
+      "deployed": "0.5.0"
+    },
+    {
+      "block": "b-table-basic",
+      "sb": "요금 조회",
+      "screen": "BIL-01-003",
+      "uc": "UC_1-2",
+      "domain": "func",
+      "deployed": "0.5.0"
+    },
+    {
+      "block": "b-content",
+      "sb": "부가서비스 가입 관리",
+      "screen": "SVC-02-001",
+      "uc": "UC_1-1",
+      "domain": "func",
+      "deployed": "0.5.0"
+    },
+    {
+      "block": "b-action",
+      "sb": "부가서비스 가입 관리",
+      "screen": "SVC-02-001",
+      "uc": "UC_1-1",
+      "domain": "func",
+      "deployed": "0.5.0"
+    },
+    {
+      "block": "b-statusbar",
+      "sb": "요금 조회",
+      "screen": "BIL-01-003",
+      "uc": "UC_1-2",
+      "domain": "func",
+      "deployed": "0.5.0"
+    },
+    {
+      "block": "b-node",
+      "sb": "명의 변경 상담",
+      "screen": "CNS-04-002",
+      "uc": "UC_2-1",
+      "domain": "func",
+      "deployed": "0.5.0"
+    },
+    {
+      "block": "b-hud",
+      "sb": "명의 변경 상담",
+      "screen": "CNS-04-002",
+      "uc": "UC_2-1",
+      "domain": "func",
+      "deployed": "0.5.0"
+    },
+    {
+      "block": "b-actionbar",
+      "sb": "명의 변경 상담",
+      "screen": "CNS-04-002",
+      "uc": "UC_2-1",
+      "domain": "func",
+      "deployed": "0.5.0"
+    },
+    {
+      "block": "tb-compare-card",
+      "sb": "요금제 비교",
+      "screen": "PLN-03-001",
+      "uc": "UC_4-1",
+      "domain": "func",
+      "deployed": "0.5.0"
+    },
+    {
+      "block": "tb-compare-card",
+      "sb": "요금제 변경 상담",
+      "screen": "CNS-05-004",
+      "uc": "UC_2-2",
+      "domain": "func",
+      "deployed": "0.5.0"
+    }
+  ]
+}

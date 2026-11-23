@@ -94,7 +94,13 @@
         "sources": [
           "layout-common"
         ]
-      }
+      },
+      "lines": [
+        {
+          "kind": "desc",
+          "text": "업무 탭 · 고객 탭을 담는 위쪽 메뉴입니다. 높이를 임의로 바꾸지 않습니다."
+        }
+      ]
     },
     {
       "code": "b-lnb",
@@ -118,7 +124,13 @@
         "sources": [
           "layout-common"
         ]
-      }
+      },
+      "lines": [
+        {
+          "kind": "desc",
+          "text": "메뉴 · 홈 · 알림 · 설정으로 들어가는 왼쪽 세로 막대입니다. 업무 기능을 임의로 더하지 않습니다."
+        }
+      ]
     },
     {
       "code": "b-context-bar",
@@ -138,7 +150,13 @@
           "mod-general-overview",
           "layout-common"
         ]
-      }
+      },
+      "lines": [
+        {
+          "kind": "desc",
+          "text": "본문 맨 위에서 현재 위치(브레드크럼)와 편의 기능을 담습니다. 노드형에서는 상담 대상 고객을 한 줄로 요약합니다."
+        }
+      ]
     },
     {
       "code": "b-top",
@@ -162,7 +180,13 @@
           "mod-general-overview",
           "layout-work"
         ]
-      }
+      },
+      "lines": [
+        {
+          "kind": "desc",
+          "text": "화면의 업무 행위를 제목 하나로 표기합니다. 서브 제목을 만들지 않습니다."
+        }
+      ]
     },
     {
       "code": "b-callout",
@@ -185,7 +209,14 @@
         "sources": [
           "mod-general-overview"
         ]
-      }
+      },
+      "lines": [
+        {
+          "kind": "elem",
+          "cond": "[REQ] 화면 기능을 쓸 때 알아야 할 점이 있음",
+          "text": "페이지 타이틀 바로 아래에 표시 · 없으면 생략"
+        }
+      ]
     },
     {
       "code": "b-search-general",
@@ -228,7 +259,41 @@
         "sources": [
           "search-conditions"
         ]
-      }
+      },
+      "lines": [
+        {
+          "kind": "desc",
+          "text": "화면이 다룰 업무 대상을 정합니다. 노출할 데이터를 거르는 칸이 아닙니다."
+        },
+        {
+          "kind": "elem",
+          "cond": "업무세션에 대상이 정해져 있음",
+          "text": "그 값으로 채워 열고 컨텐트를 바로 불러옴"
+        },
+        {
+          "kind": "rule",
+          "cond": "필수 항목이 비어 있음",
+          "action": "조회 버튼 비활성",
+          "text": "어느 항목이 비었는지 안내"
+        },
+        {
+          "kind": "rule",
+          "cond": "조회 클릭",
+          "action": "컨텐트 · 상세정보를 이 조건으로 다시 불러옴",
+          "text": "결과는 아래 컨텐트 전체에 적용"
+        },
+        {
+          "kind": "rule",
+          "cond": "초기화 클릭",
+          "action": "조건을 처음 값으로 되돌림",
+          "text": "컨텐트는 그대로 둠"
+        },
+        {
+          "kind": "slot",
+          "slot": "fields",
+          "text": "필수 항목은 첫 줄에 한 줄로, 추가 항목은 펼치기로 접어 둠"
+        }
+      ]
     },
     {
       "code": "b-detail-info",
@@ -252,7 +317,20 @@
         "sources": [
           "layout-work"
         ]
-      }
+      },
+      "lines": [
+        {
+          "kind": "elem",
+          "cond": "조회 결과가 마스터 성격의 데이터",
+          "text": "요약해 보여 주고 기본은 접어 둠"
+        },
+        {
+          "kind": "rule",
+          "cond": "펼치기 클릭",
+          "action": "전체 항목을 펼침",
+          "text": ""
+        }
+      ]
     },
     {
       "code": "b-content",
@@ -295,7 +373,24 @@
         "sources": [
           "layout-content"
         ]
-      }
+      },
+      "lines": [
+        {
+          "kind": "desc",
+          "text": "조회 결과를 펼쳐 놓고 다루는 작업 영역입니다."
+        },
+        {
+          "kind": "slot",
+          "slot": "column",
+          "text": "유틸리티 → 액션 → 본문 → 상태바 순서 유지"
+        },
+        {
+          "kind": "rule",
+          "cond": "결과가 한 화면을 넘음",
+          "action": "컨텐트 안에서 스크롤",
+          "text": "상태바는 늘 보임"
+        }
+      ]
     },
     {
       "code": "b-action",
@@ -316,7 +411,26 @@
         "sources": [
           "layout-content"
         ]
-      }
+      },
+      "lines": [
+        {
+          "kind": "rule",
+          "cond": "행을 고르지 않음",
+          "action": "선택 행 대상 버튼 비활성",
+          "text": "고른 행 수를 함께 표시"
+        },
+        {
+          "kind": "rule",
+          "cond": "삭제처럼 되돌릴 수 없는 실행",
+          "action": "확인 다이얼로그를 한 단계 둠",
+          "text": "버튼은 danger 색"
+        },
+        {
+          "kind": "slot",
+          "slot": "right",
+          "text": "주요 액션 하나만 primary, 비필수는 버튼 그룹으로 접음"
+        }
+      ]
     },
     {
       "code": "b-table-basic",
@@ -358,7 +472,26 @@
         "sources": [
           "grid-basic-behavior"
         ]
-      }
+      },
+      "lines": [
+        {
+          "kind": "rule",
+          "cond": "열 제목 클릭",
+          "action": "그 열로 정렬 · 다시 누르면 반대 방향",
+          "text": ""
+        },
+        {
+          "kind": "elem",
+          "cond": "결과 0건",
+          "text": "빈 상태 문구를 표 안에 표시"
+        },
+        {
+          "kind": "rule",
+          "cond": "행 클릭",
+          "action": "상세를 사이드 패널 또는 상세 팝업으로 엶",
+          "text": "여는 방식은 화면 패턴을 따름"
+        }
+      ]
     },
     {
       "code": "b-table-big",
@@ -431,7 +564,19 @@
           "layout-content",
           "grid-basic-behavior"
         ]
-      }
+      },
+      "lines": [
+        {
+          "kind": "desc",
+          "text": "전체 건수 · 페이지 이동 · 페이지를 벗어나는 보조 버튼을 모읍니다."
+        },
+        {
+          "kind": "rule",
+          "cond": "페이지 번호 클릭",
+          "action": "그 페이지 결과로 바꿈",
+          "text": "선택한 행은 유지하지 않음"
+        }
+      ]
     },
     {
       "code": "b-hud",
@@ -455,7 +600,13 @@
         "sources": [
           "layout-node"
         ]
-      }
+      },
+      "lines": [
+        {
+          "kind": "desc",
+          "text": "노드형 화면에서 진행 단계와 상태를 한눈에 보여 줍니다."
+        }
+      ]
     },
     {
       "code": "b-node",
@@ -486,7 +637,36 @@
           "node-comp-interaction",
           "node-comp-process"
         ]
-      }
+      },
+      "lines": [
+        {
+          "kind": "desc",
+          "text": "절차형 업무의 한 단계를 묻고 답하는 모듈입니다."
+        },
+        {
+          "kind": "rule",
+          "cond": "단계가 바뀜",
+          "action": "진행 중 노드로 화면 자동 이동 · 가로 중앙 정렬",
+          "text": ""
+        },
+        {
+          "kind": "rule",
+          "cond": "진행 조건을 채우기 전",
+          "action": "주 버튼 비활성",
+          "text": "채우는 순간 활성"
+        },
+        {
+          "kind": "elem",
+          "cond": "처리 중(Loading)",
+          "text": "하단 CTA를 숨김"
+        },
+        {
+          "kind": "rule",
+          "cond": "다음 → 클릭",
+          "action": "다음 노드로 이동",
+          "text": "끝난 노드의 버튼은 비활성으로 남김"
+        }
+      ]
     },
     {
       "code": "b-actionbar",
@@ -510,7 +690,15 @@
         "sources": [
           "layout-node"
         ]
-      }
+      },
+      "lines": [
+        {
+          "kind": "rule",
+          "cond": "필수가 비어 있음",
+          "action": "주 버튼을 흐리게(비활성)",
+          "text": "회색 버튼으로 바꾸지 않음"
+        }
+      ]
     },
     {
       "code": "tb-compare-card",
@@ -993,121 +1181,206 @@
       "block": "b-search-general",
       "slot": "fields",
       "comp": "c-text-field",
-      "required": true
+      "required": true,
+      "props": {
+        "size": "medium",
+        "state": "default"
+      },
+      "note": "항목명 · 예시 형식 플레이스홀더"
     },
     {
       "block": "b-search-general",
       "slot": "fields",
       "comp": "c-select",
-      "required": false
+      "required": false,
+      "props": {
+        "size": "medium"
+      },
+      "note": "기본 문구에 항목 이름 (예: 처리 구분 선택)"
     },
     {
       "block": "b-search-general",
       "slot": "fields",
       "comp": "c-date-field",
-      "required": false
+      "required": false,
+      "props": {
+        "type": "range"
+      },
+      "note": "시작 · 종료 날짜, 기본값 채움"
     },
     {
       "block": "b-search-general",
       "slot": "fields",
       "comp": "c-search-field",
-      "required": false
+      "required": false,
+      "props": {
+        "size": "medium"
+      },
+      "note": "검색 범위를 플레이스홀더로 안내"
     },
     {
       "block": "b-search-general",
       "slot": "actions",
       "comp": "c-button",
-      "required": true
+      "required": true,
+      "props": {
+        "variants": "primary",
+        "size": "medium",
+        "type": "square"
+      },
+      "note": "조회 (주 버튼) · 초기화는 base"
     },
     {
       "block": "b-table-basic",
       "slot": "columns",
       "comp": "c-table-column-header",
-      "required": true
+      "required": true,
+      "props": {
+        "sort": "true"
+      },
+      "note": "열 제목 · 정렬"
     },
     {
       "block": "b-table-basic",
       "slot": "cells",
       "comp": "c-table-text-cell",
-      "required": true
+      "required": true,
+      "props": {
+        "align": "left"
+      },
+      "note": "숫자 · 금액은 오른쪽 정렬"
     },
     {
       "block": "b-table-basic",
       "slot": "status",
       "comp": "c-badge",
-      "required": false
+      "required": false,
+      "props": {
+        "type": "status"
+      },
+      "note": "처리 상태"
     },
     {
       "block": "b-table-big",
       "slot": "columns",
       "comp": "c-table-column-header",
-      "required": true
+      "required": true,
+      "props": {
+        "sort": "true",
+        "fixed": "left"
+      },
+      "note": "첫 열 고정"
     },
     {
       "block": "b-table-big",
       "slot": "cells",
       "comp": "c-table-text-cell",
-      "required": true
+      "required": true,
+      "props": {
+        "align": "left"
+      }
     },
     {
       "block": "b-action",
       "slot": "right",
       "comp": "c-button",
-      "required": true
+      "required": true,
+      "props": {
+        "variants": "primary",
+        "size": "small"
+      },
+      "note": "영역의 주요 액션 하나만 primary · 나머지 secondary"
     },
     {
       "block": "b-action",
       "slot": "left",
       "comp": "c-chip",
-      "required": false
+      "required": false,
+      "props": {
+        "type": "filter"
+      },
+      "note": "패싯 칩 · 누르는 즉시 적용"
     },
     {
       "block": "b-detail-info",
       "slot": "items",
       "comp": "c-table-text-cell",
-      "required": true
+      "required": true,
+      "props": {
+        "align": "left"
+      },
+      "note": "항목명 : 값"
     },
     {
       "block": "b-callout",
       "slot": "message",
       "comp": "c-callout",
-      "required": true
+      "required": true,
+      "props": {
+        "type": "info"
+      },
+      "note": "화면 기능을 쓸 때 알아야 할 점"
     },
     {
       "block": "b-top",
       "slot": "title",
       "comp": "c-page-header",
-      "required": true
+      "required": true,
+      "props": {
+        "size": "large"
+      },
+      "note": "업무 행위와 같은 화면 제목 하나"
     },
     {
       "block": "b-statusbar",
       "slot": "paging",
       "comp": "c-pagination",
-      "required": true
+      "required": true,
+      "props": {
+        "size": "small"
+      },
+      "note": "전체 건수 · 페이지 이동"
     },
     {
       "block": "b-context-bar",
       "slot": "breadcrumb",
       "comp": "c-breadcrumb",
-      "required": true
+      "required": true,
+      "props": {},
+      "note": "현재 위치"
     },
     {
       "block": "b-node",
       "slot": "cta",
       "comp": "c-button",
-      "required": true
+      "required": true,
+      "props": {
+        "variants": "primary",
+        "size": "xlarge"
+      },
+      "note": "노드당 주 동작 하나 · 하나면 전체 너비"
     },
     {
       "block": "b-actionbar",
       "slot": "primary",
       "comp": "c-button",
-      "required": true
+      "required": true,
+      "props": {
+        "variants": "primary",
+        "size": "large"
+      },
+      "note": "다음 →"
     },
     {
       "block": "b-hud",
       "slot": "zoom",
       "comp": "c-button",
-      "required": false
+      "required": false,
+      "props": {
+        "type": "icon",
+        "variants": "base"
+      },
+      "note": "확대 · 축소"
     }
   ],
   "rules": [

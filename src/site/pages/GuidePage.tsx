@@ -169,8 +169,9 @@ export function GuideBody({ d, level = 2 }: { d: GuideDoc; level?: 2 | 3 }) {
 /** 컴포넌트 · 블록 페이지 안의 UX 패턴 가이드: 문서마다 접어 두고 펼치면 본문을 그 자리에서 보여 준다 */
 export function GuideEmbed({ docs }: { docs: string[] }) {
   // 컴포넌트 가이드는 본문을 펼쳐 보이고, 이 컴포넌트를 쓰는 패턴 · 모듈 문서는 링크로
-  const own = docs.filter((id) => guideDoc(id)?.place === 'components');
-  const rel = docs.filter((id) => guideDoc(id) && guideDoc(id)!.place !== 'components');
+  const isOwn = (id: string) => ['components', 'blocks'].includes(guideDoc(id)?.place || '') && guideDoc(id)!.targets[0] !== undefined;
+  const own = docs.filter(isOwn);
+  const rel = docs.filter((id) => guideDoc(id) && !isOwn(id));
   if (!own.length && !rel.length) return null;
   return (
     <>
@@ -180,7 +181,7 @@ export function GuideEmbed({ docs }: { docs: string[] }) {
       ))}
       {rel.length ? (
         <p className="note">
-          이 컴포넌트를 쓰는 가이드{' '}
+          함께 보는 가이드{' '}
           {rel.map((id, i) => (
             <span key={id}>
               {i ? ' · ' : ''}

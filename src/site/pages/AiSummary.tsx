@@ -8,7 +8,7 @@ import { makeSummary } from '../summary';
 
 const txt = (t: string | { text: string }) => (typeof t === 'string' ? t : t.text);
 
-export function AiSummary({ k, name, codeName, meaning, props, policy }: { k: string; name: string; codeName: string; meaning: string; props: { name: string; type: string; default?: unknown; options?: string[] }[]; policy?: Policy }) {
+export function AiSummary({ k, name, codeName, meaning, props, policy, actions }: { actions?: string[]; k: string; name: string; codeName: string; meaning: string; props: { name: string; type: string; default?: unknown; options?: string[] }[]; policy?: Policy }) {
   const item = P.itemByKey(k) || P.item(k);
   const s = makeSummary({
     kind: item?.kind === 'block' ? 'block' : 'comp',
@@ -23,6 +23,7 @@ export function AiSummary({ k, name, codeName, meaning, props, policy }: { k: st
     do: (policy?.do || []).map(txt),
     dont: (policy?.dont || []).map(txt),
     props,
+    actions,
     basis: `포털 v${P.version()} · UX 패턴 가이드 ${guideSource.release}`,
   });
   return (
@@ -41,6 +42,14 @@ export function AiSummary({ k, name, codeName, meaning, props, policy }: { k: st
             <dt>쓸 때</dt>
             <dd>
               <ul>{s.use.map((u, i) => <li key={i}>{human(u)}</li>)}</ul>
+            </dd>
+          </>
+        ) : null}
+        {s.actions.length ? (
+          <>
+            <dt>주요 동작</dt>
+            <dd>
+              <ul>{s.actions.map((a, i) => <li key={i}>{human(a)}</li>)}</ul>
             </dd>
           </>
         ) : null}

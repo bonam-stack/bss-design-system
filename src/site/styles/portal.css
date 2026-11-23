@@ -503,3 +503,8 @@ ol.flow li > :not(:first-child), ol.flow li > strong + span { grid-column: 2; }
 .pv-cmp { display: grid; grid-template-columns: repeat(2, minmax(0, 220px)); gap: 16px; }
 .pv-cmp > div { display: grid; gap: 6px; }
 @media (max-width: 720px) { .pv-overlay { padding: 0; } .pv-win { width: 100vw; height: 100vh; border-radius: 0; } }
+.kv-chip { display: inline-block; margin: 0 6px 4px 0; padding: 1px 8px; border-radius: 6px; background: var(--surface-weak, #F4F5F7); font-size: 13px; white-space: nowrap; }
+.line-kind { display: inline-block; padding: 1px 8px; border-radius: 999px; font-size: 12px; font-weight: 600; background: #EEF1F8; color: #454F59; }
+.line-kind.k-rule { background: #EEEBFC; color: #3617CE; }
+.line-kind.k-elem { background: #FFF7DC; color: #8A5A00; }
+.line-kind.k-slot { background: #DFFEF0; color: #06673B; }

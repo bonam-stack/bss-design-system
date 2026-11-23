@@ -94,6 +94,8 @@ export interface Item {
   domain?: SbDomain;
   /** 블록 정책 (scripts/build_block_policy.py가 UX 패턴 가이드 모듈 문서에서 만든 초안) */
   policy?: { use: string[]; avoid: { text: string; alt: string }[]; do: string[]; dont: string[]; sources: string[] };
+  /** 블록 동작 라인 */
+  lines?: Line[];
 }
 export interface Rule {
   id: string;
@@ -128,6 +130,28 @@ export interface Part {
   slot: string;
   comp: string;
   required: boolean;
+  /** 구성표: 이 자리에서 쓰는 속성값 (변형 · 크기 · 상태) */
+  props?: Record<string, string>;
+  /** 글 · 쓰는 법 */
+  note?: string;
+}
+/** 블록 동작 라인: desc 설명 · rule 동작(조건 → 동작) · elem 노출 조건 · slot 하위 자리 */
+export interface Line {
+  kind: 'desc' | 'rule' | 'elem' | 'slot';
+  cond?: string;
+  action?: string;
+  slot?: string;
+  text: string;
+}
+export const LINE_KIND: Record<Line['kind'], string> = { desc: '설명', rule: '동작', elem: '노출 조건', slot: '슬롯' };
+/** 블록 사용 현황: SB Studio가 배포된 SB에서 역조인해 주는 값 */
+export interface Usage {
+  block: string;
+  sb: string;
+  screen: string;
+  uc: string;
+  domain: string;
+  deployed: string;
 }
 export interface Promotion {
   id: string;

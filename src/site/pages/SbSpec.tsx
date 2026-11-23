@@ -3,7 +3,7 @@
 import type { ReactNode } from 'react';
 import * as P from '../portal/store';
 import { Head, St, Table } from '../ui';
-import { components } from '../data';
+import { components, usage } from '../data';
 import { glossary, guideDocs, guideRules } from '../guide';
 import variables from '../../../tokens/variables.json';
 
@@ -48,7 +48,8 @@ export function SbSpec() {
         rows={[
           ['카탈로그 항목 (컴포넌트 · 블록 · 레이아웃)', 'catalog/catalog.json › items', items.length, '화면 조립 · 이름 · 뜻'],
           ['슬롯', 'catalog/catalog.json › slots', slots.length, '자리마다 넣을 수 있는 것'],
-          ['블록 부품 연결', 'catalog/catalog.json › parts', P.parts().length, '블록 안 컴포넌트'],
+          ['블록 구성표', 'catalog/catalog.json › parts', P.parts().length, '블록 안 자리 · 컴포넌트 · 속성값 · 쓰는 법'],
+          ['블록 동작 라인', 'catalog/catalog.json › items[].lines', items.reduce((n, i) => n + (i.lines || []).length, 0), '조건 → 동작 · 노출 조건 → SB 디스크립션 · 검수'],
           ['포털 규칙', 'catalog/catalog.json › rules', portalRules.length, '배치 · 동작 · 구성 · 판정 · 표기'],
           ['UX 패턴 가이드 권장 · 금지', 'guides/ux-pattern/structure.json › rules', guideRules.length, '판단 근거 · 검수'],
           ['검증 규칙', 'catalog/catalog.json › checks', checks.length, '생성 · 미리보기 · Figma 검사 · 게시 · 독립 검수'],
@@ -58,6 +59,20 @@ export function SbSpec() {
           ['용어사전', 'guides/ux-pattern/glossary.json', glossary.length, '용어 대조'],
           ['핵심 요약', '컴포넌트 · 블록 페이지 맨 위 (src/site/summary.ts가 자동 생성)', items.filter((i) => i.kind !== 'layout').length, '먼저 읽고 빠르게 판단'],
         ].map((r) => (
+          <tr key={String(r[0])}>
+            <td>{r[0]}</td>
+            <td className="mono">{r[1]}</td>
+            <td className="mono">{r[2]}</td>
+            <td>{r[3]}</td>
+          </tr>
+        ))}
+      />
+
+      <h2 id="back">SB Studio가 주는 데이터</h2>
+      <p className="note">반대 방향입니다. SB Studio는 배포된 SB에서 블록이 쓰인 화면을 찾아(역조인) 포털에 돌려줍니다. 포털은 블록 페이지의 사용 현황과 승격 판단에 씁니다.</p>
+      <Table
+        cols={['데이터', '받는 곳', '개수', '쓰는 곳']}
+        rows={[['블록 사용 현황', 'catalog/usage.json (지금은 예시)', usage.items.length, '블록 페이지 사용 현황 · 승격 심사 · 재검수 범위']].map((r) => (
           <tr key={String(r[0])}>
             <td>{r[0]}</td>
             <td className="mono">{r[1]}</td>
@@ -98,12 +113,14 @@ export function SbSpec() {
         rows={[
           ['카탈로그 항목', 'code · kind(comp · block · layout) · name · status(pub 게시 · draft 초안 · tmp 임시) · meaning · slot(놓이는 슬롯) · key(컴포넌트 데이터) · group(컴포넌트 분류) · policy(블록 정책)'],
           ['슬롯', 'path · owner(소속 코드) · mode(고정 · 쌓기 · 자유) · accepts(넣을 수 있는 코드) · name'],
-          ['블록 부품 연결', 'block · slot(블록 안 자리) · comp · required'],
+          ['블록 구성표', 'block · slot(블록 안 자리) · comp · props(속성 → 값) · note(글 · 쓰는 법) · required'],
+          ['블록 동작 라인', 'kind(desc 설명 · rule 동작 · elem 노출 조건 · slot 하위 자리) · cond(조건) · action(동작) · slot · text(설명). 노출 조건의 필수는 [REQ], 조합은 and · or'],
+          ['블록 사용 현황 (Studio → 포털)', 'block · sb · screen(화면 코드) · uc · domain(업무 구분) · deployed(SB 기반 버전)'],
           ['포털 규칙', 'id · doc(근거 문서) · section · kind(배치 · 동작 · 구성 · 판정 · 표기) · text · targets(대상 코드 · 슬롯)'],
           ['가이드 권장 · 금지', 'id · doc · section · kind(권장 · 금지) · text · targets · source'],
           ['검증 규칙', 'id · name · severity(오류 · 경고) · when(판정하는 때) · target · data(판정에 쓰는 데이터) · condition'],
           ['디자인 토큰', 'name(CSS 변수) · figma(변수 경로) · collection(Primitive · Semantic · Component) · type · value · ref(참조 토큰) · description'],
-          ['핵심 요약', 'what(무엇) · use(쓸 때) · rules(꼭 지킬 기준 3개) · instead(대신 쓸 것) · dont(하지 않음) · props(속성) · slot · parts'],
+          ['핵심 요약', 'what(무엇) · use(쓸 때) · actions(주요 동작 2개, 블록) · rules(꼭 지킬 기준 3개) · instead(대신 쓸 것) · dont(하지 않음) · props(속성) · slot · parts'],
         ].map((r) => (
           <tr key={r[0]}>
             <td>{r[0]}</td>

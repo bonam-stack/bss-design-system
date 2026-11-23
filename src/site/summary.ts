@@ -15,6 +15,8 @@ export interface SummaryInput {
   do?: string[];
   dont?: string[];
   props?: { name: string; type: string; default?: unknown; options?: string[] }[];
+  /** 블록 동작 (조건 → 동작) */
+  actions?: string[];
   slot?: string;
   parts?: string[];
   guides?: string[];
@@ -37,6 +39,8 @@ export interface Summary {
   instead: { case: string; use: string }[];
   /** 하지 않음 (최대 2, 기준과 겹치는 문장 제외) */
   dont: string[];
+  /** 주요 동작 (최대 2, 조건 → 동작) */
+  actions: string[];
   /** 고르는 속성(선택지)과 켜고 끄는 속성 */
   props: { name: string; options?: string[] }[];
   slot?: string;
@@ -64,6 +68,7 @@ export function makeSummary(i: SummaryInput): Summary {
     rules,
     instead: (i.avoid || []).slice(0, 2).map((a) => ({ case: plain(a.text), use: plain(a.alt || '') })),
     dont: (i.dont || []).map(plain).filter((t) => !inRules.has(head(t))).slice(0, 2),
+    actions: (i.actions || []).map(plain).slice(0, 2),
     props: (i.props || []).filter((p) => p.type !== 'instance').map((p) => (p.options ? { name: p.name, options: p.options } : { name: p.name })),
     slot: i.slot,
     parts: i.parts,

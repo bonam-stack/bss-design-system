@@ -108,6 +108,8 @@ POC라 이력은 남기지 않는다. 저장소의 기준 데이터(카탈로그
 
 검증 규칙(R-01 ~ R-07)은 `catalog/catalog.json`의 `checks`(id · 이름 · 심각도 · 판정하는 때 · 대상 · 판정 데이터 · 판정 조건)가 원본이다. 거버넌스 › **SB Studio 연동 규격**(`#sb-spec`)은 SB Studio에 주는 데이터의 종류 · 원본 파일 · 코드 체계 · 필드 · 검증 규칙 · 버전 약속을 정리하고, 개수 · 예시는 데이터에서 자동으로 채운다.
 
+블록은 **구성표**(`catalog.json` parts의 `props` · `note`: 자리마다 컴포넌트를 어떤 속성값으로 쓰는지), **동작 라인**(items[].`lines`: 설명 · 동작(조건 → 동작) · 노출 조건 · 슬롯), **사용 현황**(`catalog/usage.json`: SB Studio가 배포된 SB에서 역조인해 주는 값, 지금은 예시)을 가진다. FO 프리셋의 구성표 · 라인 · 파생 컬럼을 차용했다.
+
 ## BSS 디자인 포털
 
 SB Studio 안의 메뉴로 들어가는 디자인 포털이다. 누구에게나 같은 문서 사이트(시작하기 · Foundations · Components · Blocks · Patterns · UX 거버넌스)가 보이고,

@@ -9,6 +9,7 @@ import { pascal, repoComponent } from './live';
 import type { LiveComponent } from './live';
 import type { Catalog } from './portal/store';
 import catalogJson from '../../catalog/catalog.json';
+import usageJson from '../../catalog/usage.json';
 import iconsJson from '../../icons/icons.json';
 import patternIndex from '../../patterns/index.json';
 import guideIndex from '../../components/guides.json';
@@ -157,3 +158,6 @@ export const patterns: Pattern[] = (patternIndex as { patterns: string[] }).patt
   const iconSvg = Object.fromEntries(Object.entries(p.icons || {}).map(([k, f]) => [k, (patternSvgs[`../../patterns/${key}/${f}`] || '').trim()]));
   return { ...p, iconSvg };
 });
+
+/** 블록 사용 현황 (SB Studio가 배포된 SB에서 역조인해 주는 값 · 지금은 예시) */
+export const usage = usageJson as { updatedAt: string; items: import('./portal/store').Usage[] };
