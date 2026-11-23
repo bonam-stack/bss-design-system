@@ -1,7 +1,7 @@
 // 역할별 작업 페이지 (BSS SB Studio 디자인 포맷 정의 및 연계 방식의 흐름).
 // 케이스 1 토큰 · 컴포넌트 · 공통 블록: 디자인 요청 → UI팀 디자인 → 소스 변환 · 미리보기 → DS 담당자 확인 → 배포 요청 → 관리자 배포
 // 케이스 2 UX 패턴: 기준 편집 → 규칙 번호 자동 → 저장 · 미리보기 → UX 담당자 확인 → 배포 요청 → 관리자 배포
-// 케이스 3 업무 블록: SB library 편집 → 자동 검사 → 미리보기 → 담당자 확인 → 배포 요청 → 관리자 배포
+// 케이스 3 블록: AI 부품(SB 파일 안) → 기획 컨펌(스냅샷 · DS 버전 기록) → UI 디자인 → 검수 후 DS 등록 → Designed SB → FE
 // 케이스 4 아이콘: Workboard에서 요청(AI 더미로 기획 계속) → 디자인 요청 → 소스 변환 → 배포 → 더미 교체 · 알림
 import { FigmaTokenRow } from './PortalCompPage';
 import { useState } from 'react';
@@ -191,34 +191,6 @@ export function UxEdit() {
               <a href={`#${P.itemByKey(c.data.key)?.code || `c-${c.data.key}`}`}>{c.data.name}</a> <Open type="guide" t={c.data.key} />
             </td>
             <td className="mono">UX-{c.data.key.toUpperCase()}-NN</td>
-          </tr>
-        ))}
-      />
-    </>
-  );
-}
-
-/** UX 편집 › SB library 편집: 업무 블록 */
-export function SbEdit() {
-  const sb = P.items().filter((i) => P.isSb(i));
-  return (
-    <>
-      <Head eyebrow="UX 편집" title="SB library 편집" lead="업무 블록(블록 · BO 블록)입니다. 블록 모양은 디자이너가 만들고, 여기서는 설명 · 놓이는 슬롯을 고칩니다. AI가 만든 블록은 SB Studio 로컬에 저장되고, 컨펌되면 Workboard의 블록 제작 요청으로 옵니다. 블록 문서를 열어 설명 · 놓이는 슬롯을 고치고, 자동 검사(속성값 · ID · 규칙 · 토큰)를 통과하면 미리보기가 만들어집니다." />
-      <h2 id="blocks">업무 블록</h2>
-      <Table
-        cols={['업무 블록', '구분', '놓이는 슬롯', '']}
-        rows={sb.map((i) => (
-          <tr key={i.code}>
-            <td>
-              <a href={`#${i.code}`}>{i.name}</a> {P.openDraft('item', i.code) ? <St c="ai" t="초안" /> : null}
-            </td>
-            <td>{P.SB_GROUP[P.sbDomain(i)!]}</td>
-            <td>{human(i.slot)}</td>
-            <td>
-              <a className="lnk" href={`#${i.code}`}>
-                편집
-              </a>
-            </td>
           </tr>
         ))}
       />
@@ -517,7 +489,7 @@ export function Recheck() {
   const opts = ['재검수 표시', '새 버전 후보', '무시(토큰만)'];
   return (
     <>
-      <Head eyebrow="관리자" title="재검수 대상 SB" lead="기존 것을 고치거나 지운 변경(MAJOR)과 Figma · UX 패턴 가이드 변경 감지 중 이미 만든 Storyboard에 영향이 있는 것입니다. SB에는 기반 버전이 기록되어 있어 그보다 새 MAJOR 변경이 있으면 재검수 대상이 됩니다." />
+      <Head eyebrow="관리자" title="재검수 대상 SB" lead="기존 것을 고치거나 지운 변경(MAJOR)과 Figma · UX 패턴 가이드 변경 감지 중 이미 만든 Storyboard에 영향이 있는 것입니다. 컨펌된 SB에는 그때의 DS 버전이 기록되어 있어(스냅샷), 그보다 새 MAJOR 변경이 있으면 재검수 대상이 됩니다." />
       <h2 id="list">대상</h2>
       <Table
         cols={['출처', '버전 · 시점', '대상', '변경', '영향', '처리']}
@@ -557,7 +529,7 @@ export function Roles() {
         cols={['역할', '작업 메뉴', '하는 일', '배포']}
         rows={[
           ['보기', 'Workboard', '기준 보기 · 아이콘 · 컴포넌트 · 블록 · 토큰 요청', '-'],
-          ['UX 담당자', 'UX 편집: 기준 편집 · SB library 편집 · 내 변경', 'UX 가이드라인 · 레이아웃 규칙 · 사용 가이드 · 규칙 · 업무 블록 편집', '배포 요청'],
+          ['UX 담당자', 'UX 편집: 기준 편집 · 내 변경', 'UX 가이드라인 · 레이아웃 규칙 · 사용 가이드 · 규칙 · 업무 블록 편집', '배포 요청'],
           ['DS 담당자', 'DS 작업: 디자인 요청 · 소스 변환 · 내 변경', '토큰 · 컴포넌트 · 블록 소스 변환 · 수정(설명 · 코드)', '배포 요청'],
           ['관리자', '관리자: 운영 서버 배포 · 재검수 대상 SB · 권한 확인', '정기 · 수동 배포, 롤백, 재검수 대상 확인', '운영 서버 배포'],
         ].map((r) => (

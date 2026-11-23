@@ -12,7 +12,7 @@ import { GuideEmbed } from './GuidePage';
 import { ColorPage, ScalePage, TokensPage, TypographyPage } from './FoundationPages';
 import { BumpTag, Check, CodeLink, UxRef, DraftBox, Drafts, EditBtn, Head, RulesBlock, St, StOf, Table, TextScope, fmt, human, joinNodes } from '../ui';
 import { FoundationsOverview, PendingPage } from './foundations';
-import { Convert, Deploy, My, MyRequests, Recheck, Requests, Roles, SbEdit, UxEdit } from './work';
+import { Convert, Deploy, My, MyRequests, Recheck, Requests, Roles, UxEdit } from './work';
 
 const KIND_LABEL: Record<Kind, string> = { block: 'Blocks', comp: 'Components', layout: 'UX 가이드라인 · 레이아웃' };
 const formValues = (f: HTMLFormElement) => Object.fromEntries(new FormData(f)) as Record<string, string>;
@@ -33,11 +33,10 @@ export function portalPage(route: string, role: Role): ReactNode | null {
     case 'writing': return <PendingPage title="문구 (보이스 · 표기)" lead="화면 문구의 말투와 표기 규칙을 정합니다." todo={['말투 · 존댓말 기준', '버튼 · 안내 · 오류 문구 패턴', '숫자 · 날짜 · 단위 표기 (UX 규칙의 표기 규칙과 연결)']} />;
     case 'process': return <Process />;
     case 'ui-rules': return <PendingPage eyebrow="거버넌스 · UI 규칙" title="UI 규칙" lead="화면을 그릴 때 지키는 시각 규칙입니다. UX 규칙(화면을 어떻게 짜는가)과 짝을 이루고, Foundations · Components · Blocks는 모두 이 규칙을 따릅니다." todo={['값 대신 디자인 토큰만 쓰기 (색 · 글자 · 여백 · 모서리 · 그림자)', '컴포넌트 변형 · 상태(hover · pressed · disabled · focus)를 정해진 것만 쓰기', '간격 · 정렬 · 밀도 기준', 'Do · Don\'t와 규칙 번호 (UX 규칙과 같은 형식)']} />;
-    case 'design-review': return <PendingPage eyebrow="거버넌스 · UI 규칙" title="디자인 검수 기준" lead="UI팀이 컴포넌트 · 블록을 배포하기 전에 확인하는 항목입니다." todo={['토큰 연결 · 하드코딩 값 없음', 'Figma 디자인 라이브러리와 일치 (속성 · 변형 · 이름)', '상태 · 접근성(대비 · 포커스) 확인', '배포 전 체크리스트']} />;
+    case 'design-review': return <PendingPage eyebrow="거버넌스 · UI 규칙" title="디자인 검수 기준" lead="UI 디자이너가 디자인한 블록 · 컴포넌트를 DS library에 등록하기 전에 확인하는 항목입니다. 같은 부품이 여러 SB에서 다르게 만들어졌으면 등록할 때 하나로 합칩니다." todo={['토큰 연결 · 하드코딩 값 없음', 'Figma 디자인 라이브러리와 일치 (속성 · 변형 · 이름)', '상태 · 접근성(대비 · 포커스) 확인', '배포 전 체크리스트']} />;
     case 'figma-guide': return <PendingPage eyebrow="거버넌스 · UI 규칙" title="Figma 작성 기준" lead="SB 라이브러리는 디자인 DS 라이브러리와 동기화됩니다. 소스 변환이 읽을 수 있도록 Figma에서 지켜야 할 구조입니다." todo={['컴포넌트 · 레이어 · 속성 이름 규칙', 'Figma 변수(토큰) 연결 · 스타일 사용', '업무 블록을 Figma에서 고칠 때의 순서 (DS 담당자)', '라이브러리 배포 · 버전 기록']} />;
     case 'workboard': return <MyRequests />;
     case 'ux-edit': return role === 'ux' ? <UxEdit /> : null;
-    case 'sb-edit': return role === 'ux' ? <SbEdit /> : null;
     case 'my': return role === 'ux' || role === 'ds' ? <My /> : null;
     case 'requests': return role === 'ds' ? <Requests /> : null;
     case 'convert': return role === 'ds' ? <Convert /> : null;
@@ -321,7 +320,7 @@ function BlockSections({ list: I }: { list: Item[] }) {
   const sb = I.filter((i) => P.isSb(i));
   return (
     <>
-      <p className="note">공통 블록 · 블록 · BO 블록은 같은 성격으로 나눕니다: {P.BLOCK_TYPES.join(' · ')}. 성격은 블록이 놓이는 슬롯과 모듈 정의를 따릅니다.</p>
+      <p className="note">공통 블록 · 블록 · BO 블록은 모두 DS library 안의 분류이고, 같은 성격으로 나눕니다: {P.BLOCK_TYPES.join(' · ')}. 성격은 블록이 놓이는 슬롯과 모듈 정의를 따릅니다.</p>
       <h2 id="common">공통 블록</h2>
       <TypeGrid list={I.filter((i) => !P.isSb(i) && !P.isLocalAi(i))} />
       {P.SB_DOMAINS.map((dm) => {
@@ -859,7 +858,7 @@ function accepts(text: string) {
 /** 거버넌스 › 운영 절차: 누가 무엇을 고치고, 어떻게 심사 · 배포하고, 버전을 어떻게 올리는지 */
 function Process() {
   const steps: [string, string][] = [
-    ['요청', '누구나 Workboard에서 아이콘 · 컴포넌트 · 블록 · 토큰을 요청합니다. 기획은 AI 더미로 계속 진행합니다. SB Studio에서 AI가 만든 블록은 로컬에 저장되고, 컨펌되면 블록 제작 요청으로 디자이너에게 갑니다.'],
+    ['요청', '누구나 Workboard에서 아이콘 · 컴포넌트 · 블록 · 토큰을 요청합니다. 기획은 AI 더미로 계속 진행합니다. DS에 없는 부품은 SB Studio에서 AI가 그 Storyboard 파일 안에만 만들고, 기획 컨펌된 SB에 부품 목록으로 담겨 UI 디자이너에게 갑니다. 디자이너는 블록을 디자인해 검수 후 DS library에 등록(새 버전)하고, 최종 SB는 DS 컴포넌트로만 조립합니다.'],
     ['작업 · 초안', 'UX 담당자는 규칙 · 가이드라인 · 업무 블록 설명을, DS 담당자는 토큰 · 컴포넌트 · 블록 모양(Figma)을 고칩니다. 고친 것은 초안이 됩니다.'],
     ['미리보기 확인', '초안은 미리보기 버전(x.y.z-preview.N)으로 확인합니다. 자동 검사(속성값 · ID · 규칙 · 토큰)를 통과해야 합니다.'],
     ['배포 요청', '담당자가 내 변경에서 배포를 요청합니다.'],

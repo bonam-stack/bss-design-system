@@ -88,7 +88,7 @@ export function App() {
     lsSet(ROLE_KEY, r);
     setUi((u) => ({ ...u, edit: null, editRule: null }));
     // 그 역할에 없는 작업 페이지에 있으면 개요로
-    const WORK: Record<string, Role[]> = { 'ux-edit': ['ux'], 'sb-edit': ['ux'], my: ['ux', 'ds'], requests: ['ds'], convert: ['ds'], deploy: ['approver'], recheck: ['approver'], roles: ['approver'] };
+    const WORK: Record<string, Role[]> = { 'ux-edit': ['ux'], my: ['ux', 'ds'], requests: ['ds'], convert: ['ds'], deploy: ['approver'], recheck: ['approver'], roles: ['approver'] };
     const cur = readRoute();
     if (WORK[cur] && !WORK[cur].includes(r)) location.hash = '#overview';
   };
