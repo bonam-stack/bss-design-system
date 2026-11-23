@@ -5,9 +5,11 @@
   "description": "BSS 디자인 시스템: Figma에서 뽑은 component.json으로 만든 React 컴포넌트와 디자인 포털 문서 사이트",
   "scripts": {
     "dev": "vite",
-    "build": "python3 scripts/build_block_policy.py > /dev/null && tsc --noEmit -p . && vite build",
+    "build": "python3 scripts/build_block_policy.py > /dev/null && tsc --noEmit -p . && vite build && npm run build:v2",
     "preview": "vite preview",
-    "typecheck": "tsc --noEmit -p ."
+    "typecheck": "tsc --noEmit -p .",
+    "build:v2": "python3 v2/scripts/build_block_policy.py > /dev/null && tsc --noEmit -p v2 && vite build --config v2/vite.config.ts",
+    "dev:v2": "vite --config v2/vite.config.ts"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "1.4.0",

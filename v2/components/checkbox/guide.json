@@ -1,0 +1,248 @@
+{
+  "$description": "Checkbox 사용 가이드. NextBSS Design Guide의 Components/Checkbox 프레임 글을 옮겼다. 예시(props)는 component.json의 변형을 가리키며 사이트가 실제 컴포넌트로 그린다.",
+  "source": {
+    "fileKey": "MokZZ3EAdqYSHJQXyEroFW",
+    "fileName": "NextBSS Design Guide",
+    "nodeId": "6628:42357",
+    "name": "Components/Checkbox",
+    "url": "https://www.figma.com/design/MokZZ3EAdqYSHJQXyEroFW/?node-id=6628-42357",
+    "extractedAt": "2026-11-05"
+  },
+  "group": "Input & Action",
+  "overview": "Checkbox는 목록에서 선택할 항목이 여러 개 있을 경우에 사용되는 컨트롤 요소입니다.\n입력 폼, 설정, 필터 등의 상황에서 사용됩니다. 각 체크박스에 대해 라벨을 제공하여 사용자가 내용을 명확히 이해하도록 돕습니다.",
+  "policy": {
+    "title": "Policy (사용 정책)",
+    "lead": "정해진 옵션 중에서 여럿을 고릅니다. 모든 옵션을 노출한 상태에서 여럿을 선택하여 조합한 결과를 사용합니다.",
+    "source": {
+      "id": "ui-comp-input",
+      "title": "일반 입력",
+      "release": "20261106"
+    },
+    "sources": [
+      {
+        "id": "ui-comp-input",
+        "title": "일반 입력"
+      }
+    ],
+    "when": {
+      "use": [
+        "정해진 옵션 중에서 여럿을 고르는 경우",
+        "모든 옵션을 노출한 상태에서 선택하여 조합한 결과를 사용하는 경우"
+      ],
+      "avoid": [
+        {
+          "text": "하나만 고르는 경우",
+          "alt": "Radio"
+        },
+        {
+          "text": "옵션이 많거나 노출 공간이 부족한 경우",
+          "alt": "Multi Select"
+        },
+        {
+          "text": "값을 확정하지 않고 보고 있는 목록의 범위를 좁히는 경우",
+          "alt": "패싯 칩 · 다중 선택"
+        },
+        {
+          "text": "기능의 활성 · 비활성 상태를 전환하는 경우",
+          "alt": "Switch · Toggle"
+        }
+      ]
+    },
+    "rules": [
+      {
+        "name": "그룹 상태",
+        "desc": "전체 선택 · 부분 선택(Indeterminate) · 미선택 세 가지를 구분하여 표시합니다.",
+        "from": "일반 입력 · Checkbox"
+      },
+      {
+        "name": "정렬",
+        "desc": "의미 있는 기준 또는 사용 빈도 순으로 정렬합니다.",
+        "from": "일반 입력 · 공통 설계 기준"
+      },
+      {
+        "name": "필수 표기",
+        "desc": "값을 반드시 받아야 하는 항목은 선택 아이콘의 배경을 칠해 표시합니다.",
+        "from": "일반 입력 · 공통 설계 기준",
+        "gap": "컴포넌트에 필수 표기 변형이 아직 없습니다."
+      },
+      {
+        "name": "고를 수 없는 항목",
+        "desc": "조건에 맞지 않아 고를 수 없는 항목은 비활성(Disabled)으로 둡니다.",
+        "from": "일반 입력 · 입력 조건을 정합니다"
+      },
+      {
+        "name": "실행 버튼 잠금",
+        "desc": "필수 항목이 비어 있거나 함께 고를 수 없는 조건을 동시에 골랐을 때 조회 · 저장 버튼을 비활성으로 두고, 어떤 항목이 비었는지 · 어떤 조건이 충돌하는지 알립니다.",
+        "from": "일반 입력 · 실행 버튼을 잠급니다"
+      }
+    ],
+    "do": [
+      "단일 선택과 다중 선택을 구분하여 컴포넌트를 결정합니다."
+    ],
+    "dont": [
+      "옵션이 많은 경우에 전체를 노출하여 화면 길이를 늘리지 않습니다.",
+      "단일 선택이 필요한 위치에 다중 선택 컴포넌트를 사용하지 않습니다."
+    ],
+    "related": [
+      {
+        "name": "폼 유효성 체크 (Form Validation)",
+        "desc": "입력값 검증과 오류 표시",
+        "file": "resp-form-validation"
+      },
+      {
+        "name": "빅 폼 (Big Form)",
+        "desc": "필수 미입력을 알리는 방식",
+        "file": "form-big"
+      }
+    ]
+  },
+  "anatomy": {
+    "title": "Anatomy (구성)",
+    "lead": "Checkbox를 이루는 필수/선택 요소의 구조를 말합니다.",
+    "example": {
+      "selection": "checked",
+      "size": "medium",
+      "state": "default"
+    },
+    "parts": [
+      {
+        "n": 1,
+        "name": "State Indicator",
+        "layer": "checkbox",
+        "desc": "선택/해제, 비활성, 오류 상태를 전달하는 요소입니다."
+      },
+      {
+        "n": 2,
+        "name": "Label",
+        "layer": "label",
+        "desc": "선택 의미를 설명하는 텍스트입니다. 체크박스와 항상 함께 제공합니다."
+      }
+    ]
+  },
+  "states": {
+    "title": "States (상태)",
+    "lead": "사용자 입력과 시스템의 상황에 따라 컴포넌트의 표현 방식을 정리한 기준입니다.",
+    "rows": [
+      {
+        "name": "Default",
+        "props": {
+          "selection": "unchecked",
+          "state": "default"
+        },
+        "desc": "선택되지 않은 기본 상태입니다. 사용자가 클릭하여 선택/해제할 수 있습니다."
+      },
+      {
+        "name": "Selected",
+        "props": {
+          "selection": "checked",
+          "state": "default"
+        },
+        "desc": "항목이 선택된 상태입니다. 사용자가 클릭하여 해제(또는 전환)할 수 있습니다."
+      },
+      {
+        "name": "Indeterminate",
+        "props": {
+          "selection": "indeterminate",
+          "state": "default"
+        },
+        "desc": "하위 항목 중 일부만 선택된 상태입니다. 전체 항목의 선택 상태가 혼합되어 있음을 나타냅니다."
+      },
+      {
+        "name": "Hovered",
+        "props": {
+          "selection": "unchecked",
+          "state": "hover"
+        },
+        "desc": "포인터(마우스)가 올라온 상태입니다. 클릭/전환이 가능하다는 피드백을 제공합니다."
+      },
+      {
+        "name": "Disabled",
+        "props": {
+          "selection": "unchecked",
+          "state": "disabled"
+        },
+        "desc": "사용할 수 없는 상태입니다. 현재 값은 표시되지만 사용자가 선택/해제를 변경할 수 없습니다."
+      },
+      {
+        "name": "Selected Hovered",
+        "props": {
+          "selection": "checked",
+          "state": "hover"
+        },
+        "desc": "선택된 상태에서 포인터가 올라온 상태입니다. 선택 상태를 유지하면서 Hovered 피드백을 함께 보여줍니다."
+      },
+      {
+        "name": "Selected Disabled",
+        "props": {
+          "selection": "checked",
+          "state": "disabled"
+        },
+        "desc": "선택된 상태이지만 비활성화되어 사용할 수 없습니다. 현재 선택 값은 유지되며 사용자가 해제하거나 변경할 수 없습니다."
+      }
+    ],
+    "defaults": {
+      "size": "medium"
+    }
+  },
+  "variants": {
+    "title": "Variants (변형)",
+    "lead": "동일한 컴포넌트의 \"용도/강도/크기/표현 방식\"에 따라 제공되는 파생 타입입니다.",
+    "groups": [
+      {
+        "title": "Hierarchy",
+        "lead": "중요도에 따라 시각적 강도와 우선순위를 구분합니다.",
+        "rows": [
+          {
+            "name": "Large",
+            "props": {
+              "size": "large",
+              "selection": "checked",
+              "state": "default"
+            },
+            "desc": "헤더의 조회 영역 등 강조가 필요한 영역에서 사용합니다. 넓은 레이아웃에서 가독성과 사용 편의성을 높이기 위해 사용됩니다."
+          },
+          {
+            "name": "Small",
+            "props": {
+              "size": "medium",
+              "selection": "checked",
+              "state": "default"
+            },
+            "desc": "일반적인 폼 입력에서 사용하는 기본 크기입니다. 대부분의 입력 상황에 적합합니다."
+          }
+        ]
+      }
+    ]
+  },
+  "spec": {
+    "title": "Spec (규격)",
+    "lead": "사용 맥락(정보 밀도, 타깃)에 맞춰 크기 스펙을 표준화합니다.",
+    "items": [
+      {
+        "name": "Large",
+        "props": {
+          "size": "large",
+          "selection": "checked",
+          "state": "default"
+        },
+        "box": 20,
+        "gap": 6,
+        "radius": 4
+      },
+      {
+        "name": "Small",
+        "props": {
+          "size": "medium",
+          "selection": "checked",
+          "state": "default"
+        },
+        "box": 16,
+        "gap": 6,
+        "radius": 4
+      }
+    ]
+  },
+  "notes": [
+    "가이드의 Small은 컴포넌트 속성 size=medium에 해당합니다."
+  ]
+}

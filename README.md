@@ -2,6 +2,14 @@
 
 Figma 기준 파일: `9AioWOXVOVm5C7kdSxSEEP` ((공유용) BSS_DS_Library_Component v2.0, 2026-11-13부터. 이전: `WcoI745J38TaON7iCKcutW` Components Library v0.5)
 
+## 버전 2 (v2/)
+
+`v2/` 폴더가 포털 2세대다. 소스(`v2/src`)와 데이터(`v2/catalog` · `components` · `guides` · `tokens` · `icons` · `patterns`)를 v1(저장소 루트)에서 복사해 따로 고친다. v1은 더 고치지 않는다.
+
+- 주소: `<사이트>/v2/` (빌드 결과 `dist/v2`) · 로컬: `npm run dev:v2`, 빌드: `npm run build`가 v1 · v2를 함께 만든다
+- v2는 **거버넌스 메뉴가 없다**(운영 절차 · 규칙 · 검증 규칙 · SB Studio 연동 규격 · 슬롯 · 용어사전 · UI 규칙 · 작성 기준). 그 주소는 홈으로 보내고, 데이터(`catalog.json`의 rules · checks · slots 등)는 그대로 둔다
+- 브라우저 저장 공간(역할 · 초안 · 게시)은 v1과 나눠 쓴다(`bss-ds-v2.*`)
+
 ## 문서 사이트 (React)
 
 Vite + React 18 + TypeScript. 컴포넌트는 손으로 짠 React 코드(`src/ds/components/*.tsx`)이고, Figma에서 뽑은 `component.json`은 기준(원본)으로 둔다.

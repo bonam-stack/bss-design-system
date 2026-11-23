@@ -1,0 +1,4 @@
+/* Figma 원본 그리기에서 인라인으로 못 쓰는 것 (입력 중 커서 깜빡임) */
+@keyframes ds-caret-blink {
+  50% { opacity: 0; }
+}

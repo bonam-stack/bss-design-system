@@ -1,0 +1,394 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>BSS Icon Resource</title>
+<!-- Template for scripts/build_icons.py. Edit this file, not index.html. -->
+<style>
+  :root {
+    --bg: #ffffff;
+    --bg-subtle: #f6f7fa;
+    --tile: #ffffff;
+    --tile-hover: #f3f2ff;
+    --border: #e5e8ee;
+    --fg: #1c1f23;
+    --fg-muted: #626a75;
+    --accent: #3617ce;
+    --accent-soft: #eeeeff;
+    --on-accent: #ffffff;
+    --dark-tile: #1c1f23;
+    --focus: #3617ce;
+    --toast-bg: #1c1f23;
+    --toast-fg: #ffffff;
+    --scrim: rgba(17, 19, 23, 0.45);
+    --font: 'Pretendard', 'Pretendard Variable', system-ui, -apple-system, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
+    --mono: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+    color-scheme: light;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme='light']) {
+      --bg: #111318;
+      --bg-subtle: #181b21;
+      --tile: #181b21;
+      --tile-hover: #22213f;
+      --border: #2a2f38;
+      --fg: #e8ecef;
+      --fg-muted: #9aa2ad;
+      --accent: #a5a3ff;
+      --accent-soft: #24234a;
+      --on-accent: #111318;
+      --dark-tile: #0a0b0e;
+      --focus: #a5a3ff;
+      --toast-bg: #e8ecef;
+      --toast-fg: #111318;
+      --scrim: rgba(0, 0, 0, 0.6);
+      color-scheme: dark;
+    }
+  }
+  :root[data-theme='dark'] {
+    --bg: #111318;
+    --bg-subtle: #181b21;
+    --tile: #181b21;
+    --tile-hover: #22213f;
+    --border: #2a2f38;
+    --fg: #e8ecef;
+    --fg-muted: #9aa2ad;
+    --accent: #a5a3ff;
+    --accent-soft: #24234a;
+    --on-accent: #111318;
+    --dark-tile: #0a0b0e;
+    --focus: #a5a3ff;
+    --toast-bg: #e8ecef;
+    --toast-fg: #111318;
+    --scrim: rgba(0, 0, 0, 0.6);
+    color-scheme: dark;
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--fg);
+    font: 15px/1.6 var(--font);
+    -webkit-font-smoothing: antialiased;
+  }
+  button, input { font: inherit; color: inherit; }
+  :focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+  .wrap { max-width: 1120px; margin: 0 auto; padding: 0 16px; }
+
+  /* ---------- header ---------- */
+  header.page { padding-top: 48px; padding-bottom: 24px; }
+  .eyebrow { margin: 0 0 8px; font-size: 13px; font-weight: 600; color: var(--accent); }
+  h1 { margin: 0 0 8px; font-size: 32px; line-height: 1.25; letter-spacing: -0.02em; }
+  .lead { margin: 0 0 16px; max-width: 640px; color: var(--fg-muted); }
+  .meta { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+  .chip {
+    display: inline-flex; align-items: center; gap: 4px;
+    padding: 2px 10px; border: 1px solid var(--border); border-radius: 999px;
+    font-size: 13px; color: var(--fg-muted); text-decoration: none; background: var(--bg);
+  }
+  a.chip:hover { color: var(--accent); border-color: var(--accent); }
+
+  /* ---------- toolbar ---------- */
+  .toolbar {
+    position: sticky; top: 0; z-index: 5;
+    background: color-mix(in srgb, var(--bg) 92%, transparent);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--border);
+  }
+  .toolbar .wrap { display: flex; flex-wrap: wrap; gap: 8px 16px; align-items: center; padding-top: 12px; padding-bottom: 12px; }
+  .search {
+    flex: 1 1 240px; min-width: 0; height: 36px; padding: 0 12px;
+    border: 1px solid var(--border); border-radius: 8px; background: var(--bg);
+  }
+  .search::placeholder { color: var(--fg-muted); }
+  .seg { display: inline-flex; padding: 2px; border: 1px solid var(--border); border-radius: 8px; background: var(--bg-subtle); }
+  .seg button {
+    height: 30px; padding: 0 10px; border: 0; border-radius: 6px; background: transparent;
+    font-size: 13px; color: var(--fg-muted); cursor: pointer; white-space: nowrap;
+  }
+  .seg button[aria-pressed='true'] { background: var(--bg); color: var(--fg); font-weight: 600; box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08); }
+  .seg .n { margin-left: 4px; font-variant-numeric: tabular-nums; opacity: 0.7; }
+  .seg-label { font-size: 13px; color: var(--fg-muted); margin-right: 4px; }
+  .ctl { display: inline-flex; align-items: center; }
+
+  /* ---------- sections ---------- */
+  main { padding-bottom: 80px; }
+  section.style { padding-top: 40px; }
+  section.style > h2 { margin: 0 0 4px; font-size: 22px; letter-spacing: -0.01em; }
+  section.style > h2 .n, h3 .n { font-weight: 400; color: var(--fg-muted); font-size: 0.8em; margin-left: 6px; }
+  section.style > p { margin: 0 0 8px; color: var(--fg-muted); font-size: 14px; }
+  h3 { margin: 24px 0 10px; font-size: 14px; font-weight: 600; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(112px, 1fr)); gap: 8px; }
+  .tile {
+    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px;
+    min-height: 104px; padding: 16px 8px 12px;
+    border: 1px solid var(--border); border-radius: 10px; background: var(--tile);
+    cursor: pointer; text-align: center;
+  }
+  .tile:hover { background: var(--tile-hover); border-color: var(--accent); }
+  .tile .glyph { display: grid; place-items: center; width: 40px; height: 40px; color: var(--fg); }
+  .tile.on-dark .glyph { background: var(--dark-tile); border-radius: 8px; }
+  .glyph svg { width: var(--icon-size, 24px); height: var(--icon-size, 24px); display: block; }
+  .tile .name { font-size: 12px; line-height: 1.3; color: var(--fg-muted); word-break: break-word; }
+  .empty { padding: 48px 0; text-align: center; color: var(--fg-muted); }
+
+  /* ---------- detail ---------- */
+  dialog {
+    width: min(520px, calc(100vw - 32px)); max-height: calc(100vh - 32px);
+    padding: 0; border: 1px solid var(--border); border-radius: 14px;
+    background: var(--bg); color: var(--fg);
+  }
+  dialog::backdrop { background: var(--scrim); }
+  .d-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 16px 20px; border-bottom: 1px solid var(--border); }
+  .d-head h2 { margin: 0; font-size: 18px; }
+  .d-head .sub { font-size: 13px; color: var(--fg-muted); }
+  .icon-btn { width: 32px; height: 32px; border: 0; border-radius: 8px; background: transparent; cursor: pointer; font-size: 18px; line-height: 1; color: var(--fg-muted); }
+  .icon-btn:hover { background: var(--bg-subtle); color: var(--fg); }
+  .d-body { padding: 20px; }
+  .sizes { display: flex; align-items: flex-end; gap: 20px; padding: 20px; border-radius: 10px; background: var(--bg-subtle); color: var(--fg); overflow-x: auto; }
+  .sizes.on-dark { background: var(--dark-tile); }
+  .sizes figure { margin: 0; display: grid; justify-items: center; gap: 8px; }
+  .sizes figcaption { font-size: 11px; color: var(--fg-muted); font-variant-numeric: tabular-nums; }
+  .sizes svg { display: block; }
+  .desc { margin: 16px 0 0; font-size: 14px; color: var(--fg-muted); }
+  dl.info { display: grid; grid-template-columns: max-content 1fr; gap: 8px 16px; margin: 16px 0 0; font-size: 13px; }
+  dl.info dt { color: var(--fg-muted); }
+  dl.info dd { margin: 0; min-width: 0; font-family: var(--mono); font-size: 12px; overflow-wrap: anywhere; }
+  dl.info a { color: var(--accent); }
+  .copy-inline { padding: 0; border: 0; background: none; cursor: pointer; text-align: left; font: inherit; color: inherit; text-decoration: underline dotted; text-underline-offset: 3px; }
+  .copy-inline:hover { color: var(--accent); }
+  .d-actions { display: flex; flex-wrap: wrap; gap: 8px; padding: 16px 20px; border-top: 1px solid var(--border); }
+  .btn { height: 36px; padding: 0 14px; border: 1px solid var(--border); border-radius: 8px; background: var(--bg); cursor: pointer; font-size: 14px; }
+  .btn:hover { border-color: var(--accent); color: var(--accent); }
+  .btn.primary { background: var(--accent); border-color: var(--accent); color: var(--on-accent); }
+  .btn.primary:hover { color: var(--on-accent); filter: brightness(1.08); }
+
+  .toast {
+    position: fixed; left: 50%; bottom: 24px; z-index: 20; transform: translate(-50%, 16px);
+    padding: 10px 16px; border-radius: 8px; background: var(--toast-bg); color: var(--toast-fg);
+    font-size: 14px; opacity: 0; pointer-events: none; transition: opacity 0.15s, transform 0.15s;
+  }
+  .toast.show { opacity: 1; transform: translate(-50%, 0); }
+
+  @media (max-width: 640px) {
+    header.page { padding-top: 32px; }
+    h1 { font-size: 26px; }
+    .grid { grid-template-columns: repeat(auto-fill, minmax(96px, 1fr)); }
+  }
+  @media (prefers-reduced-motion: reduce) { .toast { transition: none; } }
+</style>
+</head>
+<body>
+<header class="page wrap">
+  <p class="eyebrow">Foundations · Icon Resource</p>
+  <h1>아이콘</h1>
+  <p class="lead" id="lead"></p>
+  <div class="meta" id="meta"></div>
+</header>
+
+<div class="toolbar">
+  <div class="wrap">
+    <input type="search" class="search" id="q" placeholder="이름·그룹 검색 (예: arrow, 상태, Status)" aria-label="아이콘 검색" />
+    <div class="seg" id="styleSeg" role="group" aria-label="스타일"></div>
+    <div class="ctl"><span class="seg-label" id="sizeLabel">크기</span><div class="seg" id="sizeSeg" role="group" aria-labelledby="sizeLabel"></div></div>
+  </div>
+</div>
+
+<main class="wrap" id="list"></main>
+
+<dialog id="detail" aria-labelledby="dName">
+  <div class="d-head">
+    <div><h2 id="dName"></h2><div class="sub" id="dSub"></div></div>
+    <button class="icon-btn" id="dClose" aria-label="닫기">✕</button>
+  </div>
+  <div class="d-body">
+    <div class="sizes" id="dSizes"></div>
+    <p class="desc" id="dDesc" hidden></p>
+    <dl class="info" id="dInfo"></dl>
+  </div>
+  <div class="d-actions">
+    <button class="btn primary" id="dCopySvg">SVG 복사</button>
+    <button class="btn" id="dDownload">SVG 내려받기</button>
+    <button class="btn" id="dCopyName">이름 복사</button>
+  </div>
+</dialog>
+
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+const DATA = /*__ICONS__*/;
+const SIZES = [16, 20, 24, 32];
+const STYLE_LABEL = { line: 'Line', filled: 'Filled', colored: 'Colored' };
+const figmaUrl = (node) => `https://www.figma.com/design/${DATA.figma.fileKey}/?node-id=${node.replace(':', '-')}`;
+const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]);
+const $ = (id) => document.getElementById(id);
+
+// Per-viewer conveniences only; the page works the same when storage is unavailable.
+const store = {
+  get(k, d) { try { return localStorage.getItem(k) ?? d; } catch { return d; } },
+  set(k, v) { try { localStorage.setItem(k, v); } catch {} },
+};
+const state = {
+  q: '',
+  style: store.get('icons.style', 'all'),
+  size: Number(store.get('icons.size', 24)),
+};
+if (!['all', ...Object.keys(STYLE_LABEL)].includes(state.style)) state.style = 'all';
+if (!SIZES.includes(state.size)) state.size = 24;
+
+// Resize the 16px source by swapping width/height; viewBox keeps it crisp.
+const sized = (svg, px) => svg.replace(/width="\d+" height="\d+"/, `width="${px}" height="${px}"`);
+
+// ---------- header ----------
+$('lead').textContent = 'Figma ❖ Icon Resource의 마스터 컴포넌트입니다. Line·Filled는 currentColor라 글자색을 따라가고, Colored는 원본 색을 그대로 씁니다. 아이콘을 누르면 SVG를 복사하거나 내려받을 수 있습니다.';
+$('meta').innerHTML = `
+  <span class="chip">마스터 ${DATA.icons.length}개</span>
+  <span class="chip">기준 ${DATA.size} × ${DATA.size}</span>
+  <a class="chip" href="${figmaUrl(DATA.figma.nodeId)}" target="_blank" rel="noopener">Figma에서 보기 ↗</a>`;
+
+// ---------- toolbar ----------
+function renderControls() {
+  const counts = { all: DATA.icons.length };
+  DATA.icons.forEach((i) => (counts[i.style] = (counts[i.style] || 0) + 1));
+  $('styleSeg').innerHTML = [['all', '전체'], ...Object.entries(STYLE_LABEL)].map(([k, label]) =>
+    `<button data-style="${k}" aria-pressed="${state.style === k}">${label}<span class="n">${counts[k]}</span></button>`).join('');
+  $('sizeSeg').innerHTML = SIZES.map((s) =>
+    `<button data-size="${s}" aria-pressed="${state.size === s}">${s}</button>`).join('');
+  document.documentElement.style.setProperty('--icon-size', `${state.size}px`);
+}
+
+$('styleSeg').addEventListener('click', (e) => {
+  const b = e.target.closest('[data-style]');
+  if (!b) return;
+  state.style = b.dataset.style;
+  store.set('icons.style', state.style);
+  renderControls();
+  renderList();
+});
+$('sizeSeg').addEventListener('click', (e) => {
+  const b = e.target.closest('[data-size]');
+  if (!b) return;
+  state.size = Number(b.dataset.size);
+  store.set('icons.size', state.size);
+  renderControls();
+});
+$('q').addEventListener('input', (e) => {
+  state.q = e.target.value.trim().toLowerCase();
+  renderList();
+});
+
+// ---------- list ----------
+function matches(i) {
+  if (state.style !== 'all' && i.style !== state.style) return false;
+  if (!state.q) return true;
+  return `${i.name} ${i.group} ${i.style} ${i.figmaName} ${i.file} ${i.description || ''}`.toLowerCase().includes(state.q);
+}
+
+function renderList() {
+  const html = DATA.sections.map((sec) => {
+    const inSec = DATA.icons.filter((i) => i.style === sec.style && matches(i));
+    if (!inSec.length) return '';
+    const groups = sec.groups.map((g) => {
+      const items = inSec.filter((i) => i.group === g);
+      if (!items.length) return '';
+      const tiles = items.map((i) => `
+        <button class="tile${i.onDark ? ' on-dark' : ''}" data-icon="${DATA.icons.indexOf(i)}" title="${esc(i.figmaName)}">
+          <span class="glyph" aria-hidden="true">${i.svg}</span>
+          <span class="name">${esc(i.name)}</span>
+        </button>`).join('');
+      return `<h3>${esc(g)}<span class="n">${items.length}</span></h3><div class="grid">${tiles}</div>`;
+    }).join('');
+    return `<section class="style" id="sec-${sec.style}">
+      <h2>${esc(sec.title)}<span class="n">${inSec.length}</span></h2>
+      <p>${esc(sec.description)}</p>${groups}</section>`;
+  }).join('');
+  $('list').innerHTML = html || '<p class="empty">찾는 아이콘이 없습니다. 다른 이름이나 그룹으로 검색해 보세요.</p>';
+}
+
+// ---------- copy ----------
+let toastTimer;
+function toast(msg) {
+  const el = $('toast');
+  el.textContent = msg;
+  el.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => el.classList.remove('show'), 1600);
+}
+// Called inside the click handler so the clipboard permission applies.
+function copy(text, what) {
+  const done = () => toast(`${what}을(를) 복사했어요`);
+  const fallback = () => {
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    ta.setAttribute('readonly', '');
+    ta.style.position = 'fixed';
+    ta.style.opacity = '0';
+    document.body.append(ta);
+    ta.select();
+    let ok = false;
+    try { ok = document.execCommand('copy'); } catch {}
+    ta.remove();
+    ok ? done() : toast('복사하지 못했어요. 내려받기를 이용해 주세요');
+  };
+  try {
+    navigator.clipboard.writeText(text).then(done, fallback);
+  } catch {
+    fallback();
+  }
+}
+
+// ---------- detail ----------
+const dialog = $('detail');
+let current = null;
+let opener = null;
+
+function openDetail(icon, from) {
+  current = icon;
+  opener = from;
+  $('dName').textContent = icon.name;
+  $('dSub').textContent = `${STYLE_LABEL[icon.style]} · ${icon.group}`;
+  $('dSizes').className = `sizes${icon.onDark ? ' on-dark' : ''}`;
+  $('dSizes').innerHTML = [...SIZES, 48].map((s) =>
+    `<figure>${sized(icon.svg, s)}<figcaption>${s}px</figcaption></figure>`).join('');
+  $('dDesc').hidden = !icon.description;
+  $('dDesc').textContent = icon.description || '';
+  $('dInfo').innerHTML = `
+    <dt>파일</dt><dd><button class="copy-inline" data-copy="${esc(icon.file)}" data-what="파일 경로">icons/${esc(icon.file)}</button></dd>
+    <dt>Figma 레이어</dt><dd>${esc(icon.figmaName)}</dd>
+    <dt>노드 ID</dt><dd><a href="${figmaUrl(icon.nodeId)}" target="_blank" rel="noopener">${esc(icon.nodeId)} ↗</a></dd>
+    <dt>컴포넌트 키</dt><dd><button class="copy-inline" data-copy="${esc(icon.key)}" data-what="컴포넌트 키">${esc(icon.key)}</button></dd>
+    <dt>색</dt><dd>${icon.style === 'colored' ? '원본 색 고정' : 'currentColor (글자색을 따름)'}</dd>`;
+  dialog.showModal();
+}
+
+$('list').addEventListener('click', (e) => {
+  const tile = e.target.closest('[data-icon]');
+  if (tile) openDetail(DATA.icons[Number(tile.dataset.icon)], tile);
+});
+$('dInfo').addEventListener('click', (e) => {
+  const b = e.target.closest('[data-copy]');
+  if (b) copy(b.dataset.copy, b.dataset.what);
+});
+$('dClose').addEventListener('click', () => dialog.close());
+dialog.addEventListener('click', (e) => { if (e.target === dialog) dialog.close(); });
+dialog.addEventListener('close', () => opener?.focus());
+$('dCopySvg').addEventListener('click', () => copy(current.svg, 'SVG'));
+$('dCopyName').addEventListener('click', () => copy(current.name, '이름'));
+$('dDownload').addEventListener('click', () => {
+  const url = URL.createObjectURL(new Blob([current.svg + '\n'], { type: 'image/svg+xml' }));
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = current.file.split('/').pop();
+  document.body.append(a);
+  a.click();
+  a.remove();
+  setTimeout(() => URL.revokeObjectURL(url), 1000);
+});
+
+renderControls();
+renderList();
+</script>
+</body>
+</html>
