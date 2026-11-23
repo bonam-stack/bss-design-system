@@ -17,7 +17,7 @@ import { GuidePage } from './pages/GuidePage';
 import { GlossaryPage } from './pages/GlossaryPage';
 import { guideDoc } from './guide';
 
-// BSS 디자인 포털: 저장소 JSON + SB Studio 카탈로그가 기준, 게시된 변경은 브라우저 저장소에서
+// BSS 디자인 포털: 저장소 JSON + SB Studio 카탈로그가 기준, 배포된 변경은 브라우저 저장소에서
 P.init({
   catalog,
   comps: Object.fromEntries(components.map((c) => [c.data.key, c.data])),
@@ -73,9 +73,9 @@ export function App() {
 
   const toast = useCallback((text: string) => setToastMsg((t) => ({ text, n: (t?.n || 0) + 1 })), []);
   useEffect(() => setToast(toast), [toast]);
-  // 새 기준 데이터로 배포되어 이전 초안 · 게시 기록을 지웠으면 한 번 알린다
+  // 새 기준 데이터로 배포되어 이전 초안 · 배포 기록을 지웠으면 한 번 알린다
   useEffect(() => {
-    if (P.wasWiped()) toast('새 기준 데이터로 바뀌어 이전 초안 · 게시 기록을 지웠습니다');
+    if (P.wasWiped()) toast('새 기준 데이터로 바뀌어 이전 초안 · 배포 기록을 지웠습니다');
   }, [toast]);
   useEffect(() => {
     if (!toastMsg) return;
@@ -131,7 +131,7 @@ export function App() {
     page = <PortalOnlyPage key={key} c={P.comp(key) as PortalComp} />;
     withUpdated = true;
   } else if (route.startsWith('new-') && role !== 'viewer' && P.draftNewComp(route.slice(4))) {
-    // 게시 전 새 컴포넌트: 담당이 코드를 먼저 만든다
+    // 배포 전 새 컴포넌트: 담당이 코드를 먼저 만든다
     page = <PortalOnlyPage key={route} c={P.draftNewComp(route.slice(4))!} draft />;
   } else {
     page = portalPage(route, role);
@@ -179,7 +179,7 @@ export function App() {
             <span className="brand-mark" aria-hidden="true" />
             BSS Design
           </a>
-          <a href="#updates" className="brand-ver" title={`게시 버전 v${P.version()} · UX 패턴 가이드 ${P.catalogMeta().uxGuide} · 업데이트 내역 보기`}>
+          <a href="#updates" className="brand-ver" title={`배포 버전 v${P.version()} · UX 패턴 가이드 ${P.catalogMeta().uxGuide} · 업데이트 내역 보기`}>
             v{P.version()}
           </a>
           <nav className="top-nav" aria-label="섹션">

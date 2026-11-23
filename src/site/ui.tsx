@@ -345,7 +345,7 @@ export function ConfirmButton({ className, children, onConfirm, type = 'button' 
 
 export const LastUpdated = () => (
   <p className="updated">
-    게시 {P.version()} · {fmt(P.history()[0].at)}
+    배포 {P.version()} · {fmt(P.history()[0].at)}
   </p>
 );
 
@@ -354,7 +354,7 @@ export const LastUpdated = () => (
 /** 이 페이지의 글이 어느 컴포넌트의 것인지 */
 export const TextScope = createContext<{ key: string; name: string } | null>(null);
 
-/** 글 자리의 지금 글: 담당에게는 초안 → 게시본 → 원래 글, 보기 역할에게는 게시본 → 원래 글 */
+/** 글 자리의 지금 글: 담당에게는 초안 → 배포본 → 원래 글, 보기 역할에게는 배포본 → 원래 글 */
 export function useText() {
   const scope = useContext(TextScope);
   const { textEdit } = usePortal();

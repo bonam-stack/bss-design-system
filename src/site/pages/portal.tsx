@@ -73,10 +73,10 @@ function Overview() {
       <Head
         eyebrow="BSS Design System"
         title="BSS 디자인 포털"
-        lead="BSS 백오피스 화면을 만드는 기준입니다. SB Studio는 이 포털에 게시된 버전만 읽어 화면을 조립합니다."
+        lead="BSS 백오피스 화면을 만드는 기준입니다. SB Studio는 이 포털에 배포된 버전만 읽어 화면을 조립합니다."
         extra={
           <div className="checks">
-            <Check on label={`게시 ${P.version()}`} />
+            <Check on label={`배포 ${P.version()}`} />
             <Check on label="카탈로그 0.5" />
             <Check on label={`UX 패턴 가이드 ${guideSource.release}`} />
             <Check on label="디자인 토큰 v0.5" />
@@ -183,7 +183,7 @@ function Stack() {
       </ul>
       <h2 id="owners">기준 원본 · 관리</h2>
       <Table
-        cols={['대상', '원본', '편집', '게시']}
+        cols={['대상', '원본', '편집', '배포']}
         rows={[
           ['블록 · 컴포넌트 (모양)', 'Figma 디자인 시스템', P.ROLES.ds, P.ROLES.approver],
           ['레이아웃 규칙 · 규칙 · 사용 가이드', 'UX 패턴 가이드 · 이 포털', P.ROLES.ux, P.ROLES.approver],
@@ -203,7 +203,7 @@ function Stack() {
 function Updates() {
   return (
     <>
-      <Head eyebrow="BSS Design" title="업데이트" lead="게시된 버전과 변경 노트입니다. MAJOR는 기존 것을 고치거나 지울 때(이미 만든 SB 재검수), MINOR는 추가, PATCH는 설명 수정입니다." />
+      <Head eyebrow="BSS Design" title="업데이트" lead="배포된 버전과 변경 노트입니다. MAJOR는 기존 것을 고치거나 지울 때(이미 만든 SB 재검수), MINOR는 추가, PATCH는 설명 수정입니다." />
       <p className="note">
         UX 패턴 가이드는 {guideSource.release} 릴리스를 반영했습니다 ({guideSource.generated} 추출). 파운데이션 · 패턴 · 모듈 · 컴포넌트 가이드는 각 섹션에, 권장 · 금지는 <a href="#rules">규칙</a>에, 용어는 <a href="#glossary">용어사전</a>에 있습니다.
       </p>
@@ -506,7 +506,6 @@ function ItemPage({ it }: { it: Item }) {
       it.kind === 'layout' ? ['적용 슬롯', <CodeLink code={it.slot || ''} />] : null,
       it.kind === 'layout' ? ['근거 문서', <UxRef r={it.guide} />] : null,
       ['기준 원본', it.design ? '모양 Figma 디자인 시스템 · 뜻 카탈로그' : it.kind === 'layout' ? 'UX 패턴 가이드' : 'UX 패턴 가이드 · 디자인 에셋 없음'],
-      it.promotedFrom ? ['승격', `${it.promotedFrom}에서`] : null,
     ] as ([string, ReactNode] | null)[]
   ).filter((x): x is [string, ReactNode] => !!x);
   return (
@@ -686,7 +685,7 @@ function Rules() {
         <section className="ed-panel">
           <div className="ed-h">
             <b>규칙 추가</b>
-            <span>번호는 앞자리 다음 번호로 자동으로 붙고, 게시 뒤에는 바뀌지 않습니다.</span>
+            <span>번호는 앞자리 다음 번호로 자동으로 붙고, 배포 뒤에는 바뀌지 않습니다.</span>
           </div>
           <form className="ef" onSubmit={onAdd}>
             <div className="ef-r">
@@ -944,10 +943,10 @@ function Process() {
       <Table
         cols={['역할', '맡는 것', '배포']}
         rows={[
-          ['보기', '문서 읽기 · Workboard', '-'],
-          ['UX 담당자', 'UX 가이드라인 · 모듈 정의 · UX 규칙 · 업무 블록 설명 · 놓이는 슬롯', '배포 요청'],
-          ['DS 담당자', 'UI 규칙 · 토큰 · 컴포넌트 · 블록 모양(Figma) · 소스 변환 · 디자인 요청 · 디자인 검수', '배포 요청'],
-          ['관리자', '운영 서버 배포 · 롤백 · 재검수 대상 알림 · 권한 확인', '정기 · 수동 배포'],
+          ['보기', '문서 읽기 · Workboard 요청', '-'],
+          ['UX 담당자', 'UX 가이드라인 · 모듈 정의 · UX 규칙 · 컴포넌트 사용 가이드 · 업무 블록 설명 · 놓이는 슬롯', '배포 요청'],
+          ['DS 담당자', 'UI 규칙 · Foundations(토큰) · 컴포넌트 · 블록 모양(Figma) · 소스 변환 · 디자인 요청 · 디자인 검수', '배포 요청'],
+          ['관리자', '운영 서버 배포(정기 · 수동) · 롤백 · 재검수 대상 SB · 권한 확인', '운영 서버 배포'],
         ].map((r) => (
           <tr key={r[0]}>
             <th>{r[0]}</th>
@@ -983,14 +982,14 @@ function Lint() {
     ['R-01', '구조 슬롯(GNB · LNB · 콘텍스트 바)에는 블록만', '오류'],
     ['R-02', '고정 슬롯은 허용 목록에서 하나', '오류'],
     ['R-03', '쌓기 슬롯 순서(일반형)', '오류'],
-    ['R-04', 'AI 생성 블록(tb-)은 게시하지 않고, 컨펌 후 블록 제작 요청으로 전달', '경고'],
+    ['R-04', 'AI 생성 블록(tb-)은 배포하지 않고, 컨펌 후 블록 제작 요청으로 전달', '경고'],
     ['R-05', '용어 대조(로제타)', '경고'],
     ['R-06', '출처 ID 반영률 100%', '오류'],
     ['R-07', '특수형 화면은 승인 기록 동반', '경고'],
   ];
   return (
     <>
-      <Head eyebrow="거버넌스 · UX 규칙" title="검증 규칙" lead="규칙 한 벌을 생성기 · 미리보기 · Figma 검사 · 카탈로그 게시가 같이 씁니다. 독립 검수 기준 점검도 같은 규칙입니다." />
+      <Head eyebrow="거버넌스 · UX 규칙" title="검증 규칙" lead="규칙 한 벌을 생성기 · 미리보기 · Figma 검사 · 카탈로그 배포가 같이 씁니다. 독립 검수 기준 점검도 같은 규칙입니다." />
       <h2 id="list" className="sr">
         검증 규칙
       </h2>

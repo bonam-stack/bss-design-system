@@ -1,5 +1,5 @@
 // 컴포넌트 페이지 (SEED 문서형): 미리보기 → Anatomy → Properties → Guidelines → Usage → 개발 정보.
-// 미리보기 · 예시는 모두 src/ds/components의 React 컴포넌트로 그린다. 포털에 게시된 코드가 있으면 그 코드로 그린다.
+// 미리보기 · 예시는 모두 src/ds/components의 React 컴포넌트로 그린다. 포털에 배포된 코드가 있으면 그 코드로 그린다.
 // DS 담당자은 같은 페이지에서 코드를 고치고(미리보기 · 예시가 바로 바뀜) Figma 원본과 견준 뒤 초안으로 저장한다.
 import { Component as ReactComponent, createContext, useContext, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import type { CSSProperties, ReactNode } from 'react';
@@ -101,13 +101,13 @@ export function ComponentPage({ sc }: { sc: SiteComponent }) {
   const base = sc.data;
   const key = base.key;
   const c = (P.comp(key) as ComponentData & { figmaSyncedAt?: string }) || base;
-  // 편집을 켜기 전에는 보기 역할과 같은 화면 (게시본만). 켜면 초안 글 · 담당 칸 · 코드 채팅이 나온다
+  // 편집을 켜기 전에는 보기 역할과 같은 화면 (배포본만). 켜면 초안 글 · 담당 칸 · 코드 채팅이 나온다
   const { ui, can, role, act, closeEdit, textEdit } = usePortal();
   const g = useMemo(() => applyGuide(key, sc.guide, textEdit), [key, sc.guide, textEdit, P.revision()]); // eslint-disable-line react-hooks/exhaustive-deps
   const ok = isRenderable(base);
   const a = analyze(base);
 
-  // 게시된 코드 → 저장소 코드 순. DS 담당자이 편집 중이면 편집 중인 코드
+  // 배포된 코드 → 저장소 코드 순. DS 담당자이 편집 중이면 편집 중인 코드
   const repo = repoSource(sc.name);
   const published = P.publishedCode(key);
   const current = published ?? repo;
@@ -176,7 +176,7 @@ export function ComponentPage({ sc }: { sc: SiteComponent }) {
               <div className="sb-body">
                 <div className={`sb-canvas${compare ? ' sb-canvas--compare' : ''}`}>
                   <figure className="sb-fig">
-                    {compare ? <figcaption>React{editing ? ' · 편집 중' : published ? ' · 게시된 코드' : ''}</figcaption> : null}
+                    {compare ? <figcaption>React{editing ? ' · 편집 중' : published ? ' · 배포된 코드' : ''}</figcaption> : null}
                     <div className="sb-stage">
                       <Render sel={sel} values={values} texts={texts} extra={{ onSelectionChange: onSel }} />
                     </div>
@@ -195,7 +195,7 @@ export function ComponentPage({ sc }: { sc: SiteComponent }) {
             ) : (
               <div className="sb-body sb-code">
                 <CodeBlock label="사용 예" text={reactCode(sc.name, base, live.meta, sel, values, texts)} />
-                <CodeBlock label={`${fileOf(sc.name)}${published ? ' (포털에 게시된 코드)' : ''}`} text={current} />
+                <CodeBlock label={`${fileOf(sc.name)}${published ? ' (포털에 배포된 코드)' : ''}`} text={current} />
               </div>
             )}
           </section>
@@ -205,7 +205,7 @@ export function ComponentPage({ sc }: { sc: SiteComponent }) {
               <div className="ed-h">
                 <b>컴포넌트 코드</b>
                 <span>
-                  {fileOf(sc.name)} · 고치면 위 미리보기와 아래 예시가 바로 바뀝니다. 초안으로 저장하면 관리자가 게시합니다{published ? ' · 지금 게시된 코드가 저장소 코드와 다릅니다' : ''}
+                  {fileOf(sc.name)} · 고치면 위 미리보기와 아래 예시가 바로 바뀝니다. 초안으로 저장하면 관리자가 배포합니다{published ? ' · 지금 배포된 코드가 저장소 코드와 다릅니다' : ''}
                 </span>
               </div>
               <div className="row">
@@ -666,7 +666,7 @@ function PolicySection({ pl }: { pl: NonNullable<Guide['policy']> }) {
   const scope = useContext(TextScope);
   const { role } = usePortal();
   const key = scope?.key || '';
-  // UX 담당자이 고친 글: 열린 초안(없으면 게시본)의 규칙을 고쳐 사용 가이드 초안으로. 번호는 그대로
+  // UX 담당자이 고친 글: 열린 초안(없으면 배포본)의 규칙을 고쳐 사용 가이드 초안으로. 번호는 그대로
   const saveGuide = (fn: (g: P.GuideDoc) => P.GuideDoc) => {
     const cur = (P.openDraft('guide', key)?.after as P.GuideDoc | undefined) || P.guide(key);
     if (!cur) throw new Error('사용 가이드가 없는 컴포넌트입니다');

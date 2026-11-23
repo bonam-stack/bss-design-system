@@ -20,7 +20,7 @@ interface Token {
 }
 const V = variables as { source: { name: string; note?: string }; tokens: Record<string, Omit<Token, 'name'>> };
 const TOKENS: Token[] = Object.entries(V.tokens).map(([name, t]) => ({ name, ...t }));
-/** 게시된 토큰 추가 · 수정까지 합친 목록 (DS 담당자가 디자인 토큰 문서에서 고친 것) */
+/** 배포된 토큰 추가 · 수정까지 합친 목록 (DS 담당자가 디자인 토큰 문서에서 고친 것) */
 const live = (): Token[] => Object.entries(P.tokens()).map(([name, t]) => ({ ...(V.tokens[name] || {}), ...t, name }) as Token);
 const SRC = `Figma 변수 · ${V.source.name}`;
 

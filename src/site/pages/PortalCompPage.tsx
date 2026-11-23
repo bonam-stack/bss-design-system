@@ -221,7 +221,7 @@ export function PortalOnlyPage({ c, draft }: { c: C; draft?: boolean }) {
   const [tab, setTab] = useState<'preview' | 'code'>('preview');
   return (
     <TextScope.Provider value={{ key: c.key, name: c.name }}>
-      <p className="eyebrow">{draft ? 'Components · 게시 전 초안' : 'Components'}</p>
+      <p className="eyebrow">{draft ? 'Components · 배포 전 초안' : 'Components'}</p>
       <div className="h1-row">
         {r && !draft ? (
           <Editable as="h1" path="title" label="컴포넌트 제목" value={(textEdit ? P.openDraft('item', r.code)?.after.name : undefined) || r.name || c.name} onSave={(v) => P.draftItem(role, r.code, { name: v.trim() })} />
@@ -241,7 +241,7 @@ export function PortalOnlyPage({ c, draft }: { c: C; draft?: boolean }) {
       {draft ? (
         <>
           <p className="note">
-            Figma에서 읽은 새 컴포넌트입니다. 게시 전이라 담당만 볼 수 있습니다. ✎ 편집에서 React 코드를 만들어 초안으로 저장하면, 배포 요청 메뉴에서 Figma 초안과 코드 초안을 함께 요청합니다.
+            Figma에서 읽은 새 컴포넌트입니다. 배포 전이라 담당만 볼 수 있습니다. ✎ 편집에서 React 코드를 만들어 초안으로 저장하면, 배포 요청 메뉴에서 Figma 초안과 코드 초안을 함께 요청합니다.
           </p>
           <DraftBox d={P.draftById(c.draftId!)} />
         </>
@@ -255,13 +255,13 @@ export function PortalOnlyPage({ c, draft }: { c: C; draft?: boolean }) {
                 {t === 'preview' ? '미리보기' : '코드'}
               </button>
             ))}
-            {editing && src !== null ? <span className="muted sb-compare">편집 중인 코드</span> : !published ? <span className="muted sb-compare">초안 코드 (게시 전)</span> : null}
+            {editing && src !== null ? <span className="muted sb-compare">편집 중인 코드</span> : !published ? <span className="muted sb-compare">초안 코드 (배포 전)</span> : null}
           </div>
           {tab === 'preview' ? (
             <Preview key={String(Comp)} C={Comp} c={c} />
           ) : (
             <div className="sb-body sb-code">
-              <CodeBlock label={`${fileOf(name)}${published ? ' (포털에 게시된 코드)' : ''}`} text={shown || published || ''} />
+              <CodeBlock label={`${fileOf(name)}${published ? ' (포털에 배포된 코드)' : ''}`} text={shown || published || ''} />
             </div>
           )}
         </section>

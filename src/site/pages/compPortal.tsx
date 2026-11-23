@@ -1,4 +1,4 @@
-// 컴포넌트 상세 페이지의 포털 조각: 확인 표시, 담당 편집 칸, 게시된 규칙, 쓰이는 곳, Figma에서만 읽은 컴포넌트 페이지.
+// 컴포넌트 상세 페이지의 포털 조각: 확인 표시, 담당 편집 칸, 배포된 규칙, 쓰이는 곳, Figma에서만 읽은 컴포넌트 페이지.
 import type { FormEvent } from 'react';
 import * as P from '../portal/store';
 import type { GuideRule } from '../portal/store';
@@ -53,7 +53,7 @@ export function CompEditor({ c }: { c: { key: string; figma?: { url?: string } }
                 <input name="url" defaultValue={c.figma?.url || ''} />
               </label>
               <div className="row">
-                <button className="btn2 primary sm">읽기 · 게시본과 비교</button>
+                <button className="btn2 primary sm">읽기 · 배포본과 비교</button>
               </div>
             </form>
           ) : null}
@@ -197,7 +197,7 @@ export function CompUsage({ k }: { k: string }) {
   );
 }
 
-/** 저장소 정책(guide.policy)을 게시된 규칙(번호 포함)으로 바꿔 사용 가이드에 표시 */
+/** 저장소 정책(guide.policy)을 배포된 규칙(번호 포함)으로 바꿔 사용 가이드에 표시 */
 export function applyGuide(key: string, guide?: Guide, withDraft = false): Guide | undefined {
   // 담당에게는 아직 게시하지 않은 사용 가이드 초안을 보여 준다
   const g = (withDraft && (P.openDraft('guide', key)?.after as P.GuideDoc | undefined)) || P.guide(key);

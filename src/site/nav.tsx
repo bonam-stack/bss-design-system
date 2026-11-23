@@ -306,7 +306,7 @@ const CAN_DO: Record<Role, string> = {
   approver: '운영 서버 배포 · 반려 · 롤백 · 재검수 대상 SB · 권한 확인',
 };
 
-/** 오른쪽 위 역할 버튼: 에디터 모드면 색이 바뀌고 초안 수 배지가 붙는다. 누르면 고칠 수 있는 것 · 내 초안 · 게시 버전 · 역할 바꾸기 */
+/** 오른쪽 위 역할 버튼: 에디터 모드면 색이 바뀌고 초안 수 배지가 붙는다. 누르면 고칠 수 있는 것 · 내 초안 · 배포 버전 · 역할 바꾸기 */
 export function RoleMenu() {
   const { role, setRole, isEditor } = usePortal();
   const [open, setOpen] = useState(false);

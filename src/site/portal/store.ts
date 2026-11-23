@@ -19,7 +19,7 @@ export const ROLES: Record<Role, string> = { viewer: '보기', ux: 'UX 담당자
 export type Kind = 'layout' | 'block' | 'comp';
 export const KIND: Record<Kind, string> = { layout: '레이아웃 규칙', block: '블록', comp: '컴포넌트' };
 export type Status = 'pub' | 'draft' | 'tmp';
-export const STATUS: Record<Status, string> = { pub: '게시', draft: '초안', tmp: '임시' };
+export const STATUS: Record<Status, string> = { pub: '배포', draft: '초안', tmp: '임시' };
 // 승격: 여러 Storyboard에서 쓰인 업무 블록 → 2단 심사(SB팀 표준 → UI팀 디자인) → 관리자 배포로 공통 블록
 export const PROMO_STAGES: { stage: string; who: Role; act: string }[] = [
   { stage: 'SB팀 표준', who: 'ux', act: '표준 확인 통과' },
@@ -549,7 +549,7 @@ export async function draftFigma(role: Role, { key, code, url }: { key?: string;
   const after: Record<string, unknown> = { ...r, key: k };
   delete after.kind;
   const diff = diffComponent(prev, after);
-  if (key && diff.lines.length === 1 && diff.lines[0] === '바뀐 점 없음') throw new Error(`Figma 노드와 게시본이 같습니다 · 바뀐 점 없음 (${conv.mode === 'mock' ? '흉내 모드' : 'Figma API'})`);
+  if (key && diff.lines.length === 1 && diff.lines[0] === '바뀐 점 없음') throw new Error(`Figma 노드와 배포본이 같습니다 · 바뀐 점 없음 (${conv.mode === 'mock' ? '흉내 모드' : 'Figma API'})`);
   // 카탈로그 코드는 자동: 같은 이름 · 같은 코드(c-<key>)의 빈 카탈로그 항목이 있으면 거기에 잇고, 없으면 새 코드
   const norm = (x: string) => String(x || '').toLowerCase().replace(/[^a-z0-9가-힣]/g, '');
   const match = code || items().find((i) => i.kind === 'comp' && !i.key && (i.code === `c-${k}` || norm(i.name) === norm(r.name) || norm(i.code.replace(/^c-/, '')) === norm(k)))?.code;
@@ -814,7 +814,7 @@ export function publish(role: Role, ids: string[], reason?: string, mode: '정�
 export function rollback(role: Role, reason?: string) {
   if (role !== 'approver') throw new Error('롤백은 관리자가 합니다');
   const last = S.history[0];
-  if (!last.prevPub) throw new Error('되돌릴 게시가 없습니다');
+  if (!last.prevPub) throw new Error('되돌릴 배포가 없습니다');
   S.pub = clone(last.prevPub);
   for (const n of last.notes || []) {
     const d = S.drafts.find((x) => x.id === n.id);

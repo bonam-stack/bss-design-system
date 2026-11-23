@@ -30,7 +30,7 @@ export function ComparePage({ sc }: { sc: SiteComponent }) {
   const code = P.itemByKey(c.key)?.code || `c-${c.key}`;
   return (
     <>
-      <Head eyebrow="Components" title={`${c.name} · Figma 비교`} lead={`변형 ${c.variants.length}개를 React 컴포넌트(왼쪽)와 Figma 원본(오른쪽)으로 나란히 그립니다.${published ? ' 포털에 게시된 코드로 그렸습니다.' : ''}`} extra={<p><a className="lnk" href={`#${code}`}>← {c.name} 문서로</a></p>} />
+      <Head eyebrow="Components" title={`${c.name} · Figma 비교`} lead={`변형 ${c.variants.length}개를 React 컴포넌트(왼쪽)와 Figma 원본(오른쪽)으로 나란히 그립니다.${published ? ' 포털에 배포된 코드로 그렸습니다.' : ''}`} extra={<p><a className="lnk" href={`#${code}`}>← {c.name} 문서로</a></p>} />
       <div className="cmp">
         {c.variants.map((v) => {
           const sample = v.props.state ? meta.samples?.[v.props.state] : undefined;
