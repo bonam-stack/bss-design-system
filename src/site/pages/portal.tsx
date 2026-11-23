@@ -47,6 +47,7 @@ export function portalPage(route: string, role: Role): ReactNode | null {
     case 'blocks': return <ItemList kind="block" />;
     case 'patterns': return <PatternList />;
     case 'ux-guide': return <UxGuide />;
+    case 'shell-pc': return <ShellPage />;
     case 'rules': return <Rules />;
     case 'slots': return <Slots />;
     case 'lint': return <Lint />;
@@ -353,6 +354,68 @@ function BlockSections({ list: I }: { list: Item[] }) {
   );
 }
 
+/** UX 가이드라인 › 레이아웃 › PC Shell: 화면 전체의 고정 영역(Lv5). 그 자리마다 Lv6 블록이 들어간다 */
+const PC_SHELL: { id: string; name: string; where: string; must: boolean; code?: string; layout?: boolean; area: string }[] = [
+  { id: 'b-ps-lnb', name: '사이드 내비게이션 바', where: '왼쪽, 위아래 전체', must: true, code: 'b-lnb', area: 'lnb' },
+  { id: 'b-ps-gnb', name: 'GNB', where: '위', must: false, code: 'b-gnb', area: 'gnb' },
+  { id: 'b-ps-contextBar', name: '콘텍스트바', where: 'GNB 아래', must: true, code: 'b-context-bar', area: 'ctx' },
+  { id: 'b-ps-body · b-ps-canvas', name: '본문 (노드형 화면은 캔버스)', where: '콘텍스트바 아래, 남은 영역 전체', must: true, layout: true, area: 'body' },
+  { id: 'b-ps-communicator', name: '커뮤니케이터', where: '오른쪽, 위아래 전체', must: false, area: 'com' },
+];
+function ShellPage() {
+  return (
+    <>
+      <Head eyebrow="UX 가이드라인 · 레이아웃" title="PC Shell" lead="PC 화면 전체의 고정 영역(공통 앱 셸)입니다. Shell은 Lv5 단위로, 자리마다 Lv6 블록이 들어가고 블록 안에는 DS 컴포넌트가 들어갑니다. 본문(캔버스)은 레이아웃 규칙에 따라 다시 나뉩니다." />
+      <h2 id="levels">단위</h2>
+      <Table
+        cols={['단위', '정의', '레벨']}
+        rows={[
+          ['Shell', '화면 전체의 고정 영역. block과 DS를 담음', 'Lv5'],
+          ['block', '화면에서 하나의 역할을 하는 단위. DS 컴포넌트와 내부 자유 규칙으로 이루어지고, 다른 block을 담을 수 있음', 'Lv6 이하'],
+          ['DS', 'BSS DS library에 정의된 Figma 컴포넌트 단위', 'Lv6 이하'],
+        ].map((r) => (
+          <tr key={r[0]}>
+            <th>{r[0]}</th>
+            <td>{r[1]}</td>
+            <td className="nw">{r[2]}</td>
+          </tr>
+        ))}
+      />
+      <h2 id="frame">구성</h2>
+      <div className="shell-wf" aria-label="PC Shell 구성">
+        {PC_SHELL.map((b) => (
+          <div key={b.id} className={`shell-a ${b.area}`}>
+            <span>{b.name}</span>
+            <code>#{b.id}</code>
+          </div>
+        ))}
+      </div>
+      <h2 id="blocks">자리별 블록</h2>
+      <Table
+        cols={['레벨', 'Block ID', 'block', '자리', '필수 여부', '포털 문서']}
+        rows={PC_SHELL.map((b) => (
+          <tr key={b.id}>
+            <td>Lv6</td>
+            <td className="mono">#{b.id}</td>
+            <td>{b.name}</td>
+            <td>{b.where}</td>
+            <td>{b.must ? <St c="ok" t="필수" /> : <St c="hold" t="선택" />}</td>
+            <td>
+              {b.code ? (
+                <a href={`#${b.code}`}>{P.item(b.code)?.name || b.code}</a>
+              ) : b.layout ? (
+                <a href="#l-general">레이아웃 규칙</a>
+              ) : (
+                <span className="muted">-</span>
+              )}
+            </td>
+          </tr>
+        ))}
+      />
+    </>
+  );
+}
+
 /** UX 가이드라인 개요: 화면을 큰 것부터 짜는 순서대로 문서 묶음 */
 function UxGuide() {
   const doc = (place: Parameters<typeof docsIn>[0]) => docsIn(place);
@@ -376,7 +439,7 @@ function UxGuide() {
       ))}
       <h2 id="layout">레이아웃</h2>
       <p>
-        <a href="#stack">조립 구조</a> · <a href="#slots">슬롯</a> ·{' '}
+        <a href="#stack">조립 구조</a> · <a href="#shell-pc">PC Shell</a> · <a href="#slots">슬롯</a> ·{' '}
         {join(P.items().filter((i) => i.kind === 'layout').map((i) => <a key={i.code} href={`#${i.code}`}>{i.name} 레이아웃</a>))}
       </p>
       <h2 id="guide">화면 가이드</h2>

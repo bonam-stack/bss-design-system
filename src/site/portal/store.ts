@@ -48,9 +48,9 @@ export const isSb = (i: { kind: string; code: string }) => !!sbDomain(i);
 /** AI가 만든 로컬 블록 (포털 목록 밖) */
 export const isLocalAi = (i: { code: string }) => /^tb-/.test(i.code);
 /** 블록 성격 (슬롯 · 모듈 정의 이름 기준). 공통 블록 · 블록 · BO 블록이 같은 분류를 써서 서로 비교 · 승격 판단을 한다 */
-export const BLOCK_TYPES = ['앱 구조', '화면 머리', '조회조건', '컨텐트', '컨텐트 본문', '컨텐트 유틸리티', '노드'] as const;
+export const BLOCK_TYPES = ['Shell 블록', '화면 머리', '조회조건', '컨텐트', '컨텐트 본문', '컨텐트 유틸리티', '노드'] as const;
 const BLOCK_TYPE: Record<string, (typeof BLOCK_TYPES)[number]> = {
-  'b-gnb': '앱 구조', 'b-lnb': '앱 구조', 'b-context-bar': '앱 구조',
+  'b-gnb': 'Shell 블록', 'b-lnb': 'Shell 블록', 'b-context-bar': 'Shell 블록',
   'b-top': '화면 머리', 'b-callout': '화면 머리',
   'b-search-general': '조회조건',
   'b-content': '컨텐트', 'b-detail-info': '컨텐트',
@@ -62,7 +62,7 @@ const BLOCK_TYPE: Record<string, (typeof BLOCK_TYPES)[number]> = {
 export function blockType(i: { code: string; slot?: string }): string {
   if (BLOCK_TYPE[i.code]) return BLOCK_TYPE[i.code];
   const s = i.slot || '';
-  if (/^app\./.test(s)) return '앱 구조';
+  if (/^app\./.test(s)) return 'Shell 블록';
   if (/column\.body/.test(s)) return '컨텐트 본문';
   if (/column\.(action|status)/.test(s)) return '컨텐트 유틸리티';
   if (/search/.test(s)) return '조회조건';

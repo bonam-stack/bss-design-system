@@ -488,3 +488,12 @@ ol.flow li > :not(:first-child), ol.flow li > strong + span { grid-column: 2; }
 .ai-sum-grid ul { margin: 0; padding-left: 18px; }
 .ai-sum-props { display: flex; flex-wrap: wrap; gap: 4px 14px; }
 @media (max-width: 720px) { .ai-sum-grid { grid-template-columns: 1fr; } .ai-sum-grid dt { margin-top: 6px; } }
+.shell-wf { display: grid; grid-template-columns: 70px 1fr 140px; grid-template-rows: 48px 48px 220px; gap: 8px; padding: 14px; border: 2px solid var(--fg); border-radius: 14px; max-width: 680px; margin-bottom: 8px; }
+.shell-a { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; border: 1px dashed var(--accent); border-radius: 6px; background: color-mix(in srgb, var(--accent) 8%, transparent); font-size: 12px; text-align: center; padding: 4px; }
+.shell-a code { font-size: 10px; color: var(--fg-muted); word-break: break-all; }
+.shell-a.lnb { grid-column: 1; grid-row: 1 / 4; }
+.shell-a.gnb { grid-column: 2; grid-row: 1; }
+.shell-a.ctx { grid-column: 2; grid-row: 2; }
+.shell-a.body { grid-column: 2; grid-row: 3; }
+.shell-a.com { grid-column: 3; grid-row: 1 / 4; }
+@media (max-width: 640px) { .shell-wf { grid-template-columns: 44px 1fr 60px; } .shell-a code { display: none; } }

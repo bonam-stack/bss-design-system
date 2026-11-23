@@ -58,6 +58,7 @@ export function sections(role: Role): Section[] {
         ...guideItems('start', () => '원칙'),
         ...guideItems('foundations', (g) => `화면 구조 › ${g || '구조'}`),
         ['stack', '조립 구조', '레이아웃'],
+        ['shell-pc', 'PC Shell', '레이아웃'],
         ...I.filter((i) => i.kind === 'layout').map((i): NavItem => [i.code, `${i.name} 레이아웃`, '레이아웃']),
         ['slots', '슬롯', '레이아웃'],
         ['patterns', '전체', '화면 가이드'],
