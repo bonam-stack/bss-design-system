@@ -43,6 +43,11 @@ function componentItems(I: P.Item[]): NavItem[] {
   ]);
 }
 
+/** 위쪽 메뉴에 두지 않는 섹션: 홈(로고), 거버넌스 · UX 가이드라인(BSS 스튜디오 범위 · 참고 문서로 남김) */
+export const HIDDEN = ['home', 'gov', 'uxg'];
+/** BSS 스튜디오 범위로 옮긴 섹션 */
+export const STUDIO_SCOPE = ['gov', 'uxg'];
+
 export function sections(role: Role): Section[] {
   const I = P.items();
   const S: Section[] = [
@@ -123,6 +128,7 @@ export function sections(role: Role): Section[] {
   ];
   // 메뉴 순서: 거버넌스 → UX 가이드라인 → Foundations → Components → Blocks → Workboard (홈은 로고)
   const ORDER = ['home', 'gov', 'uxg', 'foundations', 'components', 'blocks', 'mine'];
+
   S.sort((x, y) => ORDER.indexOf(x[0]) - ORDER.indexOf(y[0]));
   if (role === 'ux') S.push(['work', 'UX 편집', [['ux-edit', '기준 편집'], ['deploy-request', '배포 요청']]]);
   if (role === 'ds') S.push(['work', 'DS 작업', [['requests', '디자인 요청'], ['convert', '소스 변환'], ['deploy-request', '배포 요청']]]);
@@ -149,7 +155,7 @@ export function TopNav({ route }: { route: string }) {
   const n = workCount(role);
   return (
     <>
-      {sections(role).filter(([k]) => k !== 'home').map(([k, label, items]) => (
+      {sections(role).filter(([k]) => !HIDDEN.includes(k)).map(([k, label, items]) => (
         <a key={k} href={`#${items[0][0]}`} className={`${k === cur ? 'on' : ''}${k === 'work' ? ' admin' : ''}`} aria-current={k === cur ? 'true' : undefined}>
           {label}
           {k === 'work' && n ? (
@@ -258,13 +264,14 @@ export function SideNav({ route: here }: { route: string }) {
     <>
       {/* 좁은 화면에서는 위쪽 섹션 메뉴가 숨으므로 목록 위에 섹션을 둔다 */}
       <div className="m-sec">
-        {all.filter(([k]) => k !== 'home').map(([k, l, it]) => (
+        {all.filter(([k]) => !HIDDEN.includes(k)).map(([k, l, it]) => (
           <a key={k} href={`#${it[0][0]}`} className={k === cur ? 'on' : ''}>
             {l}
           </a>
         ))}
       </div>
       <div className="nav-title">{label}</div>
+      {STUDIO_SCOPE.includes(cur) ? <p className="nav-scope">BSS 스튜디오 범위 · 참고 문서</p> : null}
       {top.map(link)}
       {groups.map((g) => group(g, [g.label], 0))}
     </>

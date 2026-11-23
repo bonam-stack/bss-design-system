@@ -497,3 +497,4 @@ ol.flow li > :not(:first-child), ol.flow li > strong + span { grid-column: 2; }
 .shell-a.body { grid-column: 2; grid-row: 3; }
 .shell-a.com { grid-column: 3; grid-row: 1 / 4; }
 @media (max-width: 640px) { .shell-wf { grid-template-columns: 44px 1fr 60px; } .shell-a code { display: none; } }
+.nav-scope { margin: -4px 12px 10px; padding: 6px 10px; border-radius: 8px; background: var(--surface-weak); color: var(--fg-muted); font-size: 12px; }
