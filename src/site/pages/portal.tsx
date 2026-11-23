@@ -1,4 +1,4 @@
-// BSS 디자인 포털 페이지: 홈 · 목록 · 카탈로그 항목 · 거버넌스 · UX 가이드라인 · 승격 심사, 그리고 Foundations · 역할별 작업 페이지로 나눈다.
+// BSS 디자인 포털 페이지: 홈 · 목록 · 카탈로그 항목 · 거버넌스 · UX 가이드라인, 그리고 Foundations · 역할별 작업 페이지로 나눈다.
 // 고친 내용은 초안 → 미리보기 확인 → 배포 요청 → 관리자 배포.
 import type { FormEvent, ReactNode } from 'react';
 import * as P from '../portal/store';
@@ -12,7 +12,7 @@ import { GuideEmbed } from './GuidePage';
 import { ColorPage, ScalePage, TokensPage, TypographyPage } from './FoundationPages';
 import { BumpTag, Check, CodeLink, UxRef, DraftBox, Drafts, EditBtn, Head, RulesBlock, St, StOf, Table, TextScope, fmt, human, joinNodes } from '../ui';
 import { FoundationsOverview, PendingPage } from './foundations';
-import { Convert, Deploy, My, MyRequests, Recheck, Requests, Roles, SbEdit, SbStatus, UxEdit } from './work';
+import { Convert, Deploy, My, MyRequests, Recheck, Requests, Roles, SbEdit, UxEdit } from './work';
 
 const KIND_LABEL: Record<Kind, string> = { block: 'Blocks', comp: 'Components', layout: 'UX 가이드라인 · 레이아웃' };
 const formValues = (f: HTMLFormElement) => Object.fromEntries(new FormData(f)) as Record<string, string>;
@@ -20,7 +20,6 @@ const list = (s?: string) => String(s || '').split(',').map((x) => x.trim()).fil
 
 /** 라우트 → 포털 페이지 (없으면 null) */
 export function portalPage(route: string, role: Role): ReactNode | null {
-  const isEditor = role !== 'viewer';
   switch (route) {
     case 'overview': return <Overview />;
     case 'stack': return <Stack />;
@@ -34,7 +33,7 @@ export function portalPage(route: string, role: Role): ReactNode | null {
     case 'writing': return <PendingPage title="문구 (보이스 · 표기)" lead="화면 문구의 말투와 표기 규칙을 정합니다." todo={['말투 · 존댓말 기준', '버튼 · 안내 · 오류 문구 패턴', '숫자 · 날짜 · 단위 표기 (UX 규칙의 표기 규칙과 연결)']} />;
     case 'process': return <Process />;
     case 'ui-rules': return <PendingPage eyebrow="거버넌스 · UI 규칙" title="UI 규칙" lead="화면을 그릴 때 지키는 시각 규칙입니다. UX 규칙(화면을 어떻게 짜는가)과 짝을 이루고, Foundations · Components · Blocks는 모두 이 규칙을 따릅니다." todo={['값 대신 디자인 토큰만 쓰기 (색 · 글자 · 여백 · 모서리 · 그림자)', '컴포넌트 변형 · 상태(hover · pressed · disabled · focus)를 정해진 것만 쓰기', '간격 · 정렬 · 밀도 기준', 'Do · Don\'t와 규칙 번호 (UX 규칙과 같은 형식)']} />;
-    case 'design-review': return <PendingPage eyebrow="거버넌스 · UI 규칙" title="디자인 검수 기준" lead="UI팀이 컴포넌트 · 블록을 배포하거나 업무 블록을 승격할 때 확인하는 항목입니다. 승격 심사 2단계(UI팀 디자인)의 기준이 됩니다." todo={['토큰 연결 · 하드코딩 값 없음', 'Figma 디자인 라이브러리와 일치 (속성 · 변형 · 이름)', '상태 · 접근성(대비 · 포커스) 확인', '승격 심사 2단계 체크리스트']} />;
+    case 'design-review': return <PendingPage eyebrow="거버넌스 · UI 규칙" title="디자인 검수 기준" lead="UI팀이 컴포넌트 · 블록을 배포하기 전에 확인하는 항목입니다." todo={['토큰 연결 · 하드코딩 값 없음', 'Figma 디자인 라이브러리와 일치 (속성 · 변형 · 이름)', '상태 · 접근성(대비 · 포커스) 확인', '배포 전 체크리스트']} />;
     case 'figma-guide': return <PendingPage eyebrow="거버넌스 · UI 규칙" title="Figma 작성 기준" lead="SB 라이브러리는 디자인 DS 라이브러리와 동기화됩니다. 소스 변환이 읽을 수 있도록 Figma에서 지켜야 할 구조입니다." todo={['컴포넌트 · 레이어 · 속성 이름 규칙', 'Figma 변수(토큰) 연결 · 스타일 사용', '업무 블록을 Figma에서 고칠 때의 순서 (DS 담당자)', '라이브러리 배포 · 버전 기록']} />;
     case 'workboard': return <MyRequests />;
     case 'ux-edit': return role === 'ux' ? <UxEdit /> : null;
@@ -52,7 +51,6 @@ export function portalPage(route: string, role: Role): ReactNode | null {
     case 'rules': return <Rules />;
     case 'slots': return <Slots />;
     case 'lint': return <Lint />;
-    case 'promo': return isEditor ? <Promo /> : null;
   }
   const it = P.item(route);
   if (it && !it.key) return <ItemPage it={it} />;
@@ -189,7 +187,7 @@ function Stack() {
         rows={[
           ['블록 · 컴포넌트 (모양)', 'Figma 디자인 시스템', P.ROLES.ds, P.ROLES.approver],
           ['레이아웃 규칙 · 규칙 · 사용 가이드', 'UX 패턴 가이드 · 이 포털', P.ROLES.ux, P.ROLES.approver],
-          ['임시 부품 tb- · tc-', 'SB Studio 생성', '승격 심사', P.ROLES.approver],
+          ['자동 생성 부품 tb- · tc-', 'SB Studio 생성', P.ROLES.ux, P.ROLES.approver],
         ].map((r, i) => (
           <tr key={i}>
             {r.map((c, j) => (
@@ -205,7 +203,7 @@ function Stack() {
 function Updates() {
   return (
     <>
-      <Head eyebrow="BSS Design" title="업데이트" lead="게시된 버전과 변경 노트입니다. MAJOR는 기존 것을 고치거나 지울 때(이미 만든 SB 재검수), MINOR는 추가 · 승격, PATCH는 설명 수정입니다." />
+      <Head eyebrow="BSS Design" title="업데이트" lead="게시된 버전과 변경 노트입니다. MAJOR는 기존 것을 고치거나 지울 때(이미 만든 SB 재검수), MINOR는 추가, PATCH는 설명 수정입니다." />
       <p className="note">
         UX 패턴 가이드는 {guideSource.release} 릴리스를 반영했습니다 ({guideSource.generated} 추출). 파운데이션 · 패턴 · 모듈 · 컴포넌트 가이드는 각 섹션에, 권장 · 금지는 <a href="#rules">규칙</a>에, 용어는 <a href="#glossary">용어사전</a>에 있습니다.
       </p>
@@ -318,13 +316,12 @@ function TypeGrid({ list }: { list: Item[] }) {
   );
 }
 
-/** Blocks: 공통 블록 · 업무 블록(+ 승격 진행) */
+/** Blocks: 공통 블록 · 블록 · BO 블록 · 모듈 정의 */
 function BlockSections({ list: I }: { list: Item[] }) {
   const sb = I.filter((i) => P.isSb(i));
-  const promos = P.promotions().filter((p) => /^tb-/.test(p.code));
   return (
     <>
-      <p className="note">공통 블록 · 블록 · BO 블록은 같은 성격으로 나눕니다: {P.BLOCK_TYPES.join(' · ')}. 성격은 블록이 놓이는 슬롯과 모듈 정의를 따르므로, 같은 성격끼리 비교해 겹치는 업무 블록을 공통 블록으로 승격합니다.</p>
+      <p className="note">공통 블록 · 블록 · BO 블록은 같은 성격으로 나눕니다: {P.BLOCK_TYPES.join(' · ')}. 성격은 블록이 놓이는 슬롯과 모듈 정의를 따릅니다.</p>
       <h2 id="common">공통 블록</h2>
       <TypeGrid list={I.filter((i) => !P.isSb(i))} />
       {P.SB_DOMAINS.map((dm) => {
@@ -338,25 +335,6 @@ function BlockSections({ list: I }: { list: Item[] }) {
           </div>
         );
       })}
-      {promos.length ? (
-        <>
-          <h3>승격 진행</h3>
-          <Table
-            cols={['업무 블록', '사용', '판단', '단계', '상태']}
-            rows={promos.map((p) => (
-              <tr key={p.id}>
-                <td>{p.name}</td>
-                <td>{p.from}</td>
-                <td>{human(p.judge)}</td>
-                <td className="nw">{p.stage}</td>
-                <td>
-                  <SbStatus p={p} />
-                </td>
-              </tr>
-            ))}
-          />
-        </>
-      ) : null}
       <h2 id="modules">모듈 정의</h2>
       <p className="note">블록이 무엇이고 어떻게 구성되는지 정한 UX 패턴 가이드의 모듈 문서입니다. 그 안의 지켜야 할 규칙은 거버넌스 › 규칙에 번호로 모여 있습니다.</p>
       {[...new Set(docsIn('blocks').map((d) => d.group.split(' › ')[0] || '모듈'))].map((g) => (
@@ -905,8 +883,8 @@ function Process() {
         cols={['역할', '맡는 것', '배포']}
         rows={[
           ['보기', '문서 읽기 · Workboard', '-'],
-          ['UX 담당자', 'UX 가이드라인 · 모듈 정의 · UX 규칙 · 업무 블록 설명 · 놓이는 슬롯 · 승격 1단 심사', '배포 요청'],
-          ['DS 담당자', 'UI 규칙 · 토큰 · 컴포넌트 · 블록 모양(Figma) · 소스 변환 · 디자인 요청 · 승격 2단 심사', '배포 요청'],
+          ['UX 담당자', 'UX 가이드라인 · 모듈 정의 · UX 규칙 · 업무 블록 설명 · 놓이는 슬롯', '배포 요청'],
+          ['DS 담당자', 'UI 규칙 · 토큰 · 컴포넌트 · 블록 모양(Figma) · 소스 변환 · 디자인 요청 · 디자인 검수', '배포 요청'],
           ['관리자', '운영 서버 배포 · 롤백 · 재검수 대상 알림 · 권한 확인', '정기 · 수동 배포'],
         ].map((r) => (
           <tr key={r[0]}>
@@ -916,16 +894,12 @@ function Process() {
           </tr>
         ))}
       />
-      <h2 id="promo">승격</h2>
-      <p>
-        여러 업무에서 반복해 쓰인 업무 블록(블록 · BO 블록)은 승격 후보가 됩니다. SB팀 표준 심사(UX 담당자) → UI팀 디자인 심사(DS 담당자, <a href="#design-review">디자인 검수 기준</a>) → 관리자 배포를 거쳐 공통 블록이 됩니다.
-      </p>
       <h2 id="version">버전 규칙</h2>
       <Table
         cols={['올림', '언제', 'SB에 미치는 영향']}
         rows={[
           ['MAJOR', '기존 것을 고치거나 지울 때 (규칙 수정 · 삭제, 속성 정의 변경)', '이미 만든 SB 재검수'],
-          ['MINOR', '추가 · 승격 (새 규칙 · 컴포넌트 · 토큰)', '없음 · 새로 쓸 수 있음'],
+          ['MINOR', '추가 (새 규칙 · 컴포넌트 · 블록 · 토큰)', '없음 · 새로 쓸 수 있음'],
           ['PATCH', '설명 · 글 수정', '없음'],
         ].map((r) => (
           <tr key={r[0]}>
@@ -969,115 +943,6 @@ function Lint() {
           </tr>
         ))}
       />
-    </>
-  );
-}
-
-// ---------- 승격 심사 (UX 담당자 · DS 담당자 · 관리자) ----------
-
-function Promo() {
-  const { role, act } = usePortal();
-  const L = P.promotions();
-  const promote = (k: number, ok: boolean) => {
-    const inp = document.getElementById(`promoUrl-${k}`) as HTMLInputElement | null;
-    if (ok && inp && !inp.value.trim()) {
-      act(() => {
-        throw new Error('Figma 노드 주소를 넣어 주세요');
-      });
-      return;
-    }
-    act(() => P.promote(role, k, ok, { url: inp?.value.trim() }), (p) => (p.status === '승인' ? `공통 블록으로 배포 · ${p.code} · 운영 ${P.version()}` : p.status === '반려' ? '반려했습니다' : `${p.stage} 단계로 넘겼습니다`));
-  };
-  const actions = (p: P.Promotion, k: number) => {
-    if (p.status !== '대기') return null;
-    const s = P.PROMO_STAGES.find((x) => x.stage === p.stage);
-    if (!s) return null;
-    if (role !== s.who) return <span className="muted">{P.ROLES[s.who]} 차례</span>;
-    return (
-      <>
-        {s.who === 'ds' ? <input className="in-sm" id={`promoUrl-${k}`} placeholder="Figma 노드 주소" aria-label="Figma 노드 주소" /> : null}
-        <button className="btn2 primary sm" onClick={() => promote(k, true)}>
-          {s.act}
-        </button>
-        <button className="btn2 sm" onClick={() => promote(k, false)}>
-          반려
-        </button>
-      </>
-    );
-  };
-  const onAdd = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const f = e.currentTarget;
-    const v = formValues(f);
-    act(() => P.addPromotion(role, { code: v.code, name: v.name, from: v.from, judge: v.judge }), (p) => `${p.id} 등록 · ${p.stage} 단계`).then((x) => x && f.reset());
-  };
-  return (
-    <>
-      <Head
-        eyebrow={role === 'approver' ? '관리자' : role === 'ds' ? 'DS 작업' : 'UX 편집'}
-        title="승격 심사"
-        lead="여러 Storyboard에서 반복해 쓰인 업무 블록(tb-)을 2단 심사(SB팀 표준 → UI팀 디자인)를 거쳐 공통 블록으로 올립니다. 마지막은 관리자가 배포합니다."
-        extra={
-          <div className="checks">
-            {P.PROMO_STAGES.map((s, i) => (
-              <span key={s.stage} className="ck on">
-                {i + 1}. {s.stage} · {P.ROLES[s.who]}
-              </span>
-            ))}
-          </div>
-        }
-      />
-      {role === 'ux' ? (
-        <section className="ed-panel">
-          <div className="ed-h">
-            <b>승격 후보 등록</b>
-          </div>
-          <form className="ef" onSubmit={onAdd}>
-            <div className="ef-r">
-              <label>
-                임시 코드
-                <input name="code" required pattern="t[bc]-[a-z0-9-]+" placeholder="tb-…" />
-              </label>
-              <label>
-                이름
-                <input name="name" required />
-              </label>
-              <label className="w">
-                출처
-                <input name="from" placeholder="SB · 화면 ID · 사용 승인 SB 건수" />
-              </label>
-            </div>
-            <label>
-              변형 판단
-              <input name="judge" placeholder="예: c-date-field 변형 후보" />
-            </label>
-            <div className="row">
-              <button className="btn2 primary sm">등록</button>
-            </div>
-          </form>
-        </section>
-      ) : null}
-      <h2 id="list">승격 후보</h2>
-      <Table
-        cols={['후보', '이름', '사용', '변형 판단', '심사 단계', '상태', '처리']}
-        rows={L.map((p, k) => {
-          const code = p.code.split(' → ').pop()!;
-          return (
-            <tr key={p.id}>
-              <td className="nw">{p.id}</td>
-              <td>{P.item(code) ? <CodeLink code={code} /> : p.name}</td>
-              <td>{p.from}</td>
-              <td>{human(p.judge)}</td>
-              <td className="nw">{p.stage}</td>
-              <td>
-                <St c={p.status === '승인' ? 'ok' : p.status === '반려' ? 'ng' : 'hold'} t={p.status} />
-              </td>
-              <td className="acts">{actions(p, k)}</td>
-            </tr>
-          );
-        })}
-      />
-      <p className="muted">관리자가 배포하면 코드 앞자리만 바뀌어(tb- → b-, tc- → c-) 공통 블록이 됩니다.</p>
     </>
   );
 }

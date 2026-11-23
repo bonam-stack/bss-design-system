@@ -123,9 +123,9 @@ export function sections(role: Role): Section[] {
   // 메뉴 순서: 거버넌스 → UX 가이드라인 → Foundations → Components → Blocks → Workboard (홈은 로고)
   const ORDER = ['home', 'gov', 'uxg', 'foundations', 'components', 'blocks', 'mine'];
   S.sort((x, y) => ORDER.indexOf(x[0]) - ORDER.indexOf(y[0]));
-  if (role === 'ux') S.push(['work', 'UX 편집', [['ux-edit', '기준 편집'], ['sb-edit', 'SB library 편집'], ['my', '내 변경'], ['promo', '승격 심사']]]);
-  if (role === 'ds') S.push(['work', 'DS 작업', [['requests', '디자인 요청'], ['convert', '소스 변환'], ['my', '내 변경'], ['promo', '승격 심사']]]);
-  if (role === 'approver') S.push(['work', '관리자', [['deploy', '운영 서버 배포'], ['recheck', '재검수 대상 SB'], ['roles', '권한 확인'], ['promo', '승격 심사']]]);
+  if (role === 'ux') S.push(['work', 'UX 편집', [['ux-edit', '기준 편집'], ['sb-edit', 'SB library 편집'], ['my', '내 변경']]]);
+  if (role === 'ds') S.push(['work', 'DS 작업', [['requests', '디자인 요청'], ['convert', '소스 변환'], ['my', '내 변경']]]);
+  if (role === 'approver') S.push(['work', '관리자', [['deploy', '운영 서버 배포'], ['recheck', '재검수 대상 SB'], ['roles', '권한 확인']]]);
   return S;
 }
 

@@ -1,7 +1,7 @@
 // 역할별 작업 페이지 (BSS SB Studio 디자인 포맷 정의 및 연계 방식의 흐름).
 // 케이스 1 토큰 · 컴포넌트 · 공통 블록: 디자인 요청 → UI팀 디자인 → 소스 변환 · 미리보기 → DS 담당자 확인 → 배포 요청 → 관리자 배포
 // 케이스 2 UX 패턴: 기준 편집 → 규칙 번호 자동 → 저장 · 미리보기 → UX 담당자 확인 → 배포 요청 → 관리자 배포
-// 케이스 3 업무 블록: SB library 편집 → 자동 검사 → 미리보기 → 담당자 확인 → 배포 요청 → 관리자 배포 → 사용 집계 → 승격
+// 케이스 3 업무 블록: SB library 편집 → 자동 검사 → 미리보기 → 담당자 확인 → 배포 요청 → 관리자 배포
 // 케이스 4 아이콘: Workboard에서 요청(AI 더미로 기획 계속) → 디자인 요청 → 소스 변환 → 배포 → 더미 교체 · 알림
 import { FigmaTokenRow } from './PortalCompPage';
 import { useState } from 'react';
@@ -198,14 +198,9 @@ export function UxEdit() {
   );
 }
 
-export function SbStatus({ p }: { p: P.Promotion }) {
-  return <St c={p.status === '승인' ? 'ok' : p.status === '반려' ? 'ng' : 'hold'} t={p.status} />;
-}
-
-/** UX 편집 › SB library 편집: 업무 블록 · 사용 집계 · 승격 후보 */
+/** UX 편집 › SB library 편집: 업무 블록 */
 export function SbEdit() {
   const sb = P.items().filter((i) => P.isSb(i));
-  const promos = P.promotions().filter((p) => /^tb-/.test(p.code));
   return (
     <>
       <Head eyebrow="UX 편집" title="SB library 편집" lead="업무 블록(블록 · BO 블록)입니다. SB Studio 미리보기에서 자동 생성된 블록은 SB 설계 완료 시 여기에 게시됩니다. 블록 문서를 열어 설명 · 놓이는 슬롯을 고치고, 자동 검사(속성값 · ID · 규칙 · 토큰)를 통과하면 미리보기가 만들어집니다." />
@@ -227,27 +222,6 @@ export function SbEdit() {
           </tr>
         ))}
       />
-      <h2 id="usage">사용 집계 · 승격 후보</h2>
-      <p className="note">여러 Storyboard에서 반복해 쓰인 업무 블록은 승격 후보가 되고, 2단 심사(SB팀 표준 → UI팀 디자인)를 거쳐 공통 블록이 됩니다.</p>
-      <Table
-        cols={['업무 블록', '사용', '판단', '심사 단계', '상태']}
-        rows={promos.map((p) => (
-          <tr key={p.id}>
-            <td>{p.name}</td>
-            <td>{p.from}</td>
-            <td>{human(p.judge)}</td>
-            <td className="nw">{p.stage}</td>
-            <td>
-              <SbStatus p={p} />
-            </td>
-          </tr>
-        ))}
-      />
-      <p>
-        <a className="btn2 sm" href="#promo">
-          승격 심사로
-        </a>
-      </p>
     </>
   );
 }
@@ -300,7 +274,6 @@ export function My() {
 export function Requests() {
   const { role, act } = usePortal();
   const L = P.requests();
-  const promos = P.promotions().filter((p) => p.status === '대기' && p.stage === 'UI팀 디자인');
   return (
     <>
       <Head eyebrow="DS 작업" title="디자인 요청" lead="SB 작성 중 들어온 아이콘 제작 · 컴포넌트 · 공통 블록 수정 · 토큰 요청입니다. UI팀이 Figma에서 만들면 소스 변환으로 읽어 미리보기를 확인합니다." />
@@ -342,25 +315,6 @@ export function Requests() {
           </tr>
         ))}
       />
-      {promos.length ? (
-        <>
-          <h2 id="promo">블록 승격 (UI팀 디자인 차례)</h2>
-          <Table
-            cols={['업무 블록', '판단', '']}
-            rows={promos.map((p) => (
-              <tr key={p.id}>
-                <td>{p.name}</td>
-                <td>{human(p.judge)}</td>
-                <td>
-                  <a className="lnk" href="#promo">
-                    승격 심사에서 처리
-                  </a>
-                </td>
-              </tr>
-            ))}
-          />
-        </>
-      ) : null}
     </>
   );
 }
@@ -550,7 +504,7 @@ export function Deploy() {
         <ConfirmButton className="btn2 sm danger" onConfirm={() => act(() => P.reset(), '처음 상태로 되돌렸습니다', '#overview')}>
           처음 상태로 되돌리기
         </ConfirmButton>
-        <span className="muted">이 브라우저에 저장된 초안 · 배포 · 요청 · 승격 진행을 지웁니다</span>
+        <span className="muted">이 브라우저에 저장된 초안 · 배포 · 요청을 지웁니다</span>
       </p>
     </>
   );
@@ -603,9 +557,9 @@ export function Roles() {
         cols={['역할', '작업 메뉴', '하는 일', '배포']}
         rows={[
           ['보기', 'Workboard', '기준 보기 · 아이콘 · 컴포넌트 · 블록 · 토큰 요청', '-'],
-          ['UX 담당자', 'UX 편집: 기준 편집 · SB library 편집 · 내 변경 · 승격 심사', 'UX 패턴 · 레이아웃 규칙 · 사용 가이드 · 규칙 · 업무 블록 편집, SB팀 표준 심사', '배포 요청'],
-          ['DS 담당자', 'DS 작업: 디자인 요청 · 소스 변환 · 내 변경 · 승격 심사', '토큰 · 컴포넌트 · 공통 블록 소스 변환 · 수정(설명 · 코드), UI팀 디자인 심사', '배포 요청'],
-          ['관리자', '관리자: 운영 서버 배포 · 재검수 대상 SB · 권한 확인 · 승격 심사', '정기 · 수동 배포, 롤백, 재검수 대상 확인', '운영 서버 배포'],
+          ['UX 담당자', 'UX 편집: 기준 편집 · SB library 편집 · 내 변경', 'UX 가이드라인 · 레이아웃 규칙 · 사용 가이드 · 규칙 · 업무 블록 편집', '배포 요청'],
+          ['DS 담당자', 'DS 작업: 디자인 요청 · 소스 변환 · 내 변경', '토큰 · 컴포넌트 · 블록 소스 변환 · 수정(설명 · 코드)', '배포 요청'],
+          ['관리자', '관리자: 운영 서버 배포 · 재검수 대상 SB · 권한 확인', '정기 · 수동 배포, 롤백, 재검수 대상 확인', '운영 서버 배포'],
         ].map((r) => (
           <tr key={r[0]}>
             <td>
