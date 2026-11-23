@@ -7,6 +7,7 @@ import { usePortal } from '../portal/ctx';
 import { patterns, usage } from '../data';
 import { docsFor, docsIn, guideRoute, guideSource } from '../guide';
 import { AiSummary } from './AiSummary';
+import { UsagePanel } from './UsagePanel';
 import { SbSpec } from './SbSpec';
 import { compGroups, docGroup, hostOf } from '../nav';
 import { GuideEmbed } from './GuidePage';
@@ -605,26 +606,7 @@ function ItemPage({ it }: { it: Item }) {
               <p className="chips">{joinNodes(usedIn.map((b) => <CodeLink key={b} code={b} />), ' · ')}</p>
             </>
           ) : null}
-          {uses.length ? (
-            <>
-              <h3>
-                사용 현황 <span className="count">{new Set(uses.map((u) => u.sb)).size} SB · {uses.length} 화면</span>
-              </h3>
-              <p className="note">SB Studio가 배포된 SB에서 이 블록이 쓰인 화면을 찾아 주는 값입니다 (지금은 예시 · {usage.updatedAt}). 승격 판단의 근거가 됩니다.</p>
-              <Table
-                cols={['SB', '화면', 'UC', '업무', '기반 버전']}
-                rows={uses.map((u, i) => (
-                  <tr key={i}>
-                    <td>{u.sb}</td>
-                    <td className="mono">{u.screen}</td>
-                    <td className="mono">{u.uc}</td>
-                    <td>{P.SB_GROUP[u.domain as P.SbDomain] || u.domain}</td>
-                    <td className="mono">{u.deployed}</td>
-                  </tr>
-                ))}
-              />
-            </>
-          ) : null}
+          {uses.length ? <UsagePanel code={it.code} /> : null}
         </>
       ) : null}
     </TextScope.Provider>

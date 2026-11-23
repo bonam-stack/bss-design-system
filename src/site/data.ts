@@ -160,4 +160,4 @@ export const patterns: Pattern[] = (patternIndex as { patterns: string[] }).patt
 });
 
 /** 블록 사용 현황 (SB Studio가 배포된 SB에서 역조인해 주는 값 · 지금은 예시) */
-export const usage = usageJson as { updatedAt: string; items: import('./portal/store').Usage[] };
+export const usage = usageJson as { updatedAt: string; sample?: boolean; items: import('./portal/store').Usage[] };

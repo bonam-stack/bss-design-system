@@ -1,110 +1,6167 @@
 {
-  "$description": "블록 사용 현황. SB Studio가 배포된 설계서(SB)에서 블록이 쓰인 화면을 역조인해 주는 데이터. 지금은 시연용 예시 값이다.",
-  "updatedAt": "2026-11-23",
-  "items": [
-    {
-      "block": "b-search-general",
-      "sb": "부가서비스 가입 관리",
-      "screen": "SVC-02-001",
-      "uc": "UC_1-1",
-      "domain": "func",
-      "deployed": "0.5.0"
-    },
-    {
-      "block": "b-search-general",
-      "sb": "요금 조회",
-      "screen": "BIL-01-003",
-      "uc": "UC_1-2",
-      "domain": "func",
-      "deployed": "0.5.0"
-    },
-    {
-      "block": "b-search-general",
-      "sb": "상품 관리(BO)",
-      "screen": "BO-PRD-010",
-      "uc": "UC_3-1",
-      "domain": "bo",
-      "deployed": "0.4.2"
-    },
-    {
-      "block": "b-table-basic",
-      "sb": "부가서비스 가입 관리",
-      "screen": "SVC-02-001",
-      "uc": "UC_1-1",
-      "domain": "func",
-      "deployed": "0.5.0"
-    },
-    {
-      "block": "b-table-basic",
-      "sb": "요금 조회",
-      "screen": "BIL-01-003",
-      "uc": "UC_1-2",
-      "domain": "func",
-      "deployed": "0.5.0"
-    },
-    {
-      "block": "b-content",
-      "sb": "부가서비스 가입 관리",
-      "screen": "SVC-02-001",
-      "uc": "UC_1-1",
-      "domain": "func",
-      "deployed": "0.5.0"
-    },
-    {
-      "block": "b-action",
-      "sb": "부가서비스 가입 관리",
-      "screen": "SVC-02-001",
-      "uc": "UC_1-1",
-      "domain": "func",
-      "deployed": "0.5.0"
-    },
-    {
-      "block": "b-statusbar",
-      "sb": "요금 조회",
-      "screen": "BIL-01-003",
-      "uc": "UC_1-2",
-      "domain": "func",
-      "deployed": "0.5.0"
-    },
-    {
-      "block": "b-node",
-      "sb": "명의 변경 상담",
-      "screen": "CNS-04-002",
-      "uc": "UC_2-1",
-      "domain": "func",
-      "deployed": "0.5.0"
-    },
-    {
-      "block": "b-hud",
-      "sb": "명의 변경 상담",
-      "screen": "CNS-04-002",
-      "uc": "UC_2-1",
-      "domain": "func",
-      "deployed": "0.5.0"
-    },
-    {
-      "block": "b-actionbar",
-      "sb": "명의 변경 상담",
-      "screen": "CNS-04-002",
-      "uc": "UC_2-1",
-      "domain": "func",
-      "deployed": "0.5.0"
-    },
-    {
-      "block": "tb-compare-card",
-      "sb": "요금제 비교",
-      "screen": "PLN-03-001",
-      "uc": "UC_4-1",
-      "domain": "func",
-      "deployed": "0.5.0"
-    },
-    {
-      "block": "tb-compare-card",
-      "sb": "요금제 변경 상담",
-      "screen": "CNS-05-004",
-      "uc": "UC_2-2",
-      "domain": "func",
-      "deployed": "0.5.0"
-    }
-  ]
+"$description": "블록 사용 현황. SB Studio가 배포된 설계서(SB)에서 블록이 쓰인 화면을 역조인해 주는 데이터. 지금은 시연용 예시 값이다(sample: true).",
+"updatedAt": "2026-11-23",
+"items": [
+{
+"block": "b-search-general",
+"sb": "예시 SB · 포인트",
+"screen": "PNT-03-026",
+"uc": "UC_1-1",
+"domain": "func",
+"deployed": "0.4.0"
+},
+{
+"block": "b-search-general",
+"sb": "예시 SB · 요금 조회",
+"screen": "BIL-06-038",
+"uc": "UC_1-2",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-search-general",
+"sb": "예시 SB · 요금 조회",
+"screen": "BIL-07-027",
+"uc": "UC_2-2",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-search-general",
+"sb": "예시 SB · 권한 관리(BO)",
+"screen": "BO-AUT-07-004",
+"uc": "UC_2-2",
+"domain": "bo",
+"deployed": "0.3.1"
+},
+{
+"block": "b-search-general",
+"sb": "예시 SB · 부가서비스 가입",
+"screen": "SVC-07-004",
+"uc": "UC_4-1",
+"domain": "func",
+"deployed": "0.4.0"
+},
+{
+"block": "b-search-general",
+"sb": "예시 SB · 명의 변경",
+"screen": "CNS-05-027",
+"uc": "UC_3-1",
+"domain": "func",
+"deployed": "0.4.0"
+},
+{
+"block": "b-search-general",
+"sb": "예시 SB · 해지 관리",
+"screen": "TRM-09-012",
+"uc": "UC_2-2",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-search-general",
+"sb": "예시 SB · 요금 조회",
+"screen": "BIL-09-005",
+"uc": "UC_1-2",
+"domain": "func",
+"deployed": "0.4.2"
+},
+{
+"block": "b-search-general",
+"sb": "예시 SB · 권한 관리(BO)",
+"screen": "BO-AUT-07-021",
+"uc": "UC_8-4",
+"domain": "bo",
+"deployed": "0.5.0"
+},
+{
+"block": "b-search-general",
+"sb": "예시 SB · 해지 관리",
+"screen": "TRM-04-012",
+"uc": "UC_4-1",
+"domain": "func",
+"deployed": "0.4.0"
+},
+{
+"block": "b-search-general",
+"sb": "예시 SB · 해지 관리",
+"screen": "TRM-09-032",
+"uc": "UC_6-4",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-search-general",
+"sb": "예시 SB · 요금 조회",
+"screen": "BIL-02-033",
+"uc": "UC_7-2",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-search-general",
+"sb": "예시 SB · 명의 변경",
+"screen": "CNS-08-027",
+"uc": "UC_1-1",
+"domain": "func",
+"deployed": "0.4.0"
+},
+{
+"block": "b-search-general",
+"sb": "예시 SB · 포인트",
+"screen": "PNT-06-023",
+"uc": "UC_8-4",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-search-general",
+"sb": "예시 SB · 요금 조회",
+"screen": "BIL-05-031",
+"uc": "UC_2-1",
+"domain": "func",
+"deployed": "0.3.1"
+},
+{
+"block": "b-search-general",
+"sb": "예시 SB · 해지 관리",
+"screen": "TRM-08-019",
+"uc": "UC_7-3",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-search-general",
+"sb": "예시 SB · 공지 관리(BO)",
+"screen": "BO-NTC-06-011",
+"uc": "UC_2-4",
+"domain": "bo",
+"deployed": "0.5.0"
+},
+{
+"block": "b-search-general",
+"sb": "예시 SB · 단말 할부",
+"screen": "DEV-05-009",
+"uc": "UC_4-4",
+"domain": "func",
+"deployed": "0.4.2"
+},
+{
+"block": "b-search-general",
+"sb": "예시 SB · 공지 관리(BO)",
+"screen": "BO-NTC-02-011",
+"uc": "UC_8-4",
+"domain": "bo",
+"deployed": "0.4.0"
+},
+{
+"block": "b-search-general",
+"sb": "예시 SB · 해지 관리",
+"screen": "TRM-03-028",
+"uc": "UC_9-3",
+"domain": "func",
+"deployed": "0.3.1"
+},
+{
+"block": "b-search-general",
+"sb": "예시 SB · 상품 관리(BO)",
+"screen": "BO-PRD-06-025",
+"uc": "UC_4-2",
+"domain": "bo",
+"deployed": "0.5.0"
+},
+{
+"block": "b-search-general",
+"sb": "예시 SB · 명의 변경",
+"screen": "CNS-03-015",
+"uc": "UC_4-1",
+"domain": "func",
+"deployed": "0.4.2"
+},
+{
+"block": "b-search-general",
+"sb": "예시 SB · 명의 변경",
+"screen": "CNS-05-019",
+"uc": "UC_1-2",
+"domain": "func",
+"deployed": "0.4.2"
+},
+{
+"block": "b-search-general",
+"sb": "예시 SB · 권한 관리(BO)",
+"screen": "BO-AUT-06-040",
+"uc": "UC_6-2",
+"domain": "bo",
+"deployed": "0.3.1"
+},
+{
+"block": "b-search-general",
+"sb": "예시 SB · 권한 관리(BO)",
+"screen": "BO-AUT-01-030",
+"uc": "UC_9-4",
+"domain": "bo",
+"deployed": "0.4.2"
+},
+{
+"block": "b-search-general",
+"sb": "예시 SB · 상품 관리(BO)",
+"screen": "BO-PRD-07-007",
+"uc": "UC_8-4",
+"domain": "bo",
+"deployed": "0.5.0"
+},
+{
+"block": "b-search-general",
+"sb": "예시 SB · 단말 할부",
+"screen": "DEV-02-014",
+"uc": "UC_8-2",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-search-general",
+"sb": "예시 SB · 포인트",
+"screen": "PNT-01-007",
+"uc": "UC_1-2",
+"domain": "func",
+"deployed": "0.4.0"
+},
+{
+"block": "b-search-general",
+"sb": "예시 SB · 요금 조회",
+"screen": "BIL-06-040",
+"uc": "UC_1-1",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-search-general",
+"sb": "예시 SB · 상품 관리(BO)",
+"screen": "BO-PRD-03-017",
+"uc": "UC_6-3",
+"domain": "bo",
+"deployed": "0.4.2"
+},
+{
+"block": "b-search-general",
+"sb": "예시 SB · 요금 조회",
+"screen": "BIL-02-032",
+"uc": "UC_8-4",
+"domain": "func",
+"deployed": "0.4.2"
+},
+{
+"block": "b-search-general",
+"sb": "예시 SB · 해지 관리",
+"screen": "TRM-02-010",
+"uc": "UC_2-3",
+"domain": "func",
+"deployed": "0.3.1"
+},
+{
+"block": "b-search-general",
+"sb": "예시 SB · 해지 관리",
+"screen": "TRM-08-011",
+"uc": "UC_9-1",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-search-general",
+"sb": "예시 SB · 권한 관리(BO)",
+"screen": "BO-AUT-06-010",
+"uc": "UC_9-1",
+"domain": "bo",
+"deployed": "0.4.0"
+},
+{
+"block": "b-search-general",
+"sb": "예시 SB · 해지 관리",
+"screen": "TRM-02-017",
+"uc": "UC_9-3",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-search-general",
+"sb": "예시 SB · 포인트",
+"screen": "PNT-04-035",
+"uc": "UC_9-3",
+"domain": "func",
+"deployed": "0.3.1"
+},
+{
+"block": "b-search-general",
+"sb": "예시 SB · 단말 할부",
+"screen": "DEV-04-016",
+"uc": "UC_7-2",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-search-general",
+"sb": "예시 SB · 권한 관리(BO)",
+"screen": "BO-AUT-08-023",
+"uc": "UC_1-1",
+"domain": "bo",
+"deployed": "0.5.0"
+},
+{
+"block": "b-search-general",
+"sb": "예시 SB · 공지 관리(BO)",
+"screen": "BO-NTC-05-013",
+"uc": "UC_6-4",
+"domain": "bo",
+"deployed": "0.3.1"
+},
+{
+"block": "b-search-general",
+"sb": "예시 SB · 포인트",
+"screen": "PNT-06-006",
+"uc": "UC_4-1",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-search-general",
+"sb": "예시 SB · 공지 관리(BO)",
+"screen": "BO-NTC-04-022",
+"uc": "UC_4-4",
+"domain": "bo",
+"deployed": "0.4.0"
+},
+{
+"block": "b-search-general",
+"sb": "예시 SB · 부가서비스 가입",
+"screen": "SVC-08-023",
+"uc": "UC_2-1",
+"domain": "func",
+"deployed": "0.4.2"
+},
+{
+"block": "b-search-general",
+"sb": "예시 SB · 단말 할부",
+"screen": "DEV-08-012",
+"uc": "UC_7-3",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-search-general",
+"sb": "예시 SB · 상품 관리(BO)",
+"screen": "BO-PRD-08-026",
+"uc": "UC_2-2",
+"domain": "bo",
+"deployed": "0.5.0"
+},
+{
+"block": "b-search-general",
+"sb": "예시 SB · 명의 변경",
+"screen": "CNS-01-010",
+"uc": "UC_8-2",
+"domain": "func",
+"deployed": "0.4.0"
+},
+{
+"block": "b-search-general",
+"sb": "예시 SB · 공지 관리(BO)",
+"screen": "BO-NTC-06-010",
+"uc": "UC_9-2",
+"domain": "bo",
+"deployed": "0.5.0"
+},
+{
+"block": "b-search-general",
+"sb": "예시 SB · 부가서비스 가입",
+"screen": "SVC-02-034",
+"uc": "UC_3-4",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-search-general",
+"sb": "예시 SB · 단말 할부",
+"screen": "DEV-01-017",
+"uc": "UC_4-3",
+"domain": "func",
+"deployed": "0.4.0"
+},
+{
+"block": "b-search-general",
+"sb": "예시 SB · 단말 할부",
+"screen": "DEV-06-017",
+"uc": "UC_9-4",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-search-general",
+"sb": "예시 SB · 부가서비스 가입",
+"screen": "SVC-06-030",
+"uc": "UC_9-4",
+"domain": "func",
+"deployed": "0.4.0"
+},
+{
+"block": "b-search-general",
+"sb": "예시 SB · 명의 변경",
+"screen": "CNS-09-010",
+"uc": "UC_9-1",
+"domain": "func",
+"deployed": "0.4.2"
+},
+{
+"block": "b-search-general",
+"sb": "예시 SB · 요금 조회",
+"screen": "BIL-09-004",
+"uc": "UC_6-4",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-search-general",
+"sb": "예시 SB · 권한 관리(BO)",
+"screen": "BO-AUT-01-016",
+"uc": "UC_4-3",
+"domain": "bo",
+"deployed": "0.5.0"
+},
+{
+"block": "b-search-general",
+"sb": "예시 SB · 요금 조회",
+"screen": "BIL-09-029",
+"uc": "UC_9-1",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-search-general",
+"sb": "예시 SB · 공지 관리(BO)",
+"screen": "BO-NTC-06-040",
+"uc": "UC_9-2",
+"domain": "bo",
+"deployed": "0.3.1"
+},
+{
+"block": "b-search-general",
+"sb": "예시 SB · 해지 관리",
+"screen": "TRM-08-033",
+"uc": "UC_9-4",
+"domain": "func",
+"deployed": "0.4.0"
+},
+{
+"block": "b-search-general",
+"sb": "예시 SB · 단말 할부",
+"screen": "DEV-09-017",
+"uc": "UC_9-2",
+"domain": "func",
+"deployed": "0.4.2"
+},
+{
+"block": "b-search-general",
+"sb": "예시 SB · 명의 변경",
+"screen": "CNS-07-008",
+"uc": "UC_7-4",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-search-general",
+"sb": "예시 SB · 요금 조회",
+"screen": "BIL-04-028",
+"uc": "UC_2-2",
+"domain": "func",
+"deployed": "0.3.1"
+},
+{
+"block": "b-search-general",
+"sb": "예시 SB · 명의 변경",
+"screen": "CNS-08-015",
+"uc": "UC_2-4",
+"domain": "func",
+"deployed": "0.4.2"
+},
+{
+"block": "b-search-general",
+"sb": "예시 SB · 명의 변경",
+"screen": "CNS-04-011",
+"uc": "UC_7-4",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-search-general",
+"sb": "예시 SB · 상품 관리(BO)",
+"screen": "BO-PRD-04-023",
+"uc": "UC_6-1",
+"domain": "bo",
+"deployed": "0.3.1"
+},
+{
+"block": "b-search-general",
+"sb": "예시 SB · 포인트",
+"screen": "PNT-01-022",
+"uc": "UC_9-4",
+"domain": "func",
+"deployed": "0.4.2"
+},
+{
+"block": "b-search-general",
+"sb": "예시 SB · 부가서비스 가입",
+"screen": "SVC-07-022",
+"uc": "UC_9-3",
+"domain": "func",
+"deployed": "0.4.0"
+},
+{
+"block": "b-search-general",
+"sb": "예시 SB · 요금 조회",
+"screen": "BIL-02-015",
+"uc": "UC_2-1",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-search-general",
+"sb": "예시 SB · 해지 관리",
+"screen": "TRM-01-012",
+"uc": "UC_5-2",
+"domain": "func",
+"deployed": "0.4.2"
+},
+{
+"block": "b-search-general",
+"sb": "예시 SB · 해지 관리",
+"screen": "TRM-07-010",
+"uc": "UC_9-4",
+"domain": "func",
+"deployed": "0.3.1"
+},
+{
+"block": "b-search-general",
+"sb": "예시 SB · 포인트",
+"screen": "PNT-02-018",
+"uc": "UC_1-2",
+"domain": "func",
+"deployed": "0.4.2"
+},
+{
+"block": "b-search-general",
+"sb": "예시 SB · 요금 조회",
+"screen": "BIL-05-002",
+"uc": "UC_2-3",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-search-general",
+"sb": "예시 SB · 단말 할부",
+"screen": "DEV-02-017",
+"uc": "UC_2-4",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-search-general",
+"sb": "예시 SB · 포인트",
+"screen": "PNT-09-027",
+"uc": "UC_5-2",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-search-general",
+"sb": "예시 SB · 권한 관리(BO)",
+"screen": "BO-AUT-04-008",
+"uc": "UC_3-3",
+"domain": "bo",
+"deployed": "0.5.0"
+},
+{
+"block": "b-search-general",
+"sb": "예시 SB · 명의 변경",
+"screen": "CNS-04-020",
+"uc": "UC_5-2",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-search-general",
+"sb": "예시 SB · 공지 관리(BO)",
+"screen": "BO-NTC-09-012",
+"uc": "UC_5-3",
+"domain": "bo",
+"deployed": "0.5.0"
+},
+{
+"block": "b-search-general",
+"sb": "예시 SB · 해지 관리",
+"screen": "TRM-01-001",
+"uc": "UC_1-2",
+"domain": "func",
+"deployed": "0.4.0"
+},
+{
+"block": "b-search-general",
+"sb": "예시 SB · 공지 관리(BO)",
+"screen": "BO-NTC-04-029",
+"uc": "UC_2-4",
+"domain": "bo",
+"deployed": "0.3.1"
+},
+{
+"block": "b-search-general",
+"sb": "예시 SB · 공지 관리(BO)",
+"screen": "BO-NTC-09-026",
+"uc": "UC_9-3",
+"domain": "bo",
+"deployed": "0.3.1"
+},
+{
+"block": "b-search-general",
+"sb": "예시 SB · 단말 할부",
+"screen": "DEV-04-022",
+"uc": "UC_4-2",
+"domain": "func",
+"deployed": "0.4.2"
+},
+{
+"block": "b-search-general",
+"sb": "예시 SB · 포인트",
+"screen": "PNT-01-009",
+"uc": "UC_1-1",
+"domain": "func",
+"deployed": "0.3.1"
+},
+{
+"block": "b-search-general",
+"sb": "예시 SB · 해지 관리",
+"screen": "TRM-07-011",
+"uc": "UC_1-1",
+"domain": "func",
+"deployed": "0.3.1"
+},
+{
+"block": "b-search-general",
+"sb": "예시 SB · 상품 관리(BO)",
+"screen": "BO-PRD-09-019",
+"uc": "UC_4-3",
+"domain": "bo",
+"deployed": "0.5.0"
+},
+{
+"block": "b-search-general",
+"sb": "예시 SB · 공지 관리(BO)",
+"screen": "BO-NTC-03-011",
+"uc": "UC_5-4",
+"domain": "bo",
+"deployed": "0.5.0"
+},
+{
+"block": "b-search-general",
+"sb": "예시 SB · 해지 관리",
+"screen": "TRM-06-022",
+"uc": "UC_9-3",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-search-general",
+"sb": "예시 SB · 부가서비스 가입",
+"screen": "SVC-05-014",
+"uc": "UC_6-2",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-search-general",
+"sb": "예시 SB · 포인트",
+"screen": "PNT-07-006",
+"uc": "UC_8-3",
+"domain": "func",
+"deployed": "0.4.0"
+},
+{
+"block": "b-search-general",
+"sb": "예시 SB · 단말 할부",
+"screen": "DEV-04-033",
+"uc": "UC_1-1",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-search-general",
+"sb": "예시 SB · 요금 조회",
+"screen": "BIL-03-026",
+"uc": "UC_1-4",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-search-general",
+"sb": "예시 SB · 해지 관리",
+"screen": "TRM-05-015",
+"uc": "UC_2-2",
+"domain": "func",
+"deployed": "0.3.1"
+},
+{
+"block": "b-search-general",
+"sb": "예시 SB · 상품 관리(BO)",
+"screen": "BO-PRD-06-032",
+"uc": "UC_3-3",
+"domain": "bo",
+"deployed": "0.3.1"
+},
+{
+"block": "b-search-general",
+"sb": "예시 SB · 명의 변경",
+"screen": "CNS-01-033",
+"uc": "UC_7-2",
+"domain": "func",
+"deployed": "0.4.0"
+},
+{
+"block": "b-search-general",
+"sb": "예시 SB · 권한 관리(BO)",
+"screen": "BO-AUT-01-038",
+"uc": "UC_4-1",
+"domain": "bo",
+"deployed": "0.5.0"
+},
+{
+"block": "b-search-general",
+"sb": "예시 SB · 부가서비스 가입",
+"screen": "SVC-03-024",
+"uc": "UC_2-4",
+"domain": "func",
+"deployed": "0.4.2"
+},
+{
+"block": "b-search-general",
+"sb": "예시 SB · 권한 관리(BO)",
+"screen": "BO-AUT-01-002",
+"uc": "UC_9-2",
+"domain": "bo",
+"deployed": "0.4.2"
+},
+{
+"block": "b-search-general",
+"sb": "예시 SB · 해지 관리",
+"screen": "TRM-01-030",
+"uc": "UC_2-1",
+"domain": "func",
+"deployed": "0.3.1"
+},
+{
+"block": "b-search-general",
+"sb": "예시 SB · 권한 관리(BO)",
+"screen": "BO-AUT-02-031",
+"uc": "UC_5-1",
+"domain": "bo",
+"deployed": "0.5.0"
+},
+{
+"block": "b-search-general",
+"sb": "예시 SB · 단말 할부",
+"screen": "DEV-04-015",
+"uc": "UC_8-4",
+"domain": "func",
+"deployed": "0.4.2"
+},
+{
+"block": "b-search-general",
+"sb": "예시 SB · 요금 조회",
+"screen": "BIL-08-019",
+"uc": "UC_1-2",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-search-general",
+"sb": "예시 SB · 명의 변경",
+"screen": "CNS-06-017",
+"uc": "UC_5-2",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-search-general",
+"sb": "예시 SB · 공지 관리(BO)",
+"screen": "BO-NTC-01-032",
+"uc": "UC_5-1",
+"domain": "bo",
+"deployed": "0.3.1"
+},
+{
+"block": "b-search-general",
+"sb": "예시 SB · 단말 할부",
+"screen": "DEV-08-019",
+"uc": "UC_9-3",
+"domain": "func",
+"deployed": "0.4.2"
+},
+{
+"block": "b-search-general",
+"sb": "예시 SB · 공지 관리(BO)",
+"screen": "BO-NTC-08-008",
+"uc": "UC_9-2",
+"domain": "bo",
+"deployed": "0.5.0"
+},
+{
+"block": "b-search-general",
+"sb": "예시 SB · 요금 조회",
+"screen": "BIL-08-002",
+"uc": "UC_5-4",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-search-general",
+"sb": "예시 SB · 권한 관리(BO)",
+"screen": "BO-AUT-08-018",
+"uc": "UC_7-2",
+"domain": "bo",
+"deployed": "0.5.0"
+},
+{
+"block": "b-search-general",
+"sb": "예시 SB · 요금 조회",
+"screen": "BIL-02-010",
+"uc": "UC_9-3",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-search-general",
+"sb": "예시 SB · 명의 변경",
+"screen": "CNS-09-018",
+"uc": "UC_2-3",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-search-general",
+"sb": "예시 SB · 공지 관리(BO)",
+"screen": "BO-NTC-08-026",
+"uc": "UC_1-2",
+"domain": "bo",
+"deployed": "0.5.0"
+},
+{
+"block": "b-search-general",
+"sb": "예시 SB · 포인트",
+"screen": "PNT-07-021",
+"uc": "UC_2-3",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-search-general",
+"sb": "예시 SB · 포인트",
+"screen": "PNT-06-026",
+"uc": "UC_2-2",
+"domain": "func",
+"deployed": "0.3.1"
+},
+{
+"block": "b-search-general",
+"sb": "예시 SB · 부가서비스 가입",
+"screen": "SVC-05-017",
+"uc": "UC_6-1",
+"domain": "func",
+"deployed": "0.4.2"
+},
+{
+"block": "b-search-general",
+"sb": "예시 SB · 상품 관리(BO)",
+"screen": "BO-PRD-02-024",
+"uc": "UC_7-3",
+"domain": "bo",
+"deployed": "0.5.0"
+},
+{
+"block": "b-search-general",
+"sb": "예시 SB · 해지 관리",
+"screen": "TRM-02-004",
+"uc": "UC_5-2",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-search-general",
+"sb": "예시 SB · 해지 관리",
+"screen": "TRM-07-033",
+"uc": "UC_6-2",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-search-general",
+"sb": "예시 SB · 상품 관리(BO)",
+"screen": "BO-PRD-01-026",
+"uc": "UC_9-2",
+"domain": "bo",
+"deployed": "0.3.1"
+},
+{
+"block": "b-search-general",
+"sb": "예시 SB · 요금 조회",
+"screen": "BIL-01-027",
+"uc": "UC_8-2",
+"domain": "func",
+"deployed": "0.3.1"
+},
+{
+"block": "b-search-general",
+"sb": "예시 SB · 해지 관리",
+"screen": "TRM-08-004",
+"uc": "UC_9-2",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-search-general",
+"sb": "예시 SB · 공지 관리(BO)",
+"screen": "BO-NTC-07-022",
+"uc": "UC_5-3",
+"domain": "bo",
+"deployed": "0.5.0"
+},
+{
+"block": "b-search-general",
+"sb": "예시 SB · 해지 관리",
+"screen": "TRM-07-016",
+"uc": "UC_5-4",
+"domain": "func",
+"deployed": "0.4.0"
+},
+{
+"block": "b-search-general",
+"sb": "예시 SB · 상품 관리(BO)",
+"screen": "BO-PRD-02-011",
+"uc": "UC_3-1",
+"domain": "bo",
+"deployed": "0.5.0"
+},
+{
+"block": "b-search-general",
+"sb": "예시 SB · 권한 관리(BO)",
+"screen": "BO-AUT-08-036",
+"uc": "UC_4-4",
+"domain": "bo",
+"deployed": "0.5.0"
+},
+{
+"block": "b-search-general",
+"sb": "예시 SB · 공지 관리(BO)",
+"screen": "BO-NTC-07-009",
+"uc": "UC_9-2",
+"domain": "bo",
+"deployed": "0.5.0"
+},
+{
+"block": "b-search-general",
+"sb": "예시 SB · 요금 조회",
+"screen": "BIL-03-022",
+"uc": "UC_9-1",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-search-general",
+"sb": "예시 SB · 상품 관리(BO)",
+"screen": "BO-PRD-07-027",
+"uc": "UC_9-2",
+"domain": "bo",
+"deployed": "0.4.2"
+},
+{
+"block": "b-search-general",
+"sb": "예시 SB · 해지 관리",
+"screen": "TRM-06-004",
+"uc": "UC_8-3",
+"domain": "func",
+"deployed": "0.4.0"
+},
+{
+"block": "b-search-general",
+"sb": "예시 SB · 포인트",
+"screen": "PNT-03-033",
+"uc": "UC_9-2",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-table-basic",
+"sb": "예시 SB · 해지 관리",
+"screen": "TRM-04-025",
+"uc": "UC_7-4",
+"domain": "func",
+"deployed": "0.4.2"
+},
+{
+"block": "b-table-basic",
+"sb": "예시 SB · 해지 관리",
+"screen": "TRM-01-009",
+"uc": "UC_1-4",
+"domain": "func",
+"deployed": "0.3.1"
+},
+{
+"block": "b-table-basic",
+"sb": "예시 SB · 공지 관리(BO)",
+"screen": "BO-NTC-08-001",
+"uc": "UC_2-4",
+"domain": "bo",
+"deployed": "0.4.0"
+},
+{
+"block": "b-table-basic",
+"sb": "예시 SB · 공지 관리(BO)",
+"screen": "BO-NTC-08-016",
+"uc": "UC_2-2",
+"domain": "bo",
+"deployed": "0.5.0"
+},
+{
+"block": "b-table-basic",
+"sb": "예시 SB · 명의 변경",
+"screen": "CNS-09-007",
+"uc": "UC_8-1",
+"domain": "func",
+"deployed": "0.4.0"
+},
+{
+"block": "b-table-basic",
+"sb": "예시 SB · 부가서비스 가입",
+"screen": "SVC-01-009",
+"uc": "UC_4-1",
+"domain": "func",
+"deployed": "0.3.1"
+},
+{
+"block": "b-table-basic",
+"sb": "예시 SB · 해지 관리",
+"screen": "TRM-03-017",
+"uc": "UC_9-4",
+"domain": "func",
+"deployed": "0.3.1"
+},
+{
+"block": "b-table-basic",
+"sb": "예시 SB · 요금 조회",
+"screen": "BIL-02-005",
+"uc": "UC_5-2",
+"domain": "func",
+"deployed": "0.4.2"
+},
+{
+"block": "b-table-basic",
+"sb": "예시 SB · 해지 관리",
+"screen": "TRM-04-039",
+"uc": "UC_1-1",
+"domain": "func",
+"deployed": "0.4.0"
+},
+{
+"block": "b-table-basic",
+"sb": "예시 SB · 해지 관리",
+"screen": "TRM-08-018",
+"uc": "UC_6-2",
+"domain": "func",
+"deployed": "0.4.2"
+},
+{
+"block": "b-table-basic",
+"sb": "예시 SB · 권한 관리(BO)",
+"screen": "BO-AUT-04-036",
+"uc": "UC_4-1",
+"domain": "bo",
+"deployed": "0.4.2"
+},
+{
+"block": "b-table-basic",
+"sb": "예시 SB · 해지 관리",
+"screen": "TRM-01-002",
+"uc": "UC_4-4",
+"domain": "func",
+"deployed": "0.3.1"
+},
+{
+"block": "b-table-basic",
+"sb": "예시 SB · 상품 관리(BO)",
+"screen": "BO-PRD-02-017",
+"uc": "UC_4-4",
+"domain": "bo",
+"deployed": "0.5.0"
+},
+{
+"block": "b-table-basic",
+"sb": "예시 SB · 단말 할부",
+"screen": "DEV-08-003",
+"uc": "UC_6-4",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-table-basic",
+"sb": "예시 SB · 상품 관리(BO)",
+"screen": "BO-PRD-04-001",
+"uc": "UC_5-1",
+"domain": "bo",
+"deployed": "0.5.0"
+},
+{
+"block": "b-table-basic",
+"sb": "예시 SB · 공지 관리(BO)",
+"screen": "BO-NTC-04-020",
+"uc": "UC_4-2",
+"domain": "bo",
+"deployed": "0.4.2"
+},
+{
+"block": "b-table-basic",
+"sb": "예시 SB · 단말 할부",
+"screen": "DEV-05-019",
+"uc": "UC_2-4",
+"domain": "func",
+"deployed": "0.4.0"
+},
+{
+"block": "b-table-basic",
+"sb": "예시 SB · 명의 변경",
+"screen": "CNS-04-032",
+"uc": "UC_7-1",
+"domain": "func",
+"deployed": "0.4.0"
+},
+{
+"block": "b-table-basic",
+"sb": "예시 SB · 명의 변경",
+"screen": "CNS-07-004",
+"uc": "UC_4-1",
+"domain": "func",
+"deployed": "0.4.0"
+},
+{
+"block": "b-table-basic",
+"sb": "예시 SB · 공지 관리(BO)",
+"screen": "BO-NTC-06-008",
+"uc": "UC_2-2",
+"domain": "bo",
+"deployed": "0.5.0"
+},
+{
+"block": "b-table-basic",
+"sb": "예시 SB · 단말 할부",
+"screen": "DEV-03-034",
+"uc": "UC_8-1",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-table-basic",
+"sb": "예시 SB · 상품 관리(BO)",
+"screen": "BO-PRD-06-022",
+"uc": "UC_8-2",
+"domain": "bo",
+"deployed": "0.5.0"
+},
+{
+"block": "b-table-basic",
+"sb": "예시 SB · 부가서비스 가입",
+"screen": "SVC-02-018",
+"uc": "UC_2-3",
+"domain": "func",
+"deployed": "0.4.2"
+},
+{
+"block": "b-table-basic",
+"sb": "예시 SB · 요금 조회",
+"screen": "BIL-09-014",
+"uc": "UC_7-3",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-table-basic",
+"sb": "예시 SB · 상품 관리(BO)",
+"screen": "BO-PRD-02-004",
+"uc": "UC_8-2",
+"domain": "bo",
+"deployed": "0.5.0"
+},
+{
+"block": "b-table-basic",
+"sb": "예시 SB · 권한 관리(BO)",
+"screen": "BO-AUT-08-013",
+"uc": "UC_6-3",
+"domain": "bo",
+"deployed": "0.3.1"
+},
+{
+"block": "b-table-basic",
+"sb": "예시 SB · 공지 관리(BO)",
+"screen": "BO-NTC-01-027",
+"uc": "UC_4-4",
+"domain": "bo",
+"deployed": "0.5.0"
+},
+{
+"block": "b-table-basic",
+"sb": "예시 SB · 상품 관리(BO)",
+"screen": "BO-PRD-01-030",
+"uc": "UC_2-1",
+"domain": "bo",
+"deployed": "0.5.0"
+},
+{
+"block": "b-table-basic",
+"sb": "예시 SB · 단말 할부",
+"screen": "DEV-02-039",
+"uc": "UC_6-3",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-table-basic",
+"sb": "예시 SB · 포인트",
+"screen": "PNT-01-017",
+"uc": "UC_6-3",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-table-basic",
+"sb": "예시 SB · 부가서비스 가입",
+"screen": "SVC-02-002",
+"uc": "UC_4-1",
+"domain": "func",
+"deployed": "0.4.2"
+},
+{
+"block": "b-table-basic",
+"sb": "예시 SB · 공지 관리(BO)",
+"screen": "BO-NTC-07-017",
+"uc": "UC_7-4",
+"domain": "bo",
+"deployed": "0.5.0"
+},
+{
+"block": "b-table-basic",
+"sb": "예시 SB · 공지 관리(BO)",
+"screen": "BO-NTC-03-001",
+"uc": "UC_5-2",
+"domain": "bo",
+"deployed": "0.4.0"
+},
+{
+"block": "b-table-basic",
+"sb": "예시 SB · 단말 할부",
+"screen": "DEV-06-021",
+"uc": "UC_8-3",
+"domain": "func",
+"deployed": "0.4.0"
+},
+{
+"block": "b-table-basic",
+"sb": "예시 SB · 요금 조회",
+"screen": "BIL-09-013",
+"uc": "UC_7-2",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-table-basic",
+"sb": "예시 SB · 상품 관리(BO)",
+"screen": "BO-PRD-02-003",
+"uc": "UC_8-3",
+"domain": "bo",
+"deployed": "0.5.0"
+},
+{
+"block": "b-table-basic",
+"sb": "예시 SB · 상품 관리(BO)",
+"screen": "BO-PRD-02-005",
+"uc": "UC_5-1",
+"domain": "bo",
+"deployed": "0.5.0"
+},
+{
+"block": "b-table-basic",
+"sb": "예시 SB · 요금 조회",
+"screen": "BIL-07-032",
+"uc": "UC_8-2",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-table-basic",
+"sb": "예시 SB · 명의 변경",
+"screen": "CNS-07-030",
+"uc": "UC_4-1",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-table-basic",
+"sb": "예시 SB · 해지 관리",
+"screen": "TRM-05-037",
+"uc": "UC_5-3",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-table-basic",
+"sb": "예시 SB · 해지 관리",
+"screen": "TRM-04-029",
+"uc": "UC_4-2",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-table-basic",
+"sb": "예시 SB · 단말 할부",
+"screen": "DEV-03-019",
+"uc": "UC_4-3",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-table-basic",
+"sb": "예시 SB · 상품 관리(BO)",
+"screen": "BO-PRD-05-016",
+"uc": "UC_9-2",
+"domain": "bo",
+"deployed": "0.3.1"
+},
+{
+"block": "b-table-basic",
+"sb": "예시 SB · 요금 조회",
+"screen": "BIL-08-003",
+"uc": "UC_2-1",
+"domain": "func",
+"deployed": "0.4.2"
+},
+{
+"block": "b-table-basic",
+"sb": "예시 SB · 단말 할부",
+"screen": "DEV-08-024",
+"uc": "UC_1-3",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-table-basic",
+"sb": "예시 SB · 요금 조회",
+"screen": "BIL-01-013",
+"uc": "UC_4-1",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-table-basic",
+"sb": "예시 SB · 권한 관리(BO)",
+"screen": "BO-AUT-03-029",
+"uc": "UC_5-1",
+"domain": "bo",
+"deployed": "0.5.0"
+},
+{
+"block": "b-table-basic",
+"sb": "예시 SB · 포인트",
+"screen": "PNT-04-003",
+"uc": "UC_6-3",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-table-basic",
+"sb": "예시 SB · 부가서비스 가입",
+"screen": "SVC-04-017",
+"uc": "UC_1-2",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-table-basic",
+"sb": "예시 SB · 포인트",
+"screen": "PNT-07-024",
+"uc": "UC_3-3",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-table-basic",
+"sb": "예시 SB · 단말 할부",
+"screen": "DEV-01-032",
+"uc": "UC_9-4",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-table-basic",
+"sb": "예시 SB · 상품 관리(BO)",
+"screen": "BO-PRD-02-026",
+"uc": "UC_9-2",
+"domain": "bo",
+"deployed": "0.3.1"
+},
+{
+"block": "b-table-basic",
+"sb": "예시 SB · 권한 관리(BO)",
+"screen": "BO-AUT-02-011",
+"uc": "UC_7-3",
+"domain": "bo",
+"deployed": "0.4.2"
+},
+{
+"block": "b-table-basic",
+"sb": "예시 SB · 해지 관리",
+"screen": "TRM-05-027",
+"uc": "UC_1-3",
+"domain": "func",
+"deployed": "0.3.1"
+},
+{
+"block": "b-table-basic",
+"sb": "예시 SB · 포인트",
+"screen": "PNT-07-027",
+"uc": "UC_1-3",
+"domain": "func",
+"deployed": "0.3.1"
+},
+{
+"block": "b-table-basic",
+"sb": "예시 SB · 단말 할부",
+"screen": "DEV-07-026",
+"uc": "UC_4-1",
+"domain": "func",
+"deployed": "0.4.2"
+},
+{
+"block": "b-table-basic",
+"sb": "예시 SB · 명의 변경",
+"screen": "CNS-07-008",
+"uc": "UC_2-4",
+"domain": "func",
+"deployed": "0.4.0"
+},
+{
+"block": "b-table-basic",
+"sb": "예시 SB · 포인트",
+"screen": "PNT-08-011",
+"uc": "UC_3-1",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-table-basic",
+"sb": "예시 SB · 권한 관리(BO)",
+"screen": "BO-AUT-03-026",
+"uc": "UC_2-3",
+"domain": "bo",
+"deployed": "0.3.1"
+},
+{
+"block": "b-table-basic",
+"sb": "예시 SB · 권한 관리(BO)",
+"screen": "BO-AUT-03-010",
+"uc": "UC_6-3",
+"domain": "bo",
+"deployed": "0.5.0"
+},
+{
+"block": "b-table-basic",
+"sb": "예시 SB · 권한 관리(BO)",
+"screen": "BO-AUT-03-005",
+"uc": "UC_2-4",
+"domain": "bo",
+"deployed": "0.4.2"
+},
+{
+"block": "b-table-basic",
+"sb": "예시 SB · 단말 할부",
+"screen": "DEV-05-009",
+"uc": "UC_1-4",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-table-basic",
+"sb": "예시 SB · 부가서비스 가입",
+"screen": "SVC-07-006",
+"uc": "UC_3-2",
+"domain": "func",
+"deployed": "0.4.0"
+},
+{
+"block": "b-table-basic",
+"sb": "예시 SB · 상품 관리(BO)",
+"screen": "BO-PRD-04-031",
+"uc": "UC_3-2",
+"domain": "bo",
+"deployed": "0.5.0"
+},
+{
+"block": "b-table-basic",
+"sb": "예시 SB · 상품 관리(BO)",
+"screen": "BO-PRD-09-011",
+"uc": "UC_7-3",
+"domain": "bo",
+"deployed": "0.5.0"
+},
+{
+"block": "b-table-basic",
+"sb": "예시 SB · 명의 변경",
+"screen": "CNS-04-013",
+"uc": "UC_1-1",
+"domain": "func",
+"deployed": "0.3.1"
+},
+{
+"block": "b-table-basic",
+"sb": "예시 SB · 포인트",
+"screen": "PNT-02-025",
+"uc": "UC_8-3",
+"domain": "func",
+"deployed": "0.3.1"
+},
+{
+"block": "b-table-basic",
+"sb": "예시 SB · 상품 관리(BO)",
+"screen": "BO-PRD-05-038",
+"uc": "UC_4-4",
+"domain": "bo",
+"deployed": "0.4.2"
+},
+{
+"block": "b-table-basic",
+"sb": "예시 SB · 포인트",
+"screen": "PNT-08-033",
+"uc": "UC_8-2",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-table-basic",
+"sb": "예시 SB · 부가서비스 가입",
+"screen": "SVC-08-030",
+"uc": "UC_4-4",
+"domain": "func",
+"deployed": "0.4.0"
+},
+{
+"block": "b-table-basic",
+"sb": "예시 SB · 공지 관리(BO)",
+"screen": "BO-NTC-03-031",
+"uc": "UC_7-1",
+"domain": "bo",
+"deployed": "0.5.0"
+},
+{
+"block": "b-table-basic",
+"sb": "예시 SB · 명의 변경",
+"screen": "CNS-06-028",
+"uc": "UC_6-1",
+"domain": "func",
+"deployed": "0.4.2"
+},
+{
+"block": "b-table-basic",
+"sb": "예시 SB · 권한 관리(BO)",
+"screen": "BO-AUT-09-003",
+"uc": "UC_1-2",
+"domain": "bo",
+"deployed": "0.5.0"
+},
+{
+"block": "b-table-basic",
+"sb": "예시 SB · 포인트",
+"screen": "PNT-09-006",
+"uc": "UC_1-4",
+"domain": "func",
+"deployed": "0.3.1"
+},
+{
+"block": "b-table-basic",
+"sb": "예시 SB · 명의 변경",
+"screen": "CNS-01-005",
+"uc": "UC_2-2",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-table-basic",
+"sb": "예시 SB · 공지 관리(BO)",
+"screen": "BO-NTC-05-011",
+"uc": "UC_4-1",
+"domain": "bo",
+"deployed": "0.5.0"
+},
+{
+"block": "b-table-basic",
+"sb": "예시 SB · 해지 관리",
+"screen": "TRM-03-021",
+"uc": "UC_5-4",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-table-basic",
+"sb": "예시 SB · 해지 관리",
+"screen": "TRM-09-031",
+"uc": "UC_4-3",
+"domain": "func",
+"deployed": "0.4.0"
+},
+{
+"block": "b-table-basic",
+"sb": "예시 SB · 권한 관리(BO)",
+"screen": "BO-AUT-04-021",
+"uc": "UC_6-1",
+"domain": "bo",
+"deployed": "0.5.0"
+},
+{
+"block": "b-table-basic",
+"sb": "예시 SB · 명의 변경",
+"screen": "CNS-07-011",
+"uc": "UC_5-3",
+"domain": "func",
+"deployed": "0.4.2"
+},
+{
+"block": "b-table-basic",
+"sb": "예시 SB · 명의 변경",
+"screen": "CNS-05-008",
+"uc": "UC_9-1",
+"domain": "func",
+"deployed": "0.3.1"
+},
+{
+"block": "b-table-basic",
+"sb": "예시 SB · 포인트",
+"screen": "PNT-08-036",
+"uc": "UC_9-1",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-table-basic",
+"sb": "예시 SB · 권한 관리(BO)",
+"screen": "BO-AUT-07-024",
+"uc": "UC_5-4",
+"domain": "bo",
+"deployed": "0.5.0"
+},
+{
+"block": "b-table-basic",
+"sb": "예시 SB · 명의 변경",
+"screen": "CNS-06-022",
+"uc": "UC_2-4",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-table-basic",
+"sb": "예시 SB · 명의 변경",
+"screen": "CNS-01-019",
+"uc": "UC_9-3",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-table-basic",
+"sb": "예시 SB · 포인트",
+"screen": "PNT-01-003",
+"uc": "UC_4-2",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-table-basic",
+"sb": "예시 SB · 상품 관리(BO)",
+"screen": "BO-PRD-07-033",
+"uc": "UC_6-1",
+"domain": "bo",
+"deployed": "0.5.0"
+},
+{
+"block": "b-table-basic",
+"sb": "예시 SB · 공지 관리(BO)",
+"screen": "BO-NTC-04-040",
+"uc": "UC_1-1",
+"domain": "bo",
+"deployed": "0.5.0"
+},
+{
+"block": "b-table-basic",
+"sb": "예시 SB · 부가서비스 가입",
+"screen": "SVC-06-020",
+"uc": "UC_2-3",
+"domain": "func",
+"deployed": "0.4.0"
+},
+{
+"block": "b-table-basic",
+"sb": "예시 SB · 단말 할부",
+"screen": "DEV-07-038",
+"uc": "UC_5-2",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-table-basic",
+"sb": "예시 SB · 명의 변경",
+"screen": "CNS-08-007",
+"uc": "UC_2-2",
+"domain": "func",
+"deployed": "0.3.1"
+},
+{
+"block": "b-table-basic",
+"sb": "예시 SB · 해지 관리",
+"screen": "TRM-07-017",
+"uc": "UC_1-1",
+"domain": "func",
+"deployed": "0.3.1"
+},
+{
+"block": "b-table-basic",
+"sb": "예시 SB · 권한 관리(BO)",
+"screen": "BO-AUT-06-039",
+"uc": "UC_8-4",
+"domain": "bo",
+"deployed": "0.5.0"
+},
+{
+"block": "b-table-basic",
+"sb": "예시 SB · 명의 변경",
+"screen": "CNS-01-003",
+"uc": "UC_1-1",
+"domain": "func",
+"deployed": "0.4.2"
+},
+{
+"block": "b-content",
+"sb": "예시 SB · 명의 변경",
+"screen": "CNS-04-011",
+"uc": "UC_1-1",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-content",
+"sb": "예시 SB · 권한 관리(BO)",
+"screen": "BO-AUT-04-010",
+"uc": "UC_7-2",
+"domain": "bo",
+"deployed": "0.4.0"
+},
+{
+"block": "b-content",
+"sb": "예시 SB · 권한 관리(BO)",
+"screen": "BO-AUT-07-040",
+"uc": "UC_3-3",
+"domain": "bo",
+"deployed": "0.5.0"
+},
+{
+"block": "b-content",
+"sb": "예시 SB · 해지 관리",
+"screen": "TRM-01-031",
+"uc": "UC_9-1",
+"domain": "func",
+"deployed": "0.4.2"
+},
+{
+"block": "b-content",
+"sb": "예시 SB · 상품 관리(BO)",
+"screen": "BO-PRD-08-006",
+"uc": "UC_8-2",
+"domain": "bo",
+"deployed": "0.5.0"
+},
+{
+"block": "b-content",
+"sb": "예시 SB · 요금 조회",
+"screen": "BIL-05-015",
+"uc": "UC_1-1",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-content",
+"sb": "예시 SB · 해지 관리",
+"screen": "TRM-01-018",
+"uc": "UC_9-4",
+"domain": "func",
+"deployed": "0.3.1"
+},
+{
+"block": "b-content",
+"sb": "예시 SB · 권한 관리(BO)",
+"screen": "BO-AUT-05-019",
+"uc": "UC_4-1",
+"domain": "bo",
+"deployed": "0.4.0"
+},
+{
+"block": "b-content",
+"sb": "예시 SB · 부가서비스 가입",
+"screen": "SVC-03-017",
+"uc": "UC_4-2",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-content",
+"sb": "예시 SB · 포인트",
+"screen": "PNT-04-025",
+"uc": "UC_6-2",
+"domain": "func",
+"deployed": "0.4.2"
+},
+{
+"block": "b-content",
+"sb": "예시 SB · 권한 관리(BO)",
+"screen": "BO-AUT-08-031",
+"uc": "UC_9-1",
+"domain": "bo",
+"deployed": "0.5.0"
+},
+{
+"block": "b-content",
+"sb": "예시 SB · 상품 관리(BO)",
+"screen": "BO-PRD-04-037",
+"uc": "UC_5-2",
+"domain": "bo",
+"deployed": "0.4.2"
+},
+{
+"block": "b-content",
+"sb": "예시 SB · 요금 조회",
+"screen": "BIL-03-010",
+"uc": "UC_1-1",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-content",
+"sb": "예시 SB · 요금 조회",
+"screen": "BIL-03-023",
+"uc": "UC_3-1",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-content",
+"sb": "예시 SB · 부가서비스 가입",
+"screen": "SVC-03-003",
+"uc": "UC_2-1",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-content",
+"sb": "예시 SB · 포인트",
+"screen": "PNT-04-035",
+"uc": "UC_2-4",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-content",
+"sb": "예시 SB · 단말 할부",
+"screen": "DEV-04-014",
+"uc": "UC_2-1",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-content",
+"sb": "예시 SB · 요금 조회",
+"screen": "BIL-05-031",
+"uc": "UC_2-2",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-content",
+"sb": "예시 SB · 단말 할부",
+"screen": "DEV-05-021",
+"uc": "UC_6-4",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-content",
+"sb": "예시 SB · 부가서비스 가입",
+"screen": "SVC-06-017",
+"uc": "UC_5-1",
+"domain": "func",
+"deployed": "0.3.1"
+},
+{
+"block": "b-content",
+"sb": "예시 SB · 포인트",
+"screen": "PNT-06-039",
+"uc": "UC_9-4",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-content",
+"sb": "예시 SB · 부가서비스 가입",
+"screen": "SVC-07-002",
+"uc": "UC_7-1",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-content",
+"sb": "예시 SB · 공지 관리(BO)",
+"screen": "BO-NTC-01-035",
+"uc": "UC_4-1",
+"domain": "bo",
+"deployed": "0.4.0"
+},
+{
+"block": "b-content",
+"sb": "예시 SB · 해지 관리",
+"screen": "TRM-03-028",
+"uc": "UC_1-2",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-content",
+"sb": "예시 SB · 부가서비스 가입",
+"screen": "SVC-01-023",
+"uc": "UC_8-1",
+"domain": "func",
+"deployed": "0.4.2"
+},
+{
+"block": "b-content",
+"sb": "예시 SB · 명의 변경",
+"screen": "CNS-08-038",
+"uc": "UC_6-3",
+"domain": "func",
+"deployed": "0.4.0"
+},
+{
+"block": "b-content",
+"sb": "예시 SB · 명의 변경",
+"screen": "CNS-05-014",
+"uc": "UC_4-4",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-content",
+"sb": "예시 SB · 요금 조회",
+"screen": "BIL-02-032",
+"uc": "UC_9-1",
+"domain": "func",
+"deployed": "0.3.1"
+},
+{
+"block": "b-content",
+"sb": "예시 SB · 포인트",
+"screen": "PNT-06-007",
+"uc": "UC_7-4",
+"domain": "func",
+"deployed": "0.3.1"
+},
+{
+"block": "b-content",
+"sb": "예시 SB · 요금 조회",
+"screen": "BIL-07-002",
+"uc": "UC_6-2",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-content",
+"sb": "예시 SB · 해지 관리",
+"screen": "TRM-07-035",
+"uc": "UC_9-2",
+"domain": "func",
+"deployed": "0.4.2"
+},
+{
+"block": "b-content",
+"sb": "예시 SB · 단말 할부",
+"screen": "DEV-08-009",
+"uc": "UC_9-1",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-content",
+"sb": "예시 SB · 포인트",
+"screen": "PNT-09-010",
+"uc": "UC_8-3",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-content",
+"sb": "예시 SB · 공지 관리(BO)",
+"screen": "BO-NTC-08-017",
+"uc": "UC_4-2",
+"domain": "bo",
+"deployed": "0.5.0"
+},
+{
+"block": "b-content",
+"sb": "예시 SB · 공지 관리(BO)",
+"screen": "BO-NTC-04-033",
+"uc": "UC_4-3",
+"domain": "bo",
+"deployed": "0.5.0"
+},
+{
+"block": "b-content",
+"sb": "예시 SB · 명의 변경",
+"screen": "CNS-03-016",
+"uc": "UC_6-3",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-content",
+"sb": "예시 SB · 단말 할부",
+"screen": "DEV-06-013",
+"uc": "UC_5-1",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-content",
+"sb": "예시 SB · 요금 조회",
+"screen": "BIL-04-025",
+"uc": "UC_3-2",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-content",
+"sb": "예시 SB · 해지 관리",
+"screen": "TRM-07-018",
+"uc": "UC_4-1",
+"domain": "func",
+"deployed": "0.3.1"
+},
+{
+"block": "b-content",
+"sb": "예시 SB · 요금 조회",
+"screen": "BIL-05-014",
+"uc": "UC_7-4",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-content",
+"sb": "예시 SB · 부가서비스 가입",
+"screen": "SVC-07-028",
+"uc": "UC_4-3",
+"domain": "func",
+"deployed": "0.4.2"
+},
+{
+"block": "b-content",
+"sb": "예시 SB · 단말 할부",
+"screen": "DEV-07-037",
+"uc": "UC_7-2",
+"domain": "func",
+"deployed": "0.3.1"
+},
+{
+"block": "b-content",
+"sb": "예시 SB · 단말 할부",
+"screen": "DEV-03-008",
+"uc": "UC_8-4",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-content",
+"sb": "예시 SB · 해지 관리",
+"screen": "TRM-02-027",
+"uc": "UC_4-4",
+"domain": "func",
+"deployed": "0.3.1"
+},
+{
+"block": "b-content",
+"sb": "예시 SB · 명의 변경",
+"screen": "CNS-05-028",
+"uc": "UC_8-4",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-content",
+"sb": "예시 SB · 상품 관리(BO)",
+"screen": "BO-PRD-09-012",
+"uc": "UC_6-1",
+"domain": "bo",
+"deployed": "0.4.2"
+},
+{
+"block": "b-content",
+"sb": "예시 SB · 공지 관리(BO)",
+"screen": "BO-NTC-02-003",
+"uc": "UC_5-2",
+"domain": "bo",
+"deployed": "0.5.0"
+},
+{
+"block": "b-content",
+"sb": "예시 SB · 단말 할부",
+"screen": "DEV-09-023",
+"uc": "UC_2-4",
+"domain": "func",
+"deployed": "0.4.0"
+},
+{
+"block": "b-content",
+"sb": "예시 SB · 단말 할부",
+"screen": "DEV-08-033",
+"uc": "UC_1-3",
+"domain": "func",
+"deployed": "0.4.0"
+},
+{
+"block": "b-content",
+"sb": "예시 SB · 포인트",
+"screen": "PNT-07-030",
+"uc": "UC_4-2",
+"domain": "func",
+"deployed": "0.4.2"
+},
+{
+"block": "b-content",
+"sb": "예시 SB · 권한 관리(BO)",
+"screen": "BO-AUT-02-040",
+"uc": "UC_6-1",
+"domain": "bo",
+"deployed": "0.5.0"
+},
+{
+"block": "b-content",
+"sb": "예시 SB · 해지 관리",
+"screen": "TRM-07-026",
+"uc": "UC_1-1",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-content",
+"sb": "예시 SB · 상품 관리(BO)",
+"screen": "BO-PRD-07-023",
+"uc": "UC_5-1",
+"domain": "bo",
+"deployed": "0.5.0"
+},
+{
+"block": "b-content",
+"sb": "예시 SB · 해지 관리",
+"screen": "TRM-07-034",
+"uc": "UC_4-4",
+"domain": "func",
+"deployed": "0.4.2"
+},
+{
+"block": "b-content",
+"sb": "예시 SB · 단말 할부",
+"screen": "DEV-03-009",
+"uc": "UC_2-2",
+"domain": "func",
+"deployed": "0.4.2"
+},
+{
+"block": "b-content",
+"sb": "예시 SB · 해지 관리",
+"screen": "TRM-09-009",
+"uc": "UC_8-3",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-content",
+"sb": "예시 SB · 해지 관리",
+"screen": "TRM-07-017",
+"uc": "UC_7-2",
+"domain": "func",
+"deployed": "0.4.2"
+},
+{
+"block": "b-content",
+"sb": "예시 SB · 부가서비스 가입",
+"screen": "SVC-05-023",
+"uc": "UC_4-3",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-content",
+"sb": "예시 SB · 공지 관리(BO)",
+"screen": "BO-NTC-08-028",
+"uc": "UC_2-3",
+"domain": "bo",
+"deployed": "0.5.0"
+},
+{
+"block": "b-content",
+"sb": "예시 SB · 해지 관리",
+"screen": "TRM-07-004",
+"uc": "UC_2-3",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-content",
+"sb": "예시 SB · 권한 관리(BO)",
+"screen": "BO-AUT-06-038",
+"uc": "UC_1-1",
+"domain": "bo",
+"deployed": "0.5.0"
+},
+{
+"block": "b-content",
+"sb": "예시 SB · 요금 조회",
+"screen": "BIL-05-017",
+"uc": "UC_2-2",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-content",
+"sb": "예시 SB · 명의 변경",
+"screen": "CNS-08-023",
+"uc": "UC_3-2",
+"domain": "func",
+"deployed": "0.4.2"
+},
+{
+"block": "b-content",
+"sb": "예시 SB · 권한 관리(BO)",
+"screen": "BO-AUT-03-040",
+"uc": "UC_2-3",
+"domain": "bo",
+"deployed": "0.5.0"
+},
+{
+"block": "b-content",
+"sb": "예시 SB · 공지 관리(BO)",
+"screen": "BO-NTC-04-034",
+"uc": "UC_2-4",
+"domain": "bo",
+"deployed": "0.3.1"
+},
+{
+"block": "b-content",
+"sb": "예시 SB · 요금 조회",
+"screen": "BIL-09-008",
+"uc": "UC_5-4",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-content",
+"sb": "예시 SB · 명의 변경",
+"screen": "CNS-08-032",
+"uc": "UC_9-1",
+"domain": "func",
+"deployed": "0.4.2"
+},
+{
+"block": "b-content",
+"sb": "예시 SB · 공지 관리(BO)",
+"screen": "BO-NTC-03-032",
+"uc": "UC_4-4",
+"domain": "bo",
+"deployed": "0.5.0"
+},
+{
+"block": "b-content",
+"sb": "예시 SB · 권한 관리(BO)",
+"screen": "BO-AUT-01-011",
+"uc": "UC_6-4",
+"domain": "bo",
+"deployed": "0.3.1"
+},
+{
+"block": "b-content",
+"sb": "예시 SB · 공지 관리(BO)",
+"screen": "BO-NTC-05-030",
+"uc": "UC_6-4",
+"domain": "bo",
+"deployed": "0.4.2"
+},
+{
+"block": "b-content",
+"sb": "예시 SB · 요금 조회",
+"screen": "BIL-03-024",
+"uc": "UC_1-1",
+"domain": "func",
+"deployed": "0.4.0"
+},
+{
+"block": "b-content",
+"sb": "예시 SB · 부가서비스 가입",
+"screen": "SVC-06-007",
+"uc": "UC_9-4",
+"domain": "func",
+"deployed": "0.4.2"
+},
+{
+"block": "b-content",
+"sb": "예시 SB · 명의 변경",
+"screen": "CNS-01-014",
+"uc": "UC_7-2",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-content",
+"sb": "예시 SB · 요금 조회",
+"screen": "BIL-06-022",
+"uc": "UC_8-2",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-content",
+"sb": "예시 SB · 상품 관리(BO)",
+"screen": "BO-PRD-06-028",
+"uc": "UC_5-1",
+"domain": "bo",
+"deployed": "0.5.0"
+},
+{
+"block": "b-content",
+"sb": "예시 SB · 해지 관리",
+"screen": "TRM-06-032",
+"uc": "UC_7-3",
+"domain": "func",
+"deployed": "0.4.0"
+},
+{
+"block": "b-content",
+"sb": "예시 SB · 해지 관리",
+"screen": "TRM-09-023",
+"uc": "UC_4-4",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-content",
+"sb": "예시 SB · 포인트",
+"screen": "PNT-04-021",
+"uc": "UC_5-2",
+"domain": "func",
+"deployed": "0.4.0"
+},
+{
+"block": "b-content",
+"sb": "예시 SB · 요금 조회",
+"screen": "BIL-01-026",
+"uc": "UC_9-4",
+"domain": "func",
+"deployed": "0.4.0"
+},
+{
+"block": "b-content",
+"sb": "예시 SB · 부가서비스 가입",
+"screen": "SVC-07-020",
+"uc": "UC_2-1",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-content",
+"sb": "예시 SB · 단말 할부",
+"screen": "DEV-08-039",
+"uc": "UC_1-4",
+"domain": "func",
+"deployed": "0.4.0"
+},
+{
+"block": "b-content",
+"sb": "예시 SB · 명의 변경",
+"screen": "CNS-02-014",
+"uc": "UC_1-4",
+"domain": "func",
+"deployed": "0.3.1"
+},
+{
+"block": "b-content",
+"sb": "예시 SB · 명의 변경",
+"screen": "CNS-02-012",
+"uc": "UC_1-4",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-content",
+"sb": "예시 SB · 부가서비스 가입",
+"screen": "SVC-06-009",
+"uc": "UC_5-3",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-content",
+"sb": "예시 SB · 명의 변경",
+"screen": "CNS-07-003",
+"uc": "UC_6-1",
+"domain": "func",
+"deployed": "0.4.2"
+},
+{
+"block": "b-content",
+"sb": "예시 SB · 부가서비스 가입",
+"screen": "SVC-08-037",
+"uc": "UC_9-1",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-content",
+"sb": "예시 SB · 상품 관리(BO)",
+"screen": "BO-PRD-07-029",
+"uc": "UC_2-1",
+"domain": "bo",
+"deployed": "0.3.1"
+},
+{
+"block": "b-content",
+"sb": "예시 SB · 상품 관리(BO)",
+"screen": "BO-PRD-03-031",
+"uc": "UC_7-1",
+"domain": "bo",
+"deployed": "0.5.0"
+},
+{
+"block": "b-content",
+"sb": "예시 SB · 공지 관리(BO)",
+"screen": "BO-NTC-04-010",
+"uc": "UC_1-4",
+"domain": "bo",
+"deployed": "0.5.0"
+},
+{
+"block": "b-content",
+"sb": "예시 SB · 부가서비스 가입",
+"screen": "SVC-02-006",
+"uc": "UC_4-1",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-content",
+"sb": "예시 SB · 공지 관리(BO)",
+"screen": "BO-NTC-01-018",
+"uc": "UC_4-4",
+"domain": "bo",
+"deployed": "0.3.1"
+},
+{
+"block": "b-content",
+"sb": "예시 SB · 명의 변경",
+"screen": "CNS-01-024",
+"uc": "UC_3-1",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-content",
+"sb": "예시 SB · 권한 관리(BO)",
+"screen": "BO-AUT-08-030",
+"uc": "UC_5-1",
+"domain": "bo",
+"deployed": "0.3.1"
+},
+{
+"block": "b-content",
+"sb": "예시 SB · 부가서비스 가입",
+"screen": "SVC-01-004",
+"uc": "UC_1-1",
+"domain": "func",
+"deployed": "0.4.2"
+},
+{
+"block": "b-content",
+"sb": "예시 SB · 해지 관리",
+"screen": "TRM-05-039",
+"uc": "UC_3-4",
+"domain": "func",
+"deployed": "0.4.0"
+},
+{
+"block": "b-content",
+"sb": "예시 SB · 부가서비스 가입",
+"screen": "SVC-06-024",
+"uc": "UC_8-4",
+"domain": "func",
+"deployed": "0.3.1"
+},
+{
+"block": "b-content",
+"sb": "예시 SB · 명의 변경",
+"screen": "CNS-03-008",
+"uc": "UC_6-2",
+"domain": "func",
+"deployed": "0.3.1"
+},
+{
+"block": "b-content",
+"sb": "예시 SB · 상품 관리(BO)",
+"screen": "BO-PRD-08-025",
+"uc": "UC_8-3",
+"domain": "bo",
+"deployed": "0.4.0"
+},
+{
+"block": "b-content",
+"sb": "예시 SB · 포인트",
+"screen": "PNT-05-018",
+"uc": "UC_1-3",
+"domain": "func",
+"deployed": "0.4.0"
+},
+{
+"block": "b-content",
+"sb": "예시 SB · 부가서비스 가입",
+"screen": "SVC-03-039",
+"uc": "UC_5-4",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-content",
+"sb": "예시 SB · 상품 관리(BO)",
+"screen": "BO-PRD-07-025",
+"uc": "UC_4-4",
+"domain": "bo",
+"deployed": "0.5.0"
+},
+{
+"block": "b-content",
+"sb": "예시 SB · 부가서비스 가입",
+"screen": "SVC-05-010",
+"uc": "UC_3-3",
+"domain": "func",
+"deployed": "0.4.0"
+},
+{
+"block": "b-content",
+"sb": "예시 SB · 공지 관리(BO)",
+"screen": "BO-NTC-06-035",
+"uc": "UC_2-4",
+"domain": "bo",
+"deployed": "0.4.2"
+},
+{
+"block": "b-content",
+"sb": "예시 SB · 단말 할부",
+"screen": "DEV-04-020",
+"uc": "UC_1-4",
+"domain": "func",
+"deployed": "0.4.2"
+},
+{
+"block": "b-content",
+"sb": "예시 SB · 단말 할부",
+"screen": "DEV-05-038",
+"uc": "UC_1-4",
+"domain": "func",
+"deployed": "0.4.2"
+},
+{
+"block": "b-content",
+"sb": "예시 SB · 권한 관리(BO)",
+"screen": "BO-AUT-02-035",
+"uc": "UC_6-1",
+"domain": "bo",
+"deployed": "0.5.0"
+},
+{
+"block": "b-content",
+"sb": "예시 SB · 상품 관리(BO)",
+"screen": "BO-PRD-09-017",
+"uc": "UC_9-3",
+"domain": "bo",
+"deployed": "0.4.2"
+},
+{
+"block": "b-action",
+"sb": "예시 SB · 권한 관리(BO)",
+"screen": "BO-AUT-04-013",
+"uc": "UC_4-2",
+"domain": "bo",
+"deployed": "0.5.0"
+},
+{
+"block": "b-action",
+"sb": "예시 SB · 명의 변경",
+"screen": "CNS-05-024",
+"uc": "UC_6-4",
+"domain": "func",
+"deployed": "0.4.0"
+},
+{
+"block": "b-action",
+"sb": "예시 SB · 명의 변경",
+"screen": "CNS-04-003",
+"uc": "UC_8-3",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-action",
+"sb": "예시 SB · 포인트",
+"screen": "PNT-08-006",
+"uc": "UC_3-3",
+"domain": "func",
+"deployed": "0.4.0"
+},
+{
+"block": "b-action",
+"sb": "예시 SB · 부가서비스 가입",
+"screen": "SVC-06-018",
+"uc": "UC_9-1",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-action",
+"sb": "예시 SB · 부가서비스 가입",
+"screen": "SVC-04-037",
+"uc": "UC_8-2",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-action",
+"sb": "예시 SB · 해지 관리",
+"screen": "TRM-07-007",
+"uc": "UC_8-2",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-action",
+"sb": "예시 SB · 부가서비스 가입",
+"screen": "SVC-06-013",
+"uc": "UC_3-4",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-action",
+"sb": "예시 SB · 부가서비스 가입",
+"screen": "SVC-01-003",
+"uc": "UC_9-3",
+"domain": "func",
+"deployed": "0.3.1"
+},
+{
+"block": "b-action",
+"sb": "예시 SB · 공지 관리(BO)",
+"screen": "BO-NTC-08-005",
+"uc": "UC_7-1",
+"domain": "bo",
+"deployed": "0.3.1"
+},
+{
+"block": "b-action",
+"sb": "예시 SB · 요금 조회",
+"screen": "BIL-05-021",
+"uc": "UC_4-1",
+"domain": "func",
+"deployed": "0.3.1"
+},
+{
+"block": "b-action",
+"sb": "예시 SB · 권한 관리(BO)",
+"screen": "BO-AUT-07-012",
+"uc": "UC_8-2",
+"domain": "bo",
+"deployed": "0.5.0"
+},
+{
+"block": "b-action",
+"sb": "예시 SB · 단말 할부",
+"screen": "DEV-04-012",
+"uc": "UC_1-3",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-action",
+"sb": "예시 SB · 부가서비스 가입",
+"screen": "SVC-09-002",
+"uc": "UC_1-3",
+"domain": "func",
+"deployed": "0.4.0"
+},
+{
+"block": "b-action",
+"sb": "예시 SB · 공지 관리(BO)",
+"screen": "BO-NTC-01-007",
+"uc": "UC_3-3",
+"domain": "bo",
+"deployed": "0.5.0"
+},
+{
+"block": "b-action",
+"sb": "예시 SB · 단말 할부",
+"screen": "DEV-05-038",
+"uc": "UC_8-1",
+"domain": "func",
+"deployed": "0.4.2"
+},
+{
+"block": "b-action",
+"sb": "예시 SB · 포인트",
+"screen": "PNT-06-017",
+"uc": "UC_7-1",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-action",
+"sb": "예시 SB · 공지 관리(BO)",
+"screen": "BO-NTC-07-011",
+"uc": "UC_8-2",
+"domain": "bo",
+"deployed": "0.5.0"
+},
+{
+"block": "b-action",
+"sb": "예시 SB · 부가서비스 가입",
+"screen": "SVC-08-013",
+"uc": "UC_1-2",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-action",
+"sb": "예시 SB · 요금 조회",
+"screen": "BIL-06-009",
+"uc": "UC_8-1",
+"domain": "func",
+"deployed": "0.4.2"
+},
+{
+"block": "b-action",
+"sb": "예시 SB · 부가서비스 가입",
+"screen": "SVC-02-029",
+"uc": "UC_6-3",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-action",
+"sb": "예시 SB · 공지 관리(BO)",
+"screen": "BO-NTC-02-024",
+"uc": "UC_3-3",
+"domain": "bo",
+"deployed": "0.5.0"
+},
+{
+"block": "b-action",
+"sb": "예시 SB · 부가서비스 가입",
+"screen": "SVC-03-029",
+"uc": "UC_9-2",
+"domain": "func",
+"deployed": "0.4.2"
+},
+{
+"block": "b-action",
+"sb": "예시 SB · 명의 변경",
+"screen": "CNS-05-027",
+"uc": "UC_7-2",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-action",
+"sb": "예시 SB · 부가서비스 가입",
+"screen": "SVC-05-037",
+"uc": "UC_5-3",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-action",
+"sb": "예시 SB · 해지 관리",
+"screen": "TRM-08-007",
+"uc": "UC_6-4",
+"domain": "func",
+"deployed": "0.4.2"
+},
+{
+"block": "b-action",
+"sb": "예시 SB · 요금 조회",
+"screen": "BIL-03-033",
+"uc": "UC_1-2",
+"domain": "func",
+"deployed": "0.4.0"
+},
+{
+"block": "b-action",
+"sb": "예시 SB · 공지 관리(BO)",
+"screen": "BO-NTC-05-008",
+"uc": "UC_5-2",
+"domain": "bo",
+"deployed": "0.5.0"
+},
+{
+"block": "b-action",
+"sb": "예시 SB · 상품 관리(BO)",
+"screen": "BO-PRD-05-016",
+"uc": "UC_4-1",
+"domain": "bo",
+"deployed": "0.4.2"
+},
+{
+"block": "b-action",
+"sb": "예시 SB · 해지 관리",
+"screen": "TRM-07-011",
+"uc": "UC_1-3",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-action",
+"sb": "예시 SB · 부가서비스 가입",
+"screen": "SVC-08-033",
+"uc": "UC_6-2",
+"domain": "func",
+"deployed": "0.4.2"
+},
+{
+"block": "b-action",
+"sb": "예시 SB · 부가서비스 가입",
+"screen": "SVC-09-019",
+"uc": "UC_3-3",
+"domain": "func",
+"deployed": "0.4.2"
+},
+{
+"block": "b-action",
+"sb": "예시 SB · 부가서비스 가입",
+"screen": "SVC-07-014",
+"uc": "UC_5-2",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-action",
+"sb": "예시 SB · 명의 변경",
+"screen": "CNS-09-015",
+"uc": "UC_3-2",
+"domain": "func",
+"deployed": "0.4.0"
+},
+{
+"block": "b-action",
+"sb": "예시 SB · 요금 조회",
+"screen": "BIL-02-039",
+"uc": "UC_8-3",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-action",
+"sb": "예시 SB · 단말 할부",
+"screen": "DEV-03-040",
+"uc": "UC_4-3",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-action",
+"sb": "예시 SB · 부가서비스 가입",
+"screen": "SVC-02-034",
+"uc": "UC_7-1",
+"domain": "func",
+"deployed": "0.4.0"
+},
+{
+"block": "b-action",
+"sb": "예시 SB · 포인트",
+"screen": "PNT-06-019",
+"uc": "UC_8-1",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-action",
+"sb": "예시 SB · 상품 관리(BO)",
+"screen": "BO-PRD-08-009",
+"uc": "UC_5-2",
+"domain": "bo",
+"deployed": "0.5.0"
+},
+{
+"block": "b-action",
+"sb": "예시 SB · 포인트",
+"screen": "PNT-01-011",
+"uc": "UC_6-1",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-action",
+"sb": "예시 SB · 권한 관리(BO)",
+"screen": "BO-AUT-08-034",
+"uc": "UC_2-1",
+"domain": "bo",
+"deployed": "0.5.0"
+},
+{
+"block": "b-action",
+"sb": "예시 SB · 단말 할부",
+"screen": "DEV-06-025",
+"uc": "UC_1-3",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-action",
+"sb": "예시 SB · 공지 관리(BO)",
+"screen": "BO-NTC-08-033",
+"uc": "UC_1-2",
+"domain": "bo",
+"deployed": "0.5.0"
+},
+{
+"block": "b-action",
+"sb": "예시 SB · 단말 할부",
+"screen": "DEV-02-015",
+"uc": "UC_3-2",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-action",
+"sb": "예시 SB · 해지 관리",
+"screen": "TRM-05-036",
+"uc": "UC_1-1",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-action",
+"sb": "예시 SB · 단말 할부",
+"screen": "DEV-05-002",
+"uc": "UC_8-2",
+"domain": "func",
+"deployed": "0.3.1"
+},
+{
+"block": "b-action",
+"sb": "예시 SB · 공지 관리(BO)",
+"screen": "BO-NTC-02-023",
+"uc": "UC_2-2",
+"domain": "bo",
+"deployed": "0.5.0"
+},
+{
+"block": "b-action",
+"sb": "예시 SB · 해지 관리",
+"screen": "TRM-02-030",
+"uc": "UC_8-3",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-action",
+"sb": "예시 SB · 요금 조회",
+"screen": "BIL-02-026",
+"uc": "UC_3-2",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-action",
+"sb": "예시 SB · 명의 변경",
+"screen": "CNS-08-026",
+"uc": "UC_3-1",
+"domain": "func",
+"deployed": "0.3.1"
+},
+{
+"block": "b-action",
+"sb": "예시 SB · 상품 관리(BO)",
+"screen": "BO-PRD-07-039",
+"uc": "UC_9-1",
+"domain": "bo",
+"deployed": "0.4.2"
+},
+{
+"block": "b-action",
+"sb": "예시 SB · 부가서비스 가입",
+"screen": "SVC-06-022",
+"uc": "UC_7-2",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-action",
+"sb": "예시 SB · 상품 관리(BO)",
+"screen": "BO-PRD-06-026",
+"uc": "UC_9-1",
+"domain": "bo",
+"deployed": "0.5.0"
+},
+{
+"block": "b-action",
+"sb": "예시 SB · 권한 관리(BO)",
+"screen": "BO-AUT-03-023",
+"uc": "UC_4-4",
+"domain": "bo",
+"deployed": "0.3.1"
+},
+{
+"block": "b-action",
+"sb": "예시 SB · 부가서비스 가입",
+"screen": "SVC-06-007",
+"uc": "UC_9-2",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-action",
+"sb": "예시 SB · 포인트",
+"screen": "PNT-07-013",
+"uc": "UC_9-1",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-action",
+"sb": "예시 SB · 명의 변경",
+"screen": "CNS-07-026",
+"uc": "UC_8-1",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-action",
+"sb": "예시 SB · 부가서비스 가입",
+"screen": "SVC-05-040",
+"uc": "UC_5-1",
+"domain": "func",
+"deployed": "0.4.0"
+},
+{
+"block": "b-action",
+"sb": "예시 SB · 요금 조회",
+"screen": "BIL-05-008",
+"uc": "UC_9-1",
+"domain": "func",
+"deployed": "0.4.2"
+},
+{
+"block": "b-action",
+"sb": "예시 SB · 단말 할부",
+"screen": "DEV-01-019",
+"uc": "UC_2-3",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-action",
+"sb": "예시 SB · 명의 변경",
+"screen": "CNS-02-004",
+"uc": "UC_9-3",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-action",
+"sb": "예시 SB · 공지 관리(BO)",
+"screen": "BO-NTC-09-010",
+"uc": "UC_8-1",
+"domain": "bo",
+"deployed": "0.4.0"
+},
+{
+"block": "b-action",
+"sb": "예시 SB · 요금 조회",
+"screen": "BIL-09-019",
+"uc": "UC_8-2",
+"domain": "func",
+"deployed": "0.3.1"
+},
+{
+"block": "b-action",
+"sb": "예시 SB · 상품 관리(BO)",
+"screen": "BO-PRD-04-036",
+"uc": "UC_6-4",
+"domain": "bo",
+"deployed": "0.4.0"
+},
+{
+"block": "b-action",
+"sb": "예시 SB · 해지 관리",
+"screen": "TRM-08-031",
+"uc": "UC_5-1",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-action",
+"sb": "예시 SB · 포인트",
+"screen": "PNT-04-013",
+"uc": "UC_9-4",
+"domain": "func",
+"deployed": "0.4.0"
+},
+{
+"block": "b-action",
+"sb": "예시 SB · 상품 관리(BO)",
+"screen": "BO-PRD-01-023",
+"uc": "UC_3-2",
+"domain": "bo",
+"deployed": "0.5.0"
+},
+{
+"block": "b-action",
+"sb": "예시 SB · 권한 관리(BO)",
+"screen": "BO-AUT-06-032",
+"uc": "UC_5-3",
+"domain": "bo",
+"deployed": "0.5.0"
+},
+{
+"block": "b-action",
+"sb": "예시 SB · 해지 관리",
+"screen": "TRM-01-002",
+"uc": "UC_3-1",
+"domain": "func",
+"deployed": "0.4.0"
+},
+{
+"block": "b-action",
+"sb": "예시 SB · 포인트",
+"screen": "PNT-08-004",
+"uc": "UC_9-4",
+"domain": "func",
+"deployed": "0.4.2"
+},
+{
+"block": "b-action",
+"sb": "예시 SB · 포인트",
+"screen": "PNT-02-034",
+"uc": "UC_4-2",
+"domain": "func",
+"deployed": "0.4.2"
+},
+{
+"block": "b-action",
+"sb": "예시 SB · 포인트",
+"screen": "PNT-06-009",
+"uc": "UC_4-3",
+"domain": "func",
+"deployed": "0.4.0"
+},
+{
+"block": "b-action",
+"sb": "예시 SB · 요금 조회",
+"screen": "BIL-08-018",
+"uc": "UC_3-4",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-statusbar",
+"sb": "예시 SB · 부가서비스 가입",
+"screen": "SVC-07-036",
+"uc": "UC_2-4",
+"domain": "func",
+"deployed": "0.4.2"
+},
+{
+"block": "b-statusbar",
+"sb": "예시 SB · 명의 변경",
+"screen": "CNS-07-018",
+"uc": "UC_2-4",
+"domain": "func",
+"deployed": "0.4.2"
+},
+{
+"block": "b-statusbar",
+"sb": "예시 SB · 공지 관리(BO)",
+"screen": "BO-NTC-05-023",
+"uc": "UC_5-3",
+"domain": "bo",
+"deployed": "0.4.2"
+},
+{
+"block": "b-statusbar",
+"sb": "예시 SB · 권한 관리(BO)",
+"screen": "BO-AUT-09-039",
+"uc": "UC_7-3",
+"domain": "bo",
+"deployed": "0.5.0"
+},
+{
+"block": "b-statusbar",
+"sb": "예시 SB · 공지 관리(BO)",
+"screen": "BO-NTC-07-029",
+"uc": "UC_5-2",
+"domain": "bo",
+"deployed": "0.4.0"
+},
+{
+"block": "b-statusbar",
+"sb": "예시 SB · 해지 관리",
+"screen": "TRM-03-028",
+"uc": "UC_7-2",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-statusbar",
+"sb": "예시 SB · 포인트",
+"screen": "PNT-06-039",
+"uc": "UC_4-3",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-statusbar",
+"sb": "예시 SB · 상품 관리(BO)",
+"screen": "BO-PRD-01-002",
+"uc": "UC_1-3",
+"domain": "bo",
+"deployed": "0.4.0"
+},
+{
+"block": "b-statusbar",
+"sb": "예시 SB · 공지 관리(BO)",
+"screen": "BO-NTC-05-035",
+"uc": "UC_5-4",
+"domain": "bo",
+"deployed": "0.4.0"
+},
+{
+"block": "b-statusbar",
+"sb": "예시 SB · 권한 관리(BO)",
+"screen": "BO-AUT-07-025",
+"uc": "UC_8-3",
+"domain": "bo",
+"deployed": "0.5.0"
+},
+{
+"block": "b-statusbar",
+"sb": "예시 SB · 포인트",
+"screen": "PNT-08-001",
+"uc": "UC_2-2",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-statusbar",
+"sb": "예시 SB · 상품 관리(BO)",
+"screen": "BO-PRD-06-033",
+"uc": "UC_7-2",
+"domain": "bo",
+"deployed": "0.5.0"
+},
+{
+"block": "b-statusbar",
+"sb": "예시 SB · 상품 관리(BO)",
+"screen": "BO-PRD-08-026",
+"uc": "UC_8-3",
+"domain": "bo",
+"deployed": "0.3.1"
+},
+{
+"block": "b-statusbar",
+"sb": "예시 SB · 권한 관리(BO)",
+"screen": "BO-AUT-02-011",
+"uc": "UC_6-3",
+"domain": "bo",
+"deployed": "0.5.0"
+},
+{
+"block": "b-statusbar",
+"sb": "예시 SB · 요금 조회",
+"screen": "BIL-05-033",
+"uc": "UC_3-1",
+"domain": "func",
+"deployed": "0.3.1"
+},
+{
+"block": "b-statusbar",
+"sb": "예시 SB · 해지 관리",
+"screen": "TRM-06-033",
+"uc": "UC_7-2",
+"domain": "func",
+"deployed": "0.4.0"
+},
+{
+"block": "b-statusbar",
+"sb": "예시 SB · 해지 관리",
+"screen": "TRM-09-014",
+"uc": "UC_9-2",
+"domain": "func",
+"deployed": "0.4.2"
+},
+{
+"block": "b-statusbar",
+"sb": "예시 SB · 명의 변경",
+"screen": "CNS-01-037",
+"uc": "UC_2-3",
+"domain": "func",
+"deployed": "0.4.0"
+},
+{
+"block": "b-statusbar",
+"sb": "예시 SB · 부가서비스 가입",
+"screen": "SVC-07-001",
+"uc": "UC_1-3",
+"domain": "func",
+"deployed": "0.3.1"
+},
+{
+"block": "b-statusbar",
+"sb": "예시 SB · 권한 관리(BO)",
+"screen": "BO-AUT-01-020",
+"uc": "UC_7-1",
+"domain": "bo",
+"deployed": "0.4.0"
+},
+{
+"block": "b-statusbar",
+"sb": "예시 SB · 부가서비스 가입",
+"screen": "SVC-01-013",
+"uc": "UC_3-4",
+"domain": "func",
+"deployed": "0.4.0"
+},
+{
+"block": "b-statusbar",
+"sb": "예시 SB · 해지 관리",
+"screen": "TRM-09-033",
+"uc": "UC_3-2",
+"domain": "func",
+"deployed": "0.4.2"
+},
+{
+"block": "b-statusbar",
+"sb": "예시 SB · 요금 조회",
+"screen": "BIL-03-011",
+"uc": "UC_9-1",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-statusbar",
+"sb": "예시 SB · 요금 조회",
+"screen": "BIL-02-011",
+"uc": "UC_9-4",
+"domain": "func",
+"deployed": "0.4.2"
+},
+{
+"block": "b-statusbar",
+"sb": "예시 SB · 상품 관리(BO)",
+"screen": "BO-PRD-01-001",
+"uc": "UC_6-2",
+"domain": "bo",
+"deployed": "0.3.1"
+},
+{
+"block": "b-statusbar",
+"sb": "예시 SB · 단말 할부",
+"screen": "DEV-06-018",
+"uc": "UC_3-1",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-statusbar",
+"sb": "예시 SB · 요금 조회",
+"screen": "BIL-02-023",
+"uc": "UC_4-4",
+"domain": "func",
+"deployed": "0.4.0"
+},
+{
+"block": "b-statusbar",
+"sb": "예시 SB · 상품 관리(BO)",
+"screen": "BO-PRD-01-004",
+"uc": "UC_4-4",
+"domain": "bo",
+"deployed": "0.4.0"
+},
+{
+"block": "b-statusbar",
+"sb": "예시 SB · 부가서비스 가입",
+"screen": "SVC-08-004",
+"uc": "UC_4-2",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-statusbar",
+"sb": "예시 SB · 부가서비스 가입",
+"screen": "SVC-03-038",
+"uc": "UC_3-3",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-statusbar",
+"sb": "예시 SB · 공지 관리(BO)",
+"screen": "BO-NTC-05-027",
+"uc": "UC_5-4",
+"domain": "bo",
+"deployed": "0.5.0"
+},
+{
+"block": "b-statusbar",
+"sb": "예시 SB · 단말 할부",
+"screen": "DEV-07-038",
+"uc": "UC_4-4",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-statusbar",
+"sb": "예시 SB · 상품 관리(BO)",
+"screen": "BO-PRD-08-002",
+"uc": "UC_4-1",
+"domain": "bo",
+"deployed": "0.5.0"
+},
+{
+"block": "b-statusbar",
+"sb": "예시 SB · 명의 변경",
+"screen": "CNS-06-025",
+"uc": "UC_3-1",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-statusbar",
+"sb": "예시 SB · 상품 관리(BO)",
+"screen": "BO-PRD-09-024",
+"uc": "UC_2-3",
+"domain": "bo",
+"deployed": "0.4.0"
+},
+{
+"block": "b-statusbar",
+"sb": "예시 SB · 상품 관리(BO)",
+"screen": "BO-PRD-06-026",
+"uc": "UC_2-1",
+"domain": "bo",
+"deployed": "0.4.2"
+},
+{
+"block": "b-statusbar",
+"sb": "예시 SB · 포인트",
+"screen": "PNT-09-016",
+"uc": "UC_7-2",
+"domain": "func",
+"deployed": "0.4.2"
+},
+{
+"block": "b-statusbar",
+"sb": "예시 SB · 해지 관리",
+"screen": "TRM-06-016",
+"uc": "UC_7-1",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-statusbar",
+"sb": "예시 SB · 부가서비스 가입",
+"screen": "SVC-06-010",
+"uc": "UC_4-2",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-statusbar",
+"sb": "예시 SB · 단말 할부",
+"screen": "DEV-05-035",
+"uc": "UC_3-4",
+"domain": "func",
+"deployed": "0.4.2"
+},
+{
+"block": "b-statusbar",
+"sb": "예시 SB · 단말 할부",
+"screen": "DEV-03-024",
+"uc": "UC_6-2",
+"domain": "func",
+"deployed": "0.3.1"
+},
+{
+"block": "b-statusbar",
+"sb": "예시 SB · 상품 관리(BO)",
+"screen": "BO-PRD-07-038",
+"uc": "UC_4-3",
+"domain": "bo",
+"deployed": "0.4.2"
+},
+{
+"block": "b-statusbar",
+"sb": "예시 SB · 권한 관리(BO)",
+"screen": "BO-AUT-04-015",
+"uc": "UC_8-2",
+"domain": "bo",
+"deployed": "0.3.1"
+},
+{
+"block": "b-statusbar",
+"sb": "예시 SB · 해지 관리",
+"screen": "TRM-08-038",
+"uc": "UC_6-2",
+"domain": "func",
+"deployed": "0.4.2"
+},
+{
+"block": "b-statusbar",
+"sb": "예시 SB · 권한 관리(BO)",
+"screen": "BO-AUT-04-009",
+"uc": "UC_2-1",
+"domain": "bo",
+"deployed": "0.4.0"
+},
+{
+"block": "b-statusbar",
+"sb": "예시 SB · 해지 관리",
+"screen": "TRM-07-002",
+"uc": "UC_3-3",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-statusbar",
+"sb": "예시 SB · 상품 관리(BO)",
+"screen": "BO-PRD-02-012",
+"uc": "UC_4-3",
+"domain": "bo",
+"deployed": "0.5.0"
+},
+{
+"block": "b-statusbar",
+"sb": "예시 SB · 요금 조회",
+"screen": "BIL-02-036",
+"uc": "UC_6-3",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-statusbar",
+"sb": "예시 SB · 요금 조회",
+"screen": "BIL-05-006",
+"uc": "UC_4-3",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-statusbar",
+"sb": "예시 SB · 상품 관리(BO)",
+"screen": "BO-PRD-05-023",
+"uc": "UC_7-4",
+"domain": "bo",
+"deployed": "0.3.1"
+},
+{
+"block": "b-statusbar",
+"sb": "예시 SB · 명의 변경",
+"screen": "CNS-05-012",
+"uc": "UC_1-3",
+"domain": "func",
+"deployed": "0.3.1"
+},
+{
+"block": "b-statusbar",
+"sb": "예시 SB · 포인트",
+"screen": "PNT-07-002",
+"uc": "UC_8-2",
+"domain": "func",
+"deployed": "0.4.2"
+},
+{
+"block": "b-statusbar",
+"sb": "예시 SB · 포인트",
+"screen": "PNT-02-012",
+"uc": "UC_5-1",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-statusbar",
+"sb": "예시 SB · 단말 할부",
+"screen": "DEV-01-026",
+"uc": "UC_1-2",
+"domain": "func",
+"deployed": "0.4.2"
+},
+{
+"block": "b-statusbar",
+"sb": "예시 SB · 단말 할부",
+"screen": "DEV-05-010",
+"uc": "UC_7-1",
+"domain": "func",
+"deployed": "0.4.0"
+},
+{
+"block": "b-statusbar",
+"sb": "예시 SB · 해지 관리",
+"screen": "TRM-03-037",
+"uc": "UC_4-4",
+"domain": "func",
+"deployed": "0.3.1"
+},
+{
+"block": "b-statusbar",
+"sb": "예시 SB · 권한 관리(BO)",
+"screen": "BO-AUT-05-028",
+"uc": "UC_6-1",
+"domain": "bo",
+"deployed": "0.5.0"
+},
+{
+"block": "b-statusbar",
+"sb": "예시 SB · 해지 관리",
+"screen": "TRM-01-038",
+"uc": "UC_1-2",
+"domain": "func",
+"deployed": "0.3.1"
+},
+{
+"block": "b-statusbar",
+"sb": "예시 SB · 요금 조회",
+"screen": "BIL-01-021",
+"uc": "UC_4-3",
+"domain": "func",
+"deployed": "0.3.1"
+},
+{
+"block": "b-statusbar",
+"sb": "예시 SB · 요금 조회",
+"screen": "BIL-07-026",
+"uc": "UC_4-3",
+"domain": "func",
+"deployed": "0.4.0"
+},
+{
+"block": "b-statusbar",
+"sb": "예시 SB · 요금 조회",
+"screen": "BIL-06-028",
+"uc": "UC_8-3",
+"domain": "func",
+"deployed": "0.3.1"
+},
+{
+"block": "b-statusbar",
+"sb": "예시 SB · 권한 관리(BO)",
+"screen": "BO-AUT-08-033",
+"uc": "UC_1-2",
+"domain": "bo",
+"deployed": "0.4.2"
+},
+{
+"block": "b-statusbar",
+"sb": "예시 SB · 권한 관리(BO)",
+"screen": "BO-AUT-03-032",
+"uc": "UC_4-1",
+"domain": "bo",
+"deployed": "0.3.1"
+},
+{
+"block": "b-statusbar",
+"sb": "예시 SB · 권한 관리(BO)",
+"screen": "BO-AUT-05-012",
+"uc": "UC_9-2",
+"domain": "bo",
+"deployed": "0.3.1"
+},
+{
+"block": "b-statusbar",
+"sb": "예시 SB · 단말 할부",
+"screen": "DEV-09-017",
+"uc": "UC_4-1",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-statusbar",
+"sb": "예시 SB · 포인트",
+"screen": "PNT-06-027",
+"uc": "UC_2-2",
+"domain": "func",
+"deployed": "0.3.1"
+},
+{
+"block": "b-statusbar",
+"sb": "예시 SB · 해지 관리",
+"screen": "TRM-03-009",
+"uc": "UC_8-4",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-statusbar",
+"sb": "예시 SB · 단말 할부",
+"screen": "DEV-01-033",
+"uc": "UC_8-2",
+"domain": "func",
+"deployed": "0.3.1"
+},
+{
+"block": "b-statusbar",
+"sb": "예시 SB · 포인트",
+"screen": "PNT-05-009",
+"uc": "UC_3-2",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-statusbar",
+"sb": "예시 SB · 요금 조회",
+"screen": "BIL-09-028",
+"uc": "UC_3-2",
+"domain": "func",
+"deployed": "0.4.0"
+},
+{
+"block": "b-top",
+"sb": "예시 SB · 공지 관리(BO)",
+"screen": "BO-NTC-07-014",
+"uc": "UC_2-3",
+"domain": "bo",
+"deployed": "0.5.0"
+},
+{
+"block": "b-top",
+"sb": "예시 SB · 포인트",
+"screen": "PNT-08-014",
+"uc": "UC_1-1",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-top",
+"sb": "예시 SB · 해지 관리",
+"screen": "TRM-04-008",
+"uc": "UC_5-4",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-top",
+"sb": "예시 SB · 명의 변경",
+"screen": "CNS-06-029",
+"uc": "UC_8-3",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-top",
+"sb": "예시 SB · 명의 변경",
+"screen": "CNS-09-005",
+"uc": "UC_1-1",
+"domain": "func",
+"deployed": "0.4.2"
+},
+{
+"block": "b-top",
+"sb": "예시 SB · 공지 관리(BO)",
+"screen": "BO-NTC-02-022",
+"uc": "UC_5-1",
+"domain": "bo",
+"deployed": "0.3.1"
+},
+{
+"block": "b-top",
+"sb": "예시 SB · 공지 관리(BO)",
+"screen": "BO-NTC-07-032",
+"uc": "UC_4-3",
+"domain": "bo",
+"deployed": "0.5.0"
+},
+{
+"block": "b-top",
+"sb": "예시 SB · 포인트",
+"screen": "PNT-02-019",
+"uc": "UC_5-2",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-top",
+"sb": "예시 SB · 명의 변경",
+"screen": "CNS-01-002",
+"uc": "UC_7-2",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-top",
+"sb": "예시 SB · 포인트",
+"screen": "PNT-03-034",
+"uc": "UC_3-1",
+"domain": "func",
+"deployed": "0.3.1"
+},
+{
+"block": "b-top",
+"sb": "예시 SB · 해지 관리",
+"screen": "TRM-06-025",
+"uc": "UC_3-3",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-top",
+"sb": "예시 SB · 단말 할부",
+"screen": "DEV-06-009",
+"uc": "UC_9-3",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-top",
+"sb": "예시 SB · 단말 할부",
+"screen": "DEV-01-003",
+"uc": "UC_2-4",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-top",
+"sb": "예시 SB · 단말 할부",
+"screen": "DEV-08-028",
+"uc": "UC_8-2",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-top",
+"sb": "예시 SB · 요금 조회",
+"screen": "BIL-03-015",
+"uc": "UC_3-2",
+"domain": "func",
+"deployed": "0.4.2"
+},
+{
+"block": "b-top",
+"sb": "예시 SB · 상품 관리(BO)",
+"screen": "BO-PRD-02-003",
+"uc": "UC_8-4",
+"domain": "bo",
+"deployed": "0.5.0"
+},
+{
+"block": "b-top",
+"sb": "예시 SB · 단말 할부",
+"screen": "DEV-06-001",
+"uc": "UC_1-4",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-top",
+"sb": "예시 SB · 해지 관리",
+"screen": "TRM-02-004",
+"uc": "UC_9-4",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-top",
+"sb": "예시 SB · 요금 조회",
+"screen": "BIL-08-001",
+"uc": "UC_3-2",
+"domain": "func",
+"deployed": "0.4.2"
+},
+{
+"block": "b-top",
+"sb": "예시 SB · 해지 관리",
+"screen": "TRM-01-029",
+"uc": "UC_6-2",
+"domain": "func",
+"deployed": "0.4.2"
+},
+{
+"block": "b-top",
+"sb": "예시 SB · 요금 조회",
+"screen": "BIL-09-021",
+"uc": "UC_9-4",
+"domain": "func",
+"deployed": "0.4.2"
+},
+{
+"block": "b-top",
+"sb": "예시 SB · 권한 관리(BO)",
+"screen": "BO-AUT-03-026",
+"uc": "UC_2-1",
+"domain": "bo",
+"deployed": "0.3.1"
+},
+{
+"block": "b-top",
+"sb": "예시 SB · 포인트",
+"screen": "PNT-05-037",
+"uc": "UC_7-3",
+"domain": "func",
+"deployed": "0.4.2"
+},
+{
+"block": "b-top",
+"sb": "예시 SB · 명의 변경",
+"screen": "CNS-05-022",
+"uc": "UC_9-1",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-top",
+"sb": "예시 SB · 단말 할부",
+"screen": "DEV-08-006",
+"uc": "UC_3-3",
+"domain": "func",
+"deployed": "0.4.0"
+},
+{
+"block": "b-top",
+"sb": "예시 SB · 상품 관리(BO)",
+"screen": "BO-PRD-06-034",
+"uc": "UC_4-4",
+"domain": "bo",
+"deployed": "0.4.2"
+},
+{
+"block": "b-top",
+"sb": "예시 SB · 해지 관리",
+"screen": "TRM-02-015",
+"uc": "UC_3-2",
+"domain": "func",
+"deployed": "0.4.0"
+},
+{
+"block": "b-top",
+"sb": "예시 SB · 요금 조회",
+"screen": "BIL-04-017",
+"uc": "UC_2-2",
+"domain": "func",
+"deployed": "0.4.0"
+},
+{
+"block": "b-top",
+"sb": "예시 SB · 해지 관리",
+"screen": "TRM-08-015",
+"uc": "UC_9-4",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-top",
+"sb": "예시 SB · 권한 관리(BO)",
+"screen": "BO-AUT-02-033",
+"uc": "UC_2-4",
+"domain": "bo",
+"deployed": "0.3.1"
+},
+{
+"block": "b-top",
+"sb": "예시 SB · 요금 조회",
+"screen": "BIL-08-009",
+"uc": "UC_9-1",
+"domain": "func",
+"deployed": "0.3.1"
+},
+{
+"block": "b-top",
+"sb": "예시 SB · 권한 관리(BO)",
+"screen": "BO-AUT-02-030",
+"uc": "UC_7-2",
+"domain": "bo",
+"deployed": "0.5.0"
+},
+{
+"block": "b-top",
+"sb": "예시 SB · 공지 관리(BO)",
+"screen": "BO-NTC-02-009",
+"uc": "UC_6-1",
+"domain": "bo",
+"deployed": "0.4.2"
+},
+{
+"block": "b-top",
+"sb": "예시 SB · 단말 할부",
+"screen": "DEV-01-024",
+"uc": "UC_1-1",
+"domain": "func",
+"deployed": "0.3.1"
+},
+{
+"block": "b-top",
+"sb": "예시 SB · 단말 할부",
+"screen": "DEV-08-020",
+"uc": "UC_2-2",
+"domain": "func",
+"deployed": "0.4.2"
+},
+{
+"block": "b-top",
+"sb": "예시 SB · 요금 조회",
+"screen": "BIL-04-037",
+"uc": "UC_2-3",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-top",
+"sb": "예시 SB · 포인트",
+"screen": "PNT-06-001",
+"uc": "UC_5-1",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-top",
+"sb": "예시 SB · 포인트",
+"screen": "PNT-09-034",
+"uc": "UC_6-4",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-top",
+"sb": "예시 SB · 포인트",
+"screen": "PNT-02-023",
+"uc": "UC_9-3",
+"domain": "func",
+"deployed": "0.4.0"
+},
+{
+"block": "b-top",
+"sb": "예시 SB · 요금 조회",
+"screen": "BIL-01-016",
+"uc": "UC_5-3",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-top",
+"sb": "예시 SB · 공지 관리(BO)",
+"screen": "BO-NTC-01-038",
+"uc": "UC_8-1",
+"domain": "bo",
+"deployed": "0.5.0"
+},
+{
+"block": "b-top",
+"sb": "예시 SB · 공지 관리(BO)",
+"screen": "BO-NTC-02-005",
+"uc": "UC_5-2",
+"domain": "bo",
+"deployed": "0.5.0"
+},
+{
+"block": "b-top",
+"sb": "예시 SB · 권한 관리(BO)",
+"screen": "BO-AUT-05-025",
+"uc": "UC_3-3",
+"domain": "bo",
+"deployed": "0.4.0"
+},
+{
+"block": "b-top",
+"sb": "예시 SB · 해지 관리",
+"screen": "TRM-08-001",
+"uc": "UC_1-3",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-top",
+"sb": "예시 SB · 공지 관리(BO)",
+"screen": "BO-NTC-09-031",
+"uc": "UC_1-1",
+"domain": "bo",
+"deployed": "0.5.0"
+},
+{
+"block": "b-top",
+"sb": "예시 SB · 명의 변경",
+"screen": "CNS-07-031",
+"uc": "UC_3-4",
+"domain": "func",
+"deployed": "0.4.2"
+},
+{
+"block": "b-top",
+"sb": "예시 SB · 단말 할부",
+"screen": "DEV-09-005",
+"uc": "UC_6-3",
+"domain": "func",
+"deployed": "0.4.0"
+},
+{
+"block": "b-top",
+"sb": "예시 SB · 단말 할부",
+"screen": "DEV-05-009",
+"uc": "UC_1-2",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-top",
+"sb": "예시 SB · 포인트",
+"screen": "PNT-08-022",
+"uc": "UC_8-4",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-top",
+"sb": "예시 SB · 포인트",
+"screen": "PNT-01-022",
+"uc": "UC_8-3",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-top",
+"sb": "예시 SB · 부가서비스 가입",
+"screen": "SVC-04-030",
+"uc": "UC_1-2",
+"domain": "func",
+"deployed": "0.3.1"
+},
+{
+"block": "b-top",
+"sb": "예시 SB · 명의 변경",
+"screen": "CNS-05-025",
+"uc": "UC_5-1",
+"domain": "func",
+"deployed": "0.4.0"
+},
+{
+"block": "b-top",
+"sb": "예시 SB · 해지 관리",
+"screen": "TRM-06-037",
+"uc": "UC_9-2",
+"domain": "func",
+"deployed": "0.3.1"
+},
+{
+"block": "b-top",
+"sb": "예시 SB · 부가서비스 가입",
+"screen": "SVC-09-007",
+"uc": "UC_4-4",
+"domain": "func",
+"deployed": "0.3.1"
+},
+{
+"block": "b-top",
+"sb": "예시 SB · 요금 조회",
+"screen": "BIL-06-019",
+"uc": "UC_4-2",
+"domain": "func",
+"deployed": "0.3.1"
+},
+{
+"block": "b-top",
+"sb": "예시 SB · 요금 조회",
+"screen": "BIL-05-022",
+"uc": "UC_6-2",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-top",
+"sb": "예시 SB · 권한 관리(BO)",
+"screen": "BO-AUT-07-022",
+"uc": "UC_1-3",
+"domain": "bo",
+"deployed": "0.3.1"
+},
+{
+"block": "b-top",
+"sb": "예시 SB · 포인트",
+"screen": "PNT-08-033",
+"uc": "UC_6-2",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-top",
+"sb": "예시 SB · 포인트",
+"screen": "PNT-03-009",
+"uc": "UC_4-1",
+"domain": "func",
+"deployed": "0.3.1"
+},
+{
+"block": "b-top",
+"sb": "예시 SB · 공지 관리(BO)",
+"screen": "BO-NTC-07-029",
+"uc": "UC_7-3",
+"domain": "bo",
+"deployed": "0.5.0"
+},
+{
+"block": "b-top",
+"sb": "예시 SB · 요금 조회",
+"screen": "BIL-03-020",
+"uc": "UC_5-3",
+"domain": "func",
+"deployed": "0.3.1"
+},
+{
+"block": "b-top",
+"sb": "예시 SB · 권한 관리(BO)",
+"screen": "BO-AUT-06-005",
+"uc": "UC_4-1",
+"domain": "bo",
+"deployed": "0.4.0"
+},
+{
+"block": "b-top",
+"sb": "예시 SB · 명의 변경",
+"screen": "CNS-05-038",
+"uc": "UC_6-4",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-top",
+"sb": "예시 SB · 상품 관리(BO)",
+"screen": "BO-PRD-02-032",
+"uc": "UC_6-2",
+"domain": "bo",
+"deployed": "0.5.0"
+},
+{
+"block": "b-top",
+"sb": "예시 SB · 해지 관리",
+"screen": "TRM-09-002",
+"uc": "UC_3-3",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-top",
+"sb": "예시 SB · 부가서비스 가입",
+"screen": "SVC-04-004",
+"uc": "UC_7-4",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-top",
+"sb": "예시 SB · 해지 관리",
+"screen": "TRM-09-007",
+"uc": "UC_4-2",
+"domain": "func",
+"deployed": "0.3.1"
+},
+{
+"block": "b-top",
+"sb": "예시 SB · 부가서비스 가입",
+"screen": "SVC-03-039",
+"uc": "UC_1-1",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-top",
+"sb": "예시 SB · 포인트",
+"screen": "PNT-03-001",
+"uc": "UC_4-3",
+"domain": "func",
+"deployed": "0.4.0"
+},
+{
+"block": "b-top",
+"sb": "예시 SB · 부가서비스 가입",
+"screen": "SVC-06-002",
+"uc": "UC_4-3",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-top",
+"sb": "예시 SB · 부가서비스 가입",
+"screen": "SVC-08-026",
+"uc": "UC_6-2",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-top",
+"sb": "예시 SB · 상품 관리(BO)",
+"screen": "BO-PRD-01-006",
+"uc": "UC_6-4",
+"domain": "bo",
+"deployed": "0.4.0"
+},
+{
+"block": "b-top",
+"sb": "예시 SB · 상품 관리(BO)",
+"screen": "BO-PRD-05-030",
+"uc": "UC_1-1",
+"domain": "bo",
+"deployed": "0.5.0"
+},
+{
+"block": "b-top",
+"sb": "예시 SB · 포인트",
+"screen": "PNT-01-027",
+"uc": "UC_6-2",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-top",
+"sb": "예시 SB · 부가서비스 가입",
+"screen": "SVC-03-014",
+"uc": "UC_3-1",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-top",
+"sb": "예시 SB · 포인트",
+"screen": "PNT-07-023",
+"uc": "UC_9-2",
+"domain": "func",
+"deployed": "0.3.1"
+},
+{
+"block": "b-top",
+"sb": "예시 SB · 포인트",
+"screen": "PNT-04-040",
+"uc": "UC_5-4",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-top",
+"sb": "예시 SB · 해지 관리",
+"screen": "TRM-09-030",
+"uc": "UC_9-3",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-top",
+"sb": "예시 SB · 권한 관리(BO)",
+"screen": "BO-AUT-09-018",
+"uc": "UC_3-3",
+"domain": "bo",
+"deployed": "0.5.0"
+},
+{
+"block": "b-top",
+"sb": "예시 SB · 권한 관리(BO)",
+"screen": "BO-AUT-08-007",
+"uc": "UC_6-2",
+"domain": "bo",
+"deployed": "0.3.1"
+},
+{
+"block": "b-top",
+"sb": "예시 SB · 단말 할부",
+"screen": "DEV-07-006",
+"uc": "UC_1-2",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-top",
+"sb": "예시 SB · 부가서비스 가입",
+"screen": "SVC-09-033",
+"uc": "UC_4-2",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-top",
+"sb": "예시 SB · 포인트",
+"screen": "PNT-03-012",
+"uc": "UC_3-1",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-top",
+"sb": "예시 SB · 단말 할부",
+"screen": "DEV-08-032",
+"uc": "UC_4-3",
+"domain": "func",
+"deployed": "0.4.2"
+},
+{
+"block": "b-top",
+"sb": "예시 SB · 공지 관리(BO)",
+"screen": "BO-NTC-04-021",
+"uc": "UC_1-1",
+"domain": "bo",
+"deployed": "0.3.1"
+},
+{
+"block": "b-top",
+"sb": "예시 SB · 부가서비스 가입",
+"screen": "SVC-02-026",
+"uc": "UC_6-1",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-top",
+"sb": "예시 SB · 상품 관리(BO)",
+"screen": "BO-PRD-07-025",
+"uc": "UC_4-1",
+"domain": "bo",
+"deployed": "0.5.0"
+},
+{
+"block": "b-top",
+"sb": "예시 SB · 부가서비스 가입",
+"screen": "SVC-05-028",
+"uc": "UC_4-2",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-top",
+"sb": "예시 SB · 단말 할부",
+"screen": "DEV-06-028",
+"uc": "UC_5-3",
+"domain": "func",
+"deployed": "0.4.2"
+},
+{
+"block": "b-top",
+"sb": "예시 SB · 단말 할부",
+"screen": "DEV-03-031",
+"uc": "UC_5-2",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-top",
+"sb": "예시 SB · 해지 관리",
+"screen": "TRM-02-022",
+"uc": "UC_1-4",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-top",
+"sb": "예시 SB · 명의 변경",
+"screen": "CNS-06-040",
+"uc": "UC_8-2",
+"domain": "func",
+"deployed": "0.4.0"
+},
+{
+"block": "b-top",
+"sb": "예시 SB · 부가서비스 가입",
+"screen": "SVC-04-024",
+"uc": "UC_1-4",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-top",
+"sb": "예시 SB · 상품 관리(BO)",
+"screen": "BO-PRD-03-020",
+"uc": "UC_1-1",
+"domain": "bo",
+"deployed": "0.5.0"
+},
+{
+"block": "b-top",
+"sb": "예시 SB · 부가서비스 가입",
+"screen": "SVC-03-020",
+"uc": "UC_3-3",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-top",
+"sb": "예시 SB · 명의 변경",
+"screen": "CNS-08-026",
+"uc": "UC_2-4",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-top",
+"sb": "예시 SB · 상품 관리(BO)",
+"screen": "BO-PRD-06-003",
+"uc": "UC_4-2",
+"domain": "bo",
+"deployed": "0.3.1"
+},
+{
+"block": "b-top",
+"sb": "예시 SB · 부가서비스 가입",
+"screen": "SVC-01-009",
+"uc": "UC_9-2",
+"domain": "func",
+"deployed": "0.4.0"
+},
+{
+"block": "b-top",
+"sb": "예시 SB · 상품 관리(BO)",
+"screen": "BO-PRD-02-002",
+"uc": "UC_1-3",
+"domain": "bo",
+"deployed": "0.5.0"
+},
+{
+"block": "b-top",
+"sb": "예시 SB · 요금 조회",
+"screen": "BIL-02-032",
+"uc": "UC_3-4",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-top",
+"sb": "예시 SB · 명의 변경",
+"screen": "CNS-04-035",
+"uc": "UC_3-1",
+"domain": "func",
+"deployed": "0.4.0"
+},
+{
+"block": "b-top",
+"sb": "예시 SB · 포인트",
+"screen": "PNT-08-005",
+"uc": "UC_6-2",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-top",
+"sb": "예시 SB · 요금 조회",
+"screen": "BIL-05-012",
+"uc": "UC_1-3",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-top",
+"sb": "예시 SB · 요금 조회",
+"screen": "BIL-01-013",
+"uc": "UC_9-1",
+"domain": "func",
+"deployed": "0.4.2"
+},
+{
+"block": "b-top",
+"sb": "예시 SB · 권한 관리(BO)",
+"screen": "BO-AUT-06-018",
+"uc": "UC_1-3",
+"domain": "bo",
+"deployed": "0.3.1"
+},
+{
+"block": "b-top",
+"sb": "예시 SB · 부가서비스 가입",
+"screen": "SVC-08-035",
+"uc": "UC_5-3",
+"domain": "func",
+"deployed": "0.3.1"
+},
+{
+"block": "b-top",
+"sb": "예시 SB · 상품 관리(BO)",
+"screen": "BO-PRD-05-026",
+"uc": "UC_7-3",
+"domain": "bo",
+"deployed": "0.4.0"
+},
+{
+"block": "b-top",
+"sb": "예시 SB · 상품 관리(BO)",
+"screen": "BO-PRD-07-010",
+"uc": "UC_7-4",
+"domain": "bo",
+"deployed": "0.4.2"
+},
+{
+"block": "b-top",
+"sb": "예시 SB · 명의 변경",
+"screen": "CNS-01-016",
+"uc": "UC_9-3",
+"domain": "func",
+"deployed": "0.3.1"
+},
+{
+"block": "b-top",
+"sb": "예시 SB · 상품 관리(BO)",
+"screen": "BO-PRD-04-013",
+"uc": "UC_2-1",
+"domain": "bo",
+"deployed": "0.4.0"
+},
+{
+"block": "b-top",
+"sb": "예시 SB · 부가서비스 가입",
+"screen": "SVC-01-026",
+"uc": "UC_9-3",
+"domain": "func",
+"deployed": "0.3.1"
+},
+{
+"block": "b-top",
+"sb": "예시 SB · 공지 관리(BO)",
+"screen": "BO-NTC-09-021",
+"uc": "UC_8-1",
+"domain": "bo",
+"deployed": "0.4.2"
+},
+{
+"block": "b-top",
+"sb": "예시 SB · 공지 관리(BO)",
+"screen": "BO-NTC-09-022",
+"uc": "UC_9-4",
+"domain": "bo",
+"deployed": "0.5.0"
+},
+{
+"block": "b-top",
+"sb": "예시 SB · 상품 관리(BO)",
+"screen": "BO-PRD-06-005",
+"uc": "UC_7-3",
+"domain": "bo",
+"deployed": "0.4.0"
+},
+{
+"block": "b-top",
+"sb": "예시 SB · 포인트",
+"screen": "PNT-02-035",
+"uc": "UC_4-3",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-top",
+"sb": "예시 SB · 공지 관리(BO)",
+"screen": "BO-NTC-06-034",
+"uc": "UC_8-2",
+"domain": "bo",
+"deployed": "0.5.0"
+},
+{
+"block": "b-top",
+"sb": "예시 SB · 요금 조회",
+"screen": "BIL-09-024",
+"uc": "UC_9-2",
+"domain": "func",
+"deployed": "0.4.0"
+},
+{
+"block": "b-top",
+"sb": "예시 SB · 명의 변경",
+"screen": "CNS-06-016",
+"uc": "UC_3-2",
+"domain": "func",
+"deployed": "0.3.1"
+},
+{
+"block": "b-top",
+"sb": "예시 SB · 공지 관리(BO)",
+"screen": "BO-NTC-03-003",
+"uc": "UC_6-4",
+"domain": "bo",
+"deployed": "0.5.0"
+},
+{
+"block": "b-top",
+"sb": "예시 SB · 상품 관리(BO)",
+"screen": "BO-PRD-02-027",
+"uc": "UC_3-3",
+"domain": "bo",
+"deployed": "0.4.2"
+},
+{
+"block": "b-top",
+"sb": "예시 SB · 요금 조회",
+"screen": "BIL-06-023",
+"uc": "UC_9-3",
+"domain": "func",
+"deployed": "0.4.2"
+},
+{
+"block": "b-top",
+"sb": "예시 SB · 요금 조회",
+"screen": "BIL-05-026",
+"uc": "UC_5-4",
+"domain": "func",
+"deployed": "0.3.1"
+},
+{
+"block": "b-top",
+"sb": "예시 SB · 요금 조회",
+"screen": "BIL-08-031",
+"uc": "UC_3-2",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-top",
+"sb": "예시 SB · 명의 변경",
+"screen": "CNS-06-032",
+"uc": "UC_9-2",
+"domain": "func",
+"deployed": "0.4.0"
+},
+{
+"block": "b-top",
+"sb": "예시 SB · 포인트",
+"screen": "PNT-09-022",
+"uc": "UC_7-3",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-top",
+"sb": "예시 SB · 권한 관리(BO)",
+"screen": "BO-AUT-04-001",
+"uc": "UC_5-1",
+"domain": "bo",
+"deployed": "0.4.0"
+},
+{
+"block": "b-top",
+"sb": "예시 SB · 명의 변경",
+"screen": "CNS-05-035",
+"uc": "UC_5-3",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-top",
+"sb": "예시 SB · 단말 할부",
+"screen": "DEV-05-029",
+"uc": "UC_2-4",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-top",
+"sb": "예시 SB · 단말 할부",
+"screen": "DEV-03-028",
+"uc": "UC_5-3",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-top",
+"sb": "예시 SB · 공지 관리(BO)",
+"screen": "BO-NTC-07-024",
+"uc": "UC_1-3",
+"domain": "bo",
+"deployed": "0.4.2"
+},
+{
+"block": "b-detail-info",
+"sb": "예시 SB · 상품 관리(BO)",
+"screen": "BO-PRD-05-023",
+"uc": "UC_4-4",
+"domain": "bo",
+"deployed": "0.4.0"
+},
+{
+"block": "b-detail-info",
+"sb": "예시 SB · 명의 변경",
+"screen": "CNS-04-038",
+"uc": "UC_6-1",
+"domain": "func",
+"deployed": "0.3.1"
+},
+{
+"block": "b-detail-info",
+"sb": "예시 SB · 단말 할부",
+"screen": "DEV-06-005",
+"uc": "UC_2-4",
+"domain": "func",
+"deployed": "0.4.2"
+},
+{
+"block": "b-detail-info",
+"sb": "예시 SB · 상품 관리(BO)",
+"screen": "BO-PRD-09-027",
+"uc": "UC_8-1",
+"domain": "bo",
+"deployed": "0.5.0"
+},
+{
+"block": "b-detail-info",
+"sb": "예시 SB · 공지 관리(BO)",
+"screen": "BO-NTC-08-028",
+"uc": "UC_7-4",
+"domain": "bo",
+"deployed": "0.5.0"
+},
+{
+"block": "b-detail-info",
+"sb": "예시 SB · 요금 조회",
+"screen": "BIL-08-026",
+"uc": "UC_8-2",
+"domain": "func",
+"deployed": "0.4.0"
+},
+{
+"block": "b-detail-info",
+"sb": "예시 SB · 부가서비스 가입",
+"screen": "SVC-04-013",
+"uc": "UC_7-1",
+"domain": "func",
+"deployed": "0.3.1"
+},
+{
+"block": "b-detail-info",
+"sb": "예시 SB · 해지 관리",
+"screen": "TRM-09-022",
+"uc": "UC_7-4",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-detail-info",
+"sb": "예시 SB · 요금 조회",
+"screen": "BIL-04-005",
+"uc": "UC_1-1",
+"domain": "func",
+"deployed": "0.4.2"
+},
+{
+"block": "b-detail-info",
+"sb": "예시 SB · 요금 조회",
+"screen": "BIL-04-037",
+"uc": "UC_8-1",
+"domain": "func",
+"deployed": "0.3.1"
+},
+{
+"block": "b-detail-info",
+"sb": "예시 SB · 단말 할부",
+"screen": "DEV-06-031",
+"uc": "UC_1-4",
+"domain": "func",
+"deployed": "0.4.0"
+},
+{
+"block": "b-detail-info",
+"sb": "예시 SB · 명의 변경",
+"screen": "CNS-07-004",
+"uc": "UC_3-3",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-detail-info",
+"sb": "예시 SB · 단말 할부",
+"screen": "DEV-09-001",
+"uc": "UC_3-3",
+"domain": "func",
+"deployed": "0.4.0"
+},
+{
+"block": "b-detail-info",
+"sb": "예시 SB · 해지 관리",
+"screen": "TRM-02-021",
+"uc": "UC_7-3",
+"domain": "func",
+"deployed": "0.3.1"
+},
+{
+"block": "b-detail-info",
+"sb": "예시 SB · 해지 관리",
+"screen": "TRM-09-026",
+"uc": "UC_9-4",
+"domain": "func",
+"deployed": "0.3.1"
+},
+{
+"block": "b-detail-info",
+"sb": "예시 SB · 부가서비스 가입",
+"screen": "SVC-05-020",
+"uc": "UC_4-4",
+"domain": "func",
+"deployed": "0.4.2"
+},
+{
+"block": "b-detail-info",
+"sb": "예시 SB · 권한 관리(BO)",
+"screen": "BO-AUT-05-020",
+"uc": "UC_4-2",
+"domain": "bo",
+"deployed": "0.5.0"
+},
+{
+"block": "b-detail-info",
+"sb": "예시 SB · 단말 할부",
+"screen": "DEV-09-024",
+"uc": "UC_8-4",
+"domain": "func",
+"deployed": "0.3.1"
+},
+{
+"block": "b-detail-info",
+"sb": "예시 SB · 명의 변경",
+"screen": "CNS-06-022",
+"uc": "UC_4-4",
+"domain": "func",
+"deployed": "0.3.1"
+},
+{
+"block": "b-detail-info",
+"sb": "예시 SB · 권한 관리(BO)",
+"screen": "BO-AUT-01-021",
+"uc": "UC_1-1",
+"domain": "bo",
+"deployed": "0.4.2"
+},
+{
+"block": "b-detail-info",
+"sb": "예시 SB · 포인트",
+"screen": "PNT-01-018",
+"uc": "UC_4-4",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-detail-info",
+"sb": "예시 SB · 단말 할부",
+"screen": "DEV-04-038",
+"uc": "UC_8-4",
+"domain": "func",
+"deployed": "0.3.1"
+},
+{
+"block": "b-detail-info",
+"sb": "예시 SB · 공지 관리(BO)",
+"screen": "BO-NTC-04-014",
+"uc": "UC_1-2",
+"domain": "bo",
+"deployed": "0.4.2"
+},
+{
+"block": "b-detail-info",
+"sb": "예시 SB · 요금 조회",
+"screen": "BIL-01-009",
+"uc": "UC_2-4",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-detail-info",
+"sb": "예시 SB · 부가서비스 가입",
+"screen": "SVC-09-011",
+"uc": "UC_8-2",
+"domain": "func",
+"deployed": "0.3.1"
+},
+{
+"block": "b-detail-info",
+"sb": "예시 SB · 해지 관리",
+"screen": "TRM-04-035",
+"uc": "UC_3-2",
+"domain": "func",
+"deployed": "0.3.1"
+},
+{
+"block": "b-detail-info",
+"sb": "예시 SB · 단말 할부",
+"screen": "DEV-09-007",
+"uc": "UC_8-1",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-detail-info",
+"sb": "예시 SB · 요금 조회",
+"screen": "BIL-01-027",
+"uc": "UC_4-3",
+"domain": "func",
+"deployed": "0.3.1"
+},
+{
+"block": "b-detail-info",
+"sb": "예시 SB · 공지 관리(BO)",
+"screen": "BO-NTC-07-010",
+"uc": "UC_1-2",
+"domain": "bo",
+"deployed": "0.5.0"
+},
+{
+"block": "b-detail-info",
+"sb": "예시 SB · 명의 변경",
+"screen": "CNS-08-019",
+"uc": "UC_4-3",
+"domain": "func",
+"deployed": "0.3.1"
+},
+{
+"block": "b-detail-info",
+"sb": "예시 SB · 권한 관리(BO)",
+"screen": "BO-AUT-03-020",
+"uc": "UC_5-3",
+"domain": "bo",
+"deployed": "0.4.0"
+},
+{
+"block": "b-detail-info",
+"sb": "예시 SB · 단말 할부",
+"screen": "DEV-03-015",
+"uc": "UC_7-1",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-detail-info",
+"sb": "예시 SB · 상품 관리(BO)",
+"screen": "BO-PRD-03-019",
+"uc": "UC_4-1",
+"domain": "bo",
+"deployed": "0.5.0"
+},
+{
+"block": "b-detail-info",
+"sb": "예시 SB · 공지 관리(BO)",
+"screen": "BO-NTC-03-012",
+"uc": "UC_7-3",
+"domain": "bo",
+"deployed": "0.3.1"
+},
+{
+"block": "b-detail-info",
+"sb": "예시 SB · 상품 관리(BO)",
+"screen": "BO-PRD-02-003",
+"uc": "UC_6-1",
+"domain": "bo",
+"deployed": "0.3.1"
+},
+{
+"block": "b-detail-info",
+"sb": "예시 SB · 단말 할부",
+"screen": "DEV-09-034",
+"uc": "UC_2-3",
+"domain": "func",
+"deployed": "0.4.2"
+},
+{
+"block": "b-detail-info",
+"sb": "예시 SB · 포인트",
+"screen": "PNT-01-032",
+"uc": "UC_2-2",
+"domain": "func",
+"deployed": "0.4.2"
+},
+{
+"block": "b-detail-info",
+"sb": "예시 SB · 해지 관리",
+"screen": "TRM-05-039",
+"uc": "UC_9-1",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-detail-info",
+"sb": "예시 SB · 명의 변경",
+"screen": "CNS-08-018",
+"uc": "UC_4-3",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-detail-info",
+"sb": "예시 SB · 요금 조회",
+"screen": "BIL-01-023",
+"uc": "UC_4-2",
+"domain": "func",
+"deployed": "0.3.1"
+},
+{
+"block": "b-detail-info",
+"sb": "예시 SB · 해지 관리",
+"screen": "TRM-01-012",
+"uc": "UC_6-3",
+"domain": "func",
+"deployed": "0.4.2"
+},
+{
+"block": "b-callout",
+"sb": "예시 SB · 공지 관리(BO)",
+"screen": "BO-NTC-04-022",
+"uc": "UC_6-2",
+"domain": "bo",
+"deployed": "0.5.0"
+},
+{
+"block": "b-callout",
+"sb": "예시 SB · 해지 관리",
+"screen": "TRM-02-036",
+"uc": "UC_8-1",
+"domain": "func",
+"deployed": "0.3.1"
+},
+{
+"block": "b-callout",
+"sb": "예시 SB · 권한 관리(BO)",
+"screen": "BO-AUT-02-011",
+"uc": "UC_7-4",
+"domain": "bo",
+"deployed": "0.5.0"
+},
+{
+"block": "b-callout",
+"sb": "예시 SB · 부가서비스 가입",
+"screen": "SVC-01-033",
+"uc": "UC_2-4",
+"domain": "func",
+"deployed": "0.3.1"
+},
+{
+"block": "b-callout",
+"sb": "예시 SB · 명의 변경",
+"screen": "CNS-07-037",
+"uc": "UC_6-1",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-callout",
+"sb": "예시 SB · 명의 변경",
+"screen": "CNS-06-011",
+"uc": "UC_2-3",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-callout",
+"sb": "예시 SB · 공지 관리(BO)",
+"screen": "BO-NTC-05-010",
+"uc": "UC_5-1",
+"domain": "bo",
+"deployed": "0.5.0"
+},
+{
+"block": "b-callout",
+"sb": "예시 SB · 단말 할부",
+"screen": "DEV-02-010",
+"uc": "UC_8-3",
+"domain": "func",
+"deployed": "0.4.0"
+},
+{
+"block": "b-callout",
+"sb": "예시 SB · 권한 관리(BO)",
+"screen": "BO-AUT-02-021",
+"uc": "UC_8-2",
+"domain": "bo",
+"deployed": "0.5.0"
+},
+{
+"block": "b-callout",
+"sb": "예시 SB · 권한 관리(BO)",
+"screen": "BO-AUT-01-033",
+"uc": "UC_5-3",
+"domain": "bo",
+"deployed": "0.5.0"
+},
+{
+"block": "b-callout",
+"sb": "예시 SB · 해지 관리",
+"screen": "TRM-07-036",
+"uc": "UC_4-2",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-callout",
+"sb": "예시 SB · 권한 관리(BO)",
+"screen": "BO-AUT-09-016",
+"uc": "UC_2-1",
+"domain": "bo",
+"deployed": "0.5.0"
+},
+{
+"block": "b-callout",
+"sb": "예시 SB · 부가서비스 가입",
+"screen": "SVC-08-037",
+"uc": "UC_4-2",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-callout",
+"sb": "예시 SB · 명의 변경",
+"screen": "CNS-03-017",
+"uc": "UC_1-4",
+"domain": "func",
+"deployed": "0.4.2"
+},
+{
+"block": "b-callout",
+"sb": "예시 SB · 권한 관리(BO)",
+"screen": "BO-AUT-02-019",
+"uc": "UC_2-1",
+"domain": "bo",
+"deployed": "0.3.1"
+},
+{
+"block": "b-callout",
+"sb": "예시 SB · 단말 할부",
+"screen": "DEV-04-016",
+"uc": "UC_9-1",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-callout",
+"sb": "예시 SB · 요금 조회",
+"screen": "BIL-06-007",
+"uc": "UC_1-2",
+"domain": "func",
+"deployed": "0.4.0"
+},
+{
+"block": "b-callout",
+"sb": "예시 SB · 명의 변경",
+"screen": "CNS-05-022",
+"uc": "UC_2-4",
+"domain": "func",
+"deployed": "0.4.0"
+},
+{
+"block": "b-node",
+"sb": "예시 SB · 명의 변경",
+"screen": "CNS-01-021",
+"uc": "UC_7-4",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-node",
+"sb": "예시 SB · 요금 조회",
+"screen": "BIL-04-010",
+"uc": "UC_9-2",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-node",
+"sb": "예시 SB · 포인트",
+"screen": "PNT-03-014",
+"uc": "UC_4-2",
+"domain": "func",
+"deployed": "0.3.1"
+},
+{
+"block": "b-node",
+"sb": "예시 SB · 포인트",
+"screen": "PNT-02-001",
+"uc": "UC_8-1",
+"domain": "func",
+"deployed": "0.4.2"
+},
+{
+"block": "b-node",
+"sb": "예시 SB · 권한 관리(BO)",
+"screen": "BO-AUT-06-005",
+"uc": "UC_2-2",
+"domain": "bo",
+"deployed": "0.3.1"
+},
+{
+"block": "b-node",
+"sb": "예시 SB · 부가서비스 가입",
+"screen": "SVC-06-027",
+"uc": "UC_2-3",
+"domain": "func",
+"deployed": "0.4.0"
+},
+{
+"block": "b-node",
+"sb": "예시 SB · 명의 변경",
+"screen": "CNS-08-032",
+"uc": "UC_3-3",
+"domain": "func",
+"deployed": "0.3.1"
+},
+{
+"block": "b-node",
+"sb": "예시 SB · 해지 관리",
+"screen": "TRM-01-030",
+"uc": "UC_3-4",
+"domain": "func",
+"deployed": "0.4.2"
+},
+{
+"block": "b-node",
+"sb": "예시 SB · 권한 관리(BO)",
+"screen": "BO-AUT-05-038",
+"uc": "UC_9-1",
+"domain": "bo",
+"deployed": "0.5.0"
+},
+{
+"block": "b-node",
+"sb": "예시 SB · 해지 관리",
+"screen": "TRM-04-016",
+"uc": "UC_4-4",
+"domain": "func",
+"deployed": "0.4.0"
+},
+{
+"block": "b-node",
+"sb": "예시 SB · 단말 할부",
+"screen": "DEV-08-037",
+"uc": "UC_1-4",
+"domain": "func",
+"deployed": "0.3.1"
+},
+{
+"block": "b-node",
+"sb": "예시 SB · 상품 관리(BO)",
+"screen": "BO-PRD-06-025",
+"uc": "UC_7-1",
+"domain": "bo",
+"deployed": "0.5.0"
+},
+{
+"block": "b-node",
+"sb": "예시 SB · 포인트",
+"screen": "PNT-07-020",
+"uc": "UC_1-3",
+"domain": "func",
+"deployed": "0.4.2"
+},
+{
+"block": "b-node",
+"sb": "예시 SB · 부가서비스 가입",
+"screen": "SVC-02-031",
+"uc": "UC_7-4",
+"domain": "func",
+"deployed": "0.4.0"
+},
+{
+"block": "b-node",
+"sb": "예시 SB · 해지 관리",
+"screen": "TRM-08-010",
+"uc": "UC_6-2",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-node",
+"sb": "예시 SB · 포인트",
+"screen": "PNT-07-030",
+"uc": "UC_1-3",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-node",
+"sb": "예시 SB · 요금 조회",
+"screen": "BIL-05-012",
+"uc": "UC_8-4",
+"domain": "func",
+"deployed": "0.3.1"
+},
+{
+"block": "b-node",
+"sb": "예시 SB · 권한 관리(BO)",
+"screen": "BO-AUT-04-008",
+"uc": "UC_4-1",
+"domain": "bo",
+"deployed": "0.4.2"
+},
+{
+"block": "b-node",
+"sb": "예시 SB · 명의 변경",
+"screen": "CNS-07-018",
+"uc": "UC_6-2",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-node",
+"sb": "예시 SB · 명의 변경",
+"screen": "CNS-04-023",
+"uc": "UC_7-3",
+"domain": "func",
+"deployed": "0.4.2"
+},
+{
+"block": "b-node",
+"sb": "예시 SB · 포인트",
+"screen": "PNT-09-039",
+"uc": "UC_4-2",
+"domain": "func",
+"deployed": "0.4.2"
+},
+{
+"block": "b-node",
+"sb": "예시 SB · 권한 관리(BO)",
+"screen": "BO-AUT-01-001",
+"uc": "UC_3-1",
+"domain": "bo",
+"deployed": "0.5.0"
+},
+{
+"block": "b-node",
+"sb": "예시 SB · 공지 관리(BO)",
+"screen": "BO-NTC-05-023",
+"uc": "UC_2-4",
+"domain": "bo",
+"deployed": "0.5.0"
+},
+{
+"block": "b-node",
+"sb": "예시 SB · 해지 관리",
+"screen": "TRM-07-005",
+"uc": "UC_9-3",
+"domain": "func",
+"deployed": "0.4.2"
+},
+{
+"block": "b-node",
+"sb": "예시 SB · 해지 관리",
+"screen": "TRM-05-024",
+"uc": "UC_5-4",
+"domain": "func",
+"deployed": "0.4.0"
+},
+{
+"block": "b-node",
+"sb": "예시 SB · 부가서비스 가입",
+"screen": "SVC-08-032",
+"uc": "UC_6-1",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-node",
+"sb": "예시 SB · 요금 조회",
+"screen": "BIL-09-025",
+"uc": "UC_8-3",
+"domain": "func",
+"deployed": "0.4.0"
+},
+{
+"block": "b-node",
+"sb": "예시 SB · 명의 변경",
+"screen": "CNS-08-003",
+"uc": "UC_6-4",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-node",
+"sb": "예시 SB · 부가서비스 가입",
+"screen": "SVC-05-010",
+"uc": "UC_4-1",
+"domain": "func",
+"deployed": "0.4.2"
+},
+{
+"block": "b-node",
+"sb": "예시 SB · 명의 변경",
+"screen": "CNS-05-016",
+"uc": "UC_5-1",
+"domain": "func",
+"deployed": "0.4.2"
+},
+{
+"block": "b-node",
+"sb": "예시 SB · 권한 관리(BO)",
+"screen": "BO-AUT-07-006",
+"uc": "UC_7-4",
+"domain": "bo",
+"deployed": "0.3.1"
+},
+{
+"block": "b-node",
+"sb": "예시 SB · 포인트",
+"screen": "PNT-05-021",
+"uc": "UC_3-4",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-node",
+"sb": "예시 SB · 권한 관리(BO)",
+"screen": "BO-AUT-06-009",
+"uc": "UC_4-1",
+"domain": "bo",
+"deployed": "0.5.0"
+},
+{
+"block": "b-hud",
+"sb": "예시 SB · 해지 관리",
+"screen": "TRM-09-011",
+"uc": "UC_5-1",
+"domain": "func",
+"deployed": "0.4.0"
+},
+{
+"block": "b-hud",
+"sb": "예시 SB · 해지 관리",
+"screen": "TRM-07-024",
+"uc": "UC_3-3",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-hud",
+"sb": "예시 SB · 공지 관리(BO)",
+"screen": "BO-NTC-04-040",
+"uc": "UC_6-4",
+"domain": "bo",
+"deployed": "0.4.2"
+},
+{
+"block": "b-hud",
+"sb": "예시 SB · 요금 조회",
+"screen": "BIL-05-024",
+"uc": "UC_7-3",
+"domain": "func",
+"deployed": "0.4.2"
+},
+{
+"block": "b-hud",
+"sb": "예시 SB · 공지 관리(BO)",
+"screen": "BO-NTC-05-008",
+"uc": "UC_4-4",
+"domain": "bo",
+"deployed": "0.4.0"
+},
+{
+"block": "b-hud",
+"sb": "예시 SB · 상품 관리(BO)",
+"screen": "BO-PRD-03-021",
+"uc": "UC_1-2",
+"domain": "bo",
+"deployed": "0.5.0"
+},
+{
+"block": "b-hud",
+"sb": "예시 SB · 권한 관리(BO)",
+"screen": "BO-AUT-08-036",
+"uc": "UC_7-1",
+"domain": "bo",
+"deployed": "0.5.0"
+},
+{
+"block": "b-hud",
+"sb": "예시 SB · 상품 관리(BO)",
+"screen": "BO-PRD-06-026",
+"uc": "UC_9-3",
+"domain": "bo",
+"deployed": "0.3.1"
+},
+{
+"block": "b-hud",
+"sb": "예시 SB · 요금 조회",
+"screen": "BIL-05-029",
+"uc": "UC_1-1",
+"domain": "func",
+"deployed": "0.4.0"
+},
+{
+"block": "b-hud",
+"sb": "예시 SB · 해지 관리",
+"screen": "TRM-06-039",
+"uc": "UC_6-3",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-hud",
+"sb": "예시 SB · 요금 조회",
+"screen": "BIL-09-007",
+"uc": "UC_7-1",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-hud",
+"sb": "예시 SB · 명의 변경",
+"screen": "CNS-03-008",
+"uc": "UC_7-4",
+"domain": "func",
+"deployed": "0.3.1"
+},
+{
+"block": "b-hud",
+"sb": "예시 SB · 포인트",
+"screen": "PNT-07-026",
+"uc": "UC_8-3",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-hud",
+"sb": "예시 SB · 명의 변경",
+"screen": "CNS-03-035",
+"uc": "UC_9-4",
+"domain": "func",
+"deployed": "0.3.1"
+},
+{
+"block": "b-hud",
+"sb": "예시 SB · 해지 관리",
+"screen": "TRM-03-014",
+"uc": "UC_6-1",
+"domain": "func",
+"deployed": "0.4.2"
+},
+{
+"block": "b-hud",
+"sb": "예시 SB · 요금 조회",
+"screen": "BIL-09-001",
+"uc": "UC_4-4",
+"domain": "func",
+"deployed": "0.4.2"
+},
+{
+"block": "b-hud",
+"sb": "예시 SB · 단말 할부",
+"screen": "DEV-05-009",
+"uc": "UC_3-2",
+"domain": "func",
+"deployed": "0.3.1"
+},
+{
+"block": "b-hud",
+"sb": "예시 SB · 단말 할부",
+"screen": "DEV-09-008",
+"uc": "UC_5-1",
+"domain": "func",
+"deployed": "0.3.1"
+},
+{
+"block": "b-hud",
+"sb": "예시 SB · 상품 관리(BO)",
+"screen": "BO-PRD-05-009",
+"uc": "UC_7-3",
+"domain": "bo",
+"deployed": "0.3.1"
+},
+{
+"block": "b-hud",
+"sb": "예시 SB · 요금 조회",
+"screen": "BIL-09-018",
+"uc": "UC_4-2",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-hud",
+"sb": "예시 SB · 요금 조회",
+"screen": "BIL-06-037",
+"uc": "UC_2-3",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-hud",
+"sb": "예시 SB · 권한 관리(BO)",
+"screen": "BO-AUT-02-008",
+"uc": "UC_6-2",
+"domain": "bo",
+"deployed": "0.5.0"
+},
+{
+"block": "b-hud",
+"sb": "예시 SB · 공지 관리(BO)",
+"screen": "BO-NTC-03-029",
+"uc": "UC_5-1",
+"domain": "bo",
+"deployed": "0.4.2"
+},
+{
+"block": "b-hud",
+"sb": "예시 SB · 권한 관리(BO)",
+"screen": "BO-AUT-01-003",
+"uc": "UC_9-4",
+"domain": "bo",
+"deployed": "0.5.0"
+},
+{
+"block": "b-hud",
+"sb": "예시 SB · 공지 관리(BO)",
+"screen": "BO-NTC-04-019",
+"uc": "UC_6-3",
+"domain": "bo",
+"deployed": "0.4.0"
+},
+{
+"block": "b-hud",
+"sb": "예시 SB · 단말 할부",
+"screen": "DEV-04-036",
+"uc": "UC_4-3",
+"domain": "func",
+"deployed": "0.4.0"
+},
+{
+"block": "b-hud",
+"sb": "예시 SB · 권한 관리(BO)",
+"screen": "BO-AUT-01-015",
+"uc": "UC_3-1",
+"domain": "bo",
+"deployed": "0.4.0"
+},
+{
+"block": "b-hud",
+"sb": "예시 SB · 요금 조회",
+"screen": "BIL-02-026",
+"uc": "UC_7-4",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-hud",
+"sb": "예시 SB · 부가서비스 가입",
+"screen": "SVC-06-035",
+"uc": "UC_6-3",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-hud",
+"sb": "예시 SB · 공지 관리(BO)",
+"screen": "BO-NTC-03-028",
+"uc": "UC_8-4",
+"domain": "bo",
+"deployed": "0.5.0"
+},
+{
+"block": "b-hud",
+"sb": "예시 SB · 포인트",
+"screen": "PNT-04-008",
+"uc": "UC_7-2",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-hud",
+"sb": "예시 SB · 단말 할부",
+"screen": "DEV-02-034",
+"uc": "UC_1-4",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-actionbar",
+"sb": "예시 SB · 단말 할부",
+"screen": "DEV-05-013",
+"uc": "UC_9-3",
+"domain": "func",
+"deployed": "0.3.1"
+},
+{
+"block": "b-actionbar",
+"sb": "예시 SB · 부가서비스 가입",
+"screen": "SVC-01-005",
+"uc": "UC_6-2",
+"domain": "func",
+"deployed": "0.4.2"
+},
+{
+"block": "b-actionbar",
+"sb": "예시 SB · 부가서비스 가입",
+"screen": "SVC-09-017",
+"uc": "UC_9-3",
+"domain": "func",
+"deployed": "0.3.1"
+},
+{
+"block": "b-actionbar",
+"sb": "예시 SB · 명의 변경",
+"screen": "CNS-06-023",
+"uc": "UC_5-1",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-actionbar",
+"sb": "예시 SB · 명의 변경",
+"screen": "CNS-06-027",
+"uc": "UC_1-4",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-actionbar",
+"sb": "예시 SB · 포인트",
+"screen": "PNT-02-010",
+"uc": "UC_6-4",
+"domain": "func",
+"deployed": "0.4.2"
+},
+{
+"block": "b-actionbar",
+"sb": "예시 SB · 요금 조회",
+"screen": "BIL-06-021",
+"uc": "UC_8-2",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-actionbar",
+"sb": "예시 SB · 권한 관리(BO)",
+"screen": "BO-AUT-05-033",
+"uc": "UC_7-2",
+"domain": "bo",
+"deployed": "0.5.0"
+},
+{
+"block": "b-actionbar",
+"sb": "예시 SB · 해지 관리",
+"screen": "TRM-01-013",
+"uc": "UC_5-4",
+"domain": "func",
+"deployed": "0.3.1"
+},
+{
+"block": "b-actionbar",
+"sb": "예시 SB · 상품 관리(BO)",
+"screen": "BO-PRD-03-028",
+"uc": "UC_3-2",
+"domain": "bo",
+"deployed": "0.5.0"
+},
+{
+"block": "b-actionbar",
+"sb": "예시 SB · 요금 조회",
+"screen": "BIL-04-038",
+"uc": "UC_9-4",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-actionbar",
+"sb": "예시 SB · 부가서비스 가입",
+"screen": "SVC-02-030",
+"uc": "UC_1-2",
+"domain": "func",
+"deployed": "0.4.0"
+},
+{
+"block": "b-actionbar",
+"sb": "예시 SB · 권한 관리(BO)",
+"screen": "BO-AUT-02-021",
+"uc": "UC_6-4",
+"domain": "bo",
+"deployed": "0.4.2"
+},
+{
+"block": "b-actionbar",
+"sb": "예시 SB · 단말 할부",
+"screen": "DEV-01-016",
+"uc": "UC_4-3",
+"domain": "func",
+"deployed": "0.4.2"
+},
+{
+"block": "b-actionbar",
+"sb": "예시 SB · 요금 조회",
+"screen": "BIL-02-038",
+"uc": "UC_3-2",
+"domain": "func",
+"deployed": "0.4.2"
+},
+{
+"block": "b-actionbar",
+"sb": "예시 SB · 공지 관리(BO)",
+"screen": "BO-NTC-08-005",
+"uc": "UC_1-4",
+"domain": "bo",
+"deployed": "0.5.0"
+},
+{
+"block": "b-actionbar",
+"sb": "예시 SB · 상품 관리(BO)",
+"screen": "BO-PRD-04-031",
+"uc": "UC_8-2",
+"domain": "bo",
+"deployed": "0.5.0"
+},
+{
+"block": "b-actionbar",
+"sb": "예시 SB · 공지 관리(BO)",
+"screen": "BO-NTC-07-005",
+"uc": "UC_4-2",
+"domain": "bo",
+"deployed": "0.5.0"
+},
+{
+"block": "b-actionbar",
+"sb": "예시 SB · 상품 관리(BO)",
+"screen": "BO-PRD-04-003",
+"uc": "UC_4-1",
+"domain": "bo",
+"deployed": "0.5.0"
+},
+{
+"block": "b-actionbar",
+"sb": "예시 SB · 부가서비스 가입",
+"screen": "SVC-01-030",
+"uc": "UC_1-4",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-actionbar",
+"sb": "예시 SB · 단말 할부",
+"screen": "DEV-01-036",
+"uc": "UC_7-3",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-actionbar",
+"sb": "예시 SB · 명의 변경",
+"screen": "CNS-08-002",
+"uc": "UC_8-1",
+"domain": "func",
+"deployed": "0.3.1"
+},
+{
+"block": "b-actionbar",
+"sb": "예시 SB · 요금 조회",
+"screen": "BIL-03-010",
+"uc": "UC_9-2",
+"domain": "func",
+"deployed": "0.4.0"
+},
+{
+"block": "b-actionbar",
+"sb": "예시 SB · 권한 관리(BO)",
+"screen": "BO-AUT-06-007",
+"uc": "UC_9-4",
+"domain": "bo",
+"deployed": "0.5.0"
+},
+{
+"block": "b-actionbar",
+"sb": "예시 SB · 요금 조회",
+"screen": "BIL-01-036",
+"uc": "UC_2-1",
+"domain": "func",
+"deployed": "0.3.1"
+},
+{
+"block": "b-actionbar",
+"sb": "예시 SB · 부가서비스 가입",
+"screen": "SVC-09-040",
+"uc": "UC_5-4",
+"domain": "func",
+"deployed": "0.4.2"
+},
+{
+"block": "b-actionbar",
+"sb": "예시 SB · 부가서비스 가입",
+"screen": "SVC-09-014",
+"uc": "UC_1-2",
+"domain": "func",
+"deployed": "0.4.0"
+},
+{
+"block": "b-actionbar",
+"sb": "예시 SB · 공지 관리(BO)",
+"screen": "BO-NTC-04-008",
+"uc": "UC_4-4",
+"domain": "bo",
+"deployed": "0.5.0"
+},
+{
+"block": "b-actionbar",
+"sb": "예시 SB · 요금 조회",
+"screen": "BIL-09-034",
+"uc": "UC_6-1",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-actionbar",
+"sb": "예시 SB · 단말 할부",
+"screen": "DEV-02-006",
+"uc": "UC_6-3",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-actionbar",
+"sb": "예시 SB · 해지 관리",
+"screen": "TRM-05-010",
+"uc": "UC_8-3",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-actionbar",
+"sb": "예시 SB · 부가서비스 가입",
+"screen": "SVC-02-005",
+"uc": "UC_1-1",
+"domain": "func",
+"deployed": "0.3.1"
+},
+{
+"block": "b-actionbar",
+"sb": "예시 SB · 단말 할부",
+"screen": "DEV-09-025",
+"uc": "UC_8-4",
+"domain": "func",
+"deployed": "0.4.0"
+},
+{
+"block": "b-table-big",
+"sb": "예시 SB · 단말 할부",
+"screen": "DEV-02-002",
+"uc": "UC_1-1",
+"domain": "func",
+"deployed": "0.3.1"
+},
+{
+"block": "b-table-big",
+"sb": "예시 SB · 명의 변경",
+"screen": "CNS-07-004",
+"uc": "UC_3-3",
+"domain": "func",
+"deployed": "0.4.2"
+},
+{
+"block": "b-table-big",
+"sb": "예시 SB · 해지 관리",
+"screen": "TRM-03-017",
+"uc": "UC_5-3",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-table-big",
+"sb": "예시 SB · 포인트",
+"screen": "PNT-07-007",
+"uc": "UC_3-4",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-table-big",
+"sb": "예시 SB · 공지 관리(BO)",
+"screen": "BO-NTC-06-018",
+"uc": "UC_4-1",
+"domain": "bo",
+"deployed": "0.4.2"
+},
+{
+"block": "b-table-big",
+"sb": "예시 SB · 권한 관리(BO)",
+"screen": "BO-AUT-01-022",
+"uc": "UC_4-3",
+"domain": "bo",
+"deployed": "0.5.0"
+},
+{
+"block": "b-table-big",
+"sb": "예시 SB · 부가서비스 가입",
+"screen": "SVC-04-022",
+"uc": "UC_2-2",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-table-big",
+"sb": "예시 SB · 부가서비스 가입",
+"screen": "SVC-06-028",
+"uc": "UC_6-3",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "b-table-big",
+"sb": "예시 SB · 권한 관리(BO)",
+"screen": "BO-AUT-02-030",
+"uc": "UC_3-2",
+"domain": "bo",
+"deployed": "0.4.0"
+},
+{
+"block": "b-table-big",
+"sb": "예시 SB · 부가서비스 가입",
+"screen": "SVC-09-016",
+"uc": "UC_7-1",
+"domain": "func",
+"deployed": "0.3.1"
+},
+{
+"block": "b-table-big",
+"sb": "예시 SB · 단말 할부",
+"screen": "DEV-04-019",
+"uc": "UC_1-3",
+"domain": "func",
+"deployed": "0.4.2"
+},
+{
+"block": "b-table-big",
+"sb": "예시 SB · 요금 조회",
+"screen": "BIL-03-040",
+"uc": "UC_8-2",
+"domain": "func",
+"deployed": "0.3.1"
+},
+{
+"block": "tb-compare-card",
+"sb": "예시 SB · 해지 관리",
+"screen": "TRM-07-016",
+"uc": "UC_6-3",
+"domain": "func",
+"deployed": "0.5.0"
+},
+{
+"block": "tb-compare-card",
+"sb": "예시 SB · 요금 조회",
+"screen": "BIL-04-017",
+"uc": "UC_3-1",
+"domain": "func",
+"deployed": "0.4.0"
+},
+{
+"block": "tb-compare-card",
+"sb": "예시 SB · 요금 조회",
+"screen": "BIL-07-020",
+"uc": "UC_2-1",
+"domain": "func",
+"deployed": "0.3.1"
+}
+],
+"sample": true
 }
