@@ -37,14 +37,14 @@ export const EDITOR: Record<EditType, Role> = { block: 'ds', comp: 'ds', figma: 
 // 업무 블록: 모양은 DS 담당자가 Figma에서 고쳐 소스 변환, 설명 · 놓이는 슬롯 · 승격은 UX 담당자
 const SHARED: Partial<Record<EditType, Role[]>> = { comp: ['ds', 'ux'], text: ['ds', 'ux'], guide: ['ux', 'ds'], sb: ['ux', 'ds'] };
 export const canEdit = (role: Role, type: EditType) => (SHARED[type] || [EDITOR[type]]).includes(role);
-/** Blocks = 공통 블록 + 업무 블록(기능 블록 · BO 블록). tb- 블록(SB Studio 자동 생성)은 따로 정하지 않으면 기능 블록 */
+/** Blocks = 공통 블록 + 업무 블록(블록 · BO 블록). tb- 블록(SB Studio 자동 생성)은 따로 정하지 않으면 블록 */
 export type SbDomain = 'func' | 'bo';
 export const SB_DOMAINS: SbDomain[] = ['func', 'bo'];
-export const SB_GROUP: Record<SbDomain, string> = { func: '기능 블록', bo: 'BO 블록' };
+export const SB_GROUP: Record<SbDomain, string> = { func: '블록', bo: 'BO 블록' };
 const SB_DOMAIN: Record<string, SbDomain> = { 'b-gnb': 'func', 'b-lnb': 'func' };
 export const sbDomain = (i: { kind: string; code: string; domain?: SbDomain }): SbDomain | null => (i.kind !== 'block' ? null : SB_DOMAIN[i.code] || (/^tb-/.test(i.code) ? i.domain || 'func' : null));
 export const isSb = (i: { kind: string; code: string }) => !!sbDomain(i);
-/** 블록 성격 (슬롯 · 모듈 정의 이름 기준). 공통 · 기능 · BO 블록이 같은 분류를 써서 서로 비교 · 승격 판단을 한다 */
+/** 블록 성격 (슬롯 · 모듈 정의 이름 기준). 공통 블록 · 블록 · BO 블록이 같은 분류를 써서 서로 비교 · 승격 판단을 한다 */
 export const BLOCK_TYPES = ['앱 구조', '화면 머리', '조회조건', '컨텐트', '컨텐트 본문', '컨텐트 유틸리티', '노드'] as const;
 const BLOCK_TYPE: Record<string, (typeof BLOCK_TYPES)[number]> = {
   'b-gnb': '앱 구조', 'b-lnb': '앱 구조', 'b-context-bar': '앱 구조',
