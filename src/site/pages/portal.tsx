@@ -64,8 +64,8 @@ function Overview() {
     ['process', '거버넌스', '지켜야 할 규칙 · 바꾸는 절차', '운영 절차 · UX 규칙 · UI 규칙 · 용어'],
     ['ux-guide', 'UX 가이드라인', '화면을 어떻게 짜는가', '원칙 · 화면 구조 · 레이아웃 · 화면 가이드'],
     ['foundations', 'Foundations', '컬러 · 타이포 · 여백 · 아이콘 · 토큰', '모든 부품이 쓰는 디자인 에셋'],
-    ['components', 'Components', '묶음별 컴포넌트', '블록 안에 들어가는 최소 부품'],
-    ['blocks', 'Blocks', '공통 블록 · 블록 · BO 블록 · 모듈 정의', '슬롯 하나를 채우는 업무 단위 묶음'],
+    ['components', 'Components', '묶음별 컴포넌트', 'BSS DS library에 정의된 Figma 컴포넌트 단위'],
+    ['blocks', 'Blocks', '공통 블록 · 블록 · BO 블록 · 모듈 정의', '화면에서 하나의 역할을 하는 단위'],
     ['workboard', 'Workboard', '요청이 어디까지 진행됐나', '단계별 건수 · 요청 목록 · 요청하기'],
   ];
   return (
@@ -144,8 +144,8 @@ function Stack() {
     ['구조', 'app', '화면이 바뀌어도 남는 바탕 틀 · GNB · LNB · 콘텍스트 바 · 본문 영역', P.slots().filter((x) => x.owner === 'app').length, 'g-layout-common'],
     ['레이아웃 규칙', 'l-', '본문 영역을 어떤 슬롯 순서로 나눌지 정하는 규칙', n('layout'), 'patterns'],
     ['슬롯', '경로', '부품이 들어갈 자리 · 고정 · 쌓기 · 자유', P.slots().length, 'slots'],
-    ['블록', 'b-', '슬롯 하나를 채우는 업무 단위 묶음', n('block'), 'blocks'],
-    ['컴포넌트', 'c-', '블록 안에 들어가는 최소 부품', n('comp'), 'components'],
+    ['블록', 'b-', '화면에서 하나의 역할을 하는 단위 · DS 컴포넌트 + 내부 자유 규칙 · 다른 블록을 담을 수 있음 (Lv6 이하)', n('block'), 'blocks'],
+    ['컴포넌트', 'c-', 'BSS DS library에 정의된 Figma 컴포넌트 단위 (Lv6 이하)', n('comp'), 'components'],
   ];
   return (
     <>
@@ -256,7 +256,7 @@ function ItemList({ kind }: { kind: 'comp' | 'block' }) {
       <Head
         eyebrow={isComp ? 'Components' : 'Blocks'}
         title={isComp ? '컴포넌트' : '블록'}
-        lead={isComp ? '블록 안에 들어가는 최소 부품입니다. ✓ 표시는 Figma 디자인 에셋과 사용 가이드가 있는 것입니다.' : '블록은 슬롯 하나를 채우는 업무 단위 묶음입니다. 공통 블록 · 블록 · BO 블록으로 나뉩니다. 블록이 무엇이고 어떻게 구성되는지는 모듈 정의에 있습니다.'}
+        lead={isComp ? 'BSS DS library에 정의된 Figma 컴포넌트 단위입니다(Lv6 이하). ✓ 표시는 Figma 디자인 에셋과 사용 가이드가 있는 것입니다.' : '블록은 화면에서 하나의 역할을 하는 단위입니다(Lv6 이하). DS 컴포넌트와 내부 자유 규칙으로 이루어지고, 다른 블록을 담을 수 있습니다. 공통 블록 · 블록 · BO 블록으로 나뉩니다. 블록이 무엇이고 어떻게 구성되는지는 모듈 정의에 있습니다.'}
       />
       {isComp && can('figma') ? (
         <p className="row">
