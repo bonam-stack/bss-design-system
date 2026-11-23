@@ -15,7 +15,7 @@ import { PatternPage } from './pages/PatternPage';
 import { ComparePage } from './pages/ComparePage';
 import { GuidePage } from './pages/GuidePage';
 import { GlossaryPage } from './pages/GlossaryPage';
-import { guideDoc } from './guide';
+import { guideDoc , shownDoc } from './guide';
 
 // BSS 디자인 포털: 저장소 JSON + SB Studio 카탈로그가 기준, 게시된 변경은 브라우저 저장소에서
 P.init({
@@ -109,8 +109,9 @@ export function App() {
   const sc = key ? componentByKey(key) : null;
   const pattern = patterns.find((p) => `pattern-${p.key}` === route);
   // v2에는 거버넌스가 없다: 규칙 · 슬롯 · 검증 규칙 · 연동 규격 · 용어사전 · 운영 절차 · UI 규칙 · 작성 기준 문서는 홈으로 (데이터는 그대로 둔다)
-  const GOV = ['process', 'rules', 'lint', 'sb-spec', 'slots', 'glossary', 'ui-rules', 'design-review', 'figma-guide', 'promo-rules'];
-  if (GOV.includes(route) || (route.startsWith('g-') && guideDoc(route.slice(2))?.place === 'governance')) redirect = 'overview';
+  // v2에 없는 화면: UX 규칙 쪽 거버넌스 · UX 가이드라인(개요 · 원칙 · 화면 구조 · 레이아웃 · 조립 구조 · 화면 가이드). 데이터는 그대로 둔다
+  const HIDDEN = ['process', 'rules', 'lint', 'sb-spec', 'slots', 'glossary', 'promo-rules', 'ux-guide', 'stack', 'patterns'];
+  if (HIDDEN.includes(route) || P.item(route)?.kind === 'layout' || (route.startsWith('g-') && guideDoc(route.slice(2)) && !shownDoc(route.slice(2)))) redirect = 'overview';
   else if (ALIAS[route]) redirect = ALIAS[route];
   // 예전 UX 가이드 주소(#ux, #ux-<id>)는 포털 섹션에 놓인 문서로
   else if (route === 'ux') redirect = 'patterns';

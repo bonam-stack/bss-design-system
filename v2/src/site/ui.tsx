@@ -4,7 +4,7 @@ import type { ReactNode } from 'react';
 import * as P from './portal/store';
 import type { Draft, Rule } from './portal/store';
 import { usePortal } from './portal/ctx';
-import { docsFor, guideDoc, guideRef, guideRoute } from './guide';
+import { docsFor, guideDoc, guideRef, guideRoute, shownDoc } from './guide';
 
 export const fmt = (iso?: string) => (iso ? new Date(iso).toLocaleString('ko-KR', { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' }) : '');
 export const figmaUrl = (fileKey: string, nodeId: string) => `https://www.figma.com/design/${fileKey}/?node-id=${nodeId.replace(':', '-')}`;
@@ -67,9 +67,10 @@ export function human(text?: string) {
 }
 
 export function CodeLink({ code }: { code: string }) {
-  if (code === 'app') return <a href="#g-layout-common">구조</a>;
+  if (code === 'app') return <>구조</>;
   const it = P.item(code);
-  if (it) return <a href={`#${code}`}>{it.name}</a>;
+  // v2에는 레이아웃 규칙 페이지가 없다
+  if (it) return it.kind === 'layout' ? <>{it.name}</> : <a href={`#${code}`}>{it.name}</a>;
   const sl = P.slot(code);
   return <>{sl ? sl.name : code}</>;
 }
@@ -78,7 +79,7 @@ export function CodeLink({ code }: { code: string }) {
 export function UxRef({ r, label }: { r?: string; label?: string }) {
   const d = guideRef(r);
   // v2에는 거버넌스 문서 페이지가 없어 글자만
-  if (!d || d.place === 'governance') return <>{label ?? d?.title ?? r ?? ''}</>;
+  if (!d || !shownDoc(d.id)) return <>{label ?? d?.title ?? r ?? ''}</>;
   return (
     <a href={`#${guideRoute(d.id)}`} title={`UX 패턴 가이드 · ${d.title}`}>
       {label ?? d.title}

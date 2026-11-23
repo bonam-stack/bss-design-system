@@ -94,9 +94,13 @@ const md = new Marked({
     link({ href, tokens }) {
       const text = this.parser.parseInline(tokens);
       const m = href.match(/^(?:\.\/|pages\/)?([a-z0-9-]+)\.html(?:#.*)?$/);
-      if (m && guideDoc(m[1])) return `<a href="#${guideRoute(m[1])}">${text}</a>`;
+      // v2에 페이지가 없는 문서(UX 가이드라인 · 거버넌스)는 글자만
+      if (m && guideDoc(m[1])) return shownDoc(m[1]) ? `<a href="#${guideRoute(m[1])}">${text}</a>` : text;
       return /^https?:/.test(href) ? `<a href="${href}" target="_blank" rel="noopener">${text}</a>` : text;
     },
   },
 });
 export const inline = (text: string) => md.parseInline(text) as string;
+
+/** v2에서 페이지가 있는 가이드 문서: 컴포넌트 · 블록(모듈) 가이드만. UX 가이드라인(원칙 · 화면 구조 · 화면 가이드)과 거버넌스 문서는 v2에 없다 */
+export const shownDoc = (id: string) => ['components', 'blocks'].includes(guideDoc(id)?.place || '');

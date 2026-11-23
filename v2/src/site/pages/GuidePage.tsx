@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 import type { ReactNode } from 'react';
 import { Head } from '../ui';
-import { guideDoc, guideRoute, guideSource, inline, loadGuideDoc } from '../guide';
+import { guideDoc, guideRoute, guideSource, inline, loadGuideDoc, shownDoc } from '../guide';
 import type { Block, GuideDoc, Place } from '../guide';
 
 export const PLACE_LABEL: Record<Place, string> = { start: 'UX 가이드라인 · 원칙', foundations: 'UX 가이드라인 · 화면 구조', patterns: 'UX 가이드라인 · 화면 가이드', blocks: 'Blocks · 모듈 정의', components: 'Components', governance: '거버넌스' };
@@ -168,7 +168,7 @@ export function GuideEmbed({ docs }: { docs: string[] }) {
   // 컴포넌트 가이드는 본문을 펼쳐 보이고, 이 컴포넌트를 쓰는 패턴 · 모듈 문서는 링크로
   const isOwn = (id: string) => ['components', 'blocks'].includes(guideDoc(id)?.place || '') && guideDoc(id)!.targets[0] !== undefined;
   const own = docs.filter(isOwn);
-  const rel = docs.filter((id) => guideDoc(id) && !isOwn(id));
+  const rel = docs.filter((id) => guideDoc(id) && !isOwn(id) && shownDoc(id));
   if (!own.length && !rel.length) return null;
   return (
     <>
@@ -226,7 +226,7 @@ export function GuidePage({ id }: { id: string }) {
       alive = false;
     };
   }, [id]);
-  const related = meta.links.map(guideDoc).filter((x) => x && x.place !== 'governance') as NonNullable<ReturnType<typeof guideDoc>>[];
+  const related = meta.links.map(guideDoc).filter((x) => x && shownDoc(x.id)) as NonNullable<ReturnType<typeof guideDoc>>[];
   return (
     <>
       <Head

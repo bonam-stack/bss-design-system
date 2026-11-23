@@ -50,20 +50,8 @@ export function sections(role: Role): Section[] {
     ['home', '홈', [['overview', '개요'], ['updates', '업데이트']]],
     // 규칙 · 절차(거버넌스) → 화면을 짜는 법(UX 가이드라인) → 재료(Foundations → Components → Blocks). 순서는 아래 ORDER
     // 가이드 문서는 다루는 대상 옆에 둔다: 모듈 정의는 Blocks, 컴포넌트 가이드는 컴포넌트 문서 안
-    [
-      'uxg',
-      'UX 가이드라인',
-      [
-        ['ux-guide', '개요'],
-        ...guideItems('start', () => '원칙'),
-        ...guideItems('foundations', (g) => `화면 구조 › ${g || '구조'}`),
-        ['stack', '조립 구조', '레이아웃'],
-        ...I.filter((i) => i.kind === 'layout').map((i): NavItem => [i.code, `${i.name} 레이아웃`, '레이아웃']),
-        ['slots', '슬롯', '레이아웃'],
-        ['patterns', '전체', '화면 가이드'],
-        ...guideItems('patterns', (g) => `화면 가이드 › ${g || '기타'}`),
-      ],
-    ],
+    // 거버넌스 (v2): UI 규칙만. UX 규칙 · 검증 규칙 · 슬롯 · 용어사전 등은 v2 화면에 두지 않는다 (데이터는 v2/catalog에 있음)
+    ['gov', '거버넌스', [['ui-rules', 'UI 규칙'], ['design-review', '디자인 검수 기준'], ['figma-guide', 'Figma 작성 기준']]],
     [
       'blocks',
       'Blocks',
@@ -105,7 +93,7 @@ export function sections(role: Role): Section[] {
     ],
     ['mine', 'Workboard', [['workboard', 'Workboard']]],
   ];
-  // 메뉴 순서 (v2는 거버넌스 없음): UX 가이드라인 → Foundations → Components → Blocks → Workboard (홈은 로고)
+  // 메뉴 순서 (v2): 거버넌스(UI 규칙) → Foundations → Components → Blocks → Workboard (홈은 로고)
   const ORDER = ['home', 'gov', 'uxg', 'foundations', 'components', 'blocks', 'mine'];
   S.sort((x, y) => ORDER.indexOf(x[0]) - ORDER.indexOf(y[0]));
   if (role === 'ux') S.push(['work', 'UX 편집', [['ux-edit', '기준 편집'], ['sb-edit', 'SB library 편집'], ['my', '내 변경'], ['promo', '승격 심사']]]);
