@@ -63,7 +63,7 @@ export function TokenEditor() {
   const pend = P.drafts((d) => d.status === 'draft' && d.type === 'token');
   const onSave = (e: FormEvent) => {
     e.preventDefault();
-    act(() => P.draftToken(role, f), (d) => `초안 ${d.id} 저장 · 내 변경에서 미리보기 확인 후 배포 요청`);
+    act(() => P.draftToken(role, f), (d) => `초안 ${d.id} 저장 · 배포 요청 메뉴에서 미리보기 확인 후 요청`);
   };
   return (
     <section className="ed-panel" aria-label="토큰 편집">

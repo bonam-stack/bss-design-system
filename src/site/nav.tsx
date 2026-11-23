@@ -124,8 +124,8 @@ export function sections(role: Role): Section[] {
   // 메뉴 순서: 거버넌스 → UX 가이드라인 → Foundations → Components → Blocks → Workboard (홈은 로고)
   const ORDER = ['home', 'gov', 'uxg', 'foundations', 'components', 'blocks', 'mine'];
   S.sort((x, y) => ORDER.indexOf(x[0]) - ORDER.indexOf(y[0]));
-  if (role === 'ux') S.push(['work', 'UX 편집', [['ux-edit', '기준 편집'], ['my', '내 변경']]]);
-  if (role === 'ds') S.push(['work', 'DS 작업', [['requests', '디자인 요청'], ['convert', '소스 변환'], ['my', '내 변경']]]);
+  if (role === 'ux') S.push(['work', 'UX 편집', [['ux-edit', '기준 편집'], ['deploy-request', '배포 요청']]]);
+  if (role === 'ds') S.push(['work', 'DS 작업', [['requests', '디자인 요청'], ['convert', '소스 변환'], ['deploy-request', '배포 요청']]]);
   if (role === 'approver') S.push(['work', '관리자', [['deploy', '운영 서버 배포'], ['recheck', '재검수 대상 SB'], ['roles', '권한 확인']]]);
   return S;
 }
@@ -338,8 +338,8 @@ export function RoleMenu() {
           <p className="role-pop-t">{isEditor ? '에디터 모드' : '보기 모드'}</p>
           <p className="role-pop-d">{isEditor ? <>고칠 수 있는 것<br /><b>{CAN_DO[role]}</b></> : CAN_DO.viewer}</p>
           {isEditor ? (
-            <a className="role-pop-row" href={role === 'approver' ? '#deploy' : '#my'} onClick={() => setOpen(false)}>
-              <span>{role === 'approver' ? '배포 요청' : '내 변경'}</span>
+            <a className="role-pop-row" href={role === 'approver' ? '#deploy' : '#deploy-request'} onClick={() => setOpen(false)}>
+              <span>{role === 'approver' ? '배포 요청' : '배포 요청'}</span>
               <b>{mine}건 →</b>
             </a>
           ) : null}
@@ -383,7 +383,7 @@ export function TextEditBar() {
       }
     }
     setPending({});
-    toast(fails.length ? fails.join(' · ') : `${L.length}곳을 초안 ${[...ids].join(', ')}에 담았습니다 · 내 변경에서 미리보기 확인 후 배포 요청`);
+    toast(fails.length ? fails.join(' · ') : `${L.length}곳을 초안 ${[...ids].join(', ')}에 담았습니다 · 배포 요청 메뉴에서 미리보기 확인 후 요청`);
   };
   return (
     <div className="te-bar" role="region" aria-label="편집">

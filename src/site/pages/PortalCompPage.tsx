@@ -144,14 +144,14 @@ function CodeMaker({ c, name, src, setSrc, saved }: { c: C; name: string; src: s
     }
   };
   const save = () =>
-    act(() => P.draftCode(role, c.key, fileOf(name), value, ''), (d) => `초안 ${d.id} 저장 · 내 변경에서 미리보기 확인 후 배포 요청`).then((d) => d && setSrc(null));
+    act(() => P.draftCode(role, c.key, fileOf(name), value, ''), (d) => `초안 ${d.id} 저장 · 배포 요청 메뉴에서 미리보기 확인 후 요청`).then((d) => d && setSrc(null));
   const hasAI = !!getApiKey();
   return (
     <section className="ed-panel" aria-label="React 코드 만들기">
       <div className="ed-h">
         <b>React 코드 만들기</b>
         <span>
-          {fileOf(name)} · Figma 노드를 보고 첫 코드를 만든 뒤 채팅으로 다듬습니다. 초안으로 저장한 뒤 내 변경에서 배포 요청합니다
+          {fileOf(name)} · Figma 노드를 보고 첫 코드를 만든 뒤 채팅으로 다듬습니다. 초안으로 저장한 뒤 배포 요청 메뉴에서 요청합니다
         </span>
       </div>
       <ol className="nc-steps">
@@ -241,7 +241,7 @@ export function PortalOnlyPage({ c, draft }: { c: C; draft?: boolean }) {
       {draft ? (
         <>
           <p className="note">
-            Figma에서 읽은 새 컴포넌트입니다. 게시 전이라 담당만 볼 수 있습니다. ✎ 편집에서 React 코드를 만들어 초안으로 저장하면, 내 변경에서 Figma 초안과 코드 초안을 함께 배포 요청합니다.
+            Figma에서 읽은 새 컴포넌트입니다. 게시 전이라 담당만 볼 수 있습니다. ✎ 편집에서 React 코드를 만들어 초안으로 저장하면, 배포 요청 메뉴에서 Figma 초안과 코드 초안을 함께 요청합니다.
           </p>
           <DraftBox d={P.draftById(c.draftId!)} />
         </>

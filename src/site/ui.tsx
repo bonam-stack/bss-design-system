@@ -230,8 +230,8 @@ export function DraftBox({ d }: { d: Draft | null }) {
           </button>
         ) : null}
         {isEditor ? (
-          <a className="lnk" href={role === 'approver' ? '#deploy' : '#my'}>
-            {role === 'approver' ? '운영 서버 배포' : '내 변경'}
+          <a className="lnk" href={role === 'approver' ? '#deploy' : '#deploy-request'}>
+            {role === 'approver' ? '운영 서버 배포' : '배포 요청'}
           </a>
         ) : null}
       </div>

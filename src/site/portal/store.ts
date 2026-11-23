@@ -705,7 +705,7 @@ export function advanceRequest(role: Role, id: string) {
   return r;
 }
 
-// ---------- 내 변경 → 배포 요청 ----------
+// ---------- 배포 요청 ----------
 
 /** 미리보기로 확인한 초안을 관리자에게 배포 요청 (초안을 만든 담당자) */
 export function requestDeploy(role: Role, id: string) {

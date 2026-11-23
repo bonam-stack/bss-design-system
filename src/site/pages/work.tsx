@@ -198,7 +198,7 @@ export function UxEdit() {
   );
 }
 
-/** 내 변경 (UX · DS 담당자): 내 초안 → 미리보기 확인 → 배포 요청 */
+/** 배포 요청 (UX · DS 담당자): 내 초안 → 미리보기 확인 → 배포 요청 */
 export function My() {
   const { role, act } = usePortal();
   const L = P.drafts((d) => d.by === role);
@@ -206,7 +206,7 @@ export function My() {
   const done = L.filter((d) => d.status !== 'draft');
   return (
     <>
-      <Head eyebrow={role === 'ux' ? 'UX 편집' : 'DS 작업'} title="내 변경" lead="내가 고친 초안입니다. 미리보기로 작동을 확인한 뒤 배포 요청하면 관리자가 운영 서버에 배포합니다." />
+      <Head eyebrow={role === 'ux' ? 'UX 편집' : 'DS 작업'} title="배포 요청" lead="내가 고친 초안입니다. 미리보기로 작동을 확인한 뒤 배포 요청하면 관리자가 운영 서버에 배포합니다." />
       <h2 id="open">진행 중</h2>
       <Table
         cols={['초안', '종류', '내용', '버전', '상태', '']}
@@ -310,7 +310,7 @@ export function Convert() {
       <section className="ed-panel" aria-label="Figma 주소로 변환">
         <div className="ed-h">
           <b>컴포넌트 추가</b>
-          <span>① Figma 컴포넌트 노드 주소를 읽으면 새 컴포넌트 페이지(배포 전)가 열립니다 → ② 그 페이지에서 React 코드를 만듭니다(AI 또는 기본 틀) → ③ 내 변경에서 미리보기 확인 후 배포 요청. 기존 컴포넌트는 그 문서의 "Figma에서 다시 읽기"를 씁니다</span>
+          <span>① Figma 컴포넌트 노드 주소를 읽으면 새 컴포넌트 페이지(배포 전)가 열립니다 → ② 그 페이지에서 React 코드를 만듭니다(AI 또는 기본 틀) → ③ 배포 요청 메뉴에서 미리보기 확인 후 요청. 기존 컴포넌트는 그 문서의 "Figma에서 다시 읽기"를 씁니다</span>
         </div>
         <FigmaTokenRow />
         <form className="ef" onSubmit={onAdd}>
@@ -529,8 +529,8 @@ export function Roles() {
         cols={['역할', '작업 메뉴', '하는 일', '배포']}
         rows={[
           ['보기', 'Workboard', '기준 보기 · 아이콘 · 컴포넌트 · 블록 · 토큰 요청', '-'],
-          ['UX 담당자', 'UX 편집: 기준 편집 · 내 변경', 'UX 가이드라인 · 레이아웃 규칙 · 사용 가이드 · 규칙 · 업무 블록 편집', '배포 요청'],
-          ['DS 담당자', 'DS 작업: 디자인 요청 · 소스 변환 · 내 변경', '토큰 · 컴포넌트 · 블록 소스 변환 · 수정(설명 · 코드)', '배포 요청'],
+          ['UX 담당자', 'UX 편집: 기준 편집 · 배포 요청', 'UX 가이드라인 · 레이아웃 규칙 · 사용 가이드 · 규칙 · 업무 블록 편집', '배포 요청'],
+          ['DS 담당자', 'DS 작업: 디자인 요청 · 소스 변환 · 배포 요청', '토큰 · 컴포넌트 · 블록 소스 변환 · 수정(설명 · 코드)', '배포 요청'],
           ['관리자', '관리자: 운영 서버 배포 · 재검수 대상 SB · 권한 확인', '정기 · 수동 배포, 롤백, 재검수 대상 확인', '운영 서버 배포'],
         ].map((r) => (
           <tr key={r[0]}>

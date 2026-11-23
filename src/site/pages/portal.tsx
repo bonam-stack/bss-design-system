@@ -37,7 +37,7 @@ export function portalPage(route: string, role: Role): ReactNode | null {
     case 'figma-guide': return <PendingPage eyebrow="거버넌스 · UI 규칙" title="Figma 작성 기준" lead="SB 라이브러리는 디자인 DS 라이브러리와 동기화됩니다. 소스 변환이 읽을 수 있도록 Figma에서 지켜야 할 구조입니다." todo={['컴포넌트 · 레이어 · 속성 이름 규칙', 'Figma 변수(토큰) 연결 · 스타일 사용', '업무 블록을 Figma에서 고칠 때의 순서 (DS 담당자)', '라이브러리 배포 · 버전 기록']} />;
     case 'workboard': return <MyRequests />;
     case 'ux-edit': return role === 'ux' ? <UxEdit /> : null;
-    case 'my': return role === 'ux' || role === 'ds' ? <My /> : null;
+    case 'deploy-request': return role === 'ux' || role === 'ds' ? <My /> : null;
     case 'requests': return role === 'ds' ? <Requests /> : null;
     case 'convert': return role === 'ds' ? <Convert /> : null;
     case 'deploy': return role === 'approver' ? <Deploy /> : null;
@@ -621,7 +621,7 @@ export function ItemForm({ r, d }: { r: Item; d: Draft | null }) {
     const fields: Partial<Item> = { name: f.name, meaning: f.meaning, status: f.status as P.Status };
     if ('variants' in f) fields.variants = f.variants;
     if ('slot' in f) fields.slot = f.slot;
-    act(() => P.draftItem(role, r.code, fields), (x) => `초안 ${x.id} 저장 · 내 변경에서 미리보기 확인 후 배포 요청`).then((x) => x && closeEdit());
+    act(() => P.draftItem(role, r.code, fields), (x) => `초안 ${x.id} 저장 · 배포 요청 메뉴에서 미리보기 확인 후 요청`).then((x) => x && closeEdit());
   };
   return (
     <form className="ef ed-panel" onSubmit={onSubmit}>
@@ -924,7 +924,7 @@ function Process() {
     ['요청', '누구나 Workboard에서 아이콘 · 컴포넌트 · 블록 · 토큰을 요청합니다. 기획은 AI 더미로 계속 진행합니다. DS에 없는 부품은 SB Studio에서 AI가 그 Storyboard 파일 안에만 만들고, 기획 컨펌된 SB에 부품 목록으로 담겨 UI 디자이너에게 갑니다. 디자이너는 블록을 디자인해 검수 후 DS library에 등록(새 버전)하고, 최종 SB는 DS 컴포넌트로만 조립합니다.'],
     ['작업 · 초안', 'UX 담당자는 규칙 · 가이드라인 · 업무 블록 설명을, DS 담당자는 토큰 · 컴포넌트 · 블록 모양(Figma)을 고칩니다. 고친 것은 초안이 됩니다.'],
     ['미리보기 확인', '초안은 미리보기 버전(x.y.z-preview.N)으로 확인합니다. 자동 검사(속성값 · ID · 규칙 · 토큰)를 통과해야 합니다.'],
-    ['배포 요청', '담당자가 내 변경에서 배포를 요청합니다.'],
+    ['배포 요청', '담당자가 배포 요청 메뉴에서 배포를 요청합니다.'],
     ['배포', '관리자가 운영 서버에 배포합니다. 정기 배포가 기본이고, 수동 배포는 사유를 남깁니다. 문제가 있으면 롤백합니다.'],
     ['재검수', '규칙이 바뀌거나 MAJOR 배포가 나가면 영향받는 SB를 재검수 대상으로 알립니다.'],
   ];

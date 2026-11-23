@@ -83,7 +83,7 @@ export function GuideEditor({ k }: { k: string }) {
     const nr = f.querySelector('[data-new]')!;
     const add = [{ kind: (nr.querySelector('[name=kind]') as HTMLSelectElement).value as GuideRule['kind'], text: (nr.querySelector('[name=text]') as HTMLInputElement).value }];
     const lead = (f.elements.namedItem('lead') as HTMLTextAreaElement).value;
-    act(() => P.draftGuide(role, k, { lead, rules: rows, add }), (x) => `초안 ${x.id} 저장 · 내 변경에서 미리보기 확인 후 배포 요청`).then((x) => x && closeEdit());
+    act(() => P.draftGuide(role, k, { lead, rules: rows, add }), (x) => `초안 ${x.id} 저장 · 배포 요청 메뉴에서 미리보기 확인 후 요청`).then((x) => x && closeEdit());
   };
   return (
     <>
