@@ -28,22 +28,25 @@ export const PROMO_STAGES: { stage: string; who: Role; act: string }[] = [
 ];
 // 디자인 요청(케이스 1 · 4): 요청 → DS 담당자 작업 → 미리보기 확인 → 완료
 export type ReqKind = 'icon' | 'comp' | 'block' | 'token';
-export const REQ_KINDS: Record<ReqKind, string> = { icon: '아이콘 제작', comp: '컴포넌트 수정', block: '공통 블록 수정', token: '토큰 추가 · 수정' };
+export const REQ_KINDS: Record<ReqKind, string> = { icon: '아이콘 제작', comp: '컴포넌트 수정', block: '블록 제작 · 수정', token: '토큰 추가 · 수정' };
 export const REQ_STAGES = ['요청됨', '디자인 작업', '미리보기 확인', '완료'] as const;
 // 누가 무엇을 고치나: 토큰 · 컴포넌트 · 공통 블록 · Figma 변환은 DS 담당자, 레이아웃 규칙 · 규칙 · 사용 가이드 · 업무 블록은 UX 담당자
 export type EditType = Kind | 'sb' | 'figma' | 'code' | 'text' | 'rule' | 'guide' | 'token';
 export const EDITOR: Record<EditType, Role> = { block: 'ds', comp: 'ds', figma: 'ds', code: 'ds', text: 'ds', token: 'ds', sb: 'ux', layout: 'ux', rule: 'ux', guide: 'ux' };
 /** 여러 담당이 함께 고치는 것: 컴포넌트의 설명 · 사용 가이드(Do/Don't 포함) · 카탈로그 설명은 DS 담당자와 UX 담당자 모두 */
-// 업무 블록: 모양은 DS 담당자가 Figma에서 고쳐 소스 변환, 설명 · 놓이는 슬롯 · 승격은 UX 담당자
+// 업무 블록: 모양은 디자이너(DS 담당자)가 Figma에서 만들어 소스 변환, 설명 · 놓이는 슬롯은 UX 담당자
 const SHARED: Partial<Record<EditType, Role[]>> = { comp: ['ds', 'ux'], text: ['ds', 'ux'], guide: ['ux', 'ds'], sb: ['ux', 'ds'] };
 export const canEdit = (role: Role, type: EditType) => (SHARED[type] || [EDITOR[type]]).includes(role);
-/** Blocks = 공통 블록 + 업무 블록(블록 · BO 블록). tb- 블록(SB Studio 자동 생성)은 따로 정하지 않으면 블록 */
+/** Blocks = 공통 블록 + 업무 블록(블록 · BO 블록). 블록은 디자이너가 만든다.
+ *  AI가 만든 블록(tb-)은 SB Studio 로컬에 저장 → 컨펌되면 Workboard에 블록 제작 요청 → 디자이너가 Figma에서 만들어 게시. 포털 목록에는 나오지 않는다 */
 export type SbDomain = 'func' | 'bo';
 export const SB_DOMAINS: SbDomain[] = ['func', 'bo'];
 export const SB_GROUP: Record<SbDomain, string> = { func: '블록', bo: 'BO 블록' };
 const SB_DOMAIN: Record<string, SbDomain> = { 'b-gnb': 'func', 'b-lnb': 'func' };
-export const sbDomain = (i: { kind: string; code: string; domain?: SbDomain }): SbDomain | null => (i.kind !== 'block' ? null : SB_DOMAIN[i.code] || (/^tb-/.test(i.code) ? i.domain || 'func' : null));
+export const sbDomain = (i: { kind: string; code: string; domain?: SbDomain }): SbDomain | null => (i.kind !== 'block' ? null : SB_DOMAIN[i.code] || null);
 export const isSb = (i: { kind: string; code: string }) => !!sbDomain(i);
+/** AI가 만든 로컬 블록 (포털 목록 밖) */
+export const isLocalAi = (i: { code: string }) => /^tb-/.test(i.code);
 /** 블록 성격 (슬롯 · 모듈 정의 이름 기준). 공통 블록 · 블록 · BO 블록이 같은 분류를 써서 서로 비교 · 승격 판단을 한다 */
 export const BLOCK_TYPES = ['앱 구조', '화면 머리', '조회조건', '컨텐트', '컨텐트 본문', '컨텐트 유틸리티', '노드'] as const;
 const BLOCK_TYPE: Record<string, (typeof BLOCK_TYPES)[number]> = {
@@ -297,6 +300,7 @@ function seedRequests(): Request[] {
   const t = now();
   return [
     { id: 'RQ-0001', kind: 'icon', title: 'export 아이콘', detail: '엑셀 내려받기 버튼 · 16px · SVC-02-001 조회 화면', by: 'viewer', stage: '디자인 작업', dummy: true, log: [{ at: t, by: 'viewer', text: '요청 (AI 더미로 기획 계속)' }, { at: t, by: 'ds', text: '디자인 작업 시작' }] },
+    { id: 'RQ-0003', kind: 'block', title: '비교 카드 (AI 생성 블록)', detail: 'SB Studio에서 AI가 만든 블록 · 로컬 저장본 · 기획 컨펌 완료 · 요금제 변경 SB', by: 'viewer', stage: '요청됨', log: [{ at: t, by: 'viewer', text: 'AI 생성 블록 컨펌 → 블록 제작 요청' }] },
     { id: 'RQ-0002', kind: 'comp', title: 'DateField 빠른 기간 버튼', detail: '오늘 · 1주 · 1개월 버튼을 변형으로 추가 · 부가서비스 가입 관리 SB', by: 'viewer', stage: '요청됨', log: [{ at: t, by: 'viewer', text: '요청' }] },
   ];
 }
@@ -348,6 +352,8 @@ export function init(b: Base) {
   S.pub.texts ||= {};
   S.pub.tokens ||= {};
   S.requests ||= seedRequests();
+  // AI 생성 블록 → 블록 제작 요청 예시 (이전에 저장된 상태에도 넣는다)
+  if (!S.requests.some((r) => r.id === 'RQ-0003')) S.requests.splice(1, 0, seedRequests().find((r) => r.id === 'RQ-0003')!);
   S.seq.req ||= 3;
   S.seq.preview ||= 0;
   // 예전 심사 단계 이름 → 2단 심사 이름

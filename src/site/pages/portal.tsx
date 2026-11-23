@@ -187,7 +187,7 @@ function Stack() {
         rows={[
           ['블록 · 컴포넌트 (모양)', 'Figma 디자인 시스템', P.ROLES.ds, P.ROLES.approver],
           ['레이아웃 규칙 · 규칙 · 사용 가이드', 'UX 패턴 가이드 · 이 포털', P.ROLES.ux, P.ROLES.approver],
-          ['자동 생성 부품 tb- · tc-', 'SB Studio 생성', P.ROLES.ux, P.ROLES.approver],
+          ['AI 생성 블록 (tb-)', 'SB Studio 로컬 저장 → 컨펌 후 블록 제작 요청', '디자이너 (' + P.ROLES.ds + ')', P.ROLES.approver],
         ].map((r, i) => (
           <tr key={i}>
             {r.map((c, j) => (
@@ -323,7 +323,7 @@ function BlockSections({ list: I }: { list: Item[] }) {
     <>
       <p className="note">공통 블록 · 블록 · BO 블록은 같은 성격으로 나눕니다: {P.BLOCK_TYPES.join(' · ')}. 성격은 블록이 놓이는 슬롯과 모듈 정의를 따릅니다.</p>
       <h2 id="common">공통 블록</h2>
-      <TypeGrid list={I.filter((i) => !P.isSb(i))} />
+      <TypeGrid list={I.filter((i) => !P.isSb(i) && !P.isLocalAi(i))} />
       {P.SB_DOMAINS.map((dm) => {
         const L = sb.filter((i) => P.sbDomain(i) === dm);
         return (
@@ -859,7 +859,7 @@ function accepts(text: string) {
 /** 거버넌스 › 운영 절차: 누가 무엇을 고치고, 어떻게 심사 · 배포하고, 버전을 어떻게 올리는지 */
 function Process() {
   const steps: [string, string][] = [
-    ['요청', '누구나 Workboard에서 아이콘 · 컴포넌트 · 블록 · 토큰을 요청합니다. 기획은 AI 더미로 계속 진행합니다.'],
+    ['요청', '누구나 Workboard에서 아이콘 · 컴포넌트 · 블록 · 토큰을 요청합니다. 기획은 AI 더미로 계속 진행합니다. SB Studio에서 AI가 만든 블록은 로컬에 저장되고, 컨펌되면 블록 제작 요청으로 디자이너에게 갑니다.'],
     ['작업 · 초안', 'UX 담당자는 규칙 · 가이드라인 · 업무 블록 설명을, DS 담당자는 토큰 · 컴포넌트 · 블록 모양(Figma)을 고칩니다. 고친 것은 초안이 됩니다.'],
     ['미리보기 확인', '초안은 미리보기 버전(x.y.z-preview.N)으로 확인합니다. 자동 검사(속성값 · ID · 규칙 · 토큰)를 통과해야 합니다.'],
     ['배포 요청', '담당자가 내 변경에서 배포를 요청합니다.'],
@@ -921,7 +921,7 @@ function Lint() {
     ['R-01', '구조 슬롯(GNB · LNB · 콘텍스트 바)에는 블록만', '오류'],
     ['R-02', '고정 슬롯은 허용 목록에서 하나', '오류'],
     ['R-03', '쌓기 슬롯 순서(일반형)', '오류'],
-    ['R-04', '임시 코드(tb- · tc-)는 관리자 승인 요청 동반', '경고'],
+    ['R-04', 'AI 생성 블록(tb-)은 게시하지 않고, 컨펌 후 블록 제작 요청으로 전달', '경고'],
     ['R-05', '용어 대조(로제타)', '경고'],
     ['R-06', '출처 ID 반영률 100%', '오류'],
     ['R-07', '특수형 화면은 승인 기록 동반', '경고'],
