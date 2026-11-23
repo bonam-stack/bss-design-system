@@ -48,7 +48,7 @@ export function sections(role: Role): Section[] {
   const S: Section[] = [
     // 홈(개요 · 업데이트)은 위쪽 메뉴에 두지 않는다: 로고를 누르면 개요, 버전을 누르면 업데이트
     ['home', '홈', [['overview', '개요'], ['updates', '업데이트']]],
-    // 규칙 · 절차(거버넌스) → 화면을 짜는 법(UX 가이드라인) → 재료(Foundations → Components → Blocks). 순서는 아래 ORDER
+    // 규칙 · 절차(거버넌스) → 화면을 구성하는 법(UX 가이드라인) → 재료(Foundations → Components → Blocks). 순서는 아래 ORDER
     // 가이드 문서는 다루는 대상 옆에 둔다: 모듈 정의는 Blocks, 컴포넌트 가이드는 컴포넌트 문서 안
     [
       'uxg',

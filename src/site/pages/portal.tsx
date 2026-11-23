@@ -32,7 +32,7 @@ export function portalPage(route: string, role: Role): ReactNode | null {
     case 'motion': return <PendingPage title="모션" lead="열기 · 닫기 · 전환 · 상태 변화에 쓰는 시간과 움직임 곡선을 정합니다." todo={['시간(짧게 · 보통 · 길게)과 곡선', '팝업 · 토스트 · 펼침 등 컴포넌트별 적용']} />;
     case 'writing': return <PendingPage title="문구 (보이스 · 표기)" lead="화면 문구의 말투와 표기 규칙을 정합니다." todo={['말투 · 존댓말 기준', '버튼 · 안내 · 오류 문구 패턴', '숫자 · 날짜 · 단위 표기 (UX 규칙의 표기 규칙과 연결)']} />;
     case 'process': return <Process />;
-    case 'ui-rules': return <PendingPage eyebrow="거버넌스 · UI 규칙" title="UI 규칙" lead="화면을 그릴 때 지키는 시각 규칙입니다. UX 규칙(화면을 어떻게 짜는가)과 짝을 이루고, Foundations · Components · Blocks는 모두 이 규칙을 따릅니다." todo={['값 대신 디자인 토큰만 쓰기 (색 · 글자 · 여백 · 모서리 · 그림자)', '컴포넌트 변형 · 상태(hover · pressed · disabled · focus)를 정해진 것만 쓰기', '간격 · 정렬 · 밀도 기준', 'Do · Don\'t와 규칙 번호 (UX 규칙과 같은 형식)']} />;
+    case 'ui-rules': return <PendingPage eyebrow="거버넌스 · UI 규칙" title="UI 규칙" lead="화면을 그릴 때 지키는 시각 규칙입니다. UX 규칙(화면을 어떻게 구성하는가)과 짝을 이루고, Foundations · Components · Blocks는 모두 이 규칙을 따릅니다." todo={['값 대신 디자인 토큰만 쓰기 (색 · 글자 · 여백 · 모서리 · 그림자)', '컴포넌트 변형 · 상태(hover · pressed · disabled · focus)를 정해진 것만 쓰기', '간격 · 정렬 · 밀도 기준', 'Do · Don\'t와 규칙 번호 (UX 규칙과 같은 형식)']} />;
     case 'design-review': return <PendingPage eyebrow="거버넌스 · UI 규칙" title="디자인 검수 기준" lead="UI 디자이너가 디자인한 블록 · 컴포넌트를 DS library에 등록하기 전에 확인하는 항목입니다. 같은 부품이 여러 SB에서 다르게 만들어졌으면 등록할 때 하나로 합칩니다." todo={['토큰 연결 · 하드코딩 값 없음', 'Figma 디자인 라이브러리와 일치 (속성 · 변형 · 이름)', '상태 · 접근성(대비 · 포커스) 확인', '배포 전 체크리스트']} />;
     case 'figma-guide': return <PendingPage eyebrow="거버넌스 · UI 규칙" title="Figma 작성 기준" lead="SB 라이브러리는 디자인 DS 라이브러리와 동기화됩니다. 소스 변환이 읽을 수 있도록 Figma에서 지켜야 할 구조입니다." todo={['컴포넌트 · 레이어 · 속성 이름 규칙', 'Figma 변수(토큰) 연결 · 스타일 사용', '업무 블록을 Figma에서 고칠 때의 순서 (DS 담당자)', '라이브러리 배포 · 버전 기록']} />;
     case 'workboard': return <MyRequests />;
@@ -62,7 +62,7 @@ export function portalPage(route: string, role: Role): ReactNode | null {
 function Overview() {
   const cards = [
     ['process', '거버넌스', '지켜야 할 규칙 · 바꾸는 절차', '운영 절차 · UX 규칙 · UI 규칙 · 용어'],
-    ['ux-guide', 'UX 가이드라인', '화면을 어떻게 짜는가', '원칙 · 화면 구조 · 레이아웃 · 화면 가이드'],
+    ['ux-guide', 'UX 가이드라인', '화면을 어떻게 구성하는가', '원칙 · 화면 구조 · 레이아웃 · 화면 가이드'],
     ['foundations', 'Foundations', '컬러 · 타이포 · 여백 · 아이콘 · 토큰', '모든 부품이 쓰는 디자인 에셋'],
     ['components', 'Components', '묶음별 컴포넌트', 'BSS DS library에 정의된 Figma 컴포넌트 단위'],
     ['blocks', 'Blocks', '공통 블록 · 블록 · BO 블록 · 모듈 정의', '화면에서 하나의 역할을 하는 단위'],
@@ -416,7 +416,7 @@ function ShellPage() {
   );
 }
 
-/** UX 가이드라인 개요: 화면을 큰 것부터 짜는 순서대로 문서 묶음 */
+/** UX 가이드라인 개요: 화면을 큰 것부터 구성하는 순서대로 문서 묶음 */
 function UxGuide() {
   const doc = (place: Parameters<typeof docsIn>[0]) => docsIn(place);
   const link = (id: string, title: string) => (
@@ -428,7 +428,7 @@ function UxGuide() {
   const groups = (place: Parameters<typeof docsIn>[0]) => [...new Set(doc(place).map((d) => d.group.split(' › ')[0]))];
   return (
     <>
-      <Head eyebrow="UX 가이드라인" title="UX 가이드라인" lead="화면을 어떻게 짜는지 정한 문서입니다. 큰 것에서 작은 것 순서(원칙 → 화면 구조 → 레이아웃 → 화면 가이드)로 읽고, 블록 · 컴포넌트는 Blocks · Components에서 이어 봅니다. 지켜야 할 규칙은 거버넌스 › 규칙에 번호로 모여 있습니다." />
+      <Head eyebrow="UX 가이드라인" title="UX 가이드라인" lead="화면을 어떻게 구성하는지 정한 문서입니다. 큰 것에서 작은 것 순서(원칙 → 화면 구조 → 레이아웃 → 화면 가이드)로 읽고, 블록 · 컴포넌트는 Blocks · Components에서 이어 봅니다. 지켜야 할 규칙은 거버넌스 › 규칙에 번호로 모여 있습니다." />
       <h2 id="principle">원칙</h2>
       <p>{join(doc('start').map((d) => link(d.id, d.title)))}</p>
       <h2 id="structure">화면 구조</h2>
