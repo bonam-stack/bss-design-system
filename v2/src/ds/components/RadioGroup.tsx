@@ -46,7 +46,7 @@ export function RadioGroup({ size = 'large', value, defaultValue, onValueChange,
         },
       }}
     >
-      <div role="radiogroup" aria-label={aria['aria-label']} className={className} style={{ display: 'inline-flex', alignItems: 'center', gap: tok('radio-group-space-gap', 12), minHeight: size === 'large' ? 24 : 20, ...style }}>
+      <div role="radiogroup" aria-label={aria['aria-label']} className={className} style={{ display: 'inline-flex', alignItems: 'center', gap: tok('radio-group-space-gap'), minHeight: tok(size === 'large' ? 'font-label-16-500-line-height' : 'font-label-14-400-line-height'), ...style }}>
         {children ?? list!.map((o) => <Radio key={o.value} value={o.value} label={o.label} disabled={o.disabled} />)}
       </div>
     </RadioGroupContext.Provider>

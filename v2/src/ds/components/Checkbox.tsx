@@ -2,7 +2,7 @@
 // Figma: BSS DS Library v2.0 ❖ Checkbox (size 2 × selection 3 × state 4, showLabel · label · showFocus)
 import { useEffect, useRef, useState } from 'react';
 import type { InputHTMLAttributes } from 'react';
-import { FocusRing, Icon, font, tok, useInteraction, visuallyHidden } from '../shared';
+import { FocusRing, Icon, font, tok, tokState, useInteraction, visuallyHidden } from '../shared';
 
 export type CheckboxSelection = 'unchecked' | 'checked' | 'indeterminate';
 
@@ -21,8 +21,8 @@ export interface CheckboxProps extends Omit<InputHTMLAttributes<HTMLInputElement
 }
 
 const SIZE = {
-  large: { box: tok('checkbox-large-size', 20), icon: 16, ring: tok('checkbox-large-focus-ring-radius', 6), text: font('label', 16, 500), minH: 24 },
-  medium: { box: tok('checkbox-medium-size', 16), icon: 12, ring: tok('checkbox-medium-focus-ring-radius', 6), text: font('label', 14, 400), minH: 20 },
+  large: { box: tok('checkbox-large-size'), icon: tok('size-icon-medium'), ring: tok('checkbox-large-focus-ring-radius'), text: font('label', 16, 500), minH: tok('font-label-16-500-line-height') },
+  medium: { box: tok('checkbox-medium-size'), icon: tok('size-icon-xsmall'), ring: tok('checkbox-medium-focus-ring-radius'), text: font('label', 14, 400), minH: tok('font-label-14-400-line-height') },
 };
 
 export function Checkbox({ selection, defaultSelection = 'unchecked', onSelectionChange, size = 'large', state, label = 'Label', showLabel = true, showFocus = false, disabled, onChange, style, className, ...input }: CheckboxProps) {
@@ -43,7 +43,7 @@ export function Checkbox({ selection, defaultSelection = 'unchecked', onSelectio
     <label
       className={className}
       {...it.pointer}
-      style={{ position: 'relative', display: 'inline-flex', alignItems: 'center', gap: tok('checkbox-space-gap', 6), minHeight: s.minH, cursor: off ? 'not-allowed' : 'pointer', userSelect: 'none', ...style }}
+      style={{ position: 'relative', display: 'inline-flex', alignItems: 'center', gap: tok('checkbox-space-gap'), minHeight: s.minH, cursor: off ? 'not-allowed' : 'pointer', userSelect: 'none', ...style }}
     >
       <input
         {...input}
@@ -70,19 +70,19 @@ export function Checkbox({ selection, defaultSelection = 'unchecked', onSelectio
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          borderRadius: tok('checkbox-radius', 4),
+          borderRadius: tok('checkbox-radius'),
           background: on
-            ? tok(`checkbox-checked-color-bg-${look}`, { default: '#3617CE', hover: '#2F15B2', pressed: '#261091', disabled: '#B3B9C0' }[look])
-            : tok(`selection-control-color-bg-${look}`, { default: '#FFFFFF', hover: '#F8F9FB', pressed: '#F1F3F5', disabled: '#E8ECEF' }[look]),
-          boxShadow: `inset 0 0 0 ${tok('checkbox-border-width', 1.5)} ${
-            on ? tok(`checkbox-checked-color-border-${look}`, { default: '#3617CE', hover: '#2F15B2', pressed: '#261091', disabled: '#B3B9C0' }[look]) : tok('selection-control-color-border-default', '#C4C9CF')
+            ? tokState(`checkbox-checked-color-bg`, look)
+            : tokState(`selection-control-color-bg`, look),
+          boxShadow: `inset 0 0 0 ${tok('checkbox-border-width')} ${
+            on ? tokState(`checkbox-checked-color-border`, look) : tok('selection-control-color-border-default')
           }`,
         }}
       >
-        {on ? <Icon name={value === 'checked' ? 'line/check-box' : 'line/indeterminate'} size={s.icon} color={tok('checkbox-checked-indicator-color-fg-default', '#FFFFFF')} /> : null}
+        {on ? <Icon name={value === 'checked' ? 'line/check-box' : 'line/indeterminate'} size={s.icon} color={tok('checkbox-checked-indicator-color-fg-default')} /> : null}
       </span>
       {showLabel ? (
-        <span className="ds-checkbox__label" style={{ ...s.text, whiteSpace: 'nowrap', color: tok(`selection-control-label-color-fg-${look}`, look === 'disabled' ? '#B3B9C0' : '#1C1F23') }}>
+        <span className="ds-checkbox__label" style={{ ...s.text, whiteSpace: 'nowrap', color: tokState(`selection-control-label-color-fg`, look) }}>
           {label}
         </span>
       ) : null}

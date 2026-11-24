@@ -1,21 +1,30 @@
 // BSS 디자인 시스템 React 컴포넌트가 함께 쓰는 것: 토큰 값, 글자 스타일, 아이콘, 상호작용 상태, 포커스 링.
-// 스타일은 CSS 파일 없이 style 객체로 쓴다. 색 · 치수는 var(--토큰, Figma 값)이라 토큰 CSS가 없어도 Figma 값으로 그려진다.
+// 스타일은 CSS 파일 없이 style 객체로 쓴다. 색 · 치수 · 글자는 모두 DS 토큰(CSS 변수)으로만 쓴다. 값(헥스 · px)을 코드에 적지 않는다.
+// 토큰 값은 DS 전달본의 tokens.css가 정한다 (v2/tokens/ds).
 import { useState } from 'react';
+import variables from '../../tokens/variables.json';
 import type { CSSProperties, FocusEvent } from 'react';
 
-/** 디자인 토큰: var(--name, Figma 값) */
-export const tok = (name: string, fallback: string | number) => `var(--${name}, ${typeof fallback === 'number' ? `${fallback}px` : fallback})`;
+/** 디자인 토큰: var(--name). 값은 tokens.css가 정한다 */
+export const tok = (name: string) => `var(--${name})`;
 
-const FONT_LINE: Record<string, number> = { '12': 16, '14': 20, '15': 24, '16': 24 };
+/** DS 전달본에 있는 토큰 이름 (상태 토큰이 있는지 보는 데 쓴다) */
+const NAMES = new Set(Object.keys((variables as { tokens: Record<string, unknown> }).tokens));
+/**
+ * 상태 토큰: <이름>-<상태>가 있으면 그것, 없으면 <이름>-default.
+ * DS 규칙: -default만 있는 속성은 모든 상태에서 그 값을 쓴다 (예: primary 버튼 글자색은 hover · pressed · disabled에도 default).
+ */
+export const tokState = (base: string, state: string) => tok(NAMES.has(`--${base}-${state}`) ? `${base}-${state}` : `${base}-default`);
+
 /** 글자 스타일 토큰 (Figma 텍스트 스타일 label/16/500 → font-label-16-500-*) */
 export function font(kind: 'label' | 'body' | 'caption', size: 12 | 14 | 15 | 16, weight: 400 | 500 | 600): CSSProperties {
   const p = `font-${kind}-${size}-${weight}`;
   return {
-    fontFamily: `${tok(`${p}-family`, "'Pretendard'")}, sans-serif`,
-    fontWeight: tok(`${p}-weight`, String(weight)) as unknown as number,
-    fontSize: tok(`${p}-size`, size),
-    lineHeight: tok(`${p}-line-height`, FONT_LINE[size]),
-    letterSpacing: tok(`${p}-letter-spacing`, -0.2),
+    fontFamily: `${tok(`${p}-family`)}, sans-serif`,
+    fontWeight: tok(`${p}-weight`) as unknown as number,
+    fontSize: tok(`${p}-size`),
+    lineHeight: tok(`${p}-line-height`),
+    letterSpacing: tok(`${p}-letter-spacing`),
   };
 }
 
@@ -77,7 +86,7 @@ export function FocusRing({ radius, style }: { radius: string; style?: CSSProper
         position: 'absolute',
         inset: -2,
         borderRadius: radius,
-        outline: `${tok('focus-ring-border-width', 2)} solid ${tok('focus-ring-color-border', '#7FAEFF')}`,
+        outline: `${tok('focus-ring-border-width')} solid ${tok('focus-ring-color-border')}`,
         pointerEvents: 'none',
         ...style,
       }}

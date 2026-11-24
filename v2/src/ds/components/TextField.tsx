@@ -29,9 +29,9 @@ export interface TextFieldProps extends Omit<InputHTMLAttributes<HTMLInputElemen
 }
 
 const SIZE = {
-  large: { h: 40, ps: 14, pe: 12, icon: 16, text: font('label', 16, 400) },
-  medium: { h: 36, ps: 14, pe: 12, icon: 16, text: font('label', 15, 400) },
-  small: { h: 28, ps: 12, pe: 10, icon: 14, text: font('label', 14, 400) },
+  large: { text: font('label', 16, 400) },
+  medium: { text: font('label', 15, 400) },
+  small: { text: font('label', 14, 400) },
 };
 
 export function TextField({ value, defaultValue = '', onChange, size = 'large', importance = 'none', invalid, state, label = 'Label', showLabel = false, helperText = 'HelperText', showHelperText = true, showClear = true, showFocus = false, width = 200, placeholder = 'Placeholder', disabled, readOnly, id, className, style, ...input }: TextFieldProps) {
@@ -62,7 +62,7 @@ export function TextField({ value, defaultValue = '', onChange, size = 'large', 
       showHelperText={showHelperText}
       invalid={bad}
       look={look}
-      ringRadius={tok(`text-field-${size}-focus-ring-radius`, 8)}
+      ringRadius={tok(`text-field-${size}-focus-ring-radius`)}
       showRing={showFocus || it.focusVisible}
       className={className}
       style={style}
@@ -72,14 +72,14 @@ export function TextField({ value, defaultValue = '', onChange, size = 'large', 
         style={{
           flex: '1 1 0',
           minWidth: 0,
-          height: tok(`text-field-${size}-size-height`, s.h),
+          height: tok(`text-field-${size}-size-height`),
           display: 'flex',
           alignItems: 'center',
-          gap: tok('text-field-space-gap', 8),
-          padding: `0 ${tok(`text-field-${size}-space-padding-end`, s.pe)} 0 ${tok(`text-field-${size}-space-padding-start`, s.ps)}`,
-          borderRadius: tok('text-field-radius', 6),
+          gap: tok('text-field-space-gap'),
+          padding: `0 ${tok(`text-field-${size}-space-padding-end`)} 0 ${tok(`text-field-${size}-space-padding-start`)}`,
+          borderRadius: tok('text-field-radius'),
           background: c.background,
-          boxShadow: `inset 0 0 0 ${tok('text-field-border-width', 1)} ${c.border}`,
+          boxShadow: `inset 0 0 0 ${tok('text-field-border-width')} ${c.border}`,
           outline: c.ring,
           ...s.text,
           color: c.text,
@@ -110,9 +110,9 @@ export function TextField({ value, defaultValue = '', onChange, size = 'large', 
             aria-label="지우기"
             onMouseDown={(e) => e.preventDefault()}
             onClick={() => set('')}
-            style={{ display: 'flex', flexShrink: 0, margin: 0, padding: 0, border: 0, background: 'transparent', cursor: 'pointer', color: tok('button-icon-only-plain-color-fg-default', '#454F59') }}
+            style={{ display: 'flex', flexShrink: 0, margin: 0, padding: 0, border: 0, background: 'transparent', cursor: 'pointer', color: tok('button-icon-only-plain-color-fg-default') }}
           >
-            <Icon name="filled/close" size={tok(size === 'small' ? 'button-icon-only-small-icon-size' : 'button-icon-only-medium-icon-size', s.icon)} />
+            <Icon name="filled/close" size={tok(size === 'small' ? 'button-icon-only-small-icon-size' : 'button-icon-only-medium-icon-size')} />
           </button>
         ) : null}
       </div>

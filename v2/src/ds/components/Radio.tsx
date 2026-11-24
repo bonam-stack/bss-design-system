@@ -2,7 +2,7 @@
 // Figma: BSS DS Library v2.0 ❖ Radio (size 2 × selection 2 × state 4, label · showLabel · showFocus)
 import { createContext, useContext, useState } from 'react';
 import type { InputHTMLAttributes } from 'react';
-import { FocusRing, font, tok, useInteraction, visuallyHidden } from '../shared';
+import { FocusRing, font, tok, tokState, useInteraction, visuallyHidden } from '../shared';
 
 export type RadioSelection = 'unchecked' | 'checked';
 
@@ -23,10 +23,9 @@ export interface RadioProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 
 }
 
 const SIZE = {
-  large: { box: tok('radio-large-size', 20), dot: tok('radio-large-dot-size', 12), ring: tok('radio-large-focus-ring-radius', 9999), text: font('label', 16, 500), minH: 24 },
-  medium: { box: tok('radio-medium-size', 16), dot: tok('radio-medium-dot-size', 8), ring: tok('radio-medium-focus-ring-radius', 9999), text: font('label', 14, 400), minH: 20 },
+  large: { box: tok('radio-large-size'), dot: tok('radio-large-dot-size'), ring: tok('radio-large-focus-ring-radius'), text: font('label', 16, 500), minH: tok('font-label-16-500-line-height') },
+  medium: { box: tok('radio-medium-size'), dot: tok('radio-medium-dot-size'), ring: tok('radio-medium-focus-ring-radius'), text: font('label', 14, 400), minH: tok('font-label-14-400-line-height') },
 };
-const DOT = { default: '#3617CE', hover: '#2F15B2', pressed: '#261091', disabled: '#B3B9C0' };
 
 export function Radio({ selection, defaultSelection = 'unchecked', onSelectionChange, size, state, label = 'Label', showLabel = true, showFocus = false, disabled, value, name, onChange, style, className, ...input }: RadioProps) {
   const group = useContext(RadioGroupContext);
@@ -40,7 +39,7 @@ export function Radio({ selection, defaultSelection = 'unchecked', onSelectionCh
   const s = SIZE[sz];
 
   return (
-    <label className={className} {...it.pointer} style={{ position: 'relative', display: 'inline-flex', alignItems: 'center', gap: tok('radio-space-gap', 6), minHeight: s.minH, cursor: off ? 'not-allowed' : 'pointer', userSelect: 'none', ...style }}>
+    <label className={className} {...it.pointer} style={{ position: 'relative', display: 'inline-flex', alignItems: 'center', gap: tok('radio-space-gap'), minHeight: s.minH, cursor: off ? 'not-allowed' : 'pointer', userSelect: 'none', ...style }}>
       <input
         {...input}
         type="radio"
@@ -67,15 +66,15 @@ export function Radio({ selection, defaultSelection = 'unchecked', onSelectionCh
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          borderRadius: tok('radio-radius', 9999),
-          background: checked ? tok('radio-checked-color-bg-default', '#FFFFFF') : tok(`selection-control-color-bg-${look}`, { default: '#FFFFFF', hover: '#F8F9FB', pressed: '#F1F3F5', disabled: '#E8ECEF' }[look]),
-          boxShadow: `inset 0 0 0 ${tok('radio-border-width', 1.5)} ${checked ? tok(`radio-checked-color-border-${look}`, DOT[look]) : tok('selection-control-color-border-default', '#C4C9CF')}`,
+          borderRadius: tok('radio-radius'),
+          background: checked ? tok('radio-checked-color-bg-default') : tokState(`selection-control-color-bg`, look),
+          boxShadow: `inset 0 0 0 ${tok('radio-border-width')} ${checked ? tokState(`radio-checked-color-border`, look) : tok('selection-control-color-border-default')}`,
         }}
       >
-        {checked ? <span style={{ width: s.dot, height: s.dot, borderRadius: tok('radio-radius', 9999), background: tok(`radio-checked-dot-color-bg-${look}`, DOT[look]) }} /> : null}
+        {checked ? <span style={{ width: s.dot, height: s.dot, borderRadius: tok('radio-radius'), background: tokState(`radio-checked-dot-color-bg`, look) }} /> : null}
       </span>
       {showLabel ? (
-        <span className="ds-radio__label" style={{ ...s.text, whiteSpace: 'nowrap', color: tok(`selection-control-label-color-fg-${look}`, look === 'disabled' ? '#B3B9C0' : '#1C1F23') }}>
+        <span className="ds-radio__label" style={{ ...s.text, whiteSpace: 'nowrap', color: tokState(`selection-control-label-color-fg`, look) }}>
           {label}
         </span>
       ) : null}

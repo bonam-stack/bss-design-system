@@ -49,7 +49,7 @@ export function TextArea({ value, defaultValue = '', onChange, importance = 'non
       invalid={bad}
       look={look}
       count={maxLength ? { count: v.length, max: maxLength } : undefined}
-      ringRadius={tok('text-area-focus-ring-radius', 8)}
+      ringRadius={tok('text-area-focus-ring-radius')}
       showRing={showFocus || it.focusVisible}
       className={className}
       style={style}
@@ -61,10 +61,10 @@ export function TextArea({ value, defaultValue = '', onChange, importance = 'non
           flex: '1 1 0',
           minWidth: 0,
           display: 'flex',
-          padding: `${tok('text-area-space-padding-y', 8)} ${tok('text-area-space-padding-x', 14)}`,
-          borderRadius: tok('text-area-radius', 6),
+          padding: `${tok('text-area-space-padding-y')} ${tok('text-area-space-padding-x')}`,
+          borderRadius: tok('text-area-radius'),
           background: c.background,
-          boxShadow: `inset 0 0 0 ${tok('text-area-border-width', 1)} ${c.border}`,
+          boxShadow: `inset 0 0 0 ${tok('text-area-border-width')} ${c.border}`,
           outline: c.ring,
           ...font('body', 14, 400),
           color: c.text,
@@ -85,7 +85,7 @@ export function TextArea({ value, defaultValue = '', onChange, importance = 'non
               onChange?.(e.target.value);
             }}
             {...it.focus}
-            style={{ ...bareInput, height, minHeight: 40, resize: 'none', overflowWrap: 'anywhere', cursor: look === 'disabled' ? 'not-allowed' : undefined }}
+            style={{ ...bareInput, height, minHeight: 40 /* 입력 영역 최소 높이 (레이아웃) */, resize: 'none', overflowWrap: 'anywhere', cursor: look === 'disabled' ? 'not-allowed' : undefined }}
           />
           {!v ? (
             <span aria-hidden="true" style={{ position: 'absolute', inset: 0, color: c.placeholder, pointerEvents: 'none', overflow: 'hidden' }}>
@@ -94,8 +94,8 @@ export function TextArea({ value, defaultValue = '', onChange, importance = 'non
           ) : null}
         </span>
         {showResizeHandle ? (
-          <span style={{ position: 'absolute', right: 8, bottom: 8, pointerEvents: 'none', color: tok(`button-icon-only-plain-color-fg-${look === 'disabled' || look === 'readOnly' ? 'disabled' : 'default'}`, look === 'disabled' || look === 'readOnly' ? '#B3B9C0' : '#454F59'), background: tok('button-icon-only-plain-color-bg-default', '#00000000') }}>
-            <Icon name="line/drag-handle" size={tok('button-icon-only-medium-icon-size', 16)} />
+          <span style={{ position: 'absolute', right: tok('space-8'), bottom: tok('space-8'), pointerEvents: 'none', color: tok(`button-icon-only-plain-color-fg-${look === 'disabled' || look === 'readOnly' ? 'disabled' : 'default'}`), background: tok('button-icon-only-plain-color-bg-default') }}>
+            <Icon name="line/drag-handle" size={tok('button-icon-only-medium-icon-size')} />
           </span>
         ) : null}
       </div>

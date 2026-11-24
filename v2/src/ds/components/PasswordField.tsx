@@ -24,9 +24,9 @@ export interface PasswordFieldProps extends Omit<InputHTMLAttributes<HTMLInputEl
 }
 
 const SIZE = {
-  large: { h: 40, ps: 14, pe: 12, icon: 16, text: font('label', 16, 400) },
-  medium: { h: 36, ps: 14, pe: 12, icon: 16, text: font('label', 15, 400) },
-  small: { h: 28, ps: 12, pe: 10, icon: 14, text: font('label', 14, 400) },
+  large: { text: font('label', 16, 400) },
+  medium: { text: font('label', 15, 400) },
+  small: { text: font('label', 14, 400) },
 };
 
 export function PasswordField({ value, defaultValue = '', onChange, size = 'large', importance = 'none', invalid, state, label = 'Label', showLabel = false, helperText = 'HelperText', showHelperText = true, showFocus = false, width = 200, placeholder = 'Placeholder', disabled, readOnly, id, className, style, ...input }: PasswordFieldProps) {
@@ -54,7 +54,7 @@ export function PasswordField({ value, defaultValue = '', onChange, size = 'larg
       showHelperText={showHelperText}
       invalid={bad}
       look={look}
-      ringRadius={tok(`password-field-${size}-focus-ring-radius`, 8)}
+      ringRadius={tok(`password-field-${size}-focus-ring-radius`)}
       showRing={showFocus || it.focusVisible}
       className={className}
       style={style}
@@ -64,14 +64,14 @@ export function PasswordField({ value, defaultValue = '', onChange, size = 'larg
         style={{
           flex: '1 1 0',
           minWidth: 0,
-          height: tok(`password-field-${size}-size-height`, s.h),
+          height: tok(`password-field-${size}-size-height`),
           display: 'flex',
           alignItems: 'center',
-          gap: tok('password-field-space-gap', 8),
-          padding: `0 ${tok(`password-field-${size}-space-padding-end`, s.pe)} 0 ${tok(`password-field-${size}-space-padding-start`, s.ps)}`,
-          borderRadius: tok('password-field-radius', 6),
+          gap: tok('password-field-space-gap'),
+          padding: `0 ${tok(`password-field-${size}-space-padding-end`)} 0 ${tok(`password-field-${size}-space-padding-start`)}`,
+          borderRadius: tok('password-field-radius'),
           background: c.background,
-          boxShadow: `inset 0 0 0 ${tok('password-field-border-width', 1)} ${c.border}`,
+          boxShadow: `inset 0 0 0 ${tok('password-field-border-width')} ${c.border}`,
           outline: c.ring,
           ...s.text,
           color: c.text,
@@ -107,9 +107,9 @@ export function PasswordField({ value, defaultValue = '', onChange, size = 'larg
           disabled={locked}
           onMouseDown={(e) => e.preventDefault()}
           onClick={() => setShown((x) => !x)}
-          style={{ display: 'flex', flexShrink: 0, margin: 0, padding: 0, border: 0, background: tok('visibility-toggle-color-bg-default', '#00000000'), cursor: locked ? 'not-allowed' : 'pointer', color: tok(`visibility-toggle-color-fg-${locked ? 'disabled' : 'default'}`, locked ? '#B3B9C0' : '#697582') }}
+          style={{ display: 'flex', flexShrink: 0, margin: 0, padding: 0, border: 0, background: tok('visibility-toggle-color-bg-default'), cursor: locked ? 'not-allowed' : 'pointer', color: tok(`visibility-toggle-color-fg-${locked ? 'disabled' : 'default'}`) }}
         >
-          <Icon name={shown ? 'line/visibility-off' : 'line/visibility'} size={tok(size === 'small' ? 'size-icon-small' : 'size-icon-medium', s.icon)} />
+          <Icon name={shown ? 'line/visibility-off' : 'line/visibility'} size={tok(size === 'small' ? 'size-icon-small' : 'size-icon-medium')} />
         </button>
       </div>
     </FieldFrame>
