@@ -9,7 +9,6 @@ import type { FormEvent, ReactNode } from 'react';
 import * as P from '../portal/store';
 import type { Draft, Request } from '../portal/store';
 import { usePortal } from '../portal/ctx';
-import { components, patterns } from '../data';
 import { BumpTag, ConfirmButton, DraftBox, Head, St, Table, human } from '../ui';
 
 const FIGMA_FILE = '9AioWOXVOVm5C7kdSxSEEP';
@@ -146,58 +145,6 @@ export function MyRequests() {
   );
 }
 
-/** UX 편집 › 기준 편집: UX 담당자가 고치는 문서 바로가기 (편집은 각 문서 안에서) */
-export function UxEdit() {
-  const I = P.items();
-  const Open = ({ type, t }: { type: P.DraftType; t?: string }) => (P.openDraft(type, t) ? <St c="ai" t="초안" /> : null);
-  const guides = components.filter((c) => P.guide(c.data.key));
-  return (
-    <>
-      <Head eyebrow="UX 편집" title="기준 편집" lead="UX 패턴 · 레이아웃 규칙 · 컴포넌트 사용 가이드 · UX 규칙을 고칩니다. 문서를 열면 그 자리에 편집 칸이 있고, 저장하면 초안이 됩니다. 규칙 번호는 저장할 때 자동으로 붙고 바뀌지 않습니다." />
-      <h2 id="rules">UX 규칙</h2>
-      <p>
-        <a className="btn2 sm" href="#rules">
-          규칙 목록에서 추가 · 수정 · 삭제
-        </a>
-      </p>
-      <h2 id="patterns">UX 패턴 · 레이아웃 규칙</h2>
-      <Table
-        cols={['문서', '종류']}
-        rows={[
-          ...patterns.map((p) => (
-            <tr key={p.key}>
-              <td>
-                <a href={`#pattern-${p.key}`}>{p.name} 패턴</a>
-              </td>
-              <td>Figma 패턴</td>
-            </tr>
-          )),
-          ...I.filter((i) => i.kind === 'layout').map((i) => (
-            <tr key={i.code}>
-              <td>
-                <a href={`#${i.code}`}>{i.name}</a> <Open type="item" t={i.code} />
-              </td>
-              <td>레이아웃 규칙</td>
-            </tr>
-          )),
-        ]}
-      />
-      <h2 id="guides">컴포넌트 사용 가이드</h2>
-      <Table
-        cols={['컴포넌트', '규칙 번호']}
-        rows={guides.map((c) => (
-          <tr key={c.data.key}>
-            <td>
-              <a href={`#${P.itemByKey(c.data.key)?.code || `c-${c.data.key}`}`}>{c.data.name}</a> <Open type="guide" t={c.data.key} />
-            </td>
-            <td className="mono">UX-{c.data.key.toUpperCase()}-NN</td>
-          </tr>
-        ))}
-      />
-    </>
-  );
-}
-
 /** 배포 요청 (UX · DS 담당자): 내 초안 → 미리보기 확인 → 배포 요청 */
 export function My() {
   const { role, act } = usePortal();
@@ -206,7 +153,7 @@ export function My() {
   const done = L.filter((d) => d.status !== 'draft');
   return (
     <>
-      <Head eyebrow={role === 'ux' ? 'UX 편집' : 'DS 작업'} title="배포 요청" lead="내가 고친 초안입니다. 미리보기로 작동을 확인한 뒤 배포 요청하면 관리자가 운영 서버에 배포합니다." />
+      <Head eyebrow="DS 작업" title="배포 요청" lead="내가 고친 초안입니다. 미리보기로 작동을 확인한 뒤 배포 요청하면 관리자가 운영 서버에 배포합니다." />
       <h2 id="open">진행 중</h2>
       <Table
         cols={['초안', '종류', '내용', '버전', '상태', '']}
@@ -529,7 +476,6 @@ export function Roles() {
         cols={['역할', '작업 메뉴', '하는 일', '배포']}
         rows={[
           ['보기', 'Workboard', '문서 읽기 · Workboard 요청', '-'],
-          ['UX 담당자', 'UX 편집: 기준 편집 · 배포 요청', 'UX 가이드라인 · 모듈 정의 · UX 규칙 · 컴포넌트 사용 가이드 · 업무 블록 설명 · 놓이는 슬롯', '배포 요청'],
           ['DS 담당자', 'DS 작업: 디자인 요청 · 소스 변환 · 배포 요청', 'UI 규칙 · Foundations(토큰) · 컴포넌트 · 블록 모양(Figma) · 소스 변환 · 디자인 요청 · 디자인 검수', '배포 요청'],
           ['관리자', '관리자: 운영 서버 배포 · 재검수 대상 SB · 권한 확인', '운영 서버 배포(정기 · 수동) · 롤백 · 재검수 대상 SB · 권한 확인', '운영 서버 배포'],
         ].map((r) => (

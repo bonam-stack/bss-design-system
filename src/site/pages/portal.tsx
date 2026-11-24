@@ -12,7 +12,7 @@ import { GuideEmbed } from './GuidePage';
 import { ColorPage, ScalePage, TokensPage, TypographyPage } from './FoundationPages';
 import { BumpTag, Check, CodeLink, UxRef, DraftBox, Drafts, EditBtn, Head, RulesBlock, St, StOf, Table, TextScope, fmt, human, joinNodes } from '../ui';
 import { FoundationsOverview, PendingPage } from './foundations';
-import { Convert, Deploy, My, MyRequests, Recheck, Requests, Roles, UxEdit } from './work';
+import { Convert, Deploy, My, MyRequests, Recheck, Requests, Roles } from './work';
 
 const KIND_LABEL: Record<Kind, string> = { block: 'Blocks', comp: 'Components', layout: 'UX 가이드라인 · 레이아웃' };
 const formValues = (f: HTMLFormElement) => Object.fromEntries(new FormData(f)) as Record<string, string>;
@@ -36,8 +36,7 @@ export function portalPage(route: string, role: Role): ReactNode | null {
     case 'design-review': return <PendingPage eyebrow="거버넌스 · UI 규칙" title="디자인 검수 기준" lead="UI 디자이너가 디자인한 블록 · 컴포넌트를 DS library에 등록하기 전에 확인하는 항목입니다. 같은 부품이 여러 SB에서 다르게 만들어졌으면 등록할 때 하나로 합칩니다." todo={['토큰 연결 · 하드코딩 값 없음', 'Figma 디자인 라이브러리와 일치 (속성 · 변형 · 이름)', '상태 · 접근성(대비 · 포커스) 확인', '배포 전 체크리스트']} />;
     case 'figma-guide': return <PendingPage eyebrow="거버넌스 · UI 규칙" title="Figma 작성 기준" lead="SB 라이브러리는 디자인 DS 라이브러리와 동기화됩니다. 소스 변환이 읽을 수 있도록 Figma에서 지켜야 할 구조입니다." todo={['컴포넌트 · 레이어 · 속성 이름 규칙', 'Figma 변수(토큰) 연결 · 스타일 사용', '업무 블록을 Figma에서 고칠 때의 순서 (DS 담당자)', '라이브러리 배포 · 버전 기록']} />;
     case 'workboard': return <MyRequests />;
-    case 'ux-edit': return role === 'ux' ? <UxEdit /> : null;
-    case 'deploy-request': return role === 'ux' || role === 'ds' ? <My /> : null;
+    case 'deploy-request': return role === 'ds' ? <My /> : null;
     case 'requests': return role === 'ds' ? <Requests /> : null;
     case 'convert': return role === 'ds' ? <Convert /> : null;
     case 'deploy': return role === 'approver' ? <Deploy /> : null;
@@ -184,7 +183,6 @@ function Stack() {
         cols={['대상', '원본', '편집', '배포']}
         rows={[
           ['블록 · 컴포넌트 (모양)', 'Figma 디자인 시스템', P.ROLES.ds, P.ROLES.approver],
-          ['레이아웃 규칙 · 규칙 · 사용 가이드', 'UX 패턴 가이드 · 이 포털', P.ROLES.ux, P.ROLES.approver],
           ['AI 생성 블록 (tb-)', 'SB Studio 로컬 저장 → 컨펌 후 블록 제작 요청', '디자이너 (' + P.ROLES.ds + ')', P.ROLES.approver],
         ].map((r, i) => (
           <tr key={i}>
@@ -942,7 +940,6 @@ function Process() {
         cols={['역할', '맡는 것', '배포']}
         rows={[
           ['보기', '문서 읽기 · Workboard 요청', '-'],
-          ['UX 담당자', 'UX 가이드라인 · 모듈 정의 · UX 규칙 · 컴포넌트 사용 가이드 · 업무 블록 설명 · 놓이는 슬롯', '배포 요청'],
           ['DS 담당자', 'UI 규칙 · Foundations(토큰) · 컴포넌트 · 블록 모양(Figma) · 소스 변환 · 디자인 요청 · 디자인 검수', '배포 요청'],
           ['관리자', '운영 서버 배포(정기 · 수동) · 롤백 · 재검수 대상 SB · 권한 확인', '운영 서버 배포'],
         ].map((r) => (

@@ -61,7 +61,8 @@ export function App() {
   useSyncExternalStore(P.subscribe, P.revision);
   const [role, setRoleState] = useState<Role>(() => {
     const r = lsGet(ROLE_KEY) as Role | null;
-    return r && r in P.ROLES ? r : 'viewer';
+    // UX 담당자는 BSS 스튜디오 범위로 옮겨 포털 역할에서 뺐다
+    return r && r in P.ROLES && r !== 'ux' ? r : 'viewer';
   });
   const [ui, setUi] = useState<UiState>(emptyUi);
   const [textEdit, setTextEdit] = useState(false);
@@ -88,7 +89,7 @@ export function App() {
     lsSet(ROLE_KEY, r);
     setUi((u) => ({ ...u, edit: null, editRule: null }));
     // 그 역할에 없는 작업 페이지에 있으면 개요로
-    const WORK: Record<string, Role[]> = { 'ux-edit': ['ux'], 'deploy-request': ['ux', 'ds'], requests: ['ds'], convert: ['ds'], deploy: ['approver'], recheck: ['approver'], roles: ['approver'] };
+    const WORK: Record<string, Role[]> = { 'deploy-request': ['ds'], requests: ['ds'], convert: ['ds'], deploy: ['approver'], recheck: ['approver'], roles: ['approver'] };
     const cur = readRoute();
     if (WORK[cur] && !WORK[cur].includes(r)) location.hash = '#overview';
   };

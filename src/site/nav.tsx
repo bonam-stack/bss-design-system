@@ -130,7 +130,6 @@ export function sections(role: Role): Section[] {
   const ORDER = ['home', 'gov', 'uxg', 'foundations', 'components', 'blocks', 'mine'];
 
   S.sort((x, y) => ORDER.indexOf(x[0]) - ORDER.indexOf(y[0]));
-  if (role === 'ux') S.push(['work', 'UX 편집', [['ux-edit', '기준 편집'], ['deploy-request', '배포 요청']]]);
   if (role === 'ds') S.push(['work', 'DS 작업', [['requests', '디자인 요청'], ['convert', '소스 변환'], ['deploy-request', '배포 요청']]]);
   if (role === 'approver') S.push(['work', '관리자', [['deploy', '운영 서버 배포'], ['recheck', '재검수 대상 SB'], ['roles', '권한 확인']]]);
   return S;
@@ -360,7 +359,7 @@ export function RoleMenu() {
           <label className="role-pop-sel">
             <span>역할 바꾸기 (POC: SB Studio 로그인 대신)</span>
             <select id="ptRole" value={role} onChange={(e) => (setRole(e.target.value as Role), setOpen(false))}>
-              {(Object.entries(P.ROLES) as [Role, string][]).map(([k, v]) => (
+              {(Object.entries(P.ROLES) as [Role, string][]).filter(([k]) => k !== 'ux').map(([k, v]) => (
                 <option key={k} value={k}>
                   {v}
                 </option>
