@@ -30,7 +30,7 @@ export function HelperText({ state = 'default', message = 'HelperText', showLead
         <span style={{ ...text, flex: '1 1 0', minWidth: 0, color, overflowWrap: 'anywhere' }}>{message}</span>
       </div>
       {showCount ? (
-        <span style={{ ...text, display: 'flex', gap: tok('helper-text-count-space-gap', 2), color: tok('helper-text-count-color-fg-default', '#697582'), whiteSpace: 'nowrap' }}>
+        <span style={{ ...text, display: 'flex', gap: tok('helper-text-count-space-gap', 2), color: state === 'error' || (max !== undefined && count > max) ? tok('helper-text-count-color-fg-error', '#ED3B3E') : tok('helper-text-count-color-fg-default', '#697582'), whiteSpace: 'nowrap' }}>
           <span>{count}</span>
           <span>/</span>
           <span>{max ?? '-'}</span>

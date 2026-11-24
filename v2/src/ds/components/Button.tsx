@@ -70,7 +70,7 @@ export function Button({ type = 'square', variants = 'primary', size = 'xlarge',
     iconSize = a.icon;
     box = {
       height: tok(`${pre}-size-height`, a.h),
-      minWidth: a.minW,
+      minWidth: tok(`${pre}-size-min-width`, a.minW),
       padding: `0 ${tok(`${pre}-space-padding-x`, a.px)}`,
       gap: tok(type === 'square' ? 'button-action-space-gap' : 'button-inline-space-gap', 4),
       borderRadius: type === 'square' ? tok(`${pre}-radius`, a.r) : tok('button-inline-radius', 9999),
