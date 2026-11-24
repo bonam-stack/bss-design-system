@@ -523,3 +523,4 @@ ol.flow li > :not(:first-child), ol.flow li > strong + span { grid-column: 2; }
 .us-recent { margin-bottom: 8px; }
 
 .brand-gen { margin-left: 2px; padding: 0 6px; border-radius: 6px; background: var(--accent); color: #fff; font-size: 11px; font-weight: 700; vertical-align: middle; }
+.fd-box.sh { width: 64px; height: 40px; border: 1px solid var(--border); background: #fff; border-radius: 8px; }

@@ -19,10 +19,11 @@ interface Token {
   derived?: boolean;
 }
 const V = variables as { source: { name: string; note?: string }; tokens: Record<string, Omit<Token, 'name'>> };
-const TOKENS: Token[] = Object.entries(V.tokens).map(([name, t]) => ({ name, ...t }));
+// 화면 묶음은 토큰 경로(color/bg/brand/strong)로 나눈다. Figma 변수 이름은 경로와 다를 수 있다
+const TOKENS: Token[] = Object.entries(V.tokens).map(([name, t]) => ({ name, ...t, figma: (t as { path?: string }).path || t.figma }));
 /** 게시된 토큰 추가 · 수정까지 합친 목록 (DS 담당자가 디자인 토큰 문서에서 고친 것) */
 const live = (): Token[] => Object.entries(P.tokens()).map(([name, t]) => ({ ...(V.tokens[name] || {}), ...t, name }) as Token);
-const SRC = `Figma 변수 · ${V.source.name}`;
+const SRC = `${V.source.name}`;
 
 /** 값이 없는 토큰(알파 색 등)은 Figma에서 값을 다시 읽어야 한다 */
 const Swatch = ({ value, big }: { value?: string; big?: boolean }) => (
@@ -116,7 +117,7 @@ interface TypeStyle {
   letterSpacing?: string;
   family?: string;
 }
-const KIND_INFO: Record<string, string> = { label: '라벨 · 버튼 · 입력값처럼 한 줄로 쓰는 글자', body: '여러 줄로 읽는 본문', caption: '도움말 · 보조 설명처럼 작은 글자' };
+const KIND_INFO: Record<string, string> = { display: '화면 대표 숫자 · 큰 제목', heading: '페이지 · 영역 제목', title: '모듈 · 카드 제목', label: '라벨 · 버튼 · 입력값처럼 한 줄로 쓰는 글자', body: '여러 줄로 읽는 본문', caption: '도움말 · 보조 설명처럼 작은 글자' };
 
 export function TypographyPage() {
   const map = new Map<string, TypeStyle>();
@@ -131,7 +132,7 @@ export function TypographyPage() {
     if (prop === 'family') s.family = t.value;
     map.set(k, s);
   }
-  const KORDER = ['label', 'body', 'caption'];
+  const KORDER = ['display', 'heading', 'title', 'body', 'label', 'caption'];
   const styles = [...map.values()].sort((a, b) => KORDER.indexOf(a.kind) - KORDER.indexOf(b.kind) || b.size - a.size || a.weight - b.weight);
   const kinds = [...new Set(styles.map((s) => s.kind))];
   const families = [...new Set(styles.map((s) => s.family).filter(Boolean))];
@@ -296,6 +297,7 @@ function Visual({ kind, v }: { kind: Kind; v?: string }) {
   if (kind === 'size') return <i className="fd-box" style={{ width: Math.min(n, 120), height: Math.min(n, 120) }} />;
   if (kind === 'radius') return <i className="fd-box rad" style={{ borderRadius: Math.min(n, 28) }} />;
   if (kind === 'border') return <i className="fd-box line" style={{ borderWidth: v }} />;
+  if (kind === 'shadow') return <i className="fd-box sh" style={{ boxShadow: v }} />;
   return null;
 }
 
@@ -355,7 +357,7 @@ const SCALES: Record<string, { title: string; kind: Kind; lead: string; prim: st
     kind: 'shadow',
     lead: '떠 있는 요소(팝오버 · 다이얼로그 · 토스트)의 그림자입니다. 그림자는 세로 거리 · 흐림 · 퍼짐 · 색 재료를 묶어 small ~ xlarge 단계로 씁니다.',
     prim: ['--effect-'],
-    note: '단계별 그림자(small ~ xlarge)의 조합과 색은 Semantic 토큰 파일에 있습니다. 지금은 Semantic 파일이 없어 재료만 보입니다.',
+    sem: ['--shadow-'],
   },
 };
 

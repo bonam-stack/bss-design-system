@@ -1,0 +1,1371 @@
+# 변경 이력
+
+> 전달본마다 직전 전달본과 비교해 생성한다. 항목을 손으로 고치지 않는다. 오래된 버전이 위, 새 버전이 아래다.
+
+## v1.0.0 — 2026-11-09
+
+토큰 1513개 (confirmed 1513). 운영 출력 1513개.
+
+### 삭제 (코드 수정 필요)
+
+- `--space-0` (대체 없음: 값 0은 변수 없이 0으로 쓴다)
+- `--color-fg-neutral-strong` → `--color-fg-neutral-strong-default`
+- `--color-fg-brand-strongest` → `--color-fg-brand-strongest-default`
+- `--color-border-danger-disabled` (대체 없음: 쓰는 곳이 없다)
+- `--search-field-large-space-padding-start` → `--search-field-large-space-padding-x`
+- `--search-field-large-space-padding-end` → `--search-field-large-space-padding-x`
+- `--search-field-medium-space-padding-start` → `--search-field-medium-space-padding-x`
+- `--search-field-medium-space-padding-end` → `--search-field-medium-space-padding-x`
+- `--search-field-small-space-padding-start` → `--search-field-small-space-padding-x`
+- `--search-field-small-space-padding-end` → `--search-field-small-space-padding-x`
+- `--date-field-large-space-padding-start` → `--date-field-large-space-padding-x`
+- `--date-field-large-space-padding-end` → `--date-field-large-space-padding-x`
+- `--date-field-medium-space-padding-start` → `--date-field-medium-space-padding-x`
+- `--date-field-medium-space-padding-end` → `--date-field-medium-space-padding-x`
+- `--date-field-small-space-padding-start` → `--date-field-small-space-padding-x`
+- `--date-field-small-space-padding-end` → `--date-field-small-space-padding-x`
+- `--selection-control-color-border-hover` → `--selection-control-color-border-default`
+- `--selection-control-color-border-pressed` → `--selection-control-color-border-default`
+- `--selection-control-color-border-disabled` → `--selection-control-color-border-default`
+- `--tab-contained-color-border-hover` → `--tab-contained-color-border-default`
+- `--tab-contained-color-border-pressed` → `--tab-contained-color-border-default`
+- `--tab-contained-color-border-disabled` → `--tab-contained-color-border-default`
+- `--tab-contained-group-space-gap` (대체 없음: 값 0은 변수 없이 0으로 쓴다)
+- `--tab-anchor-space-padding-x` (대체 없음: 값 0은 변수 없이 0으로 쓴다)
+- `--pagination-selected-color-bg-default` → `--pagination-current-color-bg-default`
+- `--pagination-selected-color-bg-hover` → `--pagination-current-color-bg-hover`
+- `--pagination-selected-color-bg-pressed` → `--pagination-current-color-bg-pressed`
+- `--pagination-selected-color-bg-disabled` → `--pagination-current-color-bg-disabled`
+- `--pagination-selected-color-fg-default` → `--pagination-current-color-fg-default`
+- `--chip-remove-outlined-color-border-hover` → `--chip-remove-outlined-color-border-default`
+- `--chip-remove-outlined-color-border-pressed` → `--chip-remove-outlined-color-border-default`
+- `--chip-remove-outlined-color-border-disabled` → `--chip-remove-outlined-color-border-default`
+- `--chip-filter-color-border-hover` → `--chip-filter-color-border-default`
+- `--chip-filter-color-border-pressed` → `--chip-filter-color-border-default`
+- `--chip-filter-color-border-disabled` → `--chip-filter-color-border-default`
+- `--tag-keyword-tone1-color-fg-default` → `--tag-keyword-highlight-color-fg-default`
+- `--tag-keyword-tone2-color-fg-default` → `--tag-keyword-info-color-fg-default`
+- `--tag-keyword-tone3-color-fg-default` → `--tag-keyword-success-color-fg-default`
+- `--tag-keyword-tone4-color-fg-default` → `--tag-keyword-danger-color-fg-default`
+- `--tag-keyword-tone5-color-fg-default` → `--tag-keyword-neutral-color-fg-default`
+- `--badge-basic-brand-color-bg-default` → `--badge-basic-highlight-color-bg-default`
+- `--badge-basic-brand-color-fg-default` → `--badge-basic-highlight-color-fg-default`
+- `--badge-dotted-brand-dot-color-bg-default` → `--badge-dotted-highlight-dot-color-bg-default`
+- `--badge-counter-brand-color-bg-default` → `--badge-counter-highlight-color-bg-default`
+- `--badge-counter-brand-color-bg-disabled` → `--badge-counter-highlight-color-bg-disabled`
+- `--badge-counter-brand-color-fg-default` → `--badge-counter-highlight-color-fg-default`
+- `--badge-counter-brand-color-fg-disabled` → `--badge-counter-highlight-color-fg-disabled`
+- `--badge-counter-brand-subtle-color-bg-default` → `--badge-counter-highlight-subtle-color-bg-default`
+- `--badge-counter-brand-subtle-color-bg-disabled` → `--badge-counter-highlight-subtle-color-bg-disabled`
+- `--badge-counter-brand-subtle-color-fg-default` → `--badge-counter-highlight-subtle-color-fg-default`
+- `--badge-counter-brand-subtle-color-fg-disabled` → `--badge-counter-highlight-subtle-color-fg-disabled`
+- `--table-cell-color-border-default` → `--table-grid-cell-color-border-default`, `--table-form-cell-color-border-default`
+- `--table-form-header-dot-color-bg-default` → `--table-form-header-icon-color-fg-default`
+- `--table-form-header-dot-size-width` → `--table-form-header-icon-size`
+- `--table-form-header-dot-size-height` → `--table-form-header-icon-size`
+- `--table-grid-sub-cell-size-min-height` (대체 없음: GridSubCell 제공 중단)
+- `--table-grid-sub-cell-space-padding-x` (대체 없음: GridSubCell 제공 중단)
+- `--table-grid-sub-cell-space-padding-y` (대체 없음: GridSubCell 제공 중단)
+- `--dialog-message-color-fg-default` → `--overlay-message-color-fg-default`
+- `--viewer-modal-selected-toolbar-color-fg-default` → `--viewer-modal-current-toolbar-color-fg-default`
+
+### 운영 출력 변경: 추가
+
+- `--color-gray-alpha-90`
+- `--color-black-alpha-10`
+- `--space-32`
+- `--space-40`
+- `--size-10`
+- `--size-34`
+- `--size-50`
+- `--size-52`
+- `--size-58`
+- `--size-64`
+- `--size-72`
+- `--size-82`
+- `--size-274`
+- `--size-340`
+- `--border-width-3`
+- `--effect-offset-y-1`
+- `--effect-blur-2`
+- `--effect-blur-20`
+- `--color-bg-neutral-stronger-default`
+- `--color-bg-neutral-stronger-hover`
+- `--color-bg-neutral-stronger-pressed`
+- `--color-bg-neutral-stronger-disabled`
+- `--color-bg-neutral-on-inverse`
+- `--color-bg-danger-stronger`
+- `--color-bg-success-faint`
+- `--color-bg-success-stronger`
+- `--color-bg-info-faint`
+- `--color-bg-translucent`
+- `--color-bg-inverse`
+- `--color-fg-neutral-strong-default`
+- `--color-fg-neutral-strong-hover`
+- `--color-fg-neutral-strong-pressed`
+- `--color-fg-neutral-on-inverse`
+- `--color-fg-brand-muted`
+- `--color-fg-brand-strongest-default`
+- `--color-fg-brand-strongest-hover`
+- `--color-fg-brand-strongest-pressed`
+- `--color-fg-danger-muted`
+- `--color-fg-danger-on-inverse`
+- `--color-fg-attention-muted`
+- `--color-fg-warning-muted`
+- `--color-fg-success-muted`
+- `--color-fg-success-on-inverse`
+- `--color-fg-info-muted`
+- `--color-fg-info-on-inverse`
+- `--color-fg-on-inverse`
+- `--color-border-neutral-stronger`
+- `--color-shadow-xsmall`
+- `--font-body-16-400-size`
+- `--font-body-16-400-weight`
+- `--font-body-16-400-line-height`
+- `--font-body-16-400-letter-spacing`
+- `--font-body-16-400-family`
+- `--font-label-15-500-size`
+- `--font-label-15-500-weight`
+- `--font-label-15-500-line-height`
+- `--font-label-15-500-letter-spacing`
+- `--font-label-15-500-family`
+- `--size-bullet-small`
+- `--size-arrow-width`
+- `--size-arrow-height`
+- `--effect-blur-inverse`
+- `--shadow-xsmall`
+- `--button-text-base-color-fg-default`
+- `--button-text-base-color-fg-hover`
+- `--button-text-base-color-fg-pressed`
+- `--button-text-base-color-fg-disabled`
+- `--button-text-space-gap`
+- `--button-text-icon-size`
+- `--button-action-xlarge-size-min-width`
+- `--button-action-large-size-min-width`
+- `--button-action-medium-size-min-width`
+- `--button-action-small-size-min-width`
+- `--button-inline-large-size-min-width`
+- `--button-inline-medium-size-min-width`
+- `--button-inline-small-size-min-width`
+- `--field-attention-color-bg-hover`
+- `--field-attention-color-bg-focus`
+- `--field-attention-color-bg-error`
+- `--field-attention-color-bg-readonly`
+- `--field-attention-color-bg-disabled`
+- `--field-attention-color-border-hover`
+- `--field-attention-color-border-focus`
+- `--field-attention-color-border-error`
+- `--field-attention-color-border-readonly`
+- `--field-attention-color-border-disabled`
+- `--field-required-color-bg-hover`
+- `--field-required-color-bg-focus`
+- `--field-required-color-bg-error`
+- `--field-required-color-bg-readonly`
+- `--field-required-color-bg-disabled`
+- `--field-required-color-border-hover`
+- `--field-required-color-border-focus`
+- `--field-required-color-border-error`
+- `--field-required-color-border-readonly`
+- `--field-required-color-border-disabled`
+- `--select-label-space-gap`
+- `--text-field-label-space-gap`
+- `--password-field-label-space-gap`
+- `--search-field-large-space-padding-x`
+- `--search-field-medium-space-padding-x`
+- `--search-field-small-space-padding-x`
+- `--search-field-label-space-gap`
+- `--date-field-large-space-padding-x`
+- `--date-field-medium-space-padding-x`
+- `--date-field-small-space-padding-x`
+- `--date-field-label-space-gap`
+- `--date-field-value-space-gap`
+- `--date-field-separator-color-fg-default`
+- `--date-field-separator-color-fg-hover`
+- `--date-field-separator-color-fg-focus`
+- `--date-field-separator-color-fg-error`
+- `--date-field-separator-color-fg-readonly`
+- `--date-field-separator-color-fg-disabled`
+- `--date-field-separator-space-gap`
+- `--search-trigger-label-space-gap`
+- `--text-area-label-space-gap`
+- `--switch-large-size-height`
+- `--switch-large-size-width`
+- `--switch-large-thumb-size`
+- `--switch-large-focus-ring-radius`
+- `--switch-medium-size-height`
+- `--switch-medium-size-width`
+- `--switch-medium-thumb-size`
+- `--switch-medium-focus-ring-radius`
+- `--switch-small-size-height`
+- `--switch-small-size-width`
+- `--switch-small-thumb-size`
+- `--switch-small-focus-ring-radius`
+- `--switch-color-bg-default`
+- `--switch-color-bg-hover`
+- `--switch-color-bg-pressed`
+- `--switch-color-bg-disabled`
+- `--switch-checked-color-bg-default`
+- `--switch-checked-color-bg-hover`
+- `--switch-checked-color-bg-pressed`
+- `--switch-checked-color-bg-disabled`
+- `--switch-thumb-color-bg-default`
+- `--switch-thumb-radius`
+- `--switch-radius`
+- `--switch-space-padding-x`
+- `--switch-space-padding-y`
+- `--breadcrumb-separator-color-fg-default`
+- `--breadcrumb-separator-size`
+- `--breadcrumb-group-space-gap`
+- `--breadcrumb-link-label-color-fg-default`
+- `--breadcrumb-link-label-color-fg-hover`
+- `--breadcrumb-link-label-color-fg-pressed`
+- `--breadcrumb-current-label-color-fg-default`
+- `--data-item-value-color-fg-default`
+- `--data-item-label-color-fg-default`
+- `--data-item-space-gap`
+- `--pagination-current-color-bg-default`
+- `--pagination-current-color-bg-hover`
+- `--pagination-current-color-bg-pressed`
+- `--pagination-current-color-bg-disabled`
+- `--pagination-current-color-fg-default`
+- `--tag-basic-highlight-color-fg-default`
+- `--tag-basic-info-color-fg-default`
+- `--tag-basic-success-color-fg-default`
+- `--tag-basic-danger-color-fg-default`
+- `--tag-basic-neutral-color-fg-default`
+- `--tag-basic-color-bg-default`
+- `--tag-basic-size-height`
+- `--tag-basic-space-padding-x`
+- `--tag-basic-radius`
+- `--tag-keyword-highlight-color-fg-default`
+- `--tag-keyword-info-color-fg-default`
+- `--tag-keyword-success-color-fg-default`
+- `--tag-keyword-danger-color-fg-default`
+- `--tag-keyword-neutral-color-fg-default`
+- `--badge-basic-highlight-color-bg-default`
+- `--badge-basic-highlight-color-fg-default`
+- `--badge-dotted-highlight-dot-color-bg-default`
+- `--badge-counter-highlight-color-bg-default`
+- `--badge-counter-highlight-color-bg-disabled`
+- `--badge-counter-highlight-color-fg-default`
+- `--badge-counter-highlight-color-fg-disabled`
+- `--badge-counter-highlight-subtle-color-bg-default`
+- `--badge-counter-highlight-subtle-color-bg-disabled`
+- `--badge-counter-highlight-subtle-color-fg-default`
+- `--badge-counter-highlight-subtle-color-fg-disabled`
+- `--table-form-header-icon-color-fg-default`
+- `--table-form-header-icon-size`
+- `--table-form-header-size-min-height`
+- `--table-grid-cell-color-border-default`
+- `--table-form-cell-color-border-default`
+- `--overlay-message-color-fg-default`
+- `--alert-content-space-gap`
+- `--alert-size-width`
+- `--viewer-modal-current-toolbar-color-fg-default`
+- `--helper-text-icon-space-padding-top`
+- `--context-menu-color-bg-default`
+- `--context-menu-space-padding-x`
+- `--context-menu-space-padding-y`
+- `--context-menu-space-gap`
+- `--context-menu-radius`
+- `--context-menu-shadow`
+- `--context-menu-size-width`
+- `--context-menu-menu-item-color-bg-default`
+- `--context-menu-menu-item-color-bg-hover`
+- `--context-menu-menu-item-color-bg-pressed`
+- `--context-menu-menu-item-color-bg-disabled`
+- `--context-menu-menu-item-color-fg-default`
+- `--context-menu-menu-item-color-fg-hover`
+- `--context-menu-menu-item-color-fg-pressed`
+- `--context-menu-menu-item-color-fg-disabled`
+- `--context-menu-menu-item-space-padding-x`
+- `--context-menu-menu-item-space-padding-y`
+- `--context-menu-menu-item-space-gap`
+- `--context-menu-menu-item-radius`
+- `--context-menu-menu-item-focus-ring-radius`
+- `--context-menu-sub-label-color-fg-default`
+- `--context-menu-sub-label-color-fg-hover`
+- `--context-menu-sub-label-color-fg-pressed`
+- `--context-menu-sub-label-color-fg-disabled`
+- `--steps-indicator-size`
+- `--steps-indicator-radius`
+- `--steps-icon-size`
+- `--steps-connector-color-border-default`
+- `--steps-connector-border-width`
+- `--steps-connector-size-width`
+- `--steps-upcoming-indicator-color-bg-default`
+- `--steps-upcoming-indicator-color-fg-default`
+- `--steps-current-indicator-color-bg-default`
+- `--steps-current-indicator-color-fg-default`
+- `--steps-completed-indicator-color-bg-default`
+- `--steps-completed-indicator-color-fg-default`
+- `--stepper-large-size-height`
+- `--stepper-large-step-button-space-padding-x`
+- `--stepper-large-input-space-padding-x`
+- `--stepper-large-focus-ring-radius`
+- `--stepper-medium-size-height`
+- `--stepper-medium-step-button-space-padding-x`
+- `--stepper-medium-input-space-padding-x`
+- `--stepper-medium-focus-ring-radius`
+- `--stepper-small-size-height`
+- `--stepper-small-step-button-space-padding-x`
+- `--stepper-small-input-space-padding-x`
+- `--stepper-small-focus-ring-radius`
+- `--stepper-radius`
+- `--stepper-border-width`
+- `--stepper-helper-space-gap`
+- `--stepper-label-space-gap`
+- `--side-panel-color-bg-default`
+- `--side-panel-shadow`
+- `--side-panel-radius`
+- `--side-panel-size-width`
+- `--side-panel-header-space-padding-x`
+- `--side-panel-header-space-padding-top`
+- `--side-panel-header-space-padding-bottom`
+- `--side-panel-header-space-gap`
+- `--side-panel-title-color-fg-default`
+- `--side-panel-footer-space-padding-x`
+- `--side-panel-footer-space-padding-y`
+- `--side-panel-footer-color-border-default`
+- `--side-panel-footer-border-width`
+- `--side-panel-group-space-gap`
+- `--toolbar-color-bg-default`
+- `--toolbar-shadow`
+- `--toolbar-radius`
+- `--toolbar-space-padding-x`
+- `--toolbar-space-padding-y`
+- `--toolbar-space-gap`
+- `--toolbar-group-space-gap`
+- `--toolbar-title-space-gap`
+- `--toolbar-title-color-fg-default`
+- `--toolbar-count-color-fg-default`
+- `--toolbar-current-count-color-fg-default`
+- `--toolbar-separator-color-fg-default`
+- `--toggle-button-icon-size`
+- `--toggle-button-size`
+- `--toggle-button-radius`
+- `--toggle-button-border-width`
+- `--toggle-button-focus-ring-radius`
+- `--toggle-button-color-bg-default`
+- `--toggle-button-color-bg-hover`
+- `--toggle-button-color-bg-pressed`
+- `--toggle-button-color-bg-disabled`
+- `--toggle-button-color-border-default`
+- `--toggle-button-color-fg-default`
+- `--toggle-button-color-fg-hover`
+- `--toggle-button-color-fg-pressed`
+- `--toggle-button-color-fg-disabled`
+- `--toggle-button-selected-color-bg-default`
+- `--toggle-button-selected-color-bg-hover`
+- `--toggle-button-selected-color-bg-pressed`
+- `--toggle-button-selected-color-bg-disabled`
+- `--toggle-button-selected-color-border-default`
+- `--toggle-button-selected-color-border-hover`
+- `--toggle-button-selected-color-border-pressed`
+- `--toggle-button-selected-color-border-disabled`
+- `--toggle-button-selected-color-fg-default`
+- `--toggle-button-selected-color-fg-hover`
+- `--toggle-button-selected-color-fg-pressed`
+- `--toggle-button-selected-color-fg-disabled`
+- `--progress-bar-size-height`
+- `--progress-bar-radius`
+- `--progress-bar-track-color-bg-default`
+- `--progress-bar-indicator-color-bg-default`
+- `--progress-bar-indicator-color-bg-error`
+- `--progress-bar-indicator-color-bg-disabled`
+- `--progress-bar-completed-indicator-color-bg-default`
+- `--skeleton-color-bg-default`
+- `--skeleton-radius`
+- `--skeleton-full-radius`
+- `--tooltip-color-bg-default`
+- `--tooltip-color-bg-error`
+- `--tooltip-color-fg-default`
+- `--tooltip-color-fg-error`
+- `--tooltip-radius`
+- `--tooltip-space-padding-x`
+- `--tooltip-space-padding-y`
+- `--tooltip-shadow`
+- `--tooltip-arrow-size-width`
+- `--tooltip-arrow-size-height`
+- `--popover-color-bg-default`
+- `--popover-radius`
+- `--popover-space-padding-x`
+- `--popover-space-padding-y`
+- `--popover-space-gap`
+- `--popover-shadow`
+- `--popover-arrow-size-width`
+- `--popover-arrow-size-height`
+- `--popover-header-space-gap`
+- `--popover-footer-space-gap`
+- `--popover-title-color-fg-default`
+- `--popover-content-color-fg-default`
+- `--popover-bullet-color-bg-default`
+- `--popover-bullet-size`
+- `--popover-bullet-radius`
+- `--toast-color-bg-default`
+- `--toast-color-fg-default`
+- `--toast-radius`
+- `--toast-space-padding-x`
+- `--toast-space-padding-y`
+- `--toast-space-gap`
+- `--toast-icon-size`
+- `--toast-effect-blur`
+- `--snackbar-info-count-color-fg-default`
+- `--snackbar-success-count-color-fg-default`
+- `--snackbar-danger-count-color-fg-default`
+- `--snackbar-color-bg-default`
+- `--snackbar-radius`
+- `--snackbar-space-padding-x`
+- `--snackbar-space-padding-y`
+- `--snackbar-space-gap`
+- `--snackbar-title-color-fg-default`
+- `--snackbar-content-space-gap`
+- `--snackbar-group-space-gap`
+- `--snackbar-separator-color-bg-default`
+- `--snackbar-separator-size`
+- `--snackbar-separator-radius`
+- `--snackbar-label-color-fg-default`
+- `--snackbar-label-space-gap`
+- `--snackbar-action-group-color-bg-default`
+- `--snackbar-action-group-color-border-default`
+- `--snackbar-action-group-color-fg-default`
+- `--snackbar-action-group-border-width`
+- `--snackbar-action-group-space-gap`
+- `--snackbar-close-button-size`
+- `--snackbar-effect-blur`
+- `--callout-neutral-color-bg-default`
+- `--callout-neutral-icon-color-fg-default`
+- `--callout-info-color-bg-default`
+- `--callout-info-icon-color-fg-default`
+- `--callout-success-color-bg-default`
+- `--callout-success-icon-color-fg-default`
+- `--callout-attention-color-bg-default`
+- `--callout-attention-icon-color-fg-default`
+- `--callout-warning-color-bg-default`
+- `--callout-warning-icon-color-fg-default`
+- `--callout-danger-color-bg-default`
+- `--callout-danger-icon-color-fg-default`
+- `--callout-highlight-color-bg-default`
+- `--callout-highlight-icon-color-fg-default`
+- `--callout-horizontal-space-padding-x`
+- `--callout-horizontal-title-space-gap`
+- `--callout-horizontal-message-color-fg-default`
+- `--callout-vertical-space-padding-x`
+- `--callout-vertical-message-color-fg-default`
+- `--callout-vertical-message-space-padding-top`
+- `--callout-vertical-content-space-gap`
+- `--callout-radius`
+- `--callout-space-padding-y`
+- `--callout-space-gap`
+- `--callout-icon-size`
+- `--callout-title-color-fg-default`
+- `--accordion-color-bg-default`
+- `--accordion-color-border-default`
+- `--accordion-border-width`
+- `--accordion-header-color-bg-default`
+- `--accordion-header-color-bg-hover`
+- `--accordion-header-color-bg-pressed`
+- `--accordion-header-color-bg-disabled`
+- `--accordion-header-color-fg-default`
+- `--accordion-header-color-fg-hover`
+- `--accordion-header-color-fg-pressed`
+- `--accordion-header-color-fg-disabled`
+- `--accordion-title-space-gap`
+- `--accordion-basic-large-size-height`
+- `--accordion-basic-large-space-padding-x`
+- `--accordion-basic-large-content-space-padding-bottom`
+- `--accordion-basic-large-icon-size`
+- `--accordion-basic-medium-size-height`
+- `--accordion-basic-medium-space-padding-x`
+- `--accordion-basic-medium-content-space-padding-bottom`
+- `--accordion-basic-medium-icon-size`
+- `--accordion-basic-space-gap`
+- `--accordion-basic-header-space-gap`
+- `--accordion-compact-size-height`
+- `--accordion-compact-space-gap`
+- `--accordion-compact-header-space-gap`
+- `--accordion-compact-content-space-padding-bottom`
+- `--accordion-compact-icon-size`
+- `--accordion-text-header-color-fg-default`
+- `--accordion-text-header-color-fg-hover`
+- `--accordion-text-header-color-fg-pressed`
+- `--accordion-text-header-color-fg-disabled`
+- `--accordion-text-header-space-gap`
+- `--accordion-text-icon-size`
+- `--field-label-color-fg-default`
+- `--field-label-subtle-color-fg-default`
+- `--field-label-icon-color-fg-default`
+- `--field-label-icon-size`
+- `--field-label-space-gap`
+
+### 토큰 추가
+
+- `--color-gray-alpha-90` = #03182EE6 (confirmed)
+- `--color-black-alpha-10` = #0000001A (confirmed)
+- `--space-32` = 32px (confirmed)
+- `--space-40` = 40px (confirmed)
+- `--size-10` = 10px (confirmed)
+- `--size-34` = 34px (confirmed)
+- `--size-50` = 50px (confirmed)
+- `--size-52` = 52px (confirmed)
+- `--size-58` = 58px (confirmed)
+- `--size-64` = 64px (confirmed)
+- `--size-72` = 72px (confirmed)
+- `--size-82` = 82px (confirmed)
+- `--size-274` = 274px (confirmed)
+- `--size-340` = 340px (confirmed)
+- `--border-width-3` = 3px (confirmed)
+- `--effect-offset-y-1` = 1px (confirmed)
+- `--effect-blur-2` = 2px (confirmed)
+- `--effect-blur-20` = 20px (confirmed)
+- `--color-bg-neutral-stronger-default` = #B3B9C0 (confirmed)
+- `--color-bg-neutral-stronger-hover` = #8B949E (confirmed)
+- `--color-bg-neutral-stronger-pressed` = #697582 (confirmed)
+- `--color-bg-neutral-stronger-disabled` = #DCE0E5 (confirmed)
+- `--color-bg-neutral-on-inverse` = #B3B9C0 (confirmed)
+- `--color-bg-danger-stronger` = #EA5154 (confirmed)
+- `--color-bg-success-faint` = #DFFEF0 (confirmed)
+- `--color-bg-success-stronger` = #1AB46E (confirmed)
+- `--color-bg-info-faint` = #EAF3FF (confirmed)
+- `--color-bg-translucent` = #FFFFFFCC (confirmed)
+- `--color-bg-inverse` = #03182EE6 (confirmed)
+- `--color-fg-neutral-strong-default` = #454F59 (confirmed)
+- `--color-fg-neutral-strong-hover` = #303942 (confirmed)
+- `--color-fg-neutral-strong-pressed` = #1C1F23 (confirmed)
+- `--color-fg-neutral-on-inverse` = #C4C9CF (confirmed)
+- `--color-fg-brand-muted` = #502DFB (confirmed)
+- `--color-fg-brand-strongest-default` = #2F15B2 (confirmed)
+- `--color-fg-brand-strongest-hover` = #261091 (confirmed)
+- `--color-fg-brand-strongest-pressed` = #231080 (confirmed)
+- `--color-fg-danger-muted` = #EA5154 (confirmed)
+- `--color-fg-danger-on-inverse` = #F87275 (confirmed)
+- `--color-fg-attention-muted` = #F5B54F (confirmed)
+- `--color-fg-warning-muted` = #FF9D3B (confirmed)
+- `--color-fg-success-muted` = #1AB46E (confirmed)
+- `--color-fg-success-on-inverse` = #3ACF91 (confirmed)
+- `--color-fg-info-muted` = #5895FF (confirmed)
+- `--color-fg-info-on-inverse` = #7FAEFF (confirmed)
+- `--color-fg-on-inverse` = #FFFFFF (confirmed)
+- `--color-border-neutral-stronger` = #B3B9C0 (confirmed)
+- `--color-shadow-xsmall` = #0000001A (confirmed)
+- `--font-body-16-400-size` = 16px (confirmed)
+- `--font-body-16-400-weight` = 400 (confirmed)
+- `--font-body-16-400-line-height` = 24px (confirmed)
+- `--font-body-16-400-letter-spacing` = -0.2px (confirmed)
+- `--font-body-16-400-family` = Pretendard (confirmed)
+- `--font-label-15-500-size` = 15px (confirmed)
+- `--font-label-15-500-weight` = 500 (confirmed)
+- `--font-label-15-500-line-height` = 24px (confirmed)
+- `--font-label-15-500-letter-spacing` = -0.2px (confirmed)
+- `--font-label-15-500-family` = Pretendard (confirmed)
+- `--size-bullet-small` = 3px (confirmed)
+- `--size-arrow-width` = 10px (confirmed)
+- `--size-arrow-height` = 6px (confirmed)
+- `--effect-blur-inverse` = 20px (confirmed)
+- `--shadow-xsmall` = 0px 1px 2px 0px #0000001A (confirmed)
+- `--button-text-base-color-fg-default` = #454F59 (confirmed)
+- `--button-text-base-color-fg-hover` = #303942 (confirmed)
+- `--button-text-base-color-fg-pressed` = #1C1F23 (confirmed)
+- `--button-text-base-color-fg-disabled` = #B3B9C0 (confirmed)
+- `--button-text-space-gap` = 4px (confirmed)
+- `--button-text-icon-size` = 16px (confirmed)
+- `--button-action-xlarge-size-min-width` = 82px (confirmed)
+- `--button-action-large-size-min-width` = 72px (confirmed)
+- `--button-action-medium-size-min-width` = 64px (confirmed)
+- `--button-action-small-size-min-width` = 56px (confirmed)
+- `--button-inline-large-size-min-width` = 72px (confirmed)
+- `--button-inline-medium-size-min-width` = 64px (confirmed)
+- `--button-inline-small-size-min-width` = 56px (confirmed)
+- `--field-attention-color-bg-hover` = #FCF4D9 (confirmed)
+- `--field-attention-color-bg-focus` = #FFF7DC (confirmed)
+- `--field-attention-color-bg-error` = #FFF7DC (confirmed)
+- `--field-attention-color-bg-readonly` = #FDEFC4 (confirmed)
+- `--field-attention-color-bg-disabled` = #E8ECEF (confirmed)
+- `--field-attention-color-border-hover` = #FFE07F (confirmed)
+- `--field-attention-color-border-focus` = #303942 (confirmed)
+- `--field-attention-color-border-error` = #ED3B3E (confirmed)
+- `--field-attention-color-border-readonly` = #FFE9A8 (confirmed)
+- `--field-attention-color-border-disabled` = #DCE0E5 (confirmed)
+- `--field-required-color-bg-hover` = #FBE9D5 (confirmed)
+- `--field-required-color-bg-focus` = #FFEEDA (confirmed)
+- `--field-required-color-bg-error` = #FFEEDA (confirmed)
+- `--field-required-color-bg-readonly` = #FFE4C4 (confirmed)
+- `--field-required-color-bg-disabled` = #E8ECEF (confirmed)
+- `--field-required-color-border-hover` = #FFC387 (confirmed)
+- `--field-required-color-border-focus` = #303942 (confirmed)
+- `--field-required-color-border-error` = #ED3B3E (confirmed)
+- `--field-required-color-border-readonly` = #FFD2A3 (confirmed)
+- `--field-required-color-border-disabled` = #DCE0E5 (confirmed)
+- `--select-label-space-gap` = 8px (confirmed)
+- `--text-field-label-space-gap` = 8px (confirmed)
+- `--password-field-label-space-gap` = 8px (confirmed)
+- `--search-field-large-space-padding-x` = 14px (confirmed)
+- `--search-field-medium-space-padding-x` = 14px (confirmed)
+- `--search-field-small-space-padding-x` = 12px (confirmed)
+- `--search-field-label-space-gap` = 8px (confirmed)
+- `--date-field-large-space-padding-x` = 14px (confirmed)
+- `--date-field-medium-space-padding-x` = 14px (confirmed)
+- `--date-field-small-space-padding-x` = 12px (confirmed)
+- `--date-field-label-space-gap` = 8px (confirmed)
+- `--date-field-value-space-gap` = 8px (confirmed)
+- `--date-field-separator-color-fg-default` = #697582 (confirmed)
+- `--date-field-separator-color-fg-hover` = #697582 (confirmed)
+- `--date-field-separator-color-fg-focus` = #697582 (confirmed)
+- `--date-field-separator-color-fg-error` = #697582 (confirmed)
+- `--date-field-separator-color-fg-readonly` = #1C1F23 (confirmed)
+- `--date-field-separator-color-fg-disabled` = #B3B9C0 (confirmed)
+- `--date-field-separator-space-gap` = 4px (confirmed)
+- `--search-trigger-label-space-gap` = 8px (confirmed)
+- `--text-area-label-space-gap` = 8px (confirmed)
+- `--switch-large-size-height` = 32px (confirmed)
+- `--switch-large-size-width` = 58px (confirmed)
+- `--switch-large-thumb-size` = 24px (confirmed)
+- `--switch-large-focus-ring-radius` = 9999px (confirmed)
+- `--switch-medium-size-height` = 28px (confirmed)
+- `--switch-medium-size-width` = 50px (confirmed)
+- `--switch-medium-thumb-size` = 20px (confirmed)
+- `--switch-medium-focus-ring-radius` = 9999px (confirmed)
+- `--switch-small-size-height` = 20px (confirmed)
+- `--switch-small-size-width` = 34px (confirmed)
+- `--switch-small-thumb-size` = 12px (confirmed)
+- `--switch-small-focus-ring-radius` = 9999px (confirmed)
+- `--switch-color-bg-default` = #B3B9C0 (confirmed)
+- `--switch-color-bg-hover` = #8B949E (confirmed)
+- `--switch-color-bg-pressed` = #697582 (confirmed)
+- `--switch-color-bg-disabled` = #DCE0E5 (confirmed)
+- `--switch-checked-color-bg-default` = #3617CE (confirmed)
+- `--switch-checked-color-bg-hover` = #2F15B2 (confirmed)
+- `--switch-checked-color-bg-pressed` = #261091 (confirmed)
+- `--switch-checked-color-bg-disabled` = #B3B9C0 (confirmed)
+- `--switch-thumb-color-bg-default` = #FFFFFF (confirmed)
+- `--switch-thumb-radius` = 9999px (confirmed)
+- `--switch-radius` = 9999px (confirmed)
+- `--switch-space-padding-x` = 4px (confirmed)
+- `--switch-space-padding-y` = 4px (confirmed)
+- `--breadcrumb-separator-color-fg-default` = #697582 (confirmed)
+- `--breadcrumb-separator-size` = 14px (confirmed)
+- `--breadcrumb-group-space-gap` = 6px (confirmed)
+- `--breadcrumb-link-label-color-fg-default` = #697582 (confirmed)
+- `--breadcrumb-link-label-color-fg-hover` = #454F59 (confirmed)
+- `--breadcrumb-link-label-color-fg-pressed` = #303942 (confirmed)
+- `--breadcrumb-current-label-color-fg-default` = #1C1F23 (confirmed)
+- `--data-item-value-color-fg-default` = #1C1F23 (confirmed)
+- `--data-item-label-color-fg-default` = #697582 (confirmed)
+- `--data-item-space-gap` = 12px (confirmed)
+- `--pagination-current-color-bg-default` = #3617CE (confirmed)
+- `--pagination-current-color-bg-hover` = #2F15B2 (confirmed)
+- `--pagination-current-color-bg-pressed` = #261091 (confirmed)
+- `--pagination-current-color-bg-disabled` = #B4B7FF (confirmed)
+- `--pagination-current-color-fg-default` = #FFFFFF (confirmed)
+- `--tag-basic-highlight-color-fg-default` = #2F15B2 (confirmed)
+- `--tag-basic-info-color-fg-default` = #135BE0 (confirmed)
+- `--tag-basic-success-color-fg-default` = #038E52 (confirmed)
+- `--tag-basic-danger-color-fg-default` = #ED3B3E (confirmed)
+- `--tag-basic-neutral-color-fg-default` = #454F59 (confirmed)
+- `--tag-basic-color-bg-default` = #E8ECEF (confirmed)
+- `--tag-basic-size-height` = 24px (confirmed)
+- `--tag-basic-space-padding-x` = 8px (confirmed)
+- `--tag-basic-radius` = 9999px (confirmed)
+- `--tag-keyword-highlight-color-fg-default` = #3617CE (confirmed)
+- `--tag-keyword-info-color-fg-default` = #2E7AFF (confirmed)
+- `--tag-keyword-success-color-fg-default` = #038E52 (confirmed)
+- `--tag-keyword-danger-color-fg-default` = #ED3B3E (confirmed)
+- `--tag-keyword-neutral-color-fg-default` = #454F59 (confirmed)
+- `--badge-basic-highlight-color-bg-default` = #E1E3FF (confirmed)
+- `--badge-basic-highlight-color-fg-default` = #2F15B2 (confirmed)
+- `--badge-dotted-highlight-dot-color-bg-default` = #3617CE (confirmed)
+- `--badge-counter-highlight-color-bg-default` = #3617CE (confirmed)
+- `--badge-counter-highlight-color-bg-disabled` = #F1F2FF (confirmed)
+- `--badge-counter-highlight-color-fg-default` = #FFFFFF (confirmed)
+- `--badge-counter-highlight-color-fg-disabled` = #B4B7FF (confirmed)
+- `--badge-counter-highlight-subtle-color-bg-default` = #E1E3FF (confirmed)
+- `--badge-counter-highlight-subtle-color-bg-disabled` = #F1F2FF (confirmed)
+- `--badge-counter-highlight-subtle-color-fg-default` = #3617CE (confirmed)
+- `--badge-counter-highlight-subtle-color-fg-disabled` = #B4B7FF (confirmed)
+- `--table-form-header-icon-color-fg-default` = #ED3B3E (confirmed)
+- `--table-form-header-icon-size` = 12px (confirmed)
+- `--table-form-header-size-min-height` = 56px (confirmed)
+- `--table-grid-cell-color-border-default` = #DCE0E5 (confirmed)
+- `--table-form-cell-color-border-default` = #E8ECEF (confirmed)
+- `--overlay-message-color-fg-default` = #1C1F23 (confirmed)
+- `--alert-content-space-gap` = 8px (confirmed)
+- `--alert-size-width` = 360px (confirmed)
+- `--viewer-modal-current-toolbar-color-fg-default` = #3617CE (confirmed)
+- `--helper-text-icon-space-padding-top` = 2px (confirmed)
+- `--context-menu-color-bg-default` = #FFFFFF (confirmed)
+- `--context-menu-space-padding-x` = 8px (confirmed)
+- `--context-menu-space-padding-y` = 8px (confirmed)
+- `--context-menu-space-gap` = 8px (confirmed)
+- `--context-menu-radius` = 6px (confirmed)
+- `--context-menu-shadow` = 0px 4px 8px 0px #00000024 (confirmed)
+- `--context-menu-size-width` = 274px (confirmed)
+- `--context-menu-menu-item-color-bg-default` = #00000000 (confirmed)
+- `--context-menu-menu-item-color-bg-hover` = #F8F9FB (confirmed)
+- `--context-menu-menu-item-color-bg-pressed` = #F1F3F5 (confirmed)
+- `--context-menu-menu-item-color-bg-disabled` = #00000000 (confirmed)
+- `--context-menu-menu-item-color-fg-default` = #1C1F23 (confirmed)
+- `--context-menu-menu-item-color-fg-hover` = #1C1F23 (confirmed)
+- `--context-menu-menu-item-color-fg-pressed` = #1C1F23 (confirmed)
+- `--context-menu-menu-item-color-fg-disabled` = #B3B9C0 (confirmed)
+- `--context-menu-menu-item-space-padding-x` = 12px (confirmed)
+- `--context-menu-menu-item-space-padding-y` = 8px (confirmed)
+- `--context-menu-menu-item-space-gap` = 2px (confirmed)
+- `--context-menu-menu-item-radius` = 6px (confirmed)
+- `--context-menu-menu-item-focus-ring-radius` = 8px (confirmed)
+- `--context-menu-sub-label-color-fg-default` = #697582 (confirmed)
+- `--context-menu-sub-label-color-fg-hover` = #697582 (confirmed)
+- `--context-menu-sub-label-color-fg-pressed` = #697582 (confirmed)
+- `--context-menu-sub-label-color-fg-disabled` = #B3B9C0 (confirmed)
+- `--steps-indicator-size` = 20px (confirmed)
+- `--steps-indicator-radius` = 9999px (confirmed)
+- `--steps-icon-size` = 14px (confirmed)
+- `--steps-connector-color-border-default` = #E8ECEF (confirmed)
+- `--steps-connector-border-width` = 1.5px (confirmed)
+- `--steps-connector-size-width` = 12px (confirmed)
+- `--steps-upcoming-indicator-color-bg-default` = #E8ECEF (confirmed)
+- `--steps-upcoming-indicator-color-fg-default` = #697582 (confirmed)
+- `--steps-current-indicator-color-bg-default` = #3617CE (confirmed)
+- `--steps-current-indicator-color-fg-default` = #FFFFFF (confirmed)
+- `--steps-completed-indicator-color-bg-default` = #1AB46E (confirmed)
+- `--steps-completed-indicator-color-fg-default` = #FFFFFF (confirmed)
+- `--stepper-large-size-height` = 40px (confirmed)
+- `--stepper-large-step-button-space-padding-x` = 8px (confirmed)
+- `--stepper-large-input-space-padding-x` = 12px (confirmed)
+- `--stepper-large-focus-ring-radius` = 8px (confirmed)
+- `--stepper-medium-size-height` = 32px (confirmed)
+- `--stepper-medium-step-button-space-padding-x` = 8px (confirmed)
+- `--stepper-medium-input-space-padding-x` = 8px (confirmed)
+- `--stepper-medium-focus-ring-radius` = 8px (confirmed)
+- `--stepper-small-size-height` = 28px (confirmed)
+- `--stepper-small-step-button-space-padding-x` = 6px (confirmed)
+- `--stepper-small-input-space-padding-x` = 6px (confirmed)
+- `--stepper-small-focus-ring-radius` = 8px (confirmed)
+- `--stepper-radius` = 6px (confirmed)
+- `--stepper-border-width` = 1px (confirmed)
+- `--stepper-helper-space-gap` = 4px (confirmed)
+- `--stepper-label-space-gap` = 8px (confirmed)
+- `--side-panel-color-bg-default` = #FFFFFF (confirmed)
+- `--side-panel-shadow` = 0px 16px 32px 0px #0000002E (confirmed)
+- `--side-panel-radius` = 20px (confirmed)
+- `--side-panel-size-width` = 340px (confirmed)
+- `--side-panel-header-space-padding-x` = 20px (confirmed)
+- `--side-panel-header-space-padding-top` = 20px (confirmed)
+- `--side-panel-header-space-padding-bottom` = 16px (confirmed)
+- `--side-panel-header-space-gap` = 8px (confirmed)
+- `--side-panel-title-color-fg-default` = #1C1F23 (confirmed)
+- `--side-panel-footer-space-padding-x` = 20px (confirmed)
+- `--side-panel-footer-space-padding-y` = 16px (confirmed)
+- `--side-panel-footer-color-border-default` = #E8ECEF (confirmed)
+- `--side-panel-footer-border-width` = 1px (confirmed)
+- `--side-panel-group-space-gap` = 8px (confirmed)
+- `--toolbar-color-bg-default` = #FFFFFFCC (confirmed)
+- `--toolbar-shadow` = 0px 6px 12px 0px #00000029 (confirmed)
+- `--toolbar-radius` = 12px (confirmed)
+- `--toolbar-space-padding-x` = 16px (confirmed)
+- `--toolbar-space-padding-y` = 6px (confirmed)
+- `--toolbar-space-gap` = 16px (confirmed)
+- `--toolbar-group-space-gap` = 8px (confirmed)
+- `--toolbar-title-space-gap` = 12px (confirmed)
+- `--toolbar-title-color-fg-default` = #1C1F23 (confirmed)
+- `--toolbar-count-color-fg-default` = #8B949E (confirmed)
+- `--toolbar-current-count-color-fg-default` = #1C1F23 (confirmed)
+- `--toolbar-separator-color-fg-default` = #8B949E (confirmed)
+- `--toggle-button-icon-size` = 16px (confirmed)
+- `--toggle-button-size` = 32px (confirmed)
+- `--toggle-button-radius` = 6px (confirmed)
+- `--toggle-button-border-width` = 1px (confirmed)
+- `--toggle-button-focus-ring-radius` = 8px (confirmed)
+- `--toggle-button-color-bg-default` = #00000000 (confirmed)
+- `--toggle-button-color-bg-hover` = #F8F9FB (confirmed)
+- `--toggle-button-color-bg-pressed` = #F1F3F5 (confirmed)
+- `--toggle-button-color-bg-disabled` = #00000000 (confirmed)
+- `--toggle-button-color-border-default` = #C4C9CF (confirmed)
+- `--toggle-button-color-fg-default` = #1C1F23 (confirmed)
+- `--toggle-button-color-fg-hover` = #1C1F23 (confirmed)
+- `--toggle-button-color-fg-pressed` = #1C1F23 (confirmed)
+- `--toggle-button-color-fg-disabled` = #B3B9C0 (confirmed)
+- `--toggle-button-selected-color-bg-default` = #F1F2FF (confirmed)
+- `--toggle-button-selected-color-bg-hover` = #E1E3FF (confirmed)
+- `--toggle-button-selected-color-bg-pressed` = #D0D2FF (confirmed)
+- `--toggle-button-selected-color-bg-disabled` = #F1F2FF (confirmed)
+- `--toggle-button-selected-color-border-default` = #3617CE (confirmed)
+- `--toggle-button-selected-color-border-hover` = #3617CE (confirmed)
+- `--toggle-button-selected-color-border-pressed` = #3617CE (confirmed)
+- `--toggle-button-selected-color-border-disabled` = #B4B7FF (confirmed)
+- `--toggle-button-selected-color-fg-default` = #3617CE (confirmed)
+- `--toggle-button-selected-color-fg-hover` = #3617CE (confirmed)
+- `--toggle-button-selected-color-fg-pressed` = #3617CE (confirmed)
+- `--toggle-button-selected-color-fg-disabled` = #6268FF (confirmed)
+- `--progress-bar-size-height` = 8px (confirmed)
+- `--progress-bar-radius` = 9999px (confirmed)
+- `--progress-bar-track-color-bg-default` = #F1F3F5 (confirmed)
+- `--progress-bar-indicator-color-bg-default` = #3617CE (confirmed)
+- `--progress-bar-indicator-color-bg-error` = #ED3B3E (confirmed)
+- `--progress-bar-indicator-color-bg-disabled` = #DCE0E5 (confirmed)
+- `--progress-bar-completed-indicator-color-bg-default` = #00A058 (confirmed)
+- `--skeleton-color-bg-default` = #E8ECEF (confirmed)
+- `--skeleton-radius` = 4px (confirmed)
+- `--skeleton-full-radius` = 9999px (confirmed)
+- `--tooltip-color-bg-default` = #FFFFFF (confirmed)
+- `--tooltip-color-bg-error` = #FFDCDC (confirmed)
+- `--tooltip-color-fg-default` = #454F59 (confirmed)
+- `--tooltip-color-fg-error` = #B8282B (confirmed)
+- `--tooltip-radius` = 8px (confirmed)
+- `--tooltip-space-padding-x` = 12px (confirmed)
+- `--tooltip-space-padding-y` = 12px (confirmed)
+- `--tooltip-shadow` = 0px 4px 8px 0px #00000024 (confirmed)
+- `--tooltip-arrow-size-width` = 10px (confirmed)
+- `--tooltip-arrow-size-height` = 6px (confirmed)
+- `--popover-color-bg-default` = #FFFFFF (confirmed)
+- `--popover-radius` = 8px (confirmed)
+- `--popover-space-padding-x` = 12px (confirmed)
+- `--popover-space-padding-y` = 12px (confirmed)
+- `--popover-space-gap` = 8px (confirmed)
+- `--popover-shadow` = 0px 4px 8px 0px #00000024 (confirmed)
+- `--popover-arrow-size-width` = 10px (confirmed)
+- `--popover-arrow-size-height` = 6px (confirmed)
+- `--popover-header-space-gap` = 8px (confirmed)
+- `--popover-footer-space-gap` = 6px (confirmed)
+- `--popover-title-color-fg-default` = #1C1F23 (confirmed)
+- `--popover-content-color-fg-default` = #1C1F23 (confirmed)
+- `--popover-bullet-color-bg-default` = #1C1F23 (confirmed)
+- `--popover-bullet-size` = 3px (confirmed)
+- `--popover-bullet-radius` = 9999px (confirmed)
+- `--toast-color-bg-default` = #03182EE6 (confirmed)
+- `--toast-color-fg-default` = #FFFFFF (confirmed)
+- `--toast-radius` = 12px (confirmed)
+- `--toast-space-padding-x` = 20px (confirmed)
+- `--toast-space-padding-y` = 16px (confirmed)
+- `--toast-space-gap` = 8px (confirmed)
+- `--toast-icon-size` = 20px (confirmed)
+- `--toast-effect-blur` = 20px (confirmed)
+- `--snackbar-info-count-color-fg-default` = #7FAEFF (confirmed)
+- `--snackbar-success-count-color-fg-default` = #3ACF91 (confirmed)
+- `--snackbar-danger-count-color-fg-default` = #F87275 (confirmed)
+- `--snackbar-color-bg-default` = #03182EE6 (confirmed)
+- `--snackbar-radius` = 12px (confirmed)
+- `--snackbar-space-padding-x` = 20px (confirmed)
+- `--snackbar-space-padding-y` = 16px (confirmed)
+- `--snackbar-space-gap` = 40px (confirmed)
+- `--snackbar-title-color-fg-default` = #FFFFFF (confirmed)
+- `--snackbar-content-space-gap` = 2px (confirmed)
+- `--snackbar-group-space-gap` = 8px (confirmed)
+- `--snackbar-separator-color-bg-default` = #B3B9C0 (confirmed)
+- `--snackbar-separator-size` = 3px (confirmed)
+- `--snackbar-separator-radius` = 9999px (confirmed)
+- `--snackbar-label-color-fg-default` = #C4C9CF (confirmed)
+- `--snackbar-label-space-gap` = 4px (confirmed)
+- `--snackbar-action-group-color-bg-default` = #00000000 (confirmed)
+- `--snackbar-action-group-color-border-default` = #B3B9C0 (confirmed)
+- `--snackbar-action-group-color-fg-default` = #FFFFFF (confirmed)
+- `--snackbar-action-group-border-width` = 1px (confirmed)
+- `--snackbar-action-group-space-gap` = 12px (confirmed)
+- `--snackbar-close-button-size` = 20px (confirmed)
+- `--snackbar-effect-blur` = 20px (confirmed)
+- `--callout-neutral-color-bg-default` = #F8F9FB (confirmed)
+- `--callout-neutral-icon-color-fg-default` = #454F59 (confirmed)
+- `--callout-info-color-bg-default` = #EAF3FF (confirmed)
+- `--callout-info-icon-color-fg-default` = #5895FF (confirmed)
+- `--callout-success-color-bg-default` = #DFFEF0 (confirmed)
+- `--callout-success-icon-color-fg-default` = #1AB46E (confirmed)
+- `--callout-attention-color-bg-default` = #FFF7DC (confirmed)
+- `--callout-attention-icon-color-fg-default` = #F5B54F (confirmed)
+- `--callout-warning-color-bg-default` = #FFEEDA (confirmed)
+- `--callout-warning-icon-color-fg-default` = #FF9D3B (confirmed)
+- `--callout-danger-color-bg-default` = #FFE9E9 (confirmed)
+- `--callout-danger-icon-color-fg-default` = #EA5154 (confirmed)
+- `--callout-highlight-color-bg-default` = #F1F2FF (confirmed)
+- `--callout-highlight-icon-color-fg-default` = #502DFB (confirmed)
+- `--callout-horizontal-space-padding-x` = 24px (confirmed)
+- `--callout-horizontal-title-space-gap` = 20px (confirmed)
+- `--callout-horizontal-message-color-fg-default` = #1C1F23 (confirmed)
+- `--callout-vertical-space-padding-x` = 16px (confirmed)
+- `--callout-vertical-message-color-fg-default` = #454F59 (confirmed)
+- `--callout-vertical-message-space-padding-top` = 2px (confirmed)
+- `--callout-vertical-content-space-gap` = 2px (confirmed)
+- `--callout-radius` = 8px (confirmed)
+- `--callout-space-padding-y` = 12px (confirmed)
+- `--callout-space-gap` = 8px (confirmed)
+- `--callout-icon-size` = 20px (confirmed)
+- `--callout-title-color-fg-default` = #1C1F23 (confirmed)
+- `--accordion-color-bg-default` = #FFFFFF (confirmed)
+- `--accordion-color-border-default` = #E8ECEF (confirmed)
+- `--accordion-border-width` = 1px (confirmed)
+- `--accordion-header-color-bg-default` = #00000000 (confirmed)
+- `--accordion-header-color-bg-hover` = #F8F9FB (confirmed)
+- `--accordion-header-color-bg-pressed` = #F1F3F5 (confirmed)
+- `--accordion-header-color-bg-disabled` = #00000000 (confirmed)
+- `--accordion-header-color-fg-default` = #1C1F23 (confirmed)
+- `--accordion-header-color-fg-hover` = #1C1F23 (confirmed)
+- `--accordion-header-color-fg-pressed` = #1C1F23 (confirmed)
+- `--accordion-header-color-fg-disabled` = #B3B9C0 (confirmed)
+- `--accordion-title-space-gap` = 8px (confirmed)
+- `--accordion-basic-large-size-height` = 64px (confirmed)
+- `--accordion-basic-large-space-padding-x` = 24px (confirmed)
+- `--accordion-basic-large-content-space-padding-bottom` = 40px (confirmed)
+- `--accordion-basic-large-icon-size` = 20px (confirmed)
+- `--accordion-basic-medium-size-height` = 52px (confirmed)
+- `--accordion-basic-medium-space-padding-x` = 20px (confirmed)
+- `--accordion-basic-medium-content-space-padding-bottom` = 32px (confirmed)
+- `--accordion-basic-medium-icon-size` = 16px (confirmed)
+- `--accordion-basic-space-gap` = 12px (confirmed)
+- `--accordion-basic-header-space-gap` = 24px (confirmed)
+- `--accordion-compact-size-height` = 48px (confirmed)
+- `--accordion-compact-space-gap` = 4px (confirmed)
+- `--accordion-compact-header-space-gap` = 8px (confirmed)
+- `--accordion-compact-content-space-padding-bottom` = 20px (confirmed)
+- `--accordion-compact-icon-size` = 16px (confirmed)
+- `--accordion-text-header-color-fg-default` = #454F59 (confirmed)
+- `--accordion-text-header-color-fg-hover` = #303942 (confirmed)
+- `--accordion-text-header-color-fg-pressed` = #1C1F23 (confirmed)
+- `--accordion-text-header-color-fg-disabled` = #B3B9C0 (confirmed)
+- `--accordion-text-header-space-gap` = 6px (confirmed)
+- `--accordion-text-icon-size` = 16px (confirmed)
+- `--field-label-color-fg-default` = #1C1F23 (confirmed)
+- `--field-label-subtle-color-fg-default` = #697582 (confirmed)
+- `--field-label-icon-color-fg-default` = #ED3B3E (confirmed)
+- `--field-label-icon-size` = 12px (confirmed)
+- `--field-label-space-gap` = 2px (confirmed)
+
+### 값 변경
+
+- `--color-bg-danger-strongest`: #EA5154 → #ED3B3E
+- `--color-bg-success-strongest`: #1AB46E → #00A058
+- `--color-fg-danger-strongest`: #ED3B3E → #B8282B
+- `--color-border-neutral-strongest`: #1C1F23 → #454F59
+- `--button-primary-color-bg-disabled`: #B4B7FF → #B3B9C0
+- `--button-secondary-color-border-default`: #1C1F23 → #454F59
+- `--button-secondary-color-border-hover`: #1C1F23 → #454F59
+- `--button-secondary-color-border-pressed`: #1C1F23 → #454F59
+- `--button-secondary-color-border-disabled`: #DCE0E5 → #C4C9CF
+- `--button-base-color-border-default`: #C4C9CF → #B3B9C0
+- `--button-base-color-border-hover`: #C4C9CF → #B3B9C0
+- `--button-base-color-border-pressed`: #C4C9CF → #B3B9C0
+- `--button-base-color-border-disabled`: #DCE0E5 → #C4C9CF
+- `--button-accent-color-border-disabled`: #B4B7FF → #C4C9CF
+- `--button-accent-color-fg-disabled`: #6268FF → #B3B9C0
+- `--button-danger-color-border-disabled`: #FCB9B9 → #C4C9CF
+- `--button-danger-color-fg-disabled`: #F87275 → #B3B9C0
+- `--button-text-color-fg-default`: #3617CE → #2F15B2
+- `--button-text-color-fg-hover`: #2F15B2 → #261091
+- `--button-text-color-fg-pressed`: #261091 → #231080
+- `--button-text-color-fg-disabled`: #6268FF → #B3B9C0
+- `--button-icon-only-large-focus-ring-radius`: 9999px → 8px
+- `--button-icon-only-medium-focus-ring-radius`: 9999px → 8px
+- `--button-icon-only-small-focus-ring-radius`: 9999px → 8px
+- `--button-icon-only-radius`: 9999px → 6px
+- `--button-icon-only-plain-color-fg-default`: #697582 → #454F59
+- `--button-icon-only-plain-color-fg-hover`: #454F59 → #303942
+- `--button-icon-only-plain-color-fg-pressed`: #303942 → #1C1F23
+- `--field-color-border-default`: #C4C9CF → #B3B9C0
+- `--field-color-border-hover`: #C4C9CF → #B3B9C0
+- `--field-placeholder-color-fg-default`: #697582 → #B3B9C0
+- `--checkbox-checked-color-bg-disabled`: #B4B7FF → #B3B9C0
+- `--checkbox-checked-color-border-disabled`: #B4B7FF → #B3B9C0
+- `--radio-checked-color-border-disabled`: #B4B7FF → #B3B9C0
+- `--radio-checked-dot-color-bg-disabled`: #B4B7FF → #B3B9C0
+- `--tab-anchor-size-height`: 32px → 52px
+- `--tab-anchor-indicator-border-width`: 2px → 3px
+- `--tab-anchor-group-space-gap`: 16px → 24px
+- `--table-grid-header-color-border-default`: #DCE0E5 → #C4C9CF
+- `--table-grid-header-size-min-height`: 48px → 40px
+- `--table-grid-cell-size-min-height`: 48px → 40px
+- `--table-grid-cell-space-padding-y`: 8px → 4px
+
+### 컴포넌트 글자 스타일 변경 (코드 수정 필요)
+
+- `button-action-medium-label`: `font-label-14-500` → `font-label-15-500`
+- `button-action-small-label`: `font-label-12-500` → `font-label-14-500`
+- `button-inline-medium-label`: `font-label-14-500` → `font-label-15-500`
+- `button-inline-small-label`: `font-label-12-500` → `font-label-14-500`
+- `dateField-large`: `font-label-16-400` → `font-label-16-400 + tabular-nums`
+- `dateField-medium`: `font-label-15-400` → `font-label-15-400 + tabular-nums`
+- `dateField-small`: `font-label-14-400` → `font-label-14-400 + tabular-nums`
+- `tab-anchor-label`: `font-label-14-600` → `font-label-15-600`
+
+### 설명 수정
+
+- `--color-bg-neutral-faint`
+- `--color-bg-neutral-strong`
+- `--color-bg-brand-faint-default`
+- `--color-bg-brand-disabled`
+- `--color-bg-danger-faint`
+- `--color-bg-danger-strong`
+- `--color-bg-danger-strongest`
+- `--color-bg-attention-faint`
+- `--color-bg-warning-faint`
+- `--color-bg-success-strong`
+- `--color-bg-success-strongest`
+- `--color-bg-base`
+- `--color-bg-on-strongest`
+- `--color-fg-neutral-muted-default`
+- `--color-fg-neutral-strongest`
+- `--color-fg-brand-strong-default`
+- `--color-fg-danger-strong`
+- `--color-fg-danger-strongest`
+- `--color-fg-success-strongest`
+- `--color-fg-info-strongest`
+- `--color-border-neutral-strong`
+- `--color-border-neutral-strongest`
+- `--color-border-neutral-disabled`
+- `--color-shadow-medium`
+- `--font-label-16-400-size`
+- `--font-label-16-400-weight`
+- `--font-label-16-400-line-height`
+- `--font-label-16-400-letter-spacing`
+- `--font-label-16-400-family`
+- `--size-dot-small`
+- `--radius-xsmall`
+- `--radius-medium`
+- `--radius-full`
+- `--shadow-medium`
+- `--button-text-color-fg-default`
+- `--button-text-color-fg-hover`
+- `--button-text-color-fg-pressed`
+- `--button-text-color-fg-disabled`
+- `--button-text-color-bg-default`
+- `--button-icon-only-large-focus-ring-radius`
+- `--button-icon-only-medium-focus-ring-radius`
+- `--button-icon-only-small-focus-ring-radius`
+- `--button-icon-only-radius`
+- `--field-color-border-focus`
+- `--field-attention-color-border-default`
+- `--field-required-color-border-default`
+- `--date-field-space-gap`
+- `--selection-control-color-border-default`
+- `--checkbox-checked-color-bg-disabled`
+- `--checkbox-checked-color-border-hover`
+- `--checkbox-checked-color-border-pressed`
+- `--checkbox-checked-color-border-disabled`
+- `--radio-checked-color-border-default`
+- `--radio-checked-color-border-hover`
+- `--radio-checked-color-border-pressed`
+- `--radio-checked-color-border-disabled`
+- `--radio-checked-dot-color-bg-disabled`
+- `--tab-contained-color-border-default`
+- `--tab-contained-space-gap`
+- `--tab-anchor-size-height`
+- `--tab-anchor-indicator-border-width`
+- `--tab-anchor-group-space-gap`
+- `--pagination-color-bg-default`
+- `--pagination-color-bg-hover`
+- `--pagination-color-bg-pressed`
+- `--pagination-color-bg-disabled`
+- `--pagination-color-fg-default`
+- `--pagination-color-fg-hover`
+- `--pagination-color-fg-pressed`
+- `--pagination-color-fg-disabled`
+- `--chip-remove-outlined-color-border-default`
+- `--chip-filter-color-border-default`
+- `--badge-basic-info-color-bg-default`
+- `--badge-basic-info-color-fg-default`
+- `--badge-basic-success-color-bg-default`
+- `--badge-basic-success-color-fg-default`
+- `--badge-basic-danger-color-bg-default`
+- `--badge-basic-danger-color-fg-default`
+- `--badge-basic-warning-color-bg-default`
+- `--badge-basic-warning-color-fg-default`
+- `--badge-basic-attention-color-bg-default`
+- `--badge-basic-attention-color-fg-default`
+- `--badge-basic-neutral-color-bg-default`
+- `--badge-basic-neutral-color-fg-default`
+- `--badge-dotted-info-dot-color-bg-default`
+- `--badge-dotted-success-dot-color-bg-default`
+- `--badge-dotted-danger-dot-color-bg-default`
+- `--badge-dotted-warning-dot-color-bg-default`
+- `--badge-dotted-attention-dot-color-bg-default`
+- `--badge-dotted-neutral-dot-color-bg-default`
+- `--badge-dotted-color-fg-default`
+- `--badge-counter-neutral-color-bg-default`
+- `--badge-counter-neutral-color-bg-disabled`
+- `--badge-counter-neutral-subtle-color-bg-default`
+- `--badge-counter-neutral-subtle-color-bg-disabled`
+- `--table-cell-color-bg-default`
+- `--table-cell-color-bg-hover`
+- `--table-cell-color-bg-error`
+- `--table-cell-color-bg-disabled`
+- `--table-cell-color-fg-default`
+- `--table-bullet-color-bg-default`
+- `--table-selected-cell-color-bg-default`
+- `--table-attention-cell-color-bg-default`
+- `--table-grid-header-color-border-default`
+- `--table-grid-header-size-min-height`
+- `--table-grid-header-space-padding-x`
+- `--table-form-header-space-gap`
+- `--table-grid-cell-size-min-height`
+- `--table-grid-cell-space-padding-x`
+- `--table-grid-cell-space-padding-y`
+- `--overlay-color-bg-default`
+- `--overlay-backdrop-color-bg-default`
+- `--overlay-title-color-fg-default`
+- `--overlay-radius`
+- `--overlay-space-padding-x`
+- `--overlay-space-gap`
+- `--overlay-space-padding-y`
+- `--overlay-shadow`
+- `--viewer-modal-toolbar-color-fg-default`
+
+## v2.0.4 — 2026-11-13 (v1.0.0 대비)
+
+토큰 1535개 (confirmed 1535). 운영 출력 1535개.
+
+### 삭제 (코드 수정 필요)
+
+- `--color-black-alpha-10` (대체 없음: 그림자 색은 color-shadow-*(blackAlpha 20~36)를 쓴다)
+- `--color-black-alpha-12` (대체 없음: 그림자 색은 color-shadow-*(blackAlpha 20~36)를 쓴다)
+- `--color-black-alpha-14` (대체 없음: 그림자 색은 color-shadow-*(blackAlpha 20~36)를 쓴다)
+- `--color-black-alpha-16` (대체 없음: 그림자 색은 color-shadow-*(blackAlpha 20~36)를 쓴다)
+- `--color-black-alpha-18` (대체 없음: 그림자 색은 color-shadow-*(blackAlpha 20~36)를 쓴다)
+- `--effect-offset-y-6` (대체 없음: 그림자 묶음 shadow-*를 쓴다)
+- `--effect-offset-y-16` (대체 없음: 그림자 묶음 shadow-*를 쓴다)
+- `--effect-blur-2` (대체 없음: 그림자 묶음 shadow-*를 쓴다)
+- `--effect-blur-4` (대체 없음: 그림자 묶음 shadow-*를 쓴다)
+- `--effect-blur-8` (대체 없음: 그림자 묶음 shadow-*를 쓴다)
+- `--date-field-large-space-padding-x` → `--date-field-large-space-padding-start`, `--date-field-large-space-padding-end`
+- `--date-field-medium-space-padding-x` → `--date-field-medium-space-padding-start`, `--date-field-medium-space-padding-end`
+- `--date-field-small-space-padding-x` → `--date-field-small-space-padding-start`, `--date-field-small-space-padding-end`
+- `--date-field-separator-space-gap` (대체 없음: 기간 입력이 상자 하나가 되어 시작·끝·구분 기호 사이는 dateField-space-gap을 쓴다)
+- `--search-trigger-large-size-height` → `--lookup-field-large-size-height`
+- `--search-trigger-large-space-padding-x` → `--lookup-field-large-space-padding-x`
+- `--search-trigger-large-focus-ring-radius` → `--lookup-field-large-focus-ring-radius`
+- `--search-trigger-medium-size-height` → `--lookup-field-medium-size-height`
+- `--search-trigger-medium-space-padding-x` → `--lookup-field-medium-space-padding-x`
+- `--search-trigger-medium-focus-ring-radius` → `--lookup-field-medium-focus-ring-radius`
+- `--search-trigger-small-size-height` → `--lookup-field-small-size-height`
+- `--search-trigger-small-space-padding-x` → `--lookup-field-small-space-padding-x`
+- `--search-trigger-small-focus-ring-radius` → `--lookup-field-small-focus-ring-radius`
+- `--search-trigger-space-gap` → `--lookup-field-space-gap`
+- `--search-trigger-helper-space-gap` → `--lookup-field-helper-space-gap`
+- `--search-trigger-label-space-gap` → `--lookup-field-label-space-gap`
+- `--search-trigger-radius` → `--lookup-field-radius`
+- `--search-trigger-border-width` → `--lookup-field-border-width`
+- `--overlay-shadow` → `--alert-shadow`, `--dialog-shadow`, `--modal-shadow`, `--viewer-modal-shadow`
+- `--tooltip-shadow` (대체 없음: 툴팁 그림자가 없어졌다)
+- `DsgSemanticVar` → `DsSemanticVar` (tokens.d.ts 타입 이름)
+- `DsgComponentVars` → `DsComponentVars` (tokens.d.ts 타입 이름)
+- `DsgComponentVar` → `DsComponentVar` (tokens.d.ts 타입 이름)
+- `DsgCssVar` → `DsCssVar` (tokens.d.ts 타입 이름)
+- `DsgVarRef` → `DsVarRef` (tokens.d.ts 타입 이름)
+
+### 운영 출력 변경: 추가
+
+- `--color-black-alpha-20`
+- `--color-black-alpha-24`
+- `--color-black-alpha-28`
+- `--color-black-alpha-32`
+- `--color-black-alpha-36`
+- `--space-0`
+- `--size-22`
+- `--effect-blur-6`
+- `--effect-blur-44`
+- `--space-body-padding-x`
+- `--space-body-padding-y`
+- `--space-body-gap`
+- `--space-title-gap`
+- `--space-contents-gap`
+- `--space-section-spaced-gap`
+- `--space-section-joined-gap`
+- `--space-block-padding-y`
+- `--space-block-padding-x`
+- `--date-field-small-space-padding-start`
+- `--date-field-small-space-padding-end`
+- `--date-field-medium-space-padding-start`
+- `--date-field-medium-space-padding-end`
+- `--date-field-large-space-padding-start`
+- `--date-field-large-space-padding-end`
+- `--lookup-field-small-size-height`
+- `--lookup-field-small-space-padding-x`
+- `--lookup-field-small-focus-ring-radius`
+- `--lookup-field-medium-size-height`
+- `--lookup-field-medium-space-padding-x`
+- `--lookup-field-medium-focus-ring-radius`
+- `--lookup-field-large-size-height`
+- `--lookup-field-large-space-padding-x`
+- `--lookup-field-large-focus-ring-radius`
+- `--lookup-field-space-gap`
+- `--lookup-field-helper-space-gap`
+- `--lookup-field-label-space-gap`
+- `--lookup-field-radius`
+- `--lookup-field-border-width`
+- `--table-bullet-space-gap`
+- `--table-form-header-icon-space-gap`
+- `--alert-shadow`
+- `--dialog-header-space-gap`
+- `--dialog-shadow`
+- `--viewer-modal-value-space-padding-x`
+- `--viewer-modal-shadow`
+- `--modal-shadow`
+- `--calendar-label-space-gap`
+- `--calendar-value-space-gap`
+- `--calendar-separator-color-fg-default`
+- `--context-menu-color-border-default`
+- `--context-menu-border-width`
+- `--popover-bullet-space-gap`
+
+### 토큰 추가
+
+- `--color-black-alpha-20` = #00000033 (confirmed)
+- `--color-black-alpha-24` = #0000003D (confirmed)
+- `--color-black-alpha-28` = #00000047 (confirmed)
+- `--color-black-alpha-32` = #00000052 (confirmed)
+- `--color-black-alpha-36` = #0000005C (confirmed)
+- `--space-0` = 0px (confirmed)
+- `--size-22` = 22px (confirmed)
+- `--effect-blur-6` = 6px (confirmed)
+- `--effect-blur-44` = 44px (confirmed)
+- `--space-body-padding-x` = 24px (confirmed)
+- `--space-body-padding-y` = 20px (confirmed)
+- `--space-body-gap` = 12px (confirmed)
+- `--space-title-gap` = 8px (confirmed)
+- `--space-contents-gap` = 20px (confirmed)
+- `--space-section-spaced-gap` = 8px (confirmed)
+- `--space-section-joined-gap` = 0px (confirmed)
+- `--space-block-padding-y` = 12px (confirmed)
+- `--space-block-padding-x` = 24px (confirmed)
+- `--date-field-small-space-padding-start` = 12px (confirmed)
+- `--date-field-small-space-padding-end` = 10px (confirmed)
+- `--date-field-medium-space-padding-start` = 14px (confirmed)
+- `--date-field-medium-space-padding-end` = 12px (confirmed)
+- `--date-field-large-space-padding-start` = 14px (confirmed)
+- `--date-field-large-space-padding-end` = 12px (confirmed)
+- `--lookup-field-small-size-height` = 28px (confirmed)
+- `--lookup-field-small-space-padding-x` = 12px (confirmed)
+- `--lookup-field-small-focus-ring-radius` = 8px (confirmed)
+- `--lookup-field-medium-size-height` = 36px (confirmed)
+- `--lookup-field-medium-space-padding-x` = 14px (confirmed)
+- `--lookup-field-medium-focus-ring-radius` = 8px (confirmed)
+- `--lookup-field-large-size-height` = 40px (confirmed)
+- `--lookup-field-large-space-padding-x` = 14px (confirmed)
+- `--lookup-field-large-focus-ring-radius` = 8px (confirmed)
+- `--lookup-field-space-gap` = 8px (confirmed)
+- `--lookup-field-helper-space-gap` = 4px (confirmed)
+- `--lookup-field-label-space-gap` = 8px (confirmed)
+- `--lookup-field-radius` = 6px (confirmed)
+- `--lookup-field-border-width` = 1px (confirmed)
+- `--table-bullet-space-gap` = 4px (confirmed)
+- `--table-form-header-icon-space-gap` = 4px (confirmed)
+- `--alert-shadow` = 0px 2px 20px 0px #00000047 (confirmed)
+- `--dialog-header-space-gap` = 8px (confirmed)
+- `--dialog-shadow` = 0px 2px 20px 0px #00000047 (confirmed)
+- `--viewer-modal-value-space-padding-x` = 4px (confirmed)
+- `--viewer-modal-shadow` = 0px 4px 32px 0px #00000052 (confirmed)
+- `--modal-shadow` = 0px 4px 32px 0px #00000052 (confirmed)
+- `--calendar-label-space-gap` = 12px (confirmed)
+- `--calendar-value-space-gap` = 4px (confirmed)
+- `--calendar-separator-color-fg-default` = #697582 (confirmed)
+- `--context-menu-color-border-default` = #C4C9CF (confirmed)
+- `--context-menu-border-width` = 1px (confirmed)
+- `--popover-bullet-space-gap` = 4px (confirmed)
+
+### 값 변경
+
+- `--color-shadow-xsmall`: #0000001A → #00000033
+- `--color-shadow-small`: #0000001F → #0000003D
+- `--color-shadow-medium`: #00000024 → #00000047
+- `--color-shadow-large`: #00000029 → #00000052
+- `--color-shadow-xlarge`: #0000002E → #0000005C
+- `--size-control-medium`: 32px → 36px
+- `--shadow-xsmall`: 0px 1px 2px 0px #0000001A → 0px 1px 6px 0px #00000033
+- `--shadow-small`: 0px 2px 4px 0px #0000001F → 0px 2px 12px 0px #0000003D
+- `--shadow-medium`: 0px 4px 8px 0px #00000024 → 0px 2px 20px 0px #00000047
+- `--shadow-large`: 0px 6px 12px 0px #00000029 → 0px 4px 32px 0px #00000052
+- `--shadow-xlarge`: 0px 16px 32px 0px #0000002E → 0px 4px 44px 0px #0000005C
+- `--button-action-medium-size-height`: 32px → 36px
+- `--button-inline-medium-size-height`: 32px → 36px
+- `--button-icon-only-medium-size`: 32px → 36px
+- `--field-required-color-bg-readonly`: #FFE4C4 → #F1F3F5
+- `--field-required-color-border-readonly`: #FFD2A3 → #DCE0E5
+- `--select-list-shadow`: 0px 4px 8px 0px #00000024 → 0px 2px 12px 0px #0000003D
+- `--select-medium-size-height`: 32px → 36px
+- `--select-medium-option-size-height`: 32px → 36px
+- `--select-large-option-size-height`: 36px → 40px
+- `--text-field-medium-size-height`: 32px → 36px
+- `--password-field-medium-size-height`: 32px → 36px
+- `--search-field-medium-size-height`: 32px → 36px
+- `--date-field-medium-size-height`: 32px → 36px
+- `--tag-basic-size-height`: 24px → 22px
+- `--badge-basic-size-height`: 24px → 22px
+- `--viewer-modal-toolbar-shadow`: 0px 6px 12px 0px #00000029 → 0px 2px 20px 0px #00000047
+- `--calendar-time-space-gap`: 4px → 8px
+- `--calendar-shadow`: 0px 4px 8px 0px #00000024 → 0px 2px 12px 0px #0000003D
+- `--context-menu-shadow`: 0px 4px 8px 0px #00000024 → 0px 2px 12px 0px #0000003D
+- `--stepper-medium-size-height`: 32px → 36px
+- `--side-panel-shadow`: 0px 16px 32px 0px #0000002E → 0px 2px 20px 0px #00000047
+- `--toolbar-shadow`: 0px 6px 12px 0px #00000029 → 0px 2px 20px 0px #00000047
+- `--toggle-button-size`: 32px → 36px
+- `--tooltip-color-bg-default`: #FFFFFF → #303942
+- `--tooltip-color-fg-default`: #454F59 → #FFFFFF
+- `--popover-shadow`: 0px 4px 8px 0px #00000024 → 0px 2px 12px 0px #0000003D
+
+### 컴포넌트 글자 스타일 변경 (코드 수정 필요)
+
+- `chip-remove-count`: `font-label-14-600` → `font-label-14-600 + tabular-nums`
+- `toolbar-count`: `font-label-14-500` → `font-label-14-500 + tabular-nums`
+
+### 설명 수정
+
+- `--color-shadow-xsmall`
+- `--color-shadow-small`
+- `--color-shadow-medium`
+- `--color-shadow-large`
+- `--color-shadow-xlarge`
+- `--size-control-medium`
+- `--shadow-xsmall`
+- `--shadow-small`
+- `--shadow-medium`
+- `--shadow-large`
+- `--shadow-xlarge`
+- `--button-text-color-fg-default`
+- `--button-text-color-fg-hover`
+- `--button-text-color-fg-pressed`
+- `--button-text-color-fg-disabled`
+- `--button-text-color-bg-default`
+- `--button-text-space-gap`
+- `--button-text-icon-size`
+- `--button-action-medium-size-height`
+- `--button-inline-medium-size-height`
+- `--button-icon-only-medium-size`
+- `--field-color-bg-default`
+- `--field-color-border-default`
+- `--field-color-border-focus`
+- `--field-color-fg-default`
+- `--field-attention-color-bg-default`
+- `--field-attention-color-border-default`
+- `--field-attention-color-border-focus`
+- `--field-required-color-bg-default`
+- `--field-required-color-bg-readonly`
+- `--field-required-color-border-default`
+- `--field-required-color-border-focus`
+- `--field-required-color-border-readonly`
+- `--select-list-shadow`
+- `--select-medium-size-height`
+- `--select-medium-option-size-height`
+- `--select-large-option-size-height`
+- `--text-field-medium-size-height`
+- `--password-field-medium-size-height`
+- `--search-field-medium-size-height`
+- `--date-field-medium-size-height`
+- `--date-field-space-gap`
+- `--date-field-value-space-gap`
+- `--date-field-separator-color-fg-default`
+- `--date-field-separator-color-fg-hover`
+- `--date-field-separator-color-fg-focus`
+- `--date-field-separator-color-fg-error`
+- `--date-field-separator-color-fg-readonly`
+- `--date-field-separator-color-fg-disabled`
+- `--tag-basic-size-height`
+- `--badge-basic-size-height`
+- `--table-attention-cell-color-bg-default`
+- `--viewer-modal-toolbar-shadow`
+- `--calendar-selected-today-dot-color-bg-default`
+- `--calendar-time-space-gap`
+- `--calendar-shadow`
+- `--calendar-today-dot-color-bg-default`
+- `--context-menu-shadow`
+- `--stepper-medium-size-height`
+- `--side-panel-shadow`
+- `--toolbar-shadow`
+- `--toggle-button-size`
+- `--tooltip-color-bg-default`
+- `--tooltip-color-fg-default`
+- `--popover-shadow`

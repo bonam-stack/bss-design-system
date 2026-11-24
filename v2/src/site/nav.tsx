@@ -88,7 +88,9 @@ export function sections(role: Role): Section[] {
             ['icons', '아이콘'],
           ] as [string, string][]
         ).map(([r, l]): NavItem => [r, l, '디자인 에셋']),
-        ['tokens', '디자인 토큰'],
+        ['tokens', '토큰 목록', '디자인 토큰'],
+        ['token-guide', '토큰 개발 가이드', '디자인 토큰'],
+        ['token-changelog', '토큰 변경 이력', '디자인 토큰'],
       ],
     ],
     ['mine', 'Workboard', [['workboard', 'Workboard']]],

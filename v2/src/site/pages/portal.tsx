@@ -7,6 +7,7 @@ import { usePortal } from '../portal/ctx';
 import { patterns, usage } from '../data';
 import { docsFor, docsIn, guideRoute, guideSource } from '../guide';
 import { AiSummary } from './AiSummary';
+import { TokenDoc } from './TokenDocs';
 import { UsagePanel } from './UsagePanel';
 import { SbSpec } from './SbSpec';
 import { compGroups, docGroup, hostOf } from '../nav';
@@ -29,6 +30,8 @@ export function portalPage(route: string, role: Role): ReactNode | null {
     case 'updates': return <Updates />;
     case 'foundations': return <FoundationsOverview />;
     case 'tokens': return <TokensPage />;
+    case 'token-guide': return <TokenDoc which="guide" />;
+    case 'token-changelog': return <TokenDoc which="changelog" />;
     case 'color': return <ColorPage />;
     case 'typography': return <TypographyPage />;
     case 'spacing': case 'sizing': case 'radius': case 'border-width': case 'shadow': return <ScalePage key={route} id={route} />;
