@@ -3,8 +3,11 @@
 import { useEffect, useState } from 'react';
 import type { ReactNode } from 'react';
 import { Head } from '../ui';
-import { guideDoc, guideRoute, guideSource, inline, loadGuideDoc } from '../guide';
+import { guideDoc, guideRoute, guideSource, inline, loadGuideDoc, guideRules } from '../guide';
 import type { Block, GuideDoc, Place } from '../guide';
+
+/** 문서의 i번째 권장 · 금지 규칙 코드 (structure.json의 rules는 문서의 Do · Don't 순서와 같다) */
+const ruleIdOf = (doc: string, kind: '권장' | '금지', i: number) => guideRules.filter((r) => r.doc === doc && r.kind === kind)[i]?.id;
 
 export const PLACE_LABEL: Record<Place, string> = { start: 'UX 가이드라인 · 원칙', foundations: 'UX 가이드라인 · 화면 구조', patterns: 'UX 가이드라인 · 화면 가이드', blocks: 'Blocks · 모듈 정의', components: 'Components', governance: '거버넌스' };
 
@@ -138,7 +141,7 @@ export function GuideBody({ d, level = 2 }: { d: GuideDoc; level?: 2 | 3 }) {
                     <ul>
                       {d.do.map((t, i) => (
                         <li key={i}>
-                          <Html text={t} />
+                          {ruleIdOf(d.id, '권장', i) ? <code className="rid">{ruleIdOf(d.id, '권장', i)}</code> : null} <Html text={t} />
                         </li>
                       ))}
                     </ul>
@@ -150,7 +153,7 @@ export function GuideBody({ d, level = 2 }: { d: GuideDoc; level?: 2 | 3 }) {
                     <ul>
                       {d.dont.map((t, i) => (
                         <li key={i}>
-                          <Html text={t} />
+                          {ruleIdOf(d.id, '금지', i) ? <code className="rid">{ruleIdOf(d.id, '금지', i)}</code> : null} <Html text={t} />
                         </li>
                       ))}
                     </ul>

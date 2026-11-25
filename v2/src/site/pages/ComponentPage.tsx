@@ -705,6 +705,7 @@ function PolicySection({ pl }: { pl: NonNullable<Guide['policy']> }) {
         <table className="data gd-table gd-rules">
           <thead>
             <tr>
+              <th>코드</th>
               <th>항목</th>
               <th>기준</th>
               <th>출처</th>
@@ -713,6 +714,7 @@ function PolicySection({ pl }: { pl: NonNullable<Guide['policy']> }) {
           <tbody>
             {pl.rules.map((r, i) => (
               <tr key={i}>
+                <td className="mono nowrap">{r.id || ''}</td>
                 <td className="pt-type">
                   {r.id ? <Editable {...G} path={`policy.${r.id}.name`} label={`${r.id} 항목`} value={r.name} onSave={setRule(r.id, (t) => `\u0000: ${split(t)[1]}`)} /> : r.name}
                 </td>
@@ -731,13 +733,13 @@ function PolicySection({ pl }: { pl: NonNullable<Guide['policy']> }) {
           {(pl.do || []).length ? (
             <section className="gd-do">
               <h4>Do · 이렇게 합니다</h4>
-              <ul>{pl.do!.map((t, i) => <li key={i}>{typeof t !== 'string' && t.id ? <><Editable {...G} path={`policy.${t.id}`} label={`${t.id} Do`} value={t.text} onSave={setRule(t.id, () => '\u0000')} /></> : itemText(t)}</li>)}</ul>
+              <ul>{pl.do!.map((t, i) => <li key={i}>{typeof t !== 'string' && t.id ? <><code className="rid">{t.id}</code> <Editable {...G} path={`policy.${t.id}`} label={`${t.id} Do`} value={t.text} onSave={setRule(t.id, () => '\u0000')} /></> : itemText(t)}</li>)}</ul>
             </section>
           ) : null}
           {(pl.dont || []).length ? (
             <section className="gd-dont">
               <h4>Don't · 이건 피합니다</h4>
-              <ul>{pl.dont!.map((t, i) => <li key={i}>{typeof t !== 'string' && t.id ? <><Editable {...G} path={`policy.${t.id}`} label={`${t.id} Don't`} value={t.text} onSave={setRule(t.id, () => '\u0000')} /></> : itemText(t)}</li>)}</ul>
+              <ul>{pl.dont!.map((t, i) => <li key={i}>{typeof t !== 'string' && t.id ? <><code className="rid">{t.id}</code> <Editable {...G} path={`policy.${t.id}`} label={`${t.id} Don't`} value={t.text} onSave={setRule(t.id, () => '\u0000')} /></> : itemText(t)}</li>)}</ul>
             </section>
           ) : null}
         </div>

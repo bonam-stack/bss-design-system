@@ -252,6 +252,7 @@ export function RuleList({ list }: { list: Rule[] }) {
     <ul className="rl">
       {list.map((x) => (
         <li key={x.id}>
+          <code className="rid">{x.id}</code>
           <span className="rk">{x.kind}</span>
           <p>
             {human(x.text)}

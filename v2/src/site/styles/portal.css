@@ -524,3 +524,6 @@ ol.flow li > :not(:first-child), ol.flow li > strong + span { grid-column: 2; }
 
 .brand-gen { margin-left: 2px; padding: 0 6px; border-radius: 6px; background: var(--accent); color: #fff; font-size: 11px; font-weight: 700; vertical-align: middle; }
 .fd-box.sh { width: 64px; height: 40px; border: 1px solid var(--border); background: #fff; border-radius: 8px; }
+
+/* 판정 코드 (규칙 · 검증 규칙 번호) */
+code.rid { display: inline-block; margin-right: 6px; padding: 0 6px; border-radius: 4px; background: var(--surface-weak, #F4F5F7); color: var(--fg-muted); font: 11px/1.7 ui-monospace, SFMono-Regular, Menlo, monospace; white-space: nowrap; vertical-align: 1px; }

@@ -498,7 +498,7 @@ function ItemPage({ it }: { it: Item }) {
                 title: '',
                 lead: '',
                 when: { use: it.policy?.use || [], avoid: it.policy?.avoid || [] },
-                rules: ru.filter((r) => !r.source).slice(0, 6).map((r) => ({ name: r.kind, desc: r.text, from: r.doc })),
+                rules: ru.filter((r) => !r.source).slice(0, 6).map((r) => ({ id: r.id, name: r.kind, desc: r.text, from: r.doc })),
                 do: it.policy?.do || ru.filter((r) => r.source && r.kind === '권장').map((r) => r.text),
                 dont: it.policy?.dont || ru.filter((r) => r.source && r.kind === '금지').map((r) => r.text),
               }}
@@ -749,9 +749,10 @@ function Rules() {
         <span className="muted">{L.length}건 · 포털 규칙 + UX 패턴 가이드 {guideSource.release} (권장 · 금지)</span>
       </div>
       <Table
-        cols={['종류', '문서', '내용', '대상', ...(editor ? [''] : [])]}
+        cols={['코드', '종류', '문서', '내용', '대상', ...(editor ? [''] : [])]}
         rows={L.flatMap((r) => [
           <tr key={r.id}>
+            <td className="mono nowrap">{r.id}</td>
             <td>
               <span className="rk">{r.kind}</span>
               {P.openDraft('rule', r.id) && isEditor ? (
@@ -778,7 +779,7 @@ function Rules() {
           </tr>,
           editor && ui.editRule === r.id ? (
             <tr key={`${r.id}-edit`} className="erow">
-              <td colSpan={5}>
+              <td colSpan={6}>
                 <form className="ef" onSubmit={onEdit(r.id)}>
                   <div className="ef-r">
                     <label>
@@ -993,9 +994,10 @@ function Lint() {
         검증 규칙
       </h2>
       <Table
-        cols={['내용', '판정 조건', '판정하는 때', '심각도']}
+        cols={['코드', '내용', '판정 조건', '판정하는 때', '심각도']}
         rows={L.map((r) => (
           <tr key={r.id}>
+            <td className="mono nowrap">{r.id}</td>
             <td>
               <b>{r.name}</b>
               <span className="fd-sub">{human(r.target)}</span>

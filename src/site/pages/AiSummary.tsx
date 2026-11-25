@@ -60,7 +60,7 @@ export function AiSummary({ k, name, codeName, meaning, props, policy, actions }
               <ul>
                 {s.rules.map((r, i) => (
                   <li key={i}>
-                    <b>{r.name}</b> {human(r.rule)}
+                    {r.id ? <code className="rid">{r.id}</code> : null} <b>{r.name}</b> {human(r.rule)}
                   </li>
                 ))}
               </ul>

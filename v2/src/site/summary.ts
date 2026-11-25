@@ -11,7 +11,7 @@ export interface SummaryInput {
   meaning: string;
   use?: string[];
   avoid?: { text: string; alt?: string }[];
-  rules?: { name: string; desc: string }[];
+  rules?: { id?: string; name: string; desc: string }[];
   do?: string[];
   dont?: string[];
   props?: { name: string; type: string; default?: unknown; options?: string[] }[];
@@ -34,7 +34,7 @@ export interface Summary {
   /** 쓸 때 (최대 2) */
   use: string[];
   /** 꼭 지킬 기준 (최대 3, 첫 문장) */
-  rules: { name: string; rule: string }[];
+  rules: { id?: string; name: string; rule: string }[];
   /** 대신 쓸 것 (최대 2) */
   instead: { case: string; use: string }[];
   /** 하지 않음 (최대 2, 기준과 겹치는 문장 제외) */
@@ -55,7 +55,7 @@ export const firstSentence = (s: string) => (String(s).match(/^.+?[.다](?=\s|$)
 const head = (t: string) => plain(t).replace(/\s/g, '').slice(0, 6);
 
 export function makeSummary(i: SummaryInput): Summary {
-  const rules = (i.rules || []).slice(0, 3).map((r) => ({ name: r.name, rule: firstSentence(plain(r.desc)) }));
+  const rules = (i.rules || []).slice(0, 3).map((r) => ({ id: r.id, name: r.name, rule: firstSentence(plain(r.desc)) }));
   const inRules = new Set((i.rules || []).slice(0, 3).map((r) => head(r.desc)));
   return {
     kind: i.kind,
