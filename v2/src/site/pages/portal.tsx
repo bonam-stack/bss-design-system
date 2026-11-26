@@ -69,10 +69,10 @@ export function portalPage(route: string, role: Role): ReactNode | null {
 
 function Overview() {
   const cards = [
-    ['ui-rules', '거버넌스', 'UI 규칙', 'UI 규칙 · 디자인 검수 기준 · Figma 작성 기준'],
-    ['foundations', 'Foundations', '컬러 · 타이포 · 여백 · 아이콘 · 토큰', '모든 부품이 쓰는 디자인 에셋'],
-    ['components', 'Components', '묶음별 컴포넌트', '블록 안에 들어가는 최소 부품'],
-    ['blocks', 'Blocks', '공통 블록 · 기능 블록 · BO 블록 · 모듈 정의', '슬롯 하나를 채우는 업무 단위 묶음'],
+    ['tokens', 'DS라이브러리', '토큰 · 스타일 · 아이콘', '모든 부품이 쓰는 디자인 에셋'],
+    ['components', 'DS라이브러리', '컴포넌트', 'BSS DS library에 정의된 Figma 컴포넌트 · 사용 가이드'],
+    ['blocks', 'DS라이브러리 · SB라이브러리', '블록', '화면에서 하나의 역할을 하는 단위 · 코어 블록 · 블록'],
+    ['ui-rules', '거버넌스', 'UI 가이드라인', 'UI 규칙 · 디자인 검수 기준 · Figma 작성 기준'],
     ['workboard', 'Workboard', '요청이 어디까지 진행됐나', '단계별 건수 · 요청 목록 · 요청하기'],
   ];
   return (

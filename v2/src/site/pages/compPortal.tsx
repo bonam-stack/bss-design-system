@@ -162,7 +162,7 @@ export function CompUsage({ k }: { k: string }) {
   if (!parts.length && !pats.length) return null;
   return (
     <>
-      <h2>Usage</h2>
+      <h2 className="sec-n">Usage</h2>
       {parts.length ? (
         <>
           <h3>쓰이는 블록</h3>

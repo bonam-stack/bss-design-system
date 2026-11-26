@@ -49,56 +49,63 @@ export function sections(role: Role): Section[] {
   const S: Section[] = [
     // 홈(개요 · 업데이트)은 위쪽 메뉴에 두지 않는다: 로고를 누르면 개요, 버전을 누르면 업데이트
     ['home', '홈', [['overview', '개요'], ['updates', '업데이트']]],
-    // 규칙 · 절차(거버넌스) → 화면을 짜는 법(UX 가이드라인) → 재료(Foundations → Components → Blocks). 순서는 아래 ORDER
-    // 가이드 문서는 다루는 대상 옆에 둔다: 모듈 정의는 Blocks, 컴포넌트 가이드는 컴포넌트 문서 안
-    // 거버넌스 (v2): UI 규칙만. UX 규칙 · 검증 규칙 · 슬롯 · 용어사전 등은 v2 화면에 두지 않는다 (데이터는 v2/catalog에 있음)
-    ['gov', '거버넌스', [['ui-rules', 'UI 규칙'], ['design-review', '디자인 검수 기준'], ['figma-guide', 'Figma 작성 기준']]],
+    // 메뉴 (v2 · BSS DS 포탈 사이트맵): DS라이브러리 → SB라이브러리 → 거버넌스 → Workboard. 홈은 로고
+    // 가이드 문서는 다루는 대상 옆에 둔다: 컴포넌트 가이드 · 사용 예시는 컴포넌트 문서 안, 모듈 정의는 블록 옆
     [
-      'blocks',
-      'Blocks',
+      'dslib',
+      'DS라이브러리',
       [
-        ['blocks', '전체'],
-        // 공통 · 기능 · BO 블록 안은 같은 블록 성격(앱 구조 · 화면 머리 · 조회조건 …)으로 나눈다
-        ...P.byBlockType(I.filter((i) => i.kind === 'block' && !P.isSb(i))).map((i): NavItem => [i.code, i.name, `공통 블록 › ${P.blockType(i)}`]),
-        // 업무 구분은 블록이 아직 없어도 자리를 둔다 (경로가 빈 항목 = 안내 글)
-        ...P.SB_DOMAINS.flatMap((dm) => {
-          const L = P.byBlockType(I.filter((i) => P.sbDomain(i) === dm)).map((i): NavItem => [i.code, i.name, `${P.SB_GROUP[dm]} › ${P.blockType(i)}`]);
-          return L.length ? L : [['', '—', P.SB_GROUP[dm]] as NavItem];
-        }),
-        ...guideItems('blocks', (g) => `모듈 정의${g ? ` › ${g}` : ''}`),
-      ],
-    ],
-    // 사용 예시(Figma 패턴)는 컴포넌트 문서 안에서 보여 주므로 목록에 따로 두지 않는다
-    ['components', 'Components', [['components', '전체'], ...componentItems(I)]],
-    [
-      'foundations',
-      'Foundations',
-      [
-        ['foundations', '개요'],
+        // 토큰: Primitive → Semantic → Component. 값 종류별 문서(컬러 · 여백 …)는 토큰 아래
         ...(
           [
+            ['tokens', '토큰 목록'],
+            ['foundations', '디자인 에셋 개요'],
             ['color', '컬러'],
-            ['typography', '타이포그래피'],
             ['spacing', '여백'],
             ['sizing', '크기'],
             ['radius', '모서리'],
             ['border-width', '선 두께'],
+            ['token-guide', '토큰 개발 가이드'],
+            ['token-changelog', '토큰 변경 이력'],
+          ] as [string, string][]
+        ).map(([r, l]): NavItem => [r, l, '토큰']),
+        // 스타일: Typography · Shadow · Glass · AI Effect (Glass · AI Effect는 DS 전달본에 아직 없음)
+        ...(
+          [
+            ['typography', '타이포그래피'],
             ['shadow', '그림자'],
             ['motion', '모션'],
             ['writing', '문구 (보이스 · 표기)'],
-            ['icons', '아이콘'],
           ] as [string, string][]
-        ).map(([r, l]): NavItem => [r, l, '디자인 에셋']),
-        ['tokens', '토큰 목록', '디자인 토큰'],
-        ['token-guide', '토큰 개발 가이드', '디자인 토큰'],
-        ['token-changelog', '토큰 변경 이력', '디자인 토큰'],
+        ).map(([r, l]): NavItem => [r, l, '스타일']),
+        ['', 'Glass · AI Effect (준비 중)', '스타일'],
+        ['icons', '아이콘', '아이콘'],
+        ['components', '전체', '컴포넌트'],
+        ...componentItems(I).map(([r, l, g, t]): NavItem => [r, l, `컴포넌트 › ${g}`, t]),
+        // 블록 (DS library): 코어 블록 · 블록. 안은 블록 성격(화면 머리 · 조회조건 …)으로 나눈다
+        ['blocks', '전체', '블록'],
+        ...P.byBlockType(I.filter((i) => i.kind === 'block' && !P.isSb(i))).map((i): NavItem => [i.code, i.name, `블록 › ${P.blockType(i)}`]),
+        ...guideItems('blocks', (g) => `블록 › 모듈 정의${g ? ` › ${g}` : ''}`),
+        ['', '준비 중', '레이아웃'],
       ],
     ],
+    [
+      'sblib',
+      'SB라이브러리',
+      [
+        // 블록: 업무 구분(기능 · BO) 안을 블록 성격으로 나눈다. 블록이 아직 없어도 자리를 둔다 (경로가 빈 항목 = 안내 글)
+        ...P.SB_DOMAINS.flatMap((dm) => {
+          const L = P.byBlockType(I.filter((i) => P.sbDomain(i) === dm)).map((i): NavItem => [i.code, i.name, `블록 › ${P.SB_GROUP[dm]} › ${P.blockType(i)}`]);
+          return L.length ? L : [['', '—', `블록 › ${P.SB_GROUP[dm]}`] as NavItem];
+        }),
+        // 임시 블록: 맞는 블록이 없을 때 AI가 임시로 만든 부품 (자동 동기화 · 관리하지 않음)
+        ['', 'AI가 임시로 만든 부품 · 자동 동기화', '임시 블록'],
+      ],
+    ],
+    // 거버넌스 (v2): UI 가이드라인만. UX 패턴 가이드 · UX 규칙 · 검증 규칙 · 슬롯 · 용어사전 등은 v2 화면에 두지 않는다 (데이터는 v2/catalog에 있음)
+    ['gov', '거버넌스', [['ui-rules', 'UI 규칙', 'UI 가이드라인'], ['design-review', '디자인 검수 기준', 'UI 가이드라인'], ['figma-guide', 'Figma 작성 기준', 'UI 가이드라인']]],
     ['mine', 'Workboard', [['workboard', 'Workboard']]],
   ];
-  // 메뉴 순서 (v2): 거버넌스(UI 규칙) → Foundations → Components → Blocks → Workboard (홈은 로고)
-  const ORDER = ['home', 'gov', 'uxg', 'foundations', 'components', 'blocks', 'mine'];
-  S.sort((x, y) => ORDER.indexOf(x[0]) - ORDER.indexOf(y[0]));
   if (role === 'ux') S.push(['work', 'UX 편집', [['ux-edit', '기준 편집'], ['sb-edit', 'SB library 편집'], ['my', '내 변경'], ['promo', '승격 심사']]]);
   if (role === 'ds') S.push(['work', 'DS 작업', [['requests', '디자인 요청'], ['convert', '소스 변환'], ['my', '내 변경'], ['promo', '승격 심사']]]);
   if (role === 'approver') S.push(['work', '관리자', [['deploy', '운영 서버 배포'], ['recheck', '재검수 대상 SB'], ['roles', '권한 확인'], ['promo', '승격 심사']]]);
@@ -107,8 +114,8 @@ export function sections(role: Role): Section[] {
 
 export function sectionOf(route: string, role: Role) {
   for (const [k, , items] of sections(role)) if (items.some(([r]) => r === route)) return k;
-  if (route.startsWith('pattern-') || route.startsWith('new-')) return 'components';
-  if (route.startsWith('g-') && hostOf(route.slice(2))) return hostOf(route.slice(2))!.kind === 'block' ? 'blocks' : 'components';
+  if (route.startsWith('pattern-') || route.startsWith('new-')) return 'dslib';
+  if (route.startsWith('g-') && hostOf(route.slice(2))) return P.isSb(hostOf(route.slice(2))!) ? 'sblib' : 'dslib';
   return 'home';
 }
 
@@ -156,10 +163,11 @@ function groupItems(items: NavItem[]) {
       top.push(it);
       continue;
     }
+    // ' › '로 나눈 만큼 묶음을 내려간다 (DS라이브러리 › 컴포넌트 › 입력)
     const [a, ...rest] = sub.split(' › ');
-    const g = find(groups, a);
-    if (rest.length) find(g.groups, rest.join(' › ')).items.push(it);
-    else g.items.push(it);
+    let g = find(groups, a);
+    for (const x of rest) g = find(g.groups, x);
+    g.items.push(it);
   }
   return { top, groups };
 }

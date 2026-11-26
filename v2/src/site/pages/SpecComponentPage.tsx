@@ -97,7 +97,7 @@ export function SpecComponentPage({ sc }: { sc: SiteComponent }) {
       )}
       {g?.anatomy ? (
         <>
-          <h2 id="anatomy">Anatomy</h2>
+          <h2 id="anatomy" className="sec-n">Anatomy</h2>
           <p className="note">{g.anatomy.lead}</p>
           <ol className="pt-parts">
             {g.anatomy.parts.map((x) => (
@@ -110,7 +110,7 @@ export function SpecComponentPage({ sc }: { sc: SiteComponent }) {
           </ol>
         </>
       ) : null}
-      <h2 id="props">Properties</h2>
+      <h2 id="props" className="sec-n">Properties</h2>
       {g?.states ? (
         <>
           <h3>{g.states.title}</h3>
@@ -157,9 +157,26 @@ export function SpecComponentPage({ sc }: { sc: SiteComponent }) {
           </tr>
         ))}
       />
+      {g ? (
+        <>
+          <h2 id="guidelines" className="sec-n">Guidelines</h2>
+          {g.overview ? <GuideIntro g={g} c={base} /> : null}
+          {g.policy ? <PolicySection pl={g.policy} /> : null}
+          {(g.notes || []).length ? (
+            <ul className="gd-notes">
+              {g.notes!.map((n, i) => (
+                <li key={i}>{n}</li>
+              ))}
+            </ul>
+          ) : null}
+        </>
+      ) : null}
+      <CompRules k={key} />
+      {/* 04 개발 정보 → 05 Usage (BSS DS 포탈 사이트맵 6-1) */}
       {specNames.length ? (
         <>
-          <h2 id="tokens">토큰</h2>
+          <h2 id="dev" className="sec-n">개발 정보</h2>
+          <h3 id="tokens">연결된 토큰</h3>
           <p className="note">
             DS 컴포넌트 명세({specNames.join(' · ')})에서 변형 · 크기 · 상태마다 어떤 CSS 속성이 어떤 토큰을 쓰는지입니다. 글자는 글자 스타일 토큰을 씁니다:{' '}
             {[...new Set(textStyles.map((t) => `${t.size ? `${t.size} ` : ''}${t.target} ${t.style}`))].join(' · ')}
@@ -180,21 +197,6 @@ export function SpecComponentPage({ sc }: { sc: SiteComponent }) {
           />
         </>
       ) : null}
-      {g ? (
-        <>
-          <h2 id="guidelines">Guidelines</h2>
-          {g.overview ? <GuideIntro g={g} c={base} /> : null}
-          {g.policy ? <PolicySection pl={g.policy} /> : null}
-          {(g.notes || []).length ? (
-            <ul className="gd-notes">
-              {g.notes!.map((n, i) => (
-                <li key={i}>{n}</li>
-              ))}
-            </ul>
-          ) : null}
-        </>
-      ) : null}
-      <CompRules k={key} />
       <CompUsage k={key} />
     </TextScope.Provider>
   );

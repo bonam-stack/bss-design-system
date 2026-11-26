@@ -243,11 +243,11 @@ export function ComponentPage({ sc }: { sc: SiteComponent }) {
       <div id="guideBody">
         {g?.anatomy ? (
           <>
-            <h2>Anatomy</h2>
+            <h2 className="sec-n">Anatomy</h2>
             <AnatomySection sc={sc} an={g.anatomy} />
           </>
         ) : null}
-        <h2>Properties</h2>
+        <h2 className="sec-n">Properties</h2>
         {g?.states ? <StatesSection sc={sc} st={g.states} onCode={showVariant} /> : null}
         {g?.variants ? <VariantsSection sc={sc} vr={g.variants} onCode={showVariant} /> : null}
         {ok && !g?.states ? <Cases sc={sc} sel={sel} /> : null}
@@ -279,7 +279,7 @@ export function ComponentPage({ sc }: { sc: SiteComponent }) {
         </div>
         {g || ru.length ? (
           <>
-            <h2>Guidelines</h2>
+            <h2 className="sec-n">Guidelines</h2>
             {g?.overview ? <GuideIntro g={g} c={c} /> : null}
             <GuideEditor k={key} />
             {g?.policy ? <PolicySection pl={g.policy} /> : null}
@@ -297,8 +297,10 @@ export function ComponentPage({ sc }: { sc: SiteComponent }) {
         ) : null}
         <UsageExamples k={key} />
       </div>
-      <CompUsage k={key} />
+      {/* 04 개발 정보 → 05 Usage (BSS DS 포탈 사이트맵 6-1) */}
+      <h2 className="sec-n">개발 정보</h2>
       <DevDetails c={base} name={sc.name} />
+      <CompUsage k={key} />
     </LiveCtx.Provider>
     </TextScope.Provider>
   );
@@ -531,7 +533,7 @@ function UsageExamples({ k }: { k: string }) {
   if (!used.length) return null;
   return (
     <>
-      <h2>사용 예시</h2>
+      <h3>사용 예시</h3>
       {used.map((p) => (
         <div key={p.key} className="usage-ex">
           <p className="note">
@@ -1113,7 +1115,7 @@ function DevDetails({ c, name }: { c: ComponentData; name: string }) {
   const styles = [...(c.textStyles || []), ...(c.otherStyles || [])];
   return (
     <details className="dev">
-      <summary>개발 정보 · Figma 노드 ID · 컴포넌트 키 · 변형 · 토큰</summary>
+      <summary>Figma 정보 · 노드 ID · 컴포넌트 키 · 변형 · 연결된 토큰 · 스타일 (펼치기)</summary>
       <div className="btn-row">
         <a className="btn" href={c.figma.url} target="_blank" rel="noopener">
           Figma에서 보기 ↗
