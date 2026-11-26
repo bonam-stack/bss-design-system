@@ -883,6 +883,32 @@
    "lead": "컨텐트 모듈 하나 안에서 글자를 찾아 그 위치를 표시하는 표준 기능입니다."
   },
   {
+   "id": "std-value-find",
+   "title": "값 찾아 입력하기",
+   "section": "패턴",
+   "group": "표준 기능",
+   "place": "patterns",
+   "targets": [],
+   "links": [
+    "form-basic",
+    "form-big",
+    "grid-inline",
+    "grid-select",
+    "layout-layer",
+    "mod-split-content",
+    "option-panel",
+    "popup",
+    "resp-form-validation",
+    "resp-masking",
+    "search-conditions",
+    "std-address",
+    "std-target-customer",
+    "ui-comp-input",
+    "view-transitions"
+   ],
+   "lead": "조직 · 사용자 · 코드 · 상품처럼 정해진 데이터 중 하나를 검색해 입력란에 지정하는 방식을 규정합니다."
+  },
+  {
    "id": "mod-general-overview",
    "title": "일반형 화면 모듈 개요",
    "section": "모듈",
@@ -1245,7 +1271,8 @@
     "c-button"
    ],
    "links": [
-    "layout-action"
+    "layout-action",
+    "view-transitions"
    ],
    "lead": "버튼에 무엇이라 쓰고 어떤 아이콘을 붙이는지 정의합니다."
   },
@@ -6193,6 +6220,114 @@
    "source": "UX 패턴 가이드"
   },
   {
+   "id": "STD-VALUE-FIND-01",
+   "doc": "std-value-find",
+   "section": "값 찾아 입력하기",
+   "kind": "권장",
+   "text": "자동완성과 ‘찾기’ 버튼을 함께 두는 기본형을 씁니다.",
+   "targets": [],
+   "source": "UX 패턴 가이드"
+  },
+  {
+   "id": "STD-VALUE-FIND-02",
+   "doc": "std-value-find",
+   "section": "값 찾아 입력하기",
+   "kind": "권장",
+   "text": "정해진 값은 명칭을 기본 표시 형식으로 씁니다.",
+   "targets": [],
+   "source": "UX 패턴 가이드"
+  },
+  {
+   "id": "STD-VALUE-FIND-03",
+   "doc": "std-value-find",
+   "section": "값 찾아 입력하기",
+   "kind": "권장",
+   "text": "찾기 팝업을 열 때 입력란에 쓴 글자로 바로 조회합니다.",
+   "targets": [],
+   "source": "UX 패턴 가이드"
+  },
+  {
+   "id": "STD-VALUE-FIND-04",
+   "doc": "std-value-find",
+   "section": "값 찾아 입력하기",
+   "kind": "권장",
+   "text": "같은 명칭이 있는 대상은 구분값을 함께 표시합니다.",
+   "targets": [],
+   "source": "UX 패턴 가이드"
+  },
+  {
+   "id": "STD-VALUE-FIND-05",
+   "doc": "std-value-find",
+   "section": "값 찾아 입력하기",
+   "kind": "권장",
+   "text": "상위 값이 바뀌면 정해 둔 하위 값을 비웁니다.",
+   "targets": [],
+   "source": "UX 패턴 가이드"
+  },
+  {
+   "id": "STD-VALUE-FIND-06",
+   "doc": "std-value-find",
+   "section": "값 찾아 입력하기",
+   "kind": "금지",
+   "text": "입력한 글자만으로 값을 정하지 않습니다.",
+   "targets": [],
+   "source": "UX 패턴 가이드"
+  },
+  {
+   "id": "STD-VALUE-FIND-07",
+   "doc": "std-value-find",
+   "section": "값 찾아 입력하기",
+   "kind": "금지",
+   "text": "한 화면 안에서 같은 값을 다른 표시 형식으로 섞어 표시하지 않습니다.",
+   "targets": [],
+   "source": "UX 패턴 가이드"
+  },
+  {
+   "id": "STD-VALUE-FIND-08",
+   "doc": "std-value-find",
+   "section": "값 찾아 입력하기",
+   "kind": "금지",
+   "text": "찾기 팝업에 내부 ID 칼럼을 두지 않습니다.",
+   "targets": [],
+   "source": "UX 패턴 가이드"
+  },
+  {
+   "id": "STD-VALUE-FIND-09",
+   "doc": "std-value-find",
+   "section": "값 찾아 입력하기",
+   "kind": "금지",
+   "text": "단일 선택 팝업에 라디오 선택 칼럼을 두지 않습니다.",
+   "targets": [],
+   "source": "UX 패턴 가이드"
+  },
+  {
+   "id": "STD-VALUE-FIND-10",
+   "doc": "std-value-find",
+   "section": "값 찾아 입력하기",
+   "kind": "금지",
+   "text": "팝업 안의 입력란에 ‘찾기’ 버튼을 두지 않습니다.",
+   "targets": [],
+   "source": "UX 패턴 가이드"
+  },
+  {
+   "id": "STD-VALUE-FIND-11",
+   "doc": "std-value-find",
+   "section": "값 찾아 입력하기",
+   "kind": "금지",
+   "text": "팝업 밖에서 ‘찾기’ 버튼 없는 자동완성형을 쓰지 않습니다.",
+   "targets": [],
+   "source": "UX 패턴 가이드"
+  },
+  {
+   "id": "STD-VALUE-FIND-12",
+   "doc": "std-value-find",
+   "section": "값 찾아 입력하기",
+   "kind": "금지",
+   "text": "옵션이 적은 값에 찾기 팝업을 두지 않습니다.",
+   "targets": [],
+   "source": "UX 패턴 가이드"
+  },
+  {
    "id": "MOD-GENERAL-OVERVIEW-01",
    "doc": "mod-general-overview",
    "section": "일반형 화면 모듈 개요",
@@ -8249,7 +8384,7 @@
    "doc": "layout-button-label",
    "section": "버튼 라벨 · 아이콘",
    "kind": "권장",
-   "text": "다음 단계로 넘어가는 버튼에는 `→`를, 그 자리에서 끝나는 버튼에는 `✓`를 붙입니다.",
+   "text": "다음 노드로 넘어가는 버튼에는 `→`를, 노드 흐름을 끝내는 버튼에는 `✓`를 붙입니다.",
    "targets": [],
    "source": "UX 패턴 가이드"
   },
@@ -8321,7 +8456,7 @@
    "doc": "layout-button-label",
    "section": "버튼 라벨 · 아이콘",
    "kind": "금지",
-   "text": "아이콘을 버튼의 동작 표식으로 쓰거나 장식용으로 붙이지 않습니다.",
+   "text": "노드 흐름 중간의 CTA에 ‘완료’를 넣거나 ‘확인’으로 마무리하지 않습니다.",
    "targets": [],
    "source": "UX 패턴 가이드"
   },
@@ -8330,12 +8465,30 @@
    "doc": "layout-button-label",
    "section": "버튼 라벨 · 아이콘",
    "kind": "금지",
-   "text": "레이어로 열리는 팝업에 브라우저 팝업 아이콘을 쓰지 않습니다.",
+   "text": "특수 기능 라벨 목록에 없는 라벨로 업무 페이지 전체를 끝내지 않습니다.",
    "targets": [],
    "source": "UX 패턴 가이드"
   },
   {
    "id": "LAYOUT-BUTTON-LABEL-14",
+   "doc": "layout-button-label",
+   "section": "버튼 라벨 · 아이콘",
+   "kind": "금지",
+   "text": "아이콘을 버튼의 동작 표식으로 쓰거나 장식용으로 붙이지 않습니다.",
+   "targets": [],
+   "source": "UX 패턴 가이드"
+  },
+  {
+   "id": "LAYOUT-BUTTON-LABEL-15",
+   "doc": "layout-button-label",
+   "section": "버튼 라벨 · 아이콘",
+   "kind": "금지",
+   "text": "레이어로 열리는 팝업에 브라우저 팝업 아이콘을 쓰지 않습니다.",
+   "targets": [],
+   "source": "UX 패턴 가이드"
+  },
+  {
+   "id": "LAYOUT-BUTTON-LABEL-16",
    "doc": "layout-button-label",
    "section": "버튼 라벨 · 아이콘",
    "kind": "금지",

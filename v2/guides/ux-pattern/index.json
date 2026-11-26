@@ -532,6 +532,17 @@
       "file": "pages/std-text-search.html"
     },
     {
+      "id": "std-value-find",
+      "title": "값 찾아 입력하기",
+      "section": "패턴 (Patterns)",
+      "path": [
+        "패턴 (Patterns)",
+        "표준 기능",
+        "값 찾아 입력하기"
+      ],
+      "file": "pages/std-value-find.html"
+    },
+    {
       "id": "mod-general-overview",
       "title": "일반형 화면 모듈 개요",
       "section": "모듈 (Modules)",

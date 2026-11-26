@@ -1077,7 +1077,7 @@
       "ux": true,
       "key": "lookup-field",
       "group": "입력",
-      "meaning": "목록이 길어 검색 창에서 찾아 골라야 하는 값을 넣을 때 씁니다",
+      "meaning": "정해진 데이터 중 하나를 자동완성 · 찾기 팝업으로 찾아 지정",
       "variants": "none · attention · required"
     },
     {

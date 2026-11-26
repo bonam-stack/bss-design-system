@@ -71,6 +71,12 @@ def rel(i, desc):
     return {"name": doc(i)["title"], "desc": desc, "file": i}
 
 
+def LABELS():
+    """버튼 라벨 문서의 표준 명칭 표: (명칭, 의미, 쓰지 않는 말)"""
+    t = next(b for b in blocks("layout-button-label", "라벨") if b["type"] == "table")
+    return [(strip_md(r[0]), strip_md(r[1]), strip_md(r[2])) for r in t["rows"]]
+
+
 IN = "ui-comp-input"
 FV = "resp-form-validation"
 def COMMON_REQ(where="field"):
@@ -233,16 +239,26 @@ SPEC = {
             dict(LOCK),
             item(IN, "입력 유효성", "실행 버튼을 잠급니다", "잠그지 않는 경우"),
             item("layout-action", "버튼 그룹", None, "비필수는 묶습니다", "버튼 그룹"),
+            {"name": "표준 명칭", "desc": "라벨은 표준 명칭에서 고릅니다: " + " · ".join(r[0] for r in LABELS()) + ". 쓰지 않는 말: " + " · ".join(f"{r[2]}(→ {r[0]})" for r in LABELS() if r[2] and r[2] not in {x[0] for x in LABELS()}) + ". 상세보기(페이지 · 팝업으로 상세 조회)와 더보기(지금 페이지에서 이어서 노출)는 서로 바꿔 쓰지 않습니다.", "from": "버튼 라벨 · 아이콘 · 라벨"},
             item("layout-button-label", "라벨", None, "‘~하기’ 형태는 권장하지 않습니다", "라벨"),
             item("layout-button-label", "라벨", None, "대상을 앞에 붙일 수 있습니다", "대상 붙이기"),
             item("layout-button-label", "아이콘", None, "이어지는 UI를 예고합니다", "아이콘의 뜻"),
             item("layout-button-label", "아이콘", None, "아이콘은 라벨 왼쪽이 원칙", "아이콘 자리"),
             item("layout-button-label", "아이콘", None, "나가는 방향은 오른쪽입니다", "→ · ↗ 자리"),
+            {"name": "수정 · 변경", "desc": "원래 값이 틀렸거나 최신이 아니면 ‘수정’, 원래 값도 유효한데 다른 값을 고르면 ‘변경’을 씁니다. 주소는 통상 쓰는 말에 맞춰 ‘변경’을 우선합니다.", "from": "버튼 라벨 · 아이콘 · 라벨"},
+            item("layout-button-label", "라벨", "노드 CTA 라벨", "진행은 ‘다음’입니다", "노드 진행 라벨"),
+            item("layout-button-label", "라벨", "노드 CTA 라벨", "‘완료’는 마지막 노드에만 씁니다", "‘완료’ 자리"),
+            item("layout-button-label", "라벨", "노드 CTA 라벨", "실행은 행위를 라벨로 씁니다", "노드 실행 라벨"),
+            item("layout-button-label", "라벨", "노드 CTA 라벨", "실행 라벨에도 다음 노드가 있으면 `→`를 붙입니다", "→ · ✓"),
+            item("layout-button-label", "라벨", "노드 CTA 라벨", "한 번 눌러 실행하고 이어서 진행합니다", "실행 뒤 진행"),
+            {"name": "특수 기능 라벨", "desc": "업무 페이지 전체에 영향을 주는 라벨은 정해진 목록(상담 종료)만 쓰고, 화면마다 새로 만들지 않습니다. ‘완료’는 지금 노드 흐름을, ‘상담 종료’는 상담 전체와 업무 페이지를 끝냅니다.", "from": "버튼 라벨 · 아이콘 · 노드 CTA 특수 기능 라벨"},
+            item("layout-button-label", "아이콘", None, "노드 하단 CTA는 모두 오른쪽입니다", "노드 CTA 아이콘 자리"),
+            {"name": "기능 아이콘", "desc": "저장 · 다운로드 · 업로드 · 인쇄 · 검색 · 버튼 그룹은 이어지는 UI가 아니라 기능 자체를 나타내는 아이콘으로, 라벨 왼쪽에 붙입니다. 버튼 그룹 아이콘은 그룹을 여는 버튼에만 붙입니다.", "from": "버튼 라벨 · 아이콘 · 기능 아이콘"},
             {"name": "아이콘만 쓰는 버튼", "desc": "더보기 · 추가 · 초기화 · 닫기 · 다운로드 · 업로드 여섯만 라벨 없이 아이콘만 쓰며, 대체 텍스트를 둡니다.", "from": "버튼 라벨 · 아이콘 · 아이콘만 쓰는 경우"},
             {"name": "노드 하단 버튼", "desc": "노드 UI 하단 버튼은 주 동작 하나와 보조 하나까지, 주 동작은 오른쪽에 둡니다. 하나면 전체 너비로 둡니다.", "from": "버튼 구조 및 동작 · 노드 UI 개수 · 위계"},
         ],
-        "do": pick("layout-action", "do", "Primary로 강조", "비활성으로 둡니다", "파괴적 액션") + pick("layout-button-label", "do", "표준 명칭으로", "`→`", "대체 텍스트"),
-        "dont": pick("layout-action", "dont", "중복해", "파괴적 액션", "셋 이상") + pick("layout-button-label", "dont", "사용하지 않는 말", "‘수정’과 ‘변경’", "장식용", "라벨을 생략") + pick(IN, "dont", "패싯 칩에"),
+        "do": pick("layout-action", "do", "Primary로 강조", "비활성으로 둡니다", "파괴적 액션") + pick("layout-button-label", "do", "표준 명칭으로", "`→`", "브라우저 팝업", "버튼 그룹 아이콘", "노드 하단 CTA", "대체 텍스트"),
+        "dont": pick("layout-action", "dont", "중복해", "파괴적 액션", "셋 이상") + pick("layout-button-label", "dont", "사용하지 않는 말", "‘수정’과 ‘변경’", "‘완료’를 넣거나", "특수 기능 라벨", "장식용", "브라우저 팝업 아이콘", "라벨을 생략") + pick(IN, "dont", "패싯 칩에"),
         "related": [rel("layout-action", "버튼 자리 · CTA · 버튼 그룹"), rel("layout-button-label", "표준 라벨 · 아이콘"), rel("resp-dialog", "위험한 실행 전 확인"), rel(FV, "실행 버튼 잠금")],
     },
 }
