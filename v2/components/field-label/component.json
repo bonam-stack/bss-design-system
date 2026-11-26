@@ -1,0 +1,53 @@
+{
+  "schemaVersion": 2,
+  "key": "field-label",
+  "name": "FieldLabel",
+  "description": "입력칸 · 선택칸 위에 놓는 항목명입니다. emphasis 2종(strong 진한 글자 · subtle 회색 글자). showRequired로 필수 별표를 붙이며, label로 항목명 글자를 바꿉니다.",
+  "figma": {
+    "fileKey": "WcoI745J38TaON7iCKcutW",
+    "nodeId": "9944:178",
+    "url": "https://www.figma.com/design/WcoI745J38TaON7iCKcutW?node-id=9944-178",
+    "page": {
+      "nodeId": "9904:4177",
+      "name": "❖ Label"
+    },
+    "type": "COMPONENT_SET",
+    "componentKey": null,
+    "extractedAt": "2026-11-26",
+    "source": "DS 컴포넌트 구조 명세 (토큰 v2.0.4)"
+  },
+  "ds": {
+    "specs": [
+      "fieldLabel"
+    ],
+    "structure": "93. Label"
+  },
+  "props": [
+    {
+      "name": "emphasis",
+      "figmaName": "emphasis",
+      "type": "variant",
+      "default": "strong",
+      "options": [
+        "strong",
+        "subtle"
+      ]
+    },
+    {
+      "name": "showRequired",
+      "figmaName": "showRequired",
+      "type": "boolean",
+      "default": false
+    },
+    {
+      "name": "label",
+      "figmaName": "label",
+      "type": "text",
+      "default": "Label"
+    }
+  ],
+  "variants": [],
+  "tokens": [],
+  "textStyles": [],
+  "otherStyles": []
+}

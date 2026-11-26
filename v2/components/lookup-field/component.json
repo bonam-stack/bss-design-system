@@ -1,0 +1,100 @@
+{
+  "schemaVersion": 2,
+  "key": "lookup-field",
+  "name": "LookupField",
+  "description": "검색 창에서 고른 값을 보여 주는 칸과 오른쪽 검색 버튼으로 이루어진 조회 필드입니다. 값은 직접 입력하지 않습니다. importance 3종 × state 5종(default·hover·selected·readOnly·disabled) × invalid 2종 × size 3종(large 40·medium 36·small 28). showLabel · showHelperText · showSearchButton · showFocus로 요소를 켜고 끕니다.",
+  "figma": {
+    "fileKey": "WcoI745J38TaON7iCKcutW",
+    "nodeId": "5168:16374",
+    "url": "https://www.figma.com/design/WcoI745J38TaON7iCKcutW?node-id=5168-16374",
+    "page": {
+      "nodeId": "13223:2609",
+      "name": "❖ Lookup Field"
+    },
+    "type": "COMPONENT_SET",
+    "componentKey": null,
+    "extractedAt": "2026-11-26",
+    "source": "DS 컴포넌트 구조 명세 (토큰 v2.0.4)"
+  },
+  "ds": {
+    "specs": [
+      "lookupField"
+    ],
+    "structure": "14. LookupField"
+  },
+  "props": [
+    {
+      "name": "showHelperText",
+      "figmaName": "showHelperText",
+      "type": "boolean",
+      "default": true
+    },
+    {
+      "name": "showFocus",
+      "figmaName": "showFocus",
+      "type": "boolean",
+      "default": false
+    },
+    {
+      "name": "showSearchButton",
+      "figmaName": "showSearchButton",
+      "type": "boolean",
+      "default": true
+    },
+    {
+      "name": "showLabel",
+      "figmaName": "showLabel",
+      "type": "boolean",
+      "default": false
+    },
+    {
+      "name": "importance",
+      "figmaName": "importance",
+      "type": "variant",
+      "default": "none",
+      "options": [
+        "none",
+        "attention",
+        "required"
+      ]
+    },
+    {
+      "name": "state",
+      "figmaName": "state",
+      "type": "variant",
+      "default": "default",
+      "options": [
+        "default",
+        "hover",
+        "selected",
+        "readOnly",
+        "disabled"
+      ]
+    },
+    {
+      "name": "invalid",
+      "figmaName": "invalid",
+      "type": "variant",
+      "default": "false",
+      "options": [
+        "false",
+        "true"
+      ]
+    },
+    {
+      "name": "size",
+      "figmaName": "size",
+      "type": "variant",
+      "default": "large",
+      "options": [
+        "large",
+        "medium",
+        "small"
+      ]
+    }
+  ],
+  "variants": [],
+  "tokens": [],
+  "textStyles": [],
+  "otherStyles": []
+}

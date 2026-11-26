@@ -1,0 +1,143 @@
+{
+  "$description": "BSS Design Guideline v2.0에는 Label 전용 문서가 없어 Components/Field Rules(입력 필드 공통)의 Label · 필수 표기 규칙과 DS 컴포넌트 명세(fieldLabel)에서 옮긴 사용 가이드",
+  "source": {
+    "fileKey": "9aVw18Cj7CzvHE1ljGaM9m",
+    "fileName": "BSS Design Guideline v2.0",
+    "nodeId": "2654:182648",
+    "name": "Components/Field Rules",
+    "url": "https://www.figma.com/design/9aVw18Cj7CzvHE1ljGaM9m?node-id=2654-182648",
+    "extractedAt": "2026-11-26"
+  },
+  "group": "입력",
+  "overview": "FieldLabel은 입력칸·선택칸 위에 놓는 항목명입니다. 입력 항목의 이름을 필드 위에 표시하며, showRequired로 필수 표시(별표)를 붙입니다. emphasis=subtle은 회색 글자로 표시합니다.",
+  "anatomy": {
+    "title": "Anatomy (구성)",
+    "lead": "FieldLabel를 이루는 필수/선택 요소의 구조를 말합니다.",
+    "example": {
+      "emphasis": "strong",
+      "showRequired": true
+    },
+    "parts": [
+      {
+        "n": 1,
+        "name": "Label",
+        "layer": "label",
+        "desc": "입력 항목의 이름입니다. 필드 위에 표시합니다."
+      },
+      {
+        "n": 2,
+        "name": "Required Mark (Optional)",
+        "layer": "requiredMark",
+        "desc": "항목명 뒤에 붙는 필수 표시 별표입니다. showRequired를 켜면 표시하며, 색은 emphasis와 관계없이 같습니다(오류 도움말과 같은 빨강)."
+      }
+    ]
+  },
+  "states": {
+    "title": "States (상태)",
+    "lead": "사용자 입력과 시스템의 상황에 따라 컴포넌트의 표현 방식을 정리한 기준입니다.",
+    "rows": [
+      {
+        "name": "Default",
+        "props": {
+          "emphasis": "strong",
+          "showRequired": false
+        },
+        "desc": "기본 항목명입니다. Error·ReadOnly·Disabled 등 필드 상태와 관계없이 같은 모양을 유지합니다."
+      },
+      {
+        "name": "Required",
+        "props": {
+          "emphasis": "strong",
+          "showRequired": true
+        },
+        "desc": "필수 항목의 항목명 뒤에 별표를 표시합니다."
+      }
+    ]
+  },
+  "variants": {
+    "title": "Variants (변형)",
+    "lead": "동일한 컴포넌트를 용도와 표현 방식에 따라 구분한 파생 타입입니다.",
+    "groups": [
+      {
+        "title": "Emphasis",
+        "lead": "항목명 글자의 강조 정도를 구분합니다. 바뀌는 것은 항목명 글자 색뿐입니다.",
+        "rows": [
+          {
+            "name": "Strong",
+            "props": {
+              "emphasis": "strong"
+            },
+            "desc": "기본 항목명입니다. 진한 글자(gray 900)로 표시합니다."
+          },
+          {
+            "name": "Subtle",
+            "props": {
+              "emphasis": "subtle"
+            },
+            "desc": "회색 글자(gray 600)로 표시하는 항목명입니다. 필수 별표 색은 바뀌지 않습니다."
+          }
+        ]
+      }
+    ]
+  },
+  "policy": {
+    "title": "Policy (사용 정책)",
+    "lead": "입력 필드 위에 입력 항목의 이름을 표시합니다. 필수 여부는 컨트롤 배경으로 표시하는 것이 기준입니다.",
+    "when": {
+      "use": [
+        "입력칸·선택칸 위에 입력 항목의 이름을 표시할 때",
+        "필수 항목의 항목명 뒤에 필수 표시를 붙여야 할 때"
+      ],
+      "avoid": [
+        {
+          "text": "조회 조건 바처럼 필드마다 Label이 없는 영역",
+          "alt": "Placeholder에 항목명 입력 (필수는 컨트롤 배경)"
+        }
+      ]
+    },
+    "rules": [
+      {
+        "name": "State Priority · Label",
+        "desc": "모든 상태에서 같은 모양을 유지합니다. Error·ReadOnly·Disabled에서도 바뀌지 않습니다.",
+        "from": "Guideline · Field Rules › States"
+      },
+      {
+        "name": "Required Mark",
+        "desc": "필수 항목은 컨트롤 배경(required 스타일)으로 표시하고, ReadOnly·Disabled 필드는 제외합니다. 바탕색만으로는 필수 여부가 전달되지 않으므로 개발에서 aria-required=\"true\"를 함께 적용합니다.",
+        "from": "Guideline · Field Rules › Content"
+      },
+      {
+        "name": "화면별 필수 표기",
+        "desc": "일반 폼은 컨트롤 배경 + 폼 오른쪽 위 범례로 바탕색이 필수라는 뜻을 알립니다. 노드 본문·사이드 패널은 자리가 좁아 컨트롤 배경만 씁니다. 선택 항목에는 “(선택)”을 붙이지 않습니다.",
+        "from": "Guideline · Field Rules › Content"
+      },
+      {
+        "name": "Without Label",
+        "desc": "조회 조건 바처럼 Label이 없는 영역은 Placeholder에 항목명을 입력하고, 필수는 컨트롤 배경으로 표시합니다.",
+        "from": "Guideline · Field Rules › Content"
+      },
+      {
+        "name": "문구",
+        "desc": "입력할 값의 이름을 명사형으로 씁니다.(예: “고객명”)",
+        "from": "Guideline · Text Fields › Content"
+      },
+      {
+        "name": "정렬",
+        "desc": "같은 화면 안에서 Label 위치(위쪽·왼쪽)를 하나로 통일합니다.",
+        "from": "Guideline · Text Fields › Layout"
+      }
+    ],
+    "do": [
+      "Label에 필드 이름을 쓰고, Placeholder에는 입력 예시나 형식을 씁니다. (값을 입력해도 Label이 남아 있어 무엇을 입력하는 칸인지 알 수 있습니다.)",
+      "Label이 없는 영역은 Placeholder로 항목명을 알리고, 필수 필드는 required 스타일로 표시합니다."
+    ],
+    "dont": [
+      "필드 이름이나 필수 여부를 Placeholder에만 쓰지 않습니다. (값을 입력하면 Placeholder가 사라져 무엇을 입력하는 칸인지 알 수 없습니다.)",
+      "Placeholder로 필수 안내를 대체하지 않습니다. (Placeholder는 입력을 시작하면 사라져 필수 여부를 계속 알릴 수 없습니다.)"
+    ],
+    "source": {
+      "id": "guideline-field-label",
+      "title": "BSS Design Guideline v2.0 · Field Rules"
+    }
+  }
+}

@@ -1,0 +1,94 @@
+{
+  "schemaVersion": 2,
+  "key": "stepper",
+  "name": "Stepper",
+  "description": "−/+ 버튼으로 숫자를 늘리고 줄이거나 가운데 숫자 칸에 직접 입력하는 숫자 입력입니다. importance 3종 × state 5종(default·hover·focus·readOnly·disabled) × invalid 2종 × size 3종(large 40·medium 36·small 28). showLabel · showHelperText · showFocus로 요소를 켜고 끕니다.",
+  "figma": {
+    "fileKey": "WcoI745J38TaON7iCKcutW",
+    "nodeId": "7896:1164",
+    "url": "https://www.figma.com/design/WcoI745J38TaON7iCKcutW?node-id=7896-1164",
+    "page": {
+      "nodeId": "7324:555",
+      "name": "❖ Stepper"
+    },
+    "type": "COMPONENT_SET",
+    "componentKey": null,
+    "extractedAt": "2026-11-26",
+    "source": "DS 컴포넌트 구조 명세 (토큰 v2.0.4)"
+  },
+  "ds": {
+    "specs": [
+      "stepper"
+    ],
+    "structure": "21. Stepper"
+  },
+  "props": [
+    {
+      "name": "showHelperText",
+      "figmaName": "showHelperText",
+      "type": "boolean",
+      "default": false
+    },
+    {
+      "name": "showFocus",
+      "figmaName": "showFocus",
+      "type": "boolean",
+      "default": false
+    },
+    {
+      "name": "showLabel",
+      "figmaName": "showLabel",
+      "type": "boolean",
+      "default": false
+    },
+    {
+      "name": "importance",
+      "figmaName": "importance",
+      "type": "variant",
+      "default": "none",
+      "options": [
+        "none",
+        "attention",
+        "required"
+      ]
+    },
+    {
+      "name": "state",
+      "figmaName": "state",
+      "type": "variant",
+      "default": "default",
+      "options": [
+        "default",
+        "hover",
+        "focus",
+        "readOnly",
+        "disabled"
+      ]
+    },
+    {
+      "name": "invalid",
+      "figmaName": "invalid",
+      "type": "variant",
+      "default": "false",
+      "options": [
+        "false",
+        "true"
+      ]
+    },
+    {
+      "name": "size",
+      "figmaName": "size",
+      "type": "variant",
+      "default": "large",
+      "options": [
+        "large",
+        "medium",
+        "small"
+      ]
+    }
+  ],
+  "variants": [],
+  "tokens": [],
+  "textStyles": [],
+  "otherStyles": []
+}

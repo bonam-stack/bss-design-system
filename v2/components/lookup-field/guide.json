@@ -1,0 +1,259 @@
+{
+  "$description": "BSS Design Guideline v2.0 › Components/Lookup Field와 Field Rules에서 옮긴 사용 가이드",
+  "source": {
+    "fileKey": "9aVw18Cj7CzvHE1ljGaM9m",
+    "fileName": "BSS Design Guideline v2.0",
+    "nodeId": "2430:93764",
+    "name": "Components/Lookup Field",
+    "url": "https://www.figma.com/design/9aVw18Cj7CzvHE1ljGaM9m?node-id=2430-93764",
+    "extractedAt": "2026-11-26"
+  },
+  "group": "입력",
+  "overview": "Lookup Field는 검색 창에서 고른 값을 필드에 표시하는 컴포넌트입니다. 값 표시 영역 오른쪽의 Search Button으로 검색 창을 엽니다. 값을 직접 입력하지 않습니다.",
+  "anatomy": {
+    "title": "Anatomy (구성)",
+    "lead": "Lookup Field를 이루는 필수/선택 요소의 구조를 말합니다.",
+    "example": {
+      "state": "default",
+      "size": "large",
+      "showLabel": true,
+      "showHelperText": true
+    },
+    "parts": [
+      {
+        "n": 1,
+        "name": "Label (Optional)",
+        "layer": "label",
+        "desc": "필드의 이름을 나타내는 텍스트입니다. showLabel을 켜면 표시합니다. 필수 표기는 Field(입력 필드 공통) 문서를 따릅니다."
+      },
+      {
+        "n": 2,
+        "name": "Container",
+        "layer": "inputBox",
+        "desc": "값 표시 영역을 감싸는 상자입니다. 바탕색과 테두리로 상태를 표시합니다."
+      },
+      {
+        "n": 3,
+        "name": "Placeholder",
+        "layer": "value",
+        "desc": "값을 고르기 전에 표시하는 안내 텍스트입니다. 골라야 할 값을 유추할 수 있도록 돕습니다."
+      },
+      {
+        "n": 4,
+        "name": "Search Button (Optional)",
+        "layer": "searchButton",
+        "desc": "검색 창을 여는 버튼입니다. 값 표시 영역 오른쪽에 붙어 있습니다. showSearchButton을 켜면 표시합니다."
+      },
+      {
+        "n": 5,
+        "name": "Helper Text (Optional)",
+        "layer": "helperText",
+        "desc": "필드 아래에 표시하는 안내 문구 또는 오류 메시지입니다. showHelperText를 켜면 표시합니다. 문구 규칙은 Helper Text 문서를 따릅니다."
+      },
+      {
+        "n": 6,
+        "name": "Focus Ring (Optional)",
+        "layer": "focusRing",
+        "desc": "키보드로 포커스를 이동했을 때 Container 바깥에 표시하는 링입니다. showFocus를 켜면 표시합니다. 규격은 Focus Ring 문서를 따릅니다."
+      }
+    ]
+  },
+  "states": {
+    "title": "States (상태)",
+    "lead": "사용자 입력과 시스템의 상황에 따라 컴포넌트의 표현 방식을 정리한 기준입니다.",
+    "rows": [
+      {
+        "name": "Default",
+        "props": {
+          "state": "default"
+        },
+        "desc": "조작하지 않은 기본 상태입니다. Search Button으로 검색 창을 열 수 있습니다."
+      },
+      {
+        "name": "Hover",
+        "props": {
+          "state": "hover"
+        },
+        "desc": "마우스 커서가 Container 위에 올라간 상태입니다. Search Button은 기본 모양을 유지합니다."
+      },
+      {
+        "name": "Focus Visible",
+        "props": {
+          "state": "default",
+          "showFocus": true
+        },
+        "desc": "키보드로 이동해 Focus Ring을 표시한 상태입니다. 다른 상태 위에 겹쳐 표시합니다."
+      },
+      {
+        "name": "Filled",
+        "props": {
+          "state": "selected"
+        },
+        "desc": "값이 들어 있는 상태입니다. 검색으로 고른 값을 표시합니다."
+      },
+      {
+        "name": "ReadOnly",
+        "props": {
+          "state": "readOnly"
+        },
+        "desc": "값은 표시되지만 변경할 수 없는 상태입니다. Search Button은 비활성으로 표시합니다."
+      },
+      {
+        "name": "Disabled",
+        "props": {
+          "state": "disabled"
+        },
+        "desc": "사용할 수 없는 상태입니다. Search Button은 비활성으로 표시합니다."
+      },
+      {
+        "name": "Error",
+        "props": {
+          "state": "default",
+          "invalid": "true"
+        },
+        "desc": "입력값이 규칙에 맞지 않아 오류를 표시하는 상태입니다. 테두리·바깥 링으로 오류를 표시하며, ReadOnly·Disabled에서는 표시하지 않습니다."
+      }
+    ]
+  },
+  "variants": {
+    "title": "Variants (변형)",
+    "lead": "동일한 컴포넌트를 용도와 표현 방식에 따라 구분한 파생 타입입니다.",
+    "groups": [
+      {
+        "title": "Importance",
+        "lead": "선택값의 중요도에 따라 바탕색으로 강조합니다. Importance는 한 번에 하나만 지정하며, Attention과 Required가 모두 해당하면 Required를 고릅니다. ReadOnly에서는 Attention만 강조를 유지하고, Disabled에서는 강조를 표시하지 않습니다.",
+        "rows": [
+          {
+            "name": "None",
+            "props": {
+              "importance": "none"
+            },
+            "desc": "기본 상태입니다. 별도 강조가 필요 없는 일반 항목에 사용합니다."
+          },
+          {
+            "name": "Attention",
+            "props": {
+              "importance": "attention"
+            },
+            "desc": "주요 항목을 노란색 바탕으로 강조합니다. Required보다 한 단계 낮은 강조입니다. 기존 값이 바뀐 항목(Modified)을 표시할 때도 사용합니다."
+          },
+          {
+            "name": "Required",
+            "props": {
+              "importance": "required"
+            },
+            "desc": "필수 필드 스타일입니다. 반드시 채워야 하는 항목을 주황색 바탕으로 강조합니다. 필수 표기는 Field(입력 필드 공통) 문서를 따릅니다."
+          }
+        ]
+      },
+      {
+        "title": "Size",
+        "lead": "Lookup Field를 크기별로 구분합니다.",
+        "rows": [
+          {
+            "name": "Large",
+            "props": {
+              "size": "large"
+            },
+            "desc": "일반적인 폼에서 사용하는 기본 크기입니다. 대부분의 화면에 적합합니다.(높이 40px)"
+          },
+          {
+            "name": "Medium",
+            "props": {
+              "size": "medium"
+            },
+            "desc": "보조 영역이나 정보 밀도가 높은 화면에서 사용합니다. 제한된 공간에서도 효율적으로 배치할 수 있습니다.(높이 36px)"
+          },
+          {
+            "name": "Small",
+            "props": {
+              "size": "small"
+            },
+            "desc": "Table, 필터, Toolbar 등 공간 제약이 있는 영역에서 사용합니다.(높이 28px)"
+          }
+        ]
+      }
+    ]
+  },
+  "policy": {
+    "title": "Policy (사용 정책)",
+    "lead": "목록이 길어 검색 창에서 찾아 골라야 하는 값을 넣을 때 씁니다.",
+    "when": {
+      "use": [
+        "주소, 고객처럼 목록이 길어 검색으로 찾아 골라야 하는 값을 입력할 때",
+        "직접 입력하지 않고 검색 창에서 고른 값만 필드에 넣어야 할 때"
+      ],
+      "avoid": [
+        {
+          "text": "사용 여부처럼 선택지가 몇 개뿐인 값을 고를 때",
+          "alt": "Select"
+        },
+        {
+          "text": "사용자가 값을 직접 입력해야 할 때",
+          "alt": "Text Field"
+        }
+      ]
+    },
+    "rules": [
+      {
+        "name": "State Priority · 값 텍스트",
+        "desc": "Empty이면 Placeholder를, Filled이면 선택한 값을 표시합니다. Disabled이면 비활성 색으로 표시합니다. Error는 값 텍스트에 영향을 주지 않습니다.",
+        "from": "Guideline · States"
+      },
+      {
+        "name": "State Priority · Search Button",
+        "desc": "ReadOnly·Disabled이면 비활성으로 표시합니다. 그 밖의 상태에서는 기본 모양을 유지합니다.",
+        "from": "Guideline · States"
+      },
+      {
+        "name": "State Priority · Focus Ring",
+        "desc": "Disabled를 포함한 모든 상태 위에 겹쳐 표시합니다.",
+        "from": "Guideline · States"
+      },
+      {
+        "name": "State Priority · 배경",
+        "desc": "배경은 필드의 성격을 유지합니다. 필드 스타일(None·Required·Attention)의 바탕이 기준이며, Hover이면 한 단계 진한 바탕, Focus·Error이면 기준 바탕을 그대로 유지합니다. ReadOnly이면 읽기 전용 바탕으로 바뀌고(Attention만 진한 강조 바탕), Disabled이면 스타일과 관계없이 비활성 바탕입니다.",
+        "from": "Guideline · Field Rules › States"
+      },
+      {
+        "name": "State Priority · 테두리 · 바깥 링",
+        "desc": "Error가 있으면 오류 테두리가 다른 상태보다 우선하고, 오류 링은 Error일 때만 표시합니다. ReadOnly·Disabled이면 각 상태의 테두리를 사용하고 Error를 표시하지 않습니다.",
+        "from": "Guideline · Field Rules › States"
+      },
+      {
+        "name": "오류 표시 시점",
+        "desc": "포커스가 나갈 때 그 필드의 형식만 검사하고, 비어 있는 필수 필드는 제출할 때 표시합니다. 처음 화면을 열 때는 오류를 표시하지 않습니다.",
+        "from": "Guideline · Field Rules › Behavior"
+      },
+      {
+        "name": "오류 해제 시점",
+        "desc": "오류가 표시된 필드는 값이 올바르게 바뀌는 순간 오류를 지웁니다. 오류를 늘리는 판정은 필드를 벗어난 뒤, 줄이는 판정은 입력 즉시 합니다.",
+        "from": "Guideline · Field Rules › Behavior"
+      },
+      {
+        "name": "필수 표기",
+        "desc": "필수 항목은 컨트롤 배경(required 스타일)으로 표시하고 ReadOnly·Disabled 필드는 제외합니다. 바탕색만으로는 필수 여부가 전달되지 않으므로 개발에서 aria-required=\"true\"를 함께 적용합니다.",
+        "from": "Guideline · Field Rules › Content"
+      },
+      {
+        "name": "너비",
+        "desc": "Lookup Field의 너비는 가변형(Flexible: 상위 영역 100%, 최대 너비 600~800px 권장, 최소 너비 보장)과 고정형(Fixed: 기본 200px · 최소 120px · 최대 400px)으로 구분합니다. 값이 잘림(Ellipsis) 없이 한눈에 보이게 하고, 화면 전체를 가로지르는 무분별한 확장은 지양합니다.",
+        "from": "Guideline · Layout"
+      }
+    ],
+    "do": [
+      "선택지가 많을 때 Lookup Field를 사용합니다. (주소, 고객처럼 목록이 길어 검색으로 찾아야 하는 값에 사용합니다.)",
+      "필수 필드는 오류 테두리가 나와도 필수 배경을 유지합니다. (배경은 필드의 성격을 유지해, 어떤 값을 넣어야 하는 필드인지 계속 알려 줍니다.)",
+      "오류는 아이콘과 Inline Message 문장으로 함께 알립니다. (필드 바로 아래에 오류 원인과 해결 방법을 한 문장으로 안내합니다.)"
+    ],
+    "dont": [
+      "선택지가 적을 때 Lookup Field를 사용하지 않습니다. (사용 여부처럼 선택지가 몇 개뿐이면 Select를 사용합니다.)",
+      "읽기 전용·비활성 필드에는 오류를 표시하지 않습니다. (고칠 방법이 없는 오류가 보여 사용자가 혼란을 겪습니다.)",
+      "색과 테두리만으로 오류를 알리지 않습니다. (색과 테두리만으로는 무엇이 잘못됐는지 전달되지 않습니다.)"
+    ],
+    "source": {
+      "id": "guideline-lookup-field",
+      "title": "BSS Design Guideline v2.0 · Lookup Field"
+    }
+  }
+}

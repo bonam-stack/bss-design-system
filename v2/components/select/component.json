@@ -1,0 +1,101 @@
+{
+  "schemaVersion": 2,
+  "key": "select",
+  "name": "Select",
+  "description": "옵션 목록을 펼쳐 값 하나를 고르는 셀렉트입니다. importance 3종 × state 6종(default·hover·open·selected·readOnly·disabled) × invalid 2종 × size 3종(large 40·medium 36·small 28). open이면 옵션 목록(_Item/Select/Option: selection 2종 × state 4종)을 펼칩니다. showLabel · showHelperText · showScrollbar · showFocus로 요소를 켜고 끕니다.",
+  "figma": {
+    "fileKey": "WcoI745J38TaON7iCKcutW",
+    "nodeId": "3053:37864",
+    "url": "https://www.figma.com/design/WcoI745J38TaON7iCKcutW?node-id=3053-37864",
+    "page": {
+      "nodeId": "2095:27725",
+      "name": "❖ Select / Dropdown"
+    },
+    "type": "COMPONENT_SET",
+    "componentKey": null,
+    "extractedAt": "2026-11-26",
+    "source": "DS 컴포넌트 구조 명세 (토큰 v2.0.4)"
+  },
+  "ds": {
+    "specs": [
+      "select"
+    ],
+    "structure": "16. Select"
+  },
+  "props": [
+    {
+      "name": "showFocus",
+      "figmaName": "showFocus",
+      "type": "boolean",
+      "default": false
+    },
+    {
+      "name": "showHelperText",
+      "figmaName": "showHelperText",
+      "type": "boolean",
+      "default": false
+    },
+    {
+      "name": "showLabel",
+      "figmaName": "showLabel",
+      "type": "boolean",
+      "default": false
+    },
+    {
+      "name": "showScrollbar",
+      "figmaName": "showScrollbar",
+      "type": "boolean",
+      "default": true
+    },
+    {
+      "name": "importance",
+      "figmaName": "importance",
+      "type": "variant",
+      "default": "none",
+      "options": [
+        "none",
+        "attention",
+        "required"
+      ]
+    },
+    {
+      "name": "state",
+      "figmaName": "state",
+      "type": "variant",
+      "default": "default",
+      "options": [
+        "default",
+        "hover",
+        "open",
+        "selected",
+        "readOnly",
+        "disabled"
+      ]
+    },
+    {
+      "name": "invalid",
+      "figmaName": "invalid",
+      "type": "variant",
+      "default": "false",
+      "options": [
+        "false",
+        "true"
+      ]
+    },
+    {
+      "name": "size",
+      "figmaName": "size",
+      "type": "variant",
+      "default": "large",
+      "options": [
+        "large",
+        "medium",
+        "small"
+      ]
+    }
+  ],
+  "variants": [],
+  "tokens": [],
+  "textStyles": [],
+  "otherStyles": []
+}
