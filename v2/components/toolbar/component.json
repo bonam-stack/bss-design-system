@@ -1,0 +1,78 @@
+{
+  "schemaVersion": 2,
+  "key": "toolbar",
+  "name": "Toolbar",
+  "description": "단계 진행 정보(제목·Steps·단계 수)와 보기 도구(배율 Select·보기 모드 Button·Toggle Button)를 하나의 막대에 묶어 둡니다. 글 속성 title·currentStep·totalSteps가 있고, 토글 버튼(_Item/Toolbar/ToggleButton)은 selection 2종 × state 4종, showFocus입니다.",
+  "figma": {
+    "fileKey": "WcoI745J38TaON7iCKcutW",
+    "nodeId": "9080:243",
+    "url": "https://www.figma.com/design/WcoI745J38TaON7iCKcutW?node-id=9080-243",
+    "page": {
+      "nodeId": "7324:570",
+      "name": "❖ Toolbar"
+    },
+    "type": "COMPONENT",
+    "componentKey": null,
+    "extractedAt": "2026-11-26",
+    "source": "DS 컴포넌트 구조 명세 (토큰 v2.0.4)"
+  },
+  "ds": {
+    "specs": [
+      "toolbar",
+      "toggleButton"
+    ],
+    "structure": "75. Toolbar"
+  },
+  "props": [
+    {
+      "name": "title",
+      "figmaName": "title",
+      "type": "text",
+      "default": "Title"
+    },
+    {
+      "name": "currentStep",
+      "figmaName": "currentStep",
+      "type": "text",
+      "default": "2"
+    },
+    {
+      "name": "totalSteps",
+      "figmaName": "totalSteps",
+      "type": "text",
+      "default": "8"
+    },
+    {
+      "name": "selection",
+      "figmaName": "selection",
+      "type": "variant",
+      "default": "unselected",
+      "options": [
+        "unselected",
+        "selected"
+      ]
+    },
+    {
+      "name": "state",
+      "figmaName": "state",
+      "type": "variant",
+      "default": "default",
+      "options": [
+        "default",
+        "hover",
+        "pressed",
+        "disabled"
+      ]
+    },
+    {
+      "name": "showFocus",
+      "figmaName": "showFocus",
+      "type": "boolean",
+      "default": false
+    }
+  ],
+  "variants": [],
+  "tokens": [],
+  "textStyles": [],
+  "otherStyles": []
+}

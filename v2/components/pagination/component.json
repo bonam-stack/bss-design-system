@@ -1,0 +1,55 @@
+{
+  "schemaVersion": 2,
+  "key": "pagination",
+  "name": "Pagination",
+  "description": "페이지 단위로 나뉜 콘텐츠를 옮겨 다니는 내비게이션입니다. 처음·이전·다음·마지막 이동 버튼과 페이지 번호(number·ellipsis)로 이루어지며, showBoundaryControls로 처음·마지막 버튼을 표시합니다. 항목은 _Item/Pagination/Page(selection 2 × state 4)와 _Item/Pagination/Control(direction 4 × state 4)입니다.",
+  "figma": {
+    "fileKey": "WcoI745J38TaON7iCKcutW",
+    "nodeId": "4012:33172",
+    "url": "https://www.figma.com/design/WcoI745J38TaON7iCKcutW?node-id=4012-33172",
+    "page": {
+      "nodeId": "2529:14975",
+      "name": "❖ Pagination"
+    },
+    "type": "COMPONENT",
+    "componentKey": null,
+    "extractedAt": "2026-11-26",
+    "source": "DS 컴포넌트 구조 명세 (토큰 v2.0.4)"
+  },
+  "ds": {
+    "specs": [
+      "pagination"
+    ],
+    "structure": "31. Pagination"
+  },
+  "props": [
+    {
+      "name": "showBoundaryControls",
+      "figmaName": "showBoundaryControls",
+      "type": "boolean",
+      "default": true
+    },
+    {
+      "name": "state",
+      "figmaName": "state",
+      "type": "variant",
+      "default": "default",
+      "options": [
+        "default",
+        "hover",
+        "pressed",
+        "disabled"
+      ]
+    },
+    {
+      "name": "showFocus",
+      "figmaName": "showFocus",
+      "type": "boolean",
+      "default": false
+    }
+  ],
+  "variants": [],
+  "tokens": [],
+  "textStyles": [],
+  "otherStyles": []
+}

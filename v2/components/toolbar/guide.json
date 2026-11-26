@@ -1,0 +1,205 @@
+{
+  "$description": "BSS Design Guideline v2.0 › Components/Toolbar에서 옮긴 사용 가이드",
+  "source": {
+    "fileKey": "9aVw18Cj7CzvHE1ljGaM9m",
+    "fileName": "BSS Design Guideline v2.0",
+    "nodeId": "2430:87617",
+    "name": "Components/Toolbar",
+    "url": "https://www.figma.com/design/9aVw18Cj7CzvHE1ljGaM9m?node-id=2430-87617",
+    "extractedAt": "2026-11-26"
+  },
+  "group": "버튼",
+  "overview": "Toolbar는 단계 진행 정보와 보기 도구를 하나의 막대 영역에 묶어 배치하는 컴포넌트입니다. 단계 진행 정보는 왼쪽에, 보기 도구는 오른쪽에 배치합니다.",
+  "anatomy": {
+    "title": "Anatomy (구성)",
+    "lead": "Toolbar를 이루는 필수/선택 요소의 구조를 말합니다.",
+    "example": {
+      "selection": "unselected",
+      "state": "default"
+    },
+    "parts": [
+      {
+        "n": 1,
+        "name": "Container",
+        "layer": "root",
+        "desc": "Toolbar를 구성하는 요소들을 감싸는 배경 영역입니다."
+      },
+      {
+        "n": 2,
+        "name": "Title",
+        "layer": "title",
+        "desc": "Toolbar의 제목을 표시합니다. 제목은 title에 입력합니다."
+      },
+      {
+        "n": 3,
+        "name": "Steps",
+        "layer": "steps",
+        "desc": "단계별 진행 상태를 표시합니다."
+      },
+      {
+        "n": 4,
+        "name": "Step Count",
+        "layer": "stepCount",
+        "desc": "현재 단계와 전체 단계 수를 표시합니다. 현재 단계는 currentStep에, 전체 단계 수는 totalSteps에 입력합니다."
+      },
+      {
+        "n": 5,
+        "name": "Divider",
+        "layer": "divider",
+        "desc": "단계 진행 정보와 보기 도구 영역을 구분합니다."
+      },
+      {
+        "n": 6,
+        "name": "Select",
+        "layer": "select",
+        "desc": "화면의 보기 비율(%)을 표시하고 배율을 선택하는 필드입니다."
+      },
+      {
+        "n": 7,
+        "name": "Button",
+        "layer": "button",
+        "desc": "지정된 화면 보기 모드로 전환하는 버튼입니다.(예: “전체뷰”)"
+      },
+      {
+        "n": 8,
+        "name": "Toggle Button",
+        "layer": "toggleButton",
+        "desc": "손바닥 도구 등 보기 도구를 켜고 끄는 아이콘 버튼입니다. 선택 여부에 따라 Unselected·Selected로 표시합니다."
+      },
+      {
+        "n": 9,
+        "name": "Focus Ring (Optional)",
+        "layer": "focusRing",
+        "desc": "키보드로 포커스를 이동했을 때 Toggle Button 바깥에 표시하는 링입니다. showFocus를 켜면 표시합니다. 규격은 Focus Ring 문서를 따릅니다."
+      }
+    ]
+  },
+  "states": {
+    "title": "States (상태)",
+    "lead": "사용자 입력과 시스템의 상황에 따라 컴포넌트의 표현 방식을 정리한 기준입니다. Toolbar 안 Toggle Button의 상태이며, Toolbar 자체에는 상태 속성이 없습니다.",
+    "rows": [
+      {
+        "name": "Default",
+        "props": {
+          "title": "Title",
+          "currentStep": "2",
+          "totalSteps": "8",
+          "selection": "unselected",
+          "state": "default"
+        },
+        "desc": "조작하지 않은 기본 상태입니다."
+      },
+      {
+        "name": "Hover",
+        "props": {
+          "title": "Title",
+          "currentStep": "2",
+          "totalSteps": "8",
+          "selection": "unselected",
+          "state": "hover"
+        },
+        "desc": "마우스 커서가 Toggle Button 위에 올라간 상태입니다."
+      },
+      {
+        "name": "Pressed",
+        "props": {
+          "title": "Title",
+          "currentStep": "2",
+          "totalSteps": "8",
+          "selection": "unselected",
+          "state": "pressed"
+        },
+        "desc": "Toggle Button을 누르고 있는 상태입니다."
+      },
+      {
+        "name": "Focus Visible",
+        "props": {
+          "title": "Title",
+          "currentStep": "2",
+          "totalSteps": "8",
+          "selection": "unselected",
+          "state": "default",
+          "showFocus": true
+        },
+        "desc": "키보드로 이동해 Focus Ring을 표시한 상태입니다. 다른 상태 위에 겹쳐 표시합니다."
+      },
+      {
+        "name": "Unselected",
+        "props": {
+          "title": "Title",
+          "currentStep": "2",
+          "totalSteps": "8",
+          "selection": "unselected",
+          "state": "default"
+        },
+        "desc": "꺼진 상태입니다."
+      },
+      {
+        "name": "Selected",
+        "props": {
+          "title": "Title",
+          "currentStep": "2",
+          "totalSteps": "8",
+          "selection": "selected",
+          "state": "default"
+        },
+        "desc": "켜진 상태입니다."
+      },
+      {
+        "name": "Disabled",
+        "props": {
+          "title": "Title",
+          "currentStep": "2",
+          "totalSteps": "8",
+          "selection": "unselected",
+          "state": "disabled"
+        },
+        "desc": "사용할 수 없는 상태입니다."
+      }
+    ]
+  },
+  "variants": {
+    "title": "Variants (변형)",
+    "lead": "동일한 컴포넌트를 용도와 표현 방식에 따라 구분한 파생 타입입니다.",
+    "groups": []
+  },
+  "policy": {
+    "title": "Policy (사용 정책)",
+    "lead": "단계 진행 정보와 보기 도구를 한 막대에 함께 둘 때 씁니다.",
+    "when": {
+      "use": [
+        "단계 진행 정보와 보기 도구(배율, 보기 모드, 손바닥 도구)를 한 막대에 함께 둘 때",
+        "화면 배율과 보기 모드를 바꾸는 도구를 모아 둘 때"
+      ],
+      "avoid": [
+        {
+          "text": "단계 진행 정보만 표시할 때",
+          "alt": "Steps"
+        }
+      ]
+    },
+    "rules": [
+      {
+        "name": "배치",
+        "desc": "단계 진행 정보(Title·Steps·Step Count)는 왼쪽에, 보기 도구(Select·Button·Toggle Button)는 오른쪽에 배치합니다.",
+        "from": "Guideline · Overview"
+      },
+      {
+        "name": "State Priority · Focus Ring",
+        "desc": "Disabled를 포함한 모든 상태 위에 겹쳐 표시합니다.",
+        "from": "Guideline · States"
+      },
+      {
+        "name": "규격",
+        "desc": "너비는 내용에 맞춰 늘어나며(Flexible Width), 높이 48, 모서리 R12, 위아래 여백 6, 좌우 여백 16입니다. 단계 정보 안 간격 12, 묶음 사이 간격 16, 도구 사이 간격 8입니다.",
+        "from": "Guideline · Spec"
+      }
+    ],
+    "do": [],
+    "dont": [],
+    "source": {
+      "id": "guideline-toolbar",
+      "title": "BSS Design Guideline v2.0 · Toolbar"
+    }
+  }
+}

@@ -1,0 +1,48 @@
+{
+  "schemaVersion": 2,
+  "key": "breadcrumb",
+  "name": "Breadcrumb",
+  "description": "현재 위치와 상위 경로를 보여 주고 각 단계로 이동하게 하는 보조 내비게이션입니다. 경로 항목(_Item/Breadcrumb/Item, position 2종 link·current × state 3종)과 구분 기호(_Item/Breadcrumb/Separator)를 번갈아 가로로 놓습니다.",
+  "figma": {
+    "fileKey": "WcoI745J38TaON7iCKcutW",
+    "nodeId": "8822:541",
+    "url": "https://www.figma.com/design/WcoI745J38TaON7iCKcutW?node-id=8822-541",
+    "page": {
+      "nodeId": "7324:556",
+      "name": "❖ Breadcrumb"
+    },
+    "type": "COMPONENT",
+    "componentKey": null,
+    "extractedAt": "2026-11-26",
+    "source": "DS 컴포넌트 구조 명세 (토큰 v2.0.4)"
+  },
+  "ds": {
+    "specs": [
+      "breadcrumb"
+    ],
+    "structure": "67. Breadcrumb"
+  },
+  "props": [
+    {
+      "name": "state",
+      "figmaName": "state",
+      "type": "variant",
+      "default": "default",
+      "options": [
+        "default",
+        "hover",
+        "pressed"
+      ]
+    },
+    {
+      "name": "showFocus",
+      "figmaName": "showFocus",
+      "type": "boolean",
+      "default": false
+    }
+  ],
+  "variants": [],
+  "tokens": [],
+  "textStyles": [],
+  "otherStyles": []
+}

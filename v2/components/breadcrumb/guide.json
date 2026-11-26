@@ -1,0 +1,160 @@
+{
+  "$description": "BSS Design Guideline v2.0 › Components/Breadcrumb에서 옮긴 사용 가이드",
+  "source": {
+    "fileKey": "9aVw18Cj7CzvHE1ljGaM9m",
+    "fileName": "BSS Design Guideline v2.0",
+    "nodeId": "2430:86259",
+    "name": "Components/Breadcrumb",
+    "url": "https://www.figma.com/design/9aVw18Cj7CzvHE1ljGaM9m?node-id=2430-86259",
+    "extractedAt": "2026-11-26"
+  },
+  "group": "내비게이션",
+  "overview": "Breadcrumb은 사용자의 현재 위치와 페이지 계층 구조를 표시하고, 각 단계로 빠르게 이동할 수 있도록 돕는 보조 내비게이션 컴포넌트입니다.",
+  "anatomy": {
+    "title": "Anatomy (구성)",
+    "lead": "Breadcrumb을 이루는 필수/선택 요소의 구조를 말합니다.",
+    "example": {
+      "state": "default"
+    },
+    "parts": [
+      {
+        "n": 1,
+        "name": "Home",
+        "layer": "item",
+        "desc": "경로의 첫 단계로, 클릭하여 홈 화면으로 이동할 수 있습니다."
+      },
+      {
+        "n": 2,
+        "name": "Category",
+        "layer": "item",
+        "desc": "Home과 Current Page 사이에 위치하는 중간 경로입니다. 사용자는 해당 단계를 클릭하여 원하는 페이지로 이동할 수 있습니다."
+      },
+      {
+        "n": 3,
+        "name": "Separator",
+        "layer": "separator",
+        "desc": "페이지 간 계층을 시각적으로 구분하는 아이콘입니다."
+      },
+      {
+        "n": 4,
+        "name": "Current Page",
+        "layer": "current",
+        "desc": "사용자가 보고 있는 현재 페이지를 나타내는 경로입니다. 마지막 단계에 위치하며 클릭할 수 없습니다."
+      },
+      {
+        "n": 5,
+        "name": "Focus Ring (Optional)",
+        "layer": "focusRing",
+        "desc": "키보드로 포커스를 이동했을 때 Home·Category 항목 바깥에 표시하는 링입니다. showFocus를 켜면 표시합니다. 규격은 Focus Ring 문서를 따릅니다."
+      }
+    ]
+  },
+  "states": {
+    "title": "States (상태)",
+    "lead": "사용자 입력과 시스템의 상황에 따라 컴포넌트의 표현 방식을 정리한 기준입니다.",
+    "rows": [
+      {
+        "name": "Default",
+        "props": {
+          "state": "default"
+        },
+        "desc": "조작하지 않은 기본 상태입니다. Current Page는 이 상태만 가집니다."
+      },
+      {
+        "name": "Hover",
+        "props": {
+          "state": "hover"
+        },
+        "desc": "마우스 커서가 Home·Category 위에 올라간 상태입니다. 이동할 수 있는 항목임을 나타냅니다."
+      },
+      {
+        "name": "Pressed",
+        "props": {
+          "state": "pressed"
+        },
+        "desc": "Home·Category를 누르고 있는 상태입니다."
+      },
+      {
+        "name": "Focus Visible",
+        "props": {
+          "state": "default",
+          "showFocus": true
+        },
+        "desc": "키보드로 이동해 Focus Ring을 표시한 상태입니다. 다른 상태 위에 겹쳐 표시합니다."
+      }
+    ]
+  },
+  "variants": {
+    "title": "Variants (변형)",
+    "lead": "동일한 컴포넌트를 용도와 표현 방식에 따라 구분한 파생 타입입니다.",
+    "groups": [
+      {
+        "title": "Position",
+        "lead": "경로 안의 위치에 따라 항목의 표현과 동작을 구분합니다. Breadcrumb 본체에는 고르는 속성이 없어, 하위 부품 _Item/Breadcrumb/Item의 position을 사용합니다.(position=link·current)",
+        "rows": [
+          {
+            "name": "Link",
+            "props": {
+              "state": "default"
+            },
+            "desc": "각 Depth의 페이지로 이동할 수 있는 링크입니다. 예시의 Home·Category입니다."
+          },
+          {
+            "name": "Current",
+            "props": {
+              "state": "default"
+            },
+            "desc": "현재 페이지의 제목을 표시합니다. 클릭할 수 없고 정보만을 나타냅니다. 예시의 Current Page입니다."
+          }
+        ]
+      }
+    ]
+  },
+  "policy": {
+    "title": "Policy (사용 정책)",
+    "lead": "계층이 깊은 화면에서 현재 위치와 상위 경로를 보여 줄 때 씁니다.",
+    "when": {
+      "use": [
+        "계층이 깊은 화면에서 현재 위치와 상위 경로를 표시할 때",
+        "상위 단계 페이지로 빠르게 이동할 수 있게 할 때"
+      ],
+      "avoid": [
+        {
+          "text": "같은 화면 안의 콘텐츠를 바꿔 볼 때",
+          "alt": "Tabs"
+        },
+        {
+          "text": "작업을 순서대로 진행하는 단계를 표시할 때",
+          "alt": "Steps"
+        }
+      ]
+    },
+    "rules": [
+      {
+        "name": "현재 위치",
+        "desc": "Current Page는 경로의 마지막에 두며 클릭할 수 없고 Default 상태만 가집니다.",
+        "from": "Guideline · Variants"
+      },
+      {
+        "name": "State Priority · Focus Ring",
+        "desc": "Disabled를 포함한 모든 상태 위에 겹쳐 표시합니다.",
+        "from": "Guideline · States"
+      },
+      {
+        "name": "규격",
+        "desc": "항목과 Separator 사이 간격은 6입니다.",
+        "from": "Guideline · Spec"
+      }
+    ],
+    "do": [
+      "현재 페이지는 경로의 마지막에 두고, 링크가 아닌 텍스트로 표시합니다. (상위 경로만 링크로 제공해 현재 위치를 명확하게 구분합니다.)"
+    ],
+    "dont": [
+      "현재 페이지를 상위 경로와 같은 링크 스타일로 표시하지 않습니다. (현재 위치를 이동 가능한 다른 페이지로 오인할 수 있습니다.)"
+    ],
+    "source": {
+      "id": "guideline-breadcrumb",
+      "title": "BSS Design Guideline v2.0 · Breadcrumb"
+    }
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "schemaVersion": 2,
+  "key": "steps",
+  "name": "Steps",
+  "description": "여러 단계로 나뉜 작업에서 현재 위치와 진행 상태를 번호 동그라미와 연결선으로 보여 줍니다. 항목은 _Item/Steps/Step이며 status 3종(upcoming·current·completed)과 연결선(showConnector)이 있습니다. 코드는 currentStep·totalSteps로 단계 상태를 정합니다.",
+  "figma": {
+    "fileKey": "WcoI745J38TaON7iCKcutW",
+    "nodeId": "7885:17523",
+    "url": "https://www.figma.com/design/WcoI745J38TaON7iCKcutW?node-id=7885-17523",
+    "page": {
+      "nodeId": "7324:568",
+      "name": "❖ Steps"
+    },
+    "type": "COMPONENT",
+    "componentKey": null,
+    "extractedAt": "2026-11-26",
+    "source": "DS 컴포넌트 구조 명세 (토큰 v2.0.4)"
+  },
+  "ds": {
+    "specs": [
+      "steps"
+    ],
+    "structure": "73. Steps"
+  },
+  "props": [
+    {
+      "name": "currentStep",
+      "figmaName": "currentStep",
+      "type": "text",
+      "default": "2"
+    },
+    {
+      "name": "totalSteps",
+      "figmaName": "totalSteps",
+      "type": "text",
+      "default": "5"
+    }
+  ],
+  "variants": [],
+  "tokens": [],
+  "textStyles": [],
+  "otherStyles": []
+}

@@ -1,0 +1,256 @@
+{
+  "$description": "BSS Design Guideline v2.0 › Components/Tabs에서 옮긴 사용 가이드",
+  "source": {
+    "fileKey": "9aVw18Cj7CzvHE1ljGaM9m",
+    "fileName": "BSS Design Guideline v2.0",
+    "nodeId": "2430:95790",
+    "name": "Components/Tabs",
+    "url": "https://www.figma.com/design/9aVw18Cj7CzvHE1ljGaM9m?node-id=2430-95790",
+    "extractedAt": "2026-11-26"
+  },
+  "group": "내비게이션",
+  "overview": "Tabs는 한 화면(또는 한 컨테이너) 안에서 비슷한 콘텐츠를 묶어 표시하고, 사용자가 Tab을 눌러 빠르게 화면을 바꿔가며 비교·탐색할 수 있게 하는 내비게이션 컴포넌트입니다.",
+  "anatomy": {
+    "title": "Anatomy (구성)",
+    "lead": "Tabs를 이루는 필수/선택 요소의 구조를 말합니다.",
+    "example": {
+      "type": "underline",
+      "size": "large"
+    },
+    "parts": [
+      {
+        "n": 1,
+        "name": "Label",
+        "layer": "label",
+        "desc": "Tab의 이름을 표시하는 텍스트입니다."
+      },
+      {
+        "n": 2,
+        "name": "Count Badge (Optional)",
+        "layer": "countBadge",
+        "desc": "Label 옆에 수량을 표시하는 Badge입니다. showCount를 켜면 표시합니다(Underline만)."
+      },
+      {
+        "n": 3,
+        "name": "Line Indicator",
+        "layer": "indicator",
+        "desc": "선택된 Tab을 아래쪽 강조선으로 표시합니다(Underline·Anchor)."
+      },
+      {
+        "n": 4,
+        "name": "Area Indicator",
+        "layer": "border",
+        "desc": "선택된 Tab을 강조 테두리로 구분합니다(Contained)."
+      },
+      {
+        "n": 5,
+        "name": "Focus Ring (Optional)",
+        "layer": "focusRing",
+        "desc": "키보드로 포커스를 이동했을 때 Tab 바깥에 표시하는 링입니다. showFocus를 켜면 표시합니다. 규격은 Focus Ring 문서를 따릅니다."
+      }
+    ]
+  },
+  "states": {
+    "title": "States (상태)",
+    "lead": "사용자 입력과 시스템의 상황에 따라 컴포넌트의 표현 방식을 정리한 기준입니다.",
+    "rows": [
+      {
+        "name": "Default",
+        "props": {
+          "type": "underline",
+          "size": "large",
+          "state": "default"
+        },
+        "desc": "조작하지 않은 기본 상태입니다."
+      },
+      {
+        "name": "Hover",
+        "props": {
+          "type": "underline",
+          "size": "large",
+          "state": "hover"
+        },
+        "desc": "마우스 커서가 Tab 위에 올라간 상태입니다."
+      },
+      {
+        "name": "Pressed",
+        "props": {
+          "type": "underline",
+          "size": "large",
+          "state": "pressed"
+        },
+        "desc": "Tab을 누르고 있는 상태입니다."
+      },
+      {
+        "name": "Focus Visible",
+        "props": {
+          "type": "underline",
+          "size": "large",
+          "state": "default",
+          "showFocus": true
+        },
+        "desc": "키보드로 이동해 Focus Ring을 표시한 상태입니다. 다른 상태 위에 겹쳐 표시합니다."
+      },
+      {
+        "name": "Unselected",
+        "props": {
+          "type": "underline",
+          "size": "large",
+          "state": "default"
+        },
+        "desc": "선택되지 않은 상태입니다. 하위 부품(_Item/Tabs/Underline·Contained·Anchor)의 selection으로 확인합니다. 예시의 둘째·셋째 Tab입니다."
+      },
+      {
+        "name": "Selected",
+        "props": {
+          "type": "underline",
+          "size": "large",
+          "state": "default"
+        },
+        "desc": "선택된 상태입니다. 해당 Tab의 콘텐츠를 화면에 표시합니다. 예시의 첫째 Tab입니다."
+      },
+      {
+        "name": "Disabled",
+        "props": {
+          "type": "underline",
+          "size": "large",
+          "state": "disabled"
+        },
+        "desc": "사용할 수 없는 상태입니다. Tab을 선택할 수 없습니다."
+      }
+    ]
+  },
+  "variants": {
+    "title": "Variants (변형)",
+    "lead": "동일한 컴포넌트를 용도와 표현 방식에 따라 구분한 파생 타입입니다.",
+    "groups": [
+      {
+        "title": "Type",
+        "lead": "표현 방식과 용도에 따라 Tabs를 구분합니다.(type=underline·contained·anchor)",
+        "rows": [
+          {
+            "name": "Underline",
+            "props": {
+              "type": "underline",
+              "size": "large"
+            },
+            "desc": "기능 또는 상태 단위의 콘텐츠를 구분할 때 기본적으로 사용하는 유형입니다."
+          },
+          {
+            "name": "Contained",
+            "props": {
+              "type": "contained",
+              "size": "medium"
+            },
+            "desc": "Underline 하위에서 추가적인 세분화가 필요할 때 사용하는 보조 유형입니다."
+          },
+          {
+            "name": "Anchor",
+            "props": {
+              "type": "anchor",
+              "size": "small"
+            },
+            "desc": "한 페이지 안의 특정 위치로 이동할 때 사용하는 유형입니다."
+          }
+        ]
+      },
+      {
+        "title": "Size",
+        "lead": "Tabs를 크기별로 구분합니다. Type마다 제공하는 크기가 다르며, 같은 이름이라도 Type에 따라 실제 치수가 다를 수 있습니다.(size=large·medium·small)",
+        "rows": [
+          {
+            "name": "Large",
+            "props": {
+              "type": "underline",
+              "size": "large"
+            },
+            "desc": "Underline에 적용하는 크기입니다. 일반 화면에서 사용하며, Count Badge를 함께 표시할 수 있습니다."
+          },
+          {
+            "name": "Medium",
+            "props": {
+              "type": "underline",
+              "size": "medium"
+            },
+            "desc": "Underline과 Contained에 적용하는 크기입니다. Underline Medium은 Node UI에서 사용하며, Count Badge는 Underline에서만 표시할 수 있습니다."
+          },
+          {
+            "name": "Small",
+            "props": {
+              "type": "anchor",
+              "size": "small"
+            },
+            "desc": "Anchor에 적용하는 크기입니다. Anchor는 Small 한 가지 크기만 제공합니다."
+          }
+        ]
+      }
+    ]
+  },
+  "policy": {
+    "title": "Policy (사용 정책)",
+    "lead": "한 화면 안에서 비슷한 콘텐츠를 나눠 두고 바꿔 보며 비교·탐색할 때 씁니다.",
+    "when": {
+      "use": [
+        "한 화면 안에서 비슷한 콘텐츠를 나눠 두고, 바꿔 보며 비교·탐색할 때",
+        "한 페이지 안의 특정 위치로 이동할 때(Anchor)"
+      ],
+      "avoid": [
+        {
+          "text": "작업을 순서대로 진행하는 단계를 표시할 때",
+          "alt": "Steps"
+        },
+        {
+          "text": "필터 조건을 선택·해제할 때",
+          "alt": "Filter Chip"
+        }
+      ]
+    },
+    "rules": [
+      {
+        "name": "Combination · Underline",
+        "desc": "Large·Medium을 씁니다. Medium은 Node UI에서 사용합니다. Count Badge를 표시할 수 있습니다.",
+        "from": "Guideline · Variants"
+      },
+      {
+        "name": "Combination · Contained",
+        "desc": "Medium만 씁니다. Count Badge를 표시하지 않습니다.",
+        "from": "Guideline · Variants"
+      },
+      {
+        "name": "Combination · Anchor",
+        "desc": "Small 한 가지 크기만 제공합니다.",
+        "from": "Guideline · Variants"
+      },
+      {
+        "name": "State Priority · Focus Ring",
+        "desc": "Disabled를 포함한 모든 상태 위에 겹쳐 표시합니다.",
+        "from": "Guideline · States"
+      },
+      {
+        "name": "규격 · Underline",
+        "desc": "높이 Large 56·Medium 40, 좌우 여백 20, Label과 Count Badge 사이 4입니다.",
+        "from": "Guideline · Spec"
+      },
+      {
+        "name": "규격 · Contained",
+        "desc": "높이 40, 좌우 여백 20입니다.",
+        "from": "Guideline · Spec"
+      },
+      {
+        "name": "규격 · Anchor",
+        "desc": "높이 52, Tab 사이 간격 24입니다.",
+        "from": "Guideline · Spec"
+      }
+    ],
+    "do": [
+      "Contained는 Underline 하위에서 세부 분류용 보조 Tabs로 사용합니다. (상위 Tabs와 하위 Tabs의 계층을 명확하게 구분합니다.)"
+    ],
+    "dont": [
+      "Contained를 화면의 최상위 Tabs로 단독 사용하지 않습니다. (보조 Tabs가 주 Tabs처럼 보여 정보 계층이 모호해집니다.)"
+    ],
+    "source": {
+      "id": "guideline-tabs",
+      "title": "BSS Design Guideline v2.0 · Tabs"
+    }
+  }
+}

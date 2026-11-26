@@ -1,0 +1,124 @@
+{
+  "$description": "BSS Design Guideline v2.0 › Components/Steps에서 옮긴 사용 가이드",
+  "source": {
+    "fileKey": "9aVw18Cj7CzvHE1ljGaM9m",
+    "fileName": "BSS Design Guideline v2.0",
+    "nodeId": "2430:86422",
+    "name": "Components/Steps",
+    "url": "https://www.figma.com/design/9aVw18Cj7CzvHE1ljGaM9m?node-id=2430-86422",
+    "extractedAt": "2026-11-26"
+  },
+  "group": "내비게이션",
+  "overview": "Steps는 단계 기반의 작업 흐름에서 현재 진행 상태를 표시하고, 다음 단계로의 이동을 안내하는 컴포넌트입니다. 사용자는 전체 단계 중 현재 위치와 진행 상태를 직관적으로 파악할 수 있습니다.",
+  "anatomy": {
+    "title": "Anatomy (구성)",
+    "lead": "Steps를 이루는 필수/선택 요소의 구조를 말합니다.",
+    "example": {
+      "currentStep": "2",
+      "totalSteps": "5"
+    },
+    "parts": [
+      {
+        "n": 1,
+        "name": "Completed Step",
+        "layer": "indicator",
+        "desc": "사용자가 이미 마친 이전 단계입니다. 체크 아이콘으로 완료를 표시합니다."
+      },
+      {
+        "n": 2,
+        "name": "Current Step",
+        "layer": "indicator",
+        "desc": "사용자가 진행 중인 단계로, 브랜드 색과 텍스트로 현재 위치를 나타냅니다."
+      },
+      {
+        "n": 3,
+        "name": "Upcoming Step",
+        "layer": "indicator",
+        "desc": "아직 도달하지 않은 단계로, 진행 중인 항목과 시각적으로 구분합니다."
+      },
+      {
+        "n": 4,
+        "name": "Connector",
+        "layer": "connector",
+        "desc": "단계 간의 흐름을 연결하는 선 또는 구분 요소입니다. 단계 간 순서와 진행 관계를 나타냅니다. 마지막 단계에는 표시하지 않습니다(showConnector)."
+      }
+    ]
+  },
+  "states": {
+    "title": "States (상태)",
+    "lead": "작업 진행에 따라 각 단계의 표시가 바뀝니다. 하위 부품 _Item/Steps/Step의 status로 확인합니다.(status=upcoming·current·completed)",
+    "rows": [
+      {
+        "name": "Upcoming",
+        "props": {
+          "currentStep": "0",
+          "totalSteps": "1"
+        },
+        "desc": "아직 진행되지 않은 기본 상태입니다. 향후 진행할 단계로 대기 상태를 표시합니다."
+      },
+      {
+        "name": "Current",
+        "props": {
+          "currentStep": "1",
+          "totalSteps": "1"
+        },
+        "desc": "현재 진행 중인 상태입니다. 다른 단계와 시각적으로 구분해 강조합니다."
+      },
+      {
+        "name": "Completed",
+        "props": {
+          "currentStep": "2",
+          "totalSteps": "1"
+        },
+        "desc": "완료된 상태입니다. 완료 여부를 명확하게 인지할 수 있도록 표시합니다."
+      }
+    ]
+  },
+  "variants": {
+    "title": "Variants (변형)",
+    "lead": "동일한 컴포넌트를 용도와 표현 방식에 따라 구분한 파생 타입입니다.",
+    "groups": []
+  },
+  "policy": {
+    "title": "Policy (사용 정책)",
+    "lead": "여러 단계로 나뉜 작업 흐름에서 현재 위치와 진행 상태를 보여 줄 때 씁니다.",
+    "when": {
+      "use": [
+        "여러 단계로 나뉜 작업 흐름에서 현재 위치와 진행 상태를 표시할 때",
+        "전체 단계 중 몇 번째 단계인지 알려야 할 때"
+      ],
+      "avoid": [
+        {
+          "text": "페이지 단위로 나뉜 콘텐츠를 탐색할 때",
+          "alt": "Pagination"
+        },
+        {
+          "text": "작업의 진행률(%)을 표시할 때",
+          "alt": "Progress Bar"
+        }
+      ]
+    },
+    "rules": [
+      {
+        "name": "Current는 하나",
+        "desc": "현재 진행 중인 단계는 하나만 Current로 표시하고, 이전 단계는 Completed, 이후 단계는 Upcoming으로 표시합니다.",
+        "from": "Guideline · Do & Don't"
+      },
+      {
+        "name": "규격",
+        "desc": "단계 표시는 20 원형(R9999), Connector 길이는 12입니다.",
+        "from": "Guideline · Spec"
+      }
+    ],
+    "do": [
+      "현재 진행 중인 단계는 하나만 Current로 표시합니다. (이전 단계는 Completed, 이후 단계는 Upcoming으로 표시해 진행 순서를 명확히 합니다.)"
+    ],
+    "dont": [
+      "Current 단계를 여러 개 표시하지 않습니다. (사용자가 현재 위치를 판단하기 어렵습니다.)"
+    ],
+    "source": {
+      "id": "guideline-steps",
+      "title": "BSS Design Guideline v2.0 · Steps"
+    }
+  }
+}

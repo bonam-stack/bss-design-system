@@ -1,0 +1,79 @@
+{
+  "schemaVersion": 2,
+  "key": "tabs",
+  "name": "Tabs",
+  "description": "한 화면 안에서 비슷한 콘텐츠를 나눠 두고 탭을 눌러 바꿔 보게 하는 내비게이션입니다. type 3종(underline·contained·anchor) × size 3종 중 4개 조합(underline large 56·medium 40, contained medium 40, anchor small 52). 항목은 _Item/Tabs/Underline·Contained·Anchor이며 state 4종, showFocus, underline은 개수 배지(showCount)를 표시합니다.",
+  "figma": {
+    "fileKey": "WcoI745J38TaON7iCKcutW",
+    "nodeId": "7242:1095",
+    "url": "https://www.figma.com/design/WcoI745J38TaON7iCKcutW?node-id=7242-1095",
+    "page": {
+      "nodeId": "3936:36446",
+      "name": "❖ Tabs"
+    },
+    "type": "COMPONENT_SET",
+    "componentKey": null,
+    "extractedAt": "2026-11-26",
+    "source": "DS 컴포넌트 구조 명세 (토큰 v2.0.4)"
+  },
+  "ds": {
+    "specs": [
+      "tab-underline",
+      "tab-contained",
+      "tab-anchor"
+    ],
+    "structure": "28. Tabs"
+  },
+  "props": [
+    {
+      "name": "type",
+      "figmaName": "type",
+      "type": "variant",
+      "default": "underline",
+      "options": [
+        "underline",
+        "contained",
+        "anchor"
+      ]
+    },
+    {
+      "name": "size",
+      "figmaName": "size",
+      "type": "variant",
+      "default": "large",
+      "options": [
+        "large",
+        "medium",
+        "small"
+      ]
+    },
+    {
+      "name": "state",
+      "figmaName": "state",
+      "type": "variant",
+      "default": "default",
+      "options": [
+        "default",
+        "hover",
+        "pressed",
+        "disabled"
+      ]
+    },
+    {
+      "name": "showFocus",
+      "figmaName": "showFocus",
+      "type": "boolean",
+      "default": false
+    },
+    {
+      "name": "showCount",
+      "figmaName": "showCount",
+      "type": "boolean",
+      "default": true
+    }
+  ],
+  "variants": [],
+  "tokens": [],
+  "textStyles": [],
+  "otherStyles": []
+}
