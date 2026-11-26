@@ -1,0 +1,109 @@
+{
+  "schemaVersion": 2,
+  "key": "viewer-modal",
+  "name": "ViewerModal",
+  "description": "문서·이미지를 크게 보는 뷰어 모달입니다. 변형 없음(너비 1280). 표시 영역 위에 떠 있는 툴바 2개(_Item/ViewerModal/Toolbar type 2종: actions 확대·축소·맞춤·전체 화면 / page 쪽 이동·쪽 표시)와 스크롤바를 두며, showLeadingToolbar·showTrailingToolbar·showScrollbar·showClose·showAction으로 켜고 끕니다.",
+  "figma": {
+    "fileKey": "WcoI745J38TaON7iCKcutW",
+    "nodeId": "3863:862",
+    "url": "https://www.figma.com/design/WcoI745J38TaON7iCKcutW?node-id=3863-862",
+    "page": {
+      "nodeId": "3859:30913",
+      "name": "    ❖ Modal"
+    },
+    "type": "COMPONENT",
+    "componentKey": null,
+    "extractedAt": "2026-11-26",
+    "source": "DS 컴포넌트 구조 명세 (토큰 v2.0.4)"
+  },
+  "ds": {
+    "specs": [
+      "viewerModal"
+    ],
+    "structure": "53. ViewerModal · 54. _Item/ViewerModal/Toolbar"
+  },
+  "props": [
+    {
+      "name": "showClose",
+      "figmaName": "showClose",
+      "type": "boolean",
+      "default": true
+    },
+    {
+      "name": "showAction",
+      "figmaName": "showAction",
+      "type": "boolean",
+      "default": true
+    },
+    {
+      "name": "showLeadingToolbar",
+      "figmaName": "showLeadingToolbar",
+      "type": "boolean",
+      "default": true
+    },
+    {
+      "name": "showTrailingToolbar",
+      "figmaName": "showTrailingToolbar",
+      "type": "boolean",
+      "default": true
+    },
+    {
+      "name": "showScrollbar",
+      "figmaName": "showScrollbar",
+      "type": "boolean",
+      "default": true
+    },
+    {
+      "name": "title",
+      "figmaName": "title",
+      "type": "text",
+      "default": "Title"
+    },
+    {
+      "name": "currentPage",
+      "figmaName": "currentPage",
+      "type": "text",
+      "default": "1"
+    },
+    {
+      "name": "totalPages",
+      "figmaName": "totalPages",
+      "type": "text",
+      "default": "1"
+    },
+    {
+      "name": "content",
+      "figmaName": "content",
+      "type": "slot",
+      "default": null
+    },
+    {
+      "name": "leadingActions",
+      "figmaName": "leadingActions",
+      "type": "slot",
+      "default": null
+    },
+    {
+      "name": "trailingActions",
+      "figmaName": "trailingActions",
+      "type": "slot",
+      "default": null
+    },
+    {
+      "name": "leadingToolbar",
+      "figmaName": "leadingToolbar",
+      "type": "slot",
+      "default": null
+    },
+    {
+      "name": "trailingToolbar",
+      "figmaName": "trailingToolbar",
+      "type": "slot",
+      "default": null
+    }
+  ],
+  "variants": [],
+  "tokens": [],
+  "textStyles": [],
+  "otherStyles": []
+}

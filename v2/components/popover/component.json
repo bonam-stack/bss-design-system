@@ -1,0 +1,85 @@
+{
+  "schemaVersion": 2,
+  "key": "popover",
+  "name": "Popover",
+  "description": "트리거를 누르면 열리는 패널입니다. placement 4종(top·right·bottom·left). 머리(제목·닫기 showClose) + 내용(content 슬롯, showContent, Item/Popover/Text plain·bullet) + 아래 텍스트 버튼(footer 슬롯, showFooter, 오른쪽 정렬) + 화살표(showArrow)로 이루어집니다.",
+  "figma": {
+    "fileKey": "WcoI745J38TaON7iCKcutW",
+    "nodeId": "7324:3459",
+    "url": "https://www.figma.com/design/WcoI745J38TaON7iCKcutW?node-id=7324-3459",
+    "page": {
+      "nodeId": "7324:557",
+      "name": "    ❖ Tooltip / Popover"
+    },
+    "type": "COMPONENT_SET",
+    "componentKey": null,
+    "extractedAt": "2026-11-26",
+    "source": "DS 컴포넌트 구조 명세 (토큰 v2.0.4)"
+  },
+  "ds": {
+    "specs": [
+      "popover"
+    ],
+    "structure": "80. Popover · 81. Item/Popover/Text"
+  },
+  "props": [
+    {
+      "name": "placement",
+      "figmaName": "placement",
+      "type": "variant",
+      "default": "top",
+      "options": [
+        "top",
+        "right",
+        "bottom",
+        "left"
+      ]
+    },
+    {
+      "name": "showClose",
+      "figmaName": "showClose",
+      "type": "boolean",
+      "default": true
+    },
+    {
+      "name": "showContent",
+      "figmaName": "showContent",
+      "type": "boolean",
+      "default": true
+    },
+    {
+      "name": "showFooter",
+      "figmaName": "showFooter",
+      "type": "boolean",
+      "default": true
+    },
+    {
+      "name": "showArrow",
+      "figmaName": "showArrow",
+      "type": "boolean",
+      "default": true
+    },
+    {
+      "name": "title",
+      "figmaName": "title",
+      "type": "text",
+      "default": "Title"
+    },
+    {
+      "name": "content",
+      "figmaName": "content",
+      "type": "slot",
+      "default": null
+    },
+    {
+      "name": "footer",
+      "figmaName": "footer",
+      "type": "slot",
+      "default": null
+    }
+  ],
+  "variants": [],
+  "tokens": [],
+  "textStyles": [],
+  "otherStyles": []
+}

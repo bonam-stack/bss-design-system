@@ -1,0 +1,76 @@
+{
+  "schemaVersion": 2,
+  "key": "tooltip",
+  "name": "Tooltip",
+  "description": "트리거 주변에 짧은 보조 문구를 띄우는 말풍선입니다. state 2종(default·error) × placement 4종(top·right·bottom·left) × align 3종(start·center·end, left·right는 center만)으로 변형 16개이며 showArrow로 화살표를 켜고 끕니다.",
+  "figma": {
+    "fileKey": "WcoI745J38TaON7iCKcutW",
+    "nodeId": "7324:3417",
+    "url": "https://www.figma.com/design/WcoI745J38TaON7iCKcutW?node-id=7324-3417",
+    "page": {
+      "nodeId": "7324:557",
+      "name": "    ❖ Tooltip / Popover"
+    },
+    "type": "COMPONENT_SET",
+    "componentKey": null,
+    "extractedAt": "2026-11-26",
+    "source": "DS 컴포넌트 구조 명세 (토큰 v2.0.4)"
+  },
+  "ds": {
+    "specs": [
+      "tooltip"
+    ],
+    "structure": "79. Tooltip"
+  },
+  "props": [
+    {
+      "name": "state",
+      "figmaName": "state",
+      "type": "variant",
+      "default": "default",
+      "options": [
+        "default",
+        "error"
+      ]
+    },
+    {
+      "name": "placement",
+      "figmaName": "placement",
+      "type": "variant",
+      "default": "top",
+      "options": [
+        "top",
+        "right",
+        "bottom",
+        "left"
+      ]
+    },
+    {
+      "name": "align",
+      "figmaName": "align",
+      "type": "variant",
+      "default": "start",
+      "options": [
+        "start",
+        "center",
+        "end"
+      ]
+    },
+    {
+      "name": "showArrow",
+      "figmaName": "showArrow",
+      "type": "boolean",
+      "default": true
+    },
+    {
+      "name": "text",
+      "figmaName": "text",
+      "type": "text",
+      "default": "Tooltip text"
+    }
+  ],
+  "variants": [],
+  "tokens": [],
+  "textStyles": [],
+  "otherStyles": []
+}

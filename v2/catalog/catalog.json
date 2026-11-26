@@ -752,8 +752,9 @@
       "ux": true,
       "meaning": "입력 후 바로 검색",
       "variants": "-",
-      "nameKo": "검색 입력",
-      "group": "입력"
+      "nameKo": "검색 필드",
+      "group": "입력",
+      "key": "search-field"
     },
     {
       "code": "c-select",
@@ -764,8 +765,9 @@
       "ux": true,
       "meaning": "선택지 5개 이상에서 선택",
       "variants": "single · multi",
-      "nameKo": "드롭다운",
-      "group": "입력"
+      "nameKo": "셀렉트",
+      "group": "입력",
+      "key": "select"
     },
     {
       "code": "c-date-field",
@@ -776,8 +778,9 @@
       "ux": true,
       "meaning": "시작·종료 날짜 · 기본값 채움",
       "variants": "range · single",
-      "nameKo": "기간 입력",
-      "group": "입력"
+      "nameKo": "날짜 필드",
+      "group": "입력",
+      "key": "date-field"
     },
     {
       "code": "c-tabs",
@@ -789,7 +792,8 @@
       "meaning": "컨텐트 묶음 전환 · 안에 슬롯이 있는 컨테이너형",
       "variants": "line · contained",
       "nameKo": "탭",
-      "group": "컨테이너"
+      "group": "내비게이션",
+      "key": "tabs"
     },
     {
       "code": "c-radio",
@@ -885,14 +889,15 @@
     {
       "code": "c-chip",
       "kind": "comp",
-      "name": "Chip",
+      "name": "FilterChip",
       "status": "pub",
       "design": true,
       "ux": true,
       "meaning": "필터 전환·입력값 표시",
       "variants": "filter · input",
-      "nameKo": "칩",
-      "group": "입력"
+      "nameKo": "필터 칩",
+      "group": "입력",
+      "key": "filter-chip"
     },
     {
       "code": "c-badge",
@@ -904,7 +909,8 @@
       "meaning": "처리 상태 표시",
       "variants": "basic · dotted",
       "nameKo": "배지",
-      "group": "피드백·알림"
+      "group": "피드백·알림",
+      "key": "badge"
     },
     {
       "code": "c-tag",
@@ -916,31 +922,34 @@
       "meaning": "분류·속성 표시",
       "variants": "keyword",
       "nameKo": "태그",
-      "group": "피드백·알림"
+      "group": "리스트",
+      "key": "tag"
     },
     {
       "code": "c-table-column-header",
       "kind": "comp",
-      "name": "TableColumnHeader",
+      "name": "TableHeader",
       "status": "pub",
       "design": true,
       "ux": true,
       "meaning": "열 제목과 정렬",
       "variants": "sortable",
-      "nameKo": "표 머리 칸",
-      "group": "테이블"
+      "nameKo": "테이블 헤더",
+      "group": "테이블",
+      "key": "table-header"
     },
     {
       "code": "c-table-text-cell",
       "kind": "comp",
-      "name": "TableTextCell",
+      "name": "TableCell",
       "status": "pub",
       "design": true,
       "ux": true,
       "meaning": "행의 글자 칸",
       "variants": "-",
-      "nameKo": "표 글자 칸",
-      "group": "테이블"
+      "nameKo": "테이블 셀",
+      "group": "테이블",
+      "key": "table-cell"
     },
     {
       "code": "c-pagination",
@@ -951,8 +960,9 @@
       "ux": true,
       "meaning": "페이지 단위 이동",
       "variants": "-",
-      "nameKo": "페이지 번호",
-      "group": "내비게이션"
+      "nameKo": "페이지네이션",
+      "group": "내비게이션",
+      "key": "pagination"
     },
     {
       "code": "c-callout",
@@ -964,7 +974,8 @@
       "meaning": "성격별 색과 라벨이 붙은 안내 상자",
       "variants": "info · warning · success · danger · neutral · ai",
       "nameKo": "콜아웃",
-      "group": "피드백·알림"
+      "group": "피드백·알림",
+      "key": "callout"
     },
     {
       "code": "c-breadcrumb",
@@ -976,7 +987,8 @@
       "meaning": "현재 위치 경로",
       "variants": "-",
       "nameKo": "브레드크럼",
-      "group": "내비게이션"
+      "group": "내비게이션",
+      "key": "breadcrumb"
     },
     {
       "code": "c-page-header",
@@ -993,14 +1005,15 @@
     {
       "code": "c-popup",
       "kind": "comp",
-      "name": "Popup",
-      "status": "draft",
+      "name": "Modal",
+      "status": "pub",
       "design": true,
       "ux": true,
       "meaning": "어두운 배경·머리·본문·하단 버튼으로 구성된 컨테이너형 · 안은 l-popup 규칙",
       "variants": "fixed · utility · full",
-      "nameKo": "팝업",
-      "group": "컨테이너"
+      "nameKo": "모달",
+      "group": "컨테이너",
+      "key": "modal"
     },
     {
       "code": "c-dialog",
@@ -1012,7 +1025,8 @@
       "meaning": "실행 전 확인",
       "variants": "confirm · alert",
       "nameKo": "다이얼로그",
-      "group": "피드백·알림"
+      "group": "컨테이너",
+      "key": "dialog"
     },
     {
       "code": "c-toast",
@@ -1024,7 +1038,8 @@
       "meaning": "실행 후 알림",
       "variants": "-",
       "nameKo": "토스트",
-      "group": "피드백·알림"
+      "group": "피드백·알림",
+      "key": "toast"
     },
     {
       "code": "c-switch",
@@ -1038,6 +1053,292 @@
       "variants": "unchecked · checked",
       "key": "switch",
       "group": "입력"
+    },
+    {
+      "code": "c-field-label",
+      "kind": "comp",
+      "name": "FieldLabel",
+      "nameKo": "라벨",
+      "status": "pub",
+      "design": true,
+      "ux": true,
+      "key": "field-label",
+      "group": "입력",
+      "meaning": "입력 필드 위에 입력 항목의 이름을 표시합니다. 필수 여부는 컨트롤 배경으로 표시하는 것이 기준입니다",
+      "variants": "strong · subtle"
+    },
+    {
+      "code": "c-lookup-field",
+      "kind": "comp",
+      "name": "LookupField",
+      "nameKo": "조회 필드",
+      "status": "pub",
+      "design": true,
+      "ux": true,
+      "key": "lookup-field",
+      "group": "입력",
+      "meaning": "목록이 길어 검색 창에서 찾아 골라야 하는 값을 넣을 때 씁니다",
+      "variants": "none · attention · required"
+    },
+    {
+      "code": "c-stepper",
+      "kind": "comp",
+      "name": "Stepper",
+      "nameKo": "스테퍼",
+      "status": "pub",
+      "design": true,
+      "ux": true,
+      "key": "stepper",
+      "group": "입력",
+      "meaning": "범위가 정해져 있고 일정 단위로 늘리거나 줄이는 숫자를 입력할 때 씁니다",
+      "variants": "none · attention · required"
+    },
+    {
+      "code": "c-calendar",
+      "kind": "comp",
+      "name": "Calendar",
+      "nameKo": "캘린더",
+      "status": "pub",
+      "design": true,
+      "ux": true,
+      "key": "calendar",
+      "group": "입력",
+      "meaning": "Date Picker 안에서 날짜·기간을 달력으로 고를 때 씁니다",
+      "variants": "single · range"
+    },
+    {
+      "code": "c-date-picker",
+      "kind": "comp",
+      "name": "DatePicker",
+      "nameKo": "날짜 선택",
+      "status": "pub",
+      "design": true,
+      "ux": true,
+      "key": "date-picker",
+      "group": "입력",
+      "meaning": "날짜나 기간을 달력에서 골라 입력 필드에 반영할 때 씁니다",
+      "variants": "date · dateTime · dateRange · dateTimeRange"
+    },
+    {
+      "code": "c-remove-chip",
+      "kind": "comp",
+      "name": "RemoveChip",
+      "nameKo": "삭제 칩",
+      "status": "pub",
+      "design": true,
+      "ux": true,
+      "key": "remove-chip",
+      "group": "입력",
+      "meaning": "선택한 값을 표시하고 지울 수 있게 할 때 씁니다",
+      "variants": "filled · outlined"
+    },
+    {
+      "code": "c-grid-header",
+      "kind": "comp",
+      "name": "GridHeader",
+      "nameKo": "그리드 헤더",
+      "status": "pub",
+      "design": true,
+      "ux": true,
+      "key": "grid-header",
+      "group": "테이블",
+      "meaning": "Data Grid의 열 제목을 표시하고, 정렬·전체 선택을 제공하는 머리 칸입니다",
+      "variants": "text · checkbox"
+    },
+    {
+      "code": "c-grid-cell",
+      "kind": "comp",
+      "name": "GridCell",
+      "nameKo": "그리드 셀",
+      "status": "pub",
+      "design": true,
+      "ux": true,
+      "key": "grid-cell",
+      "group": "테이블",
+      "meaning": "Data Grid에서 데이터를 행 단위로 표시하고 편집하는 본문 칸입니다",
+      "variants": "plain · bullet"
+    },
+    {
+      "code": "c-data-item",
+      "kind": "comp",
+      "name": "DataItem",
+      "nameKo": "데이터 항목",
+      "status": "pub",
+      "design": true,
+      "ux": true,
+      "key": "data-item",
+      "group": "리스트",
+      "meaning": "Label과 값을 한 쌍으로 묶어 읽기 중심의 정보를 표시할 때 씁니다",
+      "variants": ""
+    },
+    {
+      "code": "c-alert",
+      "kind": "comp",
+      "name": "Alert",
+      "nameKo": "알림창",
+      "status": "pub",
+      "design": true,
+      "ux": true,
+      "key": "alert",
+      "group": "피드백·알림",
+      "meaning": "반드시 확인해야 하는 정보를 알리고 확인만 받을 때 씁니다",
+      "variants": ""
+    },
+    {
+      "code": "c-viewer-modal",
+      "kind": "comp",
+      "name": "ViewerModal",
+      "nameKo": "뷰어 모달",
+      "status": "pub",
+      "design": true,
+      "ux": true,
+      "key": "viewer-modal",
+      "group": "컨테이너",
+      "meaning": "문서나 이미지를 크게 확인할 때 씁니다",
+      "variants": ""
+    },
+    {
+      "code": "c-side-panel",
+      "kind": "comp",
+      "name": "SidePanel",
+      "nameKo": "사이드 패널",
+      "status": "pub",
+      "design": true,
+      "ux": true,
+      "key": "side-panel",
+      "group": "컨테이너",
+      "meaning": "현재 화면 맥락을 유지한 채 추가 정보를 확인하거나 입력할 때 씁니다",
+      "variants": ""
+    },
+    {
+      "code": "c-tooltip",
+      "kind": "comp",
+      "name": "Tooltip",
+      "nameKo": "툴팁",
+      "status": "pub",
+      "design": true,
+      "ux": true,
+      "key": "tooltip",
+      "group": "피드백·알림",
+      "meaning": "아이콘 버튼의 기능처럼 짧은 보조 정보를 알릴 때 씁니다",
+      "variants": "default · error"
+    },
+    {
+      "code": "c-popover",
+      "kind": "comp",
+      "name": "Popover",
+      "nameKo": "팝오버",
+      "status": "pub",
+      "design": true,
+      "ux": true,
+      "key": "popover",
+      "group": "피드백·알림",
+      "meaning": "제목·본문·액션이 있는 상세 정보를 Trigger 가까이 표시할 때 씁니다",
+      "variants": "top · right · bottom · left"
+    },
+    {
+      "code": "c-context-menu",
+      "kind": "comp",
+      "name": "ContextMenu",
+      "nameKo": "컨텍스트 메뉴",
+      "status": "pub",
+      "design": true,
+      "ux": true,
+      "key": "context-menu",
+      "group": "리스트",
+      "meaning": "하나의 Trigger에 관련된 작업 여러 개를 모아 제공할 때 씁니다",
+      "variants": "default · hover · pressed · disabled"
+    },
+    {
+      "code": "c-steps",
+      "kind": "comp",
+      "name": "Steps",
+      "nameKo": "단계",
+      "status": "pub",
+      "design": true,
+      "ux": true,
+      "key": "steps",
+      "group": "내비게이션",
+      "meaning": "여러 단계로 나뉜 작업 흐름에서 현재 위치와 진행 상태를 보여 줄 때 씁니다",
+      "variants": ""
+    },
+    {
+      "code": "c-toolbar",
+      "kind": "comp",
+      "name": "Toolbar",
+      "nameKo": "툴바",
+      "status": "pub",
+      "design": true,
+      "ux": true,
+      "key": "toolbar",
+      "group": "버튼",
+      "meaning": "단계 진행 정보와 보기 도구를 한 막대에 함께 둘 때 씁니다",
+      "variants": "unselected · selected"
+    },
+    {
+      "code": "c-snackbar",
+      "kind": "comp",
+      "name": "Snackbar",
+      "nameKo": "스낵바",
+      "status": "pub",
+      "design": true,
+      "ux": true,
+      "key": "snackbar",
+      "group": "피드백·알림",
+      "meaning": "처리 결과를 제목과 항목별 건수로 흐름을 막지 않고 알릴 때 씁니다",
+      "variants": ""
+    },
+    {
+      "code": "c-progress-bar",
+      "kind": "comp",
+      "name": "ProgressBar",
+      "nameKo": "진행 막대",
+      "status": "pub",
+      "design": true,
+      "ux": true,
+      "key": "progress-bar",
+      "group": "피드백·알림",
+      "meaning": "완료까지 시간이 걸리는 작업의 진행 정도를 막대로 보여 줄 때 씁니다",
+      "variants": "0 · 25 · 50 · 75 · 100"
+    },
+    {
+      "code": "c-skeleton",
+      "kind": "comp",
+      "name": "Skeleton",
+      "nameKo": "스켈레톤",
+      "status": "pub",
+      "design": true,
+      "ux": true,
+      "key": "skeleton",
+      "group": "피드백·알림",
+      "meaning": "리스트·테이블·카드처럼 콘텐츠를 불러오는 동안 화면 구조를 먼저 보여 줄 때 씁니다",
+      "variants": "rectangle · circle · capsule"
+    },
+    {
+      "code": "c-accordion",
+      "kind": "comp",
+      "name": "Accordion",
+      "nameKo": "아코디언",
+      "status": "pub",
+      "design": true,
+      "ux": true,
+      "key": "accordion",
+      "group": "컨테이너",
+      "meaning": "관련된 내용을 항목으로 묶어 필요할 때 펼쳐 보게 할 때 씁니다",
+      "variants": "basic · compact · text"
+    },
+    {
+      "code": "c-scrollbar",
+      "kind": "comp",
+      "name": "Scrollbar",
+      "nameKo": "스크롤바",
+      "status": "pub",
+      "design": true,
+      "ux": true,
+      "key": "scrollbar",
+      "group": "컨테이너",
+      "meaning": "콘텐츠가 영역을 넘어 한 번에 볼 수 없을 때 한 화면에 하나의 스크롤 영역으로 씁니다",
+      "variants": "horizontal · vertical"
     }
   ],
   "slots": [

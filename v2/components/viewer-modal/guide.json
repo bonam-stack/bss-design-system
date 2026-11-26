@@ -1,0 +1,138 @@
+{
+  "$description": "BSS Design Guideline v2.0 › Components/Modal(Viewer Modal)에서 옮긴 사용 가이드",
+  "source": {
+    "fileKey": "9aVw18Cj7CzvHE1ljGaM9m",
+    "fileName": "BSS Design Guideline v2.0",
+    "nodeId": "2430:96975",
+    "name": "Components/Modal",
+    "url": "https://www.figma.com/design/9aVw18Cj7CzvHE1ljGaM9m?node-id=2430-96975",
+    "extractedAt": "2026-11-26"
+  },
+  "group": "컨테이너",
+  "overview": "Viewer Modal은 문서나 이미지를 크게 확인할 때 쓰는 Modal입니다. 표시 영역 위에 확대·축소 등 보기 동작 Toolbar와 쪽 이동 Toolbar를 띄우며, 너비는 1280입니다.",
+  "anatomy": {
+    "title": "Anatomy (구성)",
+    "lead": "Viewer Modal을 이루는 필수/선택 요소의 구조를 말합니다.",
+    "example": {},
+    "parts": [
+      {
+        "n": 1,
+        "name": "Container",
+        "layer": "root",
+        "desc": "배경과 구분되는 콘텐츠를 담는 레이어 영역으로, Viewer Modal의 전체 구조와 범위를 정의합니다."
+      },
+      {
+        "n": 2,
+        "name": "Title",
+        "layer": "title",
+        "desc": "Viewer Modal 위쪽에 두는 제목으로, 보고 있는 문서나 이미지의 이름을 표시합니다."
+      },
+      {
+        "n": 3,
+        "name": "Content",
+        "layer": "viewport",
+        "desc": "문서나 이미지를 표시하는 영역입니다.(content 슬롯)"
+      },
+      {
+        "n": 4,
+        "name": "Actions Toolbar (Optional)",
+        "layer": "leadingToolbar",
+        "desc": "확대, 축소 등 보기 동작 버튼을 모은 Toolbar입니다. 표시 영역 왼쪽 위에 떠 있습니다. showLeadingToolbar를 켜면 표시합니다."
+      },
+      {
+        "n": 5,
+        "name": "Page Toolbar (Optional)",
+        "layer": "trailingToolbar",
+        "desc": "현재 페이지와 전체 페이지 수를 표시하고 페이지를 이동하는 Toolbar입니다. 표시 영역 오른쪽 위에 떠 있습니다. showTrailingToolbar를 켜면 표시합니다."
+      },
+      {
+        "n": 6,
+        "name": "Scrollbar (Optional)",
+        "layer": "scrollbar",
+        "desc": "표시 내용이 영역을 넘을 때 표시하는 Scrollbar입니다. showScrollbar를 켜면 표시합니다."
+      },
+      {
+        "n": 7,
+        "name": "Button (Optional)",
+        "layer": "actions",
+        "desc": "작업을 완료하거나 흐름을 이어가기 위한 버튼 영역입니다. showAction을 켜면 표시합니다."
+      },
+      {
+        "n": 8,
+        "name": "Close Button (Optional)",
+        "layer": "close",
+        "desc": "Viewer Modal을 닫는 버튼입니다. Title 오른쪽에 위치합니다. showClose를 켜면 표시합니다."
+      }
+    ]
+  },
+  "variants": {
+    "title": "Variants (변형)",
+    "lead": "Viewer Modal 본체에는 고르는 속성이 없어, 하위 부품 _Item/ViewerModal/Toolbar의 type을 사용합니다.(type=actions·page)",
+    "groups": [
+      {
+        "title": "Toolbar Type",
+        "lead": "Viewer Modal Toolbar의 형태입니다.",
+        "rows": [
+          {
+            "name": "Actions",
+            "props": {
+              "showLeadingToolbar": true,
+              "showTrailingToolbar": false
+            },
+            "desc": "확대, 축소 등 보기 동작 버튼을 모은 Toolbar입니다."
+          },
+          {
+            "name": "Page",
+            "props": {
+              "showLeadingToolbar": false,
+              "showTrailingToolbar": true
+            },
+            "desc": "현재 페이지와 전체 페이지 수를 표시하고 페이지를 이동하는 Toolbar입니다."
+          }
+        ]
+      }
+    ]
+  },
+  "policy": {
+    "title": "Policy (사용 정책)",
+    "lead": "문서나 이미지를 크게 확인할 때 씁니다.",
+    "when": {
+      "use": [
+        "문서나 이미지를 크게 확인할 때(Viewer Modal)"
+      ],
+      "avoid": [
+        {
+          "text": "정보 입력, 수정, 상세 확인처럼 별도 작업이 필요할 때",
+          "alt": "Modal"
+        },
+        {
+          "text": "뒤 화면을 계속 조작하면서 함께 봐야 할 때",
+          "alt": "Side Panel"
+        }
+      ]
+    },
+    "rules": [
+      {
+        "name": "정렬",
+        "desc": "Modal은 화면(Viewport) 기준 가로 세로 중앙에 정렬됩니다.",
+        "from": "Guideline · Layout"
+      },
+      {
+        "name": "Dim",
+        "desc": "Modal이 열리면 배경 콘텐츠 위에 반투명 영역을 표시해 기존 화면을 조작할 수 없게 합니다. 상황에 따라 Dim 영역을 클릭해 닫을 수 있으며, 중요한 작업의 경우에는 닫힘을 제한할 수 있습니다.",
+        "from": "Guideline · Anatomy"
+      },
+      {
+        "name": "규격",
+        "desc": "너비 1280, 안쪽 여백 24, 모서리 16, 제목과 내용 사이 20입니다. Toolbar는 높이 44, 모서리 6, 좌우 여백 12, 버튼 사이 8입니다(Actions 112×44 · Page 101×44).",
+        "from": "Guideline · Spec"
+      }
+    ],
+    "do": [],
+    "dont": [],
+    "source": {
+      "id": "guideline-viewer-modal",
+      "title": "BSS Design Guideline v2.0 · Modal (Viewer Modal)"
+    }
+  }
+}

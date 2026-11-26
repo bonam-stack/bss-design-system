@@ -1,0 +1,117 @@
+{
+  "$description": "BSS Design Guideline v2.0 › Components/Side Panel에서 옮긴 사용 가이드",
+  "source": {
+    "fileKey": "9aVw18Cj7CzvHE1ljGaM9m",
+    "fileName": "BSS Design Guideline v2.0",
+    "nodeId": "2430:83670",
+    "name": "Components/Side Panel",
+    "url": "https://www.figma.com/design/9aVw18Cj7CzvHE1ljGaM9m?node-id=2430-83670",
+    "extractedAt": "2026-11-26"
+  },
+  "group": "컨테이너",
+  "overview": "Side Panel은 오른쪽에서 열리는 패널 형태의 컴포넌트입니다. 열려 있는 동안에도 뒤 화면을 계속 조작할 수 있습니다. 사용자가 현재 맥락을 유지한 채 추가 정보를 확인하거나 입력할 수 있도록 지원합니다.",
+  "anatomy": {
+    "title": "Anatomy (구성)",
+    "lead": "Side Panel을 이루는 필수/선택 요소의 구조를 말합니다.",
+    "example": {
+      "showBadge": true,
+      "showScrollbar": true
+    },
+    "parts": [
+      {
+        "n": 1,
+        "name": "Container",
+        "layer": "root",
+        "desc": "Side Panel의 전체 영역입니다. 화면 오른쪽에 열리며, 열려 있는 동안에도 뒤 화면을 계속 조작할 수 있습니다."
+      },
+      {
+        "n": 2,
+        "name": "Header",
+        "layer": "header",
+        "desc": "제목과 Close Button을 표시하는 상단 고정 영역입니다."
+      },
+      {
+        "n": 3,
+        "name": "Content",
+        "layer": "content",
+        "desc": "Side Panel의 본문 영역입니다. Header와 Actions는 고정되고 본문만 세로로 스크롤됩니다. 본문을 여러 묶음으로 나눌 때는 Accordion을 배치합니다.(Content 슬롯)"
+      },
+      {
+        "n": 4,
+        "name": "Actions",
+        "layer": "footer",
+        "desc": "버튼을 표시하는 하단 고정 영역입니다. 확인, 취소 등 버튼을 최대 2개까지 배치합니다.(Actions 슬롯)"
+      },
+      {
+        "n": 5,
+        "name": "Close Button",
+        "layer": "close",
+        "desc": "Side Panel을 닫는 버튼입니다. Header 오른쪽에 위치합니다."
+      },
+      {
+        "n": 6,
+        "name": "Badge (Optional)",
+        "layer": "badge",
+        "desc": "제목 옆에 표시하는 Badge입니다. showBadge를 켜면 표시합니다."
+      },
+      {
+        "n": 7,
+        "name": "Scrollbar (Optional)",
+        "layer": "scrollbar",
+        "desc": "본문이 영역을 넘을 때 표시하는 Scrollbar입니다. showScrollbar를 켜면 표시합니다."
+      }
+    ]
+  },
+  "policy": {
+    "title": "Policy (사용 정책)",
+    "lead": "현재 화면 맥락을 유지한 채 추가 정보를 확인하거나 입력할 때 씁니다.",
+    "when": {
+      "use": [
+        "현재 화면 맥락을 유지한 채 추가 정보를 확인하거나 입력할 때",
+        "뒤 화면을 계속 조작하면서 함께 봐야 할 때"
+      ],
+      "avoid": [
+        {
+          "text": "뒤 화면 조작을 막고 작업에 집중해야 할 때",
+          "alt": "Modal"
+        },
+        {
+          "text": "짧은 보조 설명만 표시할 때",
+          "alt": "Tooltip"
+        }
+      ]
+    },
+    "rules": [
+      {
+        "name": "위치",
+        "desc": "Side Panel은 화면 오른쪽에 붙어 열립니다. 목록이나 작업 화면을 유지한 상태에서 특정 항목의 상세 정보를 확인하거나 추가 정보를 입력할 때 사용합니다.(예: 고객 목록에서 고객 상세 조회)",
+        "from": "Guideline · Layout"
+      },
+      {
+        "name": "고정 영역",
+        "desc": "Header와 Actions는 고정되고 본문만 세로로 스크롤됩니다.",
+        "from": "Guideline · Anatomy"
+      },
+      {
+        "name": "아래 버튼",
+        "desc": "확인, 취소 등 버튼을 최대 2개까지 배치하고, 주요 행동은 오른쪽에 둡니다.",
+        "from": "Guideline · Do & Don't"
+      },
+      {
+        "name": "규격",
+        "desc": "너비 340, 모서리 20, Header 여백 위 20 · 좌우 20 · 아래 16, 제목과 배지 사이 8, Actions 여백 위아래 16 · 좌우 20, 버튼 사이 8입니다.",
+        "from": "Guideline · Spec"
+      }
+    ],
+    "do": [
+      "아래쪽 버튼은 최대 2개로 구성합니다. (취소와 주요 행동 하나만 두고, 주요 행동은 오른쪽에 배치합니다.)"
+    ],
+    "dont": [
+      "아래쪽에 버튼을 3개 이상 나열하지 않습니다. (무엇을 눌러야 할지 판단하기 어렵습니다. 초기화 같은 부가 기능은 본문 영역에 둡니다.)"
+    ],
+    "source": {
+      "id": "guideline-side-panel",
+      "title": "BSS Design Guideline v2.0 · Side Panel"
+    }
+  }
+}

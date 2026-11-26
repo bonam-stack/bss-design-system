@@ -1,0 +1,190 @@
+{
+  "$description": "BSS Design Guideline v2.0 › Components/Tooltip / Popover에서 Tooltip 부분을 옮긴 사용 가이드",
+  "source": {
+    "fileKey": "9aVw18Cj7CzvHE1ljGaM9m",
+    "fileName": "BSS Design Guideline v2.0",
+    "nodeId": "2430:84755",
+    "name": "Components/Tooltip / Popover",
+    "url": "https://www.figma.com/design/9aVw18Cj7CzvHE1ljGaM9m?node-id=2430-84755",
+    "extractedAt": "2026-11-26"
+  },
+  "group": "피드백·알림",
+  "overview": "Tooltip은 현재 맥락을 유지한 채 보조 정보를 레이어 형태로 표시하는 컴포넌트입니다. 마우스 호버나 키보드 포커스에 반응해 표시하며, 텍스트로 보조 정보나 힌트를 제공합니다.",
+  "anatomy": {
+    "title": "Anatomy (구성)",
+    "lead": "Tooltip을 이루는 필수/선택 요소의 구조를 말합니다.",
+    "example": {
+      "placement": "top",
+      "align": "center"
+    },
+    "parts": [
+      {
+        "n": 1,
+        "name": "Container",
+        "layer": "body",
+        "desc": "Tooltip의 내용을 담는 영역으로, 배경과 구분됩니다."
+      },
+      {
+        "n": 2,
+        "name": "Text",
+        "layer": "body",
+        "desc": "Tooltip에 표시하는 짧은 보조 문구입니다."
+      },
+      {
+        "n": 3,
+        "name": "Arrow (Optional)",
+        "layer": "arrow",
+        "desc": "Trigger 방향을 가리키는 화살표입니다. showArrow를 켜면 표시합니다."
+      }
+    ]
+  },
+  "variants": {
+    "title": "Variants (변형)",
+    "lead": "동일한 컴포넌트를 용도와 표현 방식에 따라 구분한 파생 타입입니다.",
+    "groups": [
+      {
+        "title": "State",
+        "lead": "Tooltip의 유형입니다. 이름은 state지만 사용 중에 바뀌지 않고, 표시할 때 고르는 값입니다.(state=default·error)",
+        "rows": [
+          {
+            "name": "Default",
+            "props": {
+              "state": "default",
+              "align": "center"
+            },
+            "desc": "기본 Tooltip입니다. 아이콘 버튼의 기능처럼 짧은 보조 정보를 알릴 때 사용합니다."
+          },
+          {
+            "name": "Error",
+            "props": {
+              "state": "error",
+              "align": "center"
+            },
+            "desc": "입력 오류 등 문제 상황을 알릴 때 사용합니다."
+          }
+        ]
+      },
+      {
+        "title": "Placement",
+        "lead": "placement 4종(top·bottom·right·left)과 align 3종(start·center·end)을 조합해 표시 위치를 정합니다. align은 top·bottom에서만 선택합니다.",
+        "rows": [
+          {
+            "name": "Top · Start",
+            "props": {
+              "placement": "top",
+              "align": "start"
+            },
+            "desc": "Trigger 위쪽에 표시합니다. 기본 위치이며, 화살표를 왼쪽에 맞춥니다."
+          },
+          {
+            "name": "Top · Center",
+            "props": {
+              "placement": "top",
+              "align": "center"
+            },
+            "desc": "Trigger 위쪽에 표시하고 화살표를 가운데에 맞춥니다."
+          },
+          {
+            "name": "Top · End",
+            "props": {
+              "placement": "top",
+              "align": "end"
+            },
+            "desc": "Trigger 위쪽에 표시하고 화살표를 오른쪽에 맞춥니다."
+          },
+          {
+            "name": "Bottom · Start",
+            "props": {
+              "placement": "bottom",
+              "align": "start"
+            },
+            "desc": "Trigger 아래쪽에 표시합니다. align으로 화살표 위치를 맞춥니다."
+          },
+          {
+            "name": "Bottom · Center",
+            "props": {
+              "placement": "bottom",
+              "align": "center"
+            },
+            "desc": "Trigger 아래쪽에 표시하고 화살표를 가운데에 맞춥니다."
+          },
+          {
+            "name": "Bottom · End",
+            "props": {
+              "placement": "bottom",
+              "align": "end"
+            },
+            "desc": "Trigger 아래쪽에 표시하고 화살표를 오른쪽에 맞춥니다."
+          },
+          {
+            "name": "Right",
+            "props": {
+              "placement": "right",
+              "align": "center"
+            },
+            "desc": "Trigger 오른쪽에 표시합니다. 화살표는 가운데(center)에 고정됩니다."
+          },
+          {
+            "name": "Left",
+            "props": {
+              "placement": "left",
+              "align": "center"
+            },
+            "desc": "Trigger 왼쪽에 표시합니다. 화살표는 가운데(center)에 고정됩니다."
+          }
+        ]
+      }
+    ]
+  },
+  "policy": {
+    "title": "Policy (사용 정책)",
+    "lead": "아이콘 버튼의 기능처럼 짧은 보조 정보를 알릴 때 씁니다.",
+    "when": {
+      "use": [
+        "아이콘 버튼의 기능처럼 짧은 보조 정보를 알릴 때"
+      ],
+      "avoid": [
+        {
+          "text": "긴 설명이나 액션이 필요할 때",
+          "alt": "Popover"
+        },
+        {
+          "text": "꼭 읽어야 하는 정보를 알릴 때",
+          "alt": "화면에 직접 표시(입력 오류는 Helper Text)"
+        }
+      ]
+    },
+    "rules": [
+      {
+        "name": "표시",
+        "desc": "마우스 커서를 올리거나 포커스하면 Trigger 주변에 표시합니다.",
+        "from": "Guideline · Anatomy"
+      },
+      {
+        "name": "위치",
+        "desc": "placement 4종과 align 3종을 조합해 표시 위치를 정합니다. 기본은 top이며, left·right는 화살표를 가운데에 고정합니다.",
+        "from": "Guideline · Layout"
+      },
+      {
+        "name": "Text 문구",
+        "desc": "짧은 보조 문구만 씁니다. 아이콘 버튼의 기능처럼 한눈에 읽히는 내용을 담습니다. 긴 설명·액션은 넣지 않고 Popover를 사용합니다.",
+        "from": "Guideline · Content"
+      },
+      {
+        "name": "규격",
+        "desc": "모서리 8, 안쪽 여백 12입니다. 너비는 문구 길이에 맞춰 정해집니다.",
+        "from": "Guideline · Spec"
+      }
+    ],
+    "do": [
+      "Tooltip에는 짧은 보조 문구만 표시합니다. (아이콘 버튼의 기능명처럼 한눈에 읽히는 내용을 담습니다.)"
+    ],
+    "dont": [
+      "Tooltip에 긴 설명을 넣지 않습니다. (상세한 안내나 액션이 필요하면 Popover를 사용합니다.)"
+    ],
+    "source": {
+      "id": "guideline-tooltip",
+      "title": "BSS Design Guideline v2.0 · Tooltip / Popover"
+    }
+  }
+}

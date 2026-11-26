@@ -1,0 +1,190 @@
+{
+  "$description": "BSS Design Guideline v2.0 › Components/Dialog에서 옮긴 사용 가이드",
+  "source": {
+    "fileKey": "9aVw18Cj7CzvHE1ljGaM9m",
+    "fileName": "BSS Design Guideline v2.0",
+    "nodeId": "2430:96782",
+    "name": "Components/Dialog",
+    "url": "https://www.figma.com/design/9aVw18Cj7CzvHE1ljGaM9m?node-id=2430-96782",
+    "extractedAt": "2026-11-26"
+  },
+  "group": "컨테이너",
+  "overview": "Dialog는 사용자의 명시적인 선택이나 의사결정을 요구하는 컴포넌트입니다. 저장·삭제·취소 등의 액션을 통해 상황을 판단하고 결정한 후 다음 단계로 진행할 수 있도록 합니다.",
+  "anatomy": {
+    "title": "Anatomy (구성)",
+    "lead": "Dialog를 이루는 필수/선택 요소의 구조를 말합니다.",
+    "example": {},
+    "parts": [
+      {
+        "n": 1,
+        "name": "Container",
+        "layer": "root",
+        "desc": "배경과 구분되는 콘텐츠를 담는 박스 형태의 요소입니다."
+      },
+      {
+        "n": 2,
+        "name": "Header (Optional)",
+        "layer": "header",
+        "desc": "Title과 Close Button이 놓이는 Dialog 위쪽 영역입니다. showHeader를 켜면 표시합니다. showHeader를 끄면 Title과 Close Button을 표시하지 않습니다."
+      },
+      {
+        "n": 3,
+        "name": "Title (Optional)",
+        "layer": "title",
+        "desc": "Dialog 위쪽에서 판단에 필요한 정보를 전달하는 텍스트입니다. showTitle을 켜면 표시합니다. showTitle을 끄면 제목을 표시하지 않고 Close Button만 둡니다."
+      },
+      {
+        "n": 4,
+        "name": "Message",
+        "layer": "message",
+        "desc": "Dialog 내용을 전달하기 위한 간략한 문구입니다."
+      },
+      {
+        "n": 5,
+        "name": "Primary Button",
+        "layer": "primaryAction",
+        "desc": "결정을 실행하는 주 버튼입니다. 버튼의 variants는 일반 작업이면 Primary, 삭제·해지처럼 되돌릴 수 없는 작업이면 Danger를 사용합니다."
+      },
+      {
+        "n": 6,
+        "name": "Secondary Button (Optional)",
+        "layer": "secondaryAction",
+        "desc": "취소처럼 결정을 미루거나 되돌리는 보조 버튼입니다. showSecondaryAction을 켜면 표시합니다."
+      },
+      {
+        "n": 7,
+        "name": "Close Button (Optional)",
+        "layer": "close",
+        "desc": "Dialog를 닫는 버튼으로, 별도의 결정 없이 창을 닫을 때 사용합니다. showClose를 켜면 표시합니다."
+      }
+    ]
+  },
+  "variants": {
+    "title": "Variants (변형)",
+    "lead": "표시 요소를 켜고 끈 구성입니다. Dialog는 고르는 변형 속성이 없습니다.",
+    "groups": [
+      {
+        "title": "Header",
+        "lead": "위쪽 영역(제목·닫기)의 구성입니다.(showHeader · showTitle · showClose)",
+        "rows": [
+          {
+            "name": "Default",
+            "props": {
+              "showHeader": true,
+              "showTitle": true,
+              "showClose": true
+            },
+            "desc": "제목과 닫기 버튼을 모두 표시합니다."
+          },
+          {
+            "name": "Close Only",
+            "props": {
+              "showHeader": true,
+              "showTitle": false,
+              "showClose": true
+            },
+            "desc": "제목 없이 닫기 버튼만 둡니다."
+          },
+          {
+            "name": "No Header",
+            "props": {
+              "showHeader": false
+            },
+            "desc": "제목과 닫기 버튼 없이 메시지와 버튼만 표시합니다."
+          }
+        ]
+      },
+      {
+        "title": "Actions",
+        "lead": "아래 버튼 영역의 구성입니다.(showAction · showSecondaryAction)",
+        "rows": [
+          {
+            "name": "Two Buttons",
+            "props": {
+              "showSecondaryAction": true
+            },
+            "desc": "보조 버튼과 주 버튼을 함께 둡니다."
+          },
+          {
+            "name": "Primary Only",
+            "props": {
+              "showSecondaryAction": false
+            },
+            "desc": "주 버튼 하나만 둡니다."
+          }
+        ]
+      }
+    ]
+  },
+  "policy": {
+    "title": "Policy (사용 정책)",
+    "lead": "사용자의 선택이나 결정을 받은 뒤 다음 단계로 진행할 때 씁니다.",
+    "when": {
+      "use": [
+        "저장·변경처럼 사용자의 선택이나 결정을 받은 뒤 다음 단계로 진행할 때",
+        "삭제·해지처럼 되돌릴 수 없는 작업을 실행하기 전에 확인받을 때"
+      ],
+      "avoid": [
+        {
+          "text": "결정 없이 중요한 정보를 알리고 확인만 받을 때",
+          "alt": "Alert"
+        },
+        {
+          "text": "정보 입력, 수정처럼 별도 작업이 필요할 때",
+          "alt": "Modal"
+        },
+        {
+          "text": "작업 결과를 흐름을 막지 않고 짧게 알릴 때",
+          "alt": "Toast"
+        }
+      ]
+    },
+    "rules": [
+      {
+        "name": "정렬",
+        "desc": "Dialog는 화면(Viewport) 기준 가로 세로 중앙에 정렬됩니다.",
+        "from": "Guideline · Layout"
+      },
+      {
+        "name": "주 버튼 색",
+        "desc": "일반 작업이면 Primary, 삭제·해지처럼 되돌릴 수 없는 작업이면 Danger를 사용합니다.",
+        "from": "Guideline · Anatomy"
+      },
+      {
+        "name": "Title 문구",
+        "desc": "사용자가 무엇을 결정하는지 알 수 있도록 상황을 짧게 요약합니다.(예: “변경 사항 저장”, “데이터 삭제”)",
+        "from": "Guideline · Content"
+      },
+      {
+        "name": "Message 문구",
+        "desc": "결정에 필요한 내용을 간략하게 씁니다.(예: “변경한 내용을 저장하시겠습니까?”)",
+        "from": "Guideline · Content"
+      },
+      {
+        "name": "Primary Button 문구",
+        "desc": "버튼만 보고도 결과를 알 수 있도록 실행될 동작을 씁니다.(예: “저장”, “삭제”)",
+        "from": "Guideline · Content"
+      },
+      {
+        "name": "Secondary Button 문구",
+        "desc": "결정을 미루거나 되돌리는 동작을 씁니다.(예: “취소”)",
+        "from": "Guideline · Content"
+      },
+      {
+        "name": "규격",
+        "desc": "너비 360, 모서리 16, 안쪽 여백 24, 제목과 닫기 사이 8, 제목과 메시지 사이 12, 버튼 사이 8입니다. 높이는 내용에 따라 늘어나며 최대 400입니다.",
+        "from": "Guideline · Spec"
+      }
+    ],
+    "do": [
+      "되돌릴 수 없는 작업은 주 버튼을 Danger로 표시합니다. (삭제·해지처럼 결과를 되돌릴 수 없으면 실행 버튼을 빨간색으로 구분합니다.)"
+    ],
+    "dont": [
+      "되돌릴 수 없는 작업을 일반 주 버튼으로 표시하지 않습니다. (저장과 같은 색이면 위험한 작업인지 알아채지 못하고 누를 수 있습니다.)"
+    ],
+    "source": {
+      "id": "guideline-dialog",
+      "title": "BSS Design Guideline v2.0 · Dialog"
+    }
+  }
+}

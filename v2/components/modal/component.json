@@ -1,0 +1,78 @@
+{
+  "schemaVersion": 2,
+  "key": "modal",
+  "name": "Modal",
+  "description": "화면 위에 레이어로 열려 정보 입력·수정·상세 확인 같은 별도 작업을 하게 하는 창입니다. size 3종(small 720·medium 960·large 1280). 제목 + 닫기(showClose) · content 슬롯 · 아래 버튼 영역(showAction, leadingActions·trailingActions 슬롯)으로 이루어집니다.",
+  "figma": {
+    "fileKey": "WcoI745J38TaON7iCKcutW",
+    "nodeId": "3863:861",
+    "url": "https://www.figma.com/design/WcoI745J38TaON7iCKcutW?node-id=3863-861",
+    "page": {
+      "nodeId": "3859:30913",
+      "name": "    ❖ Modal"
+    },
+    "type": "COMPONENT_SET",
+    "componentKey": null,
+    "extractedAt": "2026-11-26",
+    "source": "DS 컴포넌트 구조 명세 (토큰 v2.0.4)"
+  },
+  "ds": {
+    "specs": [
+      "modal"
+    ],
+    "structure": "52. Modal"
+  },
+  "props": [
+    {
+      "name": "size",
+      "figmaName": "size",
+      "type": "variant",
+      "default": "small",
+      "options": [
+        "small",
+        "medium",
+        "large"
+      ]
+    },
+    {
+      "name": "showClose",
+      "figmaName": "showClose",
+      "type": "boolean",
+      "default": true
+    },
+    {
+      "name": "showAction",
+      "figmaName": "showAction",
+      "type": "boolean",
+      "default": true
+    },
+    {
+      "name": "title",
+      "figmaName": "title",
+      "type": "text",
+      "default": "Title"
+    },
+    {
+      "name": "content",
+      "figmaName": "content",
+      "type": "slot",
+      "default": null
+    },
+    {
+      "name": "leadingActions",
+      "figmaName": "leadingActions",
+      "type": "slot",
+      "default": null
+    },
+    {
+      "name": "trailingActions",
+      "figmaName": "trailingActions",
+      "type": "slot",
+      "default": null
+    }
+  ],
+  "variants": [],
+  "tokens": [],
+  "textStyles": [],
+  "otherStyles": []
+}

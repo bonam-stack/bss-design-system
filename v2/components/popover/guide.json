@@ -1,0 +1,155 @@
+{
+  "$description": "BSS Design Guideline v2.0 › Components/Tooltip / Popover에서 Popover 부분을 옮긴 사용 가이드",
+  "source": {
+    "fileKey": "9aVw18Cj7CzvHE1ljGaM9m",
+    "fileName": "BSS Design Guideline v2.0",
+    "nodeId": "2430:84755",
+    "name": "Components/Tooltip / Popover",
+    "url": "https://www.figma.com/design/9aVw18Cj7CzvHE1ljGaM9m?node-id=2430-84755",
+    "extractedAt": "2026-11-26"
+  },
+  "group": "피드백·알림",
+  "overview": "Popover는 현재 맥락을 유지한 채 추가 정보를 레이어 형태로 표시하는 컴포넌트입니다. Trigger를 클릭하면 열리는 패널로, 제목·본문·액션을 담아 Tooltip보다 상세한 정보를 제공합니다.",
+  "anatomy": {
+    "title": "Anatomy (구성)",
+    "lead": "Popover를 이루는 필수/선택 요소의 구조를 말합니다.",
+    "example": {
+      "placement": "top"
+    },
+    "parts": [
+      {
+        "n": 1,
+        "name": "Container",
+        "layer": "contents",
+        "desc": "Popover의 내용을 담는 영역으로, 배경과 구분됩니다."
+      },
+      {
+        "n": 2,
+        "name": "Title",
+        "layer": "title",
+        "desc": "Popover의 제목입니다. 항상 표시합니다."
+      },
+      {
+        "n": 3,
+        "name": "Content (Optional)",
+        "layer": "content",
+        "desc": "Popover의 본문 영역입니다. showContent를 켜면 표시합니다. 상세한 안내 내용을 넣습니다."
+      },
+      {
+        "n": 4,
+        "name": "Close Button (Optional)",
+        "layer": "close",
+        "desc": "Popover를 닫는 버튼입니다. showClose를 켜면 표시합니다."
+      },
+      {
+        "n": 5,
+        "name": "Footer (Optional)",
+        "layer": "footer",
+        "desc": "Popover 아래쪽의 액션 영역입니다. showFooter를 켜면 표시합니다. 버튼·링크 등으로 다음 행동을 유도합니다."
+      },
+      {
+        "n": 6,
+        "name": "Arrow (Optional)",
+        "layer": "arrow",
+        "desc": "Trigger 방향을 가리키는 화살표입니다. showArrow를 켜면 표시합니다."
+      }
+    ]
+  },
+  "variants": {
+    "title": "Variants (변형)",
+    "lead": "동일한 컴포넌트를 용도와 표현 방식에 따라 구분한 파생 타입입니다.",
+    "groups": [
+      {
+        "title": "Placement",
+        "lead": "placement 4종(top·bottom·right·left)으로 표시 위치를 정합니다. 화살표는 Trigger 방향을 가리킵니다.",
+        "rows": [
+          {
+            "name": "Top",
+            "props": {
+              "placement": "top"
+            },
+            "desc": "Trigger 위쪽에 표시합니다. 기본 위치입니다."
+          },
+          {
+            "name": "Bottom",
+            "props": {
+              "placement": "bottom"
+            },
+            "desc": "Trigger 아래쪽에 표시합니다."
+          },
+          {
+            "name": "Right",
+            "props": {
+              "placement": "right"
+            },
+            "desc": "Trigger 오른쪽에 표시합니다."
+          },
+          {
+            "name": "Left",
+            "props": {
+              "placement": "left"
+            },
+            "desc": "Trigger 왼쪽에 표시합니다."
+          }
+        ]
+      }
+    ]
+  },
+  "policy": {
+    "title": "Policy (사용 정책)",
+    "lead": "제목·본문·액션이 있는 상세 정보를 Trigger 가까이 표시할 때 씁니다.",
+    "when": {
+      "use": [
+        "제목·본문·액션이 있는 상세 정보를 Trigger 가까이 표시할 때"
+      ],
+      "avoid": [
+        {
+          "text": "작업을 멈추고 확인이나 결정을 받아야 할 때",
+          "alt": "Dialog"
+        },
+        {
+          "text": "아이콘 버튼의 기능처럼 짧은 보조 정보만 알릴 때",
+          "alt": "Tooltip"
+        }
+      ]
+    },
+    "rules": [
+      {
+        "name": "표시",
+        "desc": "Trigger를 클릭하면 열립니다.",
+        "from": "Guideline · Anatomy"
+      },
+      {
+        "name": "Title",
+        "desc": "title은 항상 표시합니다.",
+        "from": "Guideline · Content"
+      },
+      {
+        "name": "Content",
+        "desc": "Item/Popover/Text의 type으로 plain(문단) 또는 bullet(목록)을 고릅니다.",
+        "from": "Guideline · Content"
+      },
+      {
+        "name": "액션",
+        "desc": "액션은 footer에 두며, 버튼은 오른쪽에 정렬합니다.",
+        "from": "Guideline · Content"
+      },
+      {
+        "name": "너비",
+        "desc": "Popover 마스터의 240은 대표 너비이며 정책 값이 아닙니다. 사용할 때 너비를 조정하면 본문이 따라 늘어납니다.",
+        "from": "Guideline · Layout"
+      },
+      {
+        "name": "규격",
+        "desc": "모서리 8, 안쪽 여백 12, 요소 사이 8입니다.",
+        "from": "Guideline · Spec"
+      }
+    ],
+    "do": [],
+    "dont": [],
+    "source": {
+      "id": "guideline-popover",
+      "title": "BSS Design Guideline v2.0 · Tooltip / Popover"
+    }
+  }
+}

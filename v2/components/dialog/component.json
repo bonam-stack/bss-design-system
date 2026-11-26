@@ -1,0 +1,73 @@
+{
+  "schemaVersion": 2,
+  "key": "dialog",
+  "name": "Dialog",
+  "description": "저장·삭제처럼 사용자의 결정을 받는 확인 대화상자입니다. 변형 없음(단일 컴포넌트). 헤더(제목·닫기, showHeader·showTitle·showClose) + 메시지 + 버튼 영역(showAction, 보조 버튼 showSecondaryAction)으로 이루어집니다. 너비 360, 버튼 xlarge.",
+  "figma": {
+    "fileKey": "WcoI745J38TaON7iCKcutW",
+    "nodeId": "4224:36893",
+    "url": "https://www.figma.com/design/WcoI745J38TaON7iCKcutW?node-id=4224-36893",
+    "page": {
+      "nodeId": "3976:115865",
+      "name": "    ❖ Dialog"
+    },
+    "type": "COMPONENT",
+    "componentKey": null,
+    "extractedAt": "2026-11-26",
+    "source": "DS 컴포넌트 구조 명세 (토큰 v2.0.4)"
+  },
+  "ds": {
+    "specs": [
+      "dialog"
+    ],
+    "structure": "51. Dialog"
+  },
+  "props": [
+    {
+      "name": "showHeader",
+      "figmaName": "showHeader",
+      "type": "boolean",
+      "default": true
+    },
+    {
+      "name": "showTitle",
+      "figmaName": "showTitle",
+      "type": "boolean",
+      "default": true
+    },
+    {
+      "name": "showClose",
+      "figmaName": "showClose",
+      "type": "boolean",
+      "default": true
+    },
+    {
+      "name": "showAction",
+      "figmaName": "showAction",
+      "type": "boolean",
+      "default": true
+    },
+    {
+      "name": "showSecondaryAction",
+      "figmaName": "showSecondaryAction",
+      "type": "boolean",
+      "default": true
+    },
+    {
+      "name": "title",
+      "figmaName": "title",
+      "type": "text",
+      "default": "Title"
+    },
+    {
+      "name": "message",
+      "figmaName": "message",
+      "type": "text",
+      "default": "Sample Text"
+    }
+  ],
+  "variants": [],
+  "tokens": [],
+  "textStyles": [],
+  "otherStyles": []
+}

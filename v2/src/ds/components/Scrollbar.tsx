@@ -38,6 +38,7 @@ export function Scrollbar({ direction = 'horizontal', size = 'large', state, len
         justifyContent: 'center',
         flexShrink: 0,
         width: h ? length ?? '100%' : `calc(${thick} * 2)`,
+        minWidth: h && length == null ? tok('size-274') : undefined,
         height: h ? `calc(${thick} * 2)` : length ?? tok('size-274'),
         padding: h ? `0 ${pad}` : `${pad} 0`,
         background: tok('scrollbar-track-color-bg-default'),

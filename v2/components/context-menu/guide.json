@@ -1,0 +1,166 @@
+{
+  "$description": "BSS Design Guideline v2.0 › Components/Context Menu에서 옮긴 사용 가이드",
+  "source": {
+    "fileKey": "9aVw18Cj7CzvHE1ljGaM9m",
+    "fileName": "BSS Design Guideline v2.0",
+    "nodeId": "2430:97654",
+    "name": "Components/Context Menu",
+    "url": "https://www.figma.com/design/9aVw18Cj7CzvHE1ljGaM9m?node-id=2430-97654",
+    "extractedAt": "2026-11-26"
+  },
+  "group": "리스트",
+  "overview": "Context Menu는 Trigger를 눌러 여는 명령 메뉴 컴포넌트입니다. 현재 화면이나 요소와 관련된 작업을 모아 제공합니다. 항목을 선택하면 해당 명령을 실행합니다.",
+  "anatomy": {
+    "title": "Anatomy (구성)",
+    "lead": "Context Menu를 이루는 필수/선택 요소의 구조를 말합니다.",
+    "example": {
+      "state": "default"
+    },
+    "parts": [
+      {
+        "n": 1,
+        "name": "Container",
+        "layer": "root",
+        "desc": "메뉴 항목을 감싸는 영역입니다."
+      },
+      {
+        "n": 2,
+        "name": "Label",
+        "layer": "label",
+        "desc": "실행할 명령의 이름입니다."
+      },
+      {
+        "n": 3,
+        "name": "Description (Optional)",
+        "layer": "description",
+        "desc": "명령을 보충하는 설명입니다. showDescription을 켜면 표시합니다."
+      },
+      {
+        "n": 4,
+        "name": "Divider (Optional)",
+        "layer": "divider",
+        "desc": "항목 위에 표시하는 구분선입니다. showDivider를 켜면 표시합니다."
+      },
+      {
+        "n": 5,
+        "name": "Focus Ring (Optional)",
+        "layer": "focusRing",
+        "desc": "키보드로 포커스를 이동했을 때 메뉴 항목 바깥에 표시하는 링입니다. showFocus를 켜면 표시합니다. 규격은 Focus Ring 문서를 따릅니다."
+      }
+    ]
+  },
+  "states": {
+    "title": "States (상태)",
+    "lead": "사용자 입력과 시스템의 상황에 따라 컴포넌트의 표현 방식을 정리한 기준입니다.",
+    "rows": [
+      {
+        "name": "Default",
+        "props": {
+          "state": "default"
+        },
+        "desc": "조작하지 않은 기본 상태입니다."
+      },
+      {
+        "name": "Hover",
+        "props": {
+          "state": "hover"
+        },
+        "desc": "마우스 커서가 메뉴 항목 위에 올라간 상태입니다. 선택할 항목을 구분합니다."
+      },
+      {
+        "name": "Pressed",
+        "props": {
+          "state": "pressed"
+        },
+        "desc": "메뉴 항목을 누르고 있는 상태입니다."
+      },
+      {
+        "name": "Focus Visible",
+        "props": {
+          "state": "default",
+          "showFocus": true
+        },
+        "desc": "키보드로 이동해 Focus Ring을 표시한 상태입니다. 다른 상태 위에 겹쳐 표시합니다."
+      },
+      {
+        "name": "Disabled",
+        "props": {
+          "state": "disabled"
+        },
+        "desc": "사용할 수 없는 상태입니다. Label과 Description을 비활성 색으로 표시합니다."
+      }
+    ]
+  },
+  "policy": {
+    "title": "Policy (사용 정책)",
+    "lead": "하나의 Trigger에 관련된 작업 여러 개를 모아 제공할 때 씁니다.",
+    "when": {
+      "use": [
+        "하나의 Trigger에 관련된 작업 여러 개를 모아 제공할 때",
+        "항목을 선택하면 바로 명령을 실행할 때",
+        "같은 대상에 대한 같은 종류의 작업을 묶을 때"
+      ],
+      "avoid": [
+        {
+          "text": "실행할 작업이 하나뿐일 때",
+          "alt": "Button"
+        },
+        {
+          "text": "값을 골라 필드에 입력할 때",
+          "alt": "Select"
+        },
+        {
+          "text": "삭제처럼 성격이 다른 작업을 함께 넣어야 할 때",
+          "alt": "Button"
+        }
+      ]
+    },
+    "rules": [
+      {
+        "name": "State Priority · 배경",
+        "desc": "Hover·Pressed 상태의 바탕색을 따릅니다. Default·Disabled이면 바탕색을 표시하지 않습니다.",
+        "from": "Guideline · States"
+      },
+      {
+        "name": "State Priority · Label·Description",
+        "desc": "Disabled이면 비활성 색으로 표시합니다. Hover·Pressed는 글자 색을 바꾸지 않습니다.",
+        "from": "Guideline · States"
+      },
+      {
+        "name": "State Priority · Divider",
+        "desc": "상태와 관계없이 같은 색으로 표시합니다.",
+        "from": "Guideline · States"
+      },
+      {
+        "name": "State Priority · Focus Ring",
+        "desc": "Disabled를 포함한 모든 상태 위에 겹쳐 표시합니다.",
+        "from": "Guideline · States"
+      },
+      {
+        "name": "Label 문구",
+        "desc": "실행할 명령을 알 수 있는 이름을 씁니다.(예: “현재 목록 다운로드”)",
+        "from": "Guideline · Content"
+      },
+      {
+        "name": "Description 문구",
+        "desc": "Label이 다루는 범위나 결과를 보충합니다.(예: “현재 화면에 조회된 데이터를 받습니다.”)",
+        "from": "Guideline · Content"
+      },
+      {
+        "name": "규격",
+        "desc": "너비 274, 모서리 6, 안쪽 여백 8, 항목 사이 8입니다. 항목은 여백 위아래 8 · 좌우 12, Label과 Description 사이 2입니다.",
+        "from": "Guideline · Spec"
+      }
+    ],
+    "do": [
+      "버튼 이름과 관련된 작업만 메뉴에 모읍니다. (엑셀 다운로드 메뉴에는 다운로드 범위처럼 관련된 선택지만 둡니다.)"
+    ],
+    "dont": [
+      "버튼과 관계없는 작업을 메뉴에 섞지 않습니다. (다운로드 메뉴 안에 삭제처럼 예상하지 못한 작업이 있으면 잘못 누르기 쉽습니다.)"
+    ],
+    "source": {
+      "id": "guideline-context-menu",
+      "title": "BSS Design Guideline v2.0 · Context Menu"
+    }
+  }
+}

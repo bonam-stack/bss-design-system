@@ -1,0 +1,61 @@
+{
+  "schemaVersion": 2,
+  "key": "side-panel",
+  "name": "SidePanel",
+  "description": "화면 오른쪽에 열리는 패널입니다. 열려 있는 동안에도 뒤 화면을 계속 조작할 수 있습니다(뒷배경 없음). 변형 없음(너비 340). 머리(제목·배지 showBadge·닫기) + 세로로 스크롤되는 본문(content 슬롯, showScrollbar) + 아래 버튼 영역(actions 슬롯)으로 이루어집니다.",
+  "figma": {
+    "fileKey": "WcoI745J38TaON7iCKcutW",
+    "nodeId": "7916:479",
+    "url": "https://www.figma.com/design/WcoI745J38TaON7iCKcutW?node-id=7916-479",
+    "page": {
+      "nodeId": "7324:567",
+      "name": "    ❖ Side Panel"
+    },
+    "type": "COMPONENT",
+    "componentKey": null,
+    "extractedAt": "2026-11-26",
+    "source": "DS 컴포넌트 구조 명세 (토큰 v2.0.4)"
+  },
+  "ds": {
+    "specs": [
+      "sidePanel"
+    ],
+    "structure": "74. SidePanel"
+  },
+  "props": [
+    {
+      "name": "showBadge",
+      "figmaName": "showBadge",
+      "type": "boolean",
+      "default": false
+    },
+    {
+      "name": "showScrollbar",
+      "figmaName": "showScrollbar",
+      "type": "boolean",
+      "default": false
+    },
+    {
+      "name": "title",
+      "figmaName": "title",
+      "type": "text",
+      "default": "Title"
+    },
+    {
+      "name": "content",
+      "figmaName": "content",
+      "type": "slot",
+      "default": null
+    },
+    {
+      "name": "actions",
+      "figmaName": "actions",
+      "type": "slot",
+      "default": null
+    }
+  ],
+  "variants": [],
+  "tokens": [],
+  "textStyles": [],
+  "otherStyles": []
+}

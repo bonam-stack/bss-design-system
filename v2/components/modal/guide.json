@@ -1,0 +1,142 @@
+{
+  "$description": "BSS Design Guideline v2.0 › Components/Modal에서 옮긴 사용 가이드",
+  "source": {
+    "fileKey": "9aVw18Cj7CzvHE1ljGaM9m",
+    "fileName": "BSS Design Guideline v2.0",
+    "nodeId": "2430:96975",
+    "name": "Components/Modal",
+    "url": "https://www.figma.com/design/9aVw18Cj7CzvHE1ljGaM9m?node-id=2430-96975",
+    "extractedAt": "2026-11-26"
+  },
+  "group": "컨테이너",
+  "overview": "Modal은 화면 위에 레이어 형태로 열려 별도의 작업을 수행하게 하는 컴포넌트입니다. 사용자는 Modal 내에서 정보 입력, 수정, 확인 등의 작업을 수행할 수 있으며, 필요에 따라 열고 닫을 수 있습니다. 주로 상세 정보 확인, 데이터 입력, 설정 변경이 필요한 상황에서 사용하며, 콘텐츠 양과 작업 범위에 따라 3가지 크기 중 하나를 고릅니다.",
+  "anatomy": {
+    "title": "Anatomy (구성)",
+    "lead": "Modal을 이루는 필수/선택 요소의 구조를 말합니다.",
+    "example": {
+      "size": "small"
+    },
+    "parts": [
+      {
+        "n": 1,
+        "name": "Container",
+        "layer": "root",
+        "desc": "배경과 구분되는 콘텐츠를 담는 레이어 영역으로, Modal의 전체 구조와 범위를 정의합니다."
+      },
+      {
+        "n": 2,
+        "name": "Title",
+        "layer": "title",
+        "desc": "Modal 위쪽에 두는 제목으로, 작업의 목적이나 콘텐츠의 요약 정보를 표시합니다."
+      },
+      {
+        "n": 3,
+        "name": "Content",
+        "layer": "content",
+        "desc": "정보 확인, 입력, 수정 등 작업에 필요한 콘텐츠를 담는 영역입니다. 텍스트, 폼, 리스트 등 다양한 요소를 넣을 수 있습니다."
+      },
+      {
+        "n": 4,
+        "name": "Button (Optional)",
+        "layer": "actions",
+        "desc": "작업을 완료하거나 흐름을 이어가기 위한 버튼 영역입니다. 아래쪽 왼쪽(LeadingActions)과 오른쪽(TrailingActions) 슬롯에 버튼을 배치합니다. showAction을 켜면 표시합니다."
+      },
+      {
+        "n": 5,
+        "name": "Close Button (Optional)",
+        "layer": "close",
+        "desc": "Modal을 닫는 버튼입니다. Title 오른쪽에 위치합니다. showClose를 켜면 표시합니다."
+      },
+      {
+        "n": 6,
+        "name": "Dim",
+        "layer": "dim",
+        "desc": "Modal이 열리면 배경 콘텐츠 위에 표시하는 반투명 영역으로, 현재 레이어에 사용자의 시선을 집중시키고 기존 화면을 조작할 수 없게 합니다. 상황에 따라 Dim 영역을 클릭해 Modal을 닫을 수 있으며, 중요한 작업의 경우에는 닫힘을 제한할 수 있습니다."
+      }
+    ]
+  },
+  "variants": {
+    "title": "Variants (변형)",
+    "lead": "동일한 컴포넌트를 용도와 표현 방식에 따라 구분한 파생 타입입니다.",
+    "groups": [
+      {
+        "title": "Size",
+        "lead": "Modal을 크기별로 구분합니다. 크기는 너비로 구분하며, 높이는 콘텐츠 양에 맞춰 조정됩니다.(size=small·medium·large)",
+        "rows": [
+          {
+            "name": "Small",
+            "props": {
+              "size": "small"
+            },
+            "desc": "단일 폼, 간단한 정보 조회 등 기본 작업에 사용합니다.(너비 720px)"
+          },
+          {
+            "name": "Medium",
+            "props": {
+              "size": "medium"
+            },
+            "desc": "입력 항목이 많거나 2단 레이아웃이 필요할 때 사용합니다.(너비 960px)"
+          },
+          {
+            "name": "Large",
+            "props": {
+              "size": "large"
+            },
+            "desc": "테이블·여러 단계의 폼 등 넓은 작업 공간이 필요할 때 사용합니다.(너비 1280px)"
+          }
+        ]
+      }
+    ]
+  },
+  "policy": {
+    "title": "Policy (사용 정책)",
+    "lead": "정보 입력, 수정, 상세 확인처럼 별도 작업이 필요할 때 씁니다.",
+    "when": {
+      "use": [
+        "정보 입력, 수정, 상세 확인처럼 별도 작업이 필요할 때"
+      ],
+      "avoid": [
+        {
+          "text": "단순한 확인이나 결정만 받을 때",
+          "alt": "Dialog"
+        },
+        {
+          "text": "뒤 화면을 계속 조작하면서 함께 봐야 할 때",
+          "alt": "Side Panel"
+        }
+      ]
+    },
+    "rules": [
+      {
+        "name": "정렬",
+        "desc": "Modal은 화면(Viewport) 기준 가로 세로 중앙에 정렬됩니다.",
+        "from": "Guideline · Layout"
+      },
+      {
+        "name": "Dim",
+        "desc": "Modal이 열리면 배경 콘텐츠 위에 반투명 영역을 표시해 기존 화면을 조작할 수 없게 합니다. 상황에 따라 Dim 영역을 클릭해 닫을 수 있으며, 중요한 작업의 경우에는 닫힘을 제한할 수 있습니다.",
+        "from": "Guideline · Anatomy"
+      },
+      {
+        "name": "크기",
+        "desc": "크기는 너비로 구분하며(small 720 · medium 960 · large 1280), 높이는 콘텐츠 양에 맞춰 조정됩니다.",
+        "from": "Guideline · Variants"
+      },
+      {
+        "name": "규격",
+        "desc": "안쪽 여백 24, 모서리 16, 제목과 내용 사이 20, 내용과 버튼 사이 24, 버튼 사이 8입니다.",
+        "from": "Guideline · Spec"
+      }
+    ],
+    "do": [
+      "입력·수정처럼 별도 작업이 필요할 때 Modal을 사용합니다. (단순한 확인·결정은 Dialog를 사용합니다.)"
+    ],
+    "dont": [
+      "한 줄 확인을 위해 Modal을 사용하지 않습니다. (큰 창에 내용이 적어 화면 흐름을 불필요하게 끊습니다.)"
+    ],
+    "source": {
+      "id": "guideline-modal",
+      "title": "BSS Design Guideline v2.0 · Modal"
+    }
+  }
+}

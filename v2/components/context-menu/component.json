@@ -1,0 +1,79 @@
+{
+  "schemaVersion": 2,
+  "key": "context-menu",
+  "name": "ContextMenu",
+  "description": "트리거로 여는 동작 메뉴입니다. content 슬롯에 항목(_Item/ContextMenu/MenuItem)을 세로로 나열합니다. 항목은 state 4종(default·hover·pressed·disabled)과 위 구분선(showDivider)·설명(showDescription)·포커스 링(showFocus)을 둡니다. 너비 274.",
+  "figma": {
+    "fileKey": "WcoI745J38TaON7iCKcutW",
+    "nodeId": "8487:11530",
+    "url": "https://www.figma.com/design/WcoI745J38TaON7iCKcutW?node-id=8487-11530",
+    "page": {
+      "nodeId": "7324:566",
+      "name": "    ❖ Context Menu"
+    },
+    "type": "COMPONENT",
+    "componentKey": null,
+    "extractedAt": "2026-11-26",
+    "source": "DS 컴포넌트 구조 명세 (토큰 v2.0.4)"
+  },
+  "ds": {
+    "specs": [
+      "contextMenu"
+    ],
+    "structure": "70. ContextMenu · 71. _Item/ContextMenu/MenuItem"
+  },
+  "props": [
+    {
+      "name": "content",
+      "figmaName": "content",
+      "type": "slot",
+      "default": null
+    },
+    {
+      "name": "state",
+      "figmaName": "state",
+      "type": "variant",
+      "default": "default",
+      "options": [
+        "default",
+        "hover",
+        "pressed",
+        "disabled"
+      ]
+    },
+    {
+      "name": "showFocus",
+      "figmaName": "showFocus",
+      "type": "boolean",
+      "default": false
+    },
+    {
+      "name": "showDivider",
+      "figmaName": "showDivider",
+      "type": "boolean",
+      "default": true
+    },
+    {
+      "name": "showDescription",
+      "figmaName": "showDescription",
+      "type": "boolean",
+      "default": true
+    },
+    {
+      "name": "label",
+      "figmaName": "label",
+      "type": "text",
+      "default": "Menu"
+    },
+    {
+      "name": "description",
+      "figmaName": "description",
+      "type": "text",
+      "default": "Description"
+    }
+  ],
+  "variants": [],
+  "tokens": [],
+  "textStyles": [],
+  "otherStyles": []
+}
