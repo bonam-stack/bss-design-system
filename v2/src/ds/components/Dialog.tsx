@@ -68,8 +68,8 @@ export function Dialog({ showHeader = true, showTitle = true, showClose = true, 
         </div>
         {showAction ? (
           <div className="ds-dialog__actions" style={{ display: 'flex', alignItems: 'center', gap: tok('overlay-group-space-gap') }}>
-            {showSecondaryAction ? <Button className="ds-dialog__secondaryAction" variants="base" size="xlarge" label={secondaryLabel} onClick={onSecondary} style={{ flex: 1 }} /> : null}
-            <Button className="ds-dialog__primaryAction" variants={primaryVariants} size="xlarge" label={primaryLabel} onClick={onPrimary} style={{ flex: 1 }} />
+            {showSecondaryAction ? <Button className="ds-dialog__secondaryAction" appearance="base" size="xlarge" label={secondaryLabel} onClick={onSecondary} style={{ flex: 1 }} /> : null}
+            <Button className="ds-dialog__primaryAction" appearance={primaryVariants} size="xlarge" label={primaryLabel} onClick={onPrimary} style={{ flex: 1 }} />
           </div>
         ) : null}
       </div>

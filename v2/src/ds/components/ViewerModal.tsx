@@ -131,8 +131,8 @@ export function ViewerModal({ showClose = true, showAction = true, showLeadingTo
             <div className="ds-viewer-modal__actions" style={{ display: 'flex', gap: tok('overlay-group-space-gap') }}>
               {trailingActions ?? (
                 <>
-                  <Button variants="secondary" size="xlarge" label="Button" onClick={onClose} />
-                  <Button variants="primary" size="xlarge" label="Button" />
+                  <Button appearance="secondary" size="xlarge" label="Button" onClick={onClose} />
+                  <Button appearance="primary" size="xlarge" label="Button" />
                 </>
               )}
             </div>

@@ -297,7 +297,7 @@
     "lead": "Button을 이루는 필수/선택 요소의 구조를 말합니다.",
     "example": {
       "type": "square",
-      "variants": "primary",
+      "appearance": "primary",
       "size": "xlarge",
       "state": "default",
       "showLeadingIcon": true,
@@ -379,7 +379,7 @@
     ],
     "defaults": {
       "type": "square",
-      "variants": "primary",
+      "appearance": "primary",
       "size": "xlarge"
     }
   },
@@ -395,7 +395,7 @@
             "name": "High · Primary",
             "props": {
               "type": "square",
-              "variants": "primary",
+              "appearance": "primary",
               "size": "large",
               "state": "default"
             },
@@ -405,7 +405,7 @@
             "name": "Medium · Secondary",
             "props": {
               "type": "square",
-              "variants": "secondary",
+              "appearance": "secondary",
               "size": "large",
               "state": "default"
             },
@@ -415,7 +415,7 @@
             "name": "Low · Base",
             "props": {
               "type": "square",
-              "variants": "base",
+              "appearance": "base",
               "size": "large",
               "state": "default"
             },
@@ -425,7 +425,7 @@
             "name": "Lowest · Text",
             "props": {
               "type": "text",
-              "variants": "base",
+              "appearance": "base",
               "size": "fixed",
               "state": "default"
             },
@@ -441,7 +441,7 @@
             "name": "Square",
             "props": {
               "type": "square",
-              "variants": "primary",
+              "appearance": "primary",
               "size": "large",
               "state": "default"
             },
@@ -451,7 +451,7 @@
             "name": "Round",
             "props": {
               "type": "round",
-              "variants": "base",
+              "appearance": "base",
               "size": "large",
               "state": "default"
             },
@@ -461,7 +461,7 @@
             "name": "Icon",
             "props": {
               "type": "icon",
-              "variants": "base",
+              "appearance": "base",
               "size": "large",
               "state": "default"
             },
@@ -471,7 +471,7 @@
             "name": "IconPlain",
             "props": {
               "type": "iconPlain",
-              "variants": "base",
+              "appearance": "base",
               "size": "large",
               "state": "default"
             },
@@ -481,7 +481,7 @@
             "name": "Text",
             "props": {
               "type": "text",
-              "variants": "base",
+              "appearance": "base",
               "size": "fixed",
               "state": "default",
               "showUnderline": true
@@ -498,7 +498,7 @@
             "name": "Accent",
             "props": {
               "type": "square",
-              "variants": "accent",
+              "appearance": "accent",
               "size": "large",
               "state": "default"
             },
@@ -508,7 +508,7 @@
             "name": "Danger",
             "props": {
               "type": "square",
-              "variants": "danger",
+              "appearance": "danger",
               "size": "large",
               "state": "default"
             },
@@ -524,7 +524,7 @@
             "name": "Xlarge",
             "props": {
               "type": "square",
-              "variants": "primary",
+              "appearance": "primary",
               "size": "xlarge",
               "state": "default"
             },
@@ -534,7 +534,7 @@
             "name": "Large",
             "props": {
               "type": "square",
-              "variants": "primary",
+              "appearance": "primary",
               "size": "large",
               "state": "default"
             },
@@ -544,7 +544,7 @@
             "name": "Medium",
             "props": {
               "type": "square",
-              "variants": "primary",
+              "appearance": "primary",
               "size": "medium",
               "state": "default"
             },
@@ -554,7 +554,7 @@
             "name": "Small",
             "props": {
               "type": "square",
-              "variants": "primary",
+              "appearance": "primary",
               "size": "small",
               "state": "default"
             },
@@ -564,7 +564,7 @@
             "name": "Fixed",
             "props": {
               "type": "text",
-              "variants": "base",
+              "appearance": "base",
               "size": "fixed",
               "state": "default"
             },

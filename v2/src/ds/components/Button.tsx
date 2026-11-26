@@ -1,5 +1,5 @@
-// Button: 실제 <button>. type 5종(square · round · icon · iconPlain · text) × variants × size × state.
-// Figma: BSS DS Library v2.0 ❖ Button (showLeadingIcon · showTrailingIcon · showUnderline · showFocus · label)
+// Button: 실제 <button>. type 5종(square · round · icon · iconPlain · text) × appearance × size × state.
+// Figma: BSS DS Library v2.0 ❖ Button (appearance · showLeadingIcon · showTrailingIcon · showUnderline · showFocus · label)
 import type { ButtonHTMLAttributes, CSSProperties } from 'react';
 import { FocusRing, Icon, font, tok, tokState, useInteraction } from '../shared';
 
@@ -10,7 +10,9 @@ export interface ButtonProps extends Omit<ButtonHTMLAttributes<HTMLButtonElement
   /** square 기본 버튼 · round 알약형 · icon 테두리 아이콘 · iconPlain 아이콘만 · text 글자 링크형 */
   type?: 'square' | 'round' | 'icon' | 'iconPlain' | 'text';
   /** square: primary · secondary · base · accent · danger / round · icon: base · accent · danger / text: base · accent */
-  variants?: 'primary' | 'secondary' | 'base' | 'accent' | 'danger';
+  appearance?: 'primary' | 'secondary' | 'base' | 'accent' | 'danger';
+  /** @deprecated 예전 이름. Figma에서 appearance로 바뀌었다 */
+  variants?: ButtonProps['appearance'];
   /** square: xlarge~small / round · icon · iconPlain: large~small / text: fixed */
   size?: Size;
   /** 모양을 이 상태로 고정 (문서 예시용) */
@@ -33,8 +35,9 @@ export interface ButtonProps extends Omit<ButtonHTMLAttributes<HTMLButtonElement
 // 크기별 글자 스타일 (DS 컴포넌트 명세 textStyles). 높이 · 여백 · 모서리 · 아이콘은 모두 크기별 토큰으로 읽는다
 const TEXT = { xlarge: font('label', 16, 600), large: font('label', 15, 600), medium: font('label', 15, 500), small: font('label', 14, 500) };
 
-export function Button({ type = 'square', variants = 'primary', size = 'xlarge', state, label = 'Button', showLeadingIcon = false, showTrailingIcon = false, showUnderline = false, showFocus = false, leadingIcon = 'line/search', trailingIcon = 'line/search', icon = 'line/search', htmlType = 'button', disabled, style, className, ...rest }: ButtonProps) {
+export function Button({ type = 'square', appearance, variants: legacy, size = 'xlarge', state, label = 'Button', showLeadingIcon = false, showTrailingIcon = false, showUnderline = false, showFocus = false, leadingIcon = 'line/search', trailingIcon = 'line/search', icon = 'line/search', htmlType = 'button', disabled, style, className, ...rest }: ButtonProps) {
   const it = useInteraction();
+  const variants = appearance ?? legacy ?? 'base';
   const off = disabled || state === 'disabled';
   const look: Look = off ? 'disabled' : state && state !== 'default' ? state : it.pressed ? 'pressed' : it.hover ? 'hover' : 'default';
   const sz = (type === 'text' ? 'fixed' : type !== 'square' && size === 'xlarge' ? 'large' : size) as Size;

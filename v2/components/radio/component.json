@@ -4,17 +4,17 @@
   "name": "Radio",
   "description": "여러 선택지 중 하나를 고릅니다. size 2종(large·medium) × selection 2종(unchecked·checked) × state 4종. showLabel·label로 라벨을, showFocus로 포커스 링을 표시하며 showFocus는 disabled를 포함한 모든 상태에서 사용합니다. 색상·치수는 selectionControl/*·radio/* 배리어블에 연결합니다(포커스 링은 focusRing/*). 여러 개를 묶어 쓸 때는 RadioGroup을 씁니다.",
   "figma": {
-    "fileKey": "9AioWOXVOVm5C7kdSxSEEP",
+    "fileKey": "WcoI745J38TaON7iCKcutW",
     "nodeId": "4971:31497",
-    "url": "https://www.figma.com/design/9AioWOXVOVm5C7kdSxSEEP?node-id=4971-31497",
+    "url": "https://www.figma.com/design/WcoI745J38TaON7iCKcutW?node-id=4971-31497",
     "page": {
       "nodeId": "2064:17256",
       "name": "    ❖ Radio "
     },
     "type": "COMPONENT_SET",
-    "componentKey": "f6395604cd1479f3517d065edb4d013beb5877ab",
+    "componentKey": "537ae389cd6fdbf0b28c63296738ed42a59e7158",
     "requestedFrom": null,
-    "extractedAt": "2026-11-15"
+    "extractedAt": "2026-11-26"
   },
   "props": [
     {
@@ -71,7 +71,7 @@
   "variants": [
     {
       "nodeId": "4971:31498",
-      "key": "bf7504a6bf479eabe6fa2e2d3b6d54b48dc72c36",
+      "key": "bfdfc856bc502737df4aa4d19c8ba3c7bebe823b",
       "props": {
         "selection": "unchecked",
         "size": "large",
@@ -264,7 +264,7 @@
             "main": {
               "id": "2327:9265",
               "name": "_FocusRing",
-              "key": "8682fdd212774814b95aaf08433bf601ac3e08ea"
+              "key": "90ffa070af67ab1e238d2a77104cce9a5a71bb1e"
             },
             "propRefs": {
               "visible": "showFocus#2810:0"
@@ -279,1471 +279,8 @@
       }
     },
     {
-      "nodeId": "4971:31511",
-      "key": "47ff45f713227780a8f9cb37d8806fdcb76bd9a5",
-      "props": {
-        "selection": "unchecked",
-        "size": "large",
-        "state": "hover"
-      },
-      "size": [
-        65,
-        24
-      ],
-      "layer": {
-        "name": "selection=unchecked, size=large, state=hover",
-        "type": "COMPONENT",
-        "size": [
-          65,
-          24
-        ],
-        "layout": {
-          "mode": "HORIZONTAL",
-          "gap": 6,
-          "padding": [
-            0,
-            0,
-            0,
-            0
-          ],
-          "align": [
-            "MIN",
-            "CENTER"
-          ]
-        },
-        "sizing": [
-          "HUG",
-          "HUG"
-        ],
-        "variables": {
-          "itemSpacing": "radio/space/gap"
-        },
-        "children": [
-          {
-            "name": "radio",
-            "type": "FRAME",
-            "size": [
-              20,
-              20
-            ],
-            "layout": {
-              "mode": "VERTICAL",
-              "gap": 0,
-              "padding": [
-                0,
-                0,
-                0,
-                0
-              ],
-              "align": [
-                "CENTER",
-                "CENTER"
-              ]
-            },
-            "sizing": [
-              "FIXED",
-              "FIXED"
-            ],
-            "radius": 9999,
-            "fills": [
-              {
-                "type": "SOLID",
-                "color": "#F8F9FB",
-                "variable": "selectionControl/color/bg/hover"
-              }
-            ],
-            "strokes": [
-              {
-                "type": "SOLID",
-                "color": "#C4C9CF",
-                "variable": "selectionControl/color/border/default"
-              }
-            ],
-            "strokeWeight": 1.5,
-            "strokeAlign": "INSIDE",
-            "variables": {
-              "width": "radio/large/size",
-              "height": "radio/large/size",
-              "cornerRadius": "radio/radius",
-              "strokeWeight": "radio/borderWidth"
-            },
-            "children": [],
-            "id": "4971:31512"
-          },
-          {
-            "name": "label",
-            "type": "TEXT",
-            "size": [
-              39,
-              24
-            ],
-            "sizing": [
-              "HUG",
-              "HUG"
-            ],
-            "fills": [
-              {
-                "type": "SOLID",
-                "color": "#1C1F23",
-                "variable": "selectionControl/label/color/fg/hover"
-              }
-            ],
-            "styles": {
-              "text": "label/16/500"
-            },
-            "text": {
-              "characters": "Label",
-              "fontFamily": "Pretendard",
-              "fontStyle": "Medium",
-              "fontWeight": 500,
-              "fontSize": 16,
-              "lineHeight": {
-                "unit": "PIXELS",
-                "value": 24
-              },
-              "letterSpacing": {
-                "unit": "PIXELS",
-                "value": -0.2
-              },
-              "align": [
-                "LEFT",
-                "CENTER"
-              ],
-              "autoResize": "WIDTH_AND_HEIGHT"
-            },
-            "propRefs": {
-              "visible": "showLabel#5203:3",
-              "characters": "label#4205:47"
-            },
-            "variables": {
-              "letterSpacing[0]": "font/label/16/500/letterSpacing",
-              "fontSize[0]": "font/label/16/500/size",
-              "fontFamily[0]": "font/label/16/500/family",
-              "lineHeight[0]": "font/label/16/500/lineHeight",
-              "fontWeight[0]": "font/label/16/500/weight"
-            },
-            "id": "4971:31513"
-          },
-          {
-            "name": "_FocusRing",
-            "type": "INSTANCE",
-            "visible": false,
-            "size": [
-              24,
-              24
-            ],
-            "position": [
-              -2,
-              0
-            ],
-            "constraints": [
-              "MIN",
-              "CENTER"
-            ],
-            "layout": {
-              "mode": "HORIZONTAL",
-              "gap": 0,
-              "padding": [
-                0,
-                0,
-                0,
-                0
-              ],
-              "align": [
-                "MIN",
-                "MIN"
-              ]
-            },
-            "sizing": [
-              "FIXED",
-              "FIXED"
-            ],
-            "radius": 9999,
-            "strokes": [
-              {
-                "type": "SOLID",
-                "color": "#7FAEFF",
-                "variable": "focusRing/color/border"
-              }
-            ],
-            "strokeWeight": 2,
-            "strokeAlign": "OUTSIDE",
-            "main": {
-              "id": "2327:9265",
-              "name": "_FocusRing",
-              "key": "8682fdd212774814b95aaf08433bf601ac3e08ea"
-            },
-            "propRefs": {
-              "visible": "showFocus#2810:0"
-            },
-            "variables": {
-              "cornerRadius": "radio/large/focusRing/radius",
-              "strokeWeight": "focusRing/borderWidth"
-            },
-            "children": [],
-            "id": "4971:31514"
-          }
-        ],
-        "id": "4971:31511"
-      }
-    },
-    {
-      "nodeId": "4971:31553",
-      "key": "46acf92433e8416028cc4d4aa6800969a03be1ab",
-      "props": {
-        "selection": "unchecked",
-        "size": "large",
-        "state": "pressed"
-      },
-      "size": [
-        65,
-        24
-      ],
-      "layer": {
-        "name": "selection=unchecked, size=large, state=pressed",
-        "type": "COMPONENT",
-        "size": [
-          65,
-          24
-        ],
-        "layout": {
-          "mode": "HORIZONTAL",
-          "gap": 6,
-          "padding": [
-            0,
-            0,
-            0,
-            0
-          ],
-          "align": [
-            "MIN",
-            "CENTER"
-          ]
-        },
-        "sizing": [
-          "HUG",
-          "HUG"
-        ],
-        "variables": {
-          "itemSpacing": "radio/space/gap"
-        },
-        "children": [
-          {
-            "name": "radio",
-            "type": "FRAME",
-            "size": [
-              20,
-              20
-            ],
-            "layout": {
-              "mode": "VERTICAL",
-              "gap": 0,
-              "padding": [
-                0,
-                0,
-                0,
-                0
-              ],
-              "align": [
-                "CENTER",
-                "CENTER"
-              ]
-            },
-            "sizing": [
-              "FIXED",
-              "FIXED"
-            ],
-            "radius": 9999,
-            "fills": [
-              {
-                "type": "SOLID",
-                "color": "#F1F3F5",
-                "variable": "selectionControl/color/bg/pressed"
-              }
-            ],
-            "strokes": [
-              {
-                "type": "SOLID",
-                "color": "#C4C9CF",
-                "variable": "selectionControl/color/border/default"
-              }
-            ],
-            "strokeWeight": 1.5,
-            "strokeAlign": "INSIDE",
-            "variables": {
-              "width": "radio/large/size",
-              "height": "radio/large/size",
-              "cornerRadius": "radio/radius",
-              "strokeWeight": "radio/borderWidth"
-            },
-            "children": [],
-            "id": "4971:31554"
-          },
-          {
-            "name": "label",
-            "type": "TEXT",
-            "size": [
-              39,
-              24
-            ],
-            "sizing": [
-              "HUG",
-              "HUG"
-            ],
-            "fills": [
-              {
-                "type": "SOLID",
-                "color": "#1C1F23",
-                "variable": "selectionControl/label/color/fg/pressed"
-              }
-            ],
-            "styles": {
-              "text": "label/16/500"
-            },
-            "text": {
-              "characters": "Label",
-              "fontFamily": "Pretendard",
-              "fontStyle": "Medium",
-              "fontWeight": 500,
-              "fontSize": 16,
-              "lineHeight": {
-                "unit": "PIXELS",
-                "value": 24
-              },
-              "letterSpacing": {
-                "unit": "PIXELS",
-                "value": -0.2
-              },
-              "align": [
-                "LEFT",
-                "CENTER"
-              ],
-              "autoResize": "WIDTH_AND_HEIGHT"
-            },
-            "propRefs": {
-              "visible": "showLabel#5203:3",
-              "characters": "label#4205:47"
-            },
-            "variables": {
-              "letterSpacing[0]": "font/label/16/500/letterSpacing",
-              "fontSize[0]": "font/label/16/500/size",
-              "fontFamily[0]": "font/label/16/500/family",
-              "lineHeight[0]": "font/label/16/500/lineHeight",
-              "fontWeight[0]": "font/label/16/500/weight"
-            },
-            "id": "4971:31555"
-          },
-          {
-            "name": "_FocusRing",
-            "type": "INSTANCE",
-            "visible": false,
-            "size": [
-              24,
-              24
-            ],
-            "position": [
-              -2,
-              0
-            ],
-            "constraints": [
-              "MIN",
-              "CENTER"
-            ],
-            "layout": {
-              "mode": "HORIZONTAL",
-              "gap": 0,
-              "padding": [
-                0,
-                0,
-                0,
-                0
-              ],
-              "align": [
-                "MIN",
-                "MIN"
-              ]
-            },
-            "sizing": [
-              "FIXED",
-              "FIXED"
-            ],
-            "radius": 9999,
-            "strokes": [
-              {
-                "type": "SOLID",
-                "color": "#7FAEFF",
-                "variable": "focusRing/color/border"
-              }
-            ],
-            "strokeWeight": 2,
-            "strokeAlign": "OUTSIDE",
-            "main": {
-              "id": "2327:9265",
-              "name": "_FocusRing",
-              "key": "8682fdd212774814b95aaf08433bf601ac3e08ea"
-            },
-            "propRefs": {
-              "visible": "showFocus#2810:0"
-            },
-            "variables": {
-              "cornerRadius": "radio/large/focusRing/radius",
-              "strokeWeight": "focusRing/borderWidth"
-            },
-            "children": [],
-            "id": "4971:31556"
-          }
-        ],
-        "id": "4971:31553"
-      }
-    },
-    {
-      "nodeId": "4971:31561",
-      "key": "e26a26bbcc4b94498507c131651d3dbf2db0df3b",
-      "props": {
-        "selection": "unchecked",
-        "size": "large",
-        "state": "disabled"
-      },
-      "size": [
-        65,
-        24
-      ],
-      "layer": {
-        "name": "selection=unchecked, size=large, state=disabled",
-        "type": "COMPONENT",
-        "size": [
-          65,
-          24
-        ],
-        "layout": {
-          "mode": "HORIZONTAL",
-          "gap": 6,
-          "padding": [
-            0,
-            0,
-            0,
-            0
-          ],
-          "align": [
-            "MIN",
-            "CENTER"
-          ]
-        },
-        "sizing": [
-          "HUG",
-          "HUG"
-        ],
-        "variables": {
-          "itemSpacing": "radio/space/gap"
-        },
-        "children": [
-          {
-            "name": "radio",
-            "type": "FRAME",
-            "size": [
-              20,
-              20
-            ],
-            "layout": {
-              "mode": "VERTICAL",
-              "gap": 0,
-              "padding": [
-                0,
-                0,
-                0,
-                0
-              ],
-              "align": [
-                "CENTER",
-                "CENTER"
-              ]
-            },
-            "sizing": [
-              "FIXED",
-              "FIXED"
-            ],
-            "radius": 9999,
-            "fills": [
-              {
-                "type": "SOLID",
-                "color": "#E8ECEF",
-                "variable": "selectionControl/color/bg/disabled"
-              }
-            ],
-            "strokes": [
-              {
-                "type": "SOLID",
-                "color": "#C4C9CF",
-                "variable": "selectionControl/color/border/default"
-              }
-            ],
-            "strokeWeight": 1.5,
-            "strokeAlign": "INSIDE",
-            "variables": {
-              "width": "radio/large/size",
-              "height": "radio/large/size",
-              "cornerRadius": "radio/radius",
-              "strokeWeight": "radio/borderWidth"
-            },
-            "children": [],
-            "id": "4971:31562"
-          },
-          {
-            "name": "label",
-            "type": "TEXT",
-            "size": [
-              39,
-              24
-            ],
-            "sizing": [
-              "HUG",
-              "HUG"
-            ],
-            "fills": [
-              {
-                "type": "SOLID",
-                "color": "#B3B9C0",
-                "variable": "selectionControl/label/color/fg/disabled"
-              }
-            ],
-            "styles": {
-              "text": "label/16/500"
-            },
-            "text": {
-              "characters": "Label",
-              "fontFamily": "Pretendard",
-              "fontStyle": "Medium",
-              "fontWeight": 500,
-              "fontSize": 16,
-              "lineHeight": {
-                "unit": "PIXELS",
-                "value": 24
-              },
-              "letterSpacing": {
-                "unit": "PIXELS",
-                "value": -0.2
-              },
-              "align": [
-                "LEFT",
-                "CENTER"
-              ],
-              "autoResize": "WIDTH_AND_HEIGHT"
-            },
-            "propRefs": {
-              "visible": "showLabel#5203:3",
-              "characters": "label#4205:47"
-            },
-            "variables": {
-              "letterSpacing[0]": "font/label/16/500/letterSpacing",
-              "fontSize[0]": "font/label/16/500/size",
-              "fontFamily[0]": "font/label/16/500/family",
-              "lineHeight[0]": "font/label/16/500/lineHeight",
-              "fontWeight[0]": "font/label/16/500/weight"
-            },
-            "id": "4971:31563"
-          },
-          {
-            "name": "_FocusRing",
-            "type": "INSTANCE",
-            "visible": false,
-            "size": [
-              24,
-              24
-            ],
-            "position": [
-              -2,
-              0
-            ],
-            "constraints": [
-              "MIN",
-              "CENTER"
-            ],
-            "layout": {
-              "mode": "HORIZONTAL",
-              "gap": 0,
-              "padding": [
-                0,
-                0,
-                0,
-                0
-              ],
-              "align": [
-                "MIN",
-                "MIN"
-              ]
-            },
-            "sizing": [
-              "FIXED",
-              "FIXED"
-            ],
-            "radius": 9999,
-            "strokes": [
-              {
-                "type": "SOLID",
-                "color": "#7FAEFF",
-                "variable": "focusRing/color/border"
-              }
-            ],
-            "strokeWeight": 2,
-            "strokeAlign": "OUTSIDE",
-            "main": {
-              "id": "2327:9265",
-              "name": "_FocusRing",
-              "key": "8682fdd212774814b95aaf08433bf601ac3e08ea"
-            },
-            "propRefs": {
-              "visible": "showFocus#2810:0"
-            },
-            "variables": {
-              "cornerRadius": "radio/large/focusRing/radius",
-              "strokeWeight": "focusRing/borderWidth"
-            },
-            "children": [],
-            "id": "4971:31564"
-          }
-        ],
-        "id": "4971:31561"
-      }
-    },
-    {
-      "nodeId": "4971:31507",
-      "key": "aa9cca4f9abcff009202b82405678b1fc2b62e10",
-      "props": {
-        "selection": "unchecked",
-        "size": "medium",
-        "state": "default"
-      },
-      "size": [
-        56,
-        20
-      ],
-      "layer": {
-        "name": "selection=unchecked, size=medium, state=default",
-        "type": "COMPONENT",
-        "size": [
-          56,
-          20
-        ],
-        "layout": {
-          "mode": "HORIZONTAL",
-          "gap": 6,
-          "padding": [
-            0,
-            0,
-            0,
-            0
-          ],
-          "align": [
-            "MIN",
-            "CENTER"
-          ]
-        },
-        "sizing": [
-          "HUG",
-          "HUG"
-        ],
-        "variables": {
-          "itemSpacing": "radio/space/gap"
-        },
-        "children": [
-          {
-            "name": "radio",
-            "type": "FRAME",
-            "size": [
-              16,
-              16
-            ],
-            "layout": {
-              "mode": "VERTICAL",
-              "gap": 0,
-              "padding": [
-                0,
-                0,
-                0,
-                0
-              ],
-              "align": [
-                "CENTER",
-                "CENTER"
-              ]
-            },
-            "sizing": [
-              "FIXED",
-              "FIXED"
-            ],
-            "radius": 9999,
-            "fills": [
-              {
-                "type": "SOLID",
-                "color": "#FFFFFF",
-                "variable": "selectionControl/color/bg/default"
-              }
-            ],
-            "strokes": [
-              {
-                "type": "SOLID",
-                "color": "#C4C9CF",
-                "variable": "selectionControl/color/border/default"
-              }
-            ],
-            "strokeWeight": 1.5,
-            "strokeAlign": "INSIDE",
-            "variables": {
-              "width": "radio/medium/size",
-              "height": "radio/medium/size",
-              "cornerRadius": "radio/radius",
-              "strokeWeight": "radio/borderWidth"
-            },
-            "children": [],
-            "id": "4971:31508"
-          },
-          {
-            "name": "label",
-            "type": "TEXT",
-            "size": [
-              34,
-              20
-            ],
-            "sizing": [
-              "HUG",
-              "HUG"
-            ],
-            "fills": [
-              {
-                "type": "SOLID",
-                "color": "#1C1F23",
-                "variable": "selectionControl/label/color/fg/default"
-              }
-            ],
-            "styles": {
-              "text": "label/14/400"
-            },
-            "text": {
-              "characters": "Label",
-              "fontFamily": "Pretendard",
-              "fontStyle": "Regular",
-              "fontWeight": 400,
-              "fontSize": 14,
-              "lineHeight": {
-                "unit": "PIXELS",
-                "value": 20
-              },
-              "letterSpacing": {
-                "unit": "PIXELS",
-                "value": -0.2
-              },
-              "align": [
-                "LEFT",
-                "CENTER"
-              ],
-              "autoResize": "WIDTH_AND_HEIGHT"
-            },
-            "propRefs": {
-              "visible": "showLabel#5203:3",
-              "characters": "label#4205:47"
-            },
-            "variables": {
-              "letterSpacing[0]": "font/label/14/400/letterSpacing",
-              "fontSize[0]": "font/label/14/400/size",
-              "fontFamily[0]": "font/label/14/400/family",
-              "lineHeight[0]": "font/label/14/400/lineHeight",
-              "fontWeight[0]": "font/label/14/400/weight"
-            },
-            "id": "4971:31509"
-          },
-          {
-            "name": "_FocusRing",
-            "type": "INSTANCE",
-            "visible": false,
-            "size": [
-              20,
-              20
-            ],
-            "position": [
-              -2,
-              0
-            ],
-            "constraints": [
-              "MIN",
-              "CENTER"
-            ],
-            "layout": {
-              "mode": "HORIZONTAL",
-              "gap": 0,
-              "padding": [
-                0,
-                0,
-                0,
-                0
-              ],
-              "align": [
-                "MIN",
-                "MIN"
-              ]
-            },
-            "sizing": [
-              "FIXED",
-              "FIXED"
-            ],
-            "radius": 9999,
-            "strokes": [
-              {
-                "type": "SOLID",
-                "color": "#7FAEFF",
-                "variable": "focusRing/color/border"
-              }
-            ],
-            "strokeWeight": 2,
-            "strokeAlign": "OUTSIDE",
-            "main": {
-              "id": "2327:9265",
-              "name": "_FocusRing",
-              "key": "8682fdd212774814b95aaf08433bf601ac3e08ea"
-            },
-            "propRefs": {
-              "visible": "showFocus#2810:0"
-            },
-            "variables": {
-              "cornerRadius": "radio/medium/focusRing/radius",
-              "strokeWeight": "focusRing/borderWidth"
-            },
-            "children": [],
-            "id": "4971:31510"
-          }
-        ],
-        "id": "4971:31507"
-      }
-    },
-    {
-      "nodeId": "4971:31515",
-      "key": "a8e9b56cc4b43ff936bea70ef8d6d61e22d70b80",
-      "props": {
-        "selection": "unchecked",
-        "size": "medium",
-        "state": "hover"
-      },
-      "size": [
-        56,
-        20
-      ],
-      "layer": {
-        "name": "selection=unchecked, size=medium, state=hover",
-        "type": "COMPONENT",
-        "size": [
-          56,
-          20
-        ],
-        "layout": {
-          "mode": "HORIZONTAL",
-          "gap": 6,
-          "padding": [
-            0,
-            0,
-            0,
-            0
-          ],
-          "align": [
-            "MIN",
-            "CENTER"
-          ]
-        },
-        "sizing": [
-          "HUG",
-          "HUG"
-        ],
-        "variables": {
-          "itemSpacing": "radio/space/gap"
-        },
-        "children": [
-          {
-            "name": "radio",
-            "type": "FRAME",
-            "size": [
-              16,
-              16
-            ],
-            "layout": {
-              "mode": "VERTICAL",
-              "gap": 0,
-              "padding": [
-                0,
-                0,
-                0,
-                0
-              ],
-              "align": [
-                "CENTER",
-                "CENTER"
-              ]
-            },
-            "sizing": [
-              "FIXED",
-              "FIXED"
-            ],
-            "radius": 9999,
-            "fills": [
-              {
-                "type": "SOLID",
-                "color": "#F8F9FB",
-                "variable": "selectionControl/color/bg/hover"
-              }
-            ],
-            "strokes": [
-              {
-                "type": "SOLID",
-                "color": "#C4C9CF",
-                "variable": "selectionControl/color/border/default"
-              }
-            ],
-            "strokeWeight": 1.5,
-            "strokeAlign": "INSIDE",
-            "variables": {
-              "width": "radio/medium/size",
-              "height": "radio/medium/size",
-              "cornerRadius": "radio/radius",
-              "strokeWeight": "radio/borderWidth"
-            },
-            "children": [],
-            "id": "4971:31516"
-          },
-          {
-            "name": "label",
-            "type": "TEXT",
-            "size": [
-              34,
-              20
-            ],
-            "sizing": [
-              "HUG",
-              "HUG"
-            ],
-            "fills": [
-              {
-                "type": "SOLID",
-                "color": "#1C1F23",
-                "variable": "selectionControl/label/color/fg/hover"
-              }
-            ],
-            "styles": {
-              "text": "label/14/400"
-            },
-            "text": {
-              "characters": "Label",
-              "fontFamily": "Pretendard",
-              "fontStyle": "Regular",
-              "fontWeight": 400,
-              "fontSize": 14,
-              "lineHeight": {
-                "unit": "PIXELS",
-                "value": 20
-              },
-              "letterSpacing": {
-                "unit": "PIXELS",
-                "value": -0.2
-              },
-              "align": [
-                "LEFT",
-                "CENTER"
-              ],
-              "autoResize": "WIDTH_AND_HEIGHT"
-            },
-            "propRefs": {
-              "visible": "showLabel#5203:3",
-              "characters": "label#4205:47"
-            },
-            "variables": {
-              "letterSpacing[0]": "font/label/14/400/letterSpacing",
-              "fontSize[0]": "font/label/14/400/size",
-              "fontFamily[0]": "font/label/14/400/family",
-              "lineHeight[0]": "font/label/14/400/lineHeight",
-              "fontWeight[0]": "font/label/14/400/weight"
-            },
-            "id": "4971:31517"
-          },
-          {
-            "name": "_FocusRing",
-            "type": "INSTANCE",
-            "visible": false,
-            "size": [
-              20,
-              20
-            ],
-            "position": [
-              -2,
-              0
-            ],
-            "constraints": [
-              "MIN",
-              "CENTER"
-            ],
-            "layout": {
-              "mode": "HORIZONTAL",
-              "gap": 0,
-              "padding": [
-                0,
-                0,
-                0,
-                0
-              ],
-              "align": [
-                "MIN",
-                "MIN"
-              ]
-            },
-            "sizing": [
-              "FIXED",
-              "FIXED"
-            ],
-            "radius": 9999,
-            "strokes": [
-              {
-                "type": "SOLID",
-                "color": "#7FAEFF",
-                "variable": "focusRing/color/border"
-              }
-            ],
-            "strokeWeight": 2,
-            "strokeAlign": "OUTSIDE",
-            "main": {
-              "id": "2327:9265",
-              "name": "_FocusRing",
-              "key": "8682fdd212774814b95aaf08433bf601ac3e08ea"
-            },
-            "propRefs": {
-              "visible": "showFocus#2810:0"
-            },
-            "variables": {
-              "cornerRadius": "radio/medium/focusRing/radius",
-              "strokeWeight": "focusRing/borderWidth"
-            },
-            "children": [],
-            "id": "4971:31518"
-          }
-        ],
-        "id": "4971:31515"
-      }
-    },
-    {
-      "nodeId": "4971:31557",
-      "key": "8d37d3f3a19fca83ea9e6e0677ae6e3562a714ad",
-      "props": {
-        "selection": "unchecked",
-        "size": "medium",
-        "state": "pressed"
-      },
-      "size": [
-        56,
-        20
-      ],
-      "layer": {
-        "name": "selection=unchecked, size=medium, state=pressed",
-        "type": "COMPONENT",
-        "size": [
-          56,
-          20
-        ],
-        "layout": {
-          "mode": "HORIZONTAL",
-          "gap": 6,
-          "padding": [
-            0,
-            0,
-            0,
-            0
-          ],
-          "align": [
-            "MIN",
-            "CENTER"
-          ]
-        },
-        "sizing": [
-          "HUG",
-          "HUG"
-        ],
-        "variables": {
-          "itemSpacing": "radio/space/gap"
-        },
-        "children": [
-          {
-            "name": "radio",
-            "type": "FRAME",
-            "size": [
-              16,
-              16
-            ],
-            "layout": {
-              "mode": "VERTICAL",
-              "gap": 0,
-              "padding": [
-                0,
-                0,
-                0,
-                0
-              ],
-              "align": [
-                "CENTER",
-                "CENTER"
-              ]
-            },
-            "sizing": [
-              "FIXED",
-              "FIXED"
-            ],
-            "radius": 9999,
-            "fills": [
-              {
-                "type": "SOLID",
-                "color": "#F1F3F5",
-                "variable": "selectionControl/color/bg/pressed"
-              }
-            ],
-            "strokes": [
-              {
-                "type": "SOLID",
-                "color": "#C4C9CF",
-                "variable": "selectionControl/color/border/default"
-              }
-            ],
-            "strokeWeight": 1.5,
-            "strokeAlign": "INSIDE",
-            "variables": {
-              "width": "radio/medium/size",
-              "height": "radio/medium/size",
-              "cornerRadius": "radio/radius",
-              "strokeWeight": "radio/borderWidth"
-            },
-            "children": [],
-            "id": "4971:31558"
-          },
-          {
-            "name": "label",
-            "type": "TEXT",
-            "size": [
-              34,
-              20
-            ],
-            "sizing": [
-              "HUG",
-              "HUG"
-            ],
-            "fills": [
-              {
-                "type": "SOLID",
-                "color": "#1C1F23",
-                "variable": "selectionControl/label/color/fg/pressed"
-              }
-            ],
-            "styles": {
-              "text": "label/14/400"
-            },
-            "text": {
-              "characters": "Label",
-              "fontFamily": "Pretendard",
-              "fontStyle": "Regular",
-              "fontWeight": 400,
-              "fontSize": 14,
-              "lineHeight": {
-                "unit": "PIXELS",
-                "value": 20
-              },
-              "letterSpacing": {
-                "unit": "PIXELS",
-                "value": -0.2
-              },
-              "align": [
-                "LEFT",
-                "CENTER"
-              ],
-              "autoResize": "WIDTH_AND_HEIGHT"
-            },
-            "propRefs": {
-              "visible": "showLabel#5203:3",
-              "characters": "label#4205:47"
-            },
-            "variables": {
-              "letterSpacing[0]": "font/label/14/400/letterSpacing",
-              "fontSize[0]": "font/label/14/400/size",
-              "fontFamily[0]": "font/label/14/400/family",
-              "lineHeight[0]": "font/label/14/400/lineHeight",
-              "fontWeight[0]": "font/label/14/400/weight"
-            },
-            "id": "4971:31559"
-          },
-          {
-            "name": "_FocusRing",
-            "type": "INSTANCE",
-            "visible": false,
-            "size": [
-              20,
-              20
-            ],
-            "position": [
-              -2,
-              0
-            ],
-            "constraints": [
-              "MIN",
-              "CENTER"
-            ],
-            "layout": {
-              "mode": "HORIZONTAL",
-              "gap": 0,
-              "padding": [
-                0,
-                0,
-                0,
-                0
-              ],
-              "align": [
-                "MIN",
-                "MIN"
-              ]
-            },
-            "sizing": [
-              "FIXED",
-              "FIXED"
-            ],
-            "radius": 9999,
-            "strokes": [
-              {
-                "type": "SOLID",
-                "color": "#7FAEFF",
-                "variable": "focusRing/color/border"
-              }
-            ],
-            "strokeWeight": 2,
-            "strokeAlign": "OUTSIDE",
-            "main": {
-              "id": "2327:9265",
-              "name": "_FocusRing",
-              "key": "8682fdd212774814b95aaf08433bf601ac3e08ea"
-            },
-            "propRefs": {
-              "visible": "showFocus#2810:0"
-            },
-            "variables": {
-              "cornerRadius": "radio/medium/focusRing/radius",
-              "strokeWeight": "focusRing/borderWidth"
-            },
-            "children": [],
-            "id": "4971:31560"
-          }
-        ],
-        "id": "4971:31557"
-      }
-    },
-    {
-      "nodeId": "4971:31534",
-      "key": "b4cd11b89271103fa1b427311b6ed2f4ac1a77c3",
-      "props": {
-        "selection": "unchecked",
-        "size": "medium",
-        "state": "disabled"
-      },
-      "size": [
-        56,
-        20
-      ],
-      "layer": {
-        "name": "selection=unchecked, size=medium, state=disabled",
-        "type": "COMPONENT",
-        "size": [
-          56,
-          20
-        ],
-        "layout": {
-          "mode": "HORIZONTAL",
-          "gap": 6,
-          "padding": [
-            0,
-            0,
-            0,
-            0
-          ],
-          "align": [
-            "MIN",
-            "CENTER"
-          ]
-        },
-        "sizing": [
-          "HUG",
-          "HUG"
-        ],
-        "variables": {
-          "itemSpacing": "radio/space/gap"
-        },
-        "children": [
-          {
-            "name": "radio",
-            "type": "FRAME",
-            "size": [
-              16,
-              16
-            ],
-            "layout": {
-              "mode": "VERTICAL",
-              "gap": 0,
-              "padding": [
-                0,
-                0,
-                0,
-                0
-              ],
-              "align": [
-                "CENTER",
-                "CENTER"
-              ]
-            },
-            "sizing": [
-              "FIXED",
-              "FIXED"
-            ],
-            "radius": 9999,
-            "fills": [
-              {
-                "type": "SOLID",
-                "color": "#E8ECEF",
-                "variable": "selectionControl/color/bg/disabled"
-              }
-            ],
-            "strokes": [
-              {
-                "type": "SOLID",
-                "color": "#C4C9CF",
-                "variable": "selectionControl/color/border/default"
-              }
-            ],
-            "strokeWeight": 1.5,
-            "strokeAlign": "INSIDE",
-            "variables": {
-              "width": "radio/medium/size",
-              "height": "radio/medium/size",
-              "cornerRadius": "radio/radius",
-              "strokeWeight": "radio/borderWidth"
-            },
-            "children": [],
-            "id": "4971:31535"
-          },
-          {
-            "name": "label",
-            "type": "TEXT",
-            "size": [
-              34,
-              20
-            ],
-            "sizing": [
-              "HUG",
-              "HUG"
-            ],
-            "fills": [
-              {
-                "type": "SOLID",
-                "color": "#B3B9C0",
-                "variable": "selectionControl/label/color/fg/disabled"
-              }
-            ],
-            "styles": {
-              "text": "label/14/400"
-            },
-            "text": {
-              "characters": "Label",
-              "fontFamily": "Pretendard",
-              "fontStyle": "Regular",
-              "fontWeight": 400,
-              "fontSize": 14,
-              "lineHeight": {
-                "unit": "PIXELS",
-                "value": 20
-              },
-              "letterSpacing": {
-                "unit": "PIXELS",
-                "value": -0.2
-              },
-              "align": [
-                "LEFT",
-                "CENTER"
-              ],
-              "autoResize": "WIDTH_AND_HEIGHT"
-            },
-            "propRefs": {
-              "visible": "showLabel#5203:3",
-              "characters": "label#4205:47"
-            },
-            "variables": {
-              "letterSpacing[0]": "font/label/14/400/letterSpacing",
-              "fontSize[0]": "font/label/14/400/size",
-              "fontFamily[0]": "font/label/14/400/family",
-              "lineHeight[0]": "font/label/14/400/lineHeight",
-              "fontWeight[0]": "font/label/14/400/weight"
-            },
-            "id": "4971:31536"
-          },
-          {
-            "name": "_FocusRing",
-            "type": "INSTANCE",
-            "visible": false,
-            "size": [
-              20,
-              20
-            ],
-            "position": [
-              -2,
-              0
-            ],
-            "constraints": [
-              "MIN",
-              "CENTER"
-            ],
-            "layout": {
-              "mode": "HORIZONTAL",
-              "gap": 0,
-              "padding": [
-                0,
-                0,
-                0,
-                0
-              ],
-              "align": [
-                "MIN",
-                "MIN"
-              ]
-            },
-            "sizing": [
-              "FIXED",
-              "FIXED"
-            ],
-            "radius": 9999,
-            "strokes": [
-              {
-                "type": "SOLID",
-                "color": "#7FAEFF",
-                "variable": "focusRing/color/border"
-              }
-            ],
-            "strokeWeight": 2,
-            "strokeAlign": "OUTSIDE",
-            "main": {
-              "id": "2327:9265",
-              "name": "_FocusRing",
-              "key": "8682fdd212774814b95aaf08433bf601ac3e08ea"
-            },
-            "propRefs": {
-              "visible": "showFocus#2810:0"
-            },
-            "variables": {
-              "cornerRadius": "radio/medium/focusRing/radius",
-              "strokeWeight": "focusRing/borderWidth"
-            },
-            "children": [],
-            "id": "4971:31537"
-          }
-        ],
-        "id": "4971:31534"
-      }
-    },
-    {
       "nodeId": "4971:31502",
-      "key": "48d04d8a5148acc84bc6245c24ccde438b8cbebf",
+      "key": "e79cd515320c69c03743133cc409951a0d1f28f6",
       "props": {
         "selection": "checked",
         "size": "large",
@@ -1976,7 +513,7 @@
             "main": {
               "id": "2327:9265",
               "name": "_FocusRing",
-              "key": "8682fdd212774814b95aaf08433bf601ac3e08ea"
+              "key": "90ffa070af67ab1e238d2a77104cce9a5a71bb1e"
             },
             "propRefs": {
               "visible": "showFocus#2810:0"
@@ -1993,10 +530,219 @@
       }
     },
     {
-      "nodeId": "4971:31524",
-      "key": "6c72e0b39c5ec671c1106b3475819b80d29cf6ca",
+      "nodeId": "4971:31507",
+      "key": "52334cc70fdc0768331ee12379c1979a3ba75e8a",
       "props": {
-        "selection": "checked",
+        "selection": "unchecked",
+        "size": "medium",
+        "state": "default"
+      },
+      "size": [
+        56,
+        20
+      ],
+      "layer": {
+        "name": "selection=unchecked, size=medium, state=default",
+        "type": "COMPONENT",
+        "size": [
+          56,
+          20
+        ],
+        "layout": {
+          "mode": "HORIZONTAL",
+          "gap": 6,
+          "padding": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "align": [
+            "MIN",
+            "CENTER"
+          ]
+        },
+        "sizing": [
+          "HUG",
+          "HUG"
+        ],
+        "variables": {
+          "itemSpacing": "radio/space/gap"
+        },
+        "children": [
+          {
+            "name": "radio",
+            "type": "FRAME",
+            "size": [
+              16,
+              16
+            ],
+            "layout": {
+              "mode": "VERTICAL",
+              "gap": 0,
+              "padding": [
+                0,
+                0,
+                0,
+                0
+              ],
+              "align": [
+                "CENTER",
+                "CENTER"
+              ]
+            },
+            "sizing": [
+              "FIXED",
+              "FIXED"
+            ],
+            "radius": 9999,
+            "fills": [
+              {
+                "type": "SOLID",
+                "color": "#FFFFFF",
+                "variable": "selectionControl/color/bg/default"
+              }
+            ],
+            "strokes": [
+              {
+                "type": "SOLID",
+                "color": "#C4C9CF",
+                "variable": "selectionControl/color/border/default"
+              }
+            ],
+            "strokeWeight": 1.5,
+            "strokeAlign": "INSIDE",
+            "variables": {
+              "width": "radio/medium/size",
+              "height": "radio/medium/size",
+              "cornerRadius": "radio/radius",
+              "strokeWeight": "radio/borderWidth"
+            },
+            "children": [],
+            "id": "4971:31508"
+          },
+          {
+            "name": "label",
+            "type": "TEXT",
+            "size": [
+              34,
+              20
+            ],
+            "sizing": [
+              "HUG",
+              "HUG"
+            ],
+            "fills": [
+              {
+                "type": "SOLID",
+                "color": "#1C1F23",
+                "variable": "selectionControl/label/color/fg/default"
+              }
+            ],
+            "styles": {
+              "text": "label/14/400"
+            },
+            "text": {
+              "characters": "Label",
+              "fontFamily": "Pretendard",
+              "fontStyle": "Regular",
+              "fontWeight": 400,
+              "fontSize": 14,
+              "lineHeight": {
+                "unit": "PIXELS",
+                "value": 20
+              },
+              "letterSpacing": {
+                "unit": "PIXELS",
+                "value": -0.2
+              },
+              "align": [
+                "LEFT",
+                "CENTER"
+              ],
+              "autoResize": "WIDTH_AND_HEIGHT"
+            },
+            "propRefs": {
+              "visible": "showLabel#5203:3",
+              "characters": "label#4205:47"
+            },
+            "variables": {
+              "letterSpacing[0]": "font/label/14/400/letterSpacing",
+              "fontSize[0]": "font/label/14/400/size",
+              "fontFamily[0]": "font/label/14/400/family",
+              "lineHeight[0]": "font/label/14/400/lineHeight",
+              "fontWeight[0]": "font/label/14/400/weight"
+            },
+            "id": "4971:31509"
+          },
+          {
+            "name": "_FocusRing",
+            "type": "INSTANCE",
+            "visible": false,
+            "size": [
+              20,
+              20
+            ],
+            "position": [
+              -2,
+              0
+            ],
+            "constraints": [
+              "MIN",
+              "CENTER"
+            ],
+            "layout": {
+              "mode": "HORIZONTAL",
+              "gap": 0,
+              "padding": [
+                0,
+                0,
+                0,
+                0
+              ],
+              "align": [
+                "MIN",
+                "MIN"
+              ]
+            },
+            "sizing": [
+              "FIXED",
+              "FIXED"
+            ],
+            "radius": 9999,
+            "strokes": [
+              {
+                "type": "SOLID",
+                "color": "#7FAEFF",
+                "variable": "focusRing/color/border"
+              }
+            ],
+            "strokeWeight": 2,
+            "strokeAlign": "OUTSIDE",
+            "main": {
+              "id": "2327:9265",
+              "name": "_FocusRing",
+              "key": "90ffa070af67ab1e238d2a77104cce9a5a71bb1e"
+            },
+            "propRefs": {
+              "visible": "showFocus#2810:0"
+            },
+            "variables": {
+              "cornerRadius": "radio/medium/focusRing/radius",
+              "strokeWeight": "focusRing/borderWidth"
+            },
+            "children": [],
+            "id": "4971:31510"
+          }
+        ],
+        "id": "4971:31507"
+      }
+    },
+    {
+      "nodeId": "4971:31511",
+      "key": "0778a01453c126a985f17677c164c9fe10de0a16",
+      "props": {
+        "selection": "unchecked",
         "size": "large",
         "state": "hover"
       },
@@ -2005,7 +751,7 @@
         24
       ],
       "layer": {
-        "name": "selection=checked, size=large, state=hover",
+        "name": "selection=unchecked, size=large, state=hover",
         "type": "COMPONENT",
         "size": [
           65,
@@ -2062,15 +808,15 @@
             "fills": [
               {
                 "type": "SOLID",
-                "color": "#FFFFFF",
-                "variable": "radio/checked/color/bg/default"
+                "color": "#F8F9FB",
+                "variable": "selectionControl/color/bg/hover"
               }
             ],
             "strokes": [
               {
                 "type": "SOLID",
-                "color": "#2F15B2",
-                "variable": "radio/checked/color/border/hover"
+                "color": "#C4C9CF",
+                "variable": "selectionControl/color/border/default"
               }
             ],
             "strokeWeight": 1.5,
@@ -2081,50 +827,8 @@
               "cornerRadius": "radio/radius",
               "strokeWeight": "radio/borderWidth"
             },
-            "children": [
-              {
-                "name": "dot",
-                "type": "FRAME",
-                "size": [
-                  12,
-                  12
-                ],
-                "layout": {
-                  "mode": "HORIZONTAL",
-                  "gap": 0,
-                  "padding": [
-                    0,
-                    0,
-                    0,
-                    0
-                  ],
-                  "align": [
-                    "CENTER",
-                    "CENTER"
-                  ]
-                },
-                "sizing": [
-                  "FIXED",
-                  "FIXED"
-                ],
-                "radius": 9999,
-                "fills": [
-                  {
-                    "type": "SOLID",
-                    "color": "#2F15B2",
-                    "variable": "radio/checked/dot/color/bg/hover"
-                  }
-                ],
-                "variables": {
-                  "width": "radio/large/dot/size",
-                  "height": "radio/large/dot/size",
-                  "cornerRadius": "radio/radius"
-                },
-                "children": [],
-                "id": "4971:31526"
-              }
-            ],
-            "id": "4971:31525"
+            "children": [],
+            "id": "4971:31512"
           },
           {
             "name": "label",
@@ -2178,7 +882,7 @@
               "lineHeight[0]": "font/label/16/500/lineHeight",
               "fontWeight[0]": "font/label/16/500/weight"
             },
-            "id": "4971:31527"
+            "id": "4971:31513"
           },
           {
             "name": "_FocusRing",
@@ -2227,7 +931,7 @@
             "main": {
               "id": "2327:9265",
               "name": "_FocusRing",
-              "key": "8682fdd212774814b95aaf08433bf601ac3e08ea"
+              "key": "90ffa070af67ab1e238d2a77104cce9a5a71bb1e"
             },
             "propRefs": {
               "visible": "showFocus#2810:0"
@@ -2237,30 +941,30 @@
               "strokeWeight": "focusRing/borderWidth"
             },
             "children": [],
-            "id": "4971:31528"
+            "id": "4971:31514"
           }
         ],
-        "id": "4971:31524"
+        "id": "4971:31511"
       }
     },
     {
-      "nodeId": "4971:31565",
-      "key": "eeb54b98c6d53bc13ef9776a3f85838ffd8d80f6",
+      "nodeId": "4971:31515",
+      "key": "0791aebe7dc64be5fd0fa11a5996c1ab483759f0",
       "props": {
-        "selection": "checked",
-        "size": "large",
-        "state": "pressed"
+        "selection": "unchecked",
+        "size": "medium",
+        "state": "hover"
       },
       "size": [
-        65,
-        24
+        56,
+        20
       ],
       "layer": {
-        "name": "selection=checked, size=large, state=pressed",
+        "name": "selection=unchecked, size=medium, state=hover",
         "type": "COMPONENT",
         "size": [
-          65,
-          24
+          56,
+          20
         ],
         "layout": {
           "mode": "HORIZONTAL",
@@ -2288,8 +992,8 @@
             "name": "radio",
             "type": "FRAME",
             "size": [
-              20,
-              20
+              16,
+              16
             ],
             "layout": {
               "mode": "VERTICAL",
@@ -2313,76 +1017,34 @@
             "fills": [
               {
                 "type": "SOLID",
-                "color": "#FFFFFF",
-                "variable": "radio/checked/color/bg/default"
+                "color": "#F8F9FB",
+                "variable": "selectionControl/color/bg/hover"
               }
             ],
             "strokes": [
               {
                 "type": "SOLID",
-                "color": "#261091",
-                "variable": "radio/checked/color/border/pressed"
+                "color": "#C4C9CF",
+                "variable": "selectionControl/color/border/default"
               }
             ],
             "strokeWeight": 1.5,
             "strokeAlign": "INSIDE",
             "variables": {
-              "width": "radio/large/size",
-              "height": "radio/large/size",
+              "width": "radio/medium/size",
+              "height": "radio/medium/size",
               "cornerRadius": "radio/radius",
               "strokeWeight": "radio/borderWidth"
             },
-            "children": [
-              {
-                "name": "dot",
-                "type": "FRAME",
-                "size": [
-                  12,
-                  12
-                ],
-                "layout": {
-                  "mode": "HORIZONTAL",
-                  "gap": 0,
-                  "padding": [
-                    0,
-                    0,
-                    0,
-                    0
-                  ],
-                  "align": [
-                    "CENTER",
-                    "CENTER"
-                  ]
-                },
-                "sizing": [
-                  "FIXED",
-                  "FIXED"
-                ],
-                "radius": 9999,
-                "fills": [
-                  {
-                    "type": "SOLID",
-                    "color": "#261091",
-                    "variable": "radio/checked/dot/color/bg/pressed"
-                  }
-                ],
-                "variables": {
-                  "width": "radio/large/dot/size",
-                  "height": "radio/large/dot/size",
-                  "cornerRadius": "radio/radius"
-                },
-                "children": [],
-                "id": "4971:31567"
-              }
-            ],
-            "id": "4971:31566"
+            "children": [],
+            "id": "4971:31516"
           },
           {
             "name": "label",
             "type": "TEXT",
             "size": [
-              39,
-              24
+              34,
+              20
             ],
             "sizing": [
               "HUG",
@@ -2392,21 +1054,21 @@
               {
                 "type": "SOLID",
                 "color": "#1C1F23",
-                "variable": "selectionControl/label/color/fg/pressed"
+                "variable": "selectionControl/label/color/fg/hover"
               }
             ],
             "styles": {
-              "text": "label/16/500"
+              "text": "label/14/400"
             },
             "text": {
               "characters": "Label",
               "fontFamily": "Pretendard",
-              "fontStyle": "Medium",
-              "fontWeight": 500,
-              "fontSize": 16,
+              "fontStyle": "Regular",
+              "fontWeight": 400,
+              "fontSize": 14,
               "lineHeight": {
                 "unit": "PIXELS",
-                "value": 24
+                "value": 20
               },
               "letterSpacing": {
                 "unit": "PIXELS",
@@ -2423,273 +1085,22 @@
               "characters": "label#4205:47"
             },
             "variables": {
-              "letterSpacing[0]": "font/label/16/500/letterSpacing",
-              "fontSize[0]": "font/label/16/500/size",
-              "fontFamily[0]": "font/label/16/500/family",
-              "lineHeight[0]": "font/label/16/500/lineHeight",
-              "fontWeight[0]": "font/label/16/500/weight"
+              "letterSpacing[0]": "font/label/14/400/letterSpacing",
+              "fontSize[0]": "font/label/14/400/size",
+              "fontFamily[0]": "font/label/14/400/family",
+              "lineHeight[0]": "font/label/14/400/lineHeight",
+              "fontWeight[0]": "font/label/14/400/weight"
             },
-            "id": "4971:31568"
+            "id": "4971:31517"
           },
           {
             "name": "_FocusRing",
             "type": "INSTANCE",
             "visible": false,
-            "size": [
-              24,
-              24
-            ],
-            "position": [
-              -2,
-              0
-            ],
-            "constraints": [
-              "MIN",
-              "CENTER"
-            ],
-            "layout": {
-              "mode": "HORIZONTAL",
-              "gap": 0,
-              "padding": [
-                0,
-                0,
-                0,
-                0
-              ],
-              "align": [
-                "MIN",
-                "MIN"
-              ]
-            },
-            "sizing": [
-              "FIXED",
-              "FIXED"
-            ],
-            "radius": 9999,
-            "strokes": [
-              {
-                "type": "SOLID",
-                "color": "#7FAEFF",
-                "variable": "focusRing/color/border"
-              }
-            ],
-            "strokeWeight": 2,
-            "strokeAlign": "OUTSIDE",
-            "main": {
-              "id": "2327:9265",
-              "name": "_FocusRing",
-              "key": "8682fdd212774814b95aaf08433bf601ac3e08ea"
-            },
-            "propRefs": {
-              "visible": "showFocus#2810:0"
-            },
-            "variables": {
-              "cornerRadius": "radio/large/focusRing/radius",
-              "strokeWeight": "focusRing/borderWidth"
-            },
-            "children": [],
-            "id": "4971:31569"
-          }
-        ],
-        "id": "4971:31565"
-      }
-    },
-    {
-      "nodeId": "4971:31538",
-      "key": "3325ac1bbd2c40fdf7d71c7e026f43de9709c104",
-      "props": {
-        "selection": "checked",
-        "size": "large",
-        "state": "disabled"
-      },
-      "size": [
-        65,
-        24
-      ],
-      "layer": {
-        "name": "selection=checked, size=large, state=disabled",
-        "type": "COMPONENT",
-        "size": [
-          65,
-          24
-        ],
-        "layout": {
-          "mode": "HORIZONTAL",
-          "gap": 6,
-          "padding": [
-            0,
-            0,
-            0,
-            0
-          ],
-          "align": [
-            "MIN",
-            "CENTER"
-          ]
-        },
-        "sizing": [
-          "HUG",
-          "HUG"
-        ],
-        "variables": {
-          "itemSpacing": "radio/space/gap"
-        },
-        "children": [
-          {
-            "name": "radio",
-            "type": "FRAME",
             "size": [
               20,
               20
             ],
-            "layout": {
-              "mode": "VERTICAL",
-              "gap": 0,
-              "padding": [
-                0,
-                0,
-                0,
-                0
-              ],
-              "align": [
-                "CENTER",
-                "CENTER"
-              ]
-            },
-            "sizing": [
-              "FIXED",
-              "FIXED"
-            ],
-            "radius": 9999,
-            "fills": [
-              {
-                "type": "SOLID",
-                "color": "#FFFFFF",
-                "variable": "radio/checked/color/bg/default"
-              }
-            ],
-            "strokes": [
-              {
-                "type": "SOLID",
-                "color": "#B3B9C0",
-                "variable": "radio/checked/color/border/disabled"
-              }
-            ],
-            "strokeWeight": 1.5,
-            "strokeAlign": "INSIDE",
-            "variables": {
-              "width": "radio/large/size",
-              "height": "radio/large/size",
-              "cornerRadius": "radio/radius",
-              "strokeWeight": "radio/borderWidth"
-            },
-            "children": [
-              {
-                "name": "dot",
-                "type": "FRAME",
-                "size": [
-                  12,
-                  12
-                ],
-                "layout": {
-                  "mode": "HORIZONTAL",
-                  "gap": 0,
-                  "padding": [
-                    0,
-                    0,
-                    0,
-                    0
-                  ],
-                  "align": [
-                    "CENTER",
-                    "CENTER"
-                  ]
-                },
-                "sizing": [
-                  "FIXED",
-                  "FIXED"
-                ],
-                "radius": 9999,
-                "fills": [
-                  {
-                    "type": "SOLID",
-                    "color": "#B3B9C0",
-                    "variable": "radio/checked/dot/color/bg/disabled"
-                  }
-                ],
-                "variables": {
-                  "width": "radio/large/dot/size",
-                  "height": "radio/large/dot/size",
-                  "cornerRadius": "radio/radius"
-                },
-                "children": [],
-                "id": "4971:31540"
-              }
-            ],
-            "id": "4971:31539"
-          },
-          {
-            "name": "label",
-            "type": "TEXT",
-            "size": [
-              39,
-              24
-            ],
-            "sizing": [
-              "HUG",
-              "HUG"
-            ],
-            "fills": [
-              {
-                "type": "SOLID",
-                "color": "#B3B9C0",
-                "variable": "selectionControl/label/color/fg/disabled"
-              }
-            ],
-            "styles": {
-              "text": "label/16/500"
-            },
-            "text": {
-              "characters": "Label",
-              "fontFamily": "Pretendard",
-              "fontStyle": "Medium",
-              "fontWeight": 500,
-              "fontSize": 16,
-              "lineHeight": {
-                "unit": "PIXELS",
-                "value": 24
-              },
-              "letterSpacing": {
-                "unit": "PIXELS",
-                "value": -0.2
-              },
-              "align": [
-                "LEFT",
-                "CENTER"
-              ],
-              "autoResize": "WIDTH_AND_HEIGHT"
-            },
-            "propRefs": {
-              "visible": "showLabel#5203:3",
-              "characters": "label#4205:47"
-            },
-            "variables": {
-              "letterSpacing[0]": "font/label/16/500/letterSpacing",
-              "fontSize[0]": "font/label/16/500/size",
-              "fontFamily[0]": "font/label/16/500/family",
-              "lineHeight[0]": "font/label/16/500/lineHeight",
-              "fontWeight[0]": "font/label/16/500/weight"
-            },
-            "id": "4971:31541"
-          },
-          {
-            "name": "_FocusRing",
-            "type": "INSTANCE",
-            "visible": false,
-            "size": [
-              24,
-              24
-            ],
             "position": [
               -2,
               0
@@ -2729,25 +1140,25 @@
             "main": {
               "id": "2327:9265",
               "name": "_FocusRing",
-              "key": "8682fdd212774814b95aaf08433bf601ac3e08ea"
+              "key": "90ffa070af67ab1e238d2a77104cce9a5a71bb1e"
             },
             "propRefs": {
               "visible": "showFocus#2810:0"
             },
             "variables": {
-              "cornerRadius": "radio/large/focusRing/radius",
+              "cornerRadius": "radio/medium/focusRing/radius",
               "strokeWeight": "focusRing/borderWidth"
             },
             "children": [],
-            "id": "4971:31542"
+            "id": "4971:31518"
           }
         ],
-        "id": "4971:31538"
+        "id": "4971:31515"
       }
     },
     {
       "nodeId": "4971:31519",
-      "key": "4779a2c2d88062f1e572ef00c495758bb8cecb28",
+      "key": "2abc6e30ab0eaaf9ee21ebe5a66f7462472a5890",
       "props": {
         "selection": "checked",
         "size": "medium",
@@ -2980,7 +1391,7 @@
             "main": {
               "id": "2327:9265",
               "name": "_FocusRing",
-              "key": "8682fdd212774814b95aaf08433bf601ac3e08ea"
+              "key": "90ffa070af67ab1e238d2a77104cce9a5a71bb1e"
             },
             "propRefs": {
               "visible": "showFocus#2810:0"
@@ -2997,8 +1408,259 @@
       }
     },
     {
+      "nodeId": "4971:31524",
+      "key": "80348a4d2ac962ea315e4e2eda4762a4c4422fb4",
+      "props": {
+        "selection": "checked",
+        "size": "large",
+        "state": "hover"
+      },
+      "size": [
+        65,
+        24
+      ],
+      "layer": {
+        "name": "selection=checked, size=large, state=hover",
+        "type": "COMPONENT",
+        "size": [
+          65,
+          24
+        ],
+        "layout": {
+          "mode": "HORIZONTAL",
+          "gap": 6,
+          "padding": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "align": [
+            "MIN",
+            "CENTER"
+          ]
+        },
+        "sizing": [
+          "HUG",
+          "HUG"
+        ],
+        "variables": {
+          "itemSpacing": "radio/space/gap"
+        },
+        "children": [
+          {
+            "name": "radio",
+            "type": "FRAME",
+            "size": [
+              20,
+              20
+            ],
+            "layout": {
+              "mode": "VERTICAL",
+              "gap": 0,
+              "padding": [
+                0,
+                0,
+                0,
+                0
+              ],
+              "align": [
+                "CENTER",
+                "CENTER"
+              ]
+            },
+            "sizing": [
+              "FIXED",
+              "FIXED"
+            ],
+            "radius": 9999,
+            "fills": [
+              {
+                "type": "SOLID",
+                "color": "#FFFFFF",
+                "variable": "radio/checked/color/bg/default"
+              }
+            ],
+            "strokes": [
+              {
+                "type": "SOLID",
+                "color": "#2F15B2",
+                "variable": "radio/checked/color/border/hover"
+              }
+            ],
+            "strokeWeight": 1.5,
+            "strokeAlign": "INSIDE",
+            "variables": {
+              "width": "radio/large/size",
+              "height": "radio/large/size",
+              "cornerRadius": "radio/radius",
+              "strokeWeight": "radio/borderWidth"
+            },
+            "children": [
+              {
+                "name": "dot",
+                "type": "FRAME",
+                "size": [
+                  12,
+                  12
+                ],
+                "layout": {
+                  "mode": "HORIZONTAL",
+                  "gap": 0,
+                  "padding": [
+                    0,
+                    0,
+                    0,
+                    0
+                  ],
+                  "align": [
+                    "CENTER",
+                    "CENTER"
+                  ]
+                },
+                "sizing": [
+                  "FIXED",
+                  "FIXED"
+                ],
+                "radius": 9999,
+                "fills": [
+                  {
+                    "type": "SOLID",
+                    "color": "#2F15B2",
+                    "variable": "radio/checked/dot/color/bg/hover"
+                  }
+                ],
+                "variables": {
+                  "width": "radio/large/dot/size",
+                  "height": "radio/large/dot/size",
+                  "cornerRadius": "radio/radius"
+                },
+                "children": [],
+                "id": "4971:31526"
+              }
+            ],
+            "id": "4971:31525"
+          },
+          {
+            "name": "label",
+            "type": "TEXT",
+            "size": [
+              39,
+              24
+            ],
+            "sizing": [
+              "HUG",
+              "HUG"
+            ],
+            "fills": [
+              {
+                "type": "SOLID",
+                "color": "#1C1F23",
+                "variable": "selectionControl/label/color/fg/hover"
+              }
+            ],
+            "styles": {
+              "text": "label/16/500"
+            },
+            "text": {
+              "characters": "Label",
+              "fontFamily": "Pretendard",
+              "fontStyle": "Medium",
+              "fontWeight": 500,
+              "fontSize": 16,
+              "lineHeight": {
+                "unit": "PIXELS",
+                "value": 24
+              },
+              "letterSpacing": {
+                "unit": "PIXELS",
+                "value": -0.2
+              },
+              "align": [
+                "LEFT",
+                "CENTER"
+              ],
+              "autoResize": "WIDTH_AND_HEIGHT"
+            },
+            "propRefs": {
+              "visible": "showLabel#5203:3",
+              "characters": "label#4205:47"
+            },
+            "variables": {
+              "letterSpacing[0]": "font/label/16/500/letterSpacing",
+              "fontSize[0]": "font/label/16/500/size",
+              "fontFamily[0]": "font/label/16/500/family",
+              "lineHeight[0]": "font/label/16/500/lineHeight",
+              "fontWeight[0]": "font/label/16/500/weight"
+            },
+            "id": "4971:31527"
+          },
+          {
+            "name": "_FocusRing",
+            "type": "INSTANCE",
+            "visible": false,
+            "size": [
+              24,
+              24
+            ],
+            "position": [
+              -2,
+              0
+            ],
+            "constraints": [
+              "MIN",
+              "CENTER"
+            ],
+            "layout": {
+              "mode": "HORIZONTAL",
+              "gap": 0,
+              "padding": [
+                0,
+                0,
+                0,
+                0
+              ],
+              "align": [
+                "MIN",
+                "MIN"
+              ]
+            },
+            "sizing": [
+              "FIXED",
+              "FIXED"
+            ],
+            "radius": 9999,
+            "strokes": [
+              {
+                "type": "SOLID",
+                "color": "#7FAEFF",
+                "variable": "focusRing/color/border"
+              }
+            ],
+            "strokeWeight": 2,
+            "strokeAlign": "OUTSIDE",
+            "main": {
+              "id": "2327:9265",
+              "name": "_FocusRing",
+              "key": "90ffa070af67ab1e238d2a77104cce9a5a71bb1e"
+            },
+            "propRefs": {
+              "visible": "showFocus#2810:0"
+            },
+            "variables": {
+              "cornerRadius": "radio/large/focusRing/radius",
+              "strokeWeight": "focusRing/borderWidth"
+            },
+            "children": [],
+            "id": "4971:31528"
+          }
+        ],
+        "id": "4971:31524"
+      }
+    },
+    {
       "nodeId": "4971:31529",
-      "key": "475a28158c251c467d28529a0f00dbde412a3c47",
+      "key": "be5c6db0c35ee7bf15ddd7c12655a80aa8cd4b2f",
       "props": {
         "selection": "checked",
         "size": "medium",
@@ -3231,7 +1893,7 @@
             "main": {
               "id": "2327:9265",
               "name": "_FocusRing",
-              "key": "8682fdd212774814b95aaf08433bf601ac3e08ea"
+              "key": "90ffa070af67ab1e238d2a77104cce9a5a71bb1e"
             },
             "propRefs": {
               "visible": "showFocus#2810:0"
@@ -3248,19 +1910,19 @@
       }
     },
     {
-      "nodeId": "4971:31548",
-      "key": "b28e2519b08d7640c4b16dd56e9df7cb1ffffc28",
+      "nodeId": "4971:31534",
+      "key": "69c4dc2862c9f5d9b1abaf27d02a9d0d13c66f43",
       "props": {
-        "selection": "checked",
+        "selection": "unchecked",
         "size": "medium",
-        "state": "pressed"
+        "state": "disabled"
       },
       "size": [
         56,
         20
       ],
       "layer": {
-        "name": "selection=checked, size=medium, state=pressed",
+        "name": "selection=unchecked, size=medium, state=disabled",
         "type": "COMPONENT",
         "size": [
           56,
@@ -3317,15 +1979,15 @@
             "fills": [
               {
                 "type": "SOLID",
-                "color": "#FFFFFF",
-                "variable": "radio/checked/color/bg/default"
+                "color": "#E8ECEF",
+                "variable": "selectionControl/color/bg/disabled"
               }
             ],
             "strokes": [
               {
                 "type": "SOLID",
-                "color": "#261091",
-                "variable": "radio/checked/color/border/pressed"
+                "color": "#C4C9CF",
+                "variable": "selectionControl/color/border/default"
               }
             ],
             "strokeWeight": 1.5,
@@ -3336,50 +1998,8 @@
               "cornerRadius": "radio/radius",
               "strokeWeight": "radio/borderWidth"
             },
-            "children": [
-              {
-                "name": "dot",
-                "type": "FRAME",
-                "size": [
-                  8,
-                  8
-                ],
-                "layout": {
-                  "mode": "HORIZONTAL",
-                  "gap": 0,
-                  "padding": [
-                    0,
-                    0,
-                    0,
-                    0
-                  ],
-                  "align": [
-                    "CENTER",
-                    "CENTER"
-                  ]
-                },
-                "sizing": [
-                  "FIXED",
-                  "FIXED"
-                ],
-                "radius": 9999,
-                "fills": [
-                  {
-                    "type": "SOLID",
-                    "color": "#261091",
-                    "variable": "radio/checked/dot/color/bg/pressed"
-                  }
-                ],
-                "variables": {
-                  "width": "radio/medium/dot/size",
-                  "height": "radio/medium/dot/size",
-                  "cornerRadius": "radio/radius"
-                },
-                "children": [],
-                "id": "4971:31550"
-              }
-            ],
-            "id": "4971:31549"
+            "children": [],
+            "id": "4971:31535"
           },
           {
             "name": "label",
@@ -3395,8 +2015,8 @@
             "fills": [
               {
                 "type": "SOLID",
-                "color": "#1C1F23",
-                "variable": "selectionControl/label/color/fg/pressed"
+                "color": "#B3B9C0",
+                "variable": "selectionControl/label/color/fg/disabled"
               }
             ],
             "styles": {
@@ -3433,7 +2053,7 @@
               "lineHeight[0]": "font/label/14/400/lineHeight",
               "fontWeight[0]": "font/label/14/400/weight"
             },
-            "id": "4971:31551"
+            "id": "4971:31536"
           },
           {
             "name": "_FocusRing",
@@ -3482,7 +2102,7 @@
             "main": {
               "id": "2327:9265",
               "name": "_FocusRing",
-              "key": "8682fdd212774814b95aaf08433bf601ac3e08ea"
+              "key": "90ffa070af67ab1e238d2a77104cce9a5a71bb1e"
             },
             "propRefs": {
               "visible": "showFocus#2810:0"
@@ -3492,15 +2112,266 @@
               "strokeWeight": "focusRing/borderWidth"
             },
             "children": [],
-            "id": "4971:31552"
+            "id": "4971:31537"
           }
         ],
-        "id": "4971:31548"
+        "id": "4971:31534"
+      }
+    },
+    {
+      "nodeId": "4971:31538",
+      "key": "b8ec8952df821f68a443c8eb825e1af747b1611f",
+      "props": {
+        "selection": "checked",
+        "size": "large",
+        "state": "disabled"
+      },
+      "size": [
+        65,
+        24
+      ],
+      "layer": {
+        "name": "selection=checked, size=large, state=disabled",
+        "type": "COMPONENT",
+        "size": [
+          65,
+          24
+        ],
+        "layout": {
+          "mode": "HORIZONTAL",
+          "gap": 6,
+          "padding": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "align": [
+            "MIN",
+            "CENTER"
+          ]
+        },
+        "sizing": [
+          "HUG",
+          "HUG"
+        ],
+        "variables": {
+          "itemSpacing": "radio/space/gap"
+        },
+        "children": [
+          {
+            "name": "radio",
+            "type": "FRAME",
+            "size": [
+              20,
+              20
+            ],
+            "layout": {
+              "mode": "VERTICAL",
+              "gap": 0,
+              "padding": [
+                0,
+                0,
+                0,
+                0
+              ],
+              "align": [
+                "CENTER",
+                "CENTER"
+              ]
+            },
+            "sizing": [
+              "FIXED",
+              "FIXED"
+            ],
+            "radius": 9999,
+            "fills": [
+              {
+                "type": "SOLID",
+                "color": "#FFFFFF",
+                "variable": "radio/checked/color/bg/default"
+              }
+            ],
+            "strokes": [
+              {
+                "type": "SOLID",
+                "color": "#B3B9C0",
+                "variable": "radio/checked/color/border/disabled"
+              }
+            ],
+            "strokeWeight": 1.5,
+            "strokeAlign": "INSIDE",
+            "variables": {
+              "width": "radio/large/size",
+              "height": "radio/large/size",
+              "cornerRadius": "radio/radius",
+              "strokeWeight": "radio/borderWidth"
+            },
+            "children": [
+              {
+                "name": "dot",
+                "type": "FRAME",
+                "size": [
+                  12,
+                  12
+                ],
+                "layout": {
+                  "mode": "HORIZONTAL",
+                  "gap": 0,
+                  "padding": [
+                    0,
+                    0,
+                    0,
+                    0
+                  ],
+                  "align": [
+                    "CENTER",
+                    "CENTER"
+                  ]
+                },
+                "sizing": [
+                  "FIXED",
+                  "FIXED"
+                ],
+                "radius": 9999,
+                "fills": [
+                  {
+                    "type": "SOLID",
+                    "color": "#B3B9C0",
+                    "variable": "radio/checked/dot/color/bg/disabled"
+                  }
+                ],
+                "variables": {
+                  "width": "radio/large/dot/size",
+                  "height": "radio/large/dot/size",
+                  "cornerRadius": "radio/radius"
+                },
+                "children": [],
+                "id": "4971:31540"
+              }
+            ],
+            "id": "4971:31539"
+          },
+          {
+            "name": "label",
+            "type": "TEXT",
+            "size": [
+              39,
+              24
+            ],
+            "sizing": [
+              "HUG",
+              "HUG"
+            ],
+            "fills": [
+              {
+                "type": "SOLID",
+                "color": "#B3B9C0",
+                "variable": "selectionControl/label/color/fg/disabled"
+              }
+            ],
+            "styles": {
+              "text": "label/16/500"
+            },
+            "text": {
+              "characters": "Label",
+              "fontFamily": "Pretendard",
+              "fontStyle": "Medium",
+              "fontWeight": 500,
+              "fontSize": 16,
+              "lineHeight": {
+                "unit": "PIXELS",
+                "value": 24
+              },
+              "letterSpacing": {
+                "unit": "PIXELS",
+                "value": -0.2
+              },
+              "align": [
+                "LEFT",
+                "CENTER"
+              ],
+              "autoResize": "WIDTH_AND_HEIGHT"
+            },
+            "propRefs": {
+              "visible": "showLabel#5203:3",
+              "characters": "label#4205:47"
+            },
+            "variables": {
+              "letterSpacing[0]": "font/label/16/500/letterSpacing",
+              "fontSize[0]": "font/label/16/500/size",
+              "fontFamily[0]": "font/label/16/500/family",
+              "lineHeight[0]": "font/label/16/500/lineHeight",
+              "fontWeight[0]": "font/label/16/500/weight"
+            },
+            "id": "4971:31541"
+          },
+          {
+            "name": "_FocusRing",
+            "type": "INSTANCE",
+            "visible": false,
+            "size": [
+              24,
+              24
+            ],
+            "position": [
+              -2,
+              0
+            ],
+            "constraints": [
+              "MIN",
+              "CENTER"
+            ],
+            "layout": {
+              "mode": "HORIZONTAL",
+              "gap": 0,
+              "padding": [
+                0,
+                0,
+                0,
+                0
+              ],
+              "align": [
+                "MIN",
+                "MIN"
+              ]
+            },
+            "sizing": [
+              "FIXED",
+              "FIXED"
+            ],
+            "radius": 9999,
+            "strokes": [
+              {
+                "type": "SOLID",
+                "color": "#7FAEFF",
+                "variable": "focusRing/color/border"
+              }
+            ],
+            "strokeWeight": 2,
+            "strokeAlign": "OUTSIDE",
+            "main": {
+              "id": "2327:9265",
+              "name": "_FocusRing",
+              "key": "90ffa070af67ab1e238d2a77104cce9a5a71bb1e"
+            },
+            "propRefs": {
+              "visible": "showFocus#2810:0"
+            },
+            "variables": {
+              "cornerRadius": "radio/large/focusRing/radius",
+              "strokeWeight": "focusRing/borderWidth"
+            },
+            "children": [],
+            "id": "4971:31542"
+          }
+        ],
+        "id": "4971:31538"
       }
     },
     {
       "nodeId": "4971:31543",
-      "key": "756cc824287f72a6d515c28155462d6c7349023f",
+      "key": "234abd3669d9724dbbe17eeb14d5f1e6ad37b7ec",
       "props": {
         "selection": "checked",
         "size": "medium",
@@ -3733,7 +2604,7 @@
             "main": {
               "id": "2327:9265",
               "name": "_FocusRing",
-              "key": "8682fdd212774814b95aaf08433bf601ac3e08ea"
+              "key": "90ffa070af67ab1e238d2a77104cce9a5a71bb1e"
             },
             "propRefs": {
               "visible": "showFocus#2810:0"
@@ -3748,6 +2619,1135 @@
         ],
         "id": "4971:31543"
       }
+    },
+    {
+      "nodeId": "4971:31548",
+      "key": "f6cca1a0d03d9734b70abea4f9e6e099ea642550",
+      "props": {
+        "selection": "checked",
+        "size": "medium",
+        "state": "pressed"
+      },
+      "size": [
+        56,
+        20
+      ],
+      "layer": {
+        "name": "selection=checked, size=medium, state=pressed",
+        "type": "COMPONENT",
+        "size": [
+          56,
+          20
+        ],
+        "layout": {
+          "mode": "HORIZONTAL",
+          "gap": 6,
+          "padding": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "align": [
+            "MIN",
+            "CENTER"
+          ]
+        },
+        "sizing": [
+          "HUG",
+          "HUG"
+        ],
+        "variables": {
+          "itemSpacing": "radio/space/gap"
+        },
+        "children": [
+          {
+            "name": "radio",
+            "type": "FRAME",
+            "size": [
+              16,
+              16
+            ],
+            "layout": {
+              "mode": "VERTICAL",
+              "gap": 0,
+              "padding": [
+                0,
+                0,
+                0,
+                0
+              ],
+              "align": [
+                "CENTER",
+                "CENTER"
+              ]
+            },
+            "sizing": [
+              "FIXED",
+              "FIXED"
+            ],
+            "radius": 9999,
+            "fills": [
+              {
+                "type": "SOLID",
+                "color": "#FFFFFF",
+                "variable": "radio/checked/color/bg/default"
+              }
+            ],
+            "strokes": [
+              {
+                "type": "SOLID",
+                "color": "#261091",
+                "variable": "radio/checked/color/border/pressed"
+              }
+            ],
+            "strokeWeight": 1.5,
+            "strokeAlign": "INSIDE",
+            "variables": {
+              "width": "radio/medium/size",
+              "height": "radio/medium/size",
+              "cornerRadius": "radio/radius",
+              "strokeWeight": "radio/borderWidth"
+            },
+            "children": [
+              {
+                "name": "dot",
+                "type": "FRAME",
+                "size": [
+                  8,
+                  8
+                ],
+                "layout": {
+                  "mode": "HORIZONTAL",
+                  "gap": 0,
+                  "padding": [
+                    0,
+                    0,
+                    0,
+                    0
+                  ],
+                  "align": [
+                    "CENTER",
+                    "CENTER"
+                  ]
+                },
+                "sizing": [
+                  "FIXED",
+                  "FIXED"
+                ],
+                "radius": 9999,
+                "fills": [
+                  {
+                    "type": "SOLID",
+                    "color": "#261091",
+                    "variable": "radio/checked/dot/color/bg/pressed"
+                  }
+                ],
+                "variables": {
+                  "width": "radio/medium/dot/size",
+                  "height": "radio/medium/dot/size",
+                  "cornerRadius": "radio/radius"
+                },
+                "children": [],
+                "id": "4971:31550"
+              }
+            ],
+            "id": "4971:31549"
+          },
+          {
+            "name": "label",
+            "type": "TEXT",
+            "size": [
+              34,
+              20
+            ],
+            "sizing": [
+              "HUG",
+              "HUG"
+            ],
+            "fills": [
+              {
+                "type": "SOLID",
+                "color": "#1C1F23",
+                "variable": "selectionControl/label/color/fg/pressed"
+              }
+            ],
+            "styles": {
+              "text": "label/14/400"
+            },
+            "text": {
+              "characters": "Label",
+              "fontFamily": "Pretendard",
+              "fontStyle": "Regular",
+              "fontWeight": 400,
+              "fontSize": 14,
+              "lineHeight": {
+                "unit": "PIXELS",
+                "value": 20
+              },
+              "letterSpacing": {
+                "unit": "PIXELS",
+                "value": -0.2
+              },
+              "align": [
+                "LEFT",
+                "CENTER"
+              ],
+              "autoResize": "WIDTH_AND_HEIGHT"
+            },
+            "propRefs": {
+              "visible": "showLabel#5203:3",
+              "characters": "label#4205:47"
+            },
+            "variables": {
+              "letterSpacing[0]": "font/label/14/400/letterSpacing",
+              "fontSize[0]": "font/label/14/400/size",
+              "fontFamily[0]": "font/label/14/400/family",
+              "lineHeight[0]": "font/label/14/400/lineHeight",
+              "fontWeight[0]": "font/label/14/400/weight"
+            },
+            "id": "4971:31551"
+          },
+          {
+            "name": "_FocusRing",
+            "type": "INSTANCE",
+            "visible": false,
+            "size": [
+              20,
+              20
+            ],
+            "position": [
+              -2,
+              0
+            ],
+            "constraints": [
+              "MIN",
+              "CENTER"
+            ],
+            "layout": {
+              "mode": "HORIZONTAL",
+              "gap": 0,
+              "padding": [
+                0,
+                0,
+                0,
+                0
+              ],
+              "align": [
+                "MIN",
+                "MIN"
+              ]
+            },
+            "sizing": [
+              "FIXED",
+              "FIXED"
+            ],
+            "radius": 9999,
+            "strokes": [
+              {
+                "type": "SOLID",
+                "color": "#7FAEFF",
+                "variable": "focusRing/color/border"
+              }
+            ],
+            "strokeWeight": 2,
+            "strokeAlign": "OUTSIDE",
+            "main": {
+              "id": "2327:9265",
+              "name": "_FocusRing",
+              "key": "90ffa070af67ab1e238d2a77104cce9a5a71bb1e"
+            },
+            "propRefs": {
+              "visible": "showFocus#2810:0"
+            },
+            "variables": {
+              "cornerRadius": "radio/medium/focusRing/radius",
+              "strokeWeight": "focusRing/borderWidth"
+            },
+            "children": [],
+            "id": "4971:31552"
+          }
+        ],
+        "id": "4971:31548"
+      }
+    },
+    {
+      "nodeId": "4971:31553",
+      "key": "97d7ade2eae90e49bac11cbb98f7cf7dd5a09f2d",
+      "props": {
+        "selection": "unchecked",
+        "size": "large",
+        "state": "pressed"
+      },
+      "size": [
+        65,
+        24
+      ],
+      "layer": {
+        "name": "selection=unchecked, size=large, state=pressed",
+        "type": "COMPONENT",
+        "size": [
+          65,
+          24
+        ],
+        "layout": {
+          "mode": "HORIZONTAL",
+          "gap": 6,
+          "padding": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "align": [
+            "MIN",
+            "CENTER"
+          ]
+        },
+        "sizing": [
+          "HUG",
+          "HUG"
+        ],
+        "variables": {
+          "itemSpacing": "radio/space/gap"
+        },
+        "children": [
+          {
+            "name": "radio",
+            "type": "FRAME",
+            "size": [
+              20,
+              20
+            ],
+            "layout": {
+              "mode": "VERTICAL",
+              "gap": 0,
+              "padding": [
+                0,
+                0,
+                0,
+                0
+              ],
+              "align": [
+                "CENTER",
+                "CENTER"
+              ]
+            },
+            "sizing": [
+              "FIXED",
+              "FIXED"
+            ],
+            "radius": 9999,
+            "fills": [
+              {
+                "type": "SOLID",
+                "color": "#F1F3F5",
+                "variable": "selectionControl/color/bg/pressed"
+              }
+            ],
+            "strokes": [
+              {
+                "type": "SOLID",
+                "color": "#C4C9CF",
+                "variable": "selectionControl/color/border/default"
+              }
+            ],
+            "strokeWeight": 1.5,
+            "strokeAlign": "INSIDE",
+            "variables": {
+              "width": "radio/large/size",
+              "height": "radio/large/size",
+              "cornerRadius": "radio/radius",
+              "strokeWeight": "radio/borderWidth"
+            },
+            "children": [],
+            "id": "4971:31554"
+          },
+          {
+            "name": "label",
+            "type": "TEXT",
+            "size": [
+              39,
+              24
+            ],
+            "sizing": [
+              "HUG",
+              "HUG"
+            ],
+            "fills": [
+              {
+                "type": "SOLID",
+                "color": "#1C1F23",
+                "variable": "selectionControl/label/color/fg/pressed"
+              }
+            ],
+            "styles": {
+              "text": "label/16/500"
+            },
+            "text": {
+              "characters": "Label",
+              "fontFamily": "Pretendard",
+              "fontStyle": "Medium",
+              "fontWeight": 500,
+              "fontSize": 16,
+              "lineHeight": {
+                "unit": "PIXELS",
+                "value": 24
+              },
+              "letterSpacing": {
+                "unit": "PIXELS",
+                "value": -0.2
+              },
+              "align": [
+                "LEFT",
+                "CENTER"
+              ],
+              "autoResize": "WIDTH_AND_HEIGHT"
+            },
+            "propRefs": {
+              "visible": "showLabel#5203:3",
+              "characters": "label#4205:47"
+            },
+            "variables": {
+              "letterSpacing[0]": "font/label/16/500/letterSpacing",
+              "fontSize[0]": "font/label/16/500/size",
+              "fontFamily[0]": "font/label/16/500/family",
+              "lineHeight[0]": "font/label/16/500/lineHeight",
+              "fontWeight[0]": "font/label/16/500/weight"
+            },
+            "id": "4971:31555"
+          },
+          {
+            "name": "_FocusRing",
+            "type": "INSTANCE",
+            "visible": false,
+            "size": [
+              24,
+              24
+            ],
+            "position": [
+              -2,
+              0
+            ],
+            "constraints": [
+              "MIN",
+              "CENTER"
+            ],
+            "layout": {
+              "mode": "HORIZONTAL",
+              "gap": 0,
+              "padding": [
+                0,
+                0,
+                0,
+                0
+              ],
+              "align": [
+                "MIN",
+                "MIN"
+              ]
+            },
+            "sizing": [
+              "FIXED",
+              "FIXED"
+            ],
+            "radius": 9999,
+            "strokes": [
+              {
+                "type": "SOLID",
+                "color": "#7FAEFF",
+                "variable": "focusRing/color/border"
+              }
+            ],
+            "strokeWeight": 2,
+            "strokeAlign": "OUTSIDE",
+            "main": {
+              "id": "2327:9265",
+              "name": "_FocusRing",
+              "key": "90ffa070af67ab1e238d2a77104cce9a5a71bb1e"
+            },
+            "propRefs": {
+              "visible": "showFocus#2810:0"
+            },
+            "variables": {
+              "cornerRadius": "radio/large/focusRing/radius",
+              "strokeWeight": "focusRing/borderWidth"
+            },
+            "children": [],
+            "id": "4971:31556"
+          }
+        ],
+        "id": "4971:31553"
+      }
+    },
+    {
+      "nodeId": "4971:31557",
+      "key": "2453c8518280314face53565412c6879859e9bbf",
+      "props": {
+        "selection": "unchecked",
+        "size": "medium",
+        "state": "pressed"
+      },
+      "size": [
+        56,
+        20
+      ],
+      "layer": {
+        "name": "selection=unchecked, size=medium, state=pressed",
+        "type": "COMPONENT",
+        "size": [
+          56,
+          20
+        ],
+        "layout": {
+          "mode": "HORIZONTAL",
+          "gap": 6,
+          "padding": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "align": [
+            "MIN",
+            "CENTER"
+          ]
+        },
+        "sizing": [
+          "HUG",
+          "HUG"
+        ],
+        "variables": {
+          "itemSpacing": "radio/space/gap"
+        },
+        "children": [
+          {
+            "name": "radio",
+            "type": "FRAME",
+            "size": [
+              16,
+              16
+            ],
+            "layout": {
+              "mode": "VERTICAL",
+              "gap": 0,
+              "padding": [
+                0,
+                0,
+                0,
+                0
+              ],
+              "align": [
+                "CENTER",
+                "CENTER"
+              ]
+            },
+            "sizing": [
+              "FIXED",
+              "FIXED"
+            ],
+            "radius": 9999,
+            "fills": [
+              {
+                "type": "SOLID",
+                "color": "#F1F3F5",
+                "variable": "selectionControl/color/bg/pressed"
+              }
+            ],
+            "strokes": [
+              {
+                "type": "SOLID",
+                "color": "#C4C9CF",
+                "variable": "selectionControl/color/border/default"
+              }
+            ],
+            "strokeWeight": 1.5,
+            "strokeAlign": "INSIDE",
+            "variables": {
+              "width": "radio/medium/size",
+              "height": "radio/medium/size",
+              "cornerRadius": "radio/radius",
+              "strokeWeight": "radio/borderWidth"
+            },
+            "children": [],
+            "id": "4971:31558"
+          },
+          {
+            "name": "label",
+            "type": "TEXT",
+            "size": [
+              34,
+              20
+            ],
+            "sizing": [
+              "HUG",
+              "HUG"
+            ],
+            "fills": [
+              {
+                "type": "SOLID",
+                "color": "#1C1F23",
+                "variable": "selectionControl/label/color/fg/pressed"
+              }
+            ],
+            "styles": {
+              "text": "label/14/400"
+            },
+            "text": {
+              "characters": "Label",
+              "fontFamily": "Pretendard",
+              "fontStyle": "Regular",
+              "fontWeight": 400,
+              "fontSize": 14,
+              "lineHeight": {
+                "unit": "PIXELS",
+                "value": 20
+              },
+              "letterSpacing": {
+                "unit": "PIXELS",
+                "value": -0.2
+              },
+              "align": [
+                "LEFT",
+                "CENTER"
+              ],
+              "autoResize": "WIDTH_AND_HEIGHT"
+            },
+            "propRefs": {
+              "visible": "showLabel#5203:3",
+              "characters": "label#4205:47"
+            },
+            "variables": {
+              "letterSpacing[0]": "font/label/14/400/letterSpacing",
+              "fontSize[0]": "font/label/14/400/size",
+              "fontFamily[0]": "font/label/14/400/family",
+              "lineHeight[0]": "font/label/14/400/lineHeight",
+              "fontWeight[0]": "font/label/14/400/weight"
+            },
+            "id": "4971:31559"
+          },
+          {
+            "name": "_FocusRing",
+            "type": "INSTANCE",
+            "visible": false,
+            "size": [
+              20,
+              20
+            ],
+            "position": [
+              -2,
+              0
+            ],
+            "constraints": [
+              "MIN",
+              "CENTER"
+            ],
+            "layout": {
+              "mode": "HORIZONTAL",
+              "gap": 0,
+              "padding": [
+                0,
+                0,
+                0,
+                0
+              ],
+              "align": [
+                "MIN",
+                "MIN"
+              ]
+            },
+            "sizing": [
+              "FIXED",
+              "FIXED"
+            ],
+            "radius": 9999,
+            "strokes": [
+              {
+                "type": "SOLID",
+                "color": "#7FAEFF",
+                "variable": "focusRing/color/border"
+              }
+            ],
+            "strokeWeight": 2,
+            "strokeAlign": "OUTSIDE",
+            "main": {
+              "id": "2327:9265",
+              "name": "_FocusRing",
+              "key": "90ffa070af67ab1e238d2a77104cce9a5a71bb1e"
+            },
+            "propRefs": {
+              "visible": "showFocus#2810:0"
+            },
+            "variables": {
+              "cornerRadius": "radio/medium/focusRing/radius",
+              "strokeWeight": "focusRing/borderWidth"
+            },
+            "children": [],
+            "id": "4971:31560"
+          }
+        ],
+        "id": "4971:31557"
+      }
+    },
+    {
+      "nodeId": "4971:31561",
+      "key": "34a0214f04d590ca4700fe91c17de5cb4c6944ae",
+      "props": {
+        "selection": "unchecked",
+        "size": "large",
+        "state": "disabled"
+      },
+      "size": [
+        65,
+        24
+      ],
+      "layer": {
+        "name": "selection=unchecked, size=large, state=disabled",
+        "type": "COMPONENT",
+        "size": [
+          65,
+          24
+        ],
+        "layout": {
+          "mode": "HORIZONTAL",
+          "gap": 6,
+          "padding": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "align": [
+            "MIN",
+            "CENTER"
+          ]
+        },
+        "sizing": [
+          "HUG",
+          "HUG"
+        ],
+        "variables": {
+          "itemSpacing": "radio/space/gap"
+        },
+        "children": [
+          {
+            "name": "radio",
+            "type": "FRAME",
+            "size": [
+              20,
+              20
+            ],
+            "layout": {
+              "mode": "VERTICAL",
+              "gap": 0,
+              "padding": [
+                0,
+                0,
+                0,
+                0
+              ],
+              "align": [
+                "CENTER",
+                "CENTER"
+              ]
+            },
+            "sizing": [
+              "FIXED",
+              "FIXED"
+            ],
+            "radius": 9999,
+            "fills": [
+              {
+                "type": "SOLID",
+                "color": "#E8ECEF",
+                "variable": "selectionControl/color/bg/disabled"
+              }
+            ],
+            "strokes": [
+              {
+                "type": "SOLID",
+                "color": "#C4C9CF",
+                "variable": "selectionControl/color/border/default"
+              }
+            ],
+            "strokeWeight": 1.5,
+            "strokeAlign": "INSIDE",
+            "variables": {
+              "width": "radio/large/size",
+              "height": "radio/large/size",
+              "cornerRadius": "radio/radius",
+              "strokeWeight": "radio/borderWidth"
+            },
+            "children": [],
+            "id": "4971:31562"
+          },
+          {
+            "name": "label",
+            "type": "TEXT",
+            "size": [
+              39,
+              24
+            ],
+            "sizing": [
+              "HUG",
+              "HUG"
+            ],
+            "fills": [
+              {
+                "type": "SOLID",
+                "color": "#B3B9C0",
+                "variable": "selectionControl/label/color/fg/disabled"
+              }
+            ],
+            "styles": {
+              "text": "label/16/500"
+            },
+            "text": {
+              "characters": "Label",
+              "fontFamily": "Pretendard",
+              "fontStyle": "Medium",
+              "fontWeight": 500,
+              "fontSize": 16,
+              "lineHeight": {
+                "unit": "PIXELS",
+                "value": 24
+              },
+              "letterSpacing": {
+                "unit": "PIXELS",
+                "value": -0.2
+              },
+              "align": [
+                "LEFT",
+                "CENTER"
+              ],
+              "autoResize": "WIDTH_AND_HEIGHT"
+            },
+            "propRefs": {
+              "visible": "showLabel#5203:3",
+              "characters": "label#4205:47"
+            },
+            "variables": {
+              "letterSpacing[0]": "font/label/16/500/letterSpacing",
+              "fontSize[0]": "font/label/16/500/size",
+              "fontFamily[0]": "font/label/16/500/family",
+              "lineHeight[0]": "font/label/16/500/lineHeight",
+              "fontWeight[0]": "font/label/16/500/weight"
+            },
+            "id": "4971:31563"
+          },
+          {
+            "name": "_FocusRing",
+            "type": "INSTANCE",
+            "visible": false,
+            "size": [
+              24,
+              24
+            ],
+            "position": [
+              -2,
+              0
+            ],
+            "constraints": [
+              "MIN",
+              "CENTER"
+            ],
+            "layout": {
+              "mode": "HORIZONTAL",
+              "gap": 0,
+              "padding": [
+                0,
+                0,
+                0,
+                0
+              ],
+              "align": [
+                "MIN",
+                "MIN"
+              ]
+            },
+            "sizing": [
+              "FIXED",
+              "FIXED"
+            ],
+            "radius": 9999,
+            "strokes": [
+              {
+                "type": "SOLID",
+                "color": "#7FAEFF",
+                "variable": "focusRing/color/border"
+              }
+            ],
+            "strokeWeight": 2,
+            "strokeAlign": "OUTSIDE",
+            "main": {
+              "id": "2327:9265",
+              "name": "_FocusRing",
+              "key": "90ffa070af67ab1e238d2a77104cce9a5a71bb1e"
+            },
+            "propRefs": {
+              "visible": "showFocus#2810:0"
+            },
+            "variables": {
+              "cornerRadius": "radio/large/focusRing/radius",
+              "strokeWeight": "focusRing/borderWidth"
+            },
+            "children": [],
+            "id": "4971:31564"
+          }
+        ],
+        "id": "4971:31561"
+      }
+    },
+    {
+      "nodeId": "4971:31565",
+      "key": "e532f316fcc2043013c4043c3fdc954864f3cd07",
+      "props": {
+        "selection": "checked",
+        "size": "large",
+        "state": "pressed"
+      },
+      "size": [
+        65,
+        24
+      ],
+      "layer": {
+        "name": "selection=checked, size=large, state=pressed",
+        "type": "COMPONENT",
+        "size": [
+          65,
+          24
+        ],
+        "layout": {
+          "mode": "HORIZONTAL",
+          "gap": 6,
+          "padding": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "align": [
+            "MIN",
+            "CENTER"
+          ]
+        },
+        "sizing": [
+          "HUG",
+          "HUG"
+        ],
+        "variables": {
+          "itemSpacing": "radio/space/gap"
+        },
+        "children": [
+          {
+            "name": "radio",
+            "type": "FRAME",
+            "size": [
+              20,
+              20
+            ],
+            "layout": {
+              "mode": "VERTICAL",
+              "gap": 0,
+              "padding": [
+                0,
+                0,
+                0,
+                0
+              ],
+              "align": [
+                "CENTER",
+                "CENTER"
+              ]
+            },
+            "sizing": [
+              "FIXED",
+              "FIXED"
+            ],
+            "radius": 9999,
+            "fills": [
+              {
+                "type": "SOLID",
+                "color": "#FFFFFF",
+                "variable": "radio/checked/color/bg/default"
+              }
+            ],
+            "strokes": [
+              {
+                "type": "SOLID",
+                "color": "#261091",
+                "variable": "radio/checked/color/border/pressed"
+              }
+            ],
+            "strokeWeight": 1.5,
+            "strokeAlign": "INSIDE",
+            "variables": {
+              "width": "radio/large/size",
+              "height": "radio/large/size",
+              "cornerRadius": "radio/radius",
+              "strokeWeight": "radio/borderWidth"
+            },
+            "children": [
+              {
+                "name": "dot",
+                "type": "FRAME",
+                "size": [
+                  12,
+                  12
+                ],
+                "layout": {
+                  "mode": "HORIZONTAL",
+                  "gap": 0,
+                  "padding": [
+                    0,
+                    0,
+                    0,
+                    0
+                  ],
+                  "align": [
+                    "CENTER",
+                    "CENTER"
+                  ]
+                },
+                "sizing": [
+                  "FIXED",
+                  "FIXED"
+                ],
+                "radius": 9999,
+                "fills": [
+                  {
+                    "type": "SOLID",
+                    "color": "#261091",
+                    "variable": "radio/checked/dot/color/bg/pressed"
+                  }
+                ],
+                "variables": {
+                  "width": "radio/large/dot/size",
+                  "height": "radio/large/dot/size",
+                  "cornerRadius": "radio/radius"
+                },
+                "children": [],
+                "id": "4971:31567"
+              }
+            ],
+            "id": "4971:31566"
+          },
+          {
+            "name": "label",
+            "type": "TEXT",
+            "size": [
+              39,
+              24
+            ],
+            "sizing": [
+              "HUG",
+              "HUG"
+            ],
+            "fills": [
+              {
+                "type": "SOLID",
+                "color": "#1C1F23",
+                "variable": "selectionControl/label/color/fg/pressed"
+              }
+            ],
+            "styles": {
+              "text": "label/16/500"
+            },
+            "text": {
+              "characters": "Label",
+              "fontFamily": "Pretendard",
+              "fontStyle": "Medium",
+              "fontWeight": 500,
+              "fontSize": 16,
+              "lineHeight": {
+                "unit": "PIXELS",
+                "value": 24
+              },
+              "letterSpacing": {
+                "unit": "PIXELS",
+                "value": -0.2
+              },
+              "align": [
+                "LEFT",
+                "CENTER"
+              ],
+              "autoResize": "WIDTH_AND_HEIGHT"
+            },
+            "propRefs": {
+              "visible": "showLabel#5203:3",
+              "characters": "label#4205:47"
+            },
+            "variables": {
+              "letterSpacing[0]": "font/label/16/500/letterSpacing",
+              "fontSize[0]": "font/label/16/500/size",
+              "fontFamily[0]": "font/label/16/500/family",
+              "lineHeight[0]": "font/label/16/500/lineHeight",
+              "fontWeight[0]": "font/label/16/500/weight"
+            },
+            "id": "4971:31568"
+          },
+          {
+            "name": "_FocusRing",
+            "type": "INSTANCE",
+            "visible": false,
+            "size": [
+              24,
+              24
+            ],
+            "position": [
+              -2,
+              0
+            ],
+            "constraints": [
+              "MIN",
+              "CENTER"
+            ],
+            "layout": {
+              "mode": "HORIZONTAL",
+              "gap": 0,
+              "padding": [
+                0,
+                0,
+                0,
+                0
+              ],
+              "align": [
+                "MIN",
+                "MIN"
+              ]
+            },
+            "sizing": [
+              "FIXED",
+              "FIXED"
+            ],
+            "radius": 9999,
+            "strokes": [
+              {
+                "type": "SOLID",
+                "color": "#7FAEFF",
+                "variable": "focusRing/color/border"
+              }
+            ],
+            "strokeWeight": 2,
+            "strokeAlign": "OUTSIDE",
+            "main": {
+              "id": "2327:9265",
+              "name": "_FocusRing",
+              "key": "90ffa070af67ab1e238d2a77104cce9a5a71bb1e"
+            },
+            "propRefs": {
+              "visible": "showFocus#2810:0"
+            },
+            "variables": {
+              "cornerRadius": "radio/large/focusRing/radius",
+              "strokeWeight": "focusRing/borderWidth"
+            },
+            "children": [],
+            "id": "4971:31569"
+          }
+        ],
+        "id": "4971:31565"
+      }
     }
   ],
   "tokens": [
@@ -3758,7 +3758,7 @@
       "type": "FLOAT",
       "value": 2,
       "alias": "borderWidth/thick",
-      "key": "9da616a50ca8d62a4ec7ca7a7f80cbc192943c82"
+      "key": "9b08369f1247b4f87c268fc4456dec88ea2c8347"
     },
     {
       "figma": "focusRing/color/border",
@@ -3767,7 +3767,7 @@
       "type": "COLOR",
       "value": "#7FAEFF",
       "alias": "color/border/focusRing",
-      "key": "45a66a09a3c6bf1714da58de21f157da7aebabf9"
+      "key": "dc891d9b8843339f22e79063e3131459a89d7587"
     },
     {
       "figma": "font/label/14/400/family",
@@ -3776,7 +3776,7 @@
       "type": "STRING",
       "value": "Pretendard",
       "alias": "font/family/pretendard",
-      "key": "302d4005ff9d6b6d4ba523fd0d973a95f3b27532"
+      "key": "b30934f3d0ff782e7ca13aea9499784749ff6b2d"
     },
     {
       "figma": "font/label/14/400/letterSpacing",
@@ -3785,7 +3785,7 @@
       "type": "FLOAT",
       "value": -0.2,
       "alias": "font/letterSpacing/minus0p2",
-      "key": "60036a6e3ae0c5c5cd05301ea7b75356bfe07118"
+      "key": "23e42b7836c1ea32d73aa88382950ba0dee595eb"
     },
     {
       "figma": "font/label/14/400/lineHeight",
@@ -3794,7 +3794,7 @@
       "type": "FLOAT",
       "value": 20,
       "alias": "font/lineHeight/20",
-      "key": "631a44ba13cdaa0e2bc4c3a57003a6342775b331"
+      "key": "114c23fcb16b09f1469b04d62405f2f302bf5270"
     },
     {
       "figma": "font/label/14/400/size",
@@ -3803,7 +3803,7 @@
       "type": "FLOAT",
       "value": 14,
       "alias": "font/size/14",
-      "key": "691ac9a10ca0f1200e7faad5ef884e8e20af3f74"
+      "key": "025db52e6e43ba4afe5fdca5aeecf47e8dd73d64"
     },
     {
       "figma": "font/label/14/400/weight",
@@ -3812,7 +3812,7 @@
       "type": "FLOAT",
       "value": 400,
       "alias": "font/weight/400",
-      "key": "7042121700591a65663bfdc06a8e44b0efa8168d"
+      "key": "07a5b20eb69583275c5ed9896066f258295159d0"
     },
     {
       "figma": "font/label/16/500/family",
@@ -3821,7 +3821,7 @@
       "type": "STRING",
       "value": "Pretendard",
       "alias": "font/family/pretendard",
-      "key": "b92131f42b824fcd2cb22ca615916ddbeef4bb38"
+      "key": "7137963c127baeaf19d2b14262fc3140cbf25f9b"
     },
     {
       "figma": "font/label/16/500/letterSpacing",
@@ -3830,7 +3830,7 @@
       "type": "FLOAT",
       "value": -0.2,
       "alias": "font/letterSpacing/minus0p2",
-      "key": "64528a0de12a6a45d5156ca42f2f40f1049046dd"
+      "key": "3ba39fb3555f4f64d452c11803058bde732a9e58"
     },
     {
       "figma": "font/label/16/500/lineHeight",
@@ -3839,7 +3839,7 @@
       "type": "FLOAT",
       "value": 24,
       "alias": "font/lineHeight/24",
-      "key": "eeb9b7a6b9aa15d4f62b212f8ccca73fb0dea721"
+      "key": "d0d9ae4653294cefcca198bf7525b997e7d0aace"
     },
     {
       "figma": "font/label/16/500/size",
@@ -3848,7 +3848,7 @@
       "type": "FLOAT",
       "value": 16,
       "alias": "font/size/16",
-      "key": "e7c8d9ab08849ec9c1d7a395b853ba1d5cb99e99"
+      "key": "29b283158dc3eea851cd853455ac7f7928865397"
     },
     {
       "figma": "font/label/16/500/weight",
@@ -3857,7 +3857,7 @@
       "type": "FLOAT",
       "value": 500,
       "alias": "font/weight/500",
-      "key": "38d47c57a2dbbcea1631911705f9f189e298d7e2"
+      "key": "7a56db1b436241def7d6f0f28d549f0142f8303e"
     },
     {
       "figma": "radio/borderWidth",
@@ -3866,7 +3866,7 @@
       "type": "FLOAT",
       "value": 1.5,
       "alias": "borderWidth/1p5",
-      "key": "9d3a094b72e12b35dbaeeb79cd392d3a0c777298"
+      "key": "a8a6e3e58f4ee45b59e215edb05991fdeb8d6829"
     },
     {
       "figma": "radio/checked/color/bg/default",
@@ -3875,7 +3875,7 @@
       "type": "COLOR",
       "value": "#FFFFFF",
       "alias": "color/bg/base",
-      "key": "06715339231f3abcd8d02cded113bfe3cc467b87"
+      "key": "1e627bb5628812cc8b1d741e4c83fcaa9381713e"
     },
     {
       "figma": "radio/checked/color/border/default",
@@ -3884,7 +3884,7 @@
       "type": "COLOR",
       "value": "#3617CE",
       "alias": "color/border/brand/strong/default",
-      "key": "f24c36f0b183e1a6adc2c5da66288997ecec4eab"
+      "key": "cba220b5a57dfced5b5e579615be714955603b9a"
     },
     {
       "figma": "radio/checked/color/border/disabled",
@@ -3893,7 +3893,7 @@
       "type": "COLOR",
       "value": "#B3B9C0",
       "alias": "color/border/neutral/stronger",
-      "key": "55e16b58f136d7f33c634515a82c0c6c91907d68"
+      "key": "f5454b189d9450db7c91cafd5460e71241106d92"
     },
     {
       "figma": "radio/checked/color/border/hover",
@@ -3902,7 +3902,7 @@
       "type": "COLOR",
       "value": "#2F15B2",
       "alias": "color/border/brand/strong/hover",
-      "key": "509bd16fc10c905484c818881b2c34a62385b3ee"
+      "key": "25d92d61c2212ff5b80b7d11ee5be5f59891fad4"
     },
     {
       "figma": "radio/checked/color/border/pressed",
@@ -3911,7 +3911,7 @@
       "type": "COLOR",
       "value": "#261091",
       "alias": "color/border/brand/strong/pressed",
-      "key": "8839a660943c5eaa2fc6987db793e848885c6dcb"
+      "key": "6c8333fdd887c3b30cc4ad92dbc24cdc8ba71c15"
     },
     {
       "figma": "radio/checked/dot/color/bg/default",
@@ -3920,7 +3920,7 @@
       "type": "COLOR",
       "value": "#3617CE",
       "alias": "color/bg/brand/strongest/default",
-      "key": "a30b4051c8b6ff3240d0cc766a708a83d4d0852d"
+      "key": "02189c0777509da3af95ea9f5d3e83a49b1fe6d7"
     },
     {
       "figma": "radio/checked/dot/color/bg/disabled",
@@ -3929,7 +3929,7 @@
       "type": "COLOR",
       "value": "#B3B9C0",
       "alias": "color/bg/neutral/stronger/default",
-      "key": "91680402de124f68f1c980601999b0d71e624203"
+      "key": "63a72af75c4cbaae03c4987a9485e9c76ce28d0f"
     },
     {
       "figma": "radio/checked/dot/color/bg/hover",
@@ -3938,7 +3938,7 @@
       "type": "COLOR",
       "value": "#2F15B2",
       "alias": "color/bg/brand/strongest/hover",
-      "key": "972b93f2c1813f4d05f262cdf041320375d4c504"
+      "key": "2e6b7a1ec89082f340cc2f42205c3cfae1bbd05a"
     },
     {
       "figma": "radio/checked/dot/color/bg/pressed",
@@ -3947,7 +3947,7 @@
       "type": "COLOR",
       "value": "#261091",
       "alias": "color/bg/brand/strongest/pressed",
-      "key": "eb75c6bef26d53e99a6f509a1df43ecd923b7fa5"
+      "key": "b7f457dca63524e6ced6df04fefe7ce768e9fcaf"
     },
     {
       "figma": "radio/large/dot/size",
@@ -3956,7 +3956,7 @@
       "type": "FLOAT",
       "value": 12,
       "alias": "size/12",
-      "key": "96e9995257488bbf85308a343d18eaac5fe6d34e"
+      "key": "25ccda6cf549f2f51a38342c22cff517e8dff7a1"
     },
     {
       "figma": "radio/large/focusRing/radius",
@@ -3965,7 +3965,7 @@
       "type": "FLOAT",
       "value": 9999,
       "alias": "radius/full",
-      "key": "920590882bfe148e4451b7dee67bc03c2dcdb57e"
+      "key": "29da634aaa4bcd7a1746577da371c2285d0dd909"
     },
     {
       "figma": "radio/large/size",
@@ -3974,7 +3974,7 @@
       "type": "FLOAT",
       "value": 20,
       "alias": "size/20",
-      "key": "2dfb999d865e137ee163f00a27c83f1c0254a1b6"
+      "key": "3b030317964a859d0b83a023a424a57ae60644e3"
     },
     {
       "figma": "radio/medium/dot/size",
@@ -3983,7 +3983,7 @@
       "type": "FLOAT",
       "value": 8,
       "alias": "size/8",
-      "key": "ffe7eb0b01bc893e6fd6204e0a7808215213c5bf"
+      "key": "2a53d2792605d46a34ed6a4bd3bb2dcf654b93e5"
     },
     {
       "figma": "radio/medium/focusRing/radius",
@@ -3992,7 +3992,7 @@
       "type": "FLOAT",
       "value": 9999,
       "alias": "radius/full",
-      "key": "5f075d987f5b1c9e1221fc78f40cbac2e18af931"
+      "key": "c3b90be26872305a52dcfcd337124c7363466a16"
     },
     {
       "figma": "radio/medium/size",
@@ -4001,7 +4001,7 @@
       "type": "FLOAT",
       "value": 16,
       "alias": "size/16",
-      "key": "591f374ecf0aa614d8122f88bc732ccb01cdfebd"
+      "key": "7cea84b28bcf793ec7e19e1893e2f887f339c559"
     },
     {
       "figma": "radio/radius",
@@ -4010,7 +4010,7 @@
       "type": "FLOAT",
       "value": 9999,
       "alias": "radius/full",
-      "key": "e6845233972c9bc7107dbaec5ee8b0057616148d"
+      "key": "53cd61a4525ae41c4f700e414cccc92122448b27"
     },
     {
       "figma": "radio/space/gap",
@@ -4019,7 +4019,7 @@
       "type": "FLOAT",
       "value": 6,
       "alias": "space/6",
-      "key": "0bf0746570dd8550a20e618855fcec1273bd7bac"
+      "key": "acdd71d2b45b345b2a368d6b6cd5f205c9145c6a"
     },
     {
       "figma": "selectionControl/color/bg/default",
@@ -4028,7 +4028,7 @@
       "type": "COLOR",
       "value": "#FFFFFF",
       "alias": "color/bg/base",
-      "key": "c654194fe7966a5e345ed07f6885418e9385915c"
+      "key": "9a2299ca7a1163f2bd42ed2a344cca7060e71340"
     },
     {
       "figma": "selectionControl/color/bg/disabled",
@@ -4037,7 +4037,7 @@
       "type": "COLOR",
       "value": "#E8ECEF",
       "alias": "color/bg/neutral/disabled",
-      "key": "1bdb0504e202021166f723e43ed3fbf67ef15da0"
+      "key": "1e90366ee9f5e444928f83a0de546313af213375"
     },
     {
       "figma": "selectionControl/color/bg/hover",
@@ -4046,7 +4046,7 @@
       "type": "COLOR",
       "value": "#F8F9FB",
       "alias": "color/bg/neutral/faint",
-      "key": "5dbf82caddb69541b657ea6ee0ae28d3db302415"
+      "key": "89d3106b096adea34c10ec80f6c8091ac6a7ea22"
     },
     {
       "figma": "selectionControl/color/bg/pressed",
@@ -4055,7 +4055,7 @@
       "type": "COLOR",
       "value": "#F1F3F5",
       "alias": "color/bg/neutral/muted",
-      "key": "7498cbce99a4bf2e96aa3c51de7b9cfdc5f86478"
+      "key": "30b99e7dab8f01343356d4c128b77403d4646973"
     },
     {
       "figma": "selectionControl/color/border/default",
@@ -4064,7 +4064,7 @@
       "type": "COLOR",
       "value": "#C4C9CF",
       "alias": "color/border/neutral/strong",
-      "key": "7b7ed6bae663a816eaa4d944ab9536ce2cb86743"
+      "key": "0713b5faeda63ce4a3b4fb5a13aa683ce0daa402"
     },
     {
       "figma": "selectionControl/label/color/fg/default",
@@ -4073,7 +4073,7 @@
       "type": "COLOR",
       "value": "#1C1F23",
       "alias": "color/fg/neutral/strongest",
-      "key": "8d6ac6b8da9523bd6ca29b9b1d6c080148979f5b"
+      "key": "c20941800d3a2056d7e646abc7d4bdb5b17350cd"
     },
     {
       "figma": "selectionControl/label/color/fg/disabled",
@@ -4082,7 +4082,7 @@
       "type": "COLOR",
       "value": "#B3B9C0",
       "alias": "color/fg/neutral/disabled",
-      "key": "2b8e6c912bb466aef7854e76196a7a23cf2a5f15"
+      "key": "b5999ecb3f0d2d844d2af209c8ff7c48140e8094"
     },
     {
       "figma": "selectionControl/label/color/fg/hover",
@@ -4091,7 +4091,7 @@
       "type": "COLOR",
       "value": "#1C1F23",
       "alias": "color/fg/neutral/strongest",
-      "key": "3037a77a4b904d31df969f569e86318ceb0b1507"
+      "key": "4db98c07cec4ab9fbb7b291d830fd2151b53184b"
     },
     {
       "figma": "selectionControl/label/color/fg/pressed",
@@ -4100,20 +4100,20 @@
       "type": "COLOR",
       "value": "#1C1F23",
       "alias": "color/fg/neutral/strongest",
-      "key": "4d77e56fb49b457d6e19da8ca2c0edb012b96d6c"
+      "key": "ca745b4a064036f16676d3ac4d2f7fdf9a9010f1"
     }
   ],
   "textStyles": [
     {
       "name": "label/14/400",
       "type": "TEXT",
-      "key": "6a0eb3af04839ec295b071266621c0eac833b935",
+      "key": "44f6a5fa88f17d7a0d4c1db19d9c0655010a4b10",
       "remote": false
     },
     {
       "name": "label/16/500",
       "type": "TEXT",
-      "key": "b033b0a4eb937f73122d3718c12e171ee1f4750c",
+      "key": "ac0bc26a9251d8bb2b1be250dedb5c785e8c7f8f",
       "remote": false
     }
   ],

@@ -92,7 +92,7 @@ export function Popover({ placement = 'top', showClose = true, showContent = tru
         ) : null}
         {showFooter ? (
           <div className="ds-popover__footer" style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center', gap: tok('popover-footer-space-gap') }}>
-            {footer ?? <Button type="text" variants="accent" label="Text Button" />}
+            {footer ?? <Button type="text" appearance="accent" label="Text Button" />}
           </div>
         ) : null}
       </div>

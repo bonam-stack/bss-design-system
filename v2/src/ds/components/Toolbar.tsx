@@ -153,7 +153,7 @@ export function Toolbar({ title = 'Title', currentStep = '2', totalSteps = '8', 
             onZoomChange?.(v);
           }}
         />
-        <Button type="square" variants="base" size="medium" label={viewLabel} onClick={onView} />
+        <Button type="square" appearance="base" size="medium" label={viewLabel} onClick={onView} />
         <ToolbarToggleButton selection={selection} defaultSelection={defaultSelection} onSelectionChange={onSelectionChange} state={state} showFocus={showFocus} />
       </div>
     </div>

@@ -121,7 +121,7 @@ export function LookupField({ value, defaultValue = '', onSearch, size = 'large'
         </div>
         {showSearchButton ? (
           // 필드가 hover여도 버튼은 기본 모양, readOnly · disabled이면 비활성 모양 (DS 명세 notes)
-          <Button type="icon" variants="base" size={size} icon="line/search" label="검색" state={locked ? 'disabled' : undefined} onClick={open} />
+          <Button type="icon" appearance="base" size={size} icon="line/search" label="검색" state={locked ? 'disabled' : undefined} onClick={open} />
         ) : null}
       </div>
     </div>

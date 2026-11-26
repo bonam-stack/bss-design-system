@@ -79,7 +79,7 @@ export function Snackbar({ title = 'Title', showAction = true, showClose = true,
           {showAction ? (
             <Button
               type="round"
-              variants="base"
+              appearance="base"
               size="large"
               label={actionLabel}
               onClick={onAction}

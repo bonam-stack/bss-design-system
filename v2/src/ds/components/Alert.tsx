@@ -45,7 +45,7 @@ export function Alert({ showTitle = true, title = 'Title', message = 'Sample Tex
           </p>
         </div>
         <div className="ds-alert__actions" style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center' }}>
-          <Button variants="primary" size="large" label={actionLabel} onClick={onConfirm} />
+          <Button appearance="primary" size="large" label={actionLabel} onClick={onConfirm} />
         </div>
       </div>
     </OverlayBackdrop>

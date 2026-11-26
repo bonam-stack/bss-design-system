@@ -291,11 +291,11 @@ export function Calendar({ selectionMode = 'single', showTime = true, monthLabel
       ) : null}
 
       <div style={{ display: 'flex', alignItems: 'center', gap: tok('calendar-header-space-gap') }}>
-        <Button type="icon" variants="base" size="small" icon="line/chevron-left" label="이전 달" onClick={() => setView(new Date(year, month - 1, 1))} />
+        <Button type="icon" appearance="base" size="small" icon="line/chevron-left" label="이전 달" onClick={() => setView(new Date(year, month - 1, 1))} />
         <span aria-live="polite" style={{ flex: '1 1 0', textAlign: 'center', ...textStyle('font-label-18-600'), fontVariantNumeric: 'tabular-nums', color: tok('calendar-title-color-fg-default') }}>
           {title}
         </span>
-        <Button type="icon" variants="base" size="small" icon="line/chevron-right" label="다음 달" onClick={() => setView(new Date(year, month + 1, 1))} />
+        <Button type="icon" appearance="base" size="small" icon="line/chevron-right" label="다음 달" onClick={() => setView(new Date(year, month + 1, 1))} />
       </div>
 
       <div ref={grid} role="grid" aria-label={title} style={{ display: 'flex', flexDirection: 'column' }}>
@@ -341,8 +341,8 @@ export function Calendar({ selectionMode = 'single', showTime = true, monthLabel
       ) : null}
 
       <div style={{ display: 'flex', justifyContent: 'flex-end', gap: tok('calendar-group-space-gap') }}>
-        <Button type="square" variants="base" size="medium" label="취소" onClick={onCancel} />
-        <Button type="square" variants="primary" size="medium" label="적용" onClick={() => onApply?.(v)} />
+        <Button type="square" appearance="base" size="medium" label="취소" onClick={onCancel} />
+        <Button type="square" appearance="primary" size="medium" label="적용" onClick={() => onApply?.(v)} />
       </div>
     </div>
   );

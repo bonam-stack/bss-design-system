@@ -128,8 +128,8 @@ export function Modal({ size = 'small', showClose = true, showAction = true, tit
             <div className="ds-modal__actions" style={{ display: 'flex', gap: tok('overlay-group-space-gap') }}>
               {trailingActions ?? (
                 <>
-                  <Button variants="secondary" size="xlarge" label="Button" onClick={onClose} />
-                  <Button variants="primary" size="xlarge" label="Button" />
+                  <Button appearance="secondary" size="xlarge" label="Button" onClick={onClose} />
+                  <Button appearance="primary" size="xlarge" label="Button" />
                 </>
               )}
             </div>

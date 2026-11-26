@@ -85,8 +85,8 @@ export function SidePanel({ showScrollbar = false, showBadge = false, title = 'T
       >
         {actions ?? (
           <>
-            <Button variants="base" size="xlarge" label="Button" onClick={onClose} style={{ flex: 1 }} />
-            <Button variants="primary" size="xlarge" label="Button" style={{ flex: 1 }} />
+            <Button appearance="base" size="xlarge" label="Button" onClick={onClose} style={{ flex: 1 }} />
+            <Button appearance="primary" size="xlarge" label="Button" style={{ flex: 1 }} />
           </>
         )}
       </div>

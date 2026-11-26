@@ -2,19 +2,19 @@
   "schemaVersion": 2,
   "key": "divider",
   "name": "Divider",
-  "description": "영역이나 항목 사이를 나누는 구분선입니다. type: solid 실선, dashed 점선. direction: horizontal 가로, vertical 세로. 길이는 놓는 자리에 맞춰 늘립니다. 선 색은 Semantic color/border/neutral/muted에 바로 연결합니다(전용 컴포넌트 토큰 없음).",
+  "description": "영역이나 항목 사이를 나누는 구분선입니다. type: solid 실선, dashed 점선. direction: horizontal 가로, vertical 세로. 길이는 놓는 자리에 맞춰 늘립니다. 선 색은 divider/color/border/default, 두께는 divider/borderWidth에 연결합니다.",
   "figma": {
-    "fileKey": "9AioWOXVOVm5C7kdSxSEEP",
+    "fileKey": "WcoI745J38TaON7iCKcutW",
     "nodeId": "2366:22931",
-    "url": "https://www.figma.com/design/9AioWOXVOVm5C7kdSxSEEP?node-id=2366-22931",
+    "url": "https://www.figma.com/design/WcoI745J38TaON7iCKcutW?node-id=2366-22931",
     "page": {
       "nodeId": "2089:22630",
       "name": "    ❖ Divider"
     },
     "type": "COMPONENT_SET",
-    "componentKey": "c03dd71c8b931bb02be58c33d09e1ea095dc5af1",
+    "componentKey": "dd7ec6d7821aedbceb2196e892a752da111d28f0",
     "requestedFrom": null,
-    "extractedAt": "2026-11-15"
+    "extractedAt": "2026-11-26"
   },
   "props": [
     {
@@ -40,201 +40,8 @@
   ],
   "variants": [
     {
-      "nodeId": "2366:22930",
-      "key": "45129e18c89bccb4912c97e1d16d2ea7d2d5d28b",
-      "props": {
-        "type": "solid",
-        "direction": "horizontal"
-      },
-      "size": [
-        280,
-        1
-      ],
-      "layer": {
-        "name": "type=solid, direction=horizontal",
-        "type": "COMPONENT",
-        "size": [
-          280,
-          1
-        ],
-        "layout": {
-          "mode": "VERTICAL",
-          "gap": 0,
-          "padding": [
-            0,
-            0,
-            0,
-            0
-          ],
-          "align": [
-            "CENTER",
-            "CENTER"
-          ]
-        },
-        "sizing": [
-          "FIXED",
-          "FIXED"
-        ],
-        "children": [
-          {
-            "name": "line",
-            "type": "VECTOR",
-            "size": [
-              280,
-              0
-            ],
-            "sizing": [
-              "FILL",
-              "FIXED"
-            ],
-            "strokes": [
-              {
-                "type": "SOLID",
-                "color": "#DCE0E5",
-                "variable": "color/border/neutral/muted"
-              }
-            ],
-            "strokeWeight": 1,
-            "strokeAlign": "CENTER",
-            "id": "4271:10178"
-          }
-        ],
-        "id": "2366:22930"
-      }
-    },
-    {
-      "nodeId": "2376:267",
-      "key": "45aff3d36bfbe8877dd46646e39435058682a23d",
-      "props": {
-        "type": "solid",
-        "direction": "vertical"
-      },
-      "size": [
-        1,
-        300
-      ],
-      "layer": {
-        "name": "type=solid, direction=vertical",
-        "type": "COMPONENT",
-        "size": [
-          1,
-          300
-        ],
-        "layout": {
-          "mode": "VERTICAL",
-          "gap": 0,
-          "padding": [
-            0,
-            0,
-            0,
-            0
-          ],
-          "align": [
-            "CENTER",
-            "CENTER"
-          ]
-        },
-        "sizing": [
-          "FIXED",
-          "FIXED"
-        ],
-        "children": [
-          {
-            "name": "line",
-            "type": "VECTOR",
-            "size": [
-              0,
-              300
-            ],
-            "sizing": [
-              "FIXED",
-              "FILL"
-            ],
-            "strokes": [
-              {
-                "type": "SOLID",
-                "color": "#DCE0E5",
-                "variable": "color/border/neutral/muted"
-              }
-            ],
-            "strokeWeight": 1,
-            "strokeAlign": "CENTER",
-            "id": "4271:10136"
-          }
-        ],
-        "id": "2376:267"
-      }
-    },
-    {
-      "nodeId": "2376:257",
-      "key": "d220b9b7c5278fd1652cb73ae00c090ebb1e5172",
-      "props": {
-        "type": "dashed",
-        "direction": "horizontal"
-      },
-      "size": [
-        280,
-        1
-      ],
-      "layer": {
-        "name": "type=dashed, direction=horizontal",
-        "type": "COMPONENT",
-        "size": [
-          280,
-          1
-        ],
-        "layout": {
-          "mode": "VERTICAL",
-          "gap": 0,
-          "padding": [
-            0,
-            0,
-            0,
-            0
-          ],
-          "align": [
-            "CENTER",
-            "CENTER"
-          ]
-        },
-        "sizing": [
-          "FIXED",
-          "FIXED"
-        ],
-        "children": [
-          {
-            "name": "line",
-            "type": "VECTOR",
-            "size": [
-              280,
-              0
-            ],
-            "sizing": [
-              "FILL",
-              "FIXED"
-            ],
-            "strokes": [
-              {
-                "type": "SOLID",
-                "color": "#DCE0E5",
-                "variable": "color/border/neutral/muted"
-              }
-            ],
-            "strokeWeight": 1,
-            "strokeAlign": "CENTER",
-            "dash": [
-              2,
-              2
-            ],
-            "id": "2376:259"
-          }
-        ],
-        "id": "2376:257"
-      }
-    },
-    {
       "nodeId": "2376:269",
-      "key": "e553fb5b52d5b270aa2fd902fbc7f81651edb6e4",
+      "key": "f4347a07396e9650971bb2b9e69413d660e9ae73",
       "props": {
         "type": "dashed",
         "direction": "vertical"
@@ -286,7 +93,7 @@
               {
                 "type": "SOLID",
                 "color": "#DCE0E5",
-                "variable": "color/border/neutral/muted"
+                "variable": "divider/color/border/default"
               }
             ],
             "strokeWeight": 1,
@@ -294,7 +101,212 @@
             "dash": [
               2,
               2
-            ]
+            ],
+            "variables": {
+              "strokeWeight": "divider/borderWidth"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "nodeId": "2376:267",
+      "key": "70f4ed5a4bcc7b578fc4a3d8170b726b4e68f8dc",
+      "props": {
+        "type": "solid",
+        "direction": "vertical"
+      },
+      "size": [
+        1,
+        300
+      ],
+      "layer": {
+        "id": "2376:267",
+        "name": "type=solid, direction=vertical",
+        "type": "COMPONENT",
+        "size": [
+          1,
+          300
+        ],
+        "layout": {
+          "mode": "VERTICAL",
+          "gap": 0,
+          "padding": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "align": [
+            "CENTER",
+            "CENTER"
+          ]
+        },
+        "sizing": [
+          "FIXED",
+          "FIXED"
+        ],
+        "children": [
+          {
+            "id": "4271:10136",
+            "name": "line",
+            "type": "VECTOR",
+            "size": [
+              0,
+              300
+            ],
+            "sizing": [
+              "FIXED",
+              "FILL"
+            ],
+            "strokes": [
+              {
+                "type": "SOLID",
+                "color": "#DCE0E5",
+                "variable": "divider/color/border/default"
+              }
+            ],
+            "strokeWeight": 1,
+            "strokeAlign": "CENTER",
+            "variables": {
+              "strokeWeight": "divider/borderWidth"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "nodeId": "2376:257",
+      "key": "c05efcf39e291d3e76432495b3ce076d4e272ce4",
+      "props": {
+        "type": "dashed",
+        "direction": "horizontal"
+      },
+      "size": [
+        280,
+        1
+      ],
+      "layer": {
+        "id": "2376:257",
+        "name": "type=dashed, direction=horizontal",
+        "type": "COMPONENT",
+        "size": [
+          280,
+          1
+        ],
+        "layout": {
+          "mode": "VERTICAL",
+          "gap": 0,
+          "padding": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "align": [
+            "CENTER",
+            "CENTER"
+          ]
+        },
+        "sizing": [
+          "FIXED",
+          "FIXED"
+        ],
+        "children": [
+          {
+            "id": "2376:259",
+            "name": "line",
+            "type": "VECTOR",
+            "size": [
+              280,
+              0
+            ],
+            "sizing": [
+              "FILL",
+              "FIXED"
+            ],
+            "strokes": [
+              {
+                "type": "SOLID",
+                "color": "#DCE0E5",
+                "variable": "divider/color/border/default"
+              }
+            ],
+            "strokeWeight": 1,
+            "strokeAlign": "CENTER",
+            "dash": [
+              2,
+              2
+            ],
+            "variables": {
+              "strokeWeight": "divider/borderWidth"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "nodeId": "2366:22930",
+      "key": "f607a0dd89270c1f5c52446ea298d7b439b1da3f",
+      "props": {
+        "type": "solid",
+        "direction": "horizontal"
+      },
+      "size": [
+        280,
+        1
+      ],
+      "layer": {
+        "id": "2366:22930",
+        "name": "type=solid, direction=horizontal",
+        "type": "COMPONENT",
+        "size": [
+          280,
+          1
+        ],
+        "layout": {
+          "mode": "VERTICAL",
+          "gap": 0,
+          "padding": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "align": [
+            "CENTER",
+            "CENTER"
+          ]
+        },
+        "sizing": [
+          "FIXED",
+          "FIXED"
+        ],
+        "children": [
+          {
+            "id": "4271:10178",
+            "name": "line",
+            "type": "VECTOR",
+            "size": [
+              280,
+              0
+            ],
+            "sizing": [
+              "FILL",
+              "FIXED"
+            ],
+            "strokes": [
+              {
+                "type": "SOLID",
+                "color": "#DCE0E5",
+                "variable": "divider/color/border/default"
+              }
+            ],
+            "strokeWeight": 1,
+            "strokeAlign": "CENTER",
+            "variables": {
+              "strokeWeight": "divider/borderWidth"
+            }
           }
         ]
       }
@@ -302,13 +314,22 @@
   ],
   "tokens": [
     {
-      "figma": "color/border/neutral/muted",
-      "css": "--color-border-neutral-muted",
-      "collection": "Semantic",
+      "figma": "divider/borderWidth",
+      "css": "--divider-border-width",
+      "collection": "Component",
+      "type": "FLOAT",
+      "value": 1,
+      "alias": "borderWidth/thin",
+      "key": "3d8057cde335b20c1e710f1fed52cf5552c49c18"
+    },
+    {
+      "figma": "divider/color/border/default",
+      "css": "--divider-color-border-default",
+      "collection": "Component",
       "type": "COLOR",
       "value": "#DCE0E5",
-      "alias": "color/gray/200",
-      "key": "7750ecb51f54851c4403b01b91898f9a9a0b0bd1"
+      "alias": "color/border/neutral/muted",
+      "key": "c153784f79b48dec2a9569059f7d1752edc46b6f"
     }
   ],
   "textStyles": [],

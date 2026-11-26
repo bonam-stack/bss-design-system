@@ -234,25 +234,25 @@
       "code": "c-button",
       "flag": "updated",
       "at": "2026-11-26",
-      "note": "가이드라인 v2.0 · 버튼 라벨·아이콘 새 버전 반영"
+      "note": "가이드라인 v2.0 · 버튼 라벨·아이콘 새 버전 반영 · DS 라이브러리 현재 버전 데이터, variants→appearance"
     },
     {
       "code": "c-checkbox",
       "flag": "updated",
       "at": "2026-11-26",
-      "note": "가이드라인 v2.0 반영"
+      "note": "가이드라인 v2.0 반영 · DS 라이브러리 현재 버전 데이터"
     },
     {
       "code": "c-radio",
       "flag": "updated",
       "at": "2026-11-26",
-      "note": "가이드라인 v2.0 반영"
+      "note": "가이드라인 v2.0 반영 · DS 라이브러리 현재 버전 데이터"
     },
     {
       "code": "c-radio-group",
       "flag": "updated",
       "at": "2026-11-26",
-      "note": "가이드라인 v2.0 반영"
+      "note": "가이드라인 v2.0 반영 · DS 라이브러리 현재 버전 데이터"
     },
     {
       "code": "c-text-field",
@@ -282,7 +282,7 @@
       "code": "c-divider",
       "flag": "updated",
       "at": "2026-11-26",
-      "note": "사용 가이드 추가"
+      "note": "사용 가이드 추가 · DS 라이브러리 현재 버전 데이터(divider 토큰)"
     }
   ]
 }

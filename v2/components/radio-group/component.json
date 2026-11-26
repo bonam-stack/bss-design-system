@@ -4,17 +4,17 @@
   "name": "RadioGroup",
   "description": "Radio를 가로로 배치하는 묶음입니다. size 2종(large·medium). content 슬롯에 Radio를 넣고, 항목 간격은 radio/group/space/gap(12)에 연결합니다.",
   "figma": {
-    "fileKey": "9AioWOXVOVm5C7kdSxSEEP",
+    "fileKey": "WcoI745J38TaON7iCKcutW",
     "nodeId": "4971:31723",
-    "url": "https://www.figma.com/design/9AioWOXVOVm5C7kdSxSEEP?node-id=4971-31723",
+    "url": "https://www.figma.com/design/WcoI745J38TaON7iCKcutW?node-id=4971-31723",
     "page": {
       "nodeId": "2064:17256",
       "name": "    ❖ Radio "
     },
     "type": "COMPONENT_SET",
-    "componentKey": "9ee52e50b01f99a5ee438668bb4d5e16eb4be6a8",
+    "componentKey": "9d95daa66589ba56101684a7a17724cfe7eba929",
     "requestedFrom": null,
-    "extractedAt": "2026-11-15"
+    "extractedAt": "2026-11-26"
   },
   "props": [
     {
@@ -43,7 +43,7 @@
   "variants": [
     {
       "nodeId": "4971:31724",
-      "key": "c49b1934216883069e9e2b77dfac8813efbdbba6",
+      "key": "8b2d488d29f1462ec9fc6b8526ecb561f4412861",
       "props": {
         "size": "large"
       },
@@ -143,11 +143,11 @@
                 "main": {
                   "id": "4971:31502",
                   "name": "selection=checked, size=large, state=default",
-                  "key": "48d04d8a5148acc84bc6245c24ccde438b8cbebf",
+                  "key": "e79cd515320c69c03743133cc409951a0d1f28f6",
                   "set": {
                     "id": "4971:31497",
                     "name": "Radio",
-                    "key": "f6395604cd1479f3517d065edb4d013beb5877ab"
+                    "key": "537ae389cd6fdbf0b28c63296738ed42a59e7158"
                   }
                 },
                 "variables": {
@@ -332,11 +332,11 @@
                 "main": {
                   "id": "4971:31498",
                   "name": "selection=unchecked, size=large, state=default",
-                  "key": "bf7504a6bf479eabe6fa2e2d3b6d54b48dc72c36",
+                  "key": "bfdfc856bc502737df4aa4d19c8ba3c7bebe823b",
                   "set": {
                     "id": "4971:31497",
                     "name": "Radio",
-                    "key": "f6395604cd1479f3517d065edb4d013beb5877ab"
+                    "key": "537ae389cd6fdbf0b28c63296738ed42a59e7158"
                   }
                 },
                 "variables": {
@@ -479,11 +479,11 @@
                 "main": {
                   "id": "4971:31498",
                   "name": "selection=unchecked, size=large, state=default",
-                  "key": "bf7504a6bf479eabe6fa2e2d3b6d54b48dc72c36",
+                  "key": "bfdfc856bc502737df4aa4d19c8ba3c7bebe823b",
                   "set": {
                     "id": "4971:31497",
                     "name": "Radio",
-                    "key": "f6395604cd1479f3517d065edb4d013beb5877ab"
+                    "key": "537ae389cd6fdbf0b28c63296738ed42a59e7158"
                   }
                 },
                 "variables": {
@@ -604,7 +604,7 @@
     },
     {
       "nodeId": "4971:31729",
-      "key": "bebb946cfe7078db11ceb8c53299a02b775b8120",
+      "key": "923595c40e9f11aeed1a89cc554d25212a956fb2",
       "props": {
         "size": "medium"
       },
@@ -701,11 +701,11 @@
                 "main": {
                   "id": "4971:31519",
                   "name": "selection=checked, size=medium, state=default",
-                  "key": "4779a2c2d88062f1e572ef00c495758bb8cecb28",
+                  "key": "2abc6e30ab0eaaf9ee21ebe5a66f7462472a5890",
                   "set": {
                     "id": "4971:31497",
                     "name": "Radio",
-                    "key": "f6395604cd1479f3517d065edb4d013beb5877ab"
+                    "key": "537ae389cd6fdbf0b28c63296738ed42a59e7158"
                   }
                 },
                 "variables": {
@@ -890,11 +890,11 @@
                 "main": {
                   "id": "4971:31507",
                   "name": "selection=unchecked, size=medium, state=default",
-                  "key": "aa9cca4f9abcff009202b82405678b1fc2b62e10",
+                  "key": "52334cc70fdc0768331ee12379c1979a3ba75e8a",
                   "set": {
                     "id": "4971:31497",
                     "name": "Radio",
-                    "key": "f6395604cd1479f3517d065edb4d013beb5877ab"
+                    "key": "537ae389cd6fdbf0b28c63296738ed42a59e7158"
                   }
                 },
                 "variables": {
@@ -1037,11 +1037,11 @@
                 "main": {
                   "id": "4971:31507",
                   "name": "selection=unchecked, size=medium, state=default",
-                  "key": "aa9cca4f9abcff009202b82405678b1fc2b62e10",
+                  "key": "52334cc70fdc0768331ee12379c1979a3ba75e8a",
                   "set": {
                     "id": "4971:31497",
                     "name": "Radio",
-                    "key": "f6395604cd1479f3517d065edb4d013beb5877ab"
+                    "key": "537ae389cd6fdbf0b28c63296738ed42a59e7158"
                   }
                 },
                 "variables": {
@@ -1172,7 +1172,7 @@
       "type": "STRING",
       "value": "Pretendard",
       "alias": "font/family/pretendard",
-      "key": "302d4005ff9d6b6d4ba523fd0d973a95f3b27532"
+      "key": "b30934f3d0ff782e7ca13aea9499784749ff6b2d"
     },
     {
       "figma": "font/label/14/400/letterSpacing",
@@ -1181,7 +1181,7 @@
       "type": "FLOAT",
       "value": -0.2,
       "alias": "font/letterSpacing/minus0p2",
-      "key": "60036a6e3ae0c5c5cd05301ea7b75356bfe07118"
+      "key": "23e42b7836c1ea32d73aa88382950ba0dee595eb"
     },
     {
       "figma": "font/label/14/400/lineHeight",
@@ -1190,7 +1190,7 @@
       "type": "FLOAT",
       "value": 20,
       "alias": "font/lineHeight/20",
-      "key": "631a44ba13cdaa0e2bc4c3a57003a6342775b331"
+      "key": "114c23fcb16b09f1469b04d62405f2f302bf5270"
     },
     {
       "figma": "font/label/14/400/size",
@@ -1199,7 +1199,7 @@
       "type": "FLOAT",
       "value": 14,
       "alias": "font/size/14",
-      "key": "691ac9a10ca0f1200e7faad5ef884e8e20af3f74"
+      "key": "025db52e6e43ba4afe5fdca5aeecf47e8dd73d64"
     },
     {
       "figma": "font/label/14/400/weight",
@@ -1208,7 +1208,7 @@
       "type": "FLOAT",
       "value": 400,
       "alias": "font/weight/400",
-      "key": "7042121700591a65663bfdc06a8e44b0efa8168d"
+      "key": "07a5b20eb69583275c5ed9896066f258295159d0"
     },
     {
       "figma": "font/label/16/500/family",
@@ -1217,7 +1217,7 @@
       "type": "STRING",
       "value": "Pretendard",
       "alias": "font/family/pretendard",
-      "key": "b92131f42b824fcd2cb22ca615916ddbeef4bb38"
+      "key": "7137963c127baeaf19d2b14262fc3140cbf25f9b"
     },
     {
       "figma": "font/label/16/500/letterSpacing",
@@ -1226,7 +1226,7 @@
       "type": "FLOAT",
       "value": -0.2,
       "alias": "font/letterSpacing/minus0p2",
-      "key": "64528a0de12a6a45d5156ca42f2f40f1049046dd"
+      "key": "3ba39fb3555f4f64d452c11803058bde732a9e58"
     },
     {
       "figma": "font/label/16/500/lineHeight",
@@ -1235,7 +1235,7 @@
       "type": "FLOAT",
       "value": 24,
       "alias": "font/lineHeight/24",
-      "key": "eeb9b7a6b9aa15d4f62b212f8ccca73fb0dea721"
+      "key": "d0d9ae4653294cefcca198bf7525b997e7d0aace"
     },
     {
       "figma": "font/label/16/500/size",
@@ -1244,7 +1244,7 @@
       "type": "FLOAT",
       "value": 16,
       "alias": "font/size/16",
-      "key": "e7c8d9ab08849ec9c1d7a395b853ba1d5cb99e99"
+      "key": "29b283158dc3eea851cd853455ac7f7928865397"
     },
     {
       "figma": "font/label/16/500/weight",
@@ -1253,7 +1253,7 @@
       "type": "FLOAT",
       "value": 500,
       "alias": "font/weight/500",
-      "key": "38d47c57a2dbbcea1631911705f9f189e298d7e2"
+      "key": "7a56db1b436241def7d6f0f28d549f0142f8303e"
     },
     {
       "figma": "radio/borderWidth",
@@ -1262,7 +1262,7 @@
       "type": "FLOAT",
       "value": 1.5,
       "alias": "borderWidth/1p5",
-      "key": "9d3a094b72e12b35dbaeeb79cd392d3a0c777298"
+      "key": "a8a6e3e58f4ee45b59e215edb05991fdeb8d6829"
     },
     {
       "figma": "radio/checked/color/bg/default",
@@ -1271,7 +1271,7 @@
       "type": "COLOR",
       "value": "#FFFFFF",
       "alias": "color/bg/base",
-      "key": "06715339231f3abcd8d02cded113bfe3cc467b87"
+      "key": "1e627bb5628812cc8b1d741e4c83fcaa9381713e"
     },
     {
       "figma": "radio/checked/color/border/default",
@@ -1280,7 +1280,7 @@
       "type": "COLOR",
       "value": "#3617CE",
       "alias": "color/border/brand/strong/default",
-      "key": "f24c36f0b183e1a6adc2c5da66288997ecec4eab"
+      "key": "cba220b5a57dfced5b5e579615be714955603b9a"
     },
     {
       "figma": "radio/checked/dot/color/bg/default",
@@ -1289,7 +1289,7 @@
       "type": "COLOR",
       "value": "#3617CE",
       "alias": "color/bg/brand/strongest/default",
-      "key": "a30b4051c8b6ff3240d0cc766a708a83d4d0852d"
+      "key": "02189c0777509da3af95ea9f5d3e83a49b1fe6d7"
     },
     {
       "figma": "radio/group/space/gap",
@@ -1298,7 +1298,7 @@
       "type": "FLOAT",
       "value": 12,
       "alias": "space/12",
-      "key": "12e438a1d085455f9a78cd3db6aed14d88644744"
+      "key": "6af961f146d68b9690ad710689d823756eb9b785"
     },
     {
       "figma": "radio/large/dot/size",
@@ -1307,7 +1307,7 @@
       "type": "FLOAT",
       "value": 12,
       "alias": "size/12",
-      "key": "96e9995257488bbf85308a343d18eaac5fe6d34e"
+      "key": "25ccda6cf549f2f51a38342c22cff517e8dff7a1"
     },
     {
       "figma": "radio/large/size",
@@ -1316,7 +1316,7 @@
       "type": "FLOAT",
       "value": 20,
       "alias": "size/20",
-      "key": "2dfb999d865e137ee163f00a27c83f1c0254a1b6"
+      "key": "3b030317964a859d0b83a023a424a57ae60644e3"
     },
     {
       "figma": "radio/medium/dot/size",
@@ -1325,7 +1325,7 @@
       "type": "FLOAT",
       "value": 8,
       "alias": "size/8",
-      "key": "ffe7eb0b01bc893e6fd6204e0a7808215213c5bf"
+      "key": "2a53d2792605d46a34ed6a4bd3bb2dcf654b93e5"
     },
     {
       "figma": "radio/medium/size",
@@ -1334,7 +1334,7 @@
       "type": "FLOAT",
       "value": 16,
       "alias": "size/16",
-      "key": "591f374ecf0aa614d8122f88bc732ccb01cdfebd"
+      "key": "7cea84b28bcf793ec7e19e1893e2f887f339c559"
     },
     {
       "figma": "radio/radius",
@@ -1343,7 +1343,7 @@
       "type": "FLOAT",
       "value": 9999,
       "alias": "radius/full",
-      "key": "e6845233972c9bc7107dbaec5ee8b0057616148d"
+      "key": "53cd61a4525ae41c4f700e414cccc92122448b27"
     },
     {
       "figma": "radio/space/gap",
@@ -1352,7 +1352,7 @@
       "type": "FLOAT",
       "value": 6,
       "alias": "space/6",
-      "key": "0bf0746570dd8550a20e618855fcec1273bd7bac"
+      "key": "acdd71d2b45b345b2a368d6b6cd5f205c9145c6a"
     },
     {
       "figma": "selectionControl/color/bg/default",
@@ -1361,7 +1361,7 @@
       "type": "COLOR",
       "value": "#FFFFFF",
       "alias": "color/bg/base",
-      "key": "c654194fe7966a5e345ed07f6885418e9385915c"
+      "key": "9a2299ca7a1163f2bd42ed2a344cca7060e71340"
     },
     {
       "figma": "selectionControl/color/border/default",
@@ -1370,7 +1370,7 @@
       "type": "COLOR",
       "value": "#C4C9CF",
       "alias": "color/border/neutral/strong",
-      "key": "7b7ed6bae663a816eaa4d944ab9536ce2cb86743"
+      "key": "0713b5faeda63ce4a3b4fb5a13aa683ce0daa402"
     },
     {
       "figma": "selectionControl/label/color/fg/default",
@@ -1379,20 +1379,20 @@
       "type": "COLOR",
       "value": "#1C1F23",
       "alias": "color/fg/neutral/strongest",
-      "key": "8d6ac6b8da9523bd6ca29b9b1d6c080148979f5b"
+      "key": "c20941800d3a2056d7e646abc7d4bdb5b17350cd"
     }
   ],
   "textStyles": [
     {
       "name": "label/14/400",
       "type": "TEXT",
-      "key": "6a0eb3af04839ec295b071266621c0eac833b935",
+      "key": "44f6a5fa88f17d7a0d4c1db19d9c0655010a4b10",
       "remote": false
     },
     {
       "name": "label/16/500",
       "type": "TEXT",
-      "key": "b033b0a4eb937f73122d3718c12e171ee1f4750c",
+      "key": "ac0bc26a9251d8bb2b1be250dedb5c785e8c7f8f",
       "remote": false
     }
   ],
