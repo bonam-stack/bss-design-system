@@ -535,3 +535,10 @@ code.rid { display: inline-block; margin-right: 6px; padding: 0 6px; border-radi
 .nv-flag-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--warn-fg); flex-shrink: 0; margin-left: 6px; }
 h1 .nv-flag { vertical-align: middle; margin-left: 10px; height: 22px; font-size: 12px; }
 .h1-row .nv-flag { align-self: center; margin-right: auto; margin-left: 12px; height: 22px; font-size: 12px; }
+
+/* 미리보기 안의 드롭다운 · 팝업 목록이 칸 밖으로 펼쳐져도 잘리지 않게 (모서리는 안쪽 칸이 둥글린다) */
+.sb { overflow: visible; }
+.sb > :first-child { border-top-left-radius: inherit; border-top-right-radius: inherit; }
+.sb > :last-child { border-bottom-left-radius: inherit; border-bottom-right-radius: inherit; }
+.sb > :last-child > :last-child { border-bottom-right-radius: inherit; }
+.sb > :last-child > :first-child { border-bottom-left-radius: inherit; }

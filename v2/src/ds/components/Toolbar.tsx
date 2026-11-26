@@ -1,12 +1,13 @@
 // Toolbar: 단계 진행 정보(제목 · Steps · 단계 수)를 왼쪽에, 보기 도구(배율 셀렉트 · 보기 모드 버튼 · 토글 버튼)를 오른쪽에 두는 막대.
 // Figma: BSS_DS_Library_Component_v2.0 ❖ Toolbar › Toolbar (9080:243) · title · currentStep · totalSteps
 //   토글 버튼: _Item/Toolbar/ToggleButton (9080:257) · selection 2 × state 4, showFocus (아이콘은 손 도구로 고정)
-// 토큰: DS 컴포넌트 명세 toolbar · toggleButton. 안의 Steps는 steps, 셀렉트는 select medium + field, 버튼은 button-action base medium,
+// 토큰: DS 컴포넌트 명세 toolbar · toggleButton. 안의 Steps는 steps, 셀렉트는 Select(medium) 컴포넌트, 버튼은 button-action base medium,
 //   구분선은 Divider(세로)를 쓴다
 import { useState } from 'react';
 import type { ButtonHTMLAttributes, CSSProperties } from 'react';
 import { Button } from './Button';
 import { Divider } from './Divider';
+import { Select } from './Select';
 import { Steps } from './Steps';
 import { FocusRing, Icon, textStyle, tok, tokState, useInteraction } from '../shared';
 
@@ -77,45 +78,6 @@ export function ToolbarToggleButton({ selection, defaultSelection = 'unselected'
   );
 }
 
-/** 배율 셀렉트 (Select size medium, 라벨 · 도움말 없음). 실제 <select>를 쓴다 */
-function ZoomSelect({ value, options, onChange }: { value: string; options: string[]; onChange: (v: string) => void }) {
-  const it = useInteraction();
-  const look = it.focused ? 'focus' : it.hover ? 'hover' : 'default';
-  return (
-    <span {...it.pointer} style={{ position: 'relative', display: 'inline-flex', alignItems: 'center', flexShrink: 0 }}>
-      <select
-        aria-label="화면 배율"
-        value={value}
-        onChange={(e) => onChange(e.target.value)}
-        {...it.focus}
-        style={{
-          appearance: 'none',
-          boxSizing: 'border-box',
-          margin: 0,
-          border: 0,
-          outline: 'none',
-          height: tok('select-medium-size-height'),
-          padding: `0 calc(${tok('select-medium-space-padding-end')} + ${tok('select-medium-icon-size')} + ${tok('select-space-gap')}) 0 ${tok('select-medium-space-padding-start')}`,
-          borderRadius: tok('select-radius'),
-          background: tokState('field-color-bg', look),
-          boxShadow: `inset 0 0 0 ${tok('select-border-width')} ${tokState('field-color-border', look)}`,
-          color: tokState('field-color-fg', look),
-          ...textStyle('font-label-15-400'),
-          cursor: 'pointer',
-        }}
-      >
-        {options.map((o) => (
-          <option key={o} value={o}>
-            {o}
-          </option>
-        ))}
-      </select>
-      <Icon name="line/chevron-down" size={tok('select-medium-icon-size')} color={tokState('field-color-fg', look)} style={{ position: 'absolute', right: tok('select-medium-space-padding-end'), pointerEvents: 'none' }} />
-      {it.focusVisible ? <FocusRing radius={tok('select-medium-focus-ring-radius')} /> : null}
-    </span>
-  );
-}
-
 export interface ToolbarProps {
   /** 제목 */
   title?: string;
@@ -180,7 +142,10 @@ export function Toolbar({ title = 'Title', currentStep = '2', totalSteps = '8', 
         <Divider direction="vertical" length="auto" style={{ alignSelf: 'stretch' }} />
       </div>
       <div style={{ display: 'flex', alignItems: 'center', gap: tok('toolbar-group-space-gap') }}>
-        <ZoomSelect
+        <Select
+          aria-label="화면 배율"
+          size="medium"
+          width={`calc(${tok('size-40')} * 3)`}
           value={z}
           options={options}
           onChange={(v) => {
