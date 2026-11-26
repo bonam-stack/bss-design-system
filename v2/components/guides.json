@@ -45,6 +45,7 @@
     "progress-bar",
     "skeleton",
     "accordion",
-    "scrollbar"
+    "scrollbar",
+    "divider"
   ]
 }

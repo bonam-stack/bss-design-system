@@ -1,5 +1,226 @@
 {
-  "$description": "password-field 사용 가이드. 정책은 서비스 UI 가이드 Input 문서(ui-comp-input)에서 이 컴포넌트에 해당하는 것만 옮겼다.",
+  "$description": "BSS Design Guideline v2.0 › Components/Text Fields(Password Field 부분)와 Components/Field Rules에서 옮긴 사용 가이드. 정책은 scripts/sync_component_policy.py가 Guideline 규칙과 서비스 UI 가이드 Input 문서(ui-comp-input) · 폼 유효성 체크(resp-form-validation) 규칙을 합쳐 만든다.",
+  "source": {
+    "fileKey": "9aVw18Cj7CzvHE1ljGaM9m",
+    "fileName": "BSS Design Guideline v2.0",
+    "nodeId": "2430:92526",
+    "name": "Components/Text Fields",
+    "url": "https://www.figma.com/design/9aVw18Cj7CzvHE1ljGaM9m?node-id=2430-92526",
+    "extractedAt": "2026-11-26"
+  },
+  "group": "입력",
+  "overview": "Password Field는 비밀번호처럼 입력값을 가려야 하는 단일 값을 입력받는 컴포넌트입니다. Text Field와 같은 구조와 상태 기준을 따르며, 입력한 값은 가려서 표시하고 Visibility Toggle로 보이거나 가리도록 전환합니다. 필수 표시·오류 표시·상태 규칙은 Field Rules(입력 필드 공통)를 따릅니다.",
+  "anatomy": {
+    "title": "Anatomy (구성)",
+    "lead": "Password Field를 이루는 필수/선택 요소의 구조를 말합니다.",
+    "example": {
+      "importance": "none",
+      "state": "entered",
+      "invalid": "false",
+      "size": "large",
+      "showLabel": true,
+      "showHelperText": true,
+      "showFocus": true
+    },
+    "parts": [
+      {
+        "n": 1,
+        "name": "Label (Optional)",
+        "layer": "label",
+        "desc": "필드의 이름을 나타내는 텍스트입니다. showLabel을 켜면 표시합니다. 필수 표기는 Field(입력 필드 공통) 문서를 따릅니다."
+      },
+      {
+        "n": 2,
+        "name": "Container",
+        "layer": "inputBox",
+        "desc": "Input Area를 감싸는 상자입니다. 바탕색과 테두리로 상태를 표시합니다."
+      },
+      {
+        "n": 3,
+        "name": "Input Area",
+        "layer": "inputText",
+        "desc": "사용자가 실제 값을 입력하는 영역입니다. 입력 전에는 Placeholder를, 입력 후에는 사용자가 입력한 값을 표시합니다."
+      },
+      {
+        "n": 4,
+        "name": "Placeholder",
+        "layer": "placeholder",
+        "desc": "입력 예시 또는 형식에 대한 안내를 제공하는 보조 텍스트입니다. 입력 시 사라지며, 필수 정보 전달 용도로는 사용하지 않습니다."
+      },
+      {
+        "n": 5,
+        "name": "Visibility Toggle",
+        "layer": "visibilityToggle",
+        "desc": "입력한 비밀번호를 보이거나 가리도록 전환하는 버튼입니다. Password Field에 항상 표시합니다."
+      },
+      {
+        "n": 6,
+        "name": "Helper Text (Optional)",
+        "layer": "helperText",
+        "desc": "필드 아래에 표시하는 안내 문구 또는 오류 메시지입니다. showHelperText를 켜면 표시합니다. 문구 규칙은 Helper Text 문서를 따릅니다."
+      },
+      {
+        "n": 7,
+        "name": "Focus Ring (Optional)",
+        "layer": "focusRing",
+        "desc": "키보드로 포커스를 이동했을 때 Container 바깥에 표시하는 링입니다. showFocus를 켜면 표시합니다. 규격은 Focus Ring 문서를 따릅니다."
+      }
+    ]
+  },
+  "states": {
+    "title": "States (상태)",
+    "lead": "사용자 입력과 시스템의 상황에 따라 컴포넌트의 표현 방식을 정리한 기준입니다.",
+    "defaults": {
+      "importance": "none",
+      "size": "large"
+    },
+    "rows": [
+      {
+        "name": "Default",
+        "props": {
+          "state": "default"
+        },
+        "desc": "조작하지 않은 기본 상태입니다."
+      },
+      {
+        "name": "Hover",
+        "props": {
+          "state": "hover"
+        },
+        "desc": "마우스 커서가 Container 위에 올라간 상태입니다."
+      },
+      {
+        "name": "Focus",
+        "props": {
+          "state": "focus"
+        },
+        "desc": "값을 입력하고 있는 상태입니다. 커서를 표시합니다."
+      },
+      {
+        "name": "Focus Visible",
+        "props": {
+          "state": "default",
+          "showFocus": true
+        },
+        "desc": "키보드로 이동해 Focus Ring을 표시한 상태입니다. 다른 상태 위에 겹쳐 표시합니다."
+      },
+      {
+        "name": "Empty",
+        "props": {
+          "state": "default"
+        },
+        "desc": "값이 없는 상태입니다. Placeholder를 표시합니다."
+      },
+      {
+        "name": "Filled",
+        "props": {
+          "state": "entered"
+        },
+        "desc": "값이 들어 있는 상태입니다. 입력한 값을 가려서 표시합니다."
+      },
+      {
+        "name": "Modified",
+        "props": {
+          "state": "entered",
+          "importance": "attention"
+        },
+        "desc": "기존 값이 변경된 상태입니다. 노란색 바탕으로 표시하며, 정의는 Variants › Importance(Attention)를 따릅니다."
+      },
+      {
+        "name": "ReadOnly",
+        "props": {
+          "state": "readOnly"
+        },
+        "desc": "값은 표시되지만 변경할 수 없는 상태입니다. 필드 안의 Visibility Toggle은 비활성으로 표시합니다."
+      },
+      {
+        "name": "Disabled",
+        "props": {
+          "state": "disabled"
+        },
+        "desc": "사용할 수 없는 상태입니다. 클릭하거나 입력할 수 없으며, 필요하면 비활성 사유를 보조 안내로 제공할 수 있습니다."
+      },
+      {
+        "name": "Validation · None",
+        "props": {
+          "state": "default",
+          "invalid": "false"
+        },
+        "desc": "오류가 없는 기본 상태입니다. 유효성 검사 전후에 동일하게 유지되며, 통과 여부를 따로 표시하지 않습니다."
+      },
+      {
+        "name": "Error",
+        "props": {
+          "state": "entered",
+          "invalid": "true"
+        },
+        "desc": "입력값이 규칙에 맞지 않아 오류를 표시하는 상태입니다. 테두리와 바깥 링을 오류 색으로 표시하고, Helper Text에 원인과 해결 방법을 안내합니다. 오류를 표시하고 해제하는 시점은 Field(입력 필드 공통) 문서를 따릅니다."
+      }
+    ]
+  },
+  "variants": {
+    "title": "Variants (변형)",
+    "lead": "동일한 컴포넌트를 용도와 표현 방식에 따라 구분한 파생 타입입니다.",
+    "groups": [
+      {
+        "title": "Importance",
+        "lead": "입력값의 중요도에 따라 바탕색으로 강조합니다. Importance는 한 번에 하나만 지정하며, Attention과 Required가 모두 해당하면 Required를 고릅니다. ReadOnly에서는 Attention만 강조를 유지하고, Disabled에서는 강조를 표시하지 않습니다.",
+        "rows": [
+          {
+            "name": "None",
+            "props": {
+              "state": "default",
+              "importance": "none"
+            },
+            "desc": "기본 입력 상태입니다. 별도 강조가 필요 없는 일반 입력 항목에 사용합니다."
+          },
+          {
+            "name": "Attention",
+            "props": {
+              "state": "default",
+              "importance": "attention"
+            },
+            "desc": "주요 입력 항목을 노란색 바탕으로 강조합니다. Required보다 한 단계 낮은 강조입니다. 사용자가 입력해 기존 값이 바뀐 항목(Modified)을 표시할 때도 사용합니다."
+          },
+          {
+            "name": "Required",
+            "props": {
+              "state": "default",
+              "importance": "required"
+            },
+            "desc": "필수 필드 스타일입니다. 반드시 입력해야 하는 항목을 주황색 바탕으로 강조합니다. 필수 표기는 Field(입력 필드 공통) 문서를 따릅니다."
+          }
+        ]
+      },
+      {
+        "title": "Size",
+        "lead": "Password Field를 크기별로 구분합니다. Importance × Size는 모든 조합을 사용할 수 있습니다.",
+        "rows": [
+          {
+            "name": "Large",
+            "props": {
+              "size": "large"
+            },
+            "desc": "입력이 화면의 주요 작업인 경우처럼 강조가 필요할 때 사용합니다.(높이 40px)"
+          },
+          {
+            "name": "Medium",
+            "props": {
+              "size": "medium"
+            },
+            "desc": "일반적인 폼 입력에서 사용하는 기본 크기로, 대부분의 입력 상황에 적합합니다.(높이 36px)"
+          },
+          {
+            "name": "Small",
+            "props": {
+              "size": "small"
+            },
+            "desc": "Table, 필터, Toolbar 등 공간이 제한된 영역에서 사용합니다.(높이 28px)"
+          }
+        ]
+      }
+    ]
+  },
   "policy": {
     "title": "Policy (사용 정책)",
     "lead": "비밀번호와 같이 노출되면 안 되는 값을 직접 입력합니다. 입력값은 마스킹 처리합니다.",
@@ -20,9 +241,26 @@
     ],
     "when": {
       "use": [
+        "비밀번호처럼 입력값을 가려야 할 때",
         "비밀번호처럼 화면에 노출되면 안 되는 값을 입력하는 경우"
       ],
       "avoid": [
+        {
+          "text": "정해진 옵션 중 하나를 고를 때",
+          "alt": "Select · Radio"
+        },
+        {
+          "text": "날짜·시간을 입력할 때",
+          "alt": "Date Field"
+        },
+        {
+          "text": "숫자를 일정 단위로 늘리거나 줄일 때",
+          "alt": "Stepper"
+        },
+        {
+          "text": "조회 팝업에서 값을 찾아 넣을 때",
+          "alt": "Lookup Field"
+        },
         {
           "text": "노출되어도 되는 형식 · 길이가 명확한 단일 값",
           "alt": "Text Field"
@@ -30,6 +268,166 @@
       ]
     },
     "rules": [
+      {
+        "name": "State Priority · Text",
+        "desc": "Empty는 Placeholder를, Filled는 입력한 값을 표시합니다(Password Field는 값을 가려서 표시합니다). Disabled는 비활성 색으로 표시합니다.",
+        "from": "Guideline · Text Fields › States › State Priority"
+      },
+      {
+        "name": "State Priority · Icon·Button",
+        "desc": "ReadOnly·Disabled에서는 Visibility Toggle을 비활성 색으로 표시합니다.",
+        "from": "Guideline · Text Fields › States › State Priority"
+      },
+      {
+        "name": "Validation · None",
+        "desc": "오류가 없는 기본 상태는 유효성 검사 전후에 동일하게 유지되며, 통과 여부를 따로 표시하지 않습니다.",
+        "from": "Guideline · Text Fields › States › Validation"
+      },
+      {
+        "name": "크기",
+        "desc": "Large(높이 40px)는 입력이 화면의 주요 작업인 경우처럼 강조가 필요할 때, Medium(36px)은 일반적인 폼 입력의 기본 크기, Small(28px)은 Table·필터·Toolbar 등 공간이 제한된 영역에 씁니다.",
+        "from": "Guideline · Text Fields › Variants › Size"
+      },
+      {
+        "name": "조합",
+        "desc": "Importance × Size는 모든 조합을 사용할 수 있습니다.",
+        "from": "Guideline · Text Fields › Variants › Combination"
+      },
+      {
+        "name": "정보 완결성과 예측 가능성",
+        "desc": "입력·노출되는 데이터는 잘림(Ellipsis)이나 별도 동작(Hover, 클릭 등) 없이 한눈에 확인할 수 있게 합니다. 데이터의 성격(글자 수, 형태)에 맞는 너비를 제공하여 사용자가 입력할 값을 직관적으로 예측할 수 있도록 합니다.",
+        "from": "Guideline · Text Fields › Layout › Principle"
+      },
+      {
+        "name": "최대 너비 제한",
+        "desc": "지나치게 넓은 입력 필드는 시선 이동 거리를 늘려 가독성과 입력 편의성을 떨어뜨립니다. 컨텍스트에 맞는 최대 너비(Maximum Width)를 적용하고, 화면 전체를 가로지르는 무분별한 확장(Stretch)은 지양합니다.",
+        "from": "Guideline · Text Fields › Layout › Principle"
+      },
+      {
+        "name": "너비 · Flexible (가변형)",
+        "desc": "입력 필드가 속한 상위 영역의 너비에 맞춰 100% 확장됩니다. 가독성 저해를 막기 위해 최대 너비(600px~800px 권장)를 설정하고, 콘텐츠 잘림을 방지하기 위해 최소 너비를 반드시 보장합니다.",
+        "from": "Guideline · Text Fields › Layout › Type & Guideline"
+      },
+      {
+        "name": "너비 · Fixed (고정형)",
+        "desc": "입력·노출되는 데이터의 일반적인 길이에 맞춰 크기를 고정합니다. 기본 너비 200px(고객명 등 일반적인 짧은 텍스트의 표준), 최소 너비 120px(한글 약 5자 / 영문 약 8~10자가 잘리지 않는 크기), 최대 너비 400px(기본 너비의 2배)을 적용합니다.",
+        "from": "Guideline · Text Fields › Layout › Type & Guideline"
+      },
+      {
+        "name": "정렬 · Height",
+        "desc": "같은 줄의 Select·Button과 Size(높이)를 맞춥니다.",
+        "from": "Guideline · Text Fields › Layout › Alignment"
+      },
+      {
+        "name": "정렬 · Label",
+        "desc": "같은 화면 안에서 Label 위치(위쪽·왼쪽)를 하나로 통일합니다.",
+        "from": "Guideline · Text Fields › Layout › Alignment"
+      },
+      {
+        "name": "문구 · Label",
+        "desc": "입력할 값의 이름을 명사형으로 씁니다.(예: “고객명”) 필수 표기는 Field(입력 필드 공통) 문서를 따릅니다.",
+        "from": "Guideline · Text Fields › Content › Writing"
+      },
+      {
+        "name": "문구 · Placeholder",
+        "desc": "입력 예시나 형식을 씁니다.(예: “010-0000-0000”) 입력하면 사라지므로 필드 이름이나 필수 정보는 Placeholder에 쓰지 않습니다.",
+        "from": "Guideline · Text Fields › Content › Writing"
+      },
+      {
+        "name": "문구 · Helper Text",
+        "desc": "허용 형식·단위·예시·제약 사항을 안내합니다. 작성 규칙은 Helper Text 문서를 따릅니다.",
+        "from": "Guideline · Text Fields › Content › Writing"
+      },
+      {
+        "name": "문구 · Error Message",
+        "desc": "오류의 원인과 해결 방법을 함께 안내합니다. 작성 규칙은 Helper Text 문서를 따릅니다.",
+        "from": "Guideline · Text Fields › Content › Writing"
+      },
+      {
+        "name": "Importance",
+        "desc": "필수 여부와 입력 강조는 importance 값으로 표현합니다. 필수·입력 권장 여부에 따라 None·Required·Attention 중 하나만 고르며, Attention과 Required가 모두 해당하면 Required를 고릅니다. ReadOnly에서는 Attention만 강조를 유지하고, Disabled에서는 강조를 표시하지 않습니다.",
+        "from": "Guideline · Field Rules › Variants › Importance"
+      },
+      {
+        "name": "State Priority · Label",
+        "desc": "모든 상태에서 같은 모양을 유지합니다. Error·ReadOnly·Disabled에서도 바뀌지 않습니다.",
+        "from": "Guideline · Field Rules › States › State Priority"
+      },
+      {
+        "name": "State Priority · 배경",
+        "desc": "배경은 필드의 성격을 유지해, 어떤 값을 넣어야 하는 필드인지 알 수 있게 합니다. 필드 스타일(None·Required·Attention)의 바탕이 기준입니다. Hover이면 같은 스타일의 한 단계 진한 바탕을 사용하고, Focus·Error이면 기준 바탕을 그대로 유지합니다. ReadOnly이면 읽기 전용 바탕(color/bg/neutral/muted)으로 바뀌며, Attention만 예외로 진한 강조 바탕(color/bg/attention/strong)을 사용합니다. Disabled이면 스타일과 관계없이 비활성 바탕입니다.",
+        "from": "Guideline · Field Rules › States › State Priority"
+      },
+      {
+        "name": "State Priority · 테두리",
+        "desc": "테두리는 지금 일어난 상태를 우선해, 지금 확인하거나 고쳐야 할 것을 알 수 있게 합니다. Error가 있으면 오류 테두리(color/border/danger/strong)가 다른 상태보다 우선합니다. Error가 없으면 Focus는 입력 중 테두리(color/border/neutral/focus)를, Default·Hover는 필드 스타일의 테두리를 사용합니다. ReadOnly·Disabled이면 각 상태의 테두리를 사용하고 Error를 표시하지 않습니다.",
+        "from": "Guideline · Field Rules › States › State Priority"
+      },
+      {
+        "name": "State Priority · 바깥 링",
+        "desc": "Error일 때만 오류 링(color/border/danger/faint)을 표시합니다. 그 밖의 상태와 ReadOnly·Disabled에서는 표시하지 않습니다.",
+        "from": "Guideline · Field Rules › States › State Priority"
+      },
+      {
+        "name": "State Priority · Helper Text",
+        "desc": "Error이면 오류 색(color/fg/danger/strong)과 아이콘으로 오류 메시지를 표시합니다. ReadOnly·Disabled이면 Error여도 기본 스타일을 유지합니다.",
+        "from": "Guideline · Field Rules › States › State Priority"
+      },
+      {
+        "name": "State Priority · Focus Ring",
+        "desc": "Disabled를 포함한 모든 상태 위에 겹쳐 표시합니다. 입력 중 테두리(Focus)와는 별개입니다.",
+        "from": "Guideline · Field Rules › States › State Priority"
+      },
+      {
+        "name": "상태 조합",
+        "desc": "Required·Attention + Error는 바탕(필수·강조)을 유지하고 오류 테두리와 오류 링을 표시합니다. Required + Focus는 필수 배경에 입력 중 테두리, Required + Filled는 필수 배경과 필수 테두리를 유지합니다. Required + ReadOnly는 필수 배경을 해제하고 읽기 전용 배경·테두리를, Attention + ReadOnly는 강조 배경을 한 단계 진하게 유지하고 강조 테두리를 씁니다. Required·Attention + Disabled는 비활성 배경과 비활성 테두리(color/border/neutral/disabled)입니다.",
+        "from": "Guideline · Field Rules › States › State Combination Examples"
+      },
+      {
+        "name": "오류를 표시하지 않는 상태",
+        "desc": "Disabled·ReadOnly에서는 오류를 표시하지 않습니다. 모든 입력 컴포넌트에 적용합니다.",
+        "from": "Guideline · Field Rules › States › Availability"
+      },
+      {
+        "name": "Inline Message",
+        "desc": "오류는 필드 단위로 표시합니다. 오류가 발생한 필드의 테두리(Error Ring)와 바로 아래 Inline Message로, 오류 아이콘과 함께 원인과 해결 방법을 한 문장으로 안내합니다. 색과 테두리만으로는 오류가 전달되지 않으므로 아이콘과 문장을 함께 사용합니다.",
+        "from": "Guideline · Field Rules › Anatomy"
+      },
+      {
+        "name": "표시 시점 · 처음 화면을 열 때",
+        "desc": "필수 스타일(컨트롤 배경)은 바로 보입니다. 오류는 표시하지 않습니다.",
+        "from": "Guideline · Field Rules › Behavior › Display Timing"
+      },
+      {
+        "name": "표시 시점 · 포커스가 나갈 때",
+        "desc": "그 필드의 형식만 검사합니다. 형식에 맞지 않으면 Error Ring과 Inline Message를 표시합니다. 비어 있는 필수 필드는 여기서 지적하지 않고, 제출할 때 표시합니다.",
+        "from": "Guideline · Field Rules › Behavior › Display Timing"
+      },
+      {
+        "name": "표시 시점 · 제출할 때",
+        "desc": "필수·형식·서버 확인 항목을 모두 검사하고, 오류가 있는 필드마다 Error Ring과 Inline Message를 표시합니다. 오류가 2건 이상일 때의 요약(요약 배너·빅 폼의 프리뷰 레일)은 UX 패턴의 폼 유효성 체크를 따릅니다.",
+        "from": "Guideline · Field Rules › Behavior › Display Timing"
+      },
+      {
+        "name": "표시 시점 · 값을 올바르게 고칠 때",
+        "desc": "오류가 표시된 필드는 값이 올바르게 바뀌는 순간 오류를 지웁니다(입력 중 바로 해제). 고친 결과를 바로 확인할 수 있습니다. 오류를 늘리는 판정은 필드를 벗어난 뒤, 줄이는 판정은 입력 즉시 합니다.",
+        "from": "Guideline · Field Rules › Behavior › Display Timing · Clear Timing"
+      },
+      {
+        "name": "필수 표기 · 배경",
+        "desc": "필수 항목은 컨트롤 배경(required 스타일)으로 표시하고, ReadOnly·Disabled 필드는 제외합니다. 바탕색만으로는 필수 여부가 전달되지 않으므로, 개발에서 aria-required=\"true\"를 함께 적용합니다.",
+        "from": "Guideline · Field Rules › Content › Required Mark"
+      },
+      {
+        "name": "필수 표기 · 화면별",
+        "desc": "일반 폼은 컨트롤 배경과 폼 오른쪽 위쪽 범례로 바탕색이 필수라는 뜻을 알립니다. 노드 본문·사이드 패널은 자리가 좁아 범례 없이 컨트롤 배경만 씁니다. 선택 항목은 필수가 배경으로 이미 구분되므로 “(선택)”을 붙이지 않습니다.",
+        "from": "Guideline · Field Rules › Content › Required Mark"
+      },
+      {
+        "name": "Label 없는 영역",
+        "desc": "조회 조건 바처럼 필드마다 Label이 없는 영역에서도 필수는 컨트롤 배경으로 표시합니다. 보이는 이름이 없으므로 Placeholder에 항목명을 입력합니다.",
+        "from": "Guideline · Field Rules › Content › Without Label"
+      },
       {
         "name": "마스킹",
         "desc": "비밀번호와 같이 노출되면 안 되는 값은 마스킹 처리합니다.",
@@ -72,6 +470,13 @@
       }
     ],
     "do": [
+      "입력값을 가려야 하는 비밀번호는 Password Field로 입력받습니다. (입력한 값이 화면에 노출되지 않도록 가려서 표시합니다.)",
+      "Text Field 너비는 놓이는 영역의 너비와 그리드에 맞게 적용합니다. (주소는 가변형으로 영역 너비를 채우고, 주소검색 버튼은 오른쪽에 나란히 배치합니다.)",
+      "Label에 필드 이름을 쓰고, Placeholder에는 입력 예시나 형식을 씁니다. (값을 입력해도 Label이 남아 있어 무엇을 입력하는 칸인지 알 수 있습니다.)",
+      "읽기 전용·비활성 필드는 오류 상태 없이 값만 보여 줍니다. (사용자가 값을 고칠 수 없는 필드라 오류 상태를 두지 않습니다.)",
+      "필수 필드는 오류 테두리가 나와도 필수 배경을 유지합니다. (배경은 필드의 성격을 유지해, 어떤 값을 넣어야 하는 필드인지 계속 알려 줍니다.)",
+      "오류는 아이콘과 Inline Message 문장으로 함께 알립니다. (필드 바로 아래에 오류 원인과 해결 방법을 한 문장으로 안내합니다.)",
+      "필드 안 Placeholder로 항목명을 알리고, 필수 필드는 required 스타일로 표시합니다. (Label이 없어도 무엇을 입력하는 칸인지, 필수인지 알 수 있습니다.)",
       "값이 없는 상태가 존재하는 컴포넌트에는 플레이스홀더를 제공합니다.",
       "오류를 해당 필드 아래에 인라인으로 표시합니다.",
       "메시지에 원인과 해결을 함께 적습니다.",
@@ -79,9 +484,14 @@
       "값이 있는데 틀리면 잠그지 않고 필드 인라인으로 알립니다."
     ],
     "dont": [
-      "입력하는 중에 오류를 표시하지 않습니다.",
-      "플레이스홀더로 필수 안내를 대체하지 않습니다.",
-      "색과 테두리만으로 오류를 전달하지 않습니다."
+      "비밀번호를 Text Field로 입력받지 않습니다. (입력한 값이 화면에 그대로 노출됩니다.)",
+      "영역 너비와 상관없이 Text Field 너비를 임의로 줄이지 않습니다. (주소처럼 긴 값을 입력하는 Text Field를 좁게 두어 내용이 잘리지 않게 합니다.)",
+      "필드 이름이나 필수 여부를 Placeholder에만 쓰지 않습니다. (값을 입력하면 Placeholder가 사라져 무엇을 입력하는 칸인지 알 수 없습니다.)",
+      "읽기 전용·비활성 필드에는 오류를 표시하지 않습니다. (고칠 방법이 없는 오류가 보여 사용자가 혼란을 겪습니다.)",
+      "오류가 나도 배경을 빨강으로 바꾸지 않습니다. (필수·강조 배경이 사라져 어떤 값을 넣어야 하는 필드인지 알 수 없습니다.)",
+      "색과 테두리만으로 오류를 알리지 않습니다. (색과 테두리만으로는 무엇이 잘못됐는지 전달되지 않습니다.)",
+      "Placeholder로 필수 안내를 대체하지 않습니다. (Placeholder는 입력을 시작하면 사라져 필수 여부를 계속 알릴 수 없습니다. 필수는 배경으로 표시합니다.)",
+      "입력하는 중에 오류를 표시하지 않습니다."
     ],
     "related": [
       {
@@ -95,5 +505,8 @@
         "file": "form-big"
       }
     ]
-  }
+  },
+  "notes": [
+    "가이드의 Value › Filled는 컴포넌트 속성 state=entered, Validation › Error는 invalid=true, Modified는 importance=attention(값 입력 상태)에 해당합니다."
+  ]
 }

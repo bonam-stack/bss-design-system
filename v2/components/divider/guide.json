@@ -1,0 +1,136 @@
+{
+  "$description": "BSS Design Guideline v2.0 › Components/Divider에서 옮긴 사용 가이드",
+  "source": {
+    "fileKey": "9aVw18Cj7CzvHE1ljGaM9m",
+    "fileName": "BSS Design Guideline v2.0",
+    "nodeId": "2430:176528",
+    "name": "Components/Divider",
+    "url": "https://www.figma.com/design/9aVw18Cj7CzvHE1ljGaM9m?node-id=2430-176528",
+    "extractedAt": "2026-11-26"
+  },
+  "group": "컨테이너",
+  "overview": "Divider는 콘텐츠 사이를 나눠 정보의 흐름을 명확하게 하는 컴포넌트입니다. 레이아웃 안에서 영역을 시각적으로 분리해 구조를 정돈합니다.",
+  "anatomy": {
+    "title": "Anatomy (구성)",
+    "lead": "Divider를 이루는 필수/선택 요소의 구조를 말합니다.",
+    "example": {
+      "type": "solid",
+      "direction": "horizontal"
+    },
+    "parts": [
+      {
+        "n": 1,
+        "name": "Line",
+        "layer": "line",
+        "desc": "영역을 구분하는 선입니다. 길이는 놓이는 자리에 맞춰 늘어납니다.(두께 1px)"
+      }
+    ]
+  },
+  "variants": {
+    "title": "Variants (변형)",
+    "lead": "동일한 컴포넌트를 용도와 표현 방식에 따라 구분한 파생 타입입니다.",
+    "groups": [
+      {
+        "title": "Type",
+        "lead": "선 모양에 따라 실선(Solid)과 점선(Dashed)으로 구분합니다. 두 모양 모두 가로(Horizontal)·세로(Vertical) 방향으로 제공하며, type과 direction은 모든 조합(4가지)을 사용할 수 있습니다.",
+        "rows": [
+          {
+            "name": "Solid",
+            "props": {
+              "type": "solid",
+              "direction": "horizontal"
+            },
+            "desc": "기본 구분선으로, 명확한 경계가 필요한 경우 사용합니다."
+          },
+          {
+            "name": "Dashed",
+            "props": {
+              "type": "dashed",
+              "direction": "horizontal"
+            },
+            "desc": "부드러운 구분이 필요한 경우 사용합니다. 시각적 부담을 줄이며, 보조적인 분리 또는 약한 위계를 표현할 때 적합합니다."
+          }
+        ]
+      },
+      {
+        "title": "Direction",
+        "lead": "선의 방향에 따라 가로(Horizontal)와 세로(Vertical)로 구분합니다.",
+        "rows": [
+          {
+            "name": "Horizontal",
+            "props": {
+              "type": "solid",
+              "direction": "horizontal"
+            },
+            "desc": "콘텐츠 영역을 위아래로 구분할 때 사용합니다. 섹션 간 흐름을 나누거나 그룹을 구분하는 데 적합합니다."
+          },
+          {
+            "name": "Vertical",
+            "props": {
+              "type": "solid",
+              "direction": "vertical"
+            },
+            "desc": "동일 레벨 내 좌우 영역 또는 인접한 요소 간 경계를 구분할 때 사용합니다. 리스트, 인라인 요소 사이에서 주로 활용합니다."
+          }
+        ]
+      }
+    ]
+  },
+  "policy": {
+    "title": "Policy (사용 정책)",
+    "lead": "Divider는 성격이 다른 영역 사이에만 둡니다. 같은 그룹 안의 항목은 여백으로 묶고, 그룹이 바뀌는 곳에 선을 둡니다. 명확한 경계는 Solid, 보조적인 분리는 Dashed를 씁니다.",
+    "when": {
+      "use": [
+        "성격이 다른 영역 사이를 나눌 때(예: 결제 정보와 고객 정보 사이)",
+        "보조적인 분리나 약한 위계를 표현할 때(Dashed)"
+      ],
+      "avoid": [
+        {
+          "text": "같은 그룹 안의 항목 사이마다 선을 넣을 때 (여백으로 항목을 묶고, 그룹이 바뀌는 곳에만 선을 둡니다)",
+          "alt": "여백(Spacing)"
+        },
+        {
+          "text": "명확한 경계가 필요할 때(Dashed)",
+          "alt": "Solid"
+        }
+      ]
+    },
+    "rules": [
+      {
+        "name": "자리",
+        "desc": "성격이 다른 영역 사이에만 Divider를 사용합니다. 같은 그룹 안의 항목은 여백으로 묶고, 그룹이 바뀌는 곳에 선을 둡니다.",
+        "from": "Guideline · Do & Don't › Usage"
+      },
+      {
+        "name": "Type",
+        "desc": "명확한 경계가 필요하면 Solid(기본 구분선), 부드러운 구분·보조적인 분리·약한 위계에는 Dashed를 씁니다.",
+        "from": "Guideline · Variants › Type"
+      },
+      {
+        "name": "Direction",
+        "desc": "콘텐츠 영역을 위아래로 구분할 때는 Horizontal, 동일 레벨 내 좌우 영역이나 리스트·인라인 요소 사이의 경계에는 Vertical을 씁니다.",
+        "from": "Guideline · Variants › Direction"
+      },
+      {
+        "name": "조합",
+        "desc": "type과 direction은 모든 조합(4가지)을 사용할 수 있습니다.",
+        "from": "Guideline · Variants › Type"
+      },
+      {
+        "name": "두께 · 길이",
+        "desc": "선 두께는 1px입니다. 길이는 놓이는 자리에 맞춰 늘어나며, Horizontal은 너비(Flexible Width), Vertical은 높이(Flexible Height)를 채웁니다.",
+        "from": "Guideline · Anatomy · Spec"
+      }
+    ],
+    "do": [
+      "성격이 다른 영역 사이에만 Divider를 사용합니다. (같은 그룹 안의 항목은 여백으로 묶고, 그룹이 바뀌는 곳에 선을 둡니다.)"
+    ],
+    "dont": [
+      "모든 항목 사이마다 Divider를 넣지 않습니다. (선이 많아지면 화면이 복잡해지고, 실제로 나뉘는 영역이 잘 보이지 않습니다.)"
+    ],
+    "source": {
+      "id": "guideline-divider",
+      "title": "BSS Design Guideline v2.0 · Divider"
+    }
+  }
+}
