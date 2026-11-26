@@ -184,10 +184,7 @@ export function App() {
           </button>
           <a href="#overview" className="brand">
             <span className="brand-mark" aria-hidden="true" />
-            BSS Design <span className="brand-gen" title="포털 2세대 (거버넌스 제외)">v2</span>
-          </a>
-          <a href="#updates" className="brand-ver" title={`게시 버전 v${P.version()} · UX 패턴 가이드 ${P.catalogMeta().uxGuide} · 업데이트 내역 보기`}>
-            v{P.version()}
+            BSS Design
           </a>
           <nav className="top-nav" aria-label="섹션">
             <TopNav route={route} />
