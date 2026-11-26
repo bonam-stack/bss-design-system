@@ -1,6 +1,6 @@
 {
-  "$description": "왼쪽 메뉴 · 페이지 제목의 new / updated 표시. 컴포넌트 · 블록을 추가하거나 고치면 여기에 한 줄 더한다(같은 code면 고친다). at부터 days일 동안 표시한다.",
-  "days": 14,
+  "$description": "왼쪽 메뉴 · 페이지 제목의 new / updated 표시. 컴포넌트 · 블록을 추가하거나 고치면 여기에 한 줄 더한다(같은 code면 고친다). at부터 days일(지금 1일) 동안 표시한다.",
+  "days": 1,
   "items": [
     {
       "code": "c-switch",
