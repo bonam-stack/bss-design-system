@@ -90,10 +90,11 @@ export function useInteraction() {
 }
 
 /** 키보드 포커스 링 (Figma _FocusRing): 부모는 position: relative */
-export function FocusRing({ radius, style }: { radius: string; style?: CSSProperties }) {
+export function FocusRing({ radius, style, className }: { radius: string; style?: CSSProperties; className?: string }) {
   return (
     <span
       aria-hidden="true"
+      className={className}
       style={{
         position: 'absolute',
         inset: -2,

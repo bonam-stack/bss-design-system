@@ -73,7 +73,7 @@ export function findVariant(c: ComponentData, want: Record<string, string>, must
 export const propsFor = (c: ComponentData, want: Record<string, string>, base: Record<string, string> = {}) => ({ ...defaultSelection(c), ...base, ...want });
 
 /** 모든 속성이 정확히 맞는 변형 (없으면 null) */
-export const variantOf = (c: ComponentData, props: Record<string, string>) => c.variants.find((v) => Object.entries(props).every(([k, val]) => v.props[k] === val)) || null;
+export const variantOf = (c: ComponentData, props: Record<string, string>) => c.variants.find((v) => Object.entries(props).every(([k, val]) => !(k in v.props) || v.props[k] === val)) || null;
 
 /** 앞에서 고른 속성들과 함께 있을 수 있는 선택지 */
 export function optionsFor(c: ComponentData, p: PropDef, sel: Record<string, string>): string[] {

@@ -774,7 +774,7 @@ function Example({ sc, props, zoom, slotRef }: { sc: SiteComponent; props: Sel; 
   if (!variantOf(sc.data, props)) return <span className="error">변형 없음</span>;
   return (
     <span className={`gd-slot${zoom ? ' gd-zoom' : ''}`} ref={slotRef}>
-      <Render interactive={false} sel={props} />
+      <Render interactive={false} sel={props} extra={Object.fromEntries(Object.entries(props).filter(([, v]) => typeof v === 'boolean'))} />
     </span>
   );
 }

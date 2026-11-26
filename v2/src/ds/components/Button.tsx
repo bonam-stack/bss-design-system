@@ -61,9 +61,9 @@ export function Button({ type = 'square', variants = 'primary', size = 'xlarge',
     ring = type === 'square' ? tok(`${pre}-focus-ring-radius`) : tok(`${pre}-focus-ring-radius`);
     content = (
       <>
-        {showLeadingIcon ? <Icon name={leadingIcon} size={tok(`${pre}-icon-size`)} /> : null}
-        <span style={{ ...TEXT[sz as keyof typeof TEXT], whiteSpace: 'nowrap', textAlign: 'center' }}>{label}</span>
-        {showTrailingIcon ? <Icon name={trailingIcon} size={tok(`${pre}-icon-size`)} /> : null}
+        {showLeadingIcon ? <span className="ds-button__iconslot" style={{ display: 'inline-flex' }}><Icon name={leadingIcon} size={tok(`${pre}-icon-size`)} /></span> : null}
+        <span className="ds-button__label" style={{ ...TEXT[sz as keyof typeof TEXT], whiteSpace: 'nowrap', textAlign: 'center' }}>{label}</span>
+        {showTrailingIcon ? <span className="ds-button__trailing" style={{ display: 'inline-flex' }}><Icon name={trailingIcon} size={tok(`${pre}-icon-size`)} /></span> : null}
       </>
     );
   } else if (type === 'icon' || type === 'iconPlain') {
@@ -90,12 +90,12 @@ export function Button({ type = 'square', variants = 'primary', size = 'xlarge',
     box = { gap: tok('button-text-space-gap'), minHeight: tok('font-label-14-400-line-height'), background: tok('button-text-color-bg-default'), color: fg };
     content = (
       <>
-        {showLeadingIcon ? <Icon name={leadingIcon} size={tok('button-text-icon-size')} /> : null}
+        {showLeadingIcon ? <span className="ds-button__iconslot" style={{ display: 'inline-flex' }}><Icon name={leadingIcon} size={tok('button-text-icon-size')} /></span> : null}
         <span style={{ position: 'relative', display: 'flex', alignItems: 'center', minHeight: tok('font-label-14-400-line-height') }}>
-          <span style={{ ...font('label', 14, 400), whiteSpace: 'nowrap' }}>{label}</span>
-          {showUnderline ? <span style={{ position: 'absolute', left: 0, right: 0, bottom: 0, height: tok('border-width-1'), background: fg }} /> : null}
+          <span className="ds-button__label" style={{ ...font('label', 14, 400), whiteSpace: 'nowrap' }}>{label}</span>
+          {showUnderline ? <span className="ds-button__underline" style={{ position: 'absolute', left: 0, right: 0, bottom: 0, height: tok('border-width-1'), background: fg }} /> : null}
         </span>
-        {showTrailingIcon ? <Icon name={trailingIcon} size={tok('button-text-icon-size')} /> : null}
+        {showTrailingIcon ? <span className="ds-button__trailing" style={{ display: 'inline-flex' }}><Icon name={trailingIcon} size={tok('button-text-icon-size')} /></span> : null}
       </>
     );
   }
@@ -106,7 +106,7 @@ export function Button({ type = 'square', variants = 'primary', size = 'xlarge',
       type={htmlType}
       disabled={off}
       aria-label={type === 'icon' || type === 'iconPlain' ? label : rest['aria-label']}
-      className={className}
+      className={['ds-button__root', className].filter(Boolean).join(' ')}
       {...it.pointer}
       {...it.focus}
       style={{
@@ -127,7 +127,7 @@ export function Button({ type = 'square', variants = 'primary', size = 'xlarge',
       }}
     >
       {content}
-      {showFocus || it.focusVisible ? <FocusRing radius={ring} /> : null}
+      {showFocus || it.focusVisible ? <FocusRing radius={ring} className="ds-button__focusring" /> : null}
     </button>
   );
 }
