@@ -1,12 +1,13 @@
 // Calendar: 날짜(단일) 또는 기간(시작 · 종료)을 달력에서 고른다. 날짜 칸은 방향키로 옮기고 Enter · Space로 고른다.
 // Figma: BSS_DS_Library_Component_v2.0 ❖ Date Field / Date Picker › Calendar (5711:17631) · selectionMode 2, showTime · monthLabel
 //        부품 _Item/Calendar/Date (5711:17035) · Day (5711:17595) · Time (5711:17608) · ButtonGroup (5711:17623), 빠른 기간 선택은 FilterChip small
-// 토큰: DS 컴포넌트 명세 calendar (calendar-*). 월 이동은 Button(icon · base · small), 시간 칸은 select-small-* · field-*, 아래 버튼은 Button(square · medium)
+// 토큰: DS 컴포넌트 명세 calendar (calendar-*). 월 이동은 Button(icon · base · small), 시간 칸은 Select(small) 컴포넌트, 아래 버튼은 Button(square · medium)
 import { useEffect, useRef, useState } from 'react';
 import type { CSSProperties, KeyboardEvent } from 'react';
 import { Button } from './Button';
 import { FilterChip } from './FilterChip';
-import { FocusRing, Icon, textStyle, tok, tokState, useInteraction } from '../shared';
+import { Select } from './Select';
+import { FocusRing, textStyle, tok, tokState } from '../shared';
 
 export type CalendarSelectionMode = 'single' | 'range';
 
@@ -71,50 +72,11 @@ const SHORTCUTS: { label: string; range: (t: Date) => [Date, Date] }[] = [
   { label: '이번달', range: (t) => [new Date(t.getFullYear(), t.getMonth(), 1), new Date(t.getFullYear(), t.getMonth() + 1, 0)] },
 ];
 
-/** _Item/Calendar/Time 안 시 · 분 · 초 칸 (Select small 모양) */
+/** _Item/Calendar/Time 안 시 · 분 · 초 칸: Select(small) 컴포넌트, 셋이 한 줄에 들어가게 최소 너비 없이 */
 function TimeSelect({ value, options, label, onChange }: { value: string; options: string[]; label: string; onChange: (v: string) => void }) {
-  const it = useInteraction();
-  const look = it.focused ? 'focus' : it.hover ? 'hover' : 'default';
   return (
-    <span {...it.pointer} style={{ position: 'relative', flex: '1 1 0', minWidth: 0, display: 'flex' }}>
-      <select
-        aria-label={label}
-        value={value}
-        onChange={(e) => onChange(e.target.value)}
-        {...it.focus}
-        style={{
-          appearance: 'none',
-          WebkitAppearance: 'none',
-          width: '100%',
-          minWidth: 0,
-          boxSizing: 'border-box',
-          margin: 0,
-          height: tok('select-small-size-height'),
-          padding: `0 ${tok('select-small-space-padding-end')} 0 ${tok('select-small-space-padding-start')}`,
-          border: 0,
-          outline: 'none',
-          borderRadius: tok('select-radius'),
-          background: tokState('field-color-bg', look),
-          boxShadow: `inset 0 0 0 ${tok('select-border-width')} ${tokState('field-color-border', look)}`,
-          ...textStyle('font-label-14-400'),
-          fontVariantNumeric: 'tabular-nums',
-          color: value ? tok('field-color-fg-default') : tok('field-placeholder-color-fg-default'),
-          cursor: 'pointer',
-        }}
-      >
-        <option value="" disabled hidden>
-          00
-        </option>
-        {options.map((o) => (
-          <option key={o} value={o}>
-            {o}
-          </option>
-        ))}
-      </select>
-      <span style={{ position: 'absolute', top: 0, bottom: 0, right: tok('select-small-space-padding-end'), display: 'flex', alignItems: 'center', pointerEvents: 'none' }}>
-        <Icon name="line/chevron-down" size={tok('select-small-icon-size')} color={tok('button-icon-only-plain-color-fg-default')} />
-      </span>
-      {it.focusVisible ? <FocusRing radius={tok('select-small-focus-ring-radius')} /> : null}
+    <span style={{ flex: '1 1 0', minWidth: 0, display: 'flex' }}>
+      <Select aria-label={label} size="small" width="100%" minWidth={0} placeholder="00" value={value} options={options} onChange={onChange} />
     </span>
   );
 }

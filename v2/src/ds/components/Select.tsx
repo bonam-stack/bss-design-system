@@ -37,14 +37,16 @@ export interface SelectProps extends Omit<ButtonHTMLAttributes<HTMLButtonElement
   /** 옵션이 목록 높이를 넘으면 스크롤 (끄면 옵션을 모두 펼친다) */
   showScrollbar?: boolean;
   showFocus?: boolean;
-  /** 칸 폭 (기본 Figma 200) */
+  /** 칸 폭 (기본 Figma 200). '100%'면 놓인 자리를 채운다 */
   width?: number | string;
+  /** 칸 최소 너비 (기본 120). 시간 칸처럼 좁은 자리에서는 0으로 줄인다 */
+  minWidth?: number | string;
 }
 
 const TEXT = { large: textStyle('font-label-16-400'), medium: textStyle('font-label-15-400'), small: textStyle('font-label-14-400') };
 const norm = (o: string | SelectOption): SelectOption => (typeof o === 'string' ? { value: o } : o);
 
-export function Select({ value, defaultValue = '', onChange, options = ['Option 1', 'Option 2', 'Option 3'], size = 'large', importance = 'none', invalid, state, readOnly, label = 'Label', showLabel = false, placeholder = 'Placeholder', helperText = 'HelperText', showHelperText = false, showScrollbar = true, showFocus = false, width = 200, disabled, id, className, style, onKeyDown, onClick, ...rest }: SelectProps) {
+export function Select({ value, defaultValue = '', onChange, options = ['Option 1', 'Option 2', 'Option 3'], size = 'large', importance = 'none', invalid, state, readOnly, label = 'Label', showLabel = false, placeholder = 'Placeholder', helperText = 'HelperText', showHelperText = false, showScrollbar = true, showFocus = false, width = 200, minWidth, disabled, id, className, style, onKeyDown, onClick, ...rest }: SelectProps) {
   const auto = useId();
   const fid = id ?? auto;
   const [inner, setInner] = useState(defaultValue);
@@ -116,11 +118,12 @@ export function Select({ value, defaultValue = '', onChange, options = ['Option 
   const maxHeight = `calc(${tok(`select-${size}-option-size-height`)} * 7 + ${tok('select-list-space-padding-y')})`;
 
   return (
-    <div ref={root} style={{ display: 'inline-flex', position: 'relative' }}>
+    <div ref={root} style={{ display: 'inline-flex', position: 'relative', ...(typeof width === 'string' && width.endsWith('%') ? { width, minWidth: 0 } : null) }}>
       <FieldFrame
         name="select"
         id={fid}
         width={width}
+        minWidth={minWidth}
         label={label}
         showLabel={showLabel}
         importance={importance}

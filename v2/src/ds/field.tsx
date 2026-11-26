@@ -55,6 +55,8 @@ export function FieldFrame(p: {
   name: string;
   id: string;
   width: number | string;
+  /** 최소 너비 (기본: 예시 레이아웃 120 = size-40 × 3). 좁은 자리에 넣을 때 0 등으로 줄인다 */
+  minWidth?: number | string;
   label?: string;
   showLabel: boolean;
   importance: Importance;
@@ -72,7 +74,7 @@ export function FieldFrame(p: {
 }) {
   const helperError = p.invalid && ['default', 'hover', 'focus', 'entered'].includes(p.look);
   return (
-    <div className={p.className} style={{ display: 'inline-flex', flexDirection: 'column', gap: tok(`${p.name}-label-space-gap`), width: p.width, minWidth: 120 /* 예시 최소 너비 (레이아웃) */, ...p.style }}>
+    <div className={p.className} style={{ display: 'inline-flex', flexDirection: 'column', gap: tok(`${p.name}-label-space-gap`), width: p.width, minWidth: p.minWidth ?? `calc(${tok('size-40')} * 3)`, ...p.style }}>
       {p.showLabel && p.label ? (
         <FieldLabel htmlFor={p.id} importance={p.importance}>
           {p.label}
