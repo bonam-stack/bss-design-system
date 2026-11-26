@@ -1,0 +1,59 @@
+{
+  "schemaVersion": 2,
+  "key": "table-cell",
+  "name": "TableCell",
+  "description": "입력·조회 표(Table)의 본문 칸입니다. content 슬롯에 글자·입력·선택·배지·버튼 등을 넣으며, 추천 아이템 Item/TableCell/Text는 textType 2종(plain·bullet)입니다. 최소 높이 56, 상태 변형이 없습니다.",
+  "figma": {
+    "fileKey": "WcoI745J38TaON7iCKcutW",
+    "nodeId": "5220:1324",
+    "url": "https://www.figma.com/design/WcoI745J38TaON7iCKcutW?node-id=5220-1324",
+    "page": {
+      "nodeId": "2529:14980",
+      "name": "❖ Table"
+    },
+    "type": "COMPONENT",
+    "componentKey": null,
+    "extractedAt": "2026-11-26",
+    "source": "DS 컴포넌트 구조 명세 (토큰 v2.0.4)"
+  },
+  "ds": {
+    "specs": [
+      "table-formCell"
+    ],
+    "structure": "48. TableCell · 49. Item/TableCell/Text"
+  },
+  "props": [
+    {
+      "name": "content",
+      "figmaName": "content#16469:15",
+      "type": "slot",
+      "default": null,
+      "preferredValues": [
+        {
+          "type": "COMPONENT_SET",
+          "key": "22d332e88ee6ba0e2998acaea5422b028164f396"
+        }
+      ]
+    },
+    {
+      "name": "text",
+      "figmaName": "Item/TableCell/Text › text#4851:0",
+      "type": "text",
+      "default": "Text"
+    },
+    {
+      "name": "textType",
+      "figmaName": "Item/TableCell/Text › type",
+      "type": "variant",
+      "default": "plain",
+      "options": [
+        "plain",
+        "bullet"
+      ]
+    }
+  ],
+  "variants": [],
+  "tokens": [],
+  "textStyles": [],
+  "otherStyles": []
+}

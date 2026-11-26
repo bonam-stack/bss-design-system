@@ -1,0 +1,82 @@
+{
+  "schemaVersion": 2,
+  "key": "grid-header",
+  "name": "GridHeader",
+  "description": "데이터 그리드(Data Grid)의 머리 칸입니다. content 2종(text 열 제목·checkbox 전체 선택) × align 3종(left·center·right, checkbox는 center), 변형 4개입니다. 정렬·안내 아이콘 버튼과 앞·뒤 여백을 Boolean으로 켜고 끕니다. 최소 높이 40.",
+  "figma": {
+    "fileKey": "WcoI745J38TaON7iCKcutW",
+    "nodeId": "9264:9962",
+    "url": "https://www.figma.com/design/WcoI745J38TaON7iCKcutW?node-id=9264-9962",
+    "page": {
+      "nodeId": "12113:88576",
+      "name": "❖ Data Grid"
+    },
+    "type": "COMPONENT_SET",
+    "componentKey": null,
+    "extractedAt": "2026-11-26",
+    "source": "DS 컴포넌트 구조 명세 (토큰 v2.0.4)"
+  },
+  "ds": {
+    "specs": [
+      "table-gridHeader"
+    ],
+    "structure": "44. GridHeader"
+  },
+  "props": [
+    {
+      "name": "showSort",
+      "figmaName": "showSort#4648:1",
+      "type": "boolean",
+      "default": true
+    },
+    {
+      "name": "showLeadingSpace",
+      "figmaName": "showLeadingSpace#9270:0",
+      "type": "boolean",
+      "default": false
+    },
+    {
+      "name": "showTrailingSpace",
+      "figmaName": "showTrailingSpace#9270:5",
+      "type": "boolean",
+      "default": false
+    },
+    {
+      "name": "showInfo",
+      "figmaName": "showInfo#11969:0",
+      "type": "boolean",
+      "default": false
+    },
+    {
+      "name": "label",
+      "figmaName": "label#16636:0",
+      "type": "text",
+      "default": "Header"
+    },
+    {
+      "name": "content",
+      "figmaName": "content",
+      "type": "variant",
+      "default": "text",
+      "options": [
+        "text",
+        "checkbox"
+      ]
+    },
+    {
+      "name": "align",
+      "figmaName": "align",
+      "type": "variant",
+      "default": "left",
+      "options": [
+        "left",
+        "center",
+        "right"
+      ]
+    }
+  ],
+  "variants": [],
+  "tokens": [],
+  "textStyles": [],
+  "otherStyles": []
+}

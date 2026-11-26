@@ -1,0 +1,49 @@
+{
+  "schemaVersion": 2,
+  "key": "data-item",
+  "name": "DataItem",
+  "description": "레이블과 값을 한 쌍으로 보여 주는 읽기 전용 데이터 항목입니다. 레이블(label 14/400 회색)과 값(label 14/600) 사이 간격 12, showValue로 값을 켜고 끕니다. 변형이 없습니다.",
+  "figma": {
+    "fileKey": "WcoI745J38TaON7iCKcutW",
+    "nodeId": "8466:1835",
+    "url": "https://www.figma.com/design/WcoI745J38TaON7iCKcutW?node-id=8466-1835",
+    "page": {
+      "nodeId": "7324:558",
+      "name": "❖ List"
+    },
+    "type": "COMPONENT",
+    "componentKey": null,
+    "extractedAt": "2026-11-26",
+    "source": "DS 컴포넌트 구조 명세 (토큰 v2.0.4)"
+  },
+  "ds": {
+    "specs": [
+      "dataItem"
+    ],
+    "structure": "69. DataItem"
+  },
+  "props": [
+    {
+      "name": "showValue",
+      "figmaName": "showValue#8879:2",
+      "type": "boolean",
+      "default": true
+    },
+    {
+      "name": "value",
+      "figmaName": "value#9580:20",
+      "type": "text",
+      "default": "Text"
+    },
+    {
+      "name": "label",
+      "figmaName": "label#13890:0",
+      "type": "text",
+      "default": "Label"
+    }
+  ],
+  "variants": [],
+  "tokens": [],
+  "textStyles": [],
+  "otherStyles": []
+}

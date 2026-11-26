@@ -1,0 +1,105 @@
+{
+  "$description": "BSS Design Guideline v2.0 › Components/Table에서 옮긴 사용 가이드 (TableCell 부분)",
+  "source": {
+    "fileKey": "9aVw18Cj7CzvHE1ljGaM9m",
+    "fileName": "BSS Design Guideline v2.0",
+    "nodeId": "2430:97845",
+    "name": "Components/Table",
+    "url": "https://www.figma.com/design/9aVw18Cj7CzvHE1ljGaM9m?node-id=2430-97845",
+    "extractedAt": "2026-11-26"
+  },
+  "group": "테이블",
+  "overview": "Table은 항목명과 값을 좌우로 배치해 한 건의 정보를 입력하거나 확인하는 컴포넌트입니다. 입력 화면에서는 셀에 입력·선택 컴포넌트를 담고, 상세 화면에서는 값을 읽기 전용으로 표시합니다. TableCell은 Header에 해당하는 값을 표시하는 본문 칸입니다.",
+  "anatomy": {
+    "title": "Anatomy (구성)",
+    "lead": "TableCell를 이루는 필수/선택 요소의 구조를 말합니다.",
+    "example": {
+      "text": "010-12**-5***",
+      "textType": "plain"
+    },
+    "parts": [
+      {
+        "n": 1,
+        "name": "Cell",
+        "layer": "root",
+        "desc": "Header에 해당하는 값을 표시하는 영역(TableCell)입니다. content 슬롯에 텍스트, 버튼, 입력 컴포넌트 등을 넣습니다."
+      },
+      {
+        "n": 2,
+        "name": "Contents Area",
+        "layer": "content",
+        "desc": "content 슬롯 자리입니다. 추천 아이템 Item/TableCell/Text 등을 넣으며 너비는 가변입니다."
+      }
+    ]
+  },
+  "variants": {
+    "title": "Variants (변형)",
+    "lead": "동일한 컴포넌트를 용도와 표현 방식에 따라 구분한 파생 타입입니다.",
+    "groups": [
+      {
+        "title": "Type·Cell Text",
+        "lead": "셀 텍스트(Item/TableCell/Text)의 type으로 표시 형태를 고릅니다.",
+        "rows": [
+          {
+            "name": "Plain",
+            "props": {
+              "textType": "plain",
+              "text": "Text"
+            },
+            "desc": "텍스트, 숫자, 금액 등 일반 데이터를 표시합니다."
+          },
+          {
+            "name": "Bullet",
+            "props": {
+              "textType": "bullet",
+              "text": "Text"
+            },
+            "desc": "여러 항목을 나열할 때 앞에 점을 붙여 목록 형태로 표시합니다."
+          }
+        ]
+      }
+    ]
+  },
+  "policy": {
+    "title": "Policy (사용 정책)",
+    "lead": "Table에서 Header에 해당하는 값을 표시하거나 입력받는 칸입니다.",
+    "when": {
+      "use": [
+        "한 건의 정보를 입력하거나 확인할 때 (예: 고객 정보 등록, 가입 상세 조회)"
+      ],
+      "avoid": [
+        {
+          "text": "여러 건의 데이터를 다룰 때",
+          "alt": "Data Grid"
+        }
+      ]
+    },
+    "rules": [
+      {
+        "name": "Content",
+        "desc": "TableCell의 content 슬롯에 넣는 콘텐츠에 따라 구분합니다. content 슬롯에는 Text(텍스트·숫자·금액), Selection(Radio·Checkbox), Badge(Basic·Dot Badge), Button, Tag(Keyword Tag), Text Field(Text Field·Select·Date Field)를 넣을 수 있습니다.",
+        "from": "Guideline · Variants"
+      },
+      {
+        "name": "상태",
+        "desc": "TableCell은 상태 변형이 없습니다. 상태는 안에 넣은 입력·선택 컴포넌트가 표시합니다.",
+        "from": "DS 컴포넌트 구조 명세"
+      },
+      {
+        "name": "규격",
+        "desc": "좌우·상하 여백 12, 최소 높이 56, 콘텐츠 영역 너비는 가변입니다.",
+        "from": "Guideline · Spec"
+      }
+    ],
+    "do": [
+      "한 건의 정보는 항목과 값을 짝지어 Table로 표시합니다. (고객 정보 등록, 가입 상세 조회처럼 한 건을 입력하거나 확인하는 화면에 사용합니다.)"
+    ],
+    "dont": [
+      "Header에 설명 문장을 넣지 않습니다. (Header는 짧은 항목 이름으로 쓰고, 추가 설명은 secondLabel이나 Info Button으로 안내합니다.)"
+    ],
+    "source": {
+      "id": "guideline-table-cell",
+      "title": "BSS Design Guideline v2.0 · Table"
+    }
+  }
+}

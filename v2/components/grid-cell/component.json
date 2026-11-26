@@ -1,0 +1,118 @@
+{
+  "schemaVersion": 2,
+  "key": "grid-cell",
+  "name": "GridCell",
+  "description": "데이터 그리드(Data Grid)의 본문 칸입니다. importance 2종(none·attention) × state 4종(default·hover·selected·disabled) × invalid 2종으로 바탕색만 바뀌며, content 슬롯에 글자·배지·입력 등을 넣습니다. 추천 아이템 Item/GridCell/Text는 textType 2종(plain·bullet)입니다. 최소 높이 40.",
+  "figma": {
+    "fileKey": "WcoI745J38TaON7iCKcutW",
+    "nodeId": "9264:10041",
+    "url": "https://www.figma.com/design/WcoI745J38TaON7iCKcutW?node-id=9264-10041",
+    "page": {
+      "nodeId": "12113:88576",
+      "name": "❖ Data Grid"
+    },
+    "type": "COMPONENT_SET",
+    "componentKey": null,
+    "extractedAt": "2026-11-26",
+    "source": "DS 컴포넌트 구조 명세 (토큰 v2.0.4)"
+  },
+  "ds": {
+    "specs": [
+      "table-gridCell"
+    ],
+    "structure": "46. GridCell · 47. Item/GridCell/Text"
+  },
+  "props": [
+    {
+      "name": "showLeadingSpace",
+      "figmaName": "showLeadingSpace#9268:0",
+      "type": "boolean",
+      "default": false
+    },
+    {
+      "name": "showTrailingSpace",
+      "figmaName": "showTrailingSpace#9268:7",
+      "type": "boolean",
+      "default": false
+    },
+    {
+      "name": "content",
+      "figmaName": "content#9429:19",
+      "type": "slot",
+      "default": null,
+      "preferredValues": [
+        {
+          "type": "COMPONENT_SET",
+          "key": "458b078c1b799b9c3c07b07a55588c8b1d97fcee"
+        },
+        {
+          "type": "COMPONENT_SET",
+          "key": "198b0a15a30b61ffd1057609bfdd2816a4933259"
+        }
+      ]
+    },
+    {
+      "name": "text",
+      "figmaName": "Item/GridCell/Text › text#4851:0",
+      "type": "text",
+      "default": "Text"
+    },
+    {
+      "name": "textType",
+      "figmaName": "Item/GridCell/Text › type",
+      "type": "variant",
+      "default": "plain",
+      "options": [
+        "plain",
+        "bullet"
+      ]
+    },
+    {
+      "name": "align",
+      "figmaName": "align",
+      "type": "variant",
+      "default": "left",
+      "options": [
+        "left",
+        "center",
+        "right"
+      ]
+    },
+    {
+      "name": "importance",
+      "figmaName": "importance",
+      "type": "variant",
+      "default": "none",
+      "options": [
+        "none",
+        "attention"
+      ]
+    },
+    {
+      "name": "state",
+      "figmaName": "state",
+      "type": "variant",
+      "default": "default",
+      "options": [
+        "default",
+        "hover",
+        "selected",
+        "disabled"
+      ]
+    },
+    {
+      "name": "invalid",
+      "figmaName": "invalid",
+      "type": "variant",
+      "default": "false",
+      "options": [
+        "false",
+        "true"
+      ]
+    }
+  ],
+  "variants": [],
+  "tokens": [],
+  "textStyles": [],
+  "otherStyles": []
+}

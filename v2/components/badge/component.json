@@ -1,0 +1,121 @@
+{
+  "schemaVersion": 2,
+  "key": "badge",
+  "name": "Badge",
+  "description": "상태·속성·개수처럼 바뀌는 정보를 짧게 강조합니다. type 4종(basic 옅은 바탕 글자·dot 색 점+글자·notification 새 소식 N/점·count 숫자) × tone 7종(highlight·info·success·danger·warning·attention·neutral, notification은 danger, count는 highlight·neutral). count만 size 3종(large 20·medium 18·small 16) · emphasis 2종(strong·subtle) · state 2종(default·disabled)을 고르고, 나머지는 fixed 크기입니다. basic은 showLeadingIcon으로 앞 아이콘을 표시합니다.",
+  "figma": {
+    "fileKey": "WcoI745J38TaON7iCKcutW",
+    "nodeId": "7261:300",
+    "url": "https://www.figma.com/design/WcoI745J38TaON7iCKcutW?node-id=7261-300",
+    "page": {
+      "nodeId": "2657:35685",
+      "name": "❖ Badge"
+    },
+    "type": "COMPONENT_SET",
+    "componentKey": null,
+    "extractedAt": "2026-11-26",
+    "source": "DS 컴포넌트 구조 명세 (토큰 v2.0.4)"
+  },
+  "ds": {
+    "specs": [
+      "badge-basic",
+      "badge-dotted",
+      "badge-notification",
+      "badge-counter"
+    ],
+    "structure": "40. Badge (type=basic) · 41. Badge (type=dot) · 42. Badge (type=notification) · 43. Badge (type=count)"
+  },
+  "props": [
+    {
+      "name": "showLeadingIcon",
+      "figmaName": "showLeadingIcon#7277:10",
+      "type": "boolean",
+      "default": false
+    },
+    {
+      "name": "label",
+      "figmaName": "label#7277:0",
+      "type": "text",
+      "default": "Badge"
+    },
+    {
+      "name": "count",
+      "figmaName": "count#7277:5",
+      "type": "text",
+      "default": "0"
+    },
+    {
+      "name": "type",
+      "figmaName": "type",
+      "type": "variant",
+      "default": "basic",
+      "options": [
+        "basic",
+        "dot",
+        "notification",
+        "count"
+      ]
+    },
+    {
+      "name": "tone",
+      "figmaName": "tone",
+      "type": "variant",
+      "default": "highlight",
+      "options": [
+        "highlight",
+        "info",
+        "success",
+        "danger",
+        "warning",
+        "attention",
+        "neutral"
+      ]
+    },
+    {
+      "name": "size",
+      "figmaName": "size",
+      "type": "variant",
+      "default": "fixed",
+      "options": [
+        "large",
+        "medium",
+        "small",
+        "fixed"
+      ]
+    },
+    {
+      "name": "state",
+      "figmaName": "state",
+      "type": "variant",
+      "default": "default",
+      "options": [
+        "default",
+        "disabled"
+      ]
+    },
+    {
+      "name": "emphasis",
+      "figmaName": "emphasis",
+      "type": "variant",
+      "default": "strong",
+      "options": [
+        "strong",
+        "subtle"
+      ]
+    },
+    {
+      "name": "indicator",
+      "figmaName": "indicator",
+      "type": "variant",
+      "default": "new",
+      "options": [
+        "new",
+        "dot"
+      ]
+    }
+  ],
+  "variants": [],
+  "tokens": [],
+  "textStyles": [],
+  "otherStyles": []
+}

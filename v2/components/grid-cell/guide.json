@@ -1,0 +1,178 @@
+{
+  "$description": "BSS Design Guideline v2.0 › Components/Data Grid에서 옮긴 사용 가이드 (GridCell 부분)",
+  "source": {
+    "fileKey": "9aVw18Cj7CzvHE1ljGaM9m",
+    "fileName": "BSS Design Guideline v2.0",
+    "nodeId": "2430:98179",
+    "name": "Components/Data Grid",
+    "url": "https://www.figma.com/design/9aVw18Cj7CzvHE1ljGaM9m?node-id=2430-98179",
+    "extractedAt": "2026-11-26"
+  },
+  "group": "테이블",
+  "overview": "Data Grid는 여러 건의 데이터를 행 단위로 나열해 편집·조작·가공하는 컴포넌트입니다. 행 선택, 열 정렬, 셀 안 컴포넌트를 통한 편집, 행 추가·삭제를 지원합니다. GridCell은 각 데이터를 표시하는 최소 단위로, 행(Row) 단위로 반복됩니다.",
+  "anatomy": {
+    "title": "Anatomy (구성)",
+    "lead": "GridCell를 이루는 필수/선택 요소의 구조를 말합니다.",
+    "example": {
+      "text": "Text",
+      "textType": "plain",
+      "state": "default"
+    },
+    "parts": [
+      {
+        "n": 1,
+        "name": "Cell",
+        "layer": "root",
+        "desc": "각 데이터를 표시하는 최소 단위(GridCell)로, 행(Row) 단위로 반복됩니다. content 슬롯에 텍스트, 버튼, 입력 컴포넌트 등을 넣습니다."
+      },
+      {
+        "n": 2,
+        "name": "Contents Area",
+        "layer": "content",
+        "desc": "content 슬롯 자리입니다. 추천 아이템 Item/GridCell/Text 등을 넣으며 너비는 가변입니다."
+      },
+      {
+        "n": 3,
+        "name": "Leading·Trailing Space (Optional)",
+        "layer": "space",
+        "desc": "머리글과 셀의 앞·뒤 12px 여백입니다. showLeadingSpace·showTrailingSpace를 켜면 표시합니다."
+      }
+    ]
+  },
+  "states": {
+    "title": "States (상태)",
+    "lead": "사용자 입력과 시스템의 상황에 따라 컴포넌트의 표현 방식을 정리한 기준입니다.",
+    "rows": [
+      {
+        "name": "Default",
+        "props": {
+          "state": "default"
+        },
+        "desc": "조작하지 않은 기본 상태입니다. 데이터를 표시하며 별도 강조가 없습니다."
+      },
+      {
+        "name": "Hover",
+        "props": {
+          "state": "hover"
+        },
+        "desc": "마우스 커서가 행 위에 올라간 상태입니다. 현재 보고 있는 행을 구분합니다."
+      },
+      {
+        "name": "Selected",
+        "props": {
+          "state": "selected"
+        },
+        "desc": "선택된 상태입니다. Checkbox 선택이나 행 클릭으로 선택된 행을 바탕색으로 구분합니다."
+      },
+      {
+        "name": "Disabled",
+        "props": {
+          "state": "disabled"
+        },
+        "desc": "사용할 수 없는 상태입니다. 값을 확인할 수 있지만 변경·선택할 수 없습니다."
+      },
+      {
+        "name": "Error",
+        "props": {
+          "state": "default",
+          "invalid": "true"
+        },
+        "desc": "입력값이 규칙에 맞지 않아 오류를 표시하는 상태입니다. 칸에 오류를 표시합니다. 오류를 표시하고 해제하는 시점은 Field(입력 필드 공통) 문서를 따릅니다."
+      }
+    ]
+  },
+  "variants": {
+    "title": "Variants (변형)",
+    "lead": "동일한 컴포넌트를 용도와 표현 방식에 따라 구분한 파생 타입입니다.",
+    "groups": [
+      {
+        "title": "Importance·GridCell",
+        "lead": "GridCell의 importance로 셀 강조 여부를 고릅니다.",
+        "rows": [
+          {
+            "name": "None",
+            "props": {
+              "importance": "none"
+            },
+            "desc": "강조하지 않는 기본 셀입니다."
+          },
+          {
+            "name": "Attention",
+            "props": {
+              "importance": "attention"
+            },
+            "desc": "확인이 필요한 값을 노란색 바탕으로 강조합니다."
+          }
+        ]
+      },
+      {
+        "title": "Type·Cell Text",
+        "lead": "셀 텍스트(Item/GridCell/Text)의 type으로 표시 형태를 고릅니다.",
+        "rows": [
+          {
+            "name": "Plain",
+            "props": {
+              "textType": "plain"
+            },
+            "desc": "텍스트, 숫자, 금액 등 일반 데이터를 표시합니다."
+          },
+          {
+            "name": "Bullet",
+            "props": {
+              "textType": "bullet"
+            },
+            "desc": "여러 항목을 나열할 때 앞에 점을 붙여 목록 형태로 표시합니다."
+          }
+        ]
+      }
+    ]
+  },
+  "policy": {
+    "title": "Policy (사용 정책)",
+    "lead": "Data Grid에서 데이터를 행 단위로 표시하고 편집하는 본문 칸입니다.",
+    "when": {
+      "use": [
+        "여러 건의 데이터를 행 단위로 나열해 편집·조작·가공할 때 (예: 조회 결과 목록, 일괄 변경, 대량 등록)",
+        "데이터가 많을 때(Pagination과 함께 사용)"
+      ],
+      "avoid": [
+        {
+          "text": "한 건의 정보를 입력하거나 확인할 때",
+          "alt": "Table"
+        }
+      ]
+    },
+    "rules": [
+      {
+        "name": "State Priority · 바탕",
+        "desc": "바탕색 하나만 바뀝니다. 겹치면 disabled › invalid › selected › attention(importance) › hover › default 순서로 앞의 것을 따릅니다.",
+        "from": "Guideline · States"
+      },
+      {
+        "name": "Content",
+        "desc": "GridCell의 content 슬롯에 넣는 콘텐츠에 따라 구분합니다. content 슬롯에는 Text(텍스트·숫자·금액), Selection(Radio·Checkbox), Badge(Basic·Dot Badge), Button, Tag(Keyword Tag), Text Field(Text Field·Select·Date Field)를 넣을 수 있습니다.",
+        "from": "Guideline · Variants"
+      },
+      {
+        "name": "Alignment",
+        "desc": "Data Grid의 데이터는 왼쪽 정렬을 기본으로 하며, 숫자만 오른쪽에 맞춥니다. 머리글(GridHeader)도 해당 열의 데이터와 같은 방향으로 맞춥니다. 행 선택용 Checkbox 열은 머리글과 셀 모두 가운데에 맞춥니다.",
+        "from": "Guideline · Layout"
+      },
+      {
+        "name": "규격",
+        "desc": "좌우 여백 12, 상하 여백 4, 높이 40, 콘텐츠 영역 너비는 가변입니다.",
+        "from": "Guideline · Spec"
+      }
+    ],
+    "do": [
+      "데이터 성격에 맞춰 열을 정렬합니다. (텍스트는 왼쪽, 금액·수량 같은 숫자는 오른쪽, Checkbox는 가운데에 맞춥니다.)"
+    ],
+    "dont": [
+      "모든 열을 가운데로 정렬하지 않습니다. (숫자의 자릿수가 어긋나 금액을 비교하기 어렵고, 텍스트는 시작 위치가 들쭉날쭉해집니다.)"
+    ],
+    "source": {
+      "id": "guideline-grid-cell",
+      "title": "BSS Design Guideline v2.0 · Data Grid"
+    }
+  }
+}

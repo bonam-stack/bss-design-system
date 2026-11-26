@@ -1,0 +1,183 @@
+{
+  "$description": "BSS Design Guideline v2.0 › Components/Tag에서 옮긴 사용 가이드",
+  "source": {
+    "fileKey": "9aVw18Cj7CzvHE1ljGaM9m",
+    "fileName": "BSS Design Guideline v2.0",
+    "nodeId": "2430:85267",
+    "name": "Components/Tag",
+    "url": "https://www.figma.com/design/9aVw18Cj7CzvHE1ljGaM9m?node-id=2430-85267",
+    "extractedAt": "2026-11-26"
+  },
+  "group": "리스트",
+  "overview": "Tag는 콘텐츠의 구분(분류)이나 속성 키워드를 짧게 표시하는 컴포넌트입니다. 상품·마케팅·전시 같은 구분값이나 카테고리를 표시하며, 검색·필터·그룹핑에 활용합니다.",
+  "anatomy": {
+    "title": "Anatomy (구성)",
+    "lead": "Tag를 이루는 필수/선택 요소의 구조를 말합니다.",
+    "example": {
+      "type": "keyword",
+      "appearance": "filled",
+      "tone": "highlight"
+    },
+    "parts": [
+      {
+        "n": 1,
+        "name": "Container",
+        "layer": "root",
+        "desc": "Tag의 형태와 배경을 정의하는 영역으로, 색·테두리·둥근 모서리로 구분과 강조를 표현합니다."
+      },
+      {
+        "n": 2,
+        "name": "Label",
+        "layer": "label",
+        "desc": "콘텐츠의 카테고리 또는 속성을 전달하는 텍스트 요소입니다."
+      }
+    ]
+  },
+  "variants": {
+    "title": "Variants (변형)",
+    "lead": "동일한 컴포넌트를 용도와 표현 방식에 따라 구분한 파생 타입입니다.",
+    "groups": [
+      {
+        "title": "Type",
+        "lead": "Tag를 표현 방식(Type)에 따라 구분합니다.",
+        "rows": [
+          {
+            "name": "Basic",
+            "props": {
+              "type": "basic",
+              "appearance": "filled",
+              "tone": "highlight"
+            },
+            "desc": "회색 바탕에 테두리가 없는 기본 Tag입니다. 콘텐츠의 구분값(분류)이나 카테고리를 표시할 때 사용합니다."
+          },
+          {
+            "name": "Keyword",
+            "props": {
+              "type": "keyword",
+              "appearance": "filled",
+              "tone": "highlight"
+            },
+            "desc": "회색 테두리가 있는 키워드 Tag입니다. 검색·필터 등 콘텐츠 탐색용 키워드를 표시할 때 사용합니다."
+          }
+        ]
+      },
+      {
+        "title": "Appearance",
+        "lead": "Tag를 바탕과 테두리 표현(Appearance)에 따라 구분합니다. Outlined는 Keyword에서만 제공합니다.",
+        "rows": [
+          {
+            "name": "Filled",
+            "props": {
+              "type": "keyword",
+              "appearance": "filled",
+              "tone": "highlight"
+            },
+            "desc": "바탕색을 채운 형태입니다. Basic은 회색 바탕, Keyword는 흰 바탕을 사용합니다."
+          },
+          {
+            "name": "Outlined",
+            "props": {
+              "type": "keyword",
+              "appearance": "outlined",
+              "tone": "highlight"
+            },
+            "desc": "바탕 없이 테두리만 표시하는 형태입니다. Keyword에서만 제공합니다."
+          }
+        ]
+      },
+      {
+        "title": "Tone",
+        "lead": "Label 색(Tone)으로 구분값이나 키워드의 성격을 나타냅니다. 모든 Type·Appearance에서 5종을 제공합니다.",
+        "rows": [
+          {
+            "name": "Neutral",
+            "props": {
+              "type": "basic",
+              "tone": "neutral"
+            },
+            "desc": "회색 Tag로 강조 없이 기본 구분값이나 일반 키워드를 표시합니다.(예: “마케팅”, “일반”, “기타”)"
+          },
+          {
+            "name": "Info",
+            "props": {
+              "type": "basic",
+              "tone": "info"
+            },
+            "desc": "파란색 Tag로 일반적인 구분값이나 안내·정보성 키워드를 표시합니다.(예: “서비스”, “부가서비스”, “단말”)"
+          },
+          {
+            "name": "Success",
+            "props": {
+              "type": "basic",
+              "tone": "success"
+            },
+            "desc": "초록색 Tag로 긍정적인 의미의 구분값이나 키워드를 표시합니다.(예: “할인”, “신규”, “혜택”)"
+          },
+          {
+            "name": "Danger",
+            "props": {
+              "type": "basic",
+              "tone": "danger"
+            },
+            "desc": "빨간색 Tag로 주의가 필요한 구분값이나 키워드를 표시합니다.(예: “제한”, “성인 인증”, “해지 불가”)"
+          },
+          {
+            "name": "Highlight",
+            "props": {
+              "type": "basic",
+              "tone": "highlight"
+            },
+            "desc": "보라색 Tag로 강조가 필요한 대표 구분값이나 추천 키워드를 표시합니다.(예: “상품”, “추천”, “프리미엄”)"
+          }
+        ]
+      }
+    ]
+  },
+  "policy": {
+    "title": "Policy (사용 정책)",
+    "lead": "콘텐츠의 구분값(분류)이나 탐색용 키워드를 짧게 표시할 때 씁니다.",
+    "when": {
+      "use": [
+        "콘텐츠의 구분값(분류)이나 카테고리를 짧게 표시할 때",
+        "검색·필터 등 콘텐츠 탐색용 키워드를 표시할 때"
+      ],
+      "avoid": [
+        {
+          "text": "처리 상태처럼 값이 바뀌는 정보를 표시할 때",
+          "alt": "Badge"
+        },
+        {
+          "text": "사용자가 직접 고르거나 지울 수 있는 항목을 표시할 때",
+          "alt": "Chip"
+        }
+      ]
+    },
+    "rules": [
+      {
+        "name": "Combination · Basic",
+        "desc": "Appearance는 Filled만, Tone은 Neutral·Info·Success·Danger·Highlight입니다.",
+        "from": "Guideline · Variants"
+      },
+      {
+        "name": "Combination · Keyword",
+        "desc": "Appearance는 Filled·Outlined, Tone은 Neutral·Info·Success·Danger·Highlight입니다.",
+        "from": "Guideline · Variants"
+      },
+      {
+        "name": "Label 문구",
+        "desc": "구분값이나 키워드를 짧은 단어로 씁니다. [확인 필요: 최대 글자 수와 긴 문구 처리(말줄임) 기준]",
+        "from": "Guideline · Content"
+      }
+    ],
+    "do": [
+      "구분값마다 하나의 Tone을 정해 일관되게 사용합니다. (같은 구분은 항상 같은 색으로 표시해 한눈에 묶어 볼 수 있게 합니다.)"
+    ],
+    "dont": [
+      "같은 구분값에 다른 Tone을 사용하지 않습니다. (행마다 색이 달라지면 다른 구분으로 오인할 수 있습니다. 처리 상태는 Badge로 표시합니다.)"
+    ],
+    "source": {
+      "id": "guideline-tag",
+      "title": "BSS Design Guideline v2.0 · Tag"
+    }
+  }
+}

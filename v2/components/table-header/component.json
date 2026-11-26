@@ -1,0 +1,61 @@
+{
+  "schemaVersion": 2,
+  "key": "table-header",
+  "name": "TableHeader",
+  "description": "입력·조회 표(Table)의 머리 칸입니다. 항목 제목(label 14/500) 아래 보조 글자 줄(secondLabel), 필수 표시 별표, 안내 아이콘 버튼을 Boolean으로 켜고 끕니다. 변형 없이 최소 높이 56, 왼쪽 정렬입니다.",
+  "figma": {
+    "fileKey": "WcoI745J38TaON7iCKcutW",
+    "nodeId": "5088:6298",
+    "url": "https://www.figma.com/design/WcoI745J38TaON7iCKcutW?node-id=5088-6298",
+    "page": {
+      "nodeId": "2529:14980",
+      "name": "❖ Table"
+    },
+    "type": "COMPONENT",
+    "componentKey": null,
+    "extractedAt": "2026-11-26",
+    "source": "DS 컴포넌트 구조 명세 (토큰 v2.0.4)"
+  },
+  "ds": {
+    "specs": [
+      "table-formHeader"
+    ],
+    "structure": "45. TableHeader"
+  },
+  "props": [
+    {
+      "name": "showSecondLabel",
+      "figmaName": "showSecondLabel#16469:6",
+      "type": "boolean",
+      "default": true
+    },
+    {
+      "name": "showRequired",
+      "figmaName": "showRequired#16469:7",
+      "type": "boolean",
+      "default": true
+    },
+    {
+      "name": "showInfo",
+      "figmaName": "showInfo#16469:8",
+      "type": "boolean",
+      "default": false
+    },
+    {
+      "name": "label",
+      "figmaName": "label#16469:10",
+      "type": "text",
+      "default": "Header"
+    },
+    {
+      "name": "secondLabel",
+      "figmaName": "secondLabel#16469:11",
+      "type": "text",
+      "default": "SubText"
+    }
+  ],
+  "variants": [],
+  "tokens": [],
+  "textStyles": [],
+  "otherStyles": []
+}

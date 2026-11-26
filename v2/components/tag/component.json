@@ -1,0 +1,71 @@
+{
+  "schemaVersion": 2,
+  "key": "tag",
+  "name": "Tag",
+  "description": "콘텐츠의 구분값(분류)이나 속성 키워드를 짧게 표시합니다. type 2종(basic 회색 바탕 구분값·keyword 테두리 있는 탐색용 키워드) × appearance 2종(filled·outlined, outlined는 keyword만) × tone 5종(highlight·info·success·danger·neutral), 15변형입니다.",
+  "figma": {
+    "fileKey": "WcoI745J38TaON7iCKcutW",
+    "nodeId": "3085:30771",
+    "url": "https://www.figma.com/design/WcoI745J38TaON7iCKcutW?node-id=3085-30771",
+    "page": {
+      "nodeId": "3085:28613",
+      "name": "❖ Tag"
+    },
+    "type": "COMPONENT_SET",
+    "componentKey": null,
+    "extractedAt": "2026-11-26",
+    "source": "DS 컴포넌트 구조 명세 (토큰 v2.0.4)"
+  },
+  "ds": {
+    "specs": [
+      "tag-basic",
+      "tag-keyword"
+    ],
+    "structure": "38. Tag (type=basic) · 39. Tag (type=keyword)"
+  },
+  "props": [
+    {
+      "name": "label",
+      "figmaName": "label#3085:20",
+      "type": "text",
+      "default": "Tag"
+    },
+    {
+      "name": "type",
+      "figmaName": "type",
+      "type": "variant",
+      "default": "basic",
+      "options": [
+        "basic",
+        "keyword"
+      ]
+    },
+    {
+      "name": "appearance",
+      "figmaName": "appearance",
+      "type": "variant",
+      "default": "filled",
+      "options": [
+        "filled",
+        "outlined"
+      ]
+    },
+    {
+      "name": "tone",
+      "figmaName": "tone",
+      "type": "variant",
+      "default": "highlight",
+      "options": [
+        "highlight",
+        "info",
+        "success",
+        "danger",
+        "neutral"
+      ]
+    }
+  ],
+  "variants": [],
+  "tokens": [],
+  "textStyles": [],
+  "otherStyles": []
+}

@@ -1,0 +1,153 @@
+{
+  "$description": "BSS Design Guideline v2.0 › Components/Data Grid에서 옮긴 사용 가이드 (GridHeader 부분)",
+  "source": {
+    "fileKey": "9aVw18Cj7CzvHE1ljGaM9m",
+    "fileName": "BSS Design Guideline v2.0",
+    "nodeId": "2430:98179",
+    "name": "Components/Data Grid",
+    "url": "https://www.figma.com/design/9aVw18Cj7CzvHE1ljGaM9m?node-id=2430-98179",
+    "extractedAt": "2026-11-26"
+  },
+  "group": "테이블",
+  "overview": "Data Grid는 여러 건의 데이터를 행 단위로 나열해 편집·조작·가공하는 컴포넌트입니다. 행 선택, 열 정렬, 셀 안 컴포넌트를 통한 편집, 행 추가·삭제를 지원합니다. GridHeader는 각 열(Column)의 항목명을 표시하는 머리글로, 그리드 위쪽에 위치합니다.",
+  "anatomy": {
+    "title": "Anatomy (구성)",
+    "lead": "GridHeader를 이루는 필수/선택 요소의 구조를 말합니다.",
+    "example": {
+      "content": "text",
+      "align": "left",
+      "label": "Header",
+      "showSort": true,
+      "showInfo": true
+    },
+    "parts": [
+      {
+        "n": 1,
+        "name": "Header",
+        "layer": "label",
+        "desc": "각 열(Column)의 항목명을 표시하는 머리글(GridHeader)입니다. 그리드 위쪽에 위치합니다."
+      },
+      {
+        "n": 2,
+        "name": "Sort Button (Optional)",
+        "layer": "sort",
+        "desc": "열 데이터를 정렬하는 버튼입니다. showSort를 켜면 표시합니다."
+      },
+      {
+        "n": 3,
+        "name": "Info Button (Optional)",
+        "layer": "info",
+        "desc": "열 제목에 추가 설명을 제공하는 안내 버튼입니다. showInfo를 켜면 표시합니다."
+      },
+      {
+        "n": 4,
+        "name": "Leading·Trailing Space (Optional)",
+        "layer": "space",
+        "desc": "머리글과 셀의 앞·뒤 12px 여백입니다. showLeadingSpace·showTrailingSpace를 켜면 표시합니다."
+      }
+    ]
+  },
+  "variants": {
+    "title": "Variants (변형)",
+    "lead": "동일한 컴포넌트를 용도와 표현 방식에 따라 구분한 파생 타입입니다.",
+    "groups": [
+      {
+        "title": "Content·GridHeader",
+        "lead": "GridHeader의 content로 머리글 형태를 고릅니다.",
+        "rows": [
+          {
+            "name": "Text",
+            "props": {
+              "content": "text",
+              "align": "left"
+            },
+            "desc": "열 제목을 텍스트로 표시합니다. align은 left·right 중에서 고릅니다."
+          },
+          {
+            "name": "Checkbox",
+            "props": {
+              "content": "checkbox",
+              "align": "center"
+            },
+            "desc": "전체 선택이 필요한 열에서 Checkbox로 표시합니다. 행 선택용 Checkbox 열의 머리글로 사용하며, align은 center입니다."
+          }
+        ]
+      },
+      {
+        "title": "Align",
+        "lead": "머리글도 해당 열의 데이터와 같은 방향으로 맞춥니다.",
+        "rows": [
+          {
+            "name": "Left",
+            "props": {
+              "content": "text",
+              "align": "left",
+              "label": "상품명"
+            },
+            "desc": "글자와 날짜는 왼쪽에 맞춥니다.(예: 상품명·담당자·주소·등록일)"
+          },
+          {
+            "name": "Right",
+            "props": {
+              "content": "text",
+              "align": "right",
+              "label": "금액(원)"
+            },
+            "desc": "숫자는 오른쪽에 맞춥니다.(예: 금액·수량·비율)"
+          },
+          {
+            "name": "Center",
+            "props": {
+              "content": "checkbox",
+              "align": "center"
+            },
+            "desc": "행 선택용 Checkbox 열은 머리글과 셀 모두 가운데에 맞춥니다."
+          }
+        ]
+      }
+    ]
+  },
+  "policy": {
+    "title": "Policy (사용 정책)",
+    "lead": "Data Grid의 열 제목을 표시하고, 정렬·전체 선택을 제공하는 머리 칸입니다.",
+    "when": {
+      "use": [
+        "여러 건의 데이터를 행 단위로 나열해 편집·조작·가공할 때 (예: 조회 결과 목록, 일괄 변경, 대량 등록)",
+        "데이터가 많을 때(Pagination과 함께 사용)"
+      ],
+      "avoid": [
+        {
+          "text": "한 건의 정보를 입력하거나 확인할 때",
+          "alt": "Table"
+        }
+      ]
+    },
+    "rules": [
+      {
+        "name": "Alignment",
+        "desc": "Data Grid의 데이터는 왼쪽 정렬을 기본으로 하며, 숫자만 오른쪽에 맞춥니다. 머리글(GridHeader)도 해당 열의 데이터와 같은 방향으로 맞춥니다. 행 선택용 Checkbox 열은 머리글과 셀 모두 가운데에 맞춥니다.",
+        "from": "Guideline · Layout"
+      },
+      {
+        "name": "GridHeader label",
+        "desc": "각 열(Column)의 데이터를 설명하는 제목으로 간결하고 명확하게 작성합니다.",
+        "from": "Guideline · Content"
+      },
+      {
+        "name": "규격",
+        "desc": "좌우 여백 12, 상하 여백 8, 높이 40입니다.",
+        "from": "Guideline · Spec"
+      }
+    ],
+    "do": [
+      "데이터 성격에 맞춰 열을 정렬합니다. (텍스트는 왼쪽, 금액·수량 같은 숫자는 오른쪽, Checkbox는 가운데에 맞춥니다.)"
+    ],
+    "dont": [
+      "모든 열을 가운데로 정렬하지 않습니다. (숫자의 자릿수가 어긋나 금액을 비교하기 어렵고, 텍스트는 시작 위치가 들쭉날쭉해집니다.)"
+    ],
+    "source": {
+      "id": "guideline-grid-header",
+      "title": "BSS Design Guideline v2.0 · Data Grid"
+    }
+  }
+}

@@ -1,0 +1,133 @@
+{
+  "$description": "BSS Design Guideline v2.0 › Components/List에서 옮긴 사용 가이드 (표시 기준은 Components/Display Rules)",
+  "source": {
+    "fileKey": "9aVw18Cj7CzvHE1ljGaM9m",
+    "fileName": "BSS Design Guideline v2.0",
+    "nodeId": "2547:37172",
+    "name": "Components/List",
+    "url": "https://www.figma.com/design/9aVw18Cj7CzvHE1ljGaM9m?node-id=2547-37172",
+    "extractedAt": "2026-11-26"
+  },
+  "group": "리스트",
+  "overview": "List는 정보를 항목 단위로 나열해 표시하는 컴포넌트입니다. 현재는 Label과 값을 한 쌍으로 표시하는 DataItem을 제공합니다.",
+  "anatomy": {
+    "title": "Anatomy (구성)",
+    "lead": "List를 이루는 필수/선택 요소의 구조를 말합니다.",
+    "example": {
+      "label": "유형",
+      "value": "5G 요금제",
+      "showValue": true
+    },
+    "parts": [
+      {
+        "n": 1,
+        "name": "Label",
+        "layer": "label",
+        "desc": "항목의 이름을 나타내는 텍스트로, 값이 어떤 정보인지 설명합니다."
+      },
+      {
+        "n": 2,
+        "name": "Value (Optional)",
+        "layer": "value",
+        "desc": "Label에 해당하는 값을 표시합니다. showValue를 켜면 표시합니다."
+      }
+    ]
+  },
+  "variants": {
+    "title": "Variants (변형)",
+    "lead": "DataItem은 고르는 변형이 없으며, 표시 요소는 Anatomy에서 설정합니다.",
+    "groups": [
+      {
+        "title": "표시 요소",
+        "lead": "showValue로 값을 켜고 끕니다.",
+        "rows": [
+          {
+            "name": "Label + Value",
+            "props": {
+              "label": "정액료",
+              "value": "99,900원",
+              "showValue": true
+            },
+            "desc": "Label과 값을 한 쌍으로 표시합니다."
+          },
+          {
+            "name": "Label",
+            "props": {
+              "label": "정액료",
+              "showValue": false
+            },
+            "desc": "항목 이름만 나열할 때 사용합니다."
+          }
+        ]
+      }
+    ]
+  },
+  "policy": {
+    "title": "Policy (사용 정책)",
+    "lead": "Label과 값을 한 쌍으로 묶어 읽기 중심의 정보를 표시할 때 씁니다.",
+    "when": {
+      "use": [
+        "Label과 값을 한 쌍으로 묶어 읽기 중심의 정보를 표시할 때",
+        "항목 이름만 나열할 때"
+      ],
+      "avoid": [
+        {
+          "text": "값을 입력하거나 수정해야 할 때",
+          "alt": "Text Field·Select"
+        },
+        {
+          "text": "여러 데이터를 행·열로 비교해야 할 때",
+          "alt": "Data Grid"
+        },
+        {
+          "text": "항목 이름과 값을 표 형태로 정리해야 할 때",
+          "alt": "Table"
+        }
+      ]
+    },
+    "rules": [
+      {
+        "name": "Label 문구",
+        "desc": "값이 무엇인지 알 수 있는 짧은 이름으로 씁니다. 정액료, 출시일처럼 한두 단어로 씁니다.",
+        "from": "Guideline · Content"
+      },
+      {
+        "name": "Value 문구",
+        "desc": "Label에 해당하는 값만 씁니다. Label과 값을 Label 하나에 합쳐 쓰지 않습니다.",
+        "from": "Guideline · Content"
+      },
+      {
+        "name": "Data Format",
+        "desc": "날짜는 YYYY.MM.DD(시간은 24시간제 HH:mm:ss), 기간은 시작일 - 종료일, 전화번호는 구분자(-)를 포함, 금액·수량은 세 자리마다 쉼표로 표시합니다.",
+        "from": "Display Rules · Data Display"
+      },
+      {
+        "name": "Masking",
+        "desc": "고객 개인정보는 기본으로 마스킹하고 인증 단계에 따라 해제합니다. 마스킹한 글자는 *로 바꾸되 구분자는 그대로 두고, 같은 항목은 모든 화면에서 같은 방식으로 마스킹합니다.",
+        "from": "Display Rules · Data Display"
+      },
+      {
+        "name": "Empty State",
+        "desc": "값이 존재하지 않으면 기본 대체값 “-”로 표기합니다.",
+        "from": "Display Rules · Data Display"
+      },
+      {
+        "name": "규격",
+        "desc": "Label과 Value 사이 간격 12, 글자 높이 20입니다.",
+        "from": "Guideline · Spec"
+      }
+    ],
+    "do": [
+      "Label은 값이 무엇인지 알 수 있는 짧은 이름으로 씁니다. (예: “정액료”, “출시일”처럼 한두 단어로 씁니다.)",
+      "값이 없으면 “-”로 표기합니다. (값이 없다는 것을 명확히 표시해 누락이나 오류와 구분합니다.)"
+    ],
+    "dont": [
+      "Label과 값을 Label 하나에 합쳐 쓰지 않습니다. (Label과 값은 글자 스타일이 달라 구분됩니다. 값은 Value에 넣습니다.)",
+      "값이 없는 칸을 비워 두거나 null, 0으로 표시하지 않습니다. (빈칸은 로딩 중이나 오류로, 0은 실제 값으로 오해할 수 있습니다.)"
+    ],
+    "source": {
+      "id": "guideline-data-item",
+      "title": "BSS Design Guideline v2.0 · List"
+    }
+  }
+}
