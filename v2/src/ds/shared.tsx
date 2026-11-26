@@ -44,9 +44,11 @@ export function textStyle(style: string): CSSProperties {
 
 const svgs = import.meta.glob<string>('../../icons/svg/**/*.svg', { eager: true, query: '?raw', import: 'default' });
 
-/** name: 'line/check-box' · 'filled/close' … (icons/svg 아래 경로). line · filled는 color를 따른다 */
+/** name: 'line/check-box' · 'filled/close-circle' … (icons/svg 아래 경로). line · filled는 color를 따른다 */
 export function Icon({ name, size = 16, color, style }: { name: string; size?: number | string; color?: string; style?: CSSProperties }) {
   const raw = svgs[`../../icons/svg/${name}.svg`] || '';
+  // 아이콘 파일에 없는 이름이면 빈칸 대신 알린다 (아이콘 이름이 바뀌었는지 icons/svg를 확인)
+  if (!raw && typeof console !== 'undefined') console.warn(`[Icon] 없는 아이콘 이름입니다: ${name}`);
   const svg = raw.replace(/width="\d+" height="\d+"/, 'width="100%" height="100%" style="display:block"');
   const s = typeof size === 'number' ? `${size}px` : size;
   return <span aria-hidden="true" style={{ display: 'block', flexShrink: 0, width: s, height: s, color, ...style }} dangerouslySetInnerHTML={{ __html: svg }} />;

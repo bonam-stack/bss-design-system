@@ -115,7 +115,7 @@ export function SearchField({ value, defaultValue = '', onChange, onSearch, size
             </span>
           ) : null}
         </span>
-        {clear ? <Button type="iconPlain" size={btnSize} icon="filled/close" label="지우기" onMouseDown={(e) => e.preventDefault()} onClick={() => set('')} /> : null}
+        {clear ? <Button type="iconPlain" size={btnSize} icon="filled/close-circle" label="지우기" onMouseDown={(e) => e.preventDefault()} onClick={() => set('')} /> : null}
       </div>
     </FieldFrame>
   );

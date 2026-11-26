@@ -1,8 +1,9 @@
 {
- "$description": "Figma ❖ Icon(2409:27235)의 마스터 컴포넌트 목록. SVG는 Figma exportAsync로 내보낸 것. Line/Filled는 fill을 currentColor로 바꿨고 Colored는 원본 색을 유지한다.",
+ "$description": "DS 라이브러리(WcoI745J38TaON7iCKcutW) ❖ Icon(2002:24395)의 마스터 컴포넌트 목록. 컴포넌트 코드는 <Icon name=\"line/…\">로 이 SVG를 쓴다. Line/Filled는 fill을 currentColor로 바꿨고 Colored는 원본 색을 유지한다.",
  "figma": {
-  "fileKey": "9AioWOXVOVm5C7kdSxSEEP",
-  "nodeId": "2409:27235"
+  "fileKey": "WcoI745J38TaON7iCKcutW",
+  "nodeId": "2002:24395",
+  "name": "BSS DS library › ❖ Icon"
  },
  "size": 16,
  "sections": [
@@ -48,7 +49,7 @@
    "style": "line",
    "group": "Form & Input",
    "file": "svg/line/calendar.svg",
-   "figmaName": "Icon/Line/Calendar",
+   "figmaName": "Icon/OutlinedCalendar",
    "nodeId": "2223:2277",
    "key": "5f34572a9d39a99d2dd385f46fa1f865d6b78850"
   },
@@ -57,7 +58,7 @@
    "style": "line",
    "group": "Form & Input",
    "file": "svg/line/calendar-time.svg",
-   "figmaName": "Icon/Line/CalendarTime",
+   "figmaName": "Icon/OutlinedCalendarTime",
    "nodeId": "9223:3133",
    "key": "9381234972d915c84c812c7b44c8f1adbd8b5215"
   },
@@ -66,7 +67,7 @@
    "style": "line",
    "group": "Form & Input",
    "file": "svg/line/visibility.svg",
-   "figmaName": "Icon/Line/Visibility",
+   "figmaName": "Icon/OutlinedVisibility",
    "nodeId": "2223:2275",
    "key": "6afdd2a9e0a0ee7856146d27dd676cdce8f6ce4b"
   },
@@ -75,7 +76,7 @@
    "style": "line",
    "group": "Form & Input",
    "file": "svg/line/visibility-off.svg",
-   "figmaName": "Icon/Line/VisibilityOff",
+   "figmaName": "Icon/OutlinedVisibilityOff",
    "nodeId": "2223:2274",
    "key": "ac36ae756d6f08b76351d319caed97f5bb82f27d"
   },
@@ -84,7 +85,7 @@
    "style": "line",
    "group": "Form & Input",
    "file": "svg/line/question.svg",
-   "figmaName": "Icon/Line/Question",
+   "figmaName": "Icon/OutlinedQuestion",
    "nodeId": "2223:2272",
    "key": "8385a7ddede532eb892e176ab8325f8267df3250"
   },
@@ -93,25 +94,25 @@
    "style": "line",
    "group": "Form & Input",
    "file": "svg/line/info.svg",
-   "figmaName": "Icon/Line/Info",
+   "figmaName": "Icon/OutlinedInfo",
    "nodeId": "2223:2270",
    "key": "6ac14b278976ff09504c7919101eb0d3e0daf289"
   },
   {
-   "name": "Alert",
+   "name": "Danger",
    "style": "line",
    "group": "Form & Input",
-   "file": "svg/line/alert.svg",
-   "figmaName": "Icon/Line/Alert",
+   "file": "svg/line/danger.svg",
+   "figmaName": "Icon/OutlinedDanger",
    "nodeId": "2295:1494",
-   "key": "d2b84568e0c3a822de0e20242741344ef51bda5d"
+   "key": "ab2a9485a870a422cd59f828ba805e4e86d75104"
   },
   {
    "name": "Asterisk",
    "style": "line",
    "group": "Form & Input",
    "file": "svg/line/asterisk.svg",
-   "figmaName": "Icon/Line/Asterisk",
+   "figmaName": "Icon/OutlinedAsterisk",
    "nodeId": "2848:102820",
    "key": "d1a6f375b6583b2b4eebef5e419a5783c763a0f5"
   },
@@ -120,7 +121,7 @@
    "style": "line",
    "group": "Form & Input",
    "file": "svg/line/hashtag.svg",
-   "figmaName": "Icon/Line/Hashtag",
+   "figmaName": "Icon/OutlinedHashtag",
    "nodeId": "2295:1257",
    "key": "b15652f6a57badfcb87fc0c69f7aab34d98ad4e9"
   },
@@ -129,7 +130,7 @@
    "style": "line",
    "group": "Form & Input",
    "file": "svg/line/external-link.svg",
-   "figmaName": "Icon/Line/ExternalLink",
+   "figmaName": "Icon/OutlinedExternalLink",
    "nodeId": "2295:1258",
    "key": "ed352cd30cedce6e2e27fb1e85a84914b2513d50"
   },
@@ -138,7 +139,7 @@
    "style": "line",
    "group": "Navigation",
    "file": "svg/line/star.svg",
-   "figmaName": "Icon/Line/Star",
+   "figmaName": "Icon/OutlinedStar",
    "nodeId": "2295:1299",
    "key": "cc371208279526f3ab73efee877f22ef5a00f8a9"
   },
@@ -147,7 +148,7 @@
    "style": "line",
    "group": "Navigation",
    "file": "svg/line/bookmark.svg",
-   "figmaName": "Icon/Line/Bookmark",
+   "figmaName": "Icon/OutlinedBookmark",
    "nodeId": "2295:1298",
    "key": "504503c83f75f3ea6f0b35319419ba7e3a940315"
   },
@@ -156,7 +157,7 @@
    "style": "line",
    "group": "Navigation",
    "file": "svg/line/layers.svg",
-   "figmaName": "Icon/Line/Layers",
+   "figmaName": "Icon/OutlinedLayers",
    "nodeId": "2295:1297",
    "key": "def4a1ea6ce1569cdf2abef735a0dd7cbec34ca7"
   },
@@ -165,7 +166,7 @@
    "style": "line",
    "group": "Navigation",
    "file": "svg/line/user.svg",
-   "figmaName": "Icon/Line/User",
+   "figmaName": "Icon/OutlinedUser",
    "nodeId": "2295:1296",
    "key": "a83a35fc0124e4abd097af441a4afca4f56f2662"
   },
@@ -174,7 +175,7 @@
    "style": "line",
    "group": "Navigation",
    "file": "svg/line/settings.svg",
-   "figmaName": "Icon/Line/Settings",
+   "figmaName": "Icon/OutlinedSettings",
    "nodeId": "2295:1295",
    "key": "2554b8d8a0ff6780a5d1ac18bfc7b973a8812818"
   },
@@ -183,7 +184,7 @@
    "style": "line",
    "group": "Form & Input",
    "file": "svg/line/zoom-in.svg",
-   "figmaName": "Icon/Line/ZoomIn",
+   "figmaName": "Icon/OutlinedZoomIn",
    "nodeId": "2295:1311",
    "key": "cc971a1e1fcc6e3062ed3150de1e512064b7d8fc"
   },
@@ -192,7 +193,7 @@
    "style": "line",
    "group": "Direction",
    "file": "svg/line/chevron-up.svg",
-   "figmaName": "Icon/Line/ChevronUp",
+   "figmaName": "Icon/OutlinedChevronUp",
    "nodeId": "2223:2294",
    "key": "3ac37a9e59860eac812ea46d1dde60d7a04fd288"
   },
@@ -201,7 +202,7 @@
    "style": "line",
    "group": "Direction",
    "file": "svg/line/chevron-down.svg",
-   "figmaName": "Icon/Line/ChevronDown",
+   "figmaName": "Icon/OutlinedChevronDown",
    "nodeId": "2223:2296",
    "key": "6c905f2323594f1a57498b22243a8502287331c8"
   },
@@ -210,7 +211,7 @@
    "style": "line",
    "group": "Direction",
    "file": "svg/line/chevron-left.svg",
-   "figmaName": "Icon/Line/ChevronLeft",
+   "figmaName": "Icon/OutlinedChevronLeft",
    "nodeId": "2223:2293",
    "key": "c913d5e8cb78d915de3520bac0ac2634d483e91d"
   },
@@ -219,7 +220,7 @@
    "style": "line",
    "group": "Direction",
    "file": "svg/line/chevron-right.svg",
-   "figmaName": "Icon/Line/ChevronRight",
+   "figmaName": "Icon/OutlinedChevronRight",
    "nodeId": "2223:2300",
    "key": "97af455b631b1cfc465378fa56cfebb19854ccc5"
   },
@@ -228,7 +229,7 @@
    "style": "line",
    "group": "Direction",
    "file": "svg/line/arrow-up.svg",
-   "figmaName": "Icon/Line/ArrowUp",
+   "figmaName": "Icon/OutlinedArrowUp",
    "nodeId": "2223:2298",
    "key": "1843548430bddbcd6065a1452284e7d3a644eedb"
   },
@@ -237,7 +238,7 @@
    "style": "line",
    "group": "Direction",
    "file": "svg/line/arrow-up-right.svg",
-   "figmaName": "Icon/Line/ArrowUpRight",
+   "figmaName": "Icon/OutlinedArrowUpRight",
    "nodeId": "11913:143847",
    "key": "871adf25e47c2a94a9c4b564ccda015b9e5301da"
   },
@@ -246,7 +247,7 @@
    "style": "line",
    "group": "Direction",
    "file": "svg/line/arrow-down.svg",
-   "figmaName": "Icon/Line/ArrowDown",
+   "figmaName": "Icon/OutlinedArrowDown",
    "nodeId": "2223:2299",
    "key": "46cf09c2a9a872d89f84928c4b88669d17ce754e"
   },
@@ -255,7 +256,7 @@
    "style": "line",
    "group": "Direction",
    "file": "svg/line/arrow-left.svg",
-   "figmaName": "Icon/Line/ArrowLeft",
+   "figmaName": "Icon/OutlinedArrowLeft",
    "nodeId": "2223:2301",
    "key": "7fa11cc2bdf095829261e313a906b921b5fb3ca9"
   },
@@ -264,7 +265,7 @@
    "style": "line",
    "group": "Direction",
    "file": "svg/line/arrow-right.svg",
-   "figmaName": "Icon/Line/ArrowRight",
+   "figmaName": "Icon/OutlinedArrowRight",
    "nodeId": "2223:2292",
    "key": "15fcfe0159336f033db88196d824e1f0f816e467"
   },
@@ -273,7 +274,7 @@
    "style": "line",
    "group": "Direction",
    "file": "svg/line/first-page.svg",
-   "figmaName": "Icon/Line/FirstPage",
+   "figmaName": "Icon/OutlinedFirstPage",
    "nodeId": "2322:1359",
    "key": "3cdb5b26340270615eaed61d79c8006e6952b060"
   },
@@ -282,7 +283,7 @@
    "style": "line",
    "group": "Direction",
    "file": "svg/line/last-page.svg",
-   "figmaName": "Icon/Line/LastPage",
+   "figmaName": "Icon/OutlinedLastPage",
    "nodeId": "2322:1372",
    "key": "e78ed754e0db0700296734d5f910af1438a16a12"
   },
@@ -300,7 +301,7 @@
    "style": "line",
    "group": "Basic Action",
    "file": "svg/line/plus.svg",
-   "figmaName": "Icon/Line/Plus",
+   "figmaName": "Icon/OutlinedPlus",
    "nodeId": "2223:2289",
    "key": "25d6110e1dc32280034b7f41c10472809a41efd8"
   },
@@ -309,7 +310,7 @@
    "style": "line",
    "group": "Basic Action",
    "file": "svg/line/minus.svg",
-   "figmaName": "Icon/Line/Minus",
+   "figmaName": "Icon/OutlinedMinus",
    "nodeId": "2223:2286",
    "key": "3c6e1365321f6d10a6e4422afceb99e368adcd15"
   },
@@ -318,7 +319,7 @@
    "style": "line",
    "group": "Basic Action",
    "file": "svg/line/indeterminate.svg",
-   "figmaName": "Icon/Line/Indeterminate",
+   "figmaName": "Icon/OutlinedIndeterminate",
    "nodeId": "2789:29252",
    "key": "195e114cf6b5a60f352db2e44f4baba1771344ca"
   },
@@ -327,7 +328,7 @@
    "style": "line",
    "group": "Basic Action",
    "file": "svg/line/close.svg",
-   "figmaName": "Icon/Line/Close",
+   "figmaName": "Icon/OutlinedClose",
    "nodeId": "2223:2284",
    "key": "91d62747171f122fe8f7bea0c75025c71f7324a8"
   },
@@ -336,7 +337,7 @@
    "style": "line",
    "group": "Basic Action",
    "file": "svg/line/check.svg",
-   "figmaName": "Icon/Line/Check",
+   "figmaName": "Icon/OutlinedCheck",
    "nodeId": "2223:2276",
    "key": "fd52d04c2e3c40a3806a2d9c49bc686f07f1737d"
   },
@@ -345,7 +346,7 @@
    "style": "line",
    "group": "Basic Action",
    "file": "svg/line/check-box.svg",
-   "figmaName": "Icon/Line/CheckBox",
+   "figmaName": "Icon/OutlinedCheckBox",
    "nodeId": "2789:29253",
    "key": "bd5cc4f4450382b413ba79be99c766eade2e02b2"
   },
@@ -354,7 +355,7 @@
    "style": "line",
    "group": "Basic Action",
    "file": "svg/line/search.svg",
-   "figmaName": "Icon/Line/Search",
+   "figmaName": "Icon/OutlinedSearch",
    "nodeId": "2223:2282",
    "key": "b3d8804d628d3c2bd17795c2b0e42e3eab5c4453"
   },
@@ -363,7 +364,7 @@
    "style": "line",
    "group": "Basic Action",
    "file": "svg/line/edit.svg",
-   "figmaName": "Icon/Line/Edit",
+   "figmaName": "Icon/OutlinedEdit",
    "nodeId": "2223:2297",
    "key": "a09902c04a0d742b44dc0ebe452a16bfa36ddce3"
   },
@@ -372,7 +373,7 @@
    "style": "line",
    "group": "Basic Action",
    "file": "svg/line/link.svg",
-   "figmaName": "Icon/Line/Link",
+   "figmaName": "Icon/OutlinedLink",
    "nodeId": "2223:2280",
    "key": "0088b9dcdd3537189ab4e9891c691ee7a4d4a402"
   },
@@ -381,7 +382,7 @@
    "style": "line",
    "group": "Basic Action",
    "file": "svg/line/copy.svg",
-   "figmaName": "Icon/Line/Copy",
+   "figmaName": "Icon/OutlinedCopy",
    "nodeId": "11913:143846",
    "key": "fe0c93e4713b7cf01ec605e1f53c094a0258755a"
   },
@@ -390,7 +391,7 @@
    "style": "line",
    "group": "Basic Action",
    "file": "svg/line/print.svg",
-   "figmaName": "Icon/Line/Print",
+   "figmaName": "Icon/OutlinedPrint",
    "nodeId": "2223:2285",
    "key": "b85270e812757ffc1812c3d88caf0d166d7dd719"
   },
@@ -399,7 +400,7 @@
    "style": "line",
    "group": "Basic Action",
    "file": "svg/line/delete.svg",
-   "figmaName": "Icon/Line/Delete",
+   "figmaName": "Icon/OutlinedDelete",
    "nodeId": "9223:3134",
    "key": "6c0cea3564b76f6d35ea8090a29c4439fd5fb204"
   },
@@ -408,7 +409,7 @@
    "style": "line",
    "group": "Basic Action",
    "file": "svg/line/download.svg",
-   "figmaName": "Icon/Line/Download",
+   "figmaName": "Icon/OutlinedDownload",
    "nodeId": "9223:3137",
    "key": "579df59b192a090db13345e21def6645ed6434c7"
   },
@@ -417,7 +418,7 @@
    "style": "line",
    "group": "Basic Action",
    "file": "svg/line/upload.svg",
-   "figmaName": "Icon/Line/Upload",
+   "figmaName": "Icon/OutlinedUpload",
    "nodeId": "11913:143850",
    "key": "c7df4cc7c598b15d5b4ca8da49fbad6d36b6932d"
   },
@@ -426,7 +427,7 @@
    "style": "line",
    "group": "Basic Action",
    "file": "svg/line/drag-handle.svg",
-   "figmaName": "Icon/Line/DragHandle",
+   "figmaName": "Icon/OutlinedDragHandle",
    "nodeId": "2223:2287",
    "key": "328d79c6b1ac36bb33a730426f246b3db9dc1e8f"
   },
@@ -435,7 +436,7 @@
    "style": "line",
    "group": "Basic Action",
    "file": "svg/line/retry.svg",
-   "figmaName": "Icon/Line/Retry",
+   "figmaName": "Icon/OutlinedRetry",
    "nodeId": "11913:143849",
    "key": "b0f3ef9be0cfbc4236d9cdd12e7aa88710a45192"
   },
@@ -444,7 +445,7 @@
    "style": "line",
    "group": "Basic Action",
    "file": "svg/line/expand.svg",
-   "figmaName": "Icon/Line/Expand",
+   "figmaName": "Icon/OutlinedExpand",
    "nodeId": "2223:2279",
    "key": "ecbc288a0a4990b68616caddefdb9ae543cbb7aa"
   },
@@ -453,7 +454,7 @@
    "style": "line",
    "group": "Basic Action",
    "file": "svg/line/fullscreen.svg",
-   "figmaName": "Icon/Line/Fullscreen",
+   "figmaName": "Icon/OutlinedFullscreen",
    "nodeId": "2223:2278",
    "key": "5ad1313b165cdf3e3ddff115cac745d0f3b36d5a"
   },
@@ -462,7 +463,7 @@
    "style": "line",
    "group": "Basic Action",
    "file": "svg/line/maximize.svg",
-   "figmaName": "Icon/Line/Maximize",
+   "figmaName": "Icon/OutlinedMaximize",
    "nodeId": "9234:3276",
    "key": "8827f1c70e3f88ceb61e5563a30e450d295ac3b0"
   },
@@ -471,7 +472,7 @@
    "style": "line",
    "group": "Basic Action",
    "file": "svg/line/side-panel.svg",
-   "figmaName": "Icon/Line/SidePanel",
+   "figmaName": "Icon/OutlinedSidePanel",
    "nodeId": "9223:3140",
    "key": "5297dac881efeab16346e7627ba2e7a5368c4a1e"
   },
@@ -480,7 +481,7 @@
    "style": "line",
    "group": "Basic Action",
    "file": "svg/line/hand-palm.svg",
-   "figmaName": "Icon/Line/HandPalm",
+   "figmaName": "Icon/OutlinedHandPalm",
    "nodeId": "2848:102843",
    "key": "cca3f510597583193b19a1dad4be1bfbc56ae2a0"
   },
@@ -489,7 +490,7 @@
    "style": "line",
    "group": "Basic Action",
    "file": "svg/line/hand-grab.svg",
-   "figmaName": "Icon/Line/HandGrab",
+   "figmaName": "Icon/OutlinedHandGrab",
    "nodeId": "2848:102842",
    "key": "f27bb253b6476389d22c3bf7f966f55da73db848"
   },
@@ -498,7 +499,7 @@
    "style": "line",
    "group": "Basic Action",
    "file": "svg/line/hand-pointer.svg",
-   "figmaName": "Icon/Line/HandPointer",
+   "figmaName": "Icon/OutlinedHandPointer",
    "nodeId": "2848:102841",
    "key": "730da54166591ae0c6756cd11d9fd272ea673bcf"
   },
@@ -507,7 +508,7 @@
    "style": "line",
    "group": "Basic Action",
    "file": "svg/line/sort.svg",
-   "figmaName": "Icon/Line/Sort",
+   "figmaName": "Icon/OutlinedSort",
    "nodeId": "3859:32666",
    "key": "4fc6f1c629ced78f2cb3f3e9bf6882d679f07948",
    "description": "정렬 옵션을 여는 용도로만 사용합니다."
@@ -517,7 +518,7 @@
    "style": "line",
    "group": "Utility",
    "file": "svg/line/customize.svg",
-   "figmaName": "Icon/Line/Customize",
+   "figmaName": "Icon/OutlinedCustomize",
    "nodeId": "11913:143848",
    "key": "e2737fc5280a83d5d7e92d296bf047d8e7d06e4b"
   },
@@ -526,7 +527,7 @@
    "style": "filled",
    "group": "Communication",
    "file": "svg/filled/call.svg",
-   "figmaName": "Icon/Filled/Call",
+   "figmaName": "Icon/FilledCall",
    "nodeId": "2289:1737",
    "key": "cc29ca6ed0df64d009c0ee25ef232d34ecc9d3b6"
   },
@@ -535,7 +536,7 @@
    "style": "filled",
    "group": "Communication",
    "file": "svg/filled/end-call.svg",
-   "figmaName": "Icon/Filled/EndCall",
+   "figmaName": "Icon/FilledEndCall",
    "nodeId": "2289:1739",
    "key": "5974bc7b9f5f53bb2547bd34e117a98bd57ddaa4"
   },
@@ -544,7 +545,7 @@
    "style": "filled",
    "group": "User & Service",
    "file": "svg/filled/user.svg",
-   "figmaName": "Icon/Filled/User",
+   "figmaName": "Icon/FilledUser",
    "nodeId": "2289:1734",
    "key": "b2317b69b235bffb22848b7b9885f9bab5672984"
   },
@@ -553,7 +554,7 @@
    "style": "filled",
    "group": "User & Service",
    "file": "svg/filled/ai.svg",
-   "figmaName": "Icon/Filled/AI",
+   "figmaName": "Icon/FilledAI",
    "nodeId": "2289:1736",
    "key": "7aef69e7e1da0c4a4a66045af39323c793f4736b"
   },
@@ -562,7 +563,7 @@
    "style": "filled",
    "group": "Status & Feedback",
    "file": "svg/filled/bell.svg",
-   "figmaName": "Icon/Filled/Bell",
+   "figmaName": "Icon/FilledBell",
    "nodeId": "2289:1735",
    "key": "a11cb06d9899d96a142b2b96eba30150ccd78b8b"
   },
@@ -571,7 +572,7 @@
    "style": "filled",
    "group": "Status & Feedback",
    "file": "svg/filled/info.svg",
-   "figmaName": "Icon/Filled/Info",
+   "figmaName": "Icon/FilledInfo",
    "nodeId": "2295:1509",
    "key": "278eab219c8f99986ca23520b091d4969fc77e05"
   },
@@ -580,7 +581,7 @@
    "style": "filled",
    "group": "Status & Feedback",
    "file": "svg/filled/danger.svg",
-   "figmaName": "Icon/Filled/Danger",
+   "figmaName": "Icon/FilledDanger",
    "nodeId": "8685:2983",
    "key": "bc9667d52f9ed004b25f388df97efc0df2805e0b"
   },
@@ -589,7 +590,7 @@
    "style": "filled",
    "group": "Status & Feedback",
    "file": "svg/filled/success.svg",
-   "figmaName": "Icon/Filled/Success",
+   "figmaName": "Icon/FilledSuccess",
    "nodeId": "8685:2984",
    "key": "5c07af033dba338d4e56bd51ba176aafce9f89b8"
   },
@@ -598,7 +599,7 @@
    "style": "filled",
    "group": "Status & Feedback",
    "file": "svg/filled/warning.svg",
-   "figmaName": "Icon/Filled/Warning",
+   "figmaName": "Icon/FilledWarning",
    "nodeId": "8685:2985",
    "key": "2ed2838ed4510cfa582c6e56afc94ee7e3c567b4"
   },
@@ -607,7 +608,7 @@
    "style": "filled",
    "group": "Status & Feedback",
    "file": "svg/filled/verify.svg",
-   "figmaName": "Icon/Filled/Verify",
+   "figmaName": "Icon/FilledVerify",
    "nodeId": "2292:1004",
    "key": "0fdcf2af3c2a787604e8207ee9743c62e9d8beb6"
   },
@@ -616,25 +617,25 @@
    "style": "filled",
    "group": "Status & Feedback",
    "file": "svg/filled/verify-off.svg",
-   "figmaName": "Icon/Filled/VerifyOff",
+   "figmaName": "Icon/FilledVerifyOff",
    "nodeId": "2292:1022",
    "key": "5efb6b3305173a465c2507f3b6232da54922aa42"
   },
   {
-   "name": "Close",
+   "name": "Close Circle",
    "style": "filled",
    "group": "Status & Feedback",
-   "file": "svg/filled/close.svg",
-   "figmaName": "Icon/Filled/Close",
+   "file": "svg/filled/close-circle.svg",
+   "figmaName": "Icon/FilledCloseCircle",
    "nodeId": "2289:1740",
-   "key": "004e339ffd3418830114bc4d50ac629934bc4569"
+   "key": "fcea3f160772e5cb500fdce943e7c00d604c8888"
   },
   {
    "name": "LightMode",
    "style": "filled",
    "group": "Action & Display",
    "file": "svg/filled/light-mode.svg",
-   "figmaName": "Icon/Filled/LightMode",
+   "figmaName": "Icon/FilledLightMode",
    "nodeId": "2289:1732",
    "key": "fc12eb89624c6b1b474567b173b2504bc22f107e"
   },
@@ -643,7 +644,7 @@
    "style": "filled",
    "group": "Action & Display",
    "file": "svg/filled/view-mode.svg",
-   "figmaName": "Icon/Filled/ViewMode",
+   "figmaName": "Icon/FilledViewMode",
    "nodeId": "2289:1733",
    "key": "3bde338fcac017d4a02e7de82899401da9ade220"
   },
@@ -652,7 +653,7 @@
    "style": "filled",
    "group": "Action & Display",
    "file": "svg/filled/more-horizontal.svg",
-   "figmaName": "Icon/Filled/MoreHorizontal",
+   "figmaName": "Icon/FilledMoreHorizontal",
    "nodeId": "2289:1742",
    "key": "a8877d8f49cd88fb4c5d99537f94a7aa3f91a1f3"
   },
@@ -661,7 +662,7 @@
    "style": "filled",
    "group": "Action & Display",
    "file": "svg/filled/won.svg",
-   "figmaName": "Icon/Filled/Won",
+   "figmaName": "Icon/FilledWon",
    "nodeId": "4150:9676",
    "key": "5e12ea5a87b21b450f73c4b02f89c7e6900bc17e"
   },
@@ -670,7 +671,7 @@
    "style": "filled",
    "group": "Communication",
    "file": "svg/filled/dialpad.svg",
-   "figmaName": "Icon/Filled/Dialpad",
+   "figmaName": "Icon/FilledDialpad",
    "nodeId": "2289:1741",
    "key": "f86cb9ecca36f861f41786f45d123eeaf410be0e"
   },
@@ -679,7 +680,7 @@
    "style": "colored",
    "group": "Action & Reward",
    "file": "svg/colored/add.svg",
-   "figmaName": "Icon/Colored/Add",
+   "figmaName": "Icon/ColoredAdd",
    "nodeId": "2292:1092",
    "key": "c21761006e6dfc53601b1e95e1f10eb469da645b"
   },
@@ -688,7 +689,7 @@
    "style": "colored",
    "group": "Action & Reward",
    "file": "svg/colored/trophy.svg",
-   "figmaName": "Icon/Colored/Trophy",
+   "figmaName": "Icon/ColoredTrophy",
    "nodeId": "2292:1093",
    "key": "b6df95d70297953a4dcae54b486201883f3fdb81"
   },
@@ -697,7 +698,7 @@
    "style": "colored",
    "group": "Action & Reward",
    "file": "svg/colored/paper.svg",
-   "figmaName": "Icon/Colored/Paper",
+   "figmaName": "Icon/ColoredPaper",
    "nodeId": "2292:1084",
    "key": "9cbc92581b167b534d4e26ba1a021e63146b13b1"
   },
@@ -706,7 +707,7 @@
    "style": "colored",
    "group": "Action & Reward",
    "file": "svg/colored/won.svg",
-   "figmaName": "Icon/Colored/Won",
+   "figmaName": "Icon/ColoredWon",
    "nodeId": "2292:1086",
    "key": "d9df950171714d6be0df5eb25633db79bf1e412a"
   },
@@ -715,7 +716,7 @@
    "style": "colored",
    "group": "Action & Reward",
    "file": "svg/colored/hand-palm.svg",
-   "figmaName": "Icon/Colored/HandPalm",
+   "figmaName": "Icon/ColoredHandPalm",
    "nodeId": "8685:2845",
    "key": "9405911fa080650503435b9b3c04dc0369643e17"
   },
@@ -724,7 +725,7 @@
    "style": "colored",
    "group": "Action & Reward",
    "file": "svg/colored/hand-grab.svg",
-   "figmaName": "Icon/Colored/HandGrab",
+   "figmaName": "Icon/ColoredHandGrab",
    "nodeId": "8685:2846",
    "key": "211f1cbb1cb504500043a444b0968f6eca00e013"
   },
@@ -733,7 +734,7 @@
    "style": "colored",
    "group": "Action & Reward",
    "file": "svg/colored/hand-pointer.svg",
-   "figmaName": "Icon/Colored/HandPointer",
+   "figmaName": "Icon/ColoredHandPointer",
    "nodeId": "8685:2857",
    "key": "92780fb3d00795a1220ace151148a677b67b4753"
   },
@@ -742,7 +743,7 @@
    "style": "colored",
    "group": "Emotion",
    "file": "svg/colored/smile.svg",
-   "figmaName": "Icon/Colored/Smile",
+   "figmaName": "Icon/ColoredSmile",
    "nodeId": "2458:16954",
    "key": "f3372ee819c1a9395a7b1ebb7feb4f85b7ebe382"
   },
@@ -751,7 +752,7 @@
    "style": "colored",
    "group": "Communication",
    "file": "svg/colored/phone.svg",
-   "figmaName": "Icon/Colored/Phone",
+   "figmaName": "Icon/ColoredPhone",
    "nodeId": "2292:1095",
    "key": "6f28c118337a3ebab70e456c3250fbbbe99fe73a"
   },
@@ -760,7 +761,7 @@
    "style": "colored",
    "group": "Communication",
    "file": "svg/colored/subscribe.svg",
-   "figmaName": "Icon/Colored/Subscribe",
+   "figmaName": "Icon/ColoredSubscribe",
    "nodeId": "2292:1091",
    "key": "c4eb6d65d7d8de25219f2953f2f7e8c31d3bce2a"
   },
@@ -769,7 +770,7 @@
    "style": "colored",
    "group": "Communication",
    "file": "svg/colored/benefit.svg",
-   "figmaName": "Icon/Colored/Benefit",
+   "figmaName": "Icon/ColoredBenefit",
    "nodeId": "2292:1088",
    "key": "0a21f8f44ac0b3f2d4f1f2a726aa529a05c49637"
   },
@@ -778,7 +779,7 @@
    "style": "colored",
    "group": "Communication",
    "file": "svg/colored/terminal.svg",
-   "figmaName": "Icon/Colored/Terminal",
+   "figmaName": "Icon/ColoredTerminal",
    "nodeId": "2292:1087",
    "key": "fee8034e41493f8b51a2d733e456579ade8d457b"
   },
@@ -787,7 +788,7 @@
    "style": "colored",
    "group": "Brand",
    "file": "svg/colored/logo.svg",
-   "figmaName": "Icon/Colored/Logo",
+   "figmaName": "Icon/ColoredLogo",
    "nodeId": "2292:1085",
    "key": "8155164a624ba25d1ee37861059912520e5b9c71"
   },
@@ -796,7 +797,7 @@
    "style": "colored",
    "group": "Status & Feedback",
    "file": "svg/colored/success.svg",
-   "figmaName": "Icon/Colored/Success",
+   "figmaName": "Icon/ColoredSuccess",
    "nodeId": "2292:1094",
    "key": "6f7fdf7ced92ed592bd231fbd46080ee26fef9b7"
   },
@@ -805,7 +806,7 @@
    "style": "colored",
    "group": "Status & Feedback",
    "file": "svg/colored/warning.svg",
-   "figmaName": "Icon/Colored/Warning",
+   "figmaName": "Icon/ColoredWarning",
    "nodeId": "2292:1083",
    "key": "eb52c36b1b5896779ad1ec4c364300cb3fe7ac7c"
   },
@@ -814,7 +815,7 @@
    "style": "colored",
    "group": "Status & Feedback",
    "file": "svg/colored/error.svg",
-   "figmaName": "Icon/Colored/Error",
+   "figmaName": "Icon/ColoredError",
    "nodeId": "2295:1532",
    "key": "d9ed31b106b4ecca4ad256b555a719917c34e723"
   },
@@ -823,7 +824,7 @@
    "style": "colored",
    "group": "Status & Feedback",
    "file": "svg/colored/info.svg",
-   "figmaName": "Icon/Colored/Info",
+   "figmaName": "Icon/ColoredInfo",
    "nodeId": "2292:1090",
    "key": "80c8b88ad1c94074a0c5675e347e7dedcf09d710"
   },
@@ -832,7 +833,7 @@
    "style": "colored",
    "group": "Status & Feedback",
    "file": "svg/colored/check-badge.svg",
-   "figmaName": "Icon/Colored/CheckBadge",
+   "figmaName": "Icon/ColoredCheckBadge",
    "nodeId": "2292:1082",
    "key": "f53453c19b5077cfd60649ee2b26b9e66be53c64"
   },
@@ -841,7 +842,7 @@
    "style": "colored",
    "group": "Status & Feedback",
    "file": "svg/colored/loading.svg",
-   "figmaName": "Icon/Colored/Loading",
+   "figmaName": "Icon/ColoredLoading",
    "nodeId": "7463:1366",
    "key": "285a8fe63bd11d7b97794423348a815c92e8d9e6",
    "description": "로딩 진행 표시용 컬러드 아이콘. 어두운 배경 위 흰색 단계 투명도로 고정되어 있어 재색상하지 않습니다.",

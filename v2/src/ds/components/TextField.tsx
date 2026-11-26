@@ -106,7 +106,7 @@ export function TextField({ value, defaultValue = '', onChange, size = 'large', 
             </span>
           ) : null}
         </span>
-        {clear ? <Button type="iconPlain" size={size === 'small' ? 'small' : 'medium'} icon="filled/close" label="지우기" onMouseDown={(e) => e.preventDefault()} onClick={() => set('')} /> : null}
+        {clear ? <Button type="iconPlain" size={size === 'small' ? 'small' : 'medium'} icon="filled/close-circle" label="지우기" onMouseDown={(e) => e.preventDefault()} onClick={() => set('')} /> : null}
       </div>
     </FieldFrame>
   );

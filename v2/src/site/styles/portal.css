@@ -578,3 +578,5 @@ h1 .nv-flag { vertical-align: middle; margin-left: 10px; height: 22px; font-size
 .content { counter-reset: sec; }
 .content h2.sec-n { counter-increment: sec; margin-top: 64px; padding-top: 28px; border-top: 1px solid var(--border); }
 .content h2.sec-n::before { content: counter(sec, decimal-leading-zero); display: inline-block; min-width: 2.2em; margin-right: 10px; font-family: var(--mono); font-size: 0.6em; font-weight: 600; color: var(--accent); vertical-align: 0.25em; }
+.icon-grid .tile { position: relative; }
+.tile-use { position: absolute; top: 6px; right: 6px; min-width: 16px; height: 16px; padding: 0 4px; border-radius: 999px; background: var(--accent-soft); color: var(--accent); font-size: 10px; font-weight: 600; line-height: 16px; text-align: center; }
