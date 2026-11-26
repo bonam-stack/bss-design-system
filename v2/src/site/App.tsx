@@ -69,6 +69,14 @@ export function App() {
   const [textEdit, setTextEdit] = useState(false);
   const [pending, setPending] = useState<Record<string, PendingText>>({});
   const [menuOpen, setMenuOpen] = useState(false);
+  // 왼쪽 메뉴 접기 (넓은 화면). 보는 사람 브라우저에만 기억한다
+  const [navHidden, setNavHidden] = useState(() => {
+    try {
+      return localStorage.getItem('bss-ds-v2.nav-hidden') === '1';
+    } catch {
+      return false;
+    }
+  });
   const [toastMsg, setToastMsg] = useState<{ text: string; n: number } | null>(null);
   const [toc, setToc] = useState<{ title: string; items: TocItem[] }>({ title: '', items: [] });
   const content = useRef<HTMLElement>(null);
@@ -194,10 +202,29 @@ export function App() {
           </div>
         </div>
       </header>
-      <div className="layout">
+      <div className={`layout${navHidden ? ' nav-hidden' : ''}`}>
         <nav className={`sidebar${menuOpen ? ' open' : ''}`} id="sidebar" aria-label="문서 탐색">
           <SideNav route={route} />
         </nav>
+        <button
+          type="button"
+          className="nav-fold"
+          aria-controls="sidebar"
+          aria-expanded={!navHidden}
+          aria-label={navHidden ? '왼쪽 메뉴 펴기' : '왼쪽 메뉴 접기'}
+          title={navHidden ? '왼쪽 메뉴 펴기' : '왼쪽 메뉴 접기'}
+          onClick={() => {
+            const v = !navHidden;
+            setNavHidden(v);
+            try {
+              localStorage.setItem('bss-ds-v2.nav-hidden', v ? '1' : '');
+            } catch {
+              /* 저장 못 해도 지금 화면에는 적용 */
+            }
+          }}
+        >
+          <span aria-hidden="true">{navHidden ? '›' : '‹'}</span>
+        </button>
         <main className="content" id="content" tabIndex={-1} ref={content}>
           {redirect ? null : (
             <>

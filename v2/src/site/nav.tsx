@@ -192,6 +192,7 @@ export function SideNav({ route: here }: { route: string }) {
     }
     if (want.some((k) => !open.has(k))) setOpen((o) => new Set([...o, ...want]));
   }, [route, cur]); // eslint-disable-line react-hooks/exhaustive-deps
+  const allKeys = (gs: NavGroup[], path: string[]): string[] => gs.flatMap((g) => [keyOf([...path, g.label]), ...allKeys(g.groups, [...path, g.label])]);
   const toggle = (k: string) => setOpen((o) => {
     const n = new Set(o);
     if (n.has(k)) n.delete(k);
@@ -243,7 +244,19 @@ export function SideNav({ route: here }: { route: string }) {
           </a>
         ))}
       </div>
-      <div className="nav-title">{label}</div>
+      <div className="nav-head">
+        <div className="nav-title">{label}</div>
+        {groups.length ? (
+          <div className="nav-all">
+            <button type="button" onClick={() => setOpen(new Set(allKeys(groups, [])))}>
+              전체 펼침 <span aria-hidden="true">▾</span>
+            </button>
+            <button type="button" onClick={() => setOpen(new Set())}>
+              전체 닫힘 <span aria-hidden="true">▴</span>
+            </button>
+          </div>
+        ) : null}
+      </div>
       {top.map(link)}
       {groups.map((g) => group(g, [g.label], 0))}
     </>
