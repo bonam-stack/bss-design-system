@@ -15,7 +15,7 @@ import { compile, fileOf, repoSource } from '../live';
 import { editWithChat, getApiKey, setApiKey } from '../codechat';
 import type { ChatTurn } from '../codechat';
 import type { LiveComponent, Meta } from '../live';
-import { CopyBtn, DraftBox, EditBtn, Editable, TextEditToggle, TextScope, TocInline, UxRef, copy, figmaUrl } from '../ui';
+import { CopyBtn, DraftBox, FlagChip, EditBtn, Editable, TextEditToggle, TextScope, TocInline, UxRef, copy, figmaUrl } from '../ui';
 import { AiSummary } from './AiSummary';
 import { CompChecks, CompEditor, CompRules, CompUsage, GuideEditor, applyGuide, compRules } from './compPortal';
 
@@ -151,6 +151,7 @@ export function ComponentPage({ sc }: { sc: SiteComponent }) {
       <p className="eyebrow">Components</p>
       <div className="h1-row">
         <Editable as="h1" path="title" label="컴포넌트 제목" value={(textEdit && itemCode ? P.openDraft('item', itemCode)?.after.name : undefined) || P.itemByKey(key)?.name || base.name} onSave={itemCode ? (v) => P.draftItem(role, itemCode, { name: v.trim() }) : undefined} />
+        {itemCode ? <FlagChip code={itemCode} /> : null}
         <TextEditToggle />
       </div>
       <Editable as="p" className="lead" path="lead" label="페이지 설명" value={(textEdit && itemCode ? P.openDraft('item', itemCode)?.after.meaning : undefined) || itemMeaning || c.description || ''} onSave={itemCode ? (v) => P.draftItem(role, itemCode, { meaning: v }) : undefined} />

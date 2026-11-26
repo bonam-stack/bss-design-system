@@ -173,7 +173,10 @@ export function Head({ eyebrow, title, lead, extra }: { eyebrow: string; title: 
   return (
     <>
       <p className="eyebrow">{eyebrow}</p>
-      <h1>{title}</h1>
+      <h1>
+        {title}
+        <FlagChip code={location.hash.slice(1)} />
+      </h1>
       {lead ? <p className="lead">{human(lead)}</p> : null}
       {extra}
       <TocInline />
@@ -415,3 +418,15 @@ function AutoText({ value, onChange, className, ...rest }: { value: string; onCh
 }
 
 const lineBreaks = (t: string) => t.split('\n').map((p, i) => (i ? [<br key={i} />, p] : p));
+
+/** 최근 추가 · 수정 표시 (catalog/updates.json) */
+export function FlagChip({ code }: { code: string }) {
+  const f = P.flagOf(code);
+  if (!f) return null;
+  return (
+    <span className={`nv-flag is-${f.flag}`} title={`${f.at}${f.note ? ` · ${f.note}` : ''}`}>
+      {f.flag}
+    </span>
+  );
+}
+

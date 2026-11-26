@@ -6,6 +6,7 @@ import * as P from './portal/store';
 import type { Role } from './portal/store';
 import { usePortal } from './portal/ctx';
 import { patterns, icons } from './data';
+import { FlagChip } from './ui';
 import { docsIn, guideRoute } from './guide';
 import type { Place } from './guide';
 
@@ -166,6 +167,8 @@ function groupItems(items: NavItem[]) {
 const hasRoute = (g: NavGroup, route: string): boolean => g.items.some(([r]) => r === route) || g.groups.some((x) => hasRoute(x, route));
 const countOf = (g: NavGroup): number => g.items.filter(([r]) => r).length + g.groups.reduce((n, x) => n + countOf(x), 0);
 
+const flagged = (g: NavGroup): boolean => g.items.some(([r]) => !!r && !!P.flagOf(r)) || g.groups.some(flagged);
+
 export function SideNav({ route: here }: { route: string }) {
   const { role, isEditor } = usePortal();
   // 컴포넌트 안에 딸린 가이드를 따로 열었으면 그 컴포넌트를 현재 위치로
@@ -203,6 +206,7 @@ export function SideNav({ route: here }: { route: string }) {
       <a key={r} href={`#${r}`} className={r === route ? 'on' : ''} aria-current={r === route ? 'page' : undefined}>
         {l}
         {tag ? <span className="nv-tag">{tag}</span> : null}
+        <FlagChip code={r} />
         {it && it.status !== 'pub' ? <span className="nv-st">{P.STATUS[it.status]}</span> : null}
         {draft ? <i className="nv-dot" title="초안 있음" /> : null}
       </a>
@@ -217,6 +221,7 @@ export function SideNav({ route: here }: { route: string }) {
         <button type="button" className={`nav-acc${hasRoute(g, route) ? ' has' : ''}`} aria-expanded={on} aria-controls={id} onClick={() => toggle(k)}>
           <span className="nav-chev" aria-hidden="true">›</span>
           <span className="nav-acc-l">{g.label}</span>
+          {flagged(g) ? <i className="nv-flag-dot" title="최근 바뀐 항목 있음" /> : null}
           <span className="nav-cnt">{countOf(g)}</span>
         </button>
         {on ? (

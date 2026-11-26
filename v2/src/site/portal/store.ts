@@ -915,3 +915,15 @@ export function handleDetection(role: Role, idx: number, action: string) {
   save();
   return d;
 }
+
+// ---------- new / updated 표시 (catalog/updates.json) ----------
+import updatesData from '../../../catalog/updates.json';
+export type Flag = 'new' | 'updated';
+const UPD = updatesData as { days: number; items: { code: string; flag: Flag; at: string; note?: string }[] };
+/** 최근 고친 항목의 표시. at부터 days일이 지나면 없다 */
+export function flagOf(code: string): { flag: Flag; at: string; note?: string } | null {
+  const u = UPD.items.find((x) => x.code === code);
+  if (!u) return null;
+  const age = (Date.now() - new Date(`${u.at}T00:00:00+09:00`).getTime()) / 86400000;
+  return age >= 0 && age < UPD.days ? u : null;
+}

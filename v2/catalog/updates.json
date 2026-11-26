@@ -1,0 +1,288 @@
+{
+  "$description": "왼쪽 메뉴 · 페이지 제목의 new / updated 표시. 컴포넌트 · 블록을 추가하거나 고치면 여기에 한 줄 더한다(같은 code면 고친다). at부터 days일 동안 표시한다.",
+  "days": 14,
+  "items": [
+    {
+      "code": "c-switch",
+      "flag": "new",
+      "at": "2026-11-26",
+      "note": "DS 마스터 컴포넌트 추가"
+    },
+    {
+      "code": "c-field-label",
+      "flag": "new",
+      "at": "2026-11-26",
+      "note": "DS 마스터 컴포넌트 추가"
+    },
+    {
+      "code": "c-search-field",
+      "flag": "new",
+      "at": "2026-11-26",
+      "note": "DS 마스터 컴포넌트 추가"
+    },
+    {
+      "code": "c-lookup-field",
+      "flag": "new",
+      "at": "2026-11-26",
+      "note": "DS 마스터 컴포넌트 추가"
+    },
+    {
+      "code": "c-select",
+      "flag": "new",
+      "at": "2026-11-26",
+      "note": "DS 마스터 컴포넌트 추가"
+    },
+    {
+      "code": "c-stepper",
+      "flag": "new",
+      "at": "2026-11-26",
+      "note": "DS 마스터 컴포넌트 추가"
+    },
+    {
+      "code": "c-date-field",
+      "flag": "new",
+      "at": "2026-11-26",
+      "note": "DS 마스터 컴포넌트 추가"
+    },
+    {
+      "code": "c-calendar",
+      "flag": "new",
+      "at": "2026-11-26",
+      "note": "DS 마스터 컴포넌트 추가"
+    },
+    {
+      "code": "c-date-picker",
+      "flag": "new",
+      "at": "2026-11-26",
+      "note": "DS 마스터 컴포넌트 추가"
+    },
+    {
+      "code": "c-chip",
+      "flag": "new",
+      "at": "2026-11-26",
+      "note": "DS 마스터 컴포넌트 추가"
+    },
+    {
+      "code": "c-remove-chip",
+      "flag": "new",
+      "at": "2026-11-26",
+      "note": "DS 마스터 컴포넌트 추가"
+    },
+    {
+      "code": "c-badge",
+      "flag": "new",
+      "at": "2026-11-26",
+      "note": "DS 마스터 컴포넌트 추가"
+    },
+    {
+      "code": "c-tag",
+      "flag": "new",
+      "at": "2026-11-26",
+      "note": "DS 마스터 컴포넌트 추가"
+    },
+    {
+      "code": "c-table-column-header",
+      "flag": "new",
+      "at": "2026-11-26",
+      "note": "DS 마스터 컴포넌트 추가"
+    },
+    {
+      "code": "c-table-text-cell",
+      "flag": "new",
+      "at": "2026-11-26",
+      "note": "DS 마스터 컴포넌트 추가"
+    },
+    {
+      "code": "c-grid-header",
+      "flag": "new",
+      "at": "2026-11-26",
+      "note": "DS 마스터 컴포넌트 추가"
+    },
+    {
+      "code": "c-grid-cell",
+      "flag": "new",
+      "at": "2026-11-26",
+      "note": "DS 마스터 컴포넌트 추가"
+    },
+    {
+      "code": "c-data-item",
+      "flag": "new",
+      "at": "2026-11-26",
+      "note": "DS 마스터 컴포넌트 추가"
+    },
+    {
+      "code": "c-alert",
+      "flag": "new",
+      "at": "2026-11-26",
+      "note": "DS 마스터 컴포넌트 추가"
+    },
+    {
+      "code": "c-dialog",
+      "flag": "new",
+      "at": "2026-11-26",
+      "note": "DS 마스터 컴포넌트 추가"
+    },
+    {
+      "code": "c-popup",
+      "flag": "new",
+      "at": "2026-11-26",
+      "note": "DS 마스터 컴포넌트 추가"
+    },
+    {
+      "code": "c-viewer-modal",
+      "flag": "new",
+      "at": "2026-11-26",
+      "note": "DS 마스터 컴포넌트 추가"
+    },
+    {
+      "code": "c-side-panel",
+      "flag": "new",
+      "at": "2026-11-26",
+      "note": "DS 마스터 컴포넌트 추가"
+    },
+    {
+      "code": "c-tooltip",
+      "flag": "new",
+      "at": "2026-11-26",
+      "note": "DS 마스터 컴포넌트 추가"
+    },
+    {
+      "code": "c-popover",
+      "flag": "new",
+      "at": "2026-11-26",
+      "note": "DS 마스터 컴포넌트 추가"
+    },
+    {
+      "code": "c-context-menu",
+      "flag": "new",
+      "at": "2026-11-26",
+      "note": "DS 마스터 컴포넌트 추가"
+    },
+    {
+      "code": "c-tabs",
+      "flag": "new",
+      "at": "2026-11-26",
+      "note": "DS 마스터 컴포넌트 추가"
+    },
+    {
+      "code": "c-pagination",
+      "flag": "new",
+      "at": "2026-11-26",
+      "note": "DS 마스터 컴포넌트 추가"
+    },
+    {
+      "code": "c-breadcrumb",
+      "flag": "new",
+      "at": "2026-11-26",
+      "note": "DS 마스터 컴포넌트 추가"
+    },
+    {
+      "code": "c-steps",
+      "flag": "new",
+      "at": "2026-11-26",
+      "note": "DS 마스터 컴포넌트 추가"
+    },
+    {
+      "code": "c-toolbar",
+      "flag": "new",
+      "at": "2026-11-26",
+      "note": "DS 마스터 컴포넌트 추가"
+    },
+    {
+      "code": "c-callout",
+      "flag": "new",
+      "at": "2026-11-26",
+      "note": "DS 마스터 컴포넌트 추가"
+    },
+    {
+      "code": "c-toast",
+      "flag": "new",
+      "at": "2026-11-26",
+      "note": "DS 마스터 컴포넌트 추가"
+    },
+    {
+      "code": "c-snackbar",
+      "flag": "new",
+      "at": "2026-11-26",
+      "note": "DS 마스터 컴포넌트 추가"
+    },
+    {
+      "code": "c-progress-bar",
+      "flag": "new",
+      "at": "2026-11-26",
+      "note": "DS 마스터 컴포넌트 추가"
+    },
+    {
+      "code": "c-skeleton",
+      "flag": "new",
+      "at": "2026-11-26",
+      "note": "DS 마스터 컴포넌트 추가"
+    },
+    {
+      "code": "c-accordion",
+      "flag": "new",
+      "at": "2026-11-26",
+      "note": "DS 마스터 컴포넌트 추가"
+    },
+    {
+      "code": "c-scrollbar",
+      "flag": "new",
+      "at": "2026-11-26",
+      "note": "DS 마스터 컴포넌트 추가"
+    },
+    {
+      "code": "c-button",
+      "flag": "updated",
+      "at": "2026-11-26",
+      "note": "가이드라인 v2.0 · 버튼 라벨·아이콘 새 버전 반영"
+    },
+    {
+      "code": "c-checkbox",
+      "flag": "updated",
+      "at": "2026-11-26",
+      "note": "가이드라인 v2.0 반영"
+    },
+    {
+      "code": "c-radio",
+      "flag": "updated",
+      "at": "2026-11-26",
+      "note": "가이드라인 v2.0 반영"
+    },
+    {
+      "code": "c-radio-group",
+      "flag": "updated",
+      "at": "2026-11-26",
+      "note": "가이드라인 v2.0 반영"
+    },
+    {
+      "code": "c-text-field",
+      "flag": "updated",
+      "at": "2026-11-26",
+      "note": "가이드라인 v2.0 반영"
+    },
+    {
+      "code": "c-text-area",
+      "flag": "updated",
+      "at": "2026-11-26",
+      "note": "가이드라인 v2.0 반영"
+    },
+    {
+      "code": "c-password-field",
+      "flag": "updated",
+      "at": "2026-11-26",
+      "note": "가이드라인 v2.0 반영"
+    },
+    {
+      "code": "c-helper-text",
+      "flag": "updated",
+      "at": "2026-11-26",
+      "note": "가이드라인 v2.0 반영"
+    },
+    {
+      "code": "c-divider",
+      "flag": "updated",
+      "at": "2026-11-26",
+      "note": "사용 가이드 추가"
+    }
+  ]
+}
