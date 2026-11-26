@@ -162,6 +162,26 @@
         "name": "규격",
         "desc": "좌우 여백 12, 상하 여백 4, 높이 40, 콘텐츠 영역 너비는 가변입니다.",
         "from": "Guideline · Spec"
+      },
+      {
+        "name": "Alignment · 글자·날짜",
+        "desc": "글자와 날짜는 왼쪽에 맞춥니다.(예: 상품명·담당자·주소·등록일)",
+        "from": "Guideline · Layout › Alignment"
+      },
+      {
+        "name": "Alignment · 숫자",
+        "desc": "숫자는 오른쪽에 맞춥니다.(예: 금액·수량·비율)",
+        "from": "Guideline · Layout › Alignment"
+      },
+      {
+        "name": "Alignment · Checkbox 열",
+        "desc": "행 선택용 Checkbox 열은 머리글과 셀 모두 가운데에 맞춥니다.",
+        "from": "Guideline · Layout › Alignment"
+      },
+      {
+        "name": "GridHeader label 문구",
+        "desc": "각 열(Column)의 데이터를 설명하는 제목으로 간결하고 명확하게 작성합니다.",
+        "from": "Guideline · Content"
       }
     ],
     "do": [

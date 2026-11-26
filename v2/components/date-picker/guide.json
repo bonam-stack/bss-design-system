@@ -144,6 +144,11 @@
         "name": "달력 너비",
         "desc": "필드를 Fill로 넓게 사용해도 달력은 기본 너비를 유지합니다.",
         "from": "Guideline · Do & Don't"
+      },
+      {
+        "name": "Flexible (가변형)",
+        "desc": "Date Field는 모드별 기본 너비(Date 136·DateTime 212·DateRange 248·DateTimeRange 396)가 최소 너비입니다. 필드를 Fill로 넓혀도 Calendar Button은 입력 상자 안 오른쪽 끝에서 고정 크기를 유지합니다.",
+        "from": "Guideline · Layout › Type & Guideline"
       }
     ],
     "do": [

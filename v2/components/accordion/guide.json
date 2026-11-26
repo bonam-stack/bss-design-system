@@ -246,6 +246,11 @@
         "name": "너비",
         "desc": "놓이는 영역을 채웁니다(Flexible Width). Basic은 Header와 Content 사이 12, Content 아래 여백 Large 40 · Medium 32, Compact는 사이 4 · 아래 20입니다.",
         "from": "Guideline · Spec"
+      },
+      {
+        "name": "Header 높이·여백",
+        "desc": "Basic Large는 Header 높이 64 · 좌우 여백 24, Medium은 높이 52 · 좌우 여백 20, Compact는 좌우 여백 없이 높이 48입니다.",
+        "from": "Guideline · Spec"
       }
     ],
     "do": [

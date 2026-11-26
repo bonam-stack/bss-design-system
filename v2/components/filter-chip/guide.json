@@ -183,6 +183,11 @@
         "name": "State Priority · Focus Ring",
         "desc": "Disabled를 포함한 모든 상태 위에 겹쳐 표시합니다.",
         "from": "Guideline · States"
+      },
+      {
+        "name": "모서리",
+        "desc": "Large·Medium·Small 모두 완전히 둥근 모서리(R9999)를 씁니다.",
+        "from": "Guideline · Spec"
       }
     ],
     "do": [
