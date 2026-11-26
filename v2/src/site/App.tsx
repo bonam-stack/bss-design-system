@@ -9,6 +9,8 @@ import { Pager, RoleMenu, SideNav, TextEditBar, TopNav } from './nav';
 import { LastUpdated, TocList, setToast } from './ui';
 import { portalPage } from './pages/portal';
 import { ComponentPage } from './pages/ComponentPage';
+import { SpecComponentPage } from './pages/SpecComponentPage';
+import { isRenderable } from '../ds/figma/tree';
 import { PortalOnlyPage } from './pages/PortalCompPage';
 import { IconsPage } from './pages/IconsPage';
 import { PatternPage } from './pages/PatternPage';
@@ -129,7 +131,8 @@ export function App() {
     page = <PatternPage key={pattern.key} p={pattern} />;
     withUpdated = true;
   } else if (sc) {
-    page = <ComponentPage key={sc.data.key} sc={sc} />;
+    // Figma 레이어 데이터가 없는 컴포넌트(DS 명세로 만든 것)는 명세 페이지로
+    page = isRenderable(sc.data) ? <ComponentPage key={sc.data.key} sc={sc} /> : <SpecComponentPage key={sc.data.key} sc={sc} />;
     withUpdated = true;
   } else if (key && P.comp(key)) {
     page = <PortalOnlyPage key={key} c={P.comp(key) as PortalComp} />;

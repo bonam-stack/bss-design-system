@@ -8,6 +8,7 @@
     "radio",
     "radio-group",
     "text-area",
-    "text-field"
+    "text-field",
+    "switch"
   ]
 }

@@ -639,7 +639,7 @@ function Cases({ sc, sel }: { sc: SiteComponent; sel: Sel }) {
 
 // ---------- 사용 가이드 (guide.json) ----------
 
-function GuideIntro({ g, c }: { g: Guide; c: ComponentData }) {
+export function GuideIntro({ g, c }: { g: Guide; c: ComponentData }) {
   const text = g.overview || c.description || g.policy?.lead || '';
   return (
     <>
@@ -661,7 +661,7 @@ function GuideIntro({ g, c }: { g: Guide; c: ComponentData }) {
 const itemText = (t: string | { id?: string; text: string }) => (typeof t === 'string' ? t : t.text);
 
 /** 서비스 UI 가이드의 사용 정책 (언제 쓰나, 기준, Do · Don't). 기준 · Do · Don't에는 포털 규칙 번호가 붙을 수 있다 */
-function PolicySection({ pl }: { pl: NonNullable<Guide['policy']> }) {
+export function PolicySection({ pl }: { pl: NonNullable<Guide['policy']> }) {
   const src = pl.source;
   const scope = useContext(TextScope);
   const { role } = usePortal();

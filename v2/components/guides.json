@@ -1,1 +1,13 @@
-{"guides": ["checkbox", "radio", "radio-group", "text-field", "text-area", "password-field", "helper-text", "button"]}
+{
+  "guides": [
+    "checkbox",
+    "radio",
+    "radio-group",
+    "text-field",
+    "text-area",
+    "password-field",
+    "helper-text",
+    "button",
+    "switch"
+  ]
+}

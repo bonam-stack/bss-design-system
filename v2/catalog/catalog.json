@@ -1025,6 +1025,19 @@
       "variants": "-",
       "nameKo": "토스트",
       "group": "피드백·알림"
+    },
+    {
+      "code": "c-switch",
+      "kind": "comp",
+      "name": "Switch",
+      "nameKo": "스위치",
+      "status": "pub",
+      "design": true,
+      "ux": true,
+      "meaning": "누르는 즉시 켜고 끄는 두 상태 전환",
+      "variants": "unchecked · checked",
+      "key": "switch",
+      "group": "입력"
     }
   ],
   "slots": [

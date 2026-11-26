@@ -28,6 +28,18 @@ export function font(kind: 'label' | 'body' | 'caption', size: 12 | 14 | 15 | 16
   };
 }
 
+/** 글자 스타일 토큰 이름으로 (DS 컴포넌트 명세 textStyles의 style: 'font-title-14-700' 또는 'title-14-700') */
+export function textStyle(style: string): CSSProperties {
+  const p = style.startsWith('font-') ? style : `font-${style}`;
+  return {
+    fontFamily: `${tok(`${p}-family`)}, sans-serif`,
+    fontWeight: tok(`${p}-weight`) as unknown as number,
+    fontSize: tok(`${p}-size`),
+    lineHeight: tok(`${p}-line-height`),
+    letterSpacing: tok(`${p}-letter-spacing`),
+  };
+}
+
 // ---------- 아이콘 (icons/svg, Figma ❖ Icon Resource) ----------
 
 const svgs = import.meta.glob<string>('../../icons/svg/**/*.svg', { eager: true, query: '?raw', import: 'default' });

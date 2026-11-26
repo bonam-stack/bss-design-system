@@ -19,3 +19,4 @@ export type { TextAreaProps } from './components/TextArea';
 export { TextField } from './components/TextField';
 export type { TextFieldProps } from './components/TextField';
 export { Icon, tok, font } from './shared';
+export { Switch } from './components/Switch';

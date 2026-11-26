@@ -1,0 +1,198 @@
+{
+  "$description": "BSS Design Guideline v2.0 › Components/Switch / Toggle에서 옮긴 사용 가이드",
+  "source": {
+    "fileKey": "9aVw18Cj7CzvHE1ljGaM9m",
+    "fileName": "BSS Design Guideline v2.0",
+    "nodeId": "2430:97398",
+    "name": "Components/Switch / Toggle",
+    "url": "https://www.figma.com/design/9aVw18Cj7CzvHE1ljGaM9m?node-id=2430-97398",
+    "extractedAt": "2026-11-26"
+  },
+  "group": "입력",
+  "overview": "Switch는 서로 반대되는 두 상태(On/Off)를 전환하는 컴포넌트입니다. 선택 상태를 Track의 색과 Thumb의 좌우 위치로 표현하며, 전환 결과를 즉시 반영합니다.",
+  "anatomy": {
+    "title": "Anatomy (구성)",
+    "lead": "Switch를 이루는 필수/선택 요소의 구조를 말합니다.",
+    "example": {
+      "selection": "checked",
+      "size": "large",
+      "state": "default"
+    },
+    "parts": [
+      {
+        "n": 1,
+        "name": "Track",
+        "layer": "root",
+        "desc": "Thumb이 이동하는 배경 영역입니다."
+      },
+      {
+        "n": 2,
+        "name": "Thumb",
+        "layer": "thumb",
+        "desc": "Track 위에서 좌우로 이동하며 On/Off 상태를 나타내는 원형 요소입니다."
+      },
+      {
+        "n": 3,
+        "name": "Focus Ring (Optional)",
+        "layer": "focusRing",
+        "desc": "키보드로 포커스를 이동했을 때 Switch 바깥에 표시하는 링입니다. showFocus를 켜면 표시합니다. 규격은 Focus Ring 문서를 따릅니다."
+      }
+    ]
+  },
+  "states": {
+    "title": "States (상태)",
+    "lead": "사용자 입력과 시스템의 상황에 따라 컴포넌트의 표현 방식을 정리한 기준입니다.",
+    "rows": [
+      {
+        "name": "Default",
+        "props": {
+          "selection": "checked",
+          "state": "default"
+        },
+        "desc": "조작하지 않은 기본 상태입니다."
+      },
+      {
+        "name": "Hover",
+        "props": {
+          "selection": "checked",
+          "state": "hover"
+        },
+        "desc": "마우스 커서가 Switch 위에 올라간 상태입니다."
+      },
+      {
+        "name": "Pressed",
+        "props": {
+          "selection": "checked",
+          "state": "pressed"
+        },
+        "desc": "Switch를 누르고 있는 상태입니다."
+      },
+      {
+        "name": "Focus Visible",
+        "props": {
+          "selection": "checked",
+          "state": "default",
+          "showFocus": true
+        },
+        "desc": "키보드로 이동해 Focus Ring을 표시한 상태입니다. 다른 상태 위에 겹쳐 표시합니다."
+      },
+      {
+        "name": "Unchecked",
+        "props": {
+          "selection": "unchecked",
+          "state": "default"
+        },
+        "desc": "꺼진 상태입니다. Thumb이 왼쪽에 있습니다."
+      },
+      {
+        "name": "Checked",
+        "props": {
+          "selection": "checked",
+          "state": "default"
+        },
+        "desc": "켜진 상태입니다. Thumb이 오른쪽에 있습니다."
+      },
+      {
+        "name": "Disabled",
+        "props": {
+          "selection": "checked",
+          "state": "disabled"
+        },
+        "desc": "사용할 수 없는 상태입니다. 현재 값(Unchecked·Checked)은 그대로 표시합니다."
+      }
+    ]
+  },
+  "variants": {
+    "title": "Variants (변형)",
+    "lead": "동일한 컴포넌트를 용도와 표현 방식에 따라 구분한 파생 타입입니다.",
+    "groups": [
+      {
+        "title": "Size",
+        "lead": "Switch를 크기별로 구분합니다.",
+        "rows": [
+          {
+            "name": "Large",
+            "props": {
+              "size": "large",
+              "selection": "checked"
+            },
+            "desc": "일반적인 폼 입력에서 사용하는 기본 크기입니다. 대부분의 입력 상황에 적합합니다."
+          },
+          {
+            "name": "Medium",
+            "props": {
+              "size": "medium",
+              "selection": "checked"
+            },
+            "desc": "보조 입력 영역이나 정보 밀도가 높은 UI에서 사용합니다. 제한된 공간에서도 효율적으로 배치할 수 있습니다."
+          },
+          {
+            "name": "Small",
+            "props": {
+              "size": "small",
+              "selection": "checked"
+            },
+            "desc": "테이블, 필터, Toolbar 등 공간 제약이 있는 영역에서 사용합니다."
+          }
+        ]
+      }
+    ]
+  },
+  "policy": {
+    "title": "Policy (사용 정책)",
+    "lead": "누르는 즉시 결과가 반영되는 설정을 켜고 끌 때 씁니다.",
+    "when": {
+      "use": [
+        "누르는 즉시 결과가 반영되는 설정을 켜거나 끌 때",
+        "On/Off처럼 서로 반대되는 두 상태 중 하나를 고를 때"
+      ],
+      "avoid": [
+        {
+          "text": "저장·적용 버튼을 눌러야 반영되는 입력 폼에서 고를 때",
+          "alt": "Checkbox"
+        },
+        {
+          "text": "셋 이상의 값 중 하나를 고를 때",
+          "alt": "Radio"
+        }
+      ]
+    },
+    "rules": [
+      {
+        "name": "State Priority · Track",
+        "desc": "색 계열은 Value(Unchecked·Checked)를, 색 단계는 Interaction State(Default·Hover·Pressed)와 Availability(Disabled)를 따릅니다.",
+        "from": "Guideline · States"
+      },
+      {
+        "name": "State Priority · Thumb",
+        "desc": "위치는 Value를 따릅니다. Unchecked이면 왼쪽, Checked이면 오른쪽에 있습니다. 색은 상태와 관계없이 같습니다.",
+        "from": "Guideline · States"
+      },
+      {
+        "name": "State Priority · Focus Ring",
+        "desc": "Disabled를 포함한 모든 상태 위에 겹쳐 표시합니다.",
+        "from": "Guideline · States"
+      },
+      {
+        "name": "너비",
+        "desc": "사이즈별로 정해진 고정 너비를 사용합니다. 수치는 Spec을 따릅니다.",
+        "from": "Guideline · Layout"
+      },
+      {
+        "name": "정렬",
+        "desc": "Label과 함께 놓을 때 Switch와 Label을 세로 가운데로 맞춥니다.",
+        "from": "Guideline · Layout"
+      }
+    ],
+    "do": [
+      "누르는 즉시 결과가 반영되는 설정에 Switch를 사용합니다. (알림 수신처럼 켜고 끄는 순간 적용되는 항목에 적합합니다.)"
+    ],
+    "dont": [
+      "저장 버튼을 눌러야 반영되는 입력 폼에는 Switch를 사용하지 않습니다. (별도 적용 단계가 필요한 선택은 Checkbox를 사용합니다.)"
+    ],
+    "source": {
+      "id": "guideline-switch",
+      "title": "BSS Design Guideline v2.0 · Switch / Toggle"
+    }
+  }
+}

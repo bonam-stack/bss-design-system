@@ -1,0 +1,70 @@
+{
+  "schemaVersion": 2,
+  "key": "switch",
+  "name": "Switch",
+  "description": "서로 반대되는 두 상태(On/Off)를 전환합니다. selection 2종(unchecked·checked) × size 3종(large 32·medium 28·small 20) × state 4종. 라벨 없이 쓰는 단독 컨트롤이며 showFocus로 포커스 링을 표시합니다.",
+  "figma": {
+    "fileKey": "WcoI745J38TaON7iCKcutW",
+    "nodeId": "7324:1141",
+    "url": "https://www.figma.com/design/WcoI745J38TaON7iCKcutW?node-id=7324-1141",
+    "page": {
+      "nodeId": "7324:554",
+      "name": "❖ Switch / Toggle"
+    },
+    "type": "COMPONENT_SET",
+    "componentKey": null,
+    "extractedAt": "2026-11-26",
+    "source": "DS 컴포넌트 구조 명세 (토큰 v2.0.4)"
+  },
+  "ds": {
+    "specs": [
+      "switch"
+    ],
+    "structure": "65. Switch"
+  },
+  "props": [
+    {
+      "name": "selection",
+      "figmaName": "selection",
+      "type": "variant",
+      "default": "unchecked",
+      "options": [
+        "unchecked",
+        "checked"
+      ]
+    },
+    {
+      "name": "size",
+      "figmaName": "size",
+      "type": "variant",
+      "default": "large",
+      "options": [
+        "large",
+        "medium",
+        "small"
+      ]
+    },
+    {
+      "name": "state",
+      "figmaName": "state",
+      "type": "variant",
+      "default": "default",
+      "options": [
+        "default",
+        "hover",
+        "pressed",
+        "disabled"
+      ]
+    },
+    {
+      "name": "showFocus",
+      "figmaName": "showFocus",
+      "type": "boolean",
+      "default": false
+    }
+  ],
+  "variants": [],
+  "tokens": [],
+  "textStyles": [],
+  "otherStyles": []
+}
