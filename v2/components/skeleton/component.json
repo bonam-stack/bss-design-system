@@ -1,0 +1,42 @@
+{
+  "schemaVersion": 2,
+  "key": "skeleton",
+  "name": "Skeleton",
+  "description": "콘텐츠를 불러오는 동안 실제 콘텐츠의 자리를 먼저 보여 주는 자리 표시입니다. shape 3종(rectangle 사각 · circle 원 · capsule 알약)이며 크기는 놓이는 자리에서 정합니다.",
+  "figma": {
+    "fileKey": "WcoI745J38TaON7iCKcutW",
+    "nodeId": "9037:18",
+    "url": "https://www.figma.com/design/WcoI745J38TaON7iCKcutW?node-id=9037-18",
+    "page": {
+      "nodeId": "7324:574",
+      "name": "❖ Skeleton"
+    },
+    "type": "COMPONENT_SET",
+    "componentKey": null,
+    "extractedAt": "2026-11-26",
+    "source": "DS 컴포넌트 구조 명세 (토큰 v2.0.4)"
+  },
+  "ds": {
+    "specs": [
+      "skeleton"
+    ],
+    "structure": "78. Skeleton"
+  },
+  "props": [
+    {
+      "name": "shape",
+      "figmaName": "shape",
+      "type": "variant",
+      "default": "rectangle",
+      "options": [
+        "rectangle",
+        "circle",
+        "capsule"
+      ]
+    }
+  ],
+  "variants": [],
+  "tokens": [],
+  "textStyles": [],
+  "otherStyles": []
+}

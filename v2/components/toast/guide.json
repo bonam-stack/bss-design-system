@@ -1,0 +1,142 @@
+{
+  "$description": "BSS Design Guideline v2.0 › Components/Toast / Snackbar에서 Toast 부분을 옮긴 사용 가이드",
+  "source": {
+    "fileKey": "9aVw18Cj7CzvHE1ljGaM9m",
+    "fileName": "BSS Design Guideline v2.0",
+    "nodeId": "2430:84089",
+    "name": "Components/Toast / Snackbar",
+    "url": "https://www.figma.com/design/9aVw18Cj7CzvHE1ljGaM9m?node-id=2430-84089",
+    "extractedAt": "2026-11-26"
+  },
+  "group": "피드백·알림",
+  "overview": "Toast는 사용자에게 짧은 피드백을 전달하는 비차단형 알림 컴포넌트입니다. 작업 결과, 상태 변화, 시스템 메시지 등을 한 줄로 간결하게 전달하며, 사용자 흐름을 방해하지 않고 일정 시간 후 자동으로 사라집니다.",
+  "anatomy": {
+    "title": "Anatomy (구성)",
+    "lead": "Toast를 이루는 필수/선택 요소의 구조를 말합니다.",
+    "example": {
+      "status": "success"
+    },
+    "parts": [
+      {
+        "n": 1,
+        "name": "Container",
+        "layer": "root",
+        "desc": "알림을 감싸는 영역으로 배경, 여백, 위치 기준을 정의합니다."
+      },
+      {
+        "n": 2,
+        "name": "Icon",
+        "layer": "icon",
+        "desc": "Toast의 유형(Success·Warning·Danger·Loading)에 따라 표시하는 아이콘으로, 메시지 유형을 시각적으로 보조합니다. Default에는 표시하지 않습니다."
+      },
+      {
+        "n": 3,
+        "name": "Message",
+        "layer": "message",
+        "desc": "사용자에게 전달하는 핵심 텍스트로, 한 줄로 간결하고 명확하게 씁니다."
+      }
+    ]
+  },
+  "variants": {
+    "title": "Variants (변형)",
+    "lead": "동일한 컴포넌트를 용도와 표현 방식에 따라 구분한 파생 타입입니다.",
+    "groups": [
+      {
+        "title": "Status",
+        "lead": "Toast를 표시할 때 고르는 알림 유형입니다. 유형에 따라 Icon이 달라집니다.(status=default·success·warning·danger·loading)",
+        "rows": [
+          {
+            "name": "Default",
+            "props": {
+              "status": "default",
+              "message": "요금제 변경할 회선을 선택해 주세요."
+            },
+            "desc": "간단한 상태 피드백에 사용합니다."
+          },
+          {
+            "name": "Success",
+            "props": {
+              "status": "success",
+              "message": "요금제 변경을 완료했습니다."
+            },
+            "desc": "사용자의 행동이나 작업이 성공적으로 완료되었음을 알려줍니다."
+          },
+          {
+            "name": "Warning",
+            "props": {
+              "status": "warning",
+              "message": "위약금이 발생할 수 있습니다."
+            },
+            "desc": "사용자의 주의가 필요하거나 잠재적인 위험이 있는 상태를 알려줍니다."
+          },
+          {
+            "name": "Danger",
+            "props": {
+              "status": "danger",
+              "message": "요금제 변경 중 오류가 발생했습니다."
+            },
+            "desc": "시스템 오류 등 문제가 발생했음을 알려줍니다."
+          },
+          {
+            "name": "Loading",
+            "props": {
+              "status": "loading",
+              "message": "데이터를 가져오는 중입니다."
+            },
+            "desc": "작업 처리, 데이터 로딩 등으로 대기 시간이 생길 때 사용합니다."
+          }
+        ]
+      }
+    ]
+  },
+  "policy": {
+    "title": "Policy (사용 정책)",
+    "lead": "작업 결과나 상태 변화를 흐름을 막지 않고 한 줄로 짧게 알릴 때 씁니다.",
+    "when": {
+      "use": [
+        "작업 결과나 상태 변화를 흐름을 막지 않고 짧게 알릴 때"
+      ],
+      "avoid": [
+        {
+          "text": "사용자의 확인이나 결정이 반드시 필요할 때",
+          "alt": "확인만 받을 때는 Alert, 결정을 받을 때는 Dialog"
+        },
+        {
+          "text": "화면 안에서 계속 표시해야 하는 안내일 때",
+          "alt": "Callout"
+        },
+        {
+          "text": "처리 결과를 항목별 건수로 알릴 때",
+          "alt": "Snackbar"
+        }
+      ]
+    },
+    "rules": [
+      {
+        "name": "Alignment",
+        "desc": "Toast는 화면(Viewport) 기준 아래쪽 중앙에 정렬됩니다.",
+        "from": "Guideline · Layout"
+      },
+      {
+        "name": "Toast Message",
+        "desc": "한 줄로 쓰며, 20자 내외를 권장합니다.",
+        "from": "Guideline · Content"
+      },
+      {
+        "name": "너비",
+        "desc": "문구 길이에 맞춰 정해집니다(Flexible). 모서리 R12, 좌우 여백 20, 위아래 여백 16, 아이콘과 문구 간격 8입니다.",
+        "from": "Guideline · Spec"
+      }
+    ],
+    "do": [
+      "작업 결과를 한 줄로 짧게 알립니다. (20자 내외로 결과만 전달합니다.)"
+    ],
+    "dont": [
+      "Toast Message에 여러 항목의 건수를 나열하지 않습니다. (Toast는 한 줄 결과 알림으로, 건수를 나열하면 읽기 어렵습니다. 항목별 건수는 Snackbar를 사용합니다.)"
+    ],
+    "source": {
+      "id": "guideline-toast",
+      "title": "BSS Design Guideline v2.0 · Toast / Snackbar"
+    }
+  }
+}

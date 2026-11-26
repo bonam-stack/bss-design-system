@@ -1,0 +1,99 @@
+{
+  "schemaVersion": 2,
+  "key": "callout",
+  "name": "Callout",
+  "description": "화면 안에서 계속 보여 줄 안내 · 주의 사항을 바탕색과 아이콘으로 전합니다. tone 7종(neutral·info·success·attention·warning·danger·highlight) × layout 2종(horizontal 제목 옆 한 줄 본문 · vertical 제목 아래 본문). 앞 아이콘 · 제목 · 본문 · 바탕(horizontal만) · 닫기 버튼을 켜고 끕니다.",
+  "figma": {
+    "fileKey": "WcoI745J38TaON7iCKcutW",
+    "nodeId": "7430:80",
+    "url": "https://www.figma.com/design/WcoI745J38TaON7iCKcutW?node-id=7430-80",
+    "page": {
+      "nodeId": "7324:564",
+      "name": "❖ Callout"
+    },
+    "type": "COMPONENT_SET",
+    "componentKey": null,
+    "extractedAt": "2026-11-26",
+    "source": "DS 컴포넌트 구조 명세 (토큰 v2.0.4)"
+  },
+  "ds": {
+    "specs": [
+      "callout-horizontal",
+      "callout-vertical"
+    ],
+    "structure": "85. Callout (layout=horizontal) · 86. Callout (layout=vertical)"
+  },
+  "props": [
+    {
+      "name": "showLeadingIcon",
+      "figmaName": "showLeadingIcon#10037:0",
+      "type": "boolean",
+      "default": true
+    },
+    {
+      "name": "showTitle",
+      "figmaName": "showTitle#10037:8",
+      "type": "boolean",
+      "default": true
+    },
+    {
+      "name": "showDescription",
+      "figmaName": "showDescription#10037:24",
+      "type": "boolean",
+      "default": true
+    },
+    {
+      "name": "showBackground",
+      "figmaName": "showBackground#10037:32",
+      "type": "boolean",
+      "default": true
+    },
+    {
+      "name": "showClose",
+      "figmaName": "showClose#10037:40",
+      "type": "boolean",
+      "default": true
+    },
+    {
+      "name": "title",
+      "figmaName": "title#10037:48",
+      "type": "text",
+      "default": "Title"
+    },
+    {
+      "name": "description",
+      "figmaName": "description#10037:64",
+      "type": "text",
+      "default": "Description"
+    },
+    {
+      "name": "tone",
+      "figmaName": "tone",
+      "type": "variant",
+      "default": "neutral",
+      "options": [
+        "neutral",
+        "info",
+        "success",
+        "attention",
+        "warning",
+        "danger",
+        "highlight"
+      ]
+    },
+    {
+      "name": "layout",
+      "figmaName": "layout",
+      "type": "variant",
+      "default": "horizontal",
+      "options": [
+        "horizontal",
+        "vertical"
+      ]
+    }
+  ],
+  "variants": [],
+  "tokens": [],
+  "textStyles": [],
+  "otherStyles": []
+}

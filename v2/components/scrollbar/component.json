@@ -1,0 +1,62 @@
+{
+  "schemaVersion": 2,
+  "key": "scrollbar",
+  "name": "Scrollbar",
+  "description": "영역을 넘치는 내용을 위아래 · 좌우로 옮겨 보는 스크롤 막대입니다. direction 2종(horizontal · vertical) × size 2종(large 길 12·막대 6 / medium 길 8·막대 4) × state 3종(default · hover · pressed, 막대 진하기만 바뀜).",
+  "figma": {
+    "fileKey": "WcoI745J38TaON7iCKcutW",
+    "nodeId": "5815:140",
+    "url": "https://www.figma.com/design/WcoI745J38TaON7iCKcutW?node-id=5815-140",
+    "page": {
+      "nodeId": "2529:14979",
+      "name": "❖ Scrollbar"
+    },
+    "type": "COMPONENT_SET",
+    "componentKey": null,
+    "extractedAt": "2026-11-26",
+    "source": "DS 컴포넌트 구조 명세 (토큰 v2.0.4)"
+  },
+  "ds": {
+    "specs": [
+      "scrollbar"
+    ],
+    "structure": "62. Scrollbar"
+  },
+  "props": [
+    {
+      "name": "direction",
+      "figmaName": "direction",
+      "type": "variant",
+      "default": "horizontal",
+      "options": [
+        "horizontal",
+        "vertical"
+      ]
+    },
+    {
+      "name": "size",
+      "figmaName": "size",
+      "type": "variant",
+      "default": "large",
+      "options": [
+        "large",
+        "medium"
+      ]
+    },
+    {
+      "name": "state",
+      "figmaName": "state",
+      "type": "variant",
+      "default": "default",
+      "options": [
+        "default",
+        "hover",
+        "pressed"
+      ]
+    }
+  ],
+  "variants": [],
+  "tokens": [],
+  "textStyles": [],
+  "otherStyles": []
+}

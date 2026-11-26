@@ -1,0 +1,56 @@
+{
+  "schemaVersion": 2,
+  "key": "progress-bar",
+  "name": "ProgressBar",
+  "description": "작업 진행률을 가로 막대로 보여 줍니다. value 5종(0·25·50·75·100) × status 4종(default·error·stopped·completed, completed는 100만) — 변형 16개. 막대(트랙 · 채움 막대)만 제공하고 라벨 · 진행률 글자는 화면에서 함께 둡니다.",
+  "figma": {
+    "fileKey": "WcoI745J38TaON7iCKcutW",
+    "nodeId": "8980:137",
+    "url": "https://www.figma.com/design/WcoI745J38TaON7iCKcutW?node-id=8980-137",
+    "page": {
+      "nodeId": "7324:573",
+      "name": "❖ Progress Bar"
+    },
+    "type": "COMPONENT_SET",
+    "componentKey": null,
+    "extractedAt": "2026-11-26",
+    "source": "DS 컴포넌트 구조 명세 (토큰 v2.0.4)"
+  },
+  "ds": {
+    "specs": [
+      "progressBar"
+    ],
+    "structure": "77. ProgressBar"
+  },
+  "props": [
+    {
+      "name": "value",
+      "figmaName": "value",
+      "type": "variant",
+      "default": "0",
+      "options": [
+        "0",
+        "25",
+        "50",
+        "75",
+        "100"
+      ]
+    },
+    {
+      "name": "status",
+      "figmaName": "status",
+      "type": "variant",
+      "default": "default",
+      "options": [
+        "default",
+        "error",
+        "completed",
+        "stopped"
+      ]
+    }
+  ],
+  "variants": [],
+  "tokens": [],
+  "textStyles": [],
+  "otherStyles": []
+}

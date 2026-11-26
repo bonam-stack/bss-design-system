@@ -1,0 +1,49 @@
+{
+  "schemaVersion": 2,
+  "key": "snackbar",
+  "name": "Snackbar",
+  "description": "작업 결과를 제목과 항목별 처리 건수로 잠깐 알리는 어두운 알림입니다. 변형 없이 액션 버튼(showAction)과 닫기 버튼(showClose)을 켜고 끄며, 처리 현황은 statusContent 슬롯에 _Item/Snackbar/Status(tone 3종 info·success·danger)를 넣습니다.",
+  "figma": {
+    "fileKey": "WcoI745J38TaON7iCKcutW",
+    "nodeId": "7436:389",
+    "url": "https://www.figma.com/design/WcoI745J38TaON7iCKcutW?node-id=7436-389",
+    "page": {
+      "nodeId": "7324:565",
+      "name": "❖ Toast / Snackbar"
+    },
+    "type": "COMPONENT",
+    "componentKey": null,
+    "extractedAt": "2026-11-26",
+    "source": "DS 컴포넌트 구조 명세 (토큰 v2.0.4)"
+  },
+  "ds": {
+    "specs": [
+      "snackbar"
+    ],
+    "structure": "83. Snackbar · 84. _Item/Snackbar/Status"
+  },
+  "props": [
+    {
+      "name": "showAction",
+      "figmaName": "showAction#7436:0",
+      "type": "boolean",
+      "default": true
+    },
+    {
+      "name": "showClose",
+      "figmaName": "showClose#7436:1",
+      "type": "boolean",
+      "default": true
+    },
+    {
+      "name": "title",
+      "figmaName": "title#9580:104",
+      "type": "text",
+      "default": "Title"
+    }
+  ],
+  "variants": [],
+  "tokens": [],
+  "textStyles": [],
+  "otherStyles": []
+}

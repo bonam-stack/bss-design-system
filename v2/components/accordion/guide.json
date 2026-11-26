@@ -1,0 +1,262 @@
+{
+  "$description": "BSS Design Guideline v2.0 › Components/Accordion / Collapse에서 옮긴 사용 가이드",
+  "source": {
+    "fileKey": "9aVw18Cj7CzvHE1ljGaM9m",
+    "fileName": "BSS Design Guideline v2.0",
+    "nodeId": "2430:100645",
+    "name": "Components/Accordion / Collapse",
+    "url": "https://www.figma.com/design/9aVw18Cj7CzvHE1ljGaM9m?node-id=2430-100645",
+    "extractedAt": "2026-11-26"
+  },
+  "group": "컨테이너",
+  "overview": "Accordion / Collapse는 콘텐츠를 접고 펼쳐 필요한 정보만 표시하는 컴포넌트입니다. 한 번에 표시하는 정보량을 줄여 시선 분산을 막고, 사용자가 필요한 내용에 집중하도록 돕습니다.",
+  "anatomy": {
+    "title": "Anatomy (구성)",
+    "lead": "Accordion / Collapse를 이루는 필수/선택 요소의 구조를 말합니다.",
+    "example": {
+      "type": "basic",
+      "size": "large",
+      "listState": "expanded",
+      "showBadge": true
+    },
+    "parts": [
+      {
+        "n": 1,
+        "name": "Container",
+        "layer": "root",
+        "desc": "Accordion의 전체 영역입니다. 흰 배경과 아래쪽 구분선(1px)으로 항목을 구분합니다.(Text 유형 제외)"
+      },
+      {
+        "n": 2,
+        "name": "Header",
+        "layer": "header",
+        "desc": "Title·Badge·Indicator를 포함하며, 눌러서 콘텐츠를 접고 펼치는 영역입니다."
+      },
+      {
+        "n": 3,
+        "name": "Title",
+        "layer": "title",
+        "desc": "Accordion에서 제공할 내용을 요약해서 전달합니다."
+      },
+      {
+        "n": 4,
+        "name": "Indicator",
+        "layer": "icon",
+        "desc": "콘텐츠의 펼침·접힘 상태를 나타내는 Indicator 아이콘입니다."
+      },
+      {
+        "n": 5,
+        "name": "Content",
+        "layer": "content",
+        "desc": "펼쳤을 때 보이는 본문 영역(content 슬롯)입니다. 텍스트, 폼, 리스트 등 필요한 콘텐츠를 배치합니다."
+      },
+      {
+        "n": 6,
+        "name": "Badge (Optional)",
+        "layer": "badge",
+        "desc": "Title 옆에 상태나 개수를 표시합니다. showBadge를 켜면 표시합니다."
+      },
+      {
+        "n": 7,
+        "name": "Focus Ring (Optional)",
+        "layer": "focusRing",
+        "desc": "키보드로 포커스를 이동했을 때 Header 바깥에 표시하는 링입니다. showFocus를 켜면 표시합니다. 규격은 Focus Ring 문서를 따릅니다."
+      }
+    ]
+  },
+  "states": {
+    "title": "States (상태)",
+    "lead": "사용자 입력과 시스템의 상황에 따라 컴포넌트의 표현 방식을 정리한 기준입니다.",
+    "rows": [
+      {
+        "name": "Default",
+        "props": {
+          "type": "basic",
+          "size": "medium",
+          "state": "default"
+        },
+        "desc": "조작하지 않은 기본 상태입니다. Basic·Compact는 Header 바탕 없이 Title과 Indicator를 기본 색으로 표시합니다."
+      },
+      {
+        "name": "Hover",
+        "props": {
+          "type": "basic",
+          "size": "medium",
+          "state": "hover"
+        },
+        "desc": "마우스 커서가 Header 위에 올라간 상태입니다. Basic·Compact는 Header 바탕이 연한 회색으로 바뀌고, Text는 Title 색이 진해집니다."
+      },
+      {
+        "name": "Pressed",
+        "props": {
+          "type": "basic",
+          "size": "medium",
+          "state": "pressed"
+        },
+        "desc": "Header를 누르고 있는 상태입니다. Basic·Compact는 Header 바탕이 Hover보다 진한 회색으로 바뀌고, Text는 Title 색이 더 진해집니다."
+      },
+      {
+        "name": "Focus Visible",
+        "props": {
+          "type": "basic",
+          "size": "medium",
+          "state": "default",
+          "showFocus": true
+        },
+        "desc": "키보드로 이동해 Focus Ring을 표시한 상태입니다. 다른 상태 위에 겹쳐 표시합니다."
+      },
+      {
+        "name": "Disabled",
+        "props": {
+          "type": "basic",
+          "size": "medium",
+          "state": "disabled"
+        },
+        "desc": "사용할 수 없는 상태입니다. Title과 Indicator가 흐려지고 Header를 열 수 없습니다."
+      },
+      {
+        "name": "Collapsed",
+        "props": {
+          "type": "basic",
+          "size": "medium",
+          "listState": "collapsed"
+        },
+        "desc": "콘텐츠가 접혀 있는 상태입니다. Indicator가 아래쪽을 향합니다."
+      },
+      {
+        "name": "Expanded",
+        "props": {
+          "type": "basic",
+          "size": "medium",
+          "listState": "expanded"
+        },
+        "desc": "Header를 눌러 콘텐츠 영역을 펼친 상태입니다. Indicator가 위쪽을 향합니다."
+      }
+    ]
+  },
+  "variants": {
+    "title": "Variants (변형)",
+    "lead": "동일한 컴포넌트를 용도와 표현 방식에 따라 구분한 파생 타입입니다.",
+    "groups": [
+      {
+        "title": "Type",
+        "lead": "사용 위치와 정보 밀도에 따라 세 가지 형태를 제공합니다.(type=basic·compact·text)",
+        "rows": [
+          {
+            "name": "Basic",
+            "props": {
+              "type": "basic",
+              "size": "large",
+              "listState": "expanded"
+            },
+            "desc": "기본 Accordion입니다. Header 좌우에 여백이 있고 Large·Medium 두 가지 크기를 제공합니다. 상담 이력처럼 내용이 많은 항목 목록에 사용합니다."
+          },
+          {
+            "name": "Compact",
+            "props": {
+              "type": "compact",
+              "size": "fixed",
+              "listState": "expanded"
+            },
+            "desc": "좌우 여백 없이 영역에 붙여 사용하는 Accordion입니다. Side Panel처럼 폭이 좁은 곳에 사용합니다.(높이 48px)"
+          },
+          {
+            "name": "Text",
+            "props": {
+              "type": "text",
+              "size": "fixed",
+              "listState": "collapsed"
+            },
+            "desc": "배경과 구분선 없이 Title과 Indicator만 있는 텍스트형입니다. 업로드 안내·옵션처럼 보조 정보를 펼칠 때 사용합니다. 콘텐츠 영역 없이 Header만 제공하며, 펼칠 내용은 화면에 맞게 배치합니다."
+          }
+        ]
+      },
+      {
+        "title": "Size",
+        "lead": "Accordion을 크기별로 구분합니다. Basic은 Large·Medium 중에서 고르고, Compact·Text는 Fixed 하나만 사용합니다.(size=large·medium·fixed)",
+        "rows": [
+          {
+            "name": "Large",
+            "props": {
+              "type": "basic",
+              "size": "large",
+              "listState": "expanded"
+            },
+            "desc": "상담 이력처럼 내용이 많고 넓은 영역에 사용합니다.(Header 높이 64px, 좌우 여백 24px)"
+          },
+          {
+            "name": "Medium",
+            "props": {
+              "type": "basic",
+              "size": "medium",
+              "listState": "expanded"
+            },
+            "desc": "Large보다 정보 밀도가 높은 화면에서 사용합니다.(Header 높이 52px, 좌우 여백 20px)"
+          },
+          {
+            "name": "Fixed",
+            "props": {
+              "type": "compact",
+              "size": "fixed",
+              "listState": "collapsed"
+            },
+            "desc": "Compact·Text 유형에 사용하는 크기입니다.(Compact 높이 48px)"
+          }
+        ]
+      }
+    ]
+  },
+  "policy": {
+    "title": "Policy (사용 정책)",
+    "lead": "관련된 내용을 항목으로 묶어 필요할 때 펼쳐 보게 할 때 씁니다.",
+    "when": {
+      "use": [
+        "관련된 내용을 항목으로 묶어, 필요할 때 펼쳐 보게 할 때",
+        "업로드 안내·옵션처럼 보조 정보를 펼쳐 볼 때(Text 유형)"
+      ],
+      "avoid": [
+        {
+          "text": "반드시 확인하거나 입력해야 하는 정보를 표시할 때",
+          "alt": "접지 않고 화면에 바로 표시"
+        }
+      ]
+    },
+    "rules": [
+      {
+        "name": "State Priority · Header 바탕",
+        "desc": "state를 따릅니다. Basic·Compact는 Hover·Pressed에 따라 바탕색이 바뀝니다. Text는 바탕이 없습니다.",
+        "from": "Guideline · States"
+      },
+      {
+        "name": "State Priority · Title·Indicator 색",
+        "desc": "state를 따릅니다. Hover·Pressed에서 진해지고, Disabled이면 흐려집니다.",
+        "from": "Guideline · States"
+      },
+      {
+        "name": "State Priority · Indicator 방향·Content",
+        "desc": "listState를 따릅니다. Expanded이면 Indicator가 위쪽을 향하고 Content를 표시합니다. listState와 state는 함께 적용합니다.",
+        "from": "Guideline · States"
+      },
+      {
+        "name": "State Priority · Focus Ring",
+        "desc": "showFocus를 따르며 Disabled를 포함한 모든 상태 위에 겹쳐 표시합니다.",
+        "from": "Guideline · States"
+      },
+      {
+        "name": "너비",
+        "desc": "놓이는 영역을 채웁니다(Flexible Width). Basic은 Header와 Content 사이 12, Content 아래 여백 Large 40 · Medium 32, Compact는 사이 4 · 아래 20입니다.",
+        "from": "Guideline · Spec"
+      }
+    ],
+    "do": [
+      "관련된 내용끼리 항목으로 묶어 필요할 때 펼쳐 보게 합니다. (제목만 보고도 어떤 내용이 들어 있는지 알 수 있게 씁니다.)"
+    ],
+    "dont": [
+      "반드시 확인하거나 입력해야 하는 정보를 접힌 영역에 숨기지 않습니다. (사용자가 펼치지 않으면 필수 정보를 놓쳐 오류로 이어질 수 있습니다.)"
+    ],
+    "source": {
+      "id": "guideline-accordion",
+      "title": "BSS Design Guideline v2.0 · Accordion / Collapse"
+    }
+  }
+}

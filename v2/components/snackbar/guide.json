@@ -1,0 +1,162 @@
+{
+  "$description": "BSS Design Guideline v2.0 › Components/Toast / Snackbar에서 Snackbar 부분을 옮긴 사용 가이드",
+  "source": {
+    "fileKey": "9aVw18Cj7CzvHE1ljGaM9m",
+    "fileName": "BSS Design Guideline v2.0",
+    "nodeId": "2430:84089",
+    "name": "Components/Toast / Snackbar",
+    "url": "https://www.figma.com/design/9aVw18Cj7CzvHE1ljGaM9m?node-id=2430-84089",
+    "extractedAt": "2026-11-26"
+  },
+  "group": "피드백·알림",
+  "overview": "Snackbar는 작업 결과를 제목과 항목별 처리 건수로 짧게 알리는 비차단형 알림 컴포넌트입니다. 사용자 흐름을 방해하지 않고 일정 시간 후 자동으로 사라지며, 필요하면 되돌리기·재시도 같은 후속 행동과 닫기 버튼을 함께 둡니다.",
+  "anatomy": {
+    "title": "Anatomy (구성)",
+    "lead": "Snackbar를 이루는 필수/선택 요소의 구조를 말합니다.",
+    "example": {
+      "title": "엑셀 업로드 처리 현황",
+      "showAction": true,
+      "showClose": true
+    },
+    "parts": [
+      {
+        "n": 1,
+        "name": "Container",
+        "layer": "root",
+        "desc": "알림을 감싸는 영역으로 배경, 여백, 위치 기준을 정의합니다."
+      },
+      {
+        "n": 2,
+        "name": "Title",
+        "layer": "title",
+        "desc": "알림의 주제를 한눈에 파악할 수 있도록 상황을 짧게 제시합니다."
+      },
+      {
+        "n": 3,
+        "name": "Status Content",
+        "layer": "statusContent",
+        "desc": "처리 현황을 항목별 건수로 표시합니다. StatusContent 슬롯에 _Item/Snackbar/Status를 넣고, Tone(Info·Success·Danger)으로 건수 색을 구분합니다. 슬롯을 비우면 Title만 표시합니다."
+      },
+      {
+        "n": 4,
+        "name": "Action (Optional)",
+        "layer": "actionButton",
+        "desc": "되돌리기(Undo), 재시도 등 즉각적인 후속 행동을 제공합니다. showAction을 켜면 표시합니다."
+      },
+      {
+        "n": 5,
+        "name": "Close Button (Optional)",
+        "layer": "closeButton",
+        "desc": "사용자가 알림을 즉시 닫을 수 있는 버튼입니다. showClose를 켜면 표시합니다. Action을 켠 상태에서 Close Button만 끌 수 있습니다."
+      }
+    ]
+  },
+  "variants": {
+    "title": "Variants (변형)",
+    "lead": "동일한 컴포넌트를 용도와 표현 방식에 따라 구분한 파생 타입입니다.",
+    "groups": [
+      {
+        "title": "Optional Element",
+        "lead": "액션 영역의 선택 요소를 켜고 끕니다.(showAction · showClose)",
+        "rows": [
+          {
+            "name": "Action · Close",
+            "props": {
+              "title": "엑셀 업로드 처리 현황",
+              "showAction": true,
+              "showClose": true
+            },
+            "desc": "후속 행동 버튼과 닫기 버튼을 함께 표시합니다."
+          },
+          {
+            "name": "Action만",
+            "props": {
+              "title": "엑셀 업로드 처리 현황",
+              "showAction": true,
+              "showClose": false
+            },
+            "desc": "Action을 켠 상태에서 Close Button만 끕니다."
+          },
+          {
+            "name": "Close만",
+            "props": {
+              "title": "엑셀 업로드 처리 현황",
+              "showAction": false,
+              "showClose": true
+            },
+            "desc": "후속 행동 없이 닫기 버튼만 둡니다."
+          },
+          {
+            "name": "Title · Status만",
+            "props": {
+              "title": "엑셀 업로드 처리 현황",
+              "showAction": false,
+              "showClose": false
+            },
+            "desc": "액션 영역 없이 제목과 처리 현황만 표시합니다."
+          }
+        ]
+      }
+    ]
+  },
+  "policy": {
+    "title": "Policy (사용 정책)",
+    "lead": "처리 결과를 제목과 항목별 건수로 흐름을 막지 않고 알릴 때 씁니다.",
+    "when": {
+      "use": [
+        "처리 결과를 제목과 항목별 건수로 알릴 때"
+      ],
+      "avoid": [
+        {
+          "text": "사용자의 확인이나 결정이 반드시 필요할 때",
+          "alt": "확인만 받을 때는 Alert, 결정을 받을 때는 Dialog"
+        },
+        {
+          "text": "화면 안에서 계속 표시해야 하는 안내일 때",
+          "alt": "Callout"
+        },
+        {
+          "text": "한 줄 결과만 알릴 때",
+          "alt": "Toast"
+        }
+      ]
+    },
+    "rules": [
+      {
+        "name": "Alignment",
+        "desc": "Snackbar는 화면(Viewport) 기준 아래쪽 중앙에 정렬됩니다.",
+        "from": "Guideline · Layout"
+      },
+      {
+        "name": "Snackbar Title",
+        "desc": "처리한 작업의 이름을 짧게 씁니다.(예: “엑셀 업로드 처리 현황”)",
+        "from": "Guideline · Content"
+      },
+      {
+        "name": "Status Tone",
+        "desc": "처리 현황 항목(_Item/Snackbar/Status)의 건수 색은 tone으로 고릅니다. Info는 일반 건수(예: “신청 건수”), Success는 정상 처리된 건수(예: “정상처리 건수”), Danger는 오류가 난 건수(예: “오류 건수”)에 씁니다.",
+        "from": "Guideline · Variants"
+      },
+      {
+        "name": "Close Button",
+        "desc": "Action을 켠 상태에서 Close Button만 끌 수 있습니다.",
+        "from": "Guideline · Anatomy"
+      },
+      {
+        "name": "규격",
+        "desc": "모서리 R12, 좌우 여백 20, 위아래 여백 16, 내용과 액션 영역 사이 40, 액션 버튼과 닫기 버튼 사이 12입니다.",
+        "from": "Guideline · Spec"
+      }
+    ],
+    "do": [
+      "처리 현황처럼 항목별 건수를 알릴 때는 Snackbar를 사용합니다. (제목과 항목별 건수를 나눠 표시해 결과를 한눈에 확인할 수 있습니다.)"
+    ],
+    "dont": [
+      "Toast Message에 여러 항목의 건수를 나열하지 않습니다. (Toast는 한 줄 결과 알림으로, 건수를 나열하면 읽기 어렵습니다.)"
+    ],
+    "source": {
+      "id": "guideline-snackbar",
+      "title": "BSS Design Guideline v2.0 · Toast / Snackbar"
+    }
+  }
+}

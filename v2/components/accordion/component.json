@@ -1,0 +1,95 @@
+{
+  "schemaVersion": 2,
+  "key": "accordion",
+  "name": "Accordion",
+  "description": "제목 줄(머리)을 눌러 내용을 펼치고 접습니다. type 3종(basic · compact · text) × size(basic large 64·medium 52 / compact fixed 48 / text fixed 20) × listState 2종(collapsed · expanded), 머리 state 4종. showBadge로 제목 옆 배지, showFocus로 포커스 링을 표시하며 펼친 내용은 content 슬롯에 넣습니다.",
+  "figma": {
+    "fileKey": "WcoI745J38TaON7iCKcutW",
+    "nodeId": "8544:2786",
+    "url": "https://www.figma.com/design/WcoI745J38TaON7iCKcutW?node-id=8544-2786",
+    "page": {
+      "nodeId": "7324:560",
+      "name": "❖ Accordion / Collapse"
+    },
+    "type": "COMPONENT_SET",
+    "componentKey": null,
+    "extractedAt": "2026-11-26",
+    "source": "DS 컴포넌트 구조 명세 (토큰 v2.0.4)"
+  },
+  "ds": {
+    "specs": [
+      "accordion-basic",
+      "accordion-compact",
+      "accordion-text"
+    ],
+    "structure": "87. Accordion (type=basic) · 89. Accordion (type=compact) · 91. Accordion (type=text) · 88. _Item/Accordion/Header"
+  },
+  "props": [
+    {
+      "name": "type",
+      "figmaName": "type",
+      "type": "variant",
+      "default": "basic",
+      "options": [
+        "basic",
+        "compact",
+        "text"
+      ]
+    },
+    {
+      "name": "size",
+      "figmaName": "size",
+      "type": "variant",
+      "default": "large",
+      "options": [
+        "large",
+        "medium",
+        "fixed"
+      ]
+    },
+    {
+      "name": "listState",
+      "figmaName": "listState",
+      "type": "variant",
+      "default": "collapsed",
+      "options": [
+        "collapsed",
+        "expanded"
+      ]
+    },
+    {
+      "name": "state",
+      "figmaName": "_Item/Accordion/Header › state",
+      "type": "variant",
+      "default": "default",
+      "options": [
+        "default",
+        "hover",
+        "pressed",
+        "disabled"
+      ]
+    },
+    {
+      "name": "showFocus",
+      "figmaName": "_Item/Accordion/Header › showFocus#9843:75",
+      "type": "boolean",
+      "default": false
+    },
+    {
+      "name": "showBadge",
+      "figmaName": "_Item/Accordion/Header › showBadge#9843:100",
+      "type": "boolean",
+      "default": false
+    },
+    {
+      "name": "title",
+      "figmaName": "_Item/Accordion/Header › title#9843:125",
+      "type": "text",
+      "default": "Title"
+    }
+  ],
+  "variants": [],
+  "tokens": [],
+  "textStyles": [],
+  "otherStyles": []
+}

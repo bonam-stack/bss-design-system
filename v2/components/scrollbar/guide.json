@@ -1,0 +1,166 @@
+{
+  "$description": "BSS Design Guideline v2.0 › Components/Scrollbar에서 옮긴 사용 가이드",
+  "source": {
+    "fileKey": "9aVw18Cj7CzvHE1ljGaM9m",
+    "fileName": "BSS Design Guideline v2.0",
+    "nodeId": "2430:174914",
+    "name": "Components/Scrollbar",
+    "url": "https://www.figma.com/design/9aVw18Cj7CzvHE1ljGaM9m?node-id=2430-174914",
+    "extractedAt": "2026-11-26"
+  },
+  "group": "컨테이너",
+  "overview": "Scrollbar는 한 화면에 볼 수 없는 긴 텍스트, 이미지 등을 위아래 또는 좌우로 이동해 확인할 수 있게 하는 컴포넌트입니다.",
+  "anatomy": {
+    "title": "Anatomy (구성)",
+    "lead": "Scrollbar를 이루는 필수/선택 요소의 구조를 말합니다.",
+    "example": {
+      "direction": "horizontal",
+      "size": "large",
+      "state": "default"
+    },
+    "parts": [
+      {
+        "n": 1,
+        "name": "Track",
+        "layer": "root",
+        "desc": "Thumb이 이동하는 전체 영역입니다. 스크롤 가능한 콘텐츠의 전체 길이를 나타냅니다."
+      },
+      {
+        "n": 2,
+        "name": "Thumb",
+        "layer": "thumb",
+        "desc": "현재 보이는 영역의 위치와 비율을 나타내는 막대입니다. 드래그해 원하는 위치로 이동할 수 있습니다."
+      }
+    ]
+  },
+  "states": {
+    "title": "States (상태)",
+    "lead": "사용자 입력과 시스템의 상황에 따라 컴포넌트의 표현 방식을 정리한 기준입니다.",
+    "rows": [
+      {
+        "name": "Default",
+        "props": {
+          "direction": "horizontal",
+          "size": "large",
+          "state": "default"
+        },
+        "desc": "조작하지 않은 기본 상태입니다. 콘텐츠가 영역을 넘쳐 스크롤이 생기면 표시합니다.(Thumb 불투명도 30%)"
+      },
+      {
+        "name": "Hover",
+        "props": {
+          "direction": "horizontal",
+          "size": "large",
+          "state": "hover"
+        },
+        "desc": "마우스 커서가 Scrollbar 위에 올라간 상태입니다. Thumb이 조금 더 진해집니다.(Thumb 불투명도 40%)"
+      },
+      {
+        "name": "Pressed",
+        "props": {
+          "direction": "horizontal",
+          "size": "large",
+          "state": "pressed"
+        },
+        "desc": "Thumb을 누르고 있는 상태입니다. 누른 채 끌 수 있으며, Thumb을 가장 진하게 표시합니다.(Thumb 불투명도 50%)"
+      }
+    ]
+  },
+  "variants": {
+    "title": "Variants (변형)",
+    "lead": "동일한 컴포넌트를 용도와 표현 방식에 따라 구분한 파생 타입입니다.",
+    "groups": [
+      {
+        "title": "Direction",
+        "lead": "스크롤 방향에 따라 Horizontal과 Vertical로 구분합니다. 선택한 뒤에는 임의로 방향을 바꾸지 않습니다.(direction=horizontal·vertical)",
+        "rows": [
+          {
+            "name": "Horizontal",
+            "props": {
+              "direction": "horizontal",
+              "size": "large"
+            },
+            "desc": "스크롤 영역 아래쪽에 있으며, 좌우로 넓은 콘텐츠를 볼 때 현재 위치를 나타내고 이동을 돕습니다."
+          },
+          {
+            "name": "Vertical",
+            "props": {
+              "direction": "vertical",
+              "size": "large"
+            },
+            "desc": "스크롤 영역 오른쪽에 있으며, 위아래로 긴 콘텐츠를 볼 때 현재 위치를 나타내고 이동을 돕습니다."
+          }
+        ]
+      },
+      {
+        "title": "Size",
+        "lead": "Scrollbar를 크기별로 구분합니다.(size=large·medium)",
+        "rows": [
+          {
+            "name": "Large",
+            "props": {
+              "direction": "horizontal",
+              "size": "large"
+            },
+            "desc": "페이지, 패널 등 일반적인 스크롤 영역에 사용합니다.(Track 두께 12px, Thumb 두께 6px)"
+          },
+          {
+            "name": "Medium",
+            "props": {
+              "direction": "horizontal",
+              "size": "medium"
+            },
+            "desc": "Select 옵션 목록, 테이블 영역 등 공간이 좁은 컴포넌트 안에 사용합니다.(Track 두께 8px, Thumb 두께 4px)"
+          }
+        ]
+      }
+    ]
+  },
+  "policy": {
+    "title": "Policy (사용 정책)",
+    "lead": "콘텐츠가 영역을 넘어 한 번에 볼 수 없을 때 한 화면에 하나의 스크롤 영역으로 씁니다.",
+    "when": {
+      "use": [
+        "콘텐츠가 영역을 넘어 한 번에 볼 수 없을 때 (페이지, 패널, 테이블, Select 옵션 목록)",
+        "목록 높이를 정해 두고, 넘는 항목을 스크롤로 볼 때 (예: 옵션 5~7개가 보이는 높이)"
+      ],
+      "avoid": [
+        {
+          "text": "스크롤되는 페이지 안의 작은 상자에 두 번째 스크롤을 둘 때",
+          "alt": "상자 높이를 늘려 내용을 모두 표시하거나, 내용이 많으면 Accordion으로 접어 둡니다 [확인 필요: 대체 컴포넌트]"
+        },
+        {
+          "text": "2~3줄만 보이는 작은 영역일 때",
+          "alt": "보이는 줄 수를 늘리거나, 데이터가 많으면 Pagination으로 나눕니다 [확인 필요: 대체 컴포넌트]"
+        }
+      ]
+    },
+    "rules": [
+      {
+        "name": "Interaction State",
+        "desc": "Thumb의 진하기만 바뀌며, Track과 크기는 바뀌지 않습니다.",
+        "from": "Guideline · States"
+      },
+      {
+        "name": "Direction",
+        "desc": "선택한 뒤에는 임의로 방향을 바꾸지 않습니다.",
+        "from": "Guideline · Variants"
+      },
+      {
+        "name": "규격",
+        "desc": "Track은 영역 길이를 채우고(100%) Thumb 모서리는 R9999입니다. 끝 여백은 Large 6 · Medium 2입니다.",
+        "from": "Guideline · Spec"
+      }
+    ],
+    "do": [
+      "한 화면에 스크롤 영역은 하나만 둡니다. (목록은 옵션 5~7개처럼 한 번에 충분한 수가 보이게 높이를 정합니다.)"
+    ],
+    "dont": [
+      "스크롤되는 페이지 안에 또 스크롤 영역을 넣지 않습니다. (이중 스크롤 또는 2~3줄만 보이는 작은 상자에 스크롤을 두지 않습니다.)"
+    ],
+    "source": {
+      "id": "guideline-scrollbar",
+      "title": "BSS Design Guideline v2.0 · Scrollbar"
+    }
+  }
+}
