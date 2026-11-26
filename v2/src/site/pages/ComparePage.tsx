@@ -5,7 +5,7 @@ import type { SiteComponent } from '../data';
 import * as P from '../portal/store';
 import { FigmaView } from '../../ds/figma/FigmaView';
 import { defaultValues } from '../../ds/figma/variants';
-import { compile } from '../live';
+import { compile, liveComponent } from '../live';
 import { Head } from '../ui';
 
 class Boundary extends ReactComponent<{ children: ReactNode }, { error: string | null }> {
@@ -21,7 +21,7 @@ class Boundary extends ReactComponent<{ children: ReactNode }, { error: string |
 export function ComparePage({ sc }: { sc: SiteComponent }) {
   const c = sc.data;
   const published = P.publishedCode(c.key);
-  const C = (published && compile(sc.name, published).Component) || sc.Component;
+  const C = liveComponent(sc.name) || (published && compile(sc.name, published).Component) || sc.Component;
   const values = defaultValues(c);
   const bools = Object.fromEntries(c.props.filter((p) => p.type === 'boolean').map((p) => [p.name, values[p.figmaName]]));
   const meta = C?.meta || { texts: {} };

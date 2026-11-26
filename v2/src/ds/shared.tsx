@@ -97,7 +97,8 @@ export function FocusRing({ radius, style, className }: { radius: string; style?
       className={className}
       style={{
         position: 'absolute',
-        inset: -2,
+        // 링은 칸 밖으로 focus-ring-space-offset만큼 떨어진다
+        inset: `calc(-1 * ${tok('focus-ring-space-offset')})`,
         borderRadius: radius,
         outline: `${tok('focus-ring-border-width')} solid ${tok('focus-ring-color-border')}`,
         pointerEvents: 'none',

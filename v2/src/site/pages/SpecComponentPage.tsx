@@ -4,7 +4,7 @@ import { useMemo, useState } from 'react';
 import type { SiteComponent } from '../data';
 import * as P from '../portal/store';
 import { usePortal } from '../portal/ctx';
-import { compile, fileOf, repoSource } from '../live';
+import { fileOf, liveComponent, repoSource } from '../live';
 import { Head, Table, TextEditToggle, TextScope } from '../ui';
 import specs from '../../../tokens/ds/component-specs.json';
 import { AiSummary } from './AiSummary';
@@ -51,7 +51,8 @@ export function SpecComponentPage({ sc }: { sc: SiteComponent }) {
   const item = P.itemByKey(key);
   const published = P.publishedCode(key);
   const source = published ?? repoSource(sc.name);
-  const C = (published ? compile(sc.name, published).Component : null) || sc.Component;
+  // 게시본 · 쓰는 컴포넌트(Button 등)의 게시본까지 반영한 컴포넌트
+  const C = liveComponent(sc.name) || sc.Component;
   const [tab, setTab] = useState<'preview' | 'code'>('preview');
   const [q, setQ] = useState('');
   const specNames = base.ds?.specs || [];

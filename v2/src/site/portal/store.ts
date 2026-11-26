@@ -667,6 +667,18 @@ export function tokens(): Record<string, Token> {
   return T;
 }
 
+/** 게시된 토큰 수정 · 추가를 화면 전체 CSS 변수로 (컴포넌트 · Foundations가 같은 토큰을 따른다).
+ *  가리키는 토큰(ref)이 있으면 var(--ref)로 이어서, 베이스 값이 바뀌면 역할 · 컴포넌트 토큰도 같이 바뀐다 */
+export function tokenOverrideCss(): string {
+  const L: string[] = [];
+  for (const [css, t] of Object.entries(S.pub.tokens)) {
+    if (!t || !/^--[a-z0-9-]+$/.test(css)) continue;
+    const v = t.ref && /^--[a-z0-9-]+$/.test(t.ref) ? `var(${t.ref})` : t.value;
+    if (v && !/[;{}<>]/.test(String(v))) L.push(`${css}: ${v};`);
+  }
+  return L.length ? `:root { ${L.join(' ')} }` : '';
+}
+
 /** 토큰 추가 · 수정 · 삭제 초안. 추가는 MINOR, 기존 토큰 수정 · 삭제는 쓰는 부품이 바뀌어 MAJOR */
 export function draftToken(role: Role, f: { figma: string; collection?: string; value?: string; ref?: string }, remove = false) {
   must(role, 'token');

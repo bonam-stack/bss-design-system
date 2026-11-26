@@ -86,7 +86,7 @@ export function Checkbox({ selection, defaultSelection = 'unchecked', onSelectio
           {label}
         </span>
       ) : null}
-      {showFocus || it.focusVisible ? <FocusRing radius={s.ring} style={{ inset: 'auto', left: -2, top: '50%', width: `calc(${s.box} + 4px)`, height: `calc(${s.box} + 4px)`, transform: 'translateY(-50%)' }} /> : null}
+      {showFocus || it.focusVisible ? <FocusRing radius={s.ring} style={{ inset: 'auto', left: `calc(-1 * ${tok('focus-ring-space-offset')})`, top: '50%', width: `calc(${s.box} + 2 * ${tok('focus-ring-space-offset')})`, height: `calc(${s.box} + 2 * ${tok('focus-ring-space-offset')})`, transform: 'translateY(-50%)' }} /> : null}
     </label>
   );
 }

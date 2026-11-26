@@ -11,7 +11,7 @@ import type { ComponentData, Layer, PropValues } from '../../ds/figma/types';
 import { analyze, defaultSelection, defaultValues, findVariant, fixSelection, optionsFor, propsFor, usedProps, variantOf } from '../../ds/figma/variants';
 import { isRenderable } from '../../ds/figma/tree';
 import { FigmaView } from '../../ds/figma/FigmaView';
-import { compile, fileOf, repoSource } from '../live';
+import { compile, fileOf, liveComponent, repoSource } from '../live';
 import { editWithChat, getApiKey, setApiKey } from '../codechat';
 import type { ChatTurn } from '../codechat';
 import type { LiveComponent, Meta } from '../live';
@@ -117,7 +117,8 @@ export function ComponentPage({ sc }: { sc: SiteComponent }) {
   const openDraft = P.openDraft('code', key);
   const editorSrc = draftSrc ?? openDraft?.after.source ?? current;
   const editCompiled = editing ? compile(sc.name, editorSrc) : null;
-  const C = (editing && editCompiled?.Component) || pubCompiled?.Component || sc.Component;
+  // 게시본 · 쓰는 컴포넌트(Button 등)의 게시본까지 반영한 컴포넌트
+  const C = (editing && editCompiled?.Component) || liveComponent(sc.name) || pubCompiled?.Component || sc.Component;
   const live = useMemo(() => makeLive(base, C), [base, C]);
 
   const [sel, setSel] = useState<Sel>(() => fixSelection(base, defaultSelection(base)));

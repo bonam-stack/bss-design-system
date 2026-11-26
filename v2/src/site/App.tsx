@@ -11,6 +11,11 @@ import { portalPage } from './pages/portal';
 import { ComponentPage } from './pages/ComponentPage';
 import { SpecComponentPage } from './pages/SpecComponentPage';
 import { isRenderable } from '../ds/figma/tree';
+import { setOverrideSource } from './live';
+
+// 컴포넌트끼리 연결: 포털에 게시된 코드(이름 Button → 키 button)를 다른 컴포넌트가 가져다 쓸 때도 쓴다
+const keyOfName = Object.fromEntries(components.map((c) => [c.name, c.data.key]));
+setOverrideSource((name) => (keyOfName[name] ? P.publishedCode(keyOfName[name]) : null));
 import { PortalOnlyPage } from './pages/PortalCompPage';
 import { IconsPage } from './pages/IconsPage';
 import { PatternPage } from './pages/PatternPage';
@@ -183,8 +188,11 @@ export function App() {
   }, [route]);
 
   const ctx: PortalCtx = { role, setRole, ui, setUi, toast, toc, textEdit: textEdit && (P.canEdit(role, 'text') || P.canEdit(role, 'guide')), setTextEdit: (on: boolean) => (setTextEdit(on), on || setUi((u) => ({ ...u, edit: null, editRule: null }))), pending, setPending };
+  // 포털에서 게시한 토큰 값을 화면 전체 CSS 변수로 덮는다 (DS 전달본 tokens.css 위에)
+  const tokenCss = P.tokenOverrideCss();
   return (
     <Ctx.Provider value={ctx}>
+      {tokenCss ? <style id="pub-tokens">{tokenCss}</style> : null}
       <header className="topbar">
         <div className="topbar-inner">
           <button className="menu-btn" aria-label="메뉴 열기" aria-expanded={menuOpen} aria-controls="sidebar" onClick={() => setMenuOpen((o) => !o)}>

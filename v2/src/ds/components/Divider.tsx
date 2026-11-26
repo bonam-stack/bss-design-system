@@ -14,7 +14,7 @@ export interface DividerProps {
 
 export function Divider({ type = 'solid', direction = 'horizontal', length, className, style }: DividerProps) {
   const h = direction === 'horizontal';
-  const line = `1px ${type} ${tok('color-border-neutral-muted')}`;
+  const line = `${tok('border-width-thin')} ${type} ${tok('color-border-neutral-muted')}`;
   return (
     <span
       role="separator"
