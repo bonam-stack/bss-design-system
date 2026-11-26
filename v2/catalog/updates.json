@@ -258,19 +258,19 @@
       "code": "c-text-field",
       "flag": "updated",
       "at": "2026-11-26",
-      "note": "가이드라인 v2.0 반영"
+      "note": "가이드라인 v2.0 반영 · 라벨 · 지우기 버튼을 DS FieldLabel · Button으로 재사용"
     },
     {
       "code": "c-text-area",
       "flag": "updated",
       "at": "2026-11-26",
-      "note": "가이드라인 v2.0 반영"
+      "note": "가이드라인 v2.0 반영 · 라벨 · 크기 조절 손잡이를 DS FieldLabel · Button으로 재사용"
     },
     {
       "code": "c-password-field",
       "flag": "updated",
       "at": "2026-11-26",
-      "note": "가이드라인 v2.0 반영"
+      "note": "가이드라인 v2.0 반영 · 라벨을 DS FieldLabel로 재사용"
     },
     {
       "code": "c-helper-text",

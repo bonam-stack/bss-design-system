@@ -6,35 +6,9 @@
 import { useId } from 'react';
 import type { CSSProperties, HTMLAttributes, ReactNode } from 'react';
 import { Button } from './Button';
+import { Scrollbar, scrollbarOverlay } from './Scrollbar';
 import { ContentPlaceholder, OverlayBackdrop, OverlayClose, escToClose, overlayBox, overlayTitle } from './Modal';
 import { textStyle, tok } from '../shared';
-
-/** 세로 스크롤바 모양 (Figma Scrollbar direction=vertical). 부모는 position: relative */
-export function ScrollbarRail({ size, className, style }: { size: 'large' | 'medium'; className?: string; style?: CSSProperties }) {
-  return (
-    <span
-      aria-hidden="true"
-      className={className}
-      style={{
-        position: 'absolute',
-        top: 0,
-        right: 0,
-        bottom: 0,
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        boxSizing: 'border-box',
-        width: size === 'large' ? tok('size-10') : tok('size-8'),
-        padding: `${tok(`scrollbar-${size}-space-padding-y`)} 0`,
-        background: tok('scrollbar-track-color-bg-default'),
-        pointerEvents: 'none',
-        ...style,
-      }}
-    >
-      <span style={{ display: 'block', width: tok(`scrollbar-${size}-size`), height: '40%', borderRadius: tok('scrollbar-thumb-radius'), background: tok('scrollbar-thumb-color-bg-default') }} />
-    </span>
-  );
-}
 
 export interface ViewerModalToolbarProps {
   /** actions: 확대 · 축소 등 보기 동작 버튼 / page: 쪽 이동 · 쪽 표시 */
@@ -148,7 +122,7 @@ export function ViewerModal({ showClose = true, showAction = true, showLeadingTo
                 {trailingToolbar ?? <ViewerModalToolbar type="page" currentPage={currentPage} totalPages={totalPages} />}
               </div>
             ) : null}
-            {showScrollbar ? <ScrollbarRail size="large" className="ds-viewer-modal__scrollbar" /> : null}
+            {showScrollbar ? <Scrollbar className="ds-viewer-modal__scrollbar" direction="vertical" size="large" length="auto" style={scrollbarOverlay} /> : null}
           </div>
         </div>
         {showAction ? (

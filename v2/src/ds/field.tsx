@@ -1,7 +1,8 @@
-// 입력 칸 공통 (TextField · PasswordField · TextArea): 상태 판정, 칸 색, 라벨, 도움말, 포커스 링.
+// 입력 칸 공통 (TextField · PasswordField · TextArea): 상태 판정, 칸 색, 라벨(FieldLabel), 도움말(HelperText), 포커스 링.
 // Figma: 세 컴포넌트가 같은 field/* 토큰과 구조(Label → textfieldBox[invalidBox › inputBox] → HelperText)를 쓴다.
 import type { CSSProperties, ReactNode } from 'react';
-import { FocusRing, font, tok, tokState } from './shared';
+import { FocusRing, tok, tokState } from './shared';
+import { FieldLabel } from './components/FieldLabel';
 import { HelperText } from './components/HelperText';
 
 export type FieldState = 'default' | 'hover' | 'focus' | 'entered' | 'readOnly' | 'disabled';
@@ -40,15 +41,6 @@ export function fieldColors(look: FieldState, importance: Importance, invalid: b
 /** 입력 요소 기본 모양 지우기 */
 export const bareInput: CSSProperties = { display: 'block', width: '100%', minWidth: 0, margin: 0, padding: 0, border: 0, outline: 'none', background: 'transparent', color: 'inherit', font: 'inherit', letterSpacing: 'inherit' };
 
-export function FieldLabel({ htmlFor, children, importance }: { htmlFor: string; children: ReactNode; importance: Importance }) {
-  return (
-    <label htmlFor={htmlFor} style={{ display: 'flex', gap: tok('field-label-space-gap'), ...font('label', 14, 500), color: tok('field-label-color-fg-default') }}>
-      {children}
-      {importance === 'required' ? <span style={{ color: tok('color-fg-danger-strong') }}>*</span> : null}
-    </label>
-  );
-}
-
 /** 라벨 · 칸 · 도움말을 세로로 쌓는 바깥 틀 */
 export function FieldFrame(p: {
   /** 토큰 앞자리: text-field · password-field · text-area */
@@ -76,7 +68,7 @@ export function FieldFrame(p: {
   return (
     <div className={p.className} style={{ display: 'inline-flex', flexDirection: 'column', gap: tok(`${p.name}-label-space-gap`), width: p.width, minWidth: p.minWidth ?? `calc(${tok('size-40')} * 3)`, ...p.style }}>
       {p.showLabel && p.label ? (
-        <FieldLabel htmlFor={p.id} importance={p.importance}>
+        <FieldLabel htmlFor={p.id} emphasis="strong" showRequired={p.importance === 'required'}>
           {p.label}
         </FieldLabel>
       ) : null}

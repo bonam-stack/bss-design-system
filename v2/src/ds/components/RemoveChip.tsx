@@ -1,10 +1,11 @@
 // RemoveChip: 선택한 값을 표시하고 × 버튼으로 지운다. 칩 본체는 <button aria-pressed>(선택 · 해제), 지우기는 별도 <button>.
 // Figma: BSS_DS_Library_Component_v2.0 ❖ Chip › RemoveChip (5768:1693) · appearance 2 × selection 2 × state 4, showLeadingIcon · showCount · showFocus · label
 //        부품 _Item/RemoveChip/Count (5768:1642) · _Item/RemoveChip/Remove (5768:1655)
-// 토큰: DS 컴포넌트 명세 chip (chip-remove-*). 선택 안 된 칩의 ×는 button-icon-only-plain-*, 지우기 버튼 포커스 링은 focus-ring-radius
+// 토큰: DS 컴포넌트 명세 chip (chip-remove-*). 선택 안 된 칩의 ×는 Button type=iconPlain medium(Figma Button 인스턴스), 선택된 칩의 ×는 _Item/RemoveChip/Remove(chip-remove-*-selected-clear-button-*, 포커스 링 focus-ring-radius)
 import { useState } from 'react';
 import type { CSSProperties } from 'react';
 import { FocusRing, Icon, textStyle, tok, tokState, useInteraction } from '../shared';
+import { Button } from './Button';
 
 export type RemoveChipSelection = 'unselected' | 'selected';
 type Look = 'default' | 'hover' | 'pressed' | 'disabled';
@@ -46,20 +47,19 @@ export function RemoveChip({ appearance = 'filled', selection, defaultSelection 
   const rm = useInteraction();
   const off = disabled || state === 'disabled';
   const look: Look = off ? 'disabled' : state && state !== 'default' ? state : it.pressed ? 'pressed' : it.hover ? 'hover' : 'default';
-  const rmLook: Look = off ? 'disabled' : rm.pressed ? 'pressed' : rm.hover ? 'hover' : 'default';
 
   let bg: string;
   let border: string | undefined;
   let fg: string;
   let countFg: string;
-  let clearFg: string;
+  // 선택 안 된 칩의 ×는 Button(iconPlain)이 그린다. 선택된 칩의 ×는 _Item/RemoveChip/Remove 부품 색
+  let clearFg = '';
   if (!on) {
     bg = tokState(`chip-remove-${appearance}-color-bg`, look);
     border = appearance === 'outlined' ? tok('chip-remove-outlined-color-border-default') : undefined;
     fg = tokState('chip-remove-color-fg', look);
     // 개수 부품은 default · disabled뿐이라 칩 hover · pressed에서도 default
     countFg = tokState('chip-remove-count-color-fg', off ? 'disabled' : 'default');
-    clearFg = tokState('button-icon-only-plain-color-fg', rmLook);
   } else if (appearance === 'filled') {
     bg = tokState('chip-remove-filled-selected-color-bg', look);
     fg = tok('chip-remove-filled-selected-color-fg-default');
@@ -112,18 +112,22 @@ export function RemoveChip({ appearance = 'filled', selection, defaultSelection 
         <span>{label}</span>
         {showCount ? <span style={{ ...textStyle('font-label-14-600'), fontVariantNumeric: 'tabular-nums', color: countFg }}>{count}</span> : null}
       </button>
-      <button
-        type="button"
-        aria-label={removeLabel ?? `${label} 지우기`}
-        disabled={off}
-        {...rm.pointer}
-        {...rm.focus}
-        onClick={onRemove}
-        style={{ ...bare, position: 'relative', color: clearFg, background: tok('chip-remove-clear-button-color-bg-default'), cursor: 'inherit' }}
-      >
-        <Icon name="line/close" size={tok('chip-remove-icon-size')} />
-        {rm.focusVisible ? <FocusRing radius={tok('focus-ring-radius')} /> : null}
-      </button>
+      {!on ? (
+        <Button type="iconPlain" size="medium" icon="line/close" label={removeLabel ?? `${label} 지우기`} disabled={off} onClick={onRemove} />
+      ) : (
+        <button
+          type="button"
+          aria-label={removeLabel ?? `${label} 지우기`}
+          disabled={off}
+          {...rm.pointer}
+          {...rm.focus}
+          onClick={onRemove}
+          style={{ ...bare, position: 'relative', color: clearFg, background: tok('chip-remove-clear-button-color-bg-default'), cursor: 'inherit' }}
+        >
+          <Icon name="line/close" size={tok('chip-remove-icon-size')} />
+          {rm.focusVisible ? <FocusRing radius={tok('focus-ring-radius')} /> : null}
+        </button>
+      )}
       {showFocus || it.focusVisible ? <FocusRing radius={tok('chip-remove-focus-ring-radius')} /> : null}
     </span>
   );

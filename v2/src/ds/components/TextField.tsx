@@ -1,8 +1,10 @@
 // TextField: 한 줄 입력. 실제 <input>이라 값 입력 · 폼 · 키보드가 그대로 동작한다.
 // Figma: BSS DS Library v2.0 ❖ TextField (importance 3 × state 6 × invalid 2 × size 3, showLabel · showHelperText · showClear · showFocus)
+// 지우기 버튼은 Figma clearButton = Button type=iconPlain (size small 칸은 small, 나머지 medium)
 import { useId, useState } from 'react';
 import type { InputHTMLAttributes } from 'react';
-import { Icon, bool, font, tok, useInteraction } from '../shared';
+import { bool, font, tok, useInteraction } from '../shared';
+import { Button } from './Button';
 import { FieldFrame, bareInput, fieldColors, fieldLook } from '../field';
 import type { FieldState, Importance } from '../field';
 
@@ -104,17 +106,7 @@ export function TextField({ value, defaultValue = '', onChange, size = 'large', 
             </span>
           ) : null}
         </span>
-        {clear ? (
-          <button
-            type="button"
-            aria-label="지우기"
-            onMouseDown={(e) => e.preventDefault()}
-            onClick={() => set('')}
-            style={{ display: 'flex', flexShrink: 0, margin: 0, padding: 0, border: 0, background: 'transparent', cursor: 'pointer', color: tok('button-icon-only-plain-color-fg-default') }}
-          >
-            <Icon name="filled/close" size={tok(size === 'small' ? 'button-icon-only-small-icon-size' : 'button-icon-only-medium-icon-size')} />
-          </button>
-        ) : null}
+        {clear ? <Button type="iconPlain" size={size === 'small' ? 'small' : 'medium'} icon="filled/close" label="지우기" onMouseDown={(e) => e.preventDefault()} onClick={() => set('')} /> : null}
       </div>
     </FieldFrame>
   );

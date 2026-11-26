@@ -1,7 +1,7 @@
 // Scrollbar: 영역을 넘치는 내용을 위아래 · 좌우로 옮겨 보는 스크롤 막대. 막대(thumb)에 hover · pressed 상태가 있다.
 // Figma: BSS_DS_Library_Component_v2.0 ❖ Scrollbar › Scrollbar (5815:140) · direction 2 × size 2 × state 3
 // 토큰: DS 컴포넌트 명세 scrollbar (길 두께는 막대 두께의 2배: large 12 · medium 8)
-import type { HTMLAttributes } from 'react';
+import type { CSSProperties, HTMLAttributes } from 'react';
 import { tok, tokState, useInteraction } from '../shared';
 
 export interface ScrollbarProps extends HTMLAttributes<HTMLDivElement> {
@@ -16,6 +16,9 @@ export interface ScrollbarProps extends HTMLAttributes<HTMLDivElement> {
   /** 막대 위치 (0~100, 스크롤 위치) */
   position?: number;
 }
+
+/** 내용 영역 오른쪽에 겹쳐 놓는 세로 스크롤바 자리 (부모는 position: relative). length="auto"와 함께 쓴다 (SidePanel · ViewerModal) */
+export const scrollbarOverlay: CSSProperties = { position: 'absolute', top: 0, right: 0, bottom: 0, pointerEvents: 'none' };
 
 export function Scrollbar({ direction = 'horizontal', size = 'large', state, length, thumbRatio = 40, position = 0, style, ...rest }: ScrollbarProps) {
   const it = useInteraction();

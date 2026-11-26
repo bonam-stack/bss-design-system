@@ -1,9 +1,10 @@
 // SearchField: 검색어 입력. 칸 안 왼쪽 검색 버튼(또는 Enter)으로 검색하고, 값이 있으면 지우기 버튼을 보인다. 실제 <input role="searchbox"> (브라우저 기본 지우기 버튼이 겹치지 않게 type은 text).
 // Figma: BSS_DS_Library_Component_v2.0 ❖ Text Fields › SearchField (5168:15712) · importance 3 × state 6 × invalid 2 × size 3, showLabel · showHelperText · showClear · showSearchButton · showFocus
-// 토큰: DS 컴포넌트 명세 searchField (칸 search-field-*, 색 field-*, 검색 · 지우기 버튼 button-icon-only-plain-*)
+// 토큰: DS 컴포넌트 명세 searchField (칸 search-field-*, 색 field-*, 검색 · 지우기 버튼은 Button type=iconPlain)
 import { useId, useState } from 'react';
 import type { InputHTMLAttributes } from 'react';
-import { Icon, bool, textStyle, tok, tokState, useInteraction } from '../shared';
+import { bool, textStyle, tok, useInteraction } from '../shared';
+import { Button } from './Button';
 import { FieldFrame, bareInput, fieldColors, fieldLook } from '../field';
 import type { FieldState, Importance } from '../field';
 
@@ -49,8 +50,7 @@ export function SearchField({ value, defaultValue = '', onChange, onSearch, size
   const c = fieldColors(look, importance, bad);
   const locked = look === 'readOnly' || look === 'disabled';
   const clear = showClear && !!v && (look === 'focus' || look === 'entered' || look === 'hover');
-  const iconSize = tok(size === 'small' ? 'button-icon-only-small-icon-size' : 'button-icon-only-medium-icon-size');
-  const plainButton = { display: 'flex', flexShrink: 0, margin: 0, padding: 0, border: 0, background: 'transparent' } as const;
+  const btnSize = size === 'small' ? 'small' : 'medium';
 
   return (
     <FieldFrame
@@ -88,18 +88,7 @@ export function SearchField({ value, defaultValue = '', onChange, onSearch, size
           color: c.text,
         }}
       >
-        {showSearchButton ? (
-          <button
-            type="button"
-            aria-label="검색"
-            disabled={locked}
-            onMouseDown={(e) => e.preventDefault()}
-            onClick={() => onSearch?.(v)}
-            style={{ ...plainButton, cursor: locked ? 'not-allowed' : 'pointer', color: tokState('button-icon-only-plain-color-fg', locked ? 'disabled' : 'default') }}
-          >
-            <Icon name="line/search" size={iconSize} />
-          </button>
-        ) : null}
+        {showSearchButton ? <Button type="iconPlain" size={btnSize} icon="line/search" label="검색" disabled={locked} onMouseDown={(e) => e.preventDefault()} onClick={() => onSearch?.(v)} /> : null}
         <span style={{ position: 'relative', flex: '1 1 0', minWidth: 0, display: 'flex', alignItems: 'center' }}>
           <input
             {...input}
@@ -126,17 +115,7 @@ export function SearchField({ value, defaultValue = '', onChange, onSearch, size
             </span>
           ) : null}
         </span>
-        {clear ? (
-          <button
-            type="button"
-            aria-label="지우기"
-            onMouseDown={(e) => e.preventDefault()}
-            onClick={() => set('')}
-            style={{ ...plainButton, cursor: 'pointer', color: tok('button-icon-only-plain-color-fg-default') }}
-          >
-            <Icon name="filled/close" size={iconSize} />
-          </button>
-        ) : null}
+        {clear ? <Button type="iconPlain" size={btnSize} icon="filled/close" label="지우기" onMouseDown={(e) => e.preventDefault()} onClick={() => set('')} /> : null}
       </div>
     </FieldFrame>
   );

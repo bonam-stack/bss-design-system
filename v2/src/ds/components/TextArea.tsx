@@ -1,8 +1,10 @@
 // TextArea: 여러 줄 입력. 실제 <textarea>. maxLength를 주면 도움말 오른쪽에 글자 수가 나온다.
 // Figma: BSS DS Library v2.0 ❖ TextArea (importance 3 × state 6 × invalid 2, showLabel · showHelperText · showResizeHandle · showFocus)
+// 크기 조절 손잡이는 Figma resizeHandle = Button type=iconPlain medium (읽기 전용 · 비활성은 state=disabled)
 import { useId, useState } from 'react';
 import type { TextareaHTMLAttributes } from 'react';
-import { Icon, bool, font, tok, useInteraction } from '../shared';
+import { bool, font, tok, useInteraction } from '../shared';
+import { Button } from './Button';
 import { FieldFrame, bareInput, fieldColors, fieldLook } from '../field';
 import type { FieldState, Importance } from '../field';
 
@@ -94,9 +96,16 @@ export function TextArea({ value, defaultValue = '', onChange, importance = 'non
           ) : null}
         </span>
         {showResizeHandle ? (
-          <span style={{ position: 'absolute', right: tok('space-8'), bottom: tok('space-8'), pointerEvents: 'none', color: tok(`button-icon-only-plain-color-fg-${look === 'disabled' || look === 'readOnly' ? 'disabled' : 'default'}`), background: tok('button-icon-only-plain-color-bg-default') }}>
-            <Icon name="line/drag-handle" size={tok('button-icon-only-medium-icon-size')} />
-          </span>
+          <Button
+            type="iconPlain"
+            size="medium"
+            icon="line/drag-handle"
+            label="크기 조절"
+            state={look === 'disabled' || look === 'readOnly' ? 'disabled' : 'default'}
+            tabIndex={-1}
+            aria-hidden="true"
+            style={{ position: 'absolute', right: tok('space-8'), bottom: tok('space-8'), pointerEvents: 'none' }}
+          />
         ) : null}
       </div>
     </FieldFrame>

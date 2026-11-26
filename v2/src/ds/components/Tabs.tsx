@@ -2,10 +2,11 @@
 // Figma: BSS_DS_Library_Component_v2.0 ❖ Tabs › Tabs (7242:1095) · type 3 × size 3 중 4개(underline large·medium, contained medium, anchor small)
 //   항목: _Item/Tabs/Underline (7242:851) · _Item/Tabs/Contained (7242:963) · _Item/Tabs/Anchor (7242:1051)
 // 토큰: DS 컴포넌트 명세 tab-underline · tab-contained · tab-anchor (라벨 색 tab[-selected]-label-color-fg-<상태>, 밑줄 tab-selected-indicator-color-border-<상태>)
-//   개수 배지는 Badge type=count small subtle (선택 highlight · 선택 안 됨 neutral) → badge-counter 토큰
+//   개수 배지는 Badge 컴포넌트 type=count small subtle (선택 highlight · 선택 안 됨 neutral)
 import { useState } from 'react';
 import type { CSSProperties, KeyboardEvent } from 'react';
 import { FocusRing, textStyle, tok, tokState, useInteraction } from '../shared';
+import { Badge } from './Badge';
 
 type Look = 'default' | 'hover' | 'pressed' | 'disabled';
 export type TabsType = 'underline' | 'contained' | 'anchor';
@@ -62,31 +63,6 @@ const SAMPLE: Record<TabsType, TabItem[]> = {
 };
 
 const fixSize = (type: TabsType, size: TabsSize): TabsSize => (type === 'anchor' ? 'small' : type === 'contained' ? 'medium' : size === 'small' ? 'medium' : size);
-
-/** 탭 안 개수 배지 (Badge type=count · size small · emphasis subtle) */
-function CountBadge({ count, selected, off }: { count: string | number; selected: boolean; off: boolean }) {
-  const tone = selected ? 'highlight-subtle' : 'neutral-subtle';
-  return (
-    <span
-      style={{
-        display: 'inline-flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        boxSizing: 'border-box',
-        height: tok('badge-counter-small-size-height'),
-        minWidth: tok('badge-counter-small-size-min-width'),
-        padding: `0 ${tok('badge-counter-small-space-padding-x')}`,
-        borderRadius: tok('badge-counter-radius'),
-        background: tokState(`badge-counter-${tone}-color-bg`, off ? 'disabled' : 'default'),
-        color: tokState(`badge-counter-${tone}-color-fg`, off ? 'disabled' : 'default'),
-        ...textStyle('font-label-12-500'),
-        fontVariantNumeric: 'tabular-nums',
-      }}
-    >
-      {count}
-    </span>
-  );
-}
 
 function Tab({ type, size, item, index, last, selected, state, showFocus, showCount, onSelect, onKey }: { type: TabsType; size: TabsSize; item: TabItem; index: number; last: boolean; selected: boolean; state?: Look; showFocus: boolean; showCount: boolean; onSelect: () => void; onKey: (e: KeyboardEvent<HTMLButtonElement>) => void }) {
   const it = useInteraction();
@@ -158,7 +134,7 @@ function Tab({ type, size, item, index, last, selected, state, showFocus, showCo
       }}
     >
       <span style={{ ...text, whiteSpace: 'nowrap' }}>{item.label}</span>
-      {type === 'underline' && showCount && item.count !== undefined ? <CountBadge count={item.count} selected={selected} off={off} /> : null}
+      {type === 'underline' && showCount && item.count !== undefined ? <Badge type="count" size="small" emphasis="subtle" tone={selected ? 'highlight' : 'neutral'} state={off ? 'disabled' : 'default'} count={String(item.count)} style={{ fontVariantNumeric: 'tabular-nums' }} /> : null}
       {(showFocus && selected) || it.focusVisible ? <FocusRing radius={tok('focus-ring-radius')} /> : null}
     </button>
   );

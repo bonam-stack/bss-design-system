@@ -1,9 +1,10 @@
 // Stepper: 숫자 입력. 가운데 숫자 칸에 직접 입력하거나 −/+ 버튼(또는 ↑/↓ 키)으로 step만큼 줄이고 늘린다. 실제 <input inputMode="numeric">.
 // Figma: BSS_DS_Library_Component_v2.0 ❖ Stepper › Stepper (7896:1164) · importance 3 × state 5 × invalid 2 × size 3, showLabel · showHelperText · showFocus
-// 토큰: DS 컴포넌트 명세 stepper (칸 stepper-*, 색 field-*, −/+ 버튼 button-icon-only-plain-*), 숫자는 font-label-[크기]-400 + tabular-nums
+// 토큰: DS 컴포넌트 명세 stepper (칸 stepper-*, 색 field-*, −/+ 버튼은 Button type=iconPlain), 숫자는 font-label-[크기]-400 + tabular-nums
 import { useId, useState } from 'react';
 import type { InputHTMLAttributes } from 'react';
-import { Icon, bool, textStyle, tok, tokState, useInteraction } from '../shared';
+import { bool, textStyle, tok, useInteraction } from '../shared';
+import { Button } from './Button';
 import { FieldFrame, bareInput, fieldColors, fieldLook } from '../field';
 import type { FieldState, Importance } from '../field';
 
@@ -32,33 +33,20 @@ export interface StepperProps extends Omit<InputHTMLAttributes<HTMLInputElement>
 
 const TEXT = { large: textStyle('font-label-16-400'), medium: textStyle('font-label-15-400'), small: textStyle('font-label-14-400') };
 
+/** −/+ 버튼: Figma decrement · increment 칸(좌우 여백) 안의 Button type=iconPlain. 칸 전체를 누를 수 있게 여백을 버튼에 준다 */
 function StepButton({ icon, label, size, off, onClick }: { icon: string; label: string; size: 'large' | 'medium' | 'small'; off: boolean; onClick: () => void }) {
-  const it = useInteraction();
-  const look = off ? 'disabled' : it.pressed ? 'pressed' : it.hover ? 'hover' : 'default';
   return (
-    <button
-      type="button"
-      aria-label={label}
+    <Button
+      type="iconPlain"
+      size={size === 'small' ? 'small' : 'medium'}
+      icon={icon}
+      label={label}
       tabIndex={-1}
       disabled={off}
       onMouseDown={(e) => e.preventDefault()}
       onClick={onClick}
-      {...it.pointer}
-      style={{
-        alignSelf: 'stretch',
-        display: 'flex',
-        alignItems: 'center',
-        flexShrink: 0,
-        margin: 0,
-        padding: `0 ${tok(`stepper-${size}-step-button-space-padding-x`)}`,
-        border: 0,
-        background: 'transparent',
-        color: tokState('button-icon-only-plain-color-fg', look),
-        cursor: off ? 'not-allowed' : 'pointer',
-      }}
-    >
-      <Icon name={icon} size={tok(size === 'small' ? 'button-icon-only-small-icon-size' : 'button-icon-only-medium-icon-size')} />
-    </button>
+      style={{ alignSelf: 'stretch', boxSizing: 'content-box', height: 'auto', padding: `0 ${tok(`stepper-${size}-step-button-space-padding-x`)}` }}
+    />
   );
 }
 
