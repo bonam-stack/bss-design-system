@@ -1,8 +1,8 @@
 // Figma에서 읽어 포털에서 만든 컴포넌트 페이지 (저장소에 아직 React 파일이 없는 것).
 // DS 담당자은 ✎ 편집에서 Figma 노드를 보고 React 코드를 만든다: AI(Figma 레이어 → Claude) 또는 속성으로 만든 기본 틀 → 채팅으로 다듬기 → 초안.
 // 관리자가 배포하면 모두에게 이 코드로 미리보기가 그려지고, 저장소 파일로 내려받아 커밋한다.
-import { useState } from 'react';
-import type { ReactNode } from 'react';
+import { useLayoutEffect, useRef, useState } from 'react';
+import type { CSSProperties, ReactNode } from 'react';
 import * as P from '../portal/store';
 import type { PortalComp } from '../portal/store';
 import { usePortal } from '../portal/ctx';
@@ -65,18 +65,98 @@ export function Preview({ C: Comp, c }: { C: LiveComponent; c: Pick<PortalComp, 
   ];
   return (
     <div className="sb-body">
-      <div className="sb-canvas">
-        <figure className="sb-fig">
-          <div className="sb-stage">
-            <Boundary resetKey={String(Comp)}>
-              <Comp {...sel} {...texts} />
-            </Boundary>
-          </div>
-        </figure>
-      </div>
+      <ZoomCanvas>
+        <Boundary resetKey={String(Comp)}>
+          <Comp {...live(Comp, sel, texts, setSel, setTexts)} />
+        </Boundary>
+      </ZoomCanvas>
       {rows.length ? <div className="sb-controls">{rows}</div> : null}
     </div>
   );
+}
+
+const ZOOMS = [0.25, 0.33, 0.5, 0.67, 0.75, 0.9, 1, 1.25, 1.5, 2];
+
+/** 미리보기 칸: 확대 · 축소 (기본은 칸에 맞춤 = 원본이 칸보다 크면 줄이고, 작으면 100%).
+ *  안의 링크는 미리보기에서 페이지를 옮기지 않는다 */
+export function ZoomCanvas({ children }: { children: ReactNode }) {
+  const canvas = useRef<HTMLDivElement>(null);
+  const stage = useRef<HTMLDivElement>(null);
+  const [zoom, setZoom] = useState<number | 'fit'>('fit');
+  const [fit, setFit] = useState(1);
+  useLayoutEffect(() => {
+    const cv = canvas.current;
+    const st = stage.current;
+    if (!cv || !st) return;
+    const measure = () => {
+      // 지금 배율로 그려진 크기 ÷ 배율 = 원본 크기
+      const z = Number(st.style.zoom) || 1;
+      const r = st.getBoundingClientRect();
+      const w = r.width / z;
+      const h = r.height / z;
+      const cs = getComputedStyle(cv);
+      const aw = cv.clientWidth - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight);
+      const ah = Math.max(560, window.innerHeight * 0.7);
+      const f = Math.min(1, aw / Math.max(1, w), ah / Math.max(1, h));
+      setFit(Math.max(0.2, Math.floor(f * 100) / 100));
+    };
+    measure();
+    const ro = new ResizeObserver(measure);
+    ro.observe(cv);
+    ro.observe(st);
+    return () => ro.disconnect();
+  }, []);
+  const z = zoom === 'fit' ? fit : zoom;
+  const step = (d: number) => {
+    const i = ZOOMS.findIndex((x) => x >= z - 0.001);
+    const cur = i < 0 ? ZOOMS.length - 1 : ZOOMS[i] > z + 0.001 && d > 0 ? i - 1 : i;
+    setZoom(ZOOMS[Math.min(ZOOMS.length - 1, Math.max(0, cur + d))]);
+  };
+  return (
+    <div className={`sb-canvas sb-zoomable${z > fit + 0.001 ? ' sb-scroll' : ''}`} ref={canvas}>
+      <div className="sb-zoom" role="group" aria-label="미리보기 배율">
+        <button type="button" onClick={() => step(-1)} disabled={z <= ZOOMS[0] + 0.001} aria-label="축소">−</button>
+        <span className="sb-zoom-v" aria-live="polite">{Math.round(z * 100)}%</span>
+        <button type="button" onClick={() => step(1)} disabled={z >= ZOOMS[ZOOMS.length - 1] - 0.001} aria-label="확대">+</button>
+        <button type="button" className={zoom === 'fit' ? 'on' : ''} onClick={() => setZoom('fit')}>맞춤</button>
+        <button type="button" className={zoom === 1 ? 'on' : ''} onClick={() => setZoom(1)}>원본</button>
+      </div>
+      <figure className="sb-fig">
+        <div
+          className="sb-stage"
+          ref={stage}
+          style={{ zoom: z } as CSSProperties}
+          onClickCapture={(e) => {
+            const a = (e.target as HTMLElement).closest('a[href]');
+            if (a) e.preventDefault();
+          }}
+        >
+          {children}
+        </div>
+      </figure>
+    </div>
+  );
+}
+
+/** 미리보기에서 실제로 동작하게: state=default는 넘기지 않아 마우스 · 키보드 반응이 살아 있게 하고,
+ *  컴포넌트가 받는 on<속성>Change · onChange로 바뀐 값을 옆 패널에 되돌려 받는다 (눌러서 켜고 끄기 · 고르기 · 입력) */
+function live(Comp: LiveComponent, sel: Record<string, unknown>, texts: Record<string, string>, setSel: (f: (s: Record<string, unknown>) => Record<string, unknown>) => void, setTexts: (f: (t: Record<string, string>) => Record<string, string>) => void) {
+  const src = String(Comp);
+  const has = (n: string) => src.includes(n);
+  const props: Record<string, unknown> = { ...sel, ...texts };
+  if (props.state === 'default') delete props.state;
+  const read = (v: unknown) => (v && typeof v === 'object' && 'target' in (v as object) ? ((v as { target: HTMLInputElement }).target.type === 'checkbox' ? (v as { target: HTMLInputElement }).target.checked : (v as { target: HTMLInputElement }).target.value) : v);
+  for (const k of Object.keys(sel)) {
+    if (k === 'state') continue;
+    const h = `on${k[0].toUpperCase()}${k.slice(1)}Change`;
+    if (has(h)) props[h] = (v: unknown) => setSel((s) => ({ ...s, [k]: read(v) }));
+  }
+  for (const k of Object.keys(texts)) {
+    const h = `on${k[0].toUpperCase()}${k.slice(1)}Change`;
+    if (has(h)) props[h] = (v: unknown) => setTexts((t) => ({ ...t, [k]: String(read(v) ?? '') }));
+    else if (k === 'value' && has('onChange')) props.onChange = (v: unknown) => setTexts((t) => ({ ...t, value: String(read(v) ?? '') }));
+  }
+  return props;
 }
 
 /** Figma 속성 이름 → 코드 속성 이름 (compgen과 같은 규칙) */

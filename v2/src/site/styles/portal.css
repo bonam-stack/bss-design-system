@@ -542,3 +542,13 @@ h1 .nv-flag { vertical-align: middle; margin-left: 10px; height: 22px; font-size
 .sb > :last-child { border-bottom-left-radius: inherit; border-bottom-right-radius: inherit; }
 .sb > :last-child > :last-child { border-bottom-right-radius: inherit; }
 .sb > :last-child > :first-child { border-bottom-left-radius: inherit; }
+
+/* 미리보기 확대 · 축소 */
+.sb-zoomable { position: relative; }
+.sb-zoomable.sb-scroll { overflow: auto; place-items: start; }
+.sb-zoom { position: absolute; top: 10px; right: 10px; z-index: 2; display: flex; align-items: center; gap: 2px; padding: 3px; border-radius: 10px; background: var(--bg-raised); border: 1px solid var(--border); box-shadow: 0 1px 2px rgb(0 0 0 / 0.06); font-size: 12px; }
+.sb-zoom button { min-width: 26px; height: 24px; padding: 0 7px; border: 0; border-radius: 7px; background: transparent; color: var(--fg); font: inherit; cursor: pointer; }
+.sb-zoom button:hover:not(:disabled) { background: var(--bg-subtle); }
+.sb-zoom button:disabled { color: var(--fg-muted); opacity: 0.5; cursor: default; }
+.sb-zoom button.on { background: var(--accent-soft); color: var(--accent); font-weight: 600; }
+.sb-zoom-v { min-width: 40px; text-align: center; font-variant-numeric: tabular-nums; color: var(--fg-muted); }
