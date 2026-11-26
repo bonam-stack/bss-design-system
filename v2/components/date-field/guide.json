@@ -1,0 +1,330 @@
+{
+  "$description": "BSS Design Guideline v2.0 › Components/Date Field / Date Picker에서 옮긴 사용 가이드 (Date Field 부분)",
+  "source": {
+    "fileKey": "9aVw18Cj7CzvHE1ljGaM9m",
+    "fileName": "BSS Design Guideline v2.0",
+    "nodeId": "2430:94145",
+    "name": "Components/Date Field / Date Picker",
+    "url": "https://www.figma.com/design/9aVw18Cj7CzvHE1ljGaM9m?node-id=2430-94145",
+    "extractedAt": "2026-11-26"
+  },
+  "group": "입력",
+  "overview": "Date Field는 날짜·시간을 직접 입력하거나 Date Picker의 달력에서 선택해 지정하는 컴포넌트입니다. 기간을 지정할 때는 시작일과 종료일을 구분해 표시합니다.",
+  "anatomy": {
+    "title": "Anatomy (구성)",
+    "lead": "Date Field·Date Picker를 이루는 필수/선택 요소의 구조를 말합니다.",
+    "example": {
+      "mode": "dateTimeRange",
+      "size": "large",
+      "state": "default",
+      "showLabel": true,
+      "showHelperText": true
+    },
+    "parts": [
+      {
+        "n": 1,
+        "name": "Label (Optional)",
+        "layer": "label",
+        "desc": "필드의 이름을 나타내는 텍스트입니다. showLabel을 켜면 표시합니다. 필수 표기는 Field(입력 필드 공통) 문서를 따릅니다."
+      },
+      {
+        "n": 2,
+        "name": "Container",
+        "layer": "inputBox",
+        "desc": "날짜·시간 입력 영역을 감싸는 상자입니다. 배경과 테두리로 상태를 표시하며, 기간 모드에서는 하나의 상자 안에서 시작·종료 입력 영역이 구분 기호(-)를 사이에 두고 나뉩니다."
+      },
+      {
+        "n": 3,
+        "name": "Placeholder",
+        "layer": "_Item/DateField/Input",
+        "desc": "날짜를 지정하기 전에 표시하는 안내 텍스트로, 사용자가 지정할 값의 형식을 유추할 수 있게 돕습니다."
+      },
+      {
+        "n": 4,
+        "name": "Calendar Button",
+        "layer": "calendarButton",
+        "desc": "Calendar Panel을 여는 버튼으로, 입력 상자 안 오른쪽 끝에 배치합니다."
+      },
+      {
+        "n": 5,
+        "name": "Helper Text (Optional)",
+        "layer": "helperText",
+        "desc": "필드 아래에 표시하는 안내 문구 또는 오류 메시지입니다. showHelperText를 켜면 표시합니다. 문구 규칙은 Helper Text 문서를 따릅니다."
+      },
+      {
+        "n": 6,
+        "name": "Focus Ring (Optional)",
+        "layer": "focusRing",
+        "desc": "키보드로 포커스를 이동했을 때 필드 바깥에 표시하는 링입니다. showFocus를 켜면 표시합니다. 규격은 Focus Ring 문서를 따릅니다."
+      }
+    ]
+  },
+  "states": {
+    "title": "States (상태)",
+    "lead": "사용자 입력과 시스템의 상황에 따라 컴포넌트의 표현 방식을 정리한 기준입니다.",
+    "rows": [
+      {
+        "name": "Default",
+        "props": {
+          "state": "default"
+        },
+        "desc": "조작하지 않은 기본 상태입니다. 입력 상자에 날짜를 직접 입력하거나, Calendar Button으로 Date Picker를 열 수 있습니다."
+      },
+      {
+        "name": "Hover",
+        "props": {
+          "state": "hover"
+        },
+        "desc": "마우스 커서가 Date Field 위에 올라간 상태입니다. 바탕색으로 날짜를 지정할 수 있는 영역임을 알려 줍니다."
+      },
+      {
+        "name": "Focus",
+        "props": {
+          "state": "focus"
+        },
+        "desc": "값을 입력하고 있는 상태입니다. 입력 상자의 테두리를 강조하고, 입력 위치에 커서를 표시합니다."
+      },
+      {
+        "name": "Focus Visible",
+        "props": {
+          "state": "default",
+          "showFocus": true
+        },
+        "desc": "키보드로 이동해 Focus Ring을 표시한 상태입니다. 다른 상태 위에 겹쳐 표시합니다."
+      },
+      {
+        "name": "Empty",
+        "props": {
+          "state": "default"
+        },
+        "desc": "값이 없는 상태입니다. 입력 형식을 안내하는 Placeholder(0000.00.00)를 표시합니다."
+      },
+      {
+        "name": "Filled",
+        "props": {
+          "state": "entered"
+        },
+        "desc": "값이 들어 있는 상태입니다. 날짜를 입력하거나 Date Picker에서 고른 날짜를 표시합니다."
+      },
+      {
+        "name": "Modified",
+        "props": {
+          "state": "entered",
+          "importance": "attention"
+        },
+        "desc": "기존 값이 변경된 상태입니다. Variants의 Attention 스타일로 표시합니다."
+      },
+      {
+        "name": "ReadOnly",
+        "props": {
+          "state": "readOnly"
+        },
+        "desc": "값은 표시되지만 변경할 수 없는 상태입니다. Calendar Button은 비활성으로 표시하며, 오류는 표시하지 않습니다."
+      },
+      {
+        "name": "Disabled",
+        "props": {
+          "state": "disabled"
+        },
+        "desc": "사용할 수 없는 상태입니다. 직접 입력과 Calendar Button을 모두 사용할 수 없습니다."
+      },
+      {
+        "name": "Validation · None",
+        "props": {
+          "state": "default",
+          "invalid": "false"
+        },
+        "desc": "오류가 없는 기본 상태입니다. 유효성 검사 전후에 동일하게 유지되며, 통과 여부를 따로 표시하지 않습니다."
+      },
+      {
+        "name": "Validation · Error",
+        "props": {
+          "state": "default",
+          "invalid": "true"
+        },
+        "desc": "입력값이 규칙에 맞지 않아 오류를 표시하는 상태입니다. 필드에 오류 스타일을 적용하고, 원인과 해결 방법을 안내하는 메시지를 함께 제공합니다. 테두리·바깥 링으로 오류를 표시하며, ReadOnly·Disabled에서는 표시하지 않습니다."
+      }
+    ]
+  },
+  "variants": {
+    "title": "Variants (변형)",
+    "lead": "동일한 컴포넌트를 용도와 표현 방식에 따라 구분한 파생 타입입니다.",
+    "groups": [
+      {
+        "title": "Mode",
+        "lead": "지정할 값의 형식에 따라 구분합니다. Date Picker의 달력도 모드에 맞춰 단일 선택(Single) 또는 기간 선택(Range)으로 표시합니다. Mode·Importance·Size는 모든 조합으로 사용할 수 있습니다.",
+        "rows": [
+          {
+            "name": "Date",
+            "props": {
+              "mode": "date"
+            },
+            "desc": "날짜를 지정합니다. 날짜 하나만 필요할 때 사용합니다."
+          },
+          {
+            "name": "DateTime",
+            "props": {
+              "mode": "dateTime"
+            },
+            "desc": "날짜와 시간을 함께 지정할 때 사용합니다."
+          },
+          {
+            "name": "DateRange",
+            "props": {
+              "mode": "dateRange"
+            },
+            "desc": "시작일과 종료일로 기간을 지정합니다. 날짜 단위로 기간을 정할 때 사용합니다. 시작·종료 입력 영역 사이에 구분 기호(-)를 표시합니다."
+          },
+          {
+            "name": "DateTimeRange",
+            "props": {
+              "mode": "dateTimeRange"
+            },
+            "desc": "시작·종료 날짜와 시간으로 기간을 지정합니다. 기간의 시작·종료 시각까지 정해야 할 때 사용합니다."
+          }
+        ]
+      },
+      {
+        "title": "Importance",
+        "lead": "입력값의 중요도에 따라 바탕색으로 강조합니다. Importance는 한 번에 하나만 지정하며, Attention과 Required가 모두 해당하면 Required를 고릅니다. ReadOnly에서는 Attention만 강조를 유지하고, Disabled에서는 강조를 표시하지 않습니다.",
+        "rows": [
+          {
+            "name": "None",
+            "props": {
+              "importance": "none"
+            },
+            "desc": "기본 상태입니다. 별도 강조가 필요 없는 일반 입력 항목에 사용합니다."
+          },
+          {
+            "name": "Attention",
+            "props": {
+              "importance": "attention"
+            },
+            "desc": "주요 입력 항목을 노란색 바탕으로 강조합니다. Required보다 한 단계 낮은 강조입니다. 사용자가 날짜를 바꿔 기존 값이 바뀐 항목(Modified)을 표시할 때도 사용합니다."
+          },
+          {
+            "name": "Required",
+            "props": {
+              "importance": "required"
+            },
+            "desc": "필수 필드 스타일입니다. 반드시 값을 지정해야 하는 항목을 주황색 바탕으로 강조합니다. 필수 표기는 Field(입력 필드 공통) 문서를 따릅니다."
+          }
+        ]
+      },
+      {
+        "title": "Size",
+        "lead": "Date Field를 크기별로 구분합니다.",
+        "rows": [
+          {
+            "name": "Large",
+            "props": {
+              "size": "large"
+            },
+            "desc": "일반적인 폼 입력에서 사용하는 기본 크기입니다. 등록·수정 화면 등 대부분의 날짜 지정 상황에 적합합니다.(높이 40px)"
+          },
+          {
+            "name": "Medium",
+            "props": {
+              "size": "medium"
+            },
+            "desc": "보조 입력 영역이나 정보 밀도가 높은 화면에서 사용합니다. 제한된 공간에서도 날짜를 효율적으로 지정할 수 있습니다.(높이 36px)"
+          },
+          {
+            "name": "Small",
+            "props": {
+              "size": "small"
+            },
+            "desc": "테이블, 필터, Toolbar 등 공간 제약이 있는 영역에서 사용합니다. 조회 기간 설정 등 간단한 날짜 지정에 적합합니다.(높이 28px)"
+          }
+        ]
+      }
+    ]
+  },
+  "policy": {
+    "title": "Policy (사용 정책)",
+    "lead": "날짜나 기간을 정해진 형식(YYYY.MM.DD · HH:mm:ss)으로 입력할 때 씁니다.",
+    "when": {
+      "use": [
+        "날짜나 기간을 정해진 형식으로 입력하거나 달력에서 골라야 할 때",
+        "날짜와 함께 시각까지 지정해야 할 때"
+      ],
+      "avoid": [
+        {
+          "text": "날짜·시간이 아닌 값을 직접 입력할 때",
+          "alt": "Text Field"
+        },
+        {
+          "text": "날짜를 직접 지정하지 않고, 미리 정한 몇 가지 기간 중 하나만 고를 때",
+          "alt": "Select"
+        }
+      ]
+    },
+    "rules": [
+      {
+        "name": "State Priority · 입력 필드 공통 요소",
+        "desc": "Label·배경·테두리·바깥 링·Helper Text는 Field(입력 필드 공통) › State Priority를 따릅니다.",
+        "from": "Guideline · States"
+      },
+      {
+        "name": "State Priority · Placeholder·입력 텍스트",
+        "desc": "값이 없으면 Placeholder를, 값이 있으면 지정한 날짜를 표시합니다. Focus이면 입력 위치에 커서를 표시합니다. Error는 텍스트에 영향을 주지 않습니다.",
+        "from": "Guideline · States"
+      },
+      {
+        "name": "State Priority · Calendar Button",
+        "desc": "ReadOnly·Disabled이면 비활성으로 표시합니다. 그 밖의 상태와 Error에서는 기본 모양을 유지합니다.",
+        "from": "Guideline · States"
+      },
+      {
+        "name": "State Priority · Focus Ring",
+        "desc": "Disabled를 포함한 모든 상태 위에 겹쳐 표시합니다.",
+        "from": "Guideline · States"
+      },
+      {
+        "name": "정보 완결성과 예측 가능성",
+        "desc": "입력·노출되는 데이터는 잘림(Ellipsis)이나 별도 동작(호버, 클릭 등) 없이 한눈에 확인할 수 있게 합니다. 데이터의 성격(글자 수, 형태)에 맞는 너비를 제공하여 사용자가 입력할 값을 직관적으로 예측할 수 있도록 합니다.",
+        "from": "Guideline · Layout"
+      },
+      {
+        "name": "가독성을 고려한 너비 조절",
+        "desc": "지나치게 넓은 입력 필드는 시선 이동 거리를 늘려 가독성과 입력 편의성을 떨어뜨립니다. Fill로 사용할 때는 필드가 속한 컨테이너(폼 영역, 그리드 칸 등)의 너비로 전체 폭을 조절하고, 필드 자체에는 최대 너비(Max width)를 두지 않습니다.",
+        "from": "Guideline · Layout"
+      },
+      {
+        "name": "Flexible (가변형)",
+        "desc": "모드별 기본 너비(Date 136·DateTime 212·DateRange 248·DateTimeRange 396)가 최소 너비이며, 이보다 좁게 줄어들지 않습니다. 너비가 늘어나면 날짜 입력 영역만 늘어나고, Calendar Button은 입력 상자 안 오른쪽 끝에서 고정 크기를 유지합니다. 기간 모드는 시작·종료 입력 영역이 같은 너비로 함께 늘어납니다.",
+        "from": "Guideline · Layout"
+      },
+      {
+        "name": "Label",
+        "desc": "무엇을 지정하는 날짜인지 알 수 있는 짧은 이름을 씁니다. 필수 표기는 Field(입력 필드 공통) 문서를 따릅니다.",
+        "from": "Guideline · Content"
+      },
+      {
+        "name": "Placeholder",
+        "desc": "입력 형식을 그대로 표시합니다. 날짜는 0000.00.00, 시간은 00:00:00으로 씁니다.",
+        "from": "Guideline · Content"
+      },
+      {
+        "name": "날짜·시간 형식",
+        "desc": "날짜는 YYYY.MM.DD, 시간은 HH:mm:ss 형식으로 표시합니다. 기간은 시작과 종료 사이에 구분 기호(-)를 둡니다.",
+        "from": "Guideline · Content"
+      },
+      {
+        "name": "Helper Text",
+        "desc": "안내 문구와 오류 문구는 Helper Text 문서를 따릅니다.",
+        "from": "Guideline · Content"
+      }
+    ],
+    "do": [
+      "날짜·시간 표시 형식과 구성 요소에 맞춰 필드 너비를 적용합니다. (날짜·시간과 Calendar Button이 모두 보이도록 필요한 공간을 확보합니다.)"
+    ],
+    "dont": [
+      "필드를 표시 내용이 잘릴 정도로 좁히지 않습니다. (모드별 기본 너비가 최소 너비입니다.)"
+    ],
+    "source": {
+      "id": "guideline-date-field",
+      "title": "BSS Design Guideline v2.0 · Date Field / Date Picker"
+    }
+  }
+}

@@ -1,0 +1,107 @@
+{
+  "schemaVersion": 2,
+  "key": "date-field",
+  "name": "DateField",
+  "description": "날짜·시간·기간을 정해진 형식(YYYY.MM.DD · HH:mm:ss)으로 직접 입력하는 필드입니다. mode 4종(date·dateTime·dateRange·dateTimeRange) × importance 3종(none·attention·required) × state 6종(default·hover·focus·entered·readOnly·disabled) × invalid 2종 × size 3종(large 40·medium 36·small 28). 입력 글자는 _Item/DateField/Input을 쓰고, 입력 상자 안 오른쪽 끝 달력 버튼(Button iconPlain)으로 DatePicker의 달력을 엽니다. showLabel은 라벨, showHelperText는 도움말, showFocus는 키보드 포커스 링입니다. 너비는 모드·사이즈별 기본(최소) 너비를 쓰고 Fill로 늘릴 수 있습니다.",
+  "figma": {
+    "fileKey": "WcoI745J38TaON7iCKcutW",
+    "nodeId": "5711:20277",
+    "url": "https://www.figma.com/design/WcoI745J38TaON7iCKcutW?node-id=5711-20277",
+    "page": {
+      "nodeId": "2473:38379",
+      "name": "❖ Date Field / Date Picker"
+    },
+    "type": "COMPONENT_SET",
+    "componentKey": null,
+    "extractedAt": "2026-11-26",
+    "source": "DS 컴포넌트 구조 명세 (토큰 v2.0.4)"
+  },
+  "ds": {
+    "specs": [
+      "dateField"
+    ],
+    "structure": "19. DateField"
+  },
+  "props": [
+    {
+      "name": "mode",
+      "figmaName": "mode",
+      "type": "variant",
+      "default": "date",
+      "options": [
+        "date",
+        "dateTime",
+        "dateRange",
+        "dateTimeRange"
+      ]
+    },
+    {
+      "name": "importance",
+      "figmaName": "importance",
+      "type": "variant",
+      "default": "none",
+      "options": [
+        "none",
+        "attention",
+        "required"
+      ]
+    },
+    {
+      "name": "state",
+      "figmaName": "state",
+      "type": "variant",
+      "default": "default",
+      "options": [
+        "default",
+        "hover",
+        "focus",
+        "entered",
+        "readOnly",
+        "disabled"
+      ]
+    },
+    {
+      "name": "invalid",
+      "figmaName": "invalid",
+      "type": "variant",
+      "default": "false",
+      "options": [
+        "false",
+        "true"
+      ]
+    },
+    {
+      "name": "size",
+      "figmaName": "size",
+      "type": "variant",
+      "default": "large",
+      "options": [
+        "large",
+        "medium",
+        "small"
+      ]
+    },
+    {
+      "name": "showLabel",
+      "figmaName": "showLabel",
+      "type": "boolean",
+      "default": false
+    },
+    {
+      "name": "showHelperText",
+      "figmaName": "showHelperText",
+      "type": "boolean",
+      "default": true
+    },
+    {
+      "name": "showFocus",
+      "figmaName": "showFocus",
+      "type": "boolean",
+      "default": false
+    }
+  ],
+  "variants": [],
+  "tokens": [],
+  "textStyles": [],
+  "otherStyles": []
+}

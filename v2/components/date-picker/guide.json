@@ -1,0 +1,160 @@
+{
+  "$description": "BSS Design Guideline v2.0 › Components/Date Field / Date Picker에서 옮긴 사용 가이드 (Date Picker 조합)",
+  "source": {
+    "fileKey": "9aVw18Cj7CzvHE1ljGaM9m",
+    "fileName": "BSS Design Guideline v2.0",
+    "nodeId": "2430:94145",
+    "name": "Components/Date Field / Date Picker",
+    "url": "https://www.figma.com/design/9aVw18Cj7CzvHE1ljGaM9m?node-id=2430-94145",
+    "extractedAt": "2026-11-26"
+  },
+  "group": "입력",
+  "overview": "Date Picker는 Date Field 아래에 레이어 팝업 형태로 달력을 표시해 날짜를 선택하도록 돕습니다. 기간을 지정할 때는 시작일과 종료일을 구분해 표시합니다.",
+  "anatomy": {
+    "title": "Anatomy (구성)",
+    "lead": "Date Field·Date Picker를 이루는 필수/선택 요소의 구조를 말합니다.",
+    "example": {
+      "mode": "date",
+      "showCalendar": true
+    },
+    "parts": [
+      {
+        "n": 1,
+        "name": "Container",
+        "layer": "DateField",
+        "desc": "날짜·시간 입력 영역을 감싸는 상자입니다. 배경과 테두리로 상태를 표시하며, 기간 모드에서는 하나의 상자 안에서 시작·종료 입력 영역이 구분 기호(-)를 사이에 두고 나뉩니다."
+      },
+      {
+        "n": 2,
+        "name": "Calendar Button",
+        "layer": "DateField › calendarButton",
+        "desc": "Calendar Panel을 여는 버튼으로, 입력 상자 안 오른쪽 끝에 배치합니다."
+      },
+      {
+        "n": 3,
+        "name": "Calendar Panel (Optional)",
+        "layer": "calendarAnchor › Calendar",
+        "desc": "연·월 표시, 월 이동 버튼, 요일과 날짜 등 선택에 필요한 요소를 담는 배경 영역입니다. Date Picker의 showCalendar를 켜면 표시합니다."
+      },
+      {
+        "n": 4,
+        "name": "Apply Button",
+        "layer": "Calendar › ButtonGroup",
+        "desc": "선택한 날짜와 시간을 입력 필드에 반영하고 패널을 닫는 적용 버튼입니다. 취소 버튼을 함께 두어 반영하지 않고 닫을 수 있습니다."
+      }
+    ]
+  },
+  "states": {
+    "title": "States (상태)",
+    "lead": "사용자 입력과 시스템의 상황에 따라 컴포넌트의 표현 방식을 정리한 기준입니다.",
+    "rows": [
+      {
+        "name": "Closed",
+        "props": {
+          "mode": "date",
+          "showCalendar": false
+        },
+        "desc": "달력을 닫은 상태입니다. Calendar Button으로 Date Picker를 열 수 있습니다."
+      },
+      {
+        "name": "Open",
+        "props": {
+          "mode": "date",
+          "showCalendar": true
+        },
+        "desc": "Calendar Panel을 연 상태입니다. Date Field는 Focus 모양으로 표시하고, 달력은 필드 아래 4px 떨어져 표시합니다."
+      }
+    ]
+  },
+  "variants": {
+    "title": "Variants (변형)",
+    "lead": "동일한 컴포넌트를 용도와 표현 방식에 따라 구분한 파생 타입입니다.",
+    "groups": [
+      {
+        "title": "Mode",
+        "lead": "Date Field의 모드에 맞춰 달력을 단일 선택(Single) 또는 기간 선택(Range)으로 표시합니다.",
+        "rows": [
+          {
+            "name": "Date",
+            "props": {
+              "mode": "date",
+              "showCalendar": false
+            },
+            "desc": "날짜를 지정합니다. 단일 선택 달력을 엽니다."
+          },
+          {
+            "name": "DateTime",
+            "props": {
+              "mode": "dateTime",
+              "showCalendar": false
+            },
+            "desc": "날짜와 시간을 함께 지정합니다. 단일 선택 달력에 Time Field를 표시합니다."
+          },
+          {
+            "name": "DateRange",
+            "props": {
+              "mode": "dateRange",
+              "showCalendar": false
+            },
+            "desc": "시작일과 종료일로 기간을 지정합니다. 기간 선택 달력을 엽니다."
+          },
+          {
+            "name": "DateTimeRange",
+            "props": {
+              "mode": "dateTimeRange",
+              "showCalendar": false
+            },
+            "desc": "시작·종료 날짜와 시간으로 기간을 지정합니다. 기간 선택 달력에 시작·종료 Time Field를 표시합니다."
+          }
+        ]
+      }
+    ]
+  },
+  "policy": {
+    "title": "Policy (사용 정책)",
+    "lead": "날짜나 기간을 달력에서 골라 입력 필드에 반영할 때 씁니다.",
+    "when": {
+      "use": [
+        "날짜나 기간을 정해진 형식으로 입력하거나 달력에서 골라야 할 때",
+        "날짜와 함께 시각까지 지정해야 할 때"
+      ],
+      "avoid": [
+        {
+          "text": "날짜·시간이 아닌 값을 직접 입력할 때",
+          "alt": "Text Field"
+        },
+        {
+          "text": "날짜를 직접 지정하지 않고, 미리 정한 몇 가지 기간 중 하나만 고를 때",
+          "alt": "Select"
+        }
+      ]
+    },
+    "rules": [
+      {
+        "name": "Calendar Button",
+        "desc": "ReadOnly·Disabled이면 비활성으로 표시하고 달력을 열 수 없습니다.",
+        "from": "Guideline · States"
+      },
+      {
+        "name": "Date Picker 문구",
+        "desc": "연·월은 YYYY.MM 형식으로 표시합니다. Time Field 이름은 단일 선택에서 시간, 기간 선택에서 시작·종료를 씁니다. 버튼 문구는 취소·적용을 씁니다.",
+        "from": "Guideline · Content"
+      },
+      {
+        "name": "달력 너비",
+        "desc": "필드를 Fill로 넓게 사용해도 달력은 기본 너비를 유지합니다.",
+        "from": "Guideline · Do & Don't"
+      }
+    ],
+    "do": [
+      "날짜·시간 표시 형식과 구성 요소에 맞춰 필드 너비를 적용합니다. (날짜·시간과 Calendar Button이 모두 보이도록 필요한 공간을 확보합니다.)"
+    ],
+    "dont": [
+      "Date Picker의 달력을 필드 너비에 맞춰 늘리지 않습니다. (필드를 Fill로 넓게 사용해도 달력은 기본 너비를 유지하며, 필드는 표시 내용이 잘릴 정도로 좁히지 않습니다.)"
+    ],
+    "source": {
+      "id": "guideline-date-picker",
+      "title": "BSS Design Guideline v2.0 · Date Field / Date Picker"
+    }
+  }
+}

@@ -1,0 +1,254 @@
+{
+  "$description": "BSS Design Guideline v2.0 › Components/Date Field / Date Picker에서 옮긴 사용 가이드 (Calendar Panel 부분)",
+  "source": {
+    "fileKey": "9aVw18Cj7CzvHE1ljGaM9m",
+    "fileName": "BSS Design Guideline v2.0",
+    "nodeId": "2430:94145",
+    "name": "Components/Date Field / Date Picker",
+    "url": "https://www.figma.com/design/9aVw18Cj7CzvHE1ljGaM9m?node-id=2430-94145",
+    "extractedAt": "2026-11-26"
+  },
+  "group": "입력",
+  "overview": "Calendar는 Date Picker가 레이어 팝업 형태로 표시하는 달력으로, 날짜 하나(Single) 또는 시작일·종료일로 이루어진 기간(Range)을 선택하도록 돕습니다.",
+  "anatomy": {
+    "title": "Anatomy (구성)",
+    "lead": "Date Field·Date Picker를 이루는 필수/선택 요소의 구조를 말합니다.",
+    "example": {
+      "selectionMode": "range",
+      "showTime": true
+    },
+    "parts": [
+      {
+        "n": 1,
+        "name": "Calendar Panel",
+        "layer": "root",
+        "desc": "연·월 표시, 월 이동 버튼, 요일과 날짜 등 선택에 필요한 요소를 담는 배경 영역입니다. Date Picker의 showCalendar를 켜면 표시합니다."
+      },
+      {
+        "n": 2,
+        "name": "Shortcuts",
+        "layer": "filters",
+        "desc": "오늘, 최근 7일처럼 자주 사용하는 기간을 한 번에 선택할 수 있도록 미리 정의한 항목입니다. 기간 선택(Range) 달력에 표시합니다."
+      },
+      {
+        "n": 3,
+        "name": "Year/Month",
+        "layer": "titleGroup",
+        "desc": "달력에 표시된 연도와 월을 YYYY.MM 형식으로 나타내는 텍스트입니다."
+      },
+      {
+        "n": 4,
+        "name": "Prev/Next Button",
+        "layer": "titleGroup › Button",
+        "desc": "이전 달·다음 달로 이동하는 버튼입니다."
+      },
+      {
+        "n": 5,
+        "name": "Week Header",
+        "layer": "_Item/Calendar/Day",
+        "desc": "요일을 표시하는 텍스트입니다."
+      },
+      {
+        "n": 6,
+        "name": "Day Button",
+        "layer": "_Item/Calendar/Date",
+        "desc": "날짜를 표시하는 버튼입니다. 선택 여부, 기간 안의 위치, 요일 등에 따라 표현이 달라집니다. 상태는 States › Day Button State를 따릅니다. showToday를 켜면 오늘 날짜를 표시합니다."
+      },
+      {
+        "n": 7,
+        "name": "Time Field (Optional)",
+        "layer": "_Item/Calendar/Time",
+        "desc": "선택한 날짜에 적용할 시간을 시·분·초로 지정하는 영역입니다. DateTime·DateTimeRange 모드에서 Calendar의 showTime을 켜면 표시합니다. 기간 선택에서는 시작·종료로 나뉩니다."
+      },
+      {
+        "n": 8,
+        "name": "Apply Button",
+        "layer": "_Item/Calendar/ButtonGroup",
+        "desc": "선택한 날짜와 시간을 입력 필드에 반영하고 패널을 닫는 적용 버튼입니다. 취소 버튼을 함께 두어 반영하지 않고 닫을 수 있습니다."
+      }
+    ]
+  },
+  "states": {
+    "title": "States (상태)",
+    "lead": "사용자 입력과 시스템의 상황에 따라 컴포넌트의 표현 방식을 정리한 기준입니다.",
+    "rows": [
+      {
+        "name": "Single · Selected",
+        "props": {
+          "selectionMode": "single",
+          "showTime": false
+        },
+        "desc": "단일 선택 달력입니다. 선택한 날짜를 원형 배경으로 강조해 표시합니다."
+      },
+      {
+        "name": "Range · Start·Middle·End",
+        "props": {
+          "selectionMode": "range",
+          "showTime": false
+        },
+        "desc": "기간 선택 달력입니다. 시작일·종료일은 원형 배경, 그 사이 날짜는 띠 형태의 배경으로 표시합니다."
+      }
+    ]
+  },
+  "variants": {
+    "title": "Variants (변형)",
+    "lead": "동일한 컴포넌트를 용도와 표현 방식에 따라 구분한 파생 타입입니다.",
+    "groups": [
+      {
+        "title": "Selection Mode",
+        "lead": "Date Field의 모드에 맞춰 단일 선택(Single) 또는 기간 선택(Range)으로 표시합니다.",
+        "rows": [
+          {
+            "name": "Single",
+            "props": {
+              "selectionMode": "single"
+            },
+            "desc": "날짜 하나를 선택합니다. Date·DateTime 모드에서 사용합니다."
+          },
+          {
+            "name": "Range",
+            "props": {
+              "selectionMode": "range"
+            },
+            "desc": "시작일과 종료일로 기간을 선택합니다. DateRange·DateTimeRange 모드에서 사용하며, 위쪽에 Shortcuts를 표시합니다."
+          }
+        ]
+      },
+      {
+        "title": "Time",
+        "lead": "DateTime·DateTimeRange 모드에서 showTime을 켜 시간을 함께 지정합니다.",
+        "rows": [
+          {
+            "name": "Time 숨김",
+            "props": {
+              "selectionMode": "single",
+              "showTime": false
+            },
+            "desc": "날짜만 지정합니다."
+          },
+          {
+            "name": "Time 표시",
+            "props": {
+              "selectionMode": "single",
+              "showTime": true
+            },
+            "desc": "선택한 날짜에 적용할 시간을 시·분·초로 지정합니다. 단일 선택에서는 시간, 기간 선택에서는 시작·종료로 나뉩니다."
+          }
+        ]
+      }
+    ]
+  },
+  "policy": {
+    "title": "Policy (사용 정책)",
+    "lead": "Date Picker 안에서 날짜·기간을 달력으로 고를 때 씁니다.",
+    "when": {
+      "use": [
+        "날짜나 기간을 달력에서 골라야 할 때",
+        "날짜와 함께 시각까지 지정해야 할 때"
+      ],
+      "avoid": [
+        {
+          "text": "날짜를 직접 지정하지 않고, 미리 정한 몇 가지 기간 중 하나만 고를 때",
+          "alt": "Select"
+        }
+      ]
+    },
+    "rules": [
+      {
+        "name": "Day Button State · Unselected",
+        "desc": "선택되지 않은 상태입니다.",
+        "from": "Guideline · States"
+      },
+      {
+        "name": "Day Button State · Selected",
+        "desc": "선택된 상태입니다. 원형 배경으로 강조해 표시합니다.",
+        "from": "Guideline · States"
+      },
+      {
+        "name": "Day Button State · Start",
+        "desc": "기간 선택의 시작일입니다. 원형 배경으로 표시하며, Middle·End와 함께 사용해 기간을 나타냅니다.",
+        "from": "Guideline · States"
+      },
+      {
+        "name": "Day Button State · Middle",
+        "desc": "시작일과 종료일 사이의 날짜입니다. 띠 형태의 배경으로 표시합니다. Start·End와 함께 사용해 기간을 나타냅니다.",
+        "from": "Guideline · States"
+      },
+      {
+        "name": "Day Button State · End",
+        "desc": "기간의 종료일입니다. 원형 배경으로 표시합니다. Start·Middle과 함께 사용해 기간을 나타냅니다.",
+        "from": "Guideline · States"
+      },
+      {
+        "name": "Day Button State · Weekday",
+        "desc": "평일입니다. 기본 글자 색으로 표시합니다.",
+        "from": "Guideline · States"
+      },
+      {
+        "name": "Day Button State · Sunday",
+        "desc": "일요일입니다. 빨간색 글자로 표시합니다.",
+        "from": "Guideline · States"
+      },
+      {
+        "name": "Day Button State · Saturday",
+        "desc": "토요일입니다. 파란색 글자로 표시합니다.",
+        "from": "Guideline · States"
+      },
+      {
+        "name": "Day Button State · Current",
+        "desc": "지금 보고 있는 달에 속한 날짜입니다.",
+        "from": "Guideline · States"
+      },
+      {
+        "name": "Day Button State · Adjacent",
+        "desc": "이전·다음 달에 속한 날짜입니다. 이번 달 날짜와 구분되도록 흐린 글자로 표시합니다.",
+        "from": "Guideline · States"
+      },
+      {
+        "name": "Day Button State · Default",
+        "desc": "조작하지 않은 기본 상태입니다.",
+        "from": "Guideline · States"
+      },
+      {
+        "name": "Day Button State · Hover",
+        "desc": "마우스 커서가 Day Button 위에 올라간 상태입니다.",
+        "from": "Guideline · States"
+      },
+      {
+        "name": "Day Button State · Pressed",
+        "desc": "Day Button을 누르고 있는 상태입니다.",
+        "from": "Guideline · States"
+      },
+      {
+        "name": "Day Button State · Disabled",
+        "desc": "사용할 수 없는 상태입니다. 선택할 수 없는 날짜입니다.",
+        "from": "Guideline · States"
+      },
+      {
+        "name": "Day Button State · Focus Visible",
+        "desc": "키보드로 이동해 Focus Ring을 표시한 상태입니다. 다른 상태 위에 겹쳐 표시합니다.",
+        "from": "Guideline · States"
+      },
+      {
+        "name": "Day Button State · 조합",
+        "desc": "하나의 날짜 칸에는 여러 속성을 함께 적용합니다. 기간에 속하지 않는 날짜(rangePosition=none)는 selection 기준을 따릅니다. 요일 색은 Week Header에도 같은 기준을 적용합니다.",
+        "from": "Guideline · States"
+      },
+      {
+        "name": "Date Picker 문구",
+        "desc": "연·월은 YYYY.MM 형식으로 표시합니다. Time Field 이름은 단일 선택에서 시간, 기간 선택에서 시작·종료를 씁니다. 버튼 문구는 취소·적용을 씁니다.",
+        "from": "Guideline · Content"
+      }
+    ],
+    "do": [
+      "필드를 Fill로 넓게 사용해도 달력은 기본 너비를 유지합니다."
+    ],
+    "dont": [
+      "Date Picker의 달력을 필드 너비에 맞춰 늘리지 않습니다. (필드를 Fill로 넓게 사용해도 달력은 기본 너비를 유지합니다.)"
+    ],
+    "source": {
+      "id": "guideline-calendar",
+      "title": "BSS Design Guideline v2.0 · Date Field / Date Picker"
+    }
+  }
+}

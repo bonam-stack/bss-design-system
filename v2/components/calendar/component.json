@@ -1,0 +1,53 @@
+{
+  "schemaVersion": 2,
+  "key": "calendar",
+  "name": "Calendar",
+  "description": "날짜 하나(single) 또는 기간(range)을 달력에서 고르는 패널입니다. selectionMode 2종(single·range). 월 이동(이전·연월·다음), 요일 머리와 6주 날짜 표, showTime을 켜면 시간 입력(시·분·초, 기간은 시작·종료), 아래 취소·적용 버튼으로 이루어지며 range에서는 위에 빠른 기간 선택(FilterChip small: 오늘·최근 7일·최근 30일·이번달)을 둡니다. 날짜 칸(_Item/Calendar/Date)은 selection·rangePosition·dayType·monthPosition·state로 표현이 달라집니다.",
+  "figma": {
+    "fileKey": "WcoI745J38TaON7iCKcutW",
+    "nodeId": "5711:17631",
+    "url": "https://www.figma.com/design/WcoI745J38TaON7iCKcutW?node-id=5711-17631",
+    "page": {
+      "nodeId": "2473:38379",
+      "name": "❖ Date Field / Date Picker"
+    },
+    "type": "COMPONENT_SET",
+    "componentKey": null,
+    "extractedAt": "2026-11-26",
+    "source": "DS 컴포넌트 구조 명세 (토큰 v2.0.4)"
+  },
+  "ds": {
+    "specs": [
+      "calendar"
+    ],
+    "structure": "55. Calendar"
+  },
+  "props": [
+    {
+      "name": "selectionMode",
+      "figmaName": "selectionMode",
+      "type": "variant",
+      "default": "single",
+      "options": [
+        "single",
+        "range"
+      ]
+    },
+    {
+      "name": "showTime",
+      "figmaName": "showTime",
+      "type": "boolean",
+      "default": true
+    },
+    {
+      "name": "monthLabel",
+      "figmaName": "monthLabel",
+      "type": "text",
+      "default": "2026.10"
+    }
+  ],
+  "variants": [],
+  "tokens": [],
+  "textStyles": [],
+  "otherStyles": []
+}

@@ -1,0 +1,199 @@
+{
+  "$description": "BSS Design Guideline v2.0 › Components/Chip에서 옮긴 사용 가이드 (Filter Chip 부분)",
+  "source": {
+    "fileKey": "9aVw18Cj7CzvHE1ljGaM9m",
+    "fileName": "BSS Design Guideline v2.0",
+    "nodeId": "2430:96191",
+    "name": "Components/Chip",
+    "url": "https://www.figma.com/design/9aVw18Cj7CzvHE1ljGaM9m?node-id=2430-96191",
+    "extractedAt": "2026-11-26"
+  },
+  "group": "입력",
+  "overview": "Filter Chip은 필터 조건을 짧은 텍스트로 표시하고, 눌러서 조건을 선택·해제하는 컴포넌트입니다.",
+  "anatomy": {
+    "title": "Anatomy (구성)",
+    "lead": "Chip을 이루는 필수/선택 요소의 구조를 말합니다.",
+    "example": {
+      "size": "large",
+      "selection": "selected",
+      "state": "default"
+    },
+    "parts": [
+      {
+        "n": 1,
+        "name": "Container",
+        "layer": "root",
+        "desc": "Chip의 형태와 바탕을 정의하는 영역으로, 색·테두리·둥근 모서리로 구분과 강조를 표현합니다."
+      },
+      {
+        "n": 2,
+        "name": "Label",
+        "layer": "label",
+        "desc": "필터 조건이나 선택값을 나타내는 텍스트 요소입니다."
+      },
+      {
+        "n": 3,
+        "name": "Focus Ring (Optional)",
+        "layer": "focusRing",
+        "desc": "키보드로 포커스를 이동했을 때 Chip 바깥에 표시하는 링입니다. showFocus를 켜면 표시합니다. 규격은 Focus Ring 문서를 따릅니다."
+      }
+    ]
+  },
+  "states": {
+    "title": "States (상태)",
+    "lead": "사용자 입력과 시스템의 상황에 따라 컴포넌트의 표현 방식을 정리한 기준입니다.",
+    "rows": [
+      {
+        "name": "Default",
+        "props": {
+          "size": "medium",
+          "selection": "selected",
+          "state": "default"
+        },
+        "desc": "조작하지 않은 기본 상태입니다."
+      },
+      {
+        "name": "Hover",
+        "props": {
+          "size": "medium",
+          "selection": "selected",
+          "state": "hover"
+        },
+        "desc": "마우스 커서가 Chip 위에 올라간 상태입니다."
+      },
+      {
+        "name": "Pressed",
+        "props": {
+          "size": "medium",
+          "selection": "selected",
+          "state": "pressed"
+        },
+        "desc": "Chip을 누르고 있는 상태입니다."
+      },
+      {
+        "name": "Focus Visible",
+        "props": {
+          "size": "medium",
+          "selection": "selected",
+          "state": "default",
+          "showFocus": true
+        },
+        "desc": "키보드로 이동해 Focus Ring을 표시한 상태입니다. 다른 상태 위에 겹쳐 표시합니다."
+      },
+      {
+        "name": "Unselected",
+        "props": {
+          "size": "medium",
+          "selection": "unselected",
+          "state": "default"
+        },
+        "desc": "선택되지 않은 상태입니다."
+      },
+      {
+        "name": "Selected",
+        "props": {
+          "size": "medium",
+          "selection": "selected",
+          "state": "default"
+        },
+        "desc": "선택된 상태입니다. 브랜드 색으로 강조해 표시합니다."
+      },
+      {
+        "name": "Disabled",
+        "props": {
+          "size": "medium",
+          "selection": "selected",
+          "state": "disabled"
+        },
+        "desc": "사용할 수 없는 상태입니다. 선택 여부는 연한 색으로 구분해 표시합니다."
+      }
+    ]
+  },
+  "variants": {
+    "title": "Variants (변형)",
+    "lead": "동일한 컴포넌트를 용도와 표현 방식에 따라 구분한 파생 타입입니다.",
+    "groups": [
+      {
+        "title": "Size",
+        "lead": "Chip을 크기별로 구분합니다.",
+        "rows": [
+          {
+            "name": "Large",
+            "props": {
+              "size": "large",
+              "selection": "selected"
+            },
+            "desc": "선택하면 브랜드 색으로 채워지며 테두리가 없습니다.(높이 40px)"
+          },
+          {
+            "name": "Medium",
+            "props": {
+              "size": "medium",
+              "selection": "selected"
+            },
+            "desc": "선택하면 연한 브랜드 바탕과 테두리로 표시합니다.(높이 36px)"
+          },
+          {
+            "name": "Small",
+            "props": {
+              "size": "small",
+              "selection": "selected"
+            },
+            "desc": "선택하면 연한 브랜드 바탕과 테두리로 표시합니다.(높이 28px)"
+          }
+        ]
+      }
+    ]
+  },
+  "policy": {
+    "title": "Policy (사용 정책)",
+    "lead": "필터 조건을 눌러서 선택·해제할 때 씁니다.",
+    "when": {
+      "use": [
+        "필터 조건을 선택하거나 해제할 때"
+      ],
+      "avoid": [
+        {
+          "text": "조회·초기화·다운로드처럼 작업을 실행할 때",
+          "alt": "Button"
+        },
+        {
+          "text": "선택한 값을 표시하고 지울 수 있게 할 때",
+          "alt": "Remove Chip"
+        }
+      ]
+    },
+    "rules": [
+      {
+        "name": "State Priority · Background",
+        "desc": "Value가 색 계열(중립·브랜드)을 정하고, Interaction State가 그 안의 단계를 정합니다. Disabled에서도 선택 여부는 구분해 표시합니다.",
+        "from": "Guideline · States"
+      },
+      {
+        "name": "State Priority · Border",
+        "desc": "테두리가 있는 형태(Filter Chip Medium·Small)에만 해당합니다. Value를 따르며, Hover·Pressed에서는 바뀌지 않습니다.",
+        "from": "Guideline · States"
+      },
+      {
+        "name": "State Priority · Label",
+        "desc": "Value를 따릅니다. Disabled이면 Value와 관계없이 연한 색으로 바뀝니다.",
+        "from": "Guideline · States"
+      },
+      {
+        "name": "State Priority · Focus Ring",
+        "desc": "Disabled를 포함한 모든 상태 위에 겹쳐 표시합니다.",
+        "from": "Guideline · States"
+      }
+    ],
+    "do": [
+      "Chip은 조건을 고르거나 선택한 값을 표시할 때 사용합니다. (요금제 유형처럼 목록을 걸러 보는 조건을 Filter Chip으로 나열합니다.)"
+    ],
+    "dont": [
+      "실행 버튼을 Chip으로 만들지 않습니다. (조회·초기화·다운로드처럼 작업을 실행하는 동작은 Button으로 표시합니다.)"
+    ],
+    "source": {
+      "id": "guideline-filter-chip",
+      "title": "BSS Design Guideline v2.0 · Chip"
+    }
+  }
+}

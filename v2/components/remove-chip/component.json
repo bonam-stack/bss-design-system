@@ -1,0 +1,87 @@
+{
+  "schemaVersion": 2,
+  "key": "remove-chip",
+  "name": "RemoveChip",
+  "description": "선택한 값을 표시하고 오른쪽 × 버튼으로 지우는 칩입니다. appearance 2종(filled·outlined) × selection 2종(unselected·selected) × state 4종(default·hover·pressed·disabled), 높이 40 한 가지. 앞 아이콘(showLeadingIcon), 라벨, 개수(showCount, _Item/RemoveChip/Count), 지우기 버튼(_Item/RemoveChip/Remove)으로 이루어지며 showFocus는 키보드 포커스 링입니다.",
+  "figma": {
+    "fileKey": "WcoI745J38TaON7iCKcutW",
+    "nodeId": "5768:1693",
+    "url": "https://www.figma.com/design/WcoI745J38TaON7iCKcutW?node-id=5768-1693",
+    "page": {
+      "nodeId": "2473:38383",
+      "name": "❖ Chip"
+    },
+    "type": "COMPONENT_SET",
+    "componentKey": null,
+    "extractedAt": "2026-11-26",
+    "source": "DS 컴포넌트 구조 명세 (토큰 v2.0.4)"
+  },
+  "ds": {
+    "specs": [
+      "chip-remove"
+    ],
+    "structure": "34. RemoveChip"
+  },
+  "props": [
+    {
+      "name": "appearance",
+      "figmaName": "appearance",
+      "type": "variant",
+      "default": "filled",
+      "options": [
+        "filled",
+        "outlined"
+      ]
+    },
+    {
+      "name": "selection",
+      "figmaName": "selection",
+      "type": "variant",
+      "default": "unselected",
+      "options": [
+        "unselected",
+        "selected"
+      ]
+    },
+    {
+      "name": "state",
+      "figmaName": "state",
+      "type": "variant",
+      "default": "default",
+      "options": [
+        "default",
+        "hover",
+        "pressed",
+        "disabled"
+      ]
+    },
+    {
+      "name": "showLeadingIcon",
+      "figmaName": "showLeadingIcon",
+      "type": "boolean",
+      "default": true
+    },
+    {
+      "name": "showCount",
+      "figmaName": "showCount",
+      "type": "boolean",
+      "default": true
+    },
+    {
+      "name": "showFocus",
+      "figmaName": "showFocus",
+      "type": "boolean",
+      "default": false
+    },
+    {
+      "name": "label",
+      "figmaName": "label",
+      "type": "text",
+      "default": "Text"
+    }
+  ],
+  "variants": [],
+  "tokens": [],
+  "textStyles": [],
+  "otherStyles": []
+}
