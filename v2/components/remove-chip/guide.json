@@ -221,10 +221,15 @@
         "name": "State Priority · Focus Ring",
         "desc": "Disabled를 포함한 모든 상태 위에 겹쳐 표시합니다.",
         "from": "Guideline · States"
+      },
+      {
+        "name": "규격",
+        "desc": "높이 40 한 가지이며 모서리 R9999, 좌우 여백 16, 요소 사이 4입니다.",
+        "from": "Guideline · Spec"
       }
     ],
     "do": [
-      "Chip은 선택한 값을 표시할 때 사용합니다. (고른 조건이나 값을 Remove Chip으로 보여 주고, 필요 없으면 지울 수 있게 합니다.)"
+      "Chip은 조건을 고르거나 선택한 값을 표시할 때 사용합니다. (요금제 유형처럼 목록을 걸러 보는 조건을 Filter Chip으로 나열합니다.)"
     ],
     "dont": [
       "실행 버튼을 Chip으로 만들지 않습니다. (조회·초기화·다운로드처럼 작업을 실행하는 동작은 Button으로 표시합니다.)"

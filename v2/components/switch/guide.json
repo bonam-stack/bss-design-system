@@ -182,6 +182,11 @@
         "name": "정렬",
         "desc": "Label과 함께 놓을 때 Switch와 Label을 세로 가운데로 맞춥니다.",
         "from": "Guideline · Layout"
+      },
+      {
+        "name": "규격",
+        "desc": "Track·Thumb 모서리 R9999, Track 안쪽 여백 4입니다. 높이는 Large 32 · Medium 28 · Small 20으로 크기별 고정 너비를 씁니다.",
+        "from": "Guideline · Spec"
       }
     ],
     "do": [

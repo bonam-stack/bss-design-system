@@ -62,6 +62,12 @@
         "name": "Close Button (Optional)",
         "layer": "close",
         "desc": "Viewer Modal을 닫는 버튼입니다. Title 오른쪽에 위치합니다. showClose를 켜면 표시합니다."
+      },
+      {
+        "n": 9,
+        "name": "Dim",
+        "layer": "dim",
+        "desc": "Modal이 열리면 배경 콘텐츠 위에 표시하는 반투명 영역으로, 현재 레이어에 사용자의 시선을 집중시키고 기존 화면을 조작할 수 없게 합니다. 상황에 따라 Dim 영역을 클릭해 Modal을 닫을 수 있으며, 중요한 작업의 경우에는 닫힘을 제한할 수 있습니다."
       }
     ]
   },
@@ -126,10 +132,19 @@
         "name": "규격",
         "desc": "너비 1280, 안쪽 여백 24, 모서리 16, 제목과 내용 사이 20입니다. Toolbar는 높이 44, 모서리 6, 좌우 여백 12, 버튼 사이 8입니다(Actions 112×44 · Page 101×44).",
         "from": "Guideline · Spec"
+      },
+      {
+        "name": "높이",
+        "desc": "높이는 콘텐츠 양에 맞춰 조정됩니다(Flexible Height).",
+        "from": "Guideline · Spec"
       }
     ],
-    "do": [],
-    "dont": [],
+    "do": [
+      "입력·수정처럼 별도 작업이 필요할 때 Modal을 사용합니다. (단순한 확인·결정은 Dialog를 사용합니다.)"
+    ],
+    "dont": [
+      "한 줄 확인을 위해 Modal을 사용하지 않습니다. (큰 창에 내용이 적어 화면 흐름을 불필요하게 끊습니다.)"
+    ],
     "source": {
       "id": "guideline-viewer-modal",
       "title": "BSS Design Guideline v2.0 · Modal (Viewer Modal)"
