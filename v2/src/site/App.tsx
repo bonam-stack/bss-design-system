@@ -5,7 +5,7 @@ import type { PortalComp, Role } from './portal/store';
 import { Ctx, emptyUi } from './portal/ctx';
 import type { PendingText, PortalCtx, TocItem, UiState } from './portal/ctx';
 import { catalog, components, componentByKey, patterns, baseTokens } from './data';
-import { Pager, RoleMenu, SideNav, TextEditBar, TopNav } from './nav';
+import { Pager, RoleMenu, SideNav, StudioNav, TextEditBar, crumbsOf } from './nav';
 import { LastUpdated, TocList, setToast } from './ui';
 import { portalPage } from './pages/portal';
 import { ComponentPage } from './pages/ComponentPage';
@@ -198,12 +198,13 @@ export function App() {
           <button className="menu-btn" aria-label="메뉴 열기" aria-expanded={menuOpen} aria-controls="sidebar" onClick={() => setMenuOpen((o) => !o)}>
             ☰
           </button>
+          {/* BSS SB Studio 머리: 1뎁스 메뉴 중 "디자인 포탈"이 이 사이트 */}
           <a href="#overview" className="brand">
             <span className="brand-mark" aria-hidden="true" />
-            BSS Design
+            BSS SB Studio
           </a>
-          <nav className="top-nav" aria-label="섹션">
-            <TopNav route={route} />
+          <nav className="top-nav" aria-label="BSS SB Studio 메뉴">
+            <StudioNav />
           </nav>
           <div className="top-r">
             <RoleMenu />
@@ -236,6 +237,14 @@ export function App() {
         <main className="content" id="content" tabIndex={-1} ref={content}>
           {redirect ? null : (
             <>
+              <nav className="crumbs" aria-label="현재 위치">
+                {crumbsOf(route, role).map(([l, h], i) => (
+                  <span key={i}>
+                    {i ? <i aria-hidden="true">›</i> : null}
+                    {h ? <a href={h}>{l}</a> : l}
+                  </span>
+                ))}
+              </nav>
               {page}
               {withUpdated ? <LastUpdated /> : null}
               <Pager route={route} />

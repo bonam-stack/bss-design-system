@@ -79,8 +79,8 @@ function Overview() {
     <>
       <Head
         eyebrow="BSS Design System"
-        title="BSS 디자인 포털"
-        lead="BSS 백오피스 화면을 만드는 기준입니다. SB Studio는 이 포털에 게시된 버전만 읽어 화면을 조립합니다."
+        title="디자인 포탈"
+        lead="BSS SB Studio의 디자인 포탈입니다. BSS 백오피스 화면을 만드는 기준(DS라이브러리 · SB라이브러리 · 거버넌스)을 담고, SB Studio는 여기에 게시된 버전만 읽어 화면을 조립합니다."
         extra={
           <div className="checks">
             <Check on label={`게시 ${P.version()}`} />

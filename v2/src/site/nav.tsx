@@ -1,4 +1,4 @@
-// 위쪽 섹션 메뉴 · 왼쪽 목록 · 이전/다음 · 역할 선택 · 에디터 모드 띠.
+// 디자인 포탈 (BSS SB Studio의 1뎁스 메뉴). 위쪽 = Studio 1뎁스 메뉴, 왼쪽 = 포탈 2뎁스(DS라이브러리 · SB라이브러리 · 거버넌스 · Workboard) → 3뎁스 → 문서.
 // 누구에게나 같은 문서와 "Workboard"가 보이고, 역할(SB Studio 계정에서 받음)에 따라 작업 메뉴와 문서 안 편집 칸이 켜진다.
 // 작업 메뉴: UX 담당자 = UX 편집, DS 담당자 = DS 작업, 관리자 = 관리자.
 import { useEffect, useRef, useState } from 'react';
@@ -125,26 +125,54 @@ const workCount = (role: Role) =>
     ? P.drafts((d) => d.status === 'draft' && !!d.requested).length
     : P.drafts((d) => d.status === 'draft' && d.by === role && !d.requested).length + (role === 'ds' ? P.requests().filter((r) => r.stage !== '완료').length : 0);
 
-export function TopNav({ route }: { route: string }) {
-  const { role } = usePortal();
-  const cur = sectionOf(route, role);
-  const n = workCount(role);
+/** BSS SB Studio의 1뎁스 메뉴. 디자인 포탈(이 사이트)은 그중 하나이고, 나머지는 SB Studio 도구 화면이라 이 POC에서는 열리지 않는다 */
+export const STUDIO_MENU: [key: string, label: string][] = [
+  ['storyboard', '스토리보드'],
+  ['ia', 'IA'],
+  ['portal', '디자인 포탈'],
+  ['common', '공통 관리'],
+];
+
+export function StudioNav() {
   return (
     <>
-      {sections(role).filter(([k]) => k !== 'home').map(([k, label, items]) => (
-        <a key={k} href={`#${items[0][0]}`} className={`${k === cur ? 'on' : ''}${k === 'work' ? ' admin' : ''}`} aria-current={k === cur ? 'true' : undefined}>
-          {label}
-          {k === 'work' && n ? (
-            <>
-              {' '}
-              <em>{n}</em>
-            </>
-          ) : null}
-        </a>
-      ))}
+      {STUDIO_MENU.map(([k, label]) =>
+        k === 'portal' ? (
+          <a key={k} href="#overview" className="on" aria-current="true">
+            {label}
+          </a>
+        ) : (
+          <span key={k} className="off" aria-disabled="true" title="BSS SB Studio 도구 화면 (이 POC 밖)">
+            {label}
+          </span>
+        ),
+      )}
     </>
   );
 }
+
+/** 지금 문서가 든 자리: 디자인 포탈 › 2뎁스 › 묶음 … (본문 맨 위 경로) */
+export function crumbsOf(here: string, role: Role): [label: string, href?: string][] {
+  const route = hostRoute(here);
+  const out: [string, string?][] = [['디자인 포탈', '#overview']];
+  const cur = sectionOf(route, role);
+  const sec = sections(role).find(([k]) => k === cur);
+  if (!sec) return out;
+  const [, label, items] = sec;
+  if (cur !== 'home') out.push([label, `#${items.find(([r]) => r)?.[0] || 'overview'}`]);
+  const it = items.find(([r]) => r === route);
+  if (it?.[2]) for (const g of it[2].split(' › ')) out.push([g]);
+  return out;
+}
+
+/** 컴포넌트에 딸린 가이드(#g-…) · 사용 예시(#pattern-…) · Figma 비교(#compare-…)는 그 컴포넌트 자리로 */
+function hostRoute(here: string) {
+  if (here.startsWith('compare-')) return P.itemByKey(here.slice(8))?.code || here;
+  const pat = here.startsWith('pattern-') ? patterns.find((p) => `pattern-${p.key}` === here) : null;
+  const host = here.startsWith('g-') ? hostOf(here.slice(2)) : pat ? P.itemByKey((pat.components || [])[0] || '') : null;
+  return host ? host.code : here;
+}
+
 interface NavGroup {
   label: string;
   items: NavItem[];
@@ -179,14 +207,11 @@ const flagged = (g: NavGroup): boolean => g.items.some(([r]) => !!r && !!P.flagO
 
 export function SideNav({ route: here }: { route: string }) {
   const { role, isEditor } = usePortal();
-  // 컴포넌트 안에 딸린 가이드를 따로 열었으면 그 컴포넌트를 현재 위치로
-  // 사용 예시(#pattern-…)는 첫 대상 컴포넌트를 현재 위치로
-  const pat = here.startsWith('pattern-') ? patterns.find((p) => `pattern-${p.key}` === here) : null;
-  const host = here.startsWith('g-') ? hostOf(here.slice(2)) : pat ? P.itemByKey((pat.components || [])[0] || '') : null;
-  const route = host ? host.code : here;
+  // 컴포넌트에 딸린 가이드 · 사용 예시 · Figma 비교는 그 컴포넌트를 현재 위치로
+  const route = hostRoute(here);
   const all = sections(role);
   const cur = sectionOf(route, role);
-  const [, label, items] = all.find(([k]) => k === cur)!;
+  const [, , items] = all.find(([k]) => k === cur)!;
   const { top, groups } = groupItems(items);
   // 펼친 묶음 (섹션|묶음|둘째 묶음). 지금 페이지가 든 묶음은 늘 펼친다
   const [open, setOpen] = useState<Set<string>>(() => new Set());
@@ -242,19 +267,15 @@ export function SideNav({ route: here }: { route: string }) {
       </div>
     );
   };
+  const home = all.find(([k]) => k === 'home')![2];
   return (
     <>
-      {/* 좁은 화면에서는 위쪽 섹션 메뉴가 숨으므로 목록 위에 섹션을 둔다 */}
-      <div className="m-sec">
-        {all.filter(([k]) => k !== 'home').map(([k, l, it]) => (
-          <a key={k} href={`#${it[0][0]}`} className={k === cur ? 'on' : ''}>
-            {l}
-          </a>
-        ))}
-      </div>
+      {/* 이 사이트는 BSS SB Studio의 1뎁스 메뉴 "디자인 포탈". 왼쪽 목록 = 2뎁스(DS라이브러리 · SB라이브러리 · 거버넌스 …) → 3뎁스 묶음 → 문서 */}
       <div className="nav-head">
-        <div className="nav-title">{label}</div>
-        {groups.length ? (
+        <a className="nav-title" href="#overview">
+          디자인 포탈
+        </a>
+        {cur !== 'home' && groups.length ? (
           <div className="nav-all">
             <button type="button" onClick={() => setOpen(new Set(allKeys(groups, [])))}>
               전체 펼침 <span aria-hidden="true">▾</span>
@@ -265,8 +286,28 @@ export function SideNav({ route: here }: { route: string }) {
           </div>
         ) : null}
       </div>
-      {top.map(link)}
-      {groups.map((g) => group(g, [g.label], 0))}
+      {home.map(link)}
+      {all
+        .filter(([k]) => k !== 'home')
+        .map(([k, label, L]) => {
+          const on = k === cur;
+          const n = k === 'work' ? workCount(role) : 0;
+          return (
+            <div key={k} className={`nav-l2${on ? ' open' : ''}${k === 'work' ? ' admin' : ''}`}>
+              <a href={`#${L.find(([r]) => r)?.[0] || 'overview'}`} className="nav-l2-h" aria-current={on ? 'true' : undefined}>
+                <span className="nav-chev" aria-hidden="true">›</span>
+                <span className="nav-acc-l">{label}</span>
+                {n ? <em className="nav-l2-n">{n}</em> : null}
+              </a>
+              {on ? (
+                <div className="nav-l2-body">
+                  {top.map(link)}
+                  {groups.map((g) => group(g, [g.label], 0))}
+                </div>
+              ) : null}
+            </div>
+          );
+        })}
     </>
   );
 }

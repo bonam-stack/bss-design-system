@@ -1,4 +1,4 @@
-/* BSS 디자인 포털 (문서 사이트형): 위쪽 섹션 메뉴 · 왼쪽 문서 목록 · 본문 · 오른쪽 목차.
+/* 디자인 포탈 (BSS SB Studio의 1뎁스 메뉴): 위쪽 Studio 메뉴 · 왼쪽 2뎁스 → 3뎁스 목록 · 본문 · 오른쪽 목차.
    담당 역할을 고르면 같은 페이지에 에디터 모드(편집 칸 · 초안)가 켜진다. 색은 site.css 토큰을 쓴다. */
 :root {
   --bad-bg: #fdecec; --bad-fg: #b42318; --hold-bg: #fff4e0; --hold-fg: #925600;
@@ -11,15 +11,15 @@
 :root[data-theme='dark'] { --bad-bg: #2f1414; --bad-fg: #ff9b8f; --hold-bg: #2d2210; --hold-fg: #f2b766; --surface-weak: #15181d; --surface-card: #1b1f25; --ed: #a9a6ff; --ed-soft: #24234a; }
 
 /* ---------- 머리: 브랜드 · 섹션 메뉴 · 역할 ---------- */
-.topbar-inner { height: 64px; gap: 20px; }
-.brand { font-size: 18px; letter-spacing: -0.02em; white-space: nowrap; }
-.top-nav { display: flex; gap: 2px; margin: 0 auto; overflow-x: auto; scrollbar-width: none; }
-.top-nav a { padding: 7px 12px; border-radius: 8px; font-size: 15px; color: var(--fg); text-decoration: none; white-space: nowrap; }
-.top-nav a:hover { background: var(--surface-weak); }
-.top-nav a.on { background: var(--surface-card); font-weight: 600; }
-.top-nav a.admin { color: var(--ed); }
-.top-nav a.admin.on { background: var(--ed-soft); }
-.top-nav em { font-style: normal; font-size: 11px; padding: 0 6px; border-radius: 9px; background: var(--bad-fg); color: var(--bg); vertical-align: 1px; }
+:root { --topbar-h: 56px; }
+.topbar-inner { gap: 28px; }
+.brand { font-size: 16px; letter-spacing: -0.02em; white-space: nowrap; }
+/* BSS SB Studio 1뎁스 메뉴: 디자인 포탈만 이 사이트, 나머지는 Studio 도구 화면(이 POC 밖) */
+.top-nav { display: flex; align-self: stretch; gap: 4px; margin-right: auto; overflow-x: auto; scrollbar-width: none; }
+.top-nav a, .top-nav .off { display: flex; align-items: center; padding: 0 12px; font-size: 15px; color: var(--fg); text-decoration: none; white-space: nowrap; box-shadow: inset 0 -2px 0 transparent; }
+.top-nav a:hover { color: var(--accent); }
+.top-nav a.on { font-weight: 700; box-shadow: inset 0 -2px 0 var(--fg); }
+.top-nav .off { color: var(--fg-muted); cursor: default; }
 .top-r { display: flex; align-items: center; gap: 8px; }
 .role-pick select { height: 36px; border: 1px solid var(--border); border-radius: 999px; padding: 0 12px; background: var(--bg); color: var(--fg); font: inherit; font-size: 13px; cursor: pointer; }
 .role-pick.on select { border-color: var(--ed); background: var(--ed-soft); color: var(--ed); font-weight: 600; }
@@ -36,7 +36,6 @@
 .sidebar .nav-sub { margin: 14px 0 4px 12px; font-size: 12px; color: var(--fg-muted); }
 .sidebar a { display: flex; align-items: center; gap: 6px; padding: 8px 12px; border-radius: 8px; font-size: 14px; }
 .sidebar a.on { background: var(--surface-card); font-weight: 600; }
-.m-sec { display: none; }
 .nv-st { font-size: 11px; color: var(--fg-muted); }
 .nav-empty { display: block; padding: 8px 12px 8px 32px; font-size: 12px; color: var(--fg-muted); }
 .nv-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--ed); margin-left: auto; }
@@ -44,7 +43,13 @@
 .content h1 { font-size: 44px; line-height: 1.15; letter-spacing: -0.03em; margin: 4px 0 14px; }
 .content h2 { font-size: 24px; margin: 56px 0 14px; display: flex; align-items: center; gap: 10px; scroll-margin-top: 90px; }
 .content h3 { scroll-margin-top: 90px; }
-.content .eyebrow { color: var(--fg-muted); font-weight: 500; font-size: 14px; letter-spacing: 0; }
+.content .eyebrow { display: none; }
+/* 현재 위치: 디자인 포탈 › 2뎁스 › 묶음 (페이지마다 따로 적던 머리 줄 대신) */
+.crumbs { display: flex; flex-wrap: wrap; align-items: center; gap: 0 2px; margin-bottom: 6px; font-size: 13px; color: var(--fg-muted); }
+.crumbs i { font-style: normal; margin: 0 6px; opacity: .6; }
+.crumbs a { color: inherit; text-decoration: none; }
+.crumbs a:hover { color: var(--fg); text-decoration: underline; }
+.crumbs > span:last-child { color: var(--fg); font-weight: 500; }
 .content .lead { font-size: 16px; max-width: 70ch; }
 .toc { position: sticky; top: calc(64px + env(safe-area-inset-top, 0px)); align-self: start; max-height: calc(100vh - 64px); overflow-y: auto; padding: 48px 16px 24px 8px; padding-right: max(16px, env(safe-area-inset-right, 0px)); }
 .toc-t { margin: 0 0 4px; font-size: 12px; color: var(--fg-muted); }
@@ -187,11 +192,12 @@ button.chip { height: 28px; padding: 0 12px; font: inherit; font-size: 12px; }
 }
 @media (max-width: 860px) {
   .layout { grid-template-columns: minmax(0, 1fr); }
-  .top-nav { display: none; }
-  .m-sec { display: flex; flex-wrap: wrap; gap: 4px; padding: 0 8px 14px; margin-bottom: 10px; border-bottom: 1px solid var(--border); }
-  .m-sec a { padding: 6px 10px; font-size: 13px; }
+  .topbar-inner { gap: 12px; }
+  .top-nav { gap: 0; }
+  .top-nav a, .top-nav .off { padding: 0 8px; font-size: 14px; }
+  .brand { font-size: 0; gap: 0; }
+  .top-nav .off { display: none; }
   .top-r { margin-left: auto; }
-  .brand { font-size: 16px; }
   .content { padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-block: 28px 80px; }
   .content h1 { font-size: 32px; }
   .stk li { grid-template-columns: 28px minmax(0, 1fr) auto; margin-left: 0 !important; }
@@ -554,7 +560,7 @@ h1 .nv-flag { vertical-align: middle; margin-left: 10px; height: 22px; font-size
 .sb-zoom-v { min-width: 40px; text-align: center; font-variant-numeric: tabular-nums; color: var(--fg-muted); }
 
 /* 왼쪽 메뉴: 전체 펼침 · 닫힘, 메뉴 접기 */
-.nav-head { display: flex; flex-direction: column-reverse; gap: 10px; margin: -12px 0 8px; }
+.nav-head { display: flex; flex-direction: column; gap: 6px; margin: -8px 0 8px; }
 .sidebar .nav-head .nav-title { margin: 0 0 0 12px; }
 .nav-all { display: flex; justify-content: flex-end; gap: 2px; padding-right: 10px; }
 .nav-all button { padding: 3px 6px; border: 0; border-radius: 6px; background: transparent; color: var(--fg-muted); font: inherit; font-size: 12px; cursor: pointer; white-space: nowrap; }
@@ -580,3 +586,16 @@ h1 .nv-flag { vertical-align: middle; margin-left: 10px; height: 22px; font-size
 .content h2.sec-n::before { content: counter(sec, decimal-leading-zero); display: inline-block; min-width: 2.2em; margin-right: 10px; font-family: var(--mono); font-size: 0.6em; font-weight: 600; color: var(--accent); vertical-align: 0.25em; }
 .icon-grid .tile { position: relative; }
 .tile-use { position: absolute; top: 6px; right: 6px; min-width: 16px; height: 16px; padding: 0 4px; border-radius: 999px; background: var(--accent-soft); color: var(--accent); font-size: 10px; font-weight: 600; line-height: 16px; text-align: center; }
+
+/* ---------- 왼쪽 목록: 디자인 포탈 › 2뎁스(DS라이브러리 · SB라이브러리 · 거버넌스 …) › 3뎁스 묶음 ---------- */
+.sidebar .nav-head .nav-title { display: block; padding: 0; font-size: 18px; font-weight: 700; color: var(--fg); text-decoration: none; background: none; }
+.sidebar .nav-head .nav-title:hover { color: var(--accent); }
+.nav-l2 { margin-top: 6px; }
+.nav-l2 + .nav-l2 { border-top: 1px solid var(--border); padding-top: 6px; }
+.sidebar a.nav-l2-h { gap: 8px; padding: 10px 12px; font-size: 15px; font-weight: 600; color: var(--fg); }
+.sidebar a.nav-l2-h:hover { background: var(--surface-card); }
+.nav-l2.open > .nav-l2-h .nav-chev { transform: rotate(90deg); }
+.nav-l2.open > .nav-l2-h { color: var(--accent); }
+.nav-l2.admin > .nav-l2-h { color: var(--ed); }
+.nav-l2-n { font-style: normal; font-size: 11px; padding: 0 6px; border-radius: 9px; background: var(--bad-fg); color: var(--bg); }
+.nav-l2-body { padding-bottom: 6px; }
