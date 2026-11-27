@@ -135,4 +135,4 @@ export function Button({ type = 'square', appearance, variants: legacy, size = '
   );
 }
 
-Button.meta = { texts: { label: 'Button' } };
+Button.meta = { texts: { label: 'Button' }, icons: { leadingIcon: 'line/search', trailingIcon: 'line/search', icon: 'line/search' } };

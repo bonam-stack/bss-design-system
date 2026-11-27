@@ -51,7 +51,7 @@ export interface Guide {
   group?: string;
   overview?: string;
   policy?: Policy;
-  anatomy?: { title: string; lead: string; example: Record<string, string>; parts: { n: number; name: string; layer: string; desc: string }[] };
+  anatomy?: { title: string; lead: string; example: Record<string, string>; more?: Record<string, string>[]; parts: { n: number; name: string; layer: string; desc: string }[] };
   states?: { title: string; lead: string; rows: GuideRow[]; defaults?: Record<string, string> };
   variants?: { title: string; lead: string; groups: { title: string; lead: string; rows: GuideRow[] }[] };
   spec?: { title: string; lead: string; items: { name: string; props: Record<string, string>; box?: number; gap?: number; radius?: number }[] };
@@ -68,7 +68,6 @@ export interface IconEntry {
   file?: string;
   nodeId: string;
   key: string;
-  /** 예전 Figma 파일의 컴포넌트 키 (예전에 읽은 레이어가 가리킴) */
   description?: string;
   onDark?: boolean;
   svg?: string;

@@ -2,6 +2,7 @@
 // DS 담당자은 ✎ 편집에서 Figma 노드를 보고 React 코드를 만든다: AI(Figma 레이어 → Claude) 또는 속성으로 만든 기본 틀 → 채팅으로 다듬기 → 초안.
 // 관리자가 배포하면 모두에게 이 코드로 미리보기가 그려지고, 저장소 파일로 내려받아 커밋한다.
 import { useLayoutEffect, useRef, useState } from 'react';
+import { CtlGroup, CtlIcon, CtlSelect, CtlText, CtlToggle } from '../controls';
 import type { CSSProperties, ReactNode } from 'react';
 import * as P from '../portal/store';
 import type { PortalComp } from '../portal/store';
@@ -36,33 +37,18 @@ export function Preview({ C: Comp, c }: { C: LiveComponent; c: Pick<PortalComp, 
   const vprops = c.props.filter((p) => p.type === 'variant');
   const bools = c.props.filter((p) => p.type === 'boolean');
   const [sel, setSel] = useState<Record<string, unknown>>(() => Object.fromEntries([...vprops, ...bools].map((p) => [ident(p.name), p.type === 'boolean' ? p.default === true || p.default === 'true' : p.default])));
-  const [texts, setTexts] = useState<Record<string, string>>(() => ({ ...(Comp.meta?.texts || {}) }));
+  const icons = Comp.meta?.icons || {};
+  const [texts, setTexts] = useState<Record<string, string>>(() => ({ ...(Comp.meta?.texts || {}), ...icons }));
+  // Figma 속성 패널처럼: 변형 = 드롭다운, 켜기/끄기 = 토글, 글 = 입력칸, 아이콘 = 목록에서 고르기
   const rows: ReactNode[] = [
-    ...vprops.map((p) => (
-      <div key={p.name} className="ctl">
-        <span className="ctl-name">{p.name}</span>
-        <div className="seg">
-          {(p.options || []).map((o) => (
-            <button key={o} aria-pressed={sel[ident(p.name)] === o} onClick={() => setSel({ ...sel, [ident(p.name)]: o })}>
-              {o}
-            </button>
-          ))}
-        </div>
-      </div>
-    )),
-    ...bools.map((p) => (
-      <label key={p.name} className="ctl">
-        <span className="ctl-name">{p.name}</span>
-        <input type="checkbox" checked={!!sel[ident(p.name)]} onChange={(e) => setSel({ ...sel, [ident(p.name)]: e.target.checked })} />
-      </label>
-    )),
-    ...Object.entries(texts).map(([k, v]) => (
-      <label key={`t-${k}`} className="ctl">
-        <span className="ctl-name">{k}</span>
-        <textarea className="search" rows={1} value={v} onChange={(e) => setTexts({ ...texts, [k]: e.target.value })} />
-      </label>
-    )),
+    ...vprops.map((p) => <CtlSelect key={p.name} name={p.name} value={String(sel[ident(p.name)] ?? '')} options={p.options || []} onChange={(o) => setSel({ ...sel, [ident(p.name)]: o })} />),
+    ...bools.map((p) => <CtlToggle key={p.name} name={p.name} checked={!!sel[ident(p.name)]} onChange={(v) => setSel({ ...sel, [ident(p.name)]: v })} />),
+    ...Object.entries(texts)
+      .filter(([k]) => !icons[k])
+      .map(([k, v]) => <CtlText key={`t-${k}`} name={k} value={v} onChange={(x) => setTexts({ ...texts, [k]: x })} />),
   ];
+  const iconRows = Object.keys(icons).map((k) => <CtlIcon key={`i-${k}`} name={k} value={texts[k] ?? icons[k]} onChange={(x) => setTexts({ ...texts, [k]: x })} />);
+  if (iconRows.length) rows.push(<CtlGroup key="g-icons">아이콘</CtlGroup>, ...iconRows);
   return (
     <div className="sb-body">
       <ZoomCanvas>

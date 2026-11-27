@@ -334,6 +334,16 @@
         "layer": "focusring",
         "desc": "키보드로 포커스를 이동했을 때 Button 바깥에 표시하는 링입니다. showFocus를 켜면 표시합니다. 규격은 Focus Ring 문서를 따릅니다."
       }
+    ],
+    "more": [
+      {
+        "type": "text",
+        "appearance": "accent",
+        "size": "fixed",
+        "state": "default",
+        "showLeadingIcon": true,
+        "showUnderline": true
+      }
     ]
   },
   "states": {

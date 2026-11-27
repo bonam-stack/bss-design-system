@@ -606,3 +606,34 @@ h1 .nv-flag { vertical-align: middle; margin-left: 10px; height: 22px; font-size
 .to-top:hover { color: var(--accent); border-color: var(--accent); }
 .to-top:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 @media (prefers-reduced-motion: reduce) { .to-top { transition: none; } }
+
+/* ---------- 미리보기 조절 칸 (Figma 속성 패널처럼) ---------- */
+.sb-controls:has(.ctl2) { gap: 6px; padding: 16px 16px 20px; }
+.ctl2-title { margin: 0 0 6px; font-size: 14px; font-weight: 700; color: var(--fg); }
+.ctl2 { display: grid; grid-template-columns: minmax(0, 1fr) 150px; align-items: center; gap: 10px; min-height: 36px; font-size: 13px; }
+.ctl2-name { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--fg-muted); }
+.ctl2-val { min-width: 0; display: flex; }
+.ctl2-select { position: relative; display: block; width: 100%; }
+.ctl2-select::after { content: ''; position: absolute; right: 11px; top: 50%; width: 6px; height: 6px; margin-top: -5px; border: solid var(--fg-muted); border-width: 0 1.5px 1.5px 0; transform: rotate(45deg); pointer-events: none; }
+.ctl2-select select, .ctl2-text, .ctl2-icon-btn { width: 100%; height: 32px; padding: 0 28px 0 10px; border: 1px solid var(--border); border-radius: 6px; background: var(--bg); color: var(--fg); font: inherit; font-size: 13px; }
+.ctl2-select select { appearance: none; cursor: pointer; }
+.ctl2-text { padding-right: 10px; background: var(--surface-weak); border-color: transparent; }
+.ctl2-select select:hover, .ctl2-icon-btn:hover { border-color: var(--fg-muted); }
+.ctl2-select select:focus-visible, .ctl2-text:focus-visible, .ctl2-icon-btn:focus-visible, .ctl2-toggle:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+.ctl2-toggle { position: relative; width: 34px; height: 20px; padding: 0; border: 1px solid var(--border); border-radius: 999px; background: var(--surface-card); cursor: pointer; transition: background .15s, border-color .15s; }
+.ctl2-toggle i { position: absolute; top: 2px; left: 2px; width: 14px; height: 14px; border-radius: 50%; background: var(--bg); box-shadow: 0 1px 2px rgb(0 0 0 / 0.25); transition: transform .15s; }
+.ctl2-toggle[aria-checked='true'] { background: var(--accent); border-color: var(--accent); }
+.ctl2-toggle[aria-checked='true'] i { transform: translateX(14px); }
+@media (prefers-reduced-motion: reduce) { .ctl2-toggle, .ctl2-toggle i { transition: none; } }
+.ctl2-group { margin-top: 10px; padding-top: 12px; border-top: 1px solid var(--border); font-size: 13px; font-weight: 700; color: var(--fg); }
+.ctl2-icon { position: relative; width: 100%; }
+.ctl2-icon-btn { position: relative; display: flex; align-items: center; gap: 8px; text-align: left; cursor: pointer; }
+.ctl2-icon-btn span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.ctl2-icon-btn::after { content: ''; position: absolute; right: 11px; top: 50%; width: 6px; height: 6px; margin-top: -5px; border: solid var(--fg-muted); border-width: 0 1.5px 1.5px 0; transform: rotate(45deg); }
+.ctl2-icon-pop { position: absolute; z-index: 40; right: 0; top: calc(100% + 4px); width: 260px; padding: 8px; border: 1px solid var(--border); border-radius: 10px; background: var(--bg-raised, var(--bg)); box-shadow: 0 8px 28px rgb(0 0 0 / 0.16); }
+.ctl2-icon-list { display: grid; max-height: 280px; margin-top: 6px; overflow-y: auto; }
+.ctl2-icon-list button { display: grid; grid-template-columns: 16px minmax(0, 1fr) auto; align-items: center; gap: 8px; padding: 6px 8px; border: 0; border-radius: 6px; background: none; color: var(--fg); font: inherit; font-size: 13px; text-align: left; cursor: pointer; }
+.ctl2-icon-list button:hover, .ctl2-icon-list button:focus-visible { background: var(--surface-card); outline: none; }
+.ctl2-icon-list button[aria-selected='true'] { background: var(--accent-soft, var(--surface-card)); color: var(--accent); font-weight: 600; }
+.ctl2-icon-list span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.ctl2-icon-list em { font-style: normal; font-size: 11px; color: var(--fg-muted); }

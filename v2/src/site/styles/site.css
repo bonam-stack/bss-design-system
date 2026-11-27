@@ -268,7 +268,7 @@ dialog::backdrop { background: var(--scrim); }
   font-size: 14px; color: var(--fg-muted); cursor: pointer;
 }
 .sb-tabs button[aria-selected='true'] { background: var(--bg-subtle); color: var(--fg); font-weight: 600; }
-.sb-body { display: grid; grid-template-columns: minmax(0, 1fr) 260px; }
+.sb-body { display: grid; grid-template-columns: minmax(0, 1fr) 300px; }
 .sb-body[hidden] { display: none; }
 /* Components are drawn with light-theme Figma values, so the canvas stays light in dark mode. */
 .sb-canvas {
@@ -413,7 +413,7 @@ details.dev h2:first-of-type { margin-top: 12px; }
 .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 .gd-canvas {
   position: relative; display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 48px 96px;
-  min-height: 200px; padding: 64px 24px 40px; border-radius: 16px; background: #F8F9FB; color: #1A1A1A; overflow-x: auto;
+  min-height: 200px; padding: 64px 24px 72px; border-radius: 16px; background: #F8F9FB; color: #1A1A1A; overflow-x: auto;
 }
 .gd-slot { display: inline-grid; place-items: center; color: #1c1f23; text-align: left; }
 .gd-slot > * { text-align: left; }
@@ -436,6 +436,8 @@ table.data.gd-table td { vertical-align: middle; }
 .gd-badge[data-side='top'] .pt-num-badge { left: -14px; bottom: 16px; }
 .gd-badge[data-side='top']::after { content: ''; position: absolute; left: 0; bottom: 0; height: 16px; border-left: 1px dotted #B3B9C0; }
 .gd-badge[data-side='right'] .pt-num-badge { left: 16px; top: -14px; }
+.gd-badge[data-side='bottom'] .pt-num-badge { left: -14px; top: var(--len, 16px); }
+.gd-badge[data-side='bottom']::after { content: ''; position: absolute; left: 0; top: 0; height: var(--len, 16px); border-left: 1px dotted #B3B9C0; }
 .gd-badge[data-side='right']::after { content: ''; position: absolute; top: 0; left: 0; width: 16px; border-top: 1px dotted #B3B9C0; }
 .gd-spec-item { position: relative; display: grid; justify-items: center; gap: 28px; margin: 0; }
 .gd-spec-item figcaption { font-size: 13px; color: #5f6673; }

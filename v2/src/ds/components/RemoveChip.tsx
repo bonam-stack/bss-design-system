@@ -134,4 +134,4 @@ export function RemoveChip({ appearance = 'filled', selection, defaultSelection 
 }
 
 /** 포털 미리보기 · 예시의 기본 글 */
-RemoveChip.meta = { texts: { label: 'Text', count: '00' } };
+RemoveChip.meta = { texts: { label: 'Text', count: '00' }, icons: { leadingIcon: 'filled/won' } };

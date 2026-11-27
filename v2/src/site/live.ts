@@ -21,6 +21,8 @@ export interface Meta {
   texts: Record<string, string>;
   /** state를 고정했을 때 함께 넣는 예시 값 (entered → defaultValue 'Text') */
   samples?: Record<string, Record<string, unknown>>;
+  /** 아이콘을 받는 속성과 기본 아이콘 (미리보기에서 아이콘 목록으로 고른다) */
+  icons?: Record<string, string>;
 }
 export type LiveComponent = ComponentType<Record<string, unknown>> & { meta?: Meta };
 

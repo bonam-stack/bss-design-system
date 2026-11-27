@@ -234,7 +234,7 @@
       "code": "c-button",
       "flag": "updated",
       "at": "2026-11-27",
-      "note": "가이드라인 v2.0 · 버튼 라벨·아이콘 새 버전 반영 · DS 라이브러리 현재 버전 데이터, variants→appearance"
+      "note": "가이드라인 v2.0 · 버튼 라벨·아이콘 새 버전 반영 · DS 라이브러리 현재 버전 데이터, variants→appearance · Anatomy에 Text 버튼(Underline) 예시"
     },
     {
       "code": "c-checkbox",

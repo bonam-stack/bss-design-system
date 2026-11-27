@@ -121,4 +121,4 @@ export function Badge({ type = 'basic', tone = 'highlight', size = 'fixed', stat
 }
 
 /** 포털 미리보기 · 예시의 기본 글 */
-Badge.meta = { texts: { label: 'Badge', count: '0' } };
+Badge.meta = { texts: { label: 'Badge', count: '0' }, icons: { leadingIcon: 'line/info' } };

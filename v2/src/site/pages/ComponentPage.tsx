@@ -3,6 +3,7 @@
 // DS 담당자은 같은 페이지에서 코드를 고치고(미리보기 · 예시가 바로 바뀜) Figma 원본과 견준 뒤 초안으로 저장한다.
 import { Component as ReactComponent, createContext, useContext, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import type { CSSProperties, ReactNode } from 'react';
+import { CtlGroup, CtlIcon, CtlSelect, CtlText, CtlToggle } from '../controls';
 import type { SiteComponent, Guide, GuideRow } from '../data';
 import { patterns } from '../data';
 import * as P from '../portal/store';
@@ -92,7 +93,7 @@ function reactCode(name: string, c: ComponentData, meta: Meta, sel: Sel, values:
     if (p.type === 'variant' && sel[p.name] !== def[p.name]) attrs.push(`${p.name}=${jsxValue(sel[p.name])}`);
     if (p.type === 'boolean' && values[p.figmaName] !== defV[p.figmaName]) attrs.push(`${p.name}=${jsxValue(values[p.figmaName])}`);
   }
-  for (const [k, v] of Object.entries(texts)) if (v !== (meta.texts[k] ?? '')) attrs.push(`${k === 'value' ? 'defaultValue' : k}=${jsxValue(v)}`);
+  for (const [k, v] of Object.entries(texts)) if (v !== (meta.texts[k] ?? meta.icons?.[k] ?? '')) attrs.push(`${k === 'value' ? 'defaultValue' : k}=${jsxValue(v)}`);
   const open = attrs.length > 2 ? `<${name}\n${attrs.map((a) => `  ${a}`).join('\n')}\n/>` : `<${name}${attrs.length ? ` ${attrs.join(' ')}` : ''} />`;
   return `import { ${name} } from './ds'; // 이 저장소의 src/ds\n\n${open}`;
 }
@@ -123,7 +124,7 @@ export function ComponentPage({ sc }: { sc: SiteComponent }) {
 
   const [sel, setSel] = useState<Sel>(() => fixSelection(base, defaultSelection(base)));
   const [values, setValues] = useState<PropValues>(() => defaultValues(base));
-  const [texts, setTexts] = useState<Record<string, string>>(() => ({ ...live.meta.texts }));
+  const [texts, setTexts] = useState<Record<string, string>>(() => ({ ...live.meta.texts, ...live.meta.icons }));
   const [tab, setTab] = useState<'preview' | 'code'>('preview');
   const [compare, setCompare] = useState(false);
   const sbRef = useRef<HTMLElement>(null);
@@ -192,7 +193,7 @@ export function ComponentPage({ sc }: { sc: SiteComponent }) {
                     </figure>
                   ) : null}
                 </div>
-                <Controls c={base} sel={sel} values={values} texts={texts} onSel={update} onValues={setValues} onTexts={setTexts} />
+                <Controls c={base} icons={live.meta.icons} sel={sel} values={values} texts={texts} onSel={update} onValues={setValues} onTexts={setTexts} />
               </div>
             ) : (
               <div className="sb-body sb-code">
@@ -561,40 +562,30 @@ function UsageExamples({ k }: { k: string }) {
 
 // ---------- 미리보기 조절 ----------
 
-function Controls({ c, sel, values, texts, onSel, onValues, onTexts }: { c: ComponentData; sel: Sel; values: PropValues; texts: Record<string, string>; onSel: (s: Sel) => void; onValues: (v: PropValues) => void; onTexts: (t: Record<string, string>) => void }) {
+function Controls({ c, icons, sel, values, texts, onSel, onValues, onTexts }: { c: ComponentData; icons?: Record<string, string>; sel: Sel; values: PropValues; texts: Record<string, string>; onSel: (s: Sel) => void; onValues: (v: PropValues) => void; onTexts: (t: Record<string, string>) => void }) {
   const a = analyze(c);
   // 이 변형이 쓰는 불리언 속성만 (Figma 레이어 기준)
   const used = usedProps(c, findVariant(c, sel).layer!, values);
-  const rows: ReactNode[] = a.vprops.map((p) => (
-    <div key={p.name} className="ctl">
-      <span className="ctl-name">{p.name}</span>
-      <div className="seg">
-        {optionsFor(c, p, sel).map((o) => (
-          <button key={o} aria-pressed={sel[p.name] === o} onClick={() => onSel({ ...sel, [p.name]: o })}>
-            {o}
-          </button>
-        ))}
-      </div>
-    </div>
-  ));
+  // Figma 속성 패널처럼: 변형 = 드롭다운, 켜기/끄기 = 토글, 글 = 입력칸, 아이콘 = 목록에서 고르기
+  const rows: ReactNode[] = a.vprops.map((p) => <CtlSelect key={p.name} name={p.name} value={String(sel[p.name] ?? '')} options={optionsFor(c, p, sel)} onChange={(o) => onSel({ ...sel, [p.name]: o })} />);
   for (const p of [...a.flags, ...(a.focusFlag ? [a.focusFlag] : [])]) {
     if (!used.top.has(p.figmaName)) continue;
-    rows.push(
-      <label key={p.figmaName} className="ctl">
-        <span className="ctl-name">{p.name}</span>
-        <input type="checkbox" checked={!!values[p.figmaName]} onChange={(e) => onValues({ ...values, [p.figmaName]: e.target.checked })} />
-      </label>,
-    );
+    rows.push(<CtlToggle key={p.figmaName} name={p.name} checked={!!values[p.figmaName]} onChange={(v) => onValues({ ...values, [p.figmaName]: v })} />);
   }
-  for (const [k, v] of Object.entries(texts)) {
-    rows.push(
-      <label key={`t-${k}`} className="ctl">
-        <span className="ctl-name">{k === 'value' ? 'value (처음 값)' : k}</span>
-        <textarea className="search" rows={1} value={v} onChange={(e) => onTexts({ ...texts, [k]: e.target.value })} />
-      </label>,
-    );
-  }
-  return <div className="sb-controls">{rows}</div>;
+  for (const [k, v] of Object.entries(texts)) if (!icons?.[k]) rows.push(<CtlText key={`t-${k}`} name={k === 'value' ? 'value (처음 값)' : k} value={v} onChange={(x) => onTexts({ ...texts, [k]: x })} />);
+  const iconRows = Object.keys(icons || {}).map((k) => <CtlIcon key={`i-${k}`} name={k} value={texts[k] ?? icons![k]} onChange={(x) => onTexts({ ...texts, [k]: x })} />);
+  return (
+    <div className="sb-controls">
+      <p className="ctl2-title">{c.name}</p>
+      {rows}
+      {iconRows.length ? (
+        <>
+          <CtlGroup>아이콘</CtlGroup>
+          {iconRows}
+        </>
+      ) : null}
+    </div>
+  );
 }
 
 /** 가이드가 없는 페이지: 속성 선택지마다 한 장씩 (Figma 프레임처럼) */
@@ -943,22 +934,28 @@ interface Mark {
 function AnatomySection({ sc, an }: { sc: SiteComponent; an: NonNullable<Guide['anatomy']> }) {
   const c = sc.data;
   const host = useRef<HTMLDivElement>(null);
-  const slot = useRef<HTMLSpanElement | null>(null);
+  // 첫 예시에 없는 요소(예: Text 버튼의 Underline)는 guide.json anatomy.more 예시로 함께 그린다
+  const examples = [an.example, ...(an.more || [])];
+  const slots = useRef<(HTMLSpanElement | null)[]>([]);
   const [marks, setMarks] = useState<Mark[]>([]);
   useMeasure(() => {
-    if (!host.current || !slot.current) return;
+    if (!host.current) return;
     const out: Mark[] = [];
-    // 번호: 표시 요소는 위쪽, 라벨은 오른쪽
+    // 번호: 바깥 틀(1번)은 위, 포커스 링은 오른쪽, 안쪽 요소는 아래로 빼서 서로 겹치지 않게
     for (const p of an.parts) {
-      const el = part(slot.current, c.key, p.layer);
-      if (!el) continue;
+      const slot = slots.current.find((sl) => sl && part(sl, c.key, p.layer));
+      if (!slot) continue;
+      const el = part(slot, c.key, p.layer)!;
       const r = rel(el, host.current);
-      out.push({
-        cls: 'gd-mark gd-badge',
-        side: p.n === 1 ? 'top' : 'right',
-        style: p.n === 1 ? { left: `${r.x + r.w / 2}px`, top: `${r.y - 12}px` } : { left: `${r.x + r.w + 14}px`, top: `${r.y + r.h / 2}px` },
-        text: <span className="pt-num-badge">{p.n}</span>,
-      });
+      const box = rel(slot, host.current);
+      const side = p.n === 1 ? 'top' : /focus/i.test(p.layer) ? 'right' : 'bottom';
+      const style: CSSProperties & Record<string, string> =
+        side === 'top'
+          ? { left: `${r.x + r.w / 2}px`, top: `${r.y - 12}px` }
+          : side === 'right'
+            ? { left: `${r.x + r.w + 14}px`, top: `${r.y + r.h / 2}px` }
+            : { left: `${r.x + r.w / 2}px`, top: `${r.y + r.h}px`, '--len': `${Math.max(16, box.y + box.h - (r.y + r.h) + 16)}px` };
+      out.push({ cls: 'gd-mark gd-badge', side, style, text: <span className="pt-num-badge">{p.n}</span> });
     }
     setMarks(out);
   }, [c.key, an]);
@@ -967,7 +964,9 @@ function AnatomySection({ sc, an }: { sc: SiteComponent; an: NonNullable<Guide['
       <h3>{an.title}</h3>
       <Editable as="p" className="note" path="anatomy.lead" label="Anatomy 설명" value={an.lead} />
       <div className="gd-canvas gd-anatomy" ref={host}>
-        <Example sc={sc} props={propsFor(c, an.example)} zoom slotRef={(el) => (slot.current = el)} />
+        {examples.map((ex, i) => (
+          <Example key={i} sc={sc} props={propsFor(c, ex)} zoom slotRef={(el) => (slots.current[i] = el)} />
+        ))}
         {marks.map((m, i) => (
           <span key={i} className={m.cls} style={m.style} data-side={m.side}>
             {m.text}
