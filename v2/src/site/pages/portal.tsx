@@ -31,7 +31,6 @@ export function portalPage(route: string, role: Role): ReactNode | null {
     case 'foundations': return <FoundationsOverview />;
     case 'tokens': return <TokensPage />;
     case 'token-guide': return <TokenDoc which="guide" />;
-    case 'token-changelog': return <TokenDoc which="changelog" />;
     case 'color': return <ColorPage />;
     case 'typography': return <TypographyPage />;
     case 'spacing': case 'sizing': case 'radius': case 'border-width': case 'shadow': return <ScalePage key={route} id={route} />;

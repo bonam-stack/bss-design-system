@@ -125,7 +125,7 @@ export function App() {
   const pattern = patterns.find((p) => `pattern-${p.key}` === route);
   // v2에 없는 화면: UX 규칙 쪽 거버넌스(규칙 · 검증 규칙 · 슬롯 · 연동 규격 · 운영 절차)와 레이아웃 · 조립 구조. 데이터는 그대로 둔다
   // UX 패턴 가이드(#ux-guide · #g-… · 용어사전)는 사이트맵대로 거버넌스 › UX 패턴 가이드에 있다
-  const HIDDEN = ['process', 'rules', 'lint', 'sb-spec', 'slots', 'promo-rules', 'stack', 'patterns'];
+  const HIDDEN = ['token-changelog', 'process', 'rules', 'lint', 'sb-spec', 'slots', 'promo-rules', 'stack', 'patterns'];
   if (HIDDEN.includes(route) || P.item(route)?.kind === 'layout' || (route.startsWith('g-') && guideDoc(route.slice(2)) && !shownDoc(route.slice(2)))) redirect = 'overview';
   else if (ALIAS[route]) redirect = ALIAS[route];
   // 예전 UX 가이드 주소(#ux, #ux-<id>)는 포털 섹션에 놓인 문서로
@@ -265,10 +265,37 @@ export function App() {
           ) : null}
         </aside>
       </div>
+      <TopButton />
       <TextEditBar />
       <div className={`toast${toastMsg ? ' show' : ''}`} role="status">
         {toastMsg?.text}
       </div>
     </Ctx.Provider>
+  );
+}
+
+/** 맨 위로: 한 화면 넘게 내려가면 오른쪽 아래에 나타난다 */
+function TopButton() {
+  const [show, setShow] = useState(false);
+  useEffect(() => {
+    const on = () => setShow(window.scrollY > window.innerHeight * 0.8);
+    on();
+    window.addEventListener('scroll', on, { passive: true });
+    return () => window.removeEventListener('scroll', on);
+  }, []);
+  return (
+    <button
+      type="button"
+      className={`to-top${show ? ' show' : ''}`}
+      aria-label="맨 위로"
+      title="맨 위로"
+      tabIndex={show ? 0 : -1}
+      onClick={() => {
+        window.scrollTo({ top: 0, behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
+        document.getElementById('content')?.focus({ preventScroll: true });
+      }}
+    >
+      <span aria-hidden="true">↑</span>
+    </button>
   );
 }

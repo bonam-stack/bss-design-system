@@ -66,10 +66,9 @@ export function sections(role: Role): Section[] {
             ['radius', '모서리'],
             ['border-width', '선 두께'],
             ['token-guide', '토큰 개발 가이드'],
-            ['token-changelog', '토큰 변경 이력'],
           ] as [string, string][]
         ).map(([r, l]): NavItem => [r, l, '토큰']),
-        // 스타일: Typography · Shadow · Glass · AI Effect (Glass · AI Effect는 DS 전달본에 아직 없음)
+        // 스타일: Typography · Shadow (Glass · AI Effect는 DS 전달본에 생기면 추가)
         ...(
           [
             ['typography', '타이포그래피'],
@@ -78,7 +77,6 @@ export function sections(role: Role): Section[] {
             ['writing', '문구 (보이스 · 표기)'],
           ] as [string, string][]
         ).map(([r, l]): NavItem => [r, l, '스타일']),
-        ['', 'Glass · AI Effect (준비 중)', '스타일'],
         ['icons', '아이콘', '아이콘'],
         ['components', '전체', '컴포넌트'],
         ...componentItems(I).map(([r, l, g, t]): NavItem => [r, l, `컴포넌트 › ${g}`, t]),
