@@ -5,7 +5,7 @@ import type { PortalComp, Role } from './portal/store';
 import { Ctx, emptyUi } from './portal/ctx';
 import type { PendingText, PortalCtx, TocItem, UiState } from './portal/ctx';
 import { catalog, components, componentByKey, patterns, baseTokens } from './data';
-import { Pager, PortalTabs, RoleMenu, SideNav, StudioNav, TextEditBar, crumbsOf } from './nav';
+import { Pager, PortalTabs, RoleMenu, SideNav, StudioNav, TextEditBar } from './nav';
 import { LastUpdated, TocList, setToast } from './ui';
 import { portalPage } from './pages/portal';
 import { ComponentPage } from './pages/ComponentPage';
@@ -198,7 +198,7 @@ export function App() {
           <button className="menu-btn" aria-label="메뉴 열기" aria-expanded={menuOpen} aria-controls="sidebar" onClick={() => setMenuOpen((o) => !o)}>
             ☰
           </button>
-          {/* BSS SB Studio 머리: 1뎁스 메뉴 중 "디자인 포탈"이 이 사이트 */}
+          {/* BSS SB Studio 머리: 1뎁스 메뉴 중 "디자인 포털"이 이 사이트 */}
           <a href="#overview" className="brand">
             <span className="brand-mark" aria-hidden="true" />
             BSS SB Studio
@@ -210,8 +210,8 @@ export function App() {
             <RoleMenu />
           </div>
         </div>
-        {/* 디자인 포탈 2뎁스 탭 */}
-        <nav className="portal-tabs" aria-label="디자인 포탈 메뉴">
+        {/* 디자인 포털 2뎁스 탭 */}
+        <nav className="portal-tabs" aria-label="디자인 포털 메뉴">
           <PortalTabs route={route} />
         </nav>
       </header>
@@ -241,14 +241,6 @@ export function App() {
         <main className="content" id="content" tabIndex={-1} ref={content}>
           {redirect ? null : (
             <>
-              <nav className="crumbs" aria-label="현재 위치">
-                {crumbsOf(route, role).map(([l, h], i) => (
-                  <span key={i}>
-                    {i ? <i aria-hidden="true">›</i> : null}
-                    {h ? <a href={h}>{l}</a> : l}
-                  </span>
-                ))}
-              </nav>
               {page}
               {withUpdated ? <LastUpdated /> : null}
               <Pager route={route} />

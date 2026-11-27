@@ -173,7 +173,7 @@ export function SpecComponentPage({ sc }: { sc: SiteComponent }) {
         </>
       ) : null}
       <CompRules k={key} />
-      {/* 04 개발 정보 → 05 Usage (BSS DS 포탈 사이트맵 6-1) */}
+      {/* 04 개발 정보 → 05 Usage (BSS DS 포털 사이트맵 6-1) */}
       {specNames.length ? (
         <>
           <h2 id="dev" className="sec-n">개발 정보</h2>

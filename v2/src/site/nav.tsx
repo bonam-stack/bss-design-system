@@ -1,4 +1,4 @@
-// 디자인 포탈 (BSS SB Studio의 1뎁스 메뉴). 위쪽 1줄 = Studio 1뎁스 메뉴, 2줄 = 포탈 2뎁스 탭(DS라이브러리 · SB라이브러리 · 거버넌스 · Workboard), 왼쪽 = 3뎁스 → 문서.
+// 디자인 포털 (BSS SB Studio의 1뎁스 메뉴). 위쪽 1줄 = Studio 1뎁스 메뉴, 2줄 = 포털 2뎁스 탭(DS라이브러리 · SB라이브러리 · 거버넌스 · Workboard), 왼쪽 = 3뎁스 → 문서.
 // 누구에게나 같은 문서와 "Workboard"가 보이고, 역할(SB Studio 계정에서 받음)에 따라 작업 메뉴와 문서 안 편집 칸이 켜진다.
 // 작업 메뉴: UX 담당자 = UX 편집, DS 담당자 = DS 작업, 관리자 = 관리자.
 import { useEffect, useRef, useState } from 'react';
@@ -49,7 +49,7 @@ export function sections(role: Role): Section[] {
   const S: Section[] = [
     // 홈(개요 · 업데이트)은 위쪽 메뉴에 두지 않는다: 로고를 누르면 개요, 버전을 누르면 업데이트
     ['home', '홈', [['overview', '개요'], ['updates', '업데이트']]],
-    // 메뉴 (v2 · BSS DS 포탈 사이트맵): DS라이브러리 → SB라이브러리 → 거버넌스 → Workboard. 홈은 로고
+    // 메뉴 (v2 · BSS DS 포털 사이트맵): DS라이브러리 → SB라이브러리 → 거버넌스 → Workboard. 홈은 로고
     // 가이드 문서는 다루는 대상 옆에 둔다: 컴포넌트 가이드 · 사용 예시는 컴포넌트 문서 안, 모듈 정의는 블록 옆
     [
       'dslib',
@@ -100,7 +100,7 @@ export function sections(role: Role): Section[] {
         ['', 'AI가 임시로 만든 부품 · 자동 동기화', '임시 블록'],
       ],
     ],
-    // 거버넌스 (BSS DS 포탈 사이트맵): UX 패턴 가이드 · UI 가이드라인. UX 규칙 · 검증 규칙 · 슬롯 · 운영 절차 등은 v2 화면에 두지 않는다 (데이터는 v2/catalog에 있음)
+    // 거버넌스 (BSS DS 포털 사이트맵): UX 패턴 가이드 · UI 가이드라인. UX 규칙 · 검증 규칙 · 슬롯 · 운영 절차 등은 v2 화면에 두지 않는다 (데이터는 v2/catalog에 있음)
     [
       'gov',
       '거버넌스',
@@ -136,11 +136,11 @@ const workCount = (role: Role) =>
     ? P.drafts((d) => d.status === 'draft' && !!d.requested).length
     : P.drafts((d) => d.status === 'draft' && d.by === role && !d.requested).length + (role === 'ds' ? P.requests().filter((r) => r.stage !== '완료').length : 0);
 
-/** BSS SB Studio의 1뎁스 메뉴. 디자인 포탈(이 사이트)은 그중 하나이고, 나머지는 SB Studio 도구 화면이라 이 POC에서는 열리지 않는다 */
+/** BSS SB Studio의 1뎁스 메뉴. 디자인 포털(이 사이트)은 그중 하나이고, 나머지는 SB Studio 도구 화면이라 이 POC에서는 열리지 않는다 */
 export const STUDIO_MENU: [key: string, label: string][] = [
   ['storyboard', '스토리보드'],
   ['ia', 'IA'],
-  ['portal', '디자인 포탈'],
+  ['portal', '디자인 포털'],
   ['common', '공통 관리'],
 ];
 
@@ -160,20 +160,6 @@ export function StudioNav() {
       )}
     </>
   );
-}
-
-/** 지금 문서가 든 자리: 디자인 포탈 › 2뎁스 › 묶음 … (본문 맨 위 경로) */
-export function crumbsOf(here: string, role: Role): [label: string, href?: string][] {
-  const route = hostRoute(here);
-  const out: [string, string?][] = [['디자인 포탈', '#overview']];
-  const cur = sectionOf(route, role);
-  const sec = sections(role).find(([k]) => k === cur);
-  if (!sec) return out;
-  const [, label, items] = sec;
-  if (cur !== 'home') out.push([label, `#${items.find(([r]) => r)?.[0] || 'overview'}`]);
-  const it = items.find(([r]) => r === route);
-  if (it?.[2]) for (const g of it[2].split(' › ')) out.push([g]);
-  return out;
 }
 
 /** 컴포넌트에 딸린 가이드(#g-…) · 사용 예시(#pattern-…) · Figma 비교(#compare-…)는 그 컴포넌트 자리로 */
@@ -283,7 +269,7 @@ export function SideNav({ route: here }: { route: string }) {
     <>
       {/* 2뎁스는 위쪽 탭(PortalTabs). 왼쪽 목록은 고른 2뎁스의 3뎁스 묶음 → 문서만 */}
       <div className="nav-head">
-        <div className="nav-title">{cur === 'home' ? '디자인 포탈' : label}</div>
+        <div className="nav-title">{cur === 'home' ? '디자인 포털' : label}</div>
         {groups.length ? (
           <div className="nav-all">
             <button type="button" onClick={() => setOpen(new Set(allKeys(groups, [])))}>
@@ -301,7 +287,7 @@ export function SideNav({ route: here }: { route: string }) {
   );
 }
 
-/** 디자인 포탈 2뎁스 탭: DS라이브러리 · SB라이브러리 · 거버넌스 · Workboard (+ 역할 작업 메뉴) */
+/** 디자인 포털 2뎁스 탭: DS라이브러리 · SB라이브러리 · 거버넌스 · Workboard (+ 역할 작업 메뉴) */
 export function PortalTabs({ route }: { route: string }) {
   const { role } = usePortal();
   const cur = sectionOf(hostRoute(route), role);

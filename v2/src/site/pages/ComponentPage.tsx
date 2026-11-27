@@ -299,7 +299,7 @@ export function ComponentPage({ sc }: { sc: SiteComponent }) {
         ) : null}
         <UsageExamples k={key} />
       </div>
-      {/* 04 개발 정보 → 05 Usage (BSS DS 포탈 사이트맵 6-1) */}
+      {/* 04 개발 정보 → 05 Usage (BSS DS 포털 사이트맵 6-1) */}
       <h2 className="sec-n">개발 정보</h2>
       <DevDetails c={base} name={sc.name} />
       <CompUsage k={key} />
