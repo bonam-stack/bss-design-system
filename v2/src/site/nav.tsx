@@ -1,4 +1,4 @@
-// 디자인 포탈 (BSS SB Studio의 1뎁스 메뉴). 위쪽 = Studio 1뎁스 메뉴, 왼쪽 = 포탈 2뎁스(DS라이브러리 · SB라이브러리 · 거버넌스 · Workboard) → 3뎁스 → 문서.
+// 디자인 포탈 (BSS SB Studio의 1뎁스 메뉴). 위쪽 1줄 = Studio 1뎁스 메뉴, 2줄 = 포탈 2뎁스 탭(DS라이브러리 · SB라이브러리 · 거버넌스 · Workboard), 왼쪽 = 3뎁스 → 문서.
 // 누구에게나 같은 문서와 "Workboard"가 보이고, 역할(SB Studio 계정에서 받음)에 따라 작업 메뉴와 문서 안 편집 칸이 켜진다.
 // 작업 메뉴: UX 담당자 = UX 편집, DS 담당자 = DS 작업, 관리자 = 관리자.
 import { useEffect, useRef, useState } from 'react';
@@ -280,15 +280,13 @@ export function SideNav({ route: here }: { route: string }) {
       </div>
     );
   };
-  const home = all.find(([k]) => k === 'home')![2];
+  const label = all.find(([k]) => k === cur)![1];
   return (
     <>
-      {/* 이 사이트는 BSS SB Studio의 1뎁스 메뉴 "디자인 포탈". 왼쪽 목록 = 2뎁스(DS라이브러리 · SB라이브러리 · 거버넌스 …) → 3뎁스 묶음 → 문서 */}
+      {/* 2뎁스는 위쪽 탭(PortalTabs). 왼쪽 목록은 고른 2뎁스의 3뎁스 묶음 → 문서만 */}
       <div className="nav-head">
-        <a className="nav-title" href="#overview">
-          디자인 포탈
-        </a>
-        {cur !== 'home' && groups.length ? (
+        <div className="nav-title">{cur === 'home' ? '디자인 포탈' : label}</div>
+        {groups.length ? (
           <div className="nav-all">
             <button type="button" onClick={() => setOpen(new Set(allKeys(groups, [])))}>
               전체 펼침 <span aria-hidden="true">▾</span>
@@ -299,28 +297,27 @@ export function SideNav({ route: here }: { route: string }) {
           </div>
         ) : null}
       </div>
-      {home.map(link)}
-      {all
+      {top.map(link)}
+      {groups.map((g) => group(g, [g.label], 0))}
+    </>
+  );
+}
+
+/** 디자인 포탈 2뎁스 탭: DS라이브러리 · SB라이브러리 · 거버넌스 · Workboard (+ 역할 작업 메뉴) */
+export function PortalTabs({ route }: { route: string }) {
+  const { role } = usePortal();
+  const cur = sectionOf(hostRoute(route), role);
+  const n = workCount(role);
+  return (
+    <>
+      {sections(role)
         .filter(([k]) => k !== 'home')
-        .map(([k, label, L]) => {
-          const on = k === cur;
-          const n = k === 'work' ? workCount(role) : 0;
-          return (
-            <div key={k} className={`nav-l2${on ? ' open' : ''}${k === 'work' ? ' admin' : ''}`}>
-              <a href={`#${L.find(([r]) => r)?.[0] || 'overview'}`} className="nav-l2-h" aria-current={on ? 'true' : undefined}>
-                <span className="nav-chev" aria-hidden="true">›</span>
-                <span className="nav-acc-l">{label}</span>
-                {n ? <em className="nav-l2-n">{n}</em> : null}
-              </a>
-              {on ? (
-                <div className="nav-l2-body">
-                  {top.map(link)}
-                  {groups.map((g) => group(g, [g.label], 0))}
-                </div>
-              ) : null}
-            </div>
-          );
-        })}
+        .map(([k, label, items]) => (
+          <a key={k} href={`#${items.find(([r]) => r)?.[0] || 'overview'}`} className={`${k === cur ? 'on' : ''}${k === 'work' ? ' admin' : ''}`} aria-current={k === cur ? 'true' : undefined}>
+            {label}
+            {k === 'work' && n ? <em>{n}</em> : null}
+          </a>
+        ))}
     </>
   );
 }

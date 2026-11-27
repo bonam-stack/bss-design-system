@@ -5,7 +5,7 @@ import type { PortalComp, Role } from './portal/store';
 import { Ctx, emptyUi } from './portal/ctx';
 import type { PendingText, PortalCtx, TocItem, UiState } from './portal/ctx';
 import { catalog, components, componentByKey, patterns, baseTokens } from './data';
-import { Pager, RoleMenu, SideNav, StudioNav, TextEditBar, crumbsOf } from './nav';
+import { Pager, PortalTabs, RoleMenu, SideNav, StudioNav, TextEditBar, crumbsOf } from './nav';
 import { LastUpdated, TocList, setToast } from './ui';
 import { portalPage } from './pages/portal';
 import { ComponentPage } from './pages/ComponentPage';
@@ -210,6 +210,10 @@ export function App() {
             <RoleMenu />
           </div>
         </div>
+        {/* 디자인 포탈 2뎁스 탭 */}
+        <nav className="portal-tabs" aria-label="디자인 포탈 메뉴">
+          <PortalTabs route={route} />
+        </nav>
       </header>
       <div className={`layout${navHidden ? ' nav-hidden' : ''}`}>
         <nav className={`sidebar${menuOpen ? ' open' : ''}`} id="sidebar" aria-label="문서 탐색">

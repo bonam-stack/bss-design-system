@@ -11,7 +11,6 @@
 :root[data-theme='dark'] { --bad-bg: #2f1414; --bad-fg: #ff9b8f; --hold-bg: #2d2210; --hold-fg: #f2b766; --surface-weak: #15181d; --surface-card: #1b1f25; --ed: #a9a6ff; --ed-soft: #24234a; }
 
 /* ---------- 머리: 브랜드 · 섹션 메뉴 · 역할 ---------- */
-:root { --topbar-h: 56px; }
 .topbar-inner { gap: 28px; }
 .brand { font-size: 16px; letter-spacing: -0.02em; white-space: nowrap; }
 /* BSS SB Studio 1뎁스 메뉴: 디자인 포탈만 이 사이트, 나머지는 Studio 도구 화면(이 POC 밖) */
@@ -587,17 +586,16 @@ h1 .nv-flag { vertical-align: middle; margin-left: 10px; height: 22px; font-size
 .icon-grid .tile { position: relative; }
 .tile-use { position: absolute; top: 6px; right: 6px; min-width: 16px; height: 16px; padding: 0 4px; border-radius: 999px; background: var(--accent-soft); color: var(--accent); font-size: 10px; font-weight: 600; line-height: 16px; text-align: center; }
 
-/* ---------- 왼쪽 목록: 디자인 포탈 › 2뎁스(DS라이브러리 · SB라이브러리 · 거버넌스 …) › 3뎁스 묶음 ---------- */
-.sidebar .nav-head .nav-title { display: block; padding: 0; font-size: 18px; font-weight: 700; color: var(--fg); text-decoration: none; background: none; }
-.sidebar .nav-head .nav-title:hover { color: var(--accent); }
-.nav-l2 { margin-top: 6px; }
-.nav-l2 + .nav-l2 { border-top: 1px solid var(--border); padding-top: 6px; }
-.sidebar a.nav-l2-h { gap: 8px; padding: 10px 12px; font-size: 15px; font-weight: 600; color: var(--fg); }
-.sidebar a.nav-l2-h:hover { background: var(--surface-card); }
-.nav-l2.open > .nav-l2-h .nav-chev { transform: rotate(90deg); }
-.nav-l2.open > .nav-l2-h { color: var(--accent); }
-.nav-l2.admin > .nav-l2-h { color: var(--ed); }
-.nav-l2-n { font-style: normal; font-size: 11px; padding: 0 6px; border-radius: 9px; background: var(--bad-fg); color: var(--bg); }
-.nav-l2-body { padding-bottom: 6px; }
+/* ---------- 디자인 포탈 2뎁스 탭 (Studio 머리 아래 줄) ---------- */
+:root { --topbar-h: 104px; }
+.topbar-inner { height: 56px; }
+.portal-tabs { display: flex; gap: 8px; height: 48px; padding: 0 max(16px, env(safe-area-inset-right, 0px)) 0 max(28px, env(safe-area-inset-left, 0px)); overflow-x: auto; scrollbar-width: none; border-top: 1px solid var(--border); }
+.portal-tabs a { display: flex; align-items: center; gap: 6px; padding: 0 12px; font-size: 15px; color: var(--fg-muted); text-decoration: none; white-space: nowrap; box-shadow: inset 0 -2px 0 transparent; }
+.portal-tabs a:hover { color: var(--fg); }
+.portal-tabs a.on { color: var(--accent); font-weight: 700; box-shadow: inset 0 -2px 0 var(--accent); }
+.portal-tabs a.admin { color: var(--ed); }
+.portal-tabs em { font-style: normal; font-size: 11px; padding: 0 6px; border-radius: 9px; background: var(--bad-fg); color: var(--bg); }
+.sidebar .nav-head .nav-title { font-size: 16px; font-weight: 700; color: var(--fg); }
+@media (max-width: 860px) { .portal-tabs { gap: 0; padding-left: 8px; } .portal-tabs a { padding: 0 10px; font-size: 14px; } }
 .sidebar .nav-grp.d2 > .nav-acc { font-weight: 500; padding-left: 44px; }
 .sidebar .nav-grp.d2 .nav-grp-body > a, .sidebar .nav-grp.d2 .nav-grp-body > .nav-empty { padding-left: 64px; }
