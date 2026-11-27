@@ -5,6 +5,7 @@ import { useId, useState } from 'react';
 import type { TextareaHTMLAttributes } from 'react';
 import { bool, font, tok, useInteraction } from '../shared';
 import { Button } from './Button';
+import { Scrollbar, scrollbarOverlay } from './Scrollbar';
 import { FieldFrame, bareInput, fieldColors, fieldLook } from '../field';
 import type { FieldState, Importance } from '../field';
 
@@ -22,13 +23,18 @@ export interface TextAreaProps extends Omit<TextareaHTMLAttributes<HTMLTextAreaE
   showHelperText?: boolean;
   /** 오른쪽 아래 크기 조절 손잡이 표시 (Figma 모양) */
   showResizeHandle?: boolean;
+  /** 입력 영역 오른쪽 스크롤바 (Scrollbar vertical · medium) */
+  showScrollbar?: boolean;
   showFocus?: boolean;
-  /** 칸 폭 · 입력 영역 높이 (기본 Figma 240 · 74) */
+  /** 칸 폭 · 입력 상자 높이 (기본 Figma 240 · 최소 높이 120. 사용처에서 예상 분량에 맞춰 늘린다) */
   width?: number | string;
-  height?: number;
+  height?: number | string;
 }
 
-export function TextArea({ value, defaultValue = '', onChange, importance = 'none', invalid, state, label = 'Label', showLabel = false, helperText = 'HelperText', showHelperText = true, showResizeHandle = true, showFocus = false, width = 240, height = 74, placeholder = 'Placeholder', maxLength, disabled, readOnly, id, className, style, ...input }: TextAreaProps) {
+// 입력 상자 최소 높이 120 (DS 명세 · 크기 토큰 40 × 3)
+const MIN_H = `calc(${tok('size-40')} * 3)`;
+
+export function TextArea({ value, defaultValue = '', onChange, importance = 'none', invalid, state, label = 'Label', showLabel = false, helperText = 'HelperText', showHelperText = false, showResizeHandle = true, showScrollbar = false, showFocus = false, width = `calc(${tok('size-40')} * 6)`, height, placeholder = 'Placeholder', maxLength, disabled, readOnly, id, className, style, ...input }: TextAreaProps) {
   const auto = useId();
   const fid = id ?? auto;
   const [inner, setInner] = useState(defaultValue);
@@ -63,6 +69,9 @@ export function TextArea({ value, defaultValue = '', onChange, importance = 'non
           flex: '1 1 0',
           minWidth: 0,
           display: 'flex',
+          height,
+          minHeight: MIN_H,
+          boxSizing: 'border-box',
           padding: `${tok('text-area-space-padding-y')} ${tok('text-area-space-padding-x')}`,
           borderRadius: tok('text-area-radius'),
           background: c.background,
@@ -87,7 +96,7 @@ export function TextArea({ value, defaultValue = '', onChange, importance = 'non
               onChange?.(e.target.value);
             }}
             {...it.focus}
-            style={{ ...bareInput, height, minHeight: 40 /* 입력 영역 최소 높이 (레이아웃) */, resize: 'none', overflowWrap: 'anywhere', cursor: look === 'disabled' ? 'not-allowed' : undefined }}
+            style={{ ...bareInput, height: '100%', resize: 'none', overflowWrap: 'anywhere', cursor: look === 'disabled' ? 'not-allowed' : undefined }}
           />
           {!v ? (
             <span aria-hidden="true" style={{ position: 'absolute', inset: 0, color: c.placeholder, pointerEvents: 'none', overflow: 'hidden' }}>
@@ -95,6 +104,7 @@ export function TextArea({ value, defaultValue = '', onChange, importance = 'non
             </span>
           ) : null}
         </span>
+        {showScrollbar ? <Scrollbar direction="vertical" size="medium" length="auto" style={scrollbarOverlay} /> : null}
         {showResizeHandle ? (
           <Button
             type="iconPlain"

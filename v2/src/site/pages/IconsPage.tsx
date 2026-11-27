@@ -159,7 +159,6 @@ export function IconsPage() {
                 <dt>컴포넌트 키</dt>
                 <dd>
                   <CopyBtn value={current.key} /> <span className="note">DS 라이브러리</span>
-                  {(current.legacyKeys || []).length ? <div className="note">예전 키 {current.legacyKeys!.join(' · ')} (예전 파일에서 읽은 컴포넌트 레이어용)</div> : null}
                 </dd>
                 <dt>색</dt>
                 <dd>{current.style === 'colored' ? '원본 색 고정' : 'currentColor (글자색을 따름)'}</dd>

@@ -36,7 +36,7 @@ const SIZE = {
   small: { text: font('label', 14, 400) },
 };
 
-export function TextField({ value, defaultValue = '', onChange, size = 'large', importance = 'none', invalid, state, label = 'Label', showLabel = false, helperText = 'HelperText', showHelperText = true, showClear = true, showFocus = false, width = 200, placeholder = 'Placeholder', disabled, readOnly, id, className, style, ...input }: TextFieldProps) {
+export function TextField({ value, defaultValue = '', onChange, size = 'large', importance = 'none', invalid, state, label = 'Label', showLabel = false, helperText = 'HelperText', showHelperText = false, showClear = true, showFocus = false, width = 200, placeholder = 'Placeholder', disabled, readOnly, id, className, style, ...input }: TextFieldProps) {
   const auto = useId();
   const fid = id ?? auto;
   const [inner, setInner] = useState(defaultValue);

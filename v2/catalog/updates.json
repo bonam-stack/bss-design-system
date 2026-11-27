@@ -233,55 +233,55 @@
     {
       "code": "c-button",
       "flag": "updated",
-      "at": "2026-11-26",
+      "at": "2026-11-27",
       "note": "가이드라인 v2.0 · 버튼 라벨·아이콘 새 버전 반영 · DS 라이브러리 현재 버전 데이터, variants→appearance"
     },
     {
       "code": "c-checkbox",
       "flag": "updated",
-      "at": "2026-11-26",
+      "at": "2026-11-27",
       "note": "가이드라인 v2.0 반영 · DS 라이브러리 현재 버전 데이터"
     },
     {
       "code": "c-radio",
       "flag": "updated",
-      "at": "2026-11-26",
+      "at": "2026-11-27",
       "note": "가이드라인 v2.0 반영 · DS 라이브러리 현재 버전 데이터"
     },
     {
       "code": "c-radio-group",
       "flag": "updated",
-      "at": "2026-11-26",
+      "at": "2026-11-27",
       "note": "가이드라인 v2.0 반영 · DS 라이브러리 현재 버전 데이터"
     },
     {
       "code": "c-text-field",
       "flag": "updated",
-      "at": "2026-11-26",
-      "note": "가이드라인 v2.0 반영 · 라벨 · 지우기 버튼을 DS FieldLabel · Button으로 재사용"
+      "at": "2026-11-27",
+      "note": "가이드라인 v2.0 반영 · 라벨 · 지우기 버튼을 DS FieldLabel · Button으로 재사용 · DS 라이브러리 현재 버전 데이터, 도움말 기본 끔"
     },
     {
       "code": "c-text-area",
       "flag": "updated",
-      "at": "2026-11-26",
-      "note": "가이드라인 v2.0 반영 · 라벨 · 크기 조절 손잡이를 DS FieldLabel · Button으로 재사용"
+      "at": "2026-11-27",
+      "note": "가이드라인 v2.0 반영 · 라벨 · 크기 조절 손잡이를 DS FieldLabel · Button으로 재사용 · DS 라이브러리 현재 버전 데이터, 최소 높이 120 · showScrollbar 추가 · 도움말 기본 끔"
     },
     {
       "code": "c-password-field",
       "flag": "updated",
-      "at": "2026-11-26",
-      "note": "가이드라인 v2.0 반영 · 라벨을 DS FieldLabel로 재사용"
+      "at": "2026-11-27",
+      "note": "가이드라인 v2.0 반영 · 라벨을 DS FieldLabel로 재사용 · DS 라이브러리 현재 버전 데이터, 도움말 기본 끔"
     },
     {
       "code": "c-helper-text",
       "flag": "updated",
-      "at": "2026-11-26",
-      "note": "가이드라인 v2.0 반영"
+      "at": "2026-11-27",
+      "note": "가이드라인 v2.0 반영 · DS 라이브러리 현재 버전 데이터"
     },
     {
       "code": "c-divider",
       "flag": "updated",
-      "at": "2026-11-26",
+      "at": "2026-11-27",
       "note": "사용 가이드 추가 · DS 라이브러리 현재 버전 데이터(divider 토큰)"
     }
   ]

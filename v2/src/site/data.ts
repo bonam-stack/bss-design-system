@@ -69,7 +69,6 @@ export interface IconEntry {
   nodeId: string;
   key: string;
   /** 예전 Figma 파일의 컴포넌트 키 (예전에 읽은 레이어가 가리킴) */
-  legacyKeys?: string[];
   description?: string;
   onDark?: boolean;
   svg?: string;
@@ -140,8 +139,8 @@ export interface SiteComponent {
   icons: IconMap;
 }
 const guideKeys = new Set((guideIndex as { guides: string[] }).guides);
-// 컴포넌트 키 → 아이콘. 예전 파일에서 읽은 레이어는 예전 키(legacyKeys)를 가리키므로 함께 잇는다
-const iconByKey = new Map(icons.icons.filter((i) => i.svg).flatMap((i) => [i.key, ...(i.legacyKeys || [])].map((k) => [k, i] as const)));
+// 컴포넌트 키 → 아이콘 (레이어의 아이콘 인스턴스가 가리키는 DS 라이브러리 키)
+const iconByKey = new Map(icons.icons.filter((i) => i.svg).map((i) => [i.key, i] as const));
 export const components: SiteComponent[] = (componentIndex as { components: string[] }).components.map((key) => {
   const data = componentFiles[`../../components/${key}/component.json`] as ComponentData;
   const name = pascal(key);

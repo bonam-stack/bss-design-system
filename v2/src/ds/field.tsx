@@ -1,5 +1,5 @@
 // 입력 칸 공통 (TextField · PasswordField · TextArea): 상태 판정, 칸 색, 라벨(FieldLabel), 도움말(HelperText), 포커스 링.
-// Figma: 세 컴포넌트가 같은 field/* 토큰과 구조(Label → textfieldBox[invalidBox › inputBox] → HelperText)를 쓴다.
+// Figma: 세 컴포넌트가 같은 field/* 토큰과 구조(Label → textfieldGroup[invalidBox › inputBox] → HelperText)를 쓴다.
 import type { CSSProperties, ReactNode } from 'react';
 import { FocusRing, tok, tokState } from './shared';
 import { FieldLabel } from './components/FieldLabel';

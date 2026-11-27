@@ -29,7 +29,7 @@ const SIZE = {
   small: { text: font('label', 14, 400) },
 };
 
-export function PasswordField({ value, defaultValue = '', onChange, size = 'large', importance = 'none', invalid, state, label = 'Label', showLabel = false, helperText = 'HelperText', showHelperText = true, showFocus = false, width = 200, placeholder = 'Placeholder', disabled, readOnly, id, className, style, ...input }: PasswordFieldProps) {
+export function PasswordField({ value, defaultValue = '', onChange, size = 'large', importance = 'none', invalid, state, label = 'Label', showLabel = false, helperText = 'HelperText', showHelperText = false, showFocus = false, width = 200, placeholder = 'Placeholder', disabled, readOnly, id, className, style, ...input }: PasswordFieldProps) {
   const auto = useId();
   const fid = id ?? auto;
   const [inner, setInner] = useState(defaultValue);
