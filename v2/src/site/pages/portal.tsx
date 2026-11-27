@@ -72,6 +72,7 @@ function Overview() {
     ['tokens', 'DS라이브러리', '토큰 · 스타일 · 아이콘', '모든 부품이 쓰는 디자인 에셋'],
     ['components', 'DS라이브러리', '컴포넌트', 'BSS DS library에 정의된 Figma 컴포넌트 · 사용 가이드'],
     ['blocks', 'DS라이브러리 · SB라이브러리', '블록', '화면에서 하나의 역할을 하는 단위 · 코어 블록 · 블록'],
+    ['ux-guide', '거버넌스', 'UX 패턴 가이드', '시작 · 화면 구조 · 화면 가이드 · SB 작성 가이드 · 용어사전'],
     ['ui-rules', '거버넌스', 'UI 가이드라인', 'UI 규칙 · 디자인 검수 기준 · Figma 작성 기준'],
     ['workboard', 'Workboard', '요청이 어디까지 진행됐나', '단계별 건수 · 요청 목록 · 요청하기'],
   ];
@@ -393,8 +394,8 @@ function UxGuide() {
   const groups = (place: Parameters<typeof docsIn>[0]) => [...new Set(doc(place).map((d) => d.group.split(' › ')[0]))];
   return (
     <>
-      <Head eyebrow="UX 가이드라인" title="UX 가이드라인" lead="화면을 어떻게 짜는지 정한 문서입니다. 큰 것에서 작은 것 순서(원칙 → 화면 구조 → 레이아웃 → 화면 가이드)로 읽고, 블록 · 컴포넌트는 Blocks · Components에서 이어 봅니다. 지켜야 할 규칙은 거버넌스 › 규칙에 번호로 모여 있습니다." />
-      <h2 id="principle">원칙</h2>
+      <Head eyebrow="거버넌스" title="UX 패턴 가이드" lead={`화면을 어떻게 짜는지 정한 NEXT BSS UX Pattern Guide(${guideSource.release} 릴리스)입니다. 큰 것에서 작은 것 순서(시작 → 화면 구조 → 화면 가이드)로 읽고, 블록 · 컴포넌트 가이드는 DS라이브러리의 각 문서 안에서 이어 봅니다.`} />
+      <h2 id="principle">시작</h2>
       <p>{join(doc('start').map((d) => link(d.id, d.title)))}</p>
       <h2 id="structure">화면 구조</h2>
       {groups('foundations').map((g) => (
@@ -402,17 +403,18 @@ function UxGuide() {
           <b>{g || '구조'}</b> {join(doc('foundations').filter((d) => d.group.split(' › ')[0] === g).map((d) => link(d.id, d.title)))}
         </p>
       ))}
-      <h2 id="layout">레이아웃</h2>
-      <p>
-        <a href="#stack">조립 구조</a> · 슬롯 ·{' '}
-        {join(P.items().filter((i) => i.kind === 'layout').map((i) => <a key={i.code} href={`#${i.code}`}>{i.name} 레이아웃</a>))}
-      </p>
       <h2 id="guide">화면 가이드</h2>
       {groups('patterns').map((g) => (
         <p key={g}>
           <b>{g || '기타'}</b> {join(doc('patterns').filter((d) => d.group.split(' › ')[0] === g).map((d) => link(d.id, d.title)))}
         </p>
       ))}
+      <h2 id="writing">작성 · 용어</h2>
+      <p>{join(doc('governance').map((d) => (d.id === 'glossary' ? <a key="glossary" href="#glossary">{d.title}</a> : link(d.id, d.title))))}</p>
+      <h2 id="parts">블록 · 컴포넌트 가이드</h2>
+      <p>
+        모듈 정의는 <a href="#blocks">DS라이브러리 › 블록</a>, 컴포넌트 가이드는 <a href="#components">DS라이브러리 › 컴포넌트</a>의 각 문서 03 Guidelines에 있습니다.
+      </p>
     </>
   );
 }

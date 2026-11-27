@@ -123,13 +123,13 @@ export function App() {
   const key = it?.key;
   const sc = key ? componentByKey(key) : null;
   const pattern = patterns.find((p) => `pattern-${p.key}` === route);
-  // v2에는 거버넌스가 없다: 규칙 · 슬롯 · 검증 규칙 · 연동 규격 · 용어사전 · 운영 절차 · UI 규칙 · 작성 기준 문서는 홈으로 (데이터는 그대로 둔다)
-  // v2에 없는 화면: UX 규칙 쪽 거버넌스 · UX 가이드라인(개요 · 원칙 · 화면 구조 · 레이아웃 · 조립 구조 · 화면 가이드). 데이터는 그대로 둔다
-  const HIDDEN = ['process', 'rules', 'lint', 'sb-spec', 'slots', 'glossary', 'promo-rules', 'ux-guide', 'stack', 'patterns'];
+  // v2에 없는 화면: UX 규칙 쪽 거버넌스(규칙 · 검증 규칙 · 슬롯 · 연동 규격 · 운영 절차)와 레이아웃 · 조립 구조. 데이터는 그대로 둔다
+  // UX 패턴 가이드(#ux-guide · #g-… · 용어사전)는 사이트맵대로 거버넌스 › UX 패턴 가이드에 있다
+  const HIDDEN = ['process', 'rules', 'lint', 'sb-spec', 'slots', 'promo-rules', 'stack', 'patterns'];
   if (HIDDEN.includes(route) || P.item(route)?.kind === 'layout' || (route.startsWith('g-') && guideDoc(route.slice(2)) && !shownDoc(route.slice(2)))) redirect = 'overview';
   else if (ALIAS[route]) redirect = ALIAS[route];
   // 예전 UX 가이드 주소(#ux, #ux-<id>)는 포털 섹션에 놓인 문서로
-  else if (route === 'ux') redirect = 'patterns';
+  else if (route === 'ux') redirect = 'ux-guide';
   else if (route.startsWith('ux-') && (route.slice(3) === 'glossary' || guideDoc(route.slice(3)))) redirect = route.slice(3) === 'glossary' ? 'glossary' : `g-${route.slice(3)}`;
   else if (route === 'g-glossary') redirect = 'glossary';
   else if (componentByKey(route)) redirect = codeOf(route);

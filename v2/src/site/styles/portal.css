@@ -599,3 +599,5 @@ h1 .nv-flag { vertical-align: middle; margin-left: 10px; height: 22px; font-size
 .nav-l2.admin > .nav-l2-h { color: var(--ed); }
 .nav-l2-n { font-style: normal; font-size: 11px; padding: 0 6px; border-radius: 9px; background: var(--bad-fg); color: var(--bg); }
 .nav-l2-body { padding-bottom: 6px; }
+.sidebar .nav-grp.d2 > .nav-acc { font-weight: 500; padding-left: 44px; }
+.sidebar .nav-grp.d2 .nav-grp-body > a, .sidebar .nav-grp.d2 .nav-grp-body > .nav-empty { padding-left: 64px; }

@@ -102,5 +102,5 @@ const md = new Marked({
 });
 export const inline = (text: string) => md.parseInline(text) as string;
 
-/** v2에서 페이지가 있는 가이드 문서: 컴포넌트 · 블록(모듈) 가이드만. UX 가이드라인(원칙 · 화면 구조 · 화면 가이드)과 거버넌스 문서는 v2에 없다 */
-export const shownDoc = (id: string) => ['components', 'blocks'].includes(guideDoc(id)?.place || '');
+/** v2에서 페이지가 있는 가이드 문서: 사이트맵대로 UX 패턴 가이드 전체(거버넌스 › UX 패턴 가이드) + 컴포넌트 · 블록(모듈) 가이드(그 페이지 안) */
+export const shownDoc = (id: string) => !!guideDoc(id);

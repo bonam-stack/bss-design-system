@@ -102,8 +102,21 @@ export function sections(role: Role): Section[] {
         ['', 'AI가 임시로 만든 부품 · 자동 동기화', '임시 블록'],
       ],
     ],
-    // 거버넌스 (v2): UI 가이드라인만. UX 패턴 가이드 · UX 규칙 · 검증 규칙 · 슬롯 · 용어사전 등은 v2 화면에 두지 않는다 (데이터는 v2/catalog에 있음)
-    ['gov', '거버넌스', [['ui-rules', 'UI 규칙', 'UI 가이드라인'], ['design-review', '디자인 검수 기준', 'UI 가이드라인'], ['figma-guide', 'Figma 작성 기준', 'UI 가이드라인']]],
+    // 거버넌스 (BSS DS 포탈 사이트맵): UX 패턴 가이드 · UI 가이드라인. UX 규칙 · 검증 규칙 · 슬롯 · 운영 절차 등은 v2 화면에 두지 않는다 (데이터는 v2/catalog에 있음)
+    [
+      'gov',
+      '거버넌스',
+      [
+        ['ux-guide', '개요', 'UX 패턴 가이드'],
+        ...guideItems('start', () => 'UX 패턴 가이드 › 시작'),
+        ...guideItems('foundations', (g) => `UX 패턴 가이드 › 화면 구조${g ? ` › ${g}` : ''}`),
+        ...guideItems('patterns', (g) => `UX 패턴 가이드 › 화면 가이드${g ? ` › ${g}` : ''}`),
+        ...docsIn('governance').map((d): NavItem => [d.id === 'glossary' ? 'glossary' : guideRoute(d.id), d.title, 'UX 패턴 가이드 › 작성 · 용어']),
+        ['ui-rules', 'UI 규칙', 'UI 가이드라인'],
+        ['design-review', '디자인 검수 기준', 'UI 가이드라인'],
+        ['figma-guide', 'Figma 작성 기준', 'UI 가이드라인'],
+      ],
+    ],
     ['mine', 'Workboard', [['workboard', 'Workboard']]],
   ];
   if (role === 'ux') S.push(['work', 'UX 편집', [['ux-edit', '기준 편집'], ['sb-edit', 'SB library 편집'], ['my', '내 변경'], ['promo', '승격 심사']]]);
